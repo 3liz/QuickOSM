@@ -46,9 +46,14 @@ class OsmParser:
                                 layers[layer]['tags'].append(key)
             layers[layer]['featureCount'] = featureCount
         
-        
+        deleteLayers = []
+        for keys,values in layers.iteritems() :
+            if values['featureCount'] < 1:
+                deleteLayers.append(keys)
+        for layer in deleteLayers:
+            del layers[layer]
 
-        for layer in osmLayers:
+        for layer in layers:
             tf = tempfile.NamedTemporaryFile(delete=False,suffix="_"+layer+".geojson")
             layers[layer]['geojsonFile'] = tf.name
             tf.flush()
@@ -110,14 +115,5 @@ class OsmParser:
                     
             del fileWriter        
         QgsApplication.exitQgis()
-        
-        
-        deleteLayers = []
-        for keys,values in layers.iteritems() :
-            if values['featureCount'] < 1:
-                deleteLayers.append(keys)
-        for layer in deleteLayers:
-            del layers[layer]
-            
         
         return layers
