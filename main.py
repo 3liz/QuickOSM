@@ -6,8 +6,8 @@ Created on 10 juin 2014
 @author: etienne
 '''
 
-from connexion_OAPI import ConnexionOAPI
-from osm_parser import OsmParser
+from QueryOverpass.connexion_OAPI import ConnexionOAPI
+from QueryOverpass.osm_parser import OsmParser
 
 if __name__ == '__main__':
     
@@ -17,7 +17,7 @@ if __name__ == '__main__':
     print req
     print osmFile
     
-    parser = OsmParser(osmFile)
+    parser = OsmParser("/home/etienne/addr.osm")
     layers = parser.parse()
     
     for key, values in layers.iteritems() :

@@ -1,26 +1,30 @@
 # -*- coding: utf-8 -*-
-from qgis.core import *
-from qgis.gui import *
-from PyQt4.QtCore import *
-QgsApplication.setPrefixPath('/usr', True)  
-QgsApplication.initQgis()
+from qgis.core import QgsApplication, QgsVectorLayer, QgsFeature, QgsField, QgsFields, QgsVectorFileWriter
+from PyQt4.QtCore import QVariant
+
+#QgsApplication.setPrefixPath('/usr', True)  
+#QgsApplication.initQgis()
 
 from osgeo import gdal
 import pghstore
 import tempfile
+import os
 
 class OsmParser:
     
-    def __init__(self,osmFile):
+    def __init__(self,osmFile, deleteLayers = False):
         self.__osmFile = osmFile
+        self.__deleteLayers = deleteLayers
         
         
     def parse(self):
-        gdal.SetConfigOption('OSM_CONFIG_FILE', 'osmconf.ini')
+        current_dir = os.path.dirname(os.path.realpath(__file__))
+        osmconf = current_dir + '/osmconf.ini'
+        print osmconf
+        gdal.SetConfigOption('OSM_CONFIG_FILE', osmconf)
         
         uri = self.__osmFile + "|layername="
         layers = {}
-        
         osmLayers = ['points','lines','multilinestrings','multipolygons','other_relations']        
         osm_type = {'node':'n', 'way':'w', 'relation':'r'}
         
@@ -46,12 +50,13 @@ class OsmParser:
                                 layers[layer]['tags'].append(key)
             layers[layer]['featureCount'] = featureCount
         
-        deleteLayers = []
-        for keys,values in layers.iteritems() :
-            if values['featureCount'] < 1:
-                deleteLayers.append(keys)
-        for layer in deleteLayers:
-            del layers[layer]
+        if self.__deleteLayers == True:
+            deleteLayers = []
+            for keys,values in layers.iteritems() :
+                if values['featureCount'] < 1:
+                    deleteLayers.append(keys)
+            for layer in deleteLayers:
+                del layers[layer]
 
         for layer in layers:
             tf = tempfile.NamedTemporaryFile(delete=False,suffix="_"+layer+".geojson")
@@ -115,5 +120,4 @@ class OsmParser:
                     
             del fileWriter        
         QgsApplication.exitQgis()
-        
         return layers
