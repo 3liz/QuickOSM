@@ -56,10 +56,11 @@ class OverpassQueryGeoAlgorithm(GeoAlgorithm):
   <print from="_" limit="" mode="skeleton" order="quadtile"/>\n \
 </osm-script>', True,False))
 
-        self.addOutput(OutputVector(self.POINT_LAYER,'Output point layer'))
-        self.addOutput(OutputVector(self.LINESTRING_LAYER,'Output linestring layer'))
-        self.addOutput(OutputVector(self.MULTILINESTRING_LAYER,'Output multilinestring layer'))
         self.addOutput(OutputVector(self.MULTIPOLYGON_LAYER,'Output multipolygon layer'))
+        self.addOutput(OutputVector(self.MULTILINESTRING_LAYER,'Output multilinestring layer'))
+        self.addOutput(OutputVector(self.LINESTRING_LAYER,'Output linestring layer'))
+        self.addOutput(OutputVector(self.POINT_LAYER,'Output point layer'))
+
 
     def help(self):
         return True, QApplication.translate("QuickOSM", 'Help soon')
