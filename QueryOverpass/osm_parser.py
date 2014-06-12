@@ -2,9 +2,6 @@
 from qgis.core import QgsApplication, QgsVectorLayer, QgsFeature, QgsField, QgsFields, QgsVectorFileWriter
 from PyQt4.QtCore import QVariant
 
-#QgsApplication.setPrefixPath('/usr', True)  
-#QgsApplication.initQgis()
-
 from osgeo import gdal
 import pghstore
 import tempfile
@@ -119,5 +116,4 @@ class OsmParser:
                     fileWriter.addFeature(fet)
                     
             del fileWriter        
-        QgsApplication.exitQgis()
         return layers

@@ -35,7 +35,7 @@ class OverpassQueryGeoAlgorithm(GeoAlgorithm):
         self.group = "Query overpass API"
 
         self.addParameter(ParameterString(self.SERVER, 'Overpass API','http://overpass-api.de/api/interpreter', False, False))
-        self.addParameter(ParameterString(self.QUERY_STRING,'Query (XML or OQL)', '[out:json];way(around:300.0,44.0,8.0)["highway"];(._;node(w););out;', True,False))
+        self.addParameter(ParameterString(self.QUERY_STRING,'Query (XML or OQL)', '[out:json];area(3600028722)->.area;(node["amenity"="school"](area.area);way["amenity"="school"](area.area);relation["amenity"="school"](area.area););out body;>;out skel qt;', True,False))
 
         self.addOutput(OutputVector(self.POINT_LAYER,'Output point layer'))
         self.addOutput(OutputVector(self.LINESTRING_LAYER,'Output linestring layer'))

@@ -25,7 +25,10 @@ class ConnexionOAPI:
             req = re.sub(r'output="[a-z]*','output="'+self.__output+'"', req)
             req = re.sub(r'out:[a-z]*','out:'+self.__output, req)
 
+        req = req.encode("utf-8")
         queryString = urllib.urlencode({'data':req})
+        print queryString
+        print  urlQuery
 
         try:
             return urllib2.urlopen(url=urlQuery, data=queryString).read()
