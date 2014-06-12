@@ -19,16 +19,18 @@ class ConnexionOAPI:
         self.__output = output
         
     def query(self,req):
+        req = req.encode('utf8')
+                
         urlQuery = self.__url
         
         if self.__output:
-            req = re.sub(r'output="[a-z]*','output="'+self.__output+'"', req)
-            req = re.sub(r'out:[a-z]*','out:'+self.__output, req)
-
-        req = req.encode("utf-8")
+            req = re.sub(r'output="[a-z]*"','output="'+self.__output+'"', req)
+            req = re.sub(r'\[out:[a-z]*','[out:'+self.__output, req)
+        
+        #Correction of ; in the OQL at the end
+        req = re.sub(r';;',';', req)
+        
         queryString = urllib.urlencode({'data':req})
-        print queryString
-        print  urlQuery
 
         try:
             return urllib2.urlopen(url=urlQuery, data=queryString).read()

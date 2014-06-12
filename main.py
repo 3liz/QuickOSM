@@ -19,7 +19,7 @@ if __name__ == '__main__':
     
     
     oapi = ConnexionOAPI(url="http://overpass-api.de/api/interpreter",output="xml")
-    req = '[out:json];area(3600028722)->.area;(node["amenity"="school"](area.area);way["amenity"="school"](area.area);relation["amenity"="school"](area.area););out body;>;out skel qt;;'
+    req = '[out:json];area(3600028722)->.area;(node["amenity"="school"](area.area);way["amenity"="school"](area.area);relation["amenity"="school"](area.area););out body;>;out skel qt;'
     
     osmFile = oapi.getFileFromQuery(req)
     print req

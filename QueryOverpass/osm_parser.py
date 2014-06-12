@@ -17,8 +17,8 @@ class OsmParser:
     def parse(self):
         current_dir = os.path.dirname(os.path.realpath(__file__))
         osmconf = current_dir + '/osmconf.ini'
-        print osmconf
         gdal.SetConfigOption('OSM_CONFIG_FILE', osmconf)
+        gdal.SetConfigOption('OSM_USE_CUSTOM_INDEXING', 'NO')
         
         uri = self.__osmFile + "|layername="
         layers = {}

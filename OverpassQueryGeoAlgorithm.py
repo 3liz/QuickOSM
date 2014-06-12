@@ -35,7 +35,26 @@ class OverpassQueryGeoAlgorithm(GeoAlgorithm):
         self.group = "Query overpass API"
 
         self.addParameter(ParameterString(self.SERVER, 'Overpass API','http://overpass-api.de/api/interpreter', False, False))
-        self.addParameter(ParameterString(self.QUERY_STRING,'Query (XML or OQL)', '[out:json];area(3600028722)->.area;(node["amenity"="school"](area.area);way["amenity"="school"](area.area);relation["amenity"="school"](area.area););out body;>;out skel qt;', True,False))
+        self.addParameter(ParameterString(self.QUERY_STRING,'Query (XML or OQL)', '<osm-script output="json">\n \
+  <id-query into="area" ref="3600028722" type="area"/>\n \
+  <union into="_">\n \
+    <query into="_" type="node">\n \
+      <has-kv k="amenity" modv="" v="school"/>\n \
+      <area-query from="area" into="_" ref=""/>\n \
+    </query>\n \
+    <query into="_" type="way">\n \
+      <has-kv k="amenity" modv="" v="school"/>\n \
+      <area-query from="area" into="_" ref=""/>\n \
+    </query>\n \
+    <query into="_" type="relation">\n \
+      <has-kv k="amenity" modv="" v="school"/>\n \
+      <area-query from="area" into="_" ref=""/>\n \
+    </query>\n \
+  </union>\n \
+  <print from="_" limit="" mode="body" order="id"/>\n \
+  <recurse from="_" into="_" type="down"/>\n \
+  <print from="_" limit="" mode="skeleton" order="quadtile"/>\n \
+</osm-script>', True,False))
 
         self.addOutput(OutputVector(self.POINT_LAYER,'Output point layer'))
         self.addOutput(OutputVector(self.LINESTRING_LAYER,'Output linestring layer'))
@@ -54,7 +73,7 @@ class OverpassQueryGeoAlgorithm(GeoAlgorithm):
         query = self.getParameterValue(self.QUERY_STRING)
         
         oapi = ConnexionOAPI(url=server,output="xml")
-        osmFile = oapi.getFileFromQuery(str(query))
+        osmFile = oapi.getFileFromQuery(query)
         parser = OsmParser(osmFile)
         layers = parser.parse()
         
