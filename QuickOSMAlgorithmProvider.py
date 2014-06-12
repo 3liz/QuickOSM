@@ -9,6 +9,7 @@ Created on 10 juin 2014
 from processing.core.AlgorithmProvider import AlgorithmProvider
 from processing.core.ProcessingConfig import Setting, ProcessingConfig
 from OverpassQueryGeoAlgorithm import OverpassQueryGeoAlgorithm
+from NominatimQueryGeoAlgorithm import NominatimQueryGeoAlgorithm
 from PyQt4.QtGui import QIcon
 import resources
 
@@ -20,7 +21,7 @@ class QuickOSMAlgorithmProvider(AlgorithmProvider):
         self.activate = True
 
         # Load algorithms
-        self.alglist = [OverpassQueryGeoAlgorithm()]
+        self.alglist = [OverpassQueryGeoAlgorithm(),NominatimQueryGeoAlgorithm()]
         for alg in self.alglist:
             alg.provider = self
 
