@@ -45,10 +45,17 @@ class ConnexionOAPI:
         queryString = urllib.urlencode({'data':req})
 
         try:
-            return urllib2.urlopen(url=urlQuery, data=queryString, timeout = float(timeout+1)).read()
+            data = urllib2.urlopen(url=urlQuery, data=queryString).read()
         except urllib2.HTTPError as e:
             if e.code == 400:
                 raise Exception, "Bad request OverpassAPI"
+        print req   
+        result = re.search('<remark> runtime error: Query timed out in "[a-z]+" at line [\d]+ after ([\d]+) seconds. </remark>', data)
+        if result:
+            result = result.groups()
+            print "Timeout : " + result[0]
+        
+        return data
             
     def getFileFromQuery(self,req):
         req = self.query(req)
