@@ -36,16 +36,16 @@ class ConnexionOAPI:
         result = re.search('\[timeout:([\d]+)\]', req)
         if result:
             result = result.groups()
-            timeout = result[0]
+            timeout = float(result[0])
         result = re.search('timeout="([\d]+)"',req)
         if result:
             result = result.groups()
-            timeout = result[0]
+            timeout = float(result[0])
         
         queryString = urllib.urlencode({'data':req})
 
         try:
-            return urllib2.urlopen(url=urlQuery, data=queryString, timeout = float(timeout)).read()
+            return urllib2.urlopen(url=urlQuery, data=queryString, timeout = float(timeout+1)).read()
         except urllib2.HTTPError as e:
             if e.code == 400:
                 raise Exception, "Bad request OverpassAPI"
