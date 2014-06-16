@@ -49,7 +49,7 @@ class ConnexionOAPI:
         except urllib2.HTTPError as e:
             if e.code == 400:
                 raise Exception, "Bad request OverpassAPI"
-        print req   
+        #print req   
         result = re.search('<remark> runtime error: Query timed out in "[a-z]+" at line [\d]+ after ([\d]+) seconds. </remark>', data)
         if result:
             result = result.groups()

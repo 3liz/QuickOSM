@@ -6,9 +6,25 @@ toutes les écoles de Montpellier :
 
 
 
+{{key=local_authority:FR}}
+{{value=CC}}
+<osm-script output="json">
+<union>
+<query type="node">
+<has-kv k="{{key}}" v="{{value}}"/>
+<bbox-query {{bbox}}/>
+</query>
+<query type="way">
+<has-kv k="{{key}}" v="{{value}}"/>
+<bbox-query {{bbox}}/>
+</query>
+<query type="relation">
+<has-kv k="{{key}}" v="{{value}}"/>
+<bbox-query {{bbox}}/>
+</query>
+</union>
+<print mode="body"/>
+<recurse type="down"/>
+<print mode="skeleton"/>
+</osm-script>
 
-QuickOSM
-data=%3Cosm-script%3E%0A++%3Cosm-script+output%3D%22xml%22%22+timeout%3D%2225%22%3E%0A++++%3Cid-query+into%3D%22area%22+ref%3D%223600028722%22+type%3D%22area%22%2F%3E%0A++++%3Cunion%3E%0A++++++%3Cquery+type%3D%22node%22%3E%0A++++++++%3Chas-kv+k%3D%22school%3AFR%22+v%3D%22lyc%C3%A9e%22%2F%3E%0A++++++++%3Carea-query+from%3D%22area%22%2F%3E%0A++++++%3C%2Fquery%3E%0A++++++%3Cquery+type%3D%22way%22%3E%0A++++++++%3Chas-kv+k%3D%22school%3AFR%22+v%3D%22lyc%C3%A9e%22%2F%3E%0A++++++++%3Carea-query+from%3D%22area%22%2F%3E%0A++++++%3C%2Fquery%3E%0A++++++%3Cquery+type%3D%22relation%22%3E%0A++++++++%3Chas-kv+k%3D%22school%3AFR%22+v%3D%22lyc%C3%A9e%22%2F%3E%0A++++++++%3Carea-query+from%3D%22area%22%2F%3E%0A++++++%3C%2Fquery%3E%0A++++%3C%2Funion%3E%0A++++%3Cprint+mode%3D%22body%22%2F%3E%0A++++%3Crecurse+type%3D%22down%22%2F%3E%0A++++%3Cprint+mode%3D%22skeleton%22+order%3D%22quadtile%22%2F%3E%0A++%3C%2Fosm-script%3E%0A%3C%2Fosm-script%3E%0A
-
-requete post lycée via OAPI
-data=%3Cosm-script%3E%0A++%3Cosm-script+output%3D%22xml%22+timeout%3D%2225%22%3E%0A++++%3Cid-query+into%3D%22area%22+ref%3D%223600028722%22+type%3D%22area%22%2F%3E%0A++++%3Cunion%3E%0A++++++%3Cquery+type%3D%22node%22%3E%0A++++++++%3Chas-kv+k%3D%22school%3AFR%22+v%3D%22lyc%C3%A9e%22%2F%3E%0A++++++++%3Carea-query+from%3D%22area%22%2F%3E%0A++++++%3C%2Fquery%3E%0A++++++%3Cquery+type%3D%22way%22%3E%0A++++++++%3Chas-kv+k%3D%22school%3AFR%22+v%3D%22lyc%C3%A9e%22%2F%3E%0A++++++++%3Carea-query+from%3D%22area%22%2F%3E%0A++++++%3C%2Fquery%3E%0A++++++%3Cquery+type%3D%22relation%22%3E%0A++++++++%3Chas-kv+k%3D%22school%3AFR%22+v%3D%22lyc%C3%A9e%22%2F%3E%0A++++++++%3Carea-query+from%3D%22area%22%2F%3E%0A++++++%3C%2Fquery%3E%0A++++%3C%2Funion%3E%0A++++%3Cprint+mode%3D%22body%22%2F%3E%0A++++%3Crecurse+type%3D%22down%22%2F%3E%0A++++%3Cprint+mode%3D%22skeleton%22+order%3D%22quadtile%22%2F%3E%0A++%3C%2Fosm-script%3E%0A%3C%2Fosm-script%3E

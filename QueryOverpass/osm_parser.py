@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from qgis.core import QgsApplication, QgsVectorLayer, QgsFeature, QgsField, QgsFields, QgsVectorFileWriter
+from qgis.core import QgsVectorLayer, QgsFeature, QgsField, QgsFields, QgsVectorFileWriter
 from PyQt4.QtCore import QVariant
 
 from osgeo import gdal
@@ -9,9 +9,14 @@ import os
 
 class OsmParser:
     
-    def __init__(self,osmFile, deleteLayers = False):
+    OSM_LAYERS = ['points','lines','multilinestrings','multipolygons','other_relations']
+    OSM_TYPE = {'node':'n', 'way':'w', 'relation':'r'}
+    
+    def __init__(self,osmFile, layers = OSM_LAYERS, whiteListColumn = None, deleteEmptyLayers = False):
         self.__osmFile = osmFile
-        self.__deleteLayers = deleteLayers
+        self.__layers = layers
+        self.__whiteListColumn = whiteListColumn
+        self.__deleteEmptyLayers = deleteEmptyLayers
         
         
     def parse(self):
@@ -19,21 +24,18 @@ class OsmParser:
         osmconf = current_dir + '/osmconf.ini'
         gdal.SetConfigOption('OSM_CONFIG_FILE', osmconf)
         gdal.SetConfigOption('OSM_USE_CUSTOM_INDEXING', 'NO')
-        
         uri = self.__osmFile + "|layername="
         layers = {}
-        osmLayers = ['points','lines','multilinestrings','multipolygons','other_relations']        
         osm_type = {'node':'n', 'way':'w', 'relation':'r'}
         
-        for layer in osmLayers:
+        for layer in self.__layers:
             layers[layer] = {}
             layers[layer]['vectorLayer'] = QgsVectorLayer(uri + layer, "test_" + layer,"ogr")
             layers[layer]['featureCount'] = None
             layers[layer]['tags'] = ['id_full','osm_id','osm_type']
             layers[layer]['geomType'] = layers[layer]['vectorLayer'].wkbType()
             featureCount = 0
-            iterator = layers[layer]['vectorLayer'].getFeatures()
-            for feature in iterator:
+            for feature in layers[layer]['vectorLayer'].getFeatures():
                 featureCount += 1
                 attrs = None
                 if layer in ['points','lines','multilinestrings','other_relations']:
@@ -44,10 +46,15 @@ class OsmParser:
                     hstore = pghstore.loads(attrs[0])
                     for key in hstore:
                         if key not in layers[layer]['tags']:
+                            if self.__whiteListColumn != None:
+                                if self.__whiteListColumn[layer] != None:
+                                    if key in self.__whiteListColumn[layer]:
+                                        layers[layer]['tags'].append(key)
+                            else:
                                 layers[layer]['tags'].append(key)
             layers[layer]['featureCount'] = featureCount
         
-        if self.__deleteLayers == True:
+        if self.__deleteEmptyLayers == True:
             deleteLayers = []
             for keys,values in layers.iteritems() :
                 if values['featureCount'] < 1:
@@ -55,7 +62,7 @@ class OsmParser:
             for layer in deleteLayers:
                 del layers[layer]
 
-        for layer in layers:
+        for layer in self.__layers:
             tf = tempfile.NamedTemporaryFile(delete=False,suffix="_"+layer+".geojson")
             layers[layer]['geojsonFile'] = tf.name
             tf.flush()
@@ -75,15 +82,15 @@ class OsmParser:
                 
                 if layer in ['points','lines','multilinestrings']:
                     if layer == 'points':
-                        osmType = "node"
+                        OSM_TYPE = "node"
                     elif layer == 'lines':
-                        osmType = "way"
+                        OSM_TYPE = "way"
                     elif layer == 'multilinestrings':
-                        osmType = 'relation'
+                        OSM_TYPE = 'relation'
                     
-                    newAttrs.append(osm_type[osmType]+str(attrs[0]))
+                    newAttrs.append(osm_type[OSM_TYPE]+str(attrs[0]))
                     newAttrs.append(attrs[0])
-                    newAttrs.append(osmType)
+                    newAttrs.append(OSM_TYPE)
                     
                     if attrs[1]:
                         hstore = pghstore.loads(attrs[1])
@@ -97,14 +104,14 @@ class OsmParser:
                     
                 elif layer == 'multipolygons':
                     if attrs[0]:
-                        osmType = "relation"
-                        newAttrs.append(osm_type[osmType]+str(attrs[0]))
-                        newAttrs.append(osm_type[osmType]+str(attrs[0]))
+                        OSM_TYPE = "relation"
+                        newAttrs.append(osm_type[OSM_TYPE]+str(attrs[0]))
+                        newAttrs.append(osm_type[OSM_TYPE]+str(attrs[0]))
                     else:
-                        osmType = "way"
-                        newAttrs.append(osm_type[osmType]+str(attrs[1]))
+                        OSM_TYPE = "way"
+                        newAttrs.append(osm_type[OSM_TYPE]+str(attrs[1]))
                         newAttrs.append(attrs[1])
-                    newAttrs.append(osmType)
+                    newAttrs.append(OSM_TYPE)
                     
                     hstore = pghstore.loads(attrs[2])
                     for tag in layers[layer]['tags'][3:]:
@@ -115,5 +122,5 @@ class OsmParser:
                     fet.setAttributes(newAttrs)
                     fileWriter.addFeature(fet)
                     
-            del fileWriter        
+            del fileWriter      
         return layers

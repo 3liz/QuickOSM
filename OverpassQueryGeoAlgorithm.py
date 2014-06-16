@@ -23,12 +23,18 @@ from QueryOverpass.osm_parser import OsmParser
 
 class OverpassQueryGeoAlgorithm(GeoAlgorithm):
 
-    SERVER = 'SERVER'
-    QUERY_STRING = 'QUERY_STRING'
-    POINT_LAYER = 'POINT_LAYER'
-    LINESTRING_LAYER = 'LINESTRING_LAYER'
-    MULTILINESTRING_LAYER = 'MULTILINESTRING_LAYER'
-    MULTIPOLYGON_LAYER = 'MULTIPOLYGON_LAYER'
+    def __init__(self):
+        self.SERVER = 'SERVER'
+        self.QUERY_STRING = 'QUERY_STRING'
+        
+        self.LAYERS = ['multipolygons', 'multilinestrings', 'lines', 'points']
+        self.WHITE_LIST = {}
+        self.OUTPUT_LAYERS = {}
+        for layer in self.LAYERS:
+            self.WHITE_LIST[layer] = 'WHITE_LIST_'+layer
+            self.OUTPUT_LAYERS[layer] = layer + "_LAYER"
+        
+        GeoAlgorithm.__init__(self)
 
     def defineCharacteristics(self):
         self.name = "Query overpass API with a string"
@@ -36,30 +42,29 @@ class OverpassQueryGeoAlgorithm(GeoAlgorithm):
 
         self.addParameter(ParameterString(self.SERVER, 'Overpass API','http://overpass-api.de/api/interpreter', False, False))
         self.addParameter(ParameterString(self.QUERY_STRING,'Query (XML or OQL)', '<osm-script output="json">\n \
-  <id-query into="area" ref="3600028722" type="area"/>\n \
-  <union into="_">\n \
-    <query into="_" type="node">\n \
-      <has-kv k="amenity" modv="" v="school"/>\n \
-      <area-query from="area" into="_" ref=""/>\n \
-    </query>\n \
-    <query into="_" type="way">\n \
-      <has-kv k="amenity" modv="" v="school"/>\n \
-      <area-query from="area" into="_" ref=""/>\n \
-    </query>\n \
-    <query into="_" type="relation">\n \
-      <has-kv k="amenity" modv="" v="school"/>\n \
-      <area-query from="area" into="_" ref=""/>\n \
-    </query>\n \
-  </union>\n \
-  <print from="_" limit="" mode="body" order="id"/>\n \
-  <recurse from="_" into="_" type="down"/>\n \
-  <print from="_" limit="" mode="skeleton" order="quadtile"/>\n \
-</osm-script>', True,False))
-
-        self.addOutput(OutputVector(self.MULTIPOLYGON_LAYER,'Output multipolygon layer'))
-        self.addOutput(OutputVector(self.MULTILINESTRING_LAYER,'Output multilinestring layer'))
-        self.addOutput(OutputVector(self.LINESTRING_LAYER,'Output linestring layer'))
-        self.addOutput(OutputVector(self.POINT_LAYER,'Output point layer'))
+              <id-query into="area" ref="3600028722" type="area"/>\n \
+              <union into="_">\n \
+                <query into="_" type="node">\n \
+                  <has-kv k="amenity" modv="" v="school"/>\n \
+                  <area-query from="area" into="_" ref=""/>\n \
+                </query>\n \
+                <query into="_" type="way">\n \
+                  <has-kv k="amenity" modv="" v="school"/>\n \
+                  <area-query from="area" into="_" ref=""/>\n \
+                </query>\n \
+                <query into="_" type="relation">\n \
+                  <has-kv k="amenity" modv="" v="school"/>\n \
+                  <area-query from="area" into="_" ref=""/>\n \
+                </query>\n \
+              </union>\n \
+              <print from="_" limit="" mode="body" order="id"/>\n \
+              <recurse from="_" into="_" type="down"/>\n \
+              <print from="_" limit="" mode="skeleton" order="quadtile"/>\n \
+            </osm-script>', True,False))
+        
+        for layer in self.LAYERS:
+            self.addParameter(ParameterString(self.WHITE_LIST[layer], layer + '\'s whitelist column (csv)','', False, True))
+            self.addOutput(OutputVector(self.OUTPUT_LAYERS[layer],'Output '+ layer +' layer'))
 
 
     def help(self):
@@ -73,21 +78,27 @@ class OverpassQueryGeoAlgorithm(GeoAlgorithm):
         server = self.getParameterValue(self.SERVER)
         query = self.getParameterValue(self.QUERY_STRING)
         
+        whiteListValues = {}
+        for layer in self.LAYERS:
+            value = self.getParameterValue(self.WHITE_LIST[layer])
+            value = value.replace(" ","")
+            if value != '':
+                whiteListValues[layer] = value.split(',')
+            else:
+                whiteListValues[layer] = None
+        
         oapi = ConnexionOAPI(url=server,output="xml")
         osmFile = oapi.getFileFromQuery(query)
-        parser = OsmParser(osmFile)
+        parser = OsmParser(osmFile, self.LAYERS, whiteListValues)
         layers = parser.parse()
         
         outputs = {}
-        outputs['points'] = self.getOutputValue(self.POINT_LAYER)
-        outputs['lines'] = self.getOutputValue(self.LINESTRING_LAYER)
-        outputs['multilinestrings'] = self.getOutputValue(self.MULTILINESTRING_LAYER)
-        outputs['multipolygons'] = self.getOutputValue(self.MULTIPOLYGON_LAYER)
+        for layer in self.LAYERS:
+            outputs[layer] = self.getOutputValue(self.OUTPUT_LAYERS[layer])
         
         layersOutputs = {}
         for key, values in layers.iteritems():
-            if key != "other_relations":
-                layer = QgsVectorLayer(values['geojsonFile'],"test","ogr")
-                layersOutputs[key] = QgsVectorFileWriter(outputs[key], 'UTF-8',layer.pendingFields(),values['geomType'], layer.crs())
-                for feature in layer.getFeatures():
-                    layersOutputs[key].addFeature(feature)
+            layer = QgsVectorLayer(values['geojsonFile'],"test","ogr")
+            layersOutputs[key] = QgsVectorFileWriter(outputs[key], 'UTF-8',layer.pendingFields(),values['geomType'], layer.crs())
+            for feature in layer.getFeatures():
+                layersOutputs[key].addFeature(feature)
