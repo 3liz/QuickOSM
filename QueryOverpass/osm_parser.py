@@ -31,6 +31,10 @@ class OsmParser:
         for layer in self.__layers:
             layers[layer] = {}
             layers[layer]['vectorLayer'] = QgsVectorLayer(uri + layer, "test_" + layer,"ogr")
+            
+            if layers[layer]['vectorLayer'].isValid() == False:
+                raise Exception, "Error on the file"
+            
             layers[layer]['featureCount'] = None
             layers[layer]['tags'] = ['id_full','osm_id','osm_type']
             layers[layer]['geomType'] = layers[layer]['vectorLayer'].wkbType()

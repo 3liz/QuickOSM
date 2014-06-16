@@ -36,7 +36,7 @@ if __name__ == '__main__':
     whiteList['multipolygons'] = ('wikipedia')
     whiteList['other_relations'] = None
     
-    parser = OsmParser(osmFile,layers,whiteList,False)
+    parser = OsmParser(osmFile)
     layers = parser.parse()
     
     for key, values in layers.iteritems() :
