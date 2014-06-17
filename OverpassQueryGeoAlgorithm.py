@@ -19,6 +19,7 @@ from processing.outputs.OutputHTML import OutputHTML
 from processing.tools import vector
 from QueryOverpass.connexion_OAPI import ConnexionOAPI
 from QueryOverpass.osm_parser import OsmParser
+from QueryOverpass.QueryParser import queryParser
 
 
 class OverpassQueryGeoAlgorithm(GeoAlgorithm):
@@ -87,11 +88,14 @@ class OverpassQueryGeoAlgorithm(GeoAlgorithm):
             else:
                 whiteListValues[layer] = None
         
+        query = queryParser(query)
+        
         oapi = ConnexionOAPI(url=server,output="xml")
         osmFile = oapi.getFileFromQuery(query)
+        print osmFile
         parser = OsmParser(osmFile, self.LAYERS, whiteListValues)
         layers = parser.parse()
-        
+        print layers
         outputs = {}
         for layer in self.LAYERS:
             outputs[layer] = self.getOutputValue(self.OUTPUT_LAYERS[layer])

@@ -28,9 +28,6 @@ class ConnexionOAPI:
             req = re.sub(r'output="[a-z]*"','output="'+self.__output+'"', req)
             req = re.sub(r'\[out:[a-z]*','[out:'+self.__output, req)
         
-        #Correction of ; in the OQL at the end
-        req = re.sub(r';;',';', req)
-        
         #Timeout
         timeout = 25
         result = re.search('\[timeout:([\d]+)\]', req)
