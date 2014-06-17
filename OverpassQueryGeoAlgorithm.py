@@ -14,28 +14,16 @@ import resources
 from processing.core.Processing import Processing
 from processing.core.GeoAlgorithm import GeoAlgorithm
 from processing.parameters.ParameterString import ParameterString
-from processing.outputs.OutputVector import OutputVector
-from processing.outputs.OutputHTML import OutputHTML
-from processing.tools import vector
+from processing.outputs.OutputFile import OutputFile
 from QueryOverpass.connexion_OAPI import ConnexionOAPI
-from QueryOverpass.osm_parser import OsmParser
 from QueryOverpass.QueryParser import queryParser
 
 
 class OverpassQueryGeoAlgorithm(GeoAlgorithm):
 
-    def __init__(self):
-        self.SERVER = 'SERVER'
-        self.QUERY_STRING = 'QUERY_STRING'
-        
-        self.LAYERS = ['multipolygons', 'multilinestrings', 'lines', 'points']
-        self.WHITE_LIST = {}
-        self.OUTPUT_LAYERS = {}
-        for layer in self.LAYERS:
-            self.WHITE_LIST[layer] = 'WHITE_LIST_'+layer
-            self.OUTPUT_LAYERS[layer] = layer + "_LAYER"
-        
-        GeoAlgorithm.__init__(self)
+    SERVER = 'SERVER'
+    QUERY_STRING = 'QUERY_STRING'
+    OUTPUT_FILE = 'OUTPUT_FILE'
 
     def defineCharacteristics(self):
         self.name = "Query overpass API with a string"
@@ -63,10 +51,7 @@ class OverpassQueryGeoAlgorithm(GeoAlgorithm):
               <print from="_" limit="" mode="skeleton" order="quadtile"/>\n \
             </osm-script>', True,False))
         
-        for layer in self.LAYERS:
-            self.addParameter(ParameterString(self.WHITE_LIST[layer], layer + '\'s whitelist column (csv)','', False, True))
-            self.addOutput(OutputVector(self.OUTPUT_LAYERS[layer],'Output '+ layer +' layer'))
-
+        self.addOutput(OutputFile(self.OUTPUT_FILE))
 
     def help(self):
         return True, QApplication.translate("QuickOSM", 'Help soon')
@@ -78,31 +63,10 @@ class OverpassQueryGeoAlgorithm(GeoAlgorithm):
         
         server = self.getParameterValue(self.SERVER)
         query = self.getParameterValue(self.QUERY_STRING)
-        
-        whiteListValues = {}
-        for layer in self.LAYERS:
-            value = self.getParameterValue(self.WHITE_LIST[layer])
-            value = value.replace(" ","")
-            if value != '':
-                whiteListValues[layer] = value.split(',')
-            else:
-                whiteListValues[layer] = None
-        
+            
         query = queryParser(query)
         
         oapi = ConnexionOAPI(url=server,output="xml")
         osmFile = oapi.getFileFromQuery(query)
-        print osmFile
-        parser = OsmParser(osmFile, self.LAYERS, whiteListValues)
-        layers = parser.parse()
-        print layers
-        outputs = {}
-        for layer in self.LAYERS:
-            outputs[layer] = self.getOutputValue(self.OUTPUT_LAYERS[layer])
+        self.setOutputValue(self.OUTPUT_FILE,osmFile)
         
-        layersOutputs = {}
-        for key, values in layers.iteritems():
-            layer = QgsVectorLayer(values['geojsonFile'],"test","ogr")
-            layersOutputs[key] = QgsVectorFileWriter(outputs[key], 'UTF-8',layer.pendingFields(),values['geomType'], layer.crs())
-            for feature in layer.getFeatures():
-                layersOutputs[key].addFeature(feature)
