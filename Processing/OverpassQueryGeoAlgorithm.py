@@ -8,11 +8,15 @@ Created on 10 juin 2014
 
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
+from qgis.gui import QgsMapCanvas
 from qgis.core import *
+from qgis.utils import iface
 import QuickOSM.resources
 
 from processing.core.Processing import Processing
 from processing.core.GeoAlgorithm import GeoAlgorithm
+from processing.core.GeoAlgorithmExecutionException import GeoAlgorithmExecutionException
+from processing.parameters.ParameterExtent import ParameterExtent
 from processing.parameters.ParameterString import ParameterString
 from processing.outputs.OutputFile import OutputFile
 from QuickOSM.Core.ConnexionOAPI import ConnexionOAPI
@@ -23,6 +27,7 @@ class OverpassQueryGeoAlgorithm(GeoAlgorithm):
 
     SERVER = 'SERVER'
     QUERY_STRING = 'QUERY_STRING'
+    EXTENT = 'EXTENT'
     OUTPUT_FILE = 'OUTPUT_FILE'
 
     def defineCharacteristics(self):
@@ -50,6 +55,7 @@ class OverpassQueryGeoAlgorithm(GeoAlgorithm):
               <recurse from="_" into="_" type="down"/>\n \
               <print from="_" limit="" mode="skeleton" order="quadtile"/>\n \
             </osm-script>', True,False))
+        self.addParameter(ParameterExtent(self.EXTENT, 'Extent for {{bbox}}'))
         
         self.addOutput(OutputFile(self.OUTPUT_FILE))
 
@@ -63,8 +69,24 @@ class OverpassQueryGeoAlgorithm(GeoAlgorithm):
         
         server = self.getParameterValue(self.SERVER)
         query = self.getParameterValue(self.QUERY_STRING)
-            
-        query = PrepareQuery(query)
+        
+        #Extent of the layer
+        #default value of processing : 0,1,0,1 
+        extent = self.getParameterValue(self.EXTENT)
+        if extent:
+            print extent
+            #xmin,xmax,ymin,ymax
+            extent = [float(i) for i in extent.split(',')]
+            geomExtent = QgsGeometry.fromRect(QgsRectangle(extent[0],extent[2],extent[1],extent[3]))
+            sourceCrs = iface.mapCanvas().mapRenderer().destinationCrs()
+            crsTransform = QgsCoordinateTransform(sourceCrs, QgsCoordinateReferenceSystem("EPSG:4326"))
+            geomExtent.transform(crsTransform)
+            extent = geomExtent.boundingBox()
+            """textExtent = rectExtent.toString()
+            extent = textExtent.replace(" : ",',')
+            extent = extent.split(',')"""
+        
+        query = PrepareQuery(query,extent)
         
         oapi = ConnexionOAPI(url=server,output="xml")
         osmFile = oapi.getFileFromQuery(query)

@@ -19,11 +19,7 @@ class OsmParser:
         self.__whiteListColumn = whiteListColumn
         self.__deleteEmptyLayers = deleteEmptyLayers
         
-        
     def parse(self):
-        providers = QgsProviderRegistry.instance().providerList()
-        for provider in providers:
-            print provider
         current_dir = os.path.dirname(os.path.realpath(__file__))
         osmconf = current_dir + '/osmconf.ini'
         gdal.SetConfigOption('OSM_CONFIG_FILE', osmconf)
@@ -59,9 +55,12 @@ class OsmParser:
                     for key in hstore:
                         if key not in layers[layer]['tags']:
                             if self.__whiteListColumn != None:
-                                if self.__whiteListColumn[layer] != None:
+                                if self.__whiteListColumn[layer][0] != 'None':
+                                    print self.__whiteListColumn[layer][0]
                                     if key in self.__whiteListColumn[layer]:
                                         layers[layer]['tags'].append(key)
+                                else:
+                                    layers[layer]['tags'].append(key)
                             else:
                                 layers[layer]['tags'].append(key)
             layers[layer]['featureCount'] = featureCount
