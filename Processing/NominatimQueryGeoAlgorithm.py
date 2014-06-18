@@ -9,13 +9,13 @@ Created on 10 juin 2014
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 from qgis.core import *
-import resources
+import QuickOSM.resources
 
 from processing.core.Processing import Processing
 from processing.core.GeoAlgorithm import GeoAlgorithm
 from processing.parameters.ParameterString import ParameterString
 from processing.outputs.OutputNumber import OutputNumber
-from QueryOverpass.Nominatim import Nominatim
+from QuickOSM.Core.Nominatim import Nominatim
 
 
 class NominatimQueryGeoAlgorithm(GeoAlgorithm):

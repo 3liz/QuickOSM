@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from qgis.core import QgsVectorLayer, QgsFeature, QgsField, QgsFields, QgsVectorFileWriter
 from PyQt4.QtCore import QVariant
+from qgis.core import QgsApplication,QgsProviderRegistry
 
 from osgeo import gdal
 import pghstore
@@ -20,10 +21,17 @@ class OsmParser:
         
         
     def parse(self):
+        providers = QgsProviderRegistry.instance().providerList()
+        for provider in providers:
+            print provider
         current_dir = os.path.dirname(os.path.realpath(__file__))
         osmconf = current_dir + '/osmconf.ini'
         gdal.SetConfigOption('OSM_CONFIG_FILE', osmconf)
         gdal.SetConfigOption('OSM_USE_CUSTOM_INDEXING', 'NO')
+        
+        if not os.path.isfile(self.__osmFile):
+            raise Exception, "File doesn't exist"
+        
         uri = self.__osmFile + "|layername="
         layers = {}
         osm_type = {'node':'n', 'way':'w', 'relation':'r'}
@@ -33,7 +41,7 @@ class OsmParser:
             layers[layer]['vectorLayer'] = QgsVectorLayer(uri + layer, "test_" + layer,"ogr")
             
             if layers[layer]['vectorLayer'].isValid() == False:
-                raise Exception, "Error on the file"
+                raise Exception, "Error on the layer", layers[layer]['vectorLayer'].lastError()
             
             layers[layer]['featureCount'] = None
             layers[layer]['tags'] = ['id_full','osm_id','osm_type']

@@ -40,7 +40,7 @@ class ConnexionOAPI:
             timeout = float(result[0])
         
         queryString = urllib.urlencode({'data':req})
-
+        
         try:
             data = urllib2.urlopen(url=urlQuery, data=queryString).read()
         except urllib2.HTTPError as e:

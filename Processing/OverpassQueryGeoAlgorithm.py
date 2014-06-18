@@ -9,14 +9,14 @@ Created on 10 juin 2014
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 from qgis.core import *
-import resources
+import QuickOSM.resources
 
 from processing.core.Processing import Processing
 from processing.core.GeoAlgorithm import GeoAlgorithm
 from processing.parameters.ParameterString import ParameterString
 from processing.outputs.OutputFile import OutputFile
-from QueryOverpass.connexion_OAPI import ConnexionOAPI
-from QueryOverpass.QueryParser import queryParser
+from QuickOSM.Core.ConnexionOAPI import ConnexionOAPI
+from QuickOSM.Core.PrepareQuery import PrepareQuery
 
 
 class OverpassQueryGeoAlgorithm(GeoAlgorithm):
@@ -64,7 +64,7 @@ class OverpassQueryGeoAlgorithm(GeoAlgorithm):
         server = self.getParameterValue(self.SERVER)
         query = self.getParameterValue(self.QUERY_STRING)
             
-        query = queryParser(query)
+        query = PrepareQuery(query)
         
         oapi = ConnexionOAPI(url=server,output="xml")
         osmFile = oapi.getFileFromQuery(query)

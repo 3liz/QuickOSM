@@ -9,7 +9,7 @@ Created on 10 juin 2014
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 from qgis.core import *
-import resources
+import QuickOSM.resources
 
 from processing.core.Processing import Processing
 from processing.core.GeoAlgorithm import GeoAlgorithm
@@ -17,7 +17,7 @@ from processing.parameters.ParameterString import ParameterString
 from processing.parameters.ParameterFile import ParameterFile
 from processing.outputs.OutputVector import OutputVector
 from processing.tools import vector
-from QueryOverpass.osm_parser import OsmParser
+from QuickOSM.Core.OsmParser import OsmParser
 
 
 class OsmParserGeoAlgorithm(GeoAlgorithm):

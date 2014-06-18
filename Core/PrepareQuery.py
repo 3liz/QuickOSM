@@ -7,7 +7,7 @@ Created on 16 juin 2014
 import re
 from Nominatim import Nominatim
 
-def queryParser(query):
+def PrepareQuery(query):
     
     '''Delete spaces at the beginning and at the end'''
     query = query.strip()

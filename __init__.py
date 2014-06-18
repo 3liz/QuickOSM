@@ -21,6 +21,8 @@
  This script initializes the plugin, making it known to QGIS.
 """
 
+from QuickOSM.Processing import *
+from QuickOSM.Core import *
 
 # noinspection PyPep8Naming
 def classFactory(iface):  # pylint: disable=invalid-name

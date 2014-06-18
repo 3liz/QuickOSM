@@ -12,7 +12,7 @@ from OverpassQueryGeoAlgorithm import OverpassQueryGeoAlgorithm
 from NominatimQueryGeoAlgorithm import NominatimQueryGeoAlgorithm
 from OsmParserGeoAlgorithm import OsmParserGeoAlgorithm
 from PyQt4.QtGui import QIcon
-import resources
+import QuickOSM.resources
 
 class QuickOSMAlgorithmProvider(AlgorithmProvider):
 

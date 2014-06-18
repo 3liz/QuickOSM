@@ -5,21 +5,22 @@ Created on 10 juin 2014
 
 @author: etienne
 '''
-from qgis.core import QgsApplication
-from QueryOverpass.connexion_OAPI import ConnexionOAPI
-from QueryOverpass.osm_parser import OsmParser
-from QueryOverpass.QueryParser import *
+from qgis.core import QgsApplication,QgsProviderRegistry
+
+from Core.Process import execute
 
 if __name__ == '__main__':
     
     QgsApplication.setPrefixPath('/usr', True)  
     QgsApplication.initQgis()
+    print QgsApplication.showSettings()
+    providers = QgsProviderRegistry.instance().providerList()
+    for provider in providers:
+        print provider
     
-    layers = ['points','lines','multilinestrings','multipolygons','other_relations']
-    
-    
-    oapi = ConnexionOAPI(url="http://overpass-api.de/api/interpreter",output="xml")
-    req = '"<osm-script output="json" timeout="25"> \
+    #req = '[out:json];area(3600028722)->.area;(node["amenity"="school"](area.area);way["amenity"="school"](area.area);relation["amenity"="school"](area.area););out body;>;out skel qt;'
+
+    req = '<osm-script output="json" timeout="25"> \
   <id-query {{nominatimArea:Baume les dames}} into="area"/> \
   <union> \
     <query type="node">\
@@ -38,19 +39,8 @@ if __name__ == '__main__':
   <print mode="body"/>\
   <recurse type="down"/>\
   <print mode="skeleton" order="quadtile"/>\
-</osm-script>"'
+</osm-script>'
     print req
-    query = queryParser(req)
-    osmFile = oapi.getFileFromQuery(query)
-    
-    
-    #req = '[out:json];area(3600028722)->.area;(node["amenity"="school"](area.area);way["amenity"="school"](area.area);relation["amenity"="school"](area.area););out body;>;out skel qt;'
-    
-    #osmFile = oapi.getFileFromQuery(req)
-    #print req
-    """
-    osmFile = "/home/etienne/.qgis2/python/plugins/QuickOSM/data_test/limite_baume_josm.osm"
-    print osmFile
     
     whiteList = {}
     whiteList['points'] = None
@@ -58,14 +48,12 @@ if __name__ == '__main__':
     whiteList['multilinestrings'] = None
     whiteList['multipolygons'] = ('wikipedia')
     whiteList['other_relations'] = None
-    
-    parser = OsmParser(osmFile)
-    layers = parser.parse()
+
+    layers = execute(req,"http://overpass-api.de/api/interpreter",['points','lines','multilinestrings','multipolygons','other_relations'],whiteList)
     
     for key, values in layers.iteritems() :
         print key
         for value in values.iteritems():
             print "    " + str(value)
-            
-    """
+
     QgsApplication.exitQgis()

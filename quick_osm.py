@@ -26,7 +26,7 @@ from processing.core.Processing import Processing
 import resources
 # Import the code for the dialog
 from quick_osm_dialog import QuickOSMDialog
-from QuickOSMAlgorithmProvider import QuickOSMAlgorithmProvider
+from Processing.QuickOSMAlgorithmProvider import QuickOSMAlgorithmProvider
 import os.path
 
 
