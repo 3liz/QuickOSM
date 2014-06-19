@@ -10,7 +10,7 @@ from Core.ConnexionOAPI import ConnexionOAPI
 from Core.PrepareQuery import PrepareQuery
 
 def execute(query,\
-            url = "http://overpass-api.de/api/interpreter",\
+            url = "http://overpass-api.de/api/",\
             layers = ['points','lines','multilinestrings','multipolygons','other_relations'],\
             whiteList = None):
     '''

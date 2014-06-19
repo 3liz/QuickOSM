@@ -79,8 +79,6 @@ class OsmParserGeoAlgorithm(GeoAlgorithm):
         layersOutputs = {}
         for key, values in layers.iteritems():
             layer = QgsVectorLayer(values['geojsonFile'],"test","ogr")
-            print "tada"
-            print self.OUTPUT_LAYERS[key]
             outputParameter = self.getOutputValue(self.OUTPUT_LAYERS[key])
             layersOutputs[key] = QgsVectorFileWriter(outputParameter, 'UTF-8',layer.pendingFields(),values['geomType'], layer.crs())
             for feature in layer.getFeatures():

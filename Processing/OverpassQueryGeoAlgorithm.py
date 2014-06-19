@@ -37,7 +37,7 @@ class OverpassQueryGeoAlgorithm(GeoAlgorithm):
         self.name = "Query overpass API with a string"
         self.group = "Query overpass API"
 
-        self.addParameter(ParameterString(self.SERVER, 'Overpass API','http://overpass-api.de/api/interpreter', False, False))
+        self.addParameter(ParameterString(self.SERVER, 'Overpass API','http://overpass-api.de/api/', False, False))
         self.addParameter(ParameterString(self.QUERY_STRING,'Query (XML or OQL)', '<osm-script output="json">\n \
               <id-query into="area" ref="3600028722" type="area"/>\n \
               <union into="_">\n \
