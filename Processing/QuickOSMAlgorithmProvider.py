@@ -15,6 +15,9 @@ from PyQt4.QtGui import QIcon
 import QuickOSM.resources
 
 class QuickOSMAlgorithmProvider(AlgorithmProvider):
+    '''
+    QuickOSM provide some GeoAlgorithms
+    '''
 
     def __init__(self):
         AlgorithmProvider.__init__(self)

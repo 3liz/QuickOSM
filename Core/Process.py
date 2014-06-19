@@ -13,10 +13,12 @@ def execute(query,\
             url = "http://overpass-api.de/api/interpreter",\
             layers = ['points','lines','multilinestrings','multipolygons','other_relations'],\
             whiteList = None):
+    '''
+    Process which takes all the GUI's options and execute the process
+    '''
     
     query = PrepareQuery(query)
     oapi = ConnexionOAPI()
-    print query
     osmFile = oapi.getFileFromQuery(query)
     parser = OsmParser(osmFile)
     layers = parser.parse()

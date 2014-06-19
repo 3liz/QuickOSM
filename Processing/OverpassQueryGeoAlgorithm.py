@@ -24,6 +24,9 @@ from QuickOSM.Core.PrepareQuery import PrepareQuery
 
 
 class OverpassQueryGeoAlgorithm(GeoAlgorithm):
+    '''
+    Perform an OverPass query and get an OSM file
+    '''
 
     SERVER = 'SERVER'
     QUERY_STRING = 'QUERY_STRING'
@@ -55,7 +58,7 @@ class OverpassQueryGeoAlgorithm(GeoAlgorithm):
               <recurse from="_" into="_" type="down"/>\n \
               <print from="_" limit="" mode="skeleton" order="quadtile"/>\n \
             </osm-script>', True,False))
-        self.addParameter(ParameterExtent(self.EXTENT, 'Extent for {{bbox}}'))
+        self.addParameter(ParameterExtent(self.EXTENT, 'Extent for {{bbox}} '))
         
         self.addOutput(OutputFile(self.OUTPUT_FILE))
 
@@ -71,9 +74,9 @@ class OverpassQueryGeoAlgorithm(GeoAlgorithm):
         query = self.getParameterValue(self.QUERY_STRING)
         
         #Extent of the layer
-        #default value of processing : 0,1,0,1 
         extent = self.getParameterValue(self.EXTENT)
-        if extent:
+        #default value of processing : 0,1,0,1 
+        if extent != "0,1,0,1":
             print extent
             #xmin,xmax,ymin,ymax
             extent = [float(i) for i in extent.split(',')]
@@ -82,13 +85,13 @@ class OverpassQueryGeoAlgorithm(GeoAlgorithm):
             crsTransform = QgsCoordinateTransform(sourceCrs, QgsCoordinateReferenceSystem("EPSG:4326"))
             geomExtent.transform(crsTransform)
             extent = geomExtent.boundingBox()
-            """textExtent = rectExtent.toString()
-            extent = textExtent.replace(" : ",',')
-            extent = extent.split(',')"""
-        
+
+        #Make some transformation on the query ({{box}}, Nominatim, ...
         query = PrepareQuery(query,extent)
         
         oapi = ConnexionOAPI(url=server,output="xml")
         osmFile = oapi.getFileFromQuery(query)
+        
+        #Set the output file for Processing
         self.setOutputValue(self.OUTPUT_FILE,osmFile)
         

@@ -21,7 +21,10 @@ from QuickOSM.Core.OsmParser import OsmParser
 
 
 class OsmParserGeoAlgorithm(GeoAlgorithm):
-
+    '''
+    Parse an OSM file with OGR and return each layer
+    '''
+    
     def __init__(self):
         self.FILE = 'FILE'
         
@@ -35,7 +38,7 @@ class OsmParserGeoAlgorithm(GeoAlgorithm):
         GeoAlgorithm.__init__(self)
 
     def defineCharacteristics(self):
-        self.name = "Parse an OSM file"
+        self.name = "OGR default OSM parser"
         self.group = "OSM Parser"
 
         self.addParameter(ParameterFile(self.FILE, 'OSM file', False, False))
@@ -55,25 +58,30 @@ class OsmParserGeoAlgorithm(GeoAlgorithm):
         filePath = self.getParameterValue(self.FILE)
         print filePath
         
+        #Creating the dict for columns
         whiteListValues = {}
         for layer in self.LAYERS:
             value = self.getParameterValue(self.WHITE_LIST[layer])
+            
+            #Delete space in OSM's keys
             value = value.replace(" ","")
+            
             if value != '':
                 whiteListValues[layer] = value.split(',')
             else:
                 whiteListValues[layer] = None
         
+        #Call the OSM Parser
         parser = OsmParser(filePath, self.LAYERS, whiteListValues)
         layers = parser.parse()
         print layers
-        outputs = {}
-        for layer in self.LAYERS:
-            outputs[layer] = self.getOutputValue(self.OUTPUT_LAYERS[layer])
         
         layersOutputs = {}
         for key, values in layers.iteritems():
             layer = QgsVectorLayer(values['geojsonFile'],"test","ogr")
-            layersOutputs[key] = QgsVectorFileWriter(outputs[key], 'UTF-8',layer.pendingFields(),values['geomType'], layer.crs())
+            print "tada"
+            print self.OUTPUT_LAYERS[key]
+            outputParameter = self.getOutputValue(self.OUTPUT_LAYERS[key])
+            layersOutputs[key] = QgsVectorFileWriter(outputParameter, 'UTF-8',layer.pendingFields(),values['geomType'], layer.crs())
             for feature in layer.getFeatures():
                 layersOutputs[key].addFeature(feature)
