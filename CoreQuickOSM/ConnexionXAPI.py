@@ -4,7 +4,7 @@ Created on 4 juin 2014
 @author: etienne
 '''
 
-from processing.core.GeoAlgorithmExecutionException import GeoAlgorithmExecutionException
+#from processing.core.GeoAlgorithmExecutionException import GeoAlgorithmExecutionException
 import urllib2
 import tempfile
 
@@ -23,12 +23,13 @@ class ConnexionXAPI:
         req = req.encode('utf8')
         urlQuery = self.__url + req
         
+        print urlQuery
         try:
             data = urllib2.urlopen(url=urlQuery).read()
         except urllib2.HTTPError as e:
             if e.code == 400:
-                #raise Exception
-                raise GeoAlgorithmExecutionException, "Bad request XAPI"
+                raise Exception
+                #raise GeoAlgorithmExecutionException, "Bad request XAPI"
         
         return data
 
