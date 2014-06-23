@@ -12,7 +12,7 @@ def PrepareQuery(query,extent):
     Prepare the query before sending it to Overpassr
     '''
     
-    #Delete spaces at the beginning and at the end
+    #Delete spaces and tabs at the beginning and at the end
     query = query.strip()
     
     #Correction of ; in the OQL at the end

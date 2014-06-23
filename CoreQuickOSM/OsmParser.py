@@ -3,6 +3,7 @@ from qgis.core import QgsVectorLayer, QgsFeature, QgsField, QgsFields, QgsVector
 from PyQt4.QtCore import QVariant
 
 from osgeo import gdal
+from processing.core.GeoAlgorithmExecutionException import GeoAlgorithmExecutionException
 import pghstore
 import tempfile
 import os
@@ -39,7 +40,7 @@ class OsmParser:
         gdal.SetConfigOption('OSM_USE_CUSTOM_INDEXING', 'NO')
         
         if not os.path.isfile(self.__osmFile):
-            raise Exception, "File doesn't exist"
+            raise GeoAlgorithmExecutionException, "File doesn't exist"
         
         uri = self.__osmFile + "|layername="
         layers = {}
@@ -53,7 +54,7 @@ class OsmParser:
             layers[layer]['vectorLayer'] = QgsVectorLayer(uri + layer, "test_" + layer,"ogr")
             
             if layers[layer]['vectorLayer'].isValid() == False:
-                raise Exception, "Error on the layer", layers[layer]['vectorLayer'].lastError()
+                raise GeoAlgorithmExecutionException, "Error on the layer", layers[layer]['vectorLayer'].lastError()
             
             #Set some default tags
             layers[layer]['tags'] = ['id_full','osm_id','osm_type']

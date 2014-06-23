@@ -23,10 +23,10 @@ from PyQt4.QtCore import QSettings, QTranslator, qVersion, QCoreApplication
 from PyQt4.QtGui import QAction, QIcon
 from processing.core.Processing import Processing
 # Initialize Qt resources from file resources.py
-import resources
+#import resources_rc
 # Import the code for the dialog
 from quick_osm_dialog import QuickOSMDialog
-from Processing.QuickOSMAlgorithmProvider import QuickOSMAlgorithmProvider
+from ProcessingQuickOSM.QuickOSMAlgorithmProvider import QuickOSMAlgorithmProvider
 import os.path
 
 
@@ -69,7 +69,7 @@ class QuickOSM:
         """Create the menu entries and toolbar icons inside the QGIS GUI."""
         # Create action that will start plugin configuration
         self.action = QAction(
-            QIcon(":/resources/icon"),
+            QIcon(os.path.dirname(__file__) +"/icon.png"),
             u"Quick OSM",
             self.iface.mainWindow())
         # connect the action to the run method

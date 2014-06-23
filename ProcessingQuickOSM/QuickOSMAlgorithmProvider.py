@@ -9,10 +9,11 @@ Created on 10 juin 2014
 from processing.core.AlgorithmProvider import AlgorithmProvider
 from processing.core.ProcessingConfig import Setting, ProcessingConfig
 from OverpassQueryGeoAlgorithm import OverpassQueryGeoAlgorithm
+from XapiQueryGeoAlgorithm import XapiQueryGeoAlgorithm
 from NominatimQueryGeoAlgorithm import NominatimQueryGeoAlgorithm
 from OsmParserGeoAlgorithm import OsmParserGeoAlgorithm
 from PyQt4.QtGui import QIcon
-import QuickOSM.resources
+from os.path import dirname,abspath
 
 class QuickOSMAlgorithmProvider(AlgorithmProvider):
     '''
@@ -25,7 +26,7 @@ class QuickOSMAlgorithmProvider(AlgorithmProvider):
         self.activate = True
 
         # Load algorithms
-        self.alglist = [OverpassQueryGeoAlgorithm(),NominatimQueryGeoAlgorithm(),OsmParserGeoAlgorithm()]
+        self.alglist = [OverpassQueryGeoAlgorithm(),NominatimQueryGeoAlgorithm(),OsmParserGeoAlgorithm(),XapiQueryGeoAlgorithm()]
         for alg in self.alglist:
             alg.provider = self
 
@@ -42,7 +43,7 @@ class QuickOSMAlgorithmProvider(AlgorithmProvider):
         return 'QuickOSM'
 
     def getIcon(self):
-        return QIcon(":/resources/icon")
+        return QIcon(dirname(dirname(abspath(__file__)))+"/icon.png")
     
     def _loadAlgorithms(self):
         self.algs = self.alglist

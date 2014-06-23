@@ -5,9 +5,9 @@ Created on 17 juin 2014
 '''
 
 
-from Core.OsmParser import OsmParser
-from Core.ConnexionOAPI import ConnexionOAPI
-from Core.PrepareQuery import PrepareQuery
+from CoreQuickOSM.OsmParser import OsmParser
+from CoreQuickOSM.ConnexionOAPI import ConnexionOAPI
+from CoreQuickOSM.PrepareQuery import PrepareQuery
 
 def execute(query,\
             url = "http://overpass-api.de/api/",\

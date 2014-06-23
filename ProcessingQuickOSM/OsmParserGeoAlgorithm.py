@@ -9,7 +9,6 @@ Created on 10 juin 2014
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 from qgis.core import *
-import QuickOSM.resources
 
 from processing.core.Processing import Processing
 from processing.core.GeoAlgorithm import GeoAlgorithm
@@ -17,7 +16,8 @@ from processing.parameters.ParameterString import ParameterString
 from processing.parameters.ParameterFile import ParameterFile
 from processing.outputs.OutputVector import OutputVector
 from processing.tools import vector
-from QuickOSM.Core.OsmParser import OsmParser
+from QuickOSM.CoreQuickOSM.OsmParser import OsmParser
+from os.path import dirname,abspath
 
 
 class OsmParserGeoAlgorithm(GeoAlgorithm):
@@ -38,7 +38,7 @@ class OsmParserGeoAlgorithm(GeoAlgorithm):
         GeoAlgorithm.__init__(self)
 
     def defineCharacteristics(self):
-        self.name = "OGR default OSM parser"
+        self.name = "OGR default"
         self.group = "OSM Parser"
 
         self.addParameter(ParameterFile(self.FILE, 'OSM file', False, False))
@@ -51,7 +51,7 @@ class OsmParserGeoAlgorithm(GeoAlgorithm):
         return True, QApplication.translate("QuickOSM", 'Help soon')
     
     def getIcon(self):
-        return QIcon(":/resources/icon")
+        return QIcon(dirname(dirname(abspath(__file__)))+"/icon.png")
 
     def processAlgorithm(self, progress):
         

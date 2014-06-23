@@ -4,6 +4,7 @@ Created on 4 juin 2014
 @author: etienne
 '''
 
+from processing.core.GeoAlgorithmExecutionException import GeoAlgorithmExecutionException
 import urllib2
 import urllib
 import re
@@ -39,13 +40,13 @@ class ConnexionOAPI:
             data = urllib2.urlopen(url=urlQuery, data=queryString).read()
         except urllib2.HTTPError as e:
             if e.code == 400:
-                raise Exception, "Bad request OverpassAPI"
+                raise GeoAlgorithmExecutionException, "Bad request OverpassAPI"
         #print req 
         result = re.search('<remark> runtime error: Query timed out in "[a-z]+" at line [\d]+ after ([\d]+) seconds. </remark>', data)
         if result:
             result = result.groups()
             #print "Timeout : " + result[0]
-            raise Exception, "Timeout OverpassAPI"
+            raise GeoAlgorithmExecutionException, "Timeout OverpassAPI"
             
         return data
             
@@ -70,4 +71,4 @@ class ConnexionOAPI:
             return urllib2.urlopen(url=urlQuery).read()
         except urllib2.HTTPError as e:
             if e.code == 400:
-                raise Exception, "Bad request OverpassAPI"
+                raise GeoAlgorithmExecutionException, "Bad request OverpassAPI"

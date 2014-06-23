@@ -11,7 +11,6 @@ from PyQt4.QtGui import *
 from qgis.gui import QgsMapCanvas
 from qgis.core import *
 from qgis.utils import iface
-import QuickOSM.resources
 
 from processing.core.Processing import Processing
 from processing.core.GeoAlgorithm import GeoAlgorithm
@@ -19,8 +18,9 @@ from processing.core.GeoAlgorithmExecutionException import GeoAlgorithmExecution
 from processing.parameters.ParameterExtent import ParameterExtent
 from processing.parameters.ParameterString import ParameterString
 from processing.outputs.OutputFile import OutputFile
-from QuickOSM.Core.ConnexionOAPI import ConnexionOAPI
-from QuickOSM.Core.PrepareQuery import PrepareQuery
+from QuickOSM.CoreQuickOSM.ConnexionOAPI import ConnexionOAPI
+from QuickOSM.CoreQuickOSM.PrepareQuery import PrepareQuery
+from os.path import dirname,abspath
 
 
 class OverpassQueryGeoAlgorithm(GeoAlgorithm):
@@ -35,7 +35,7 @@ class OverpassQueryGeoAlgorithm(GeoAlgorithm):
 
     def defineCharacteristics(self):
         self.name = "Query overpass API with a string"
-        self.group = "Query overpass API"
+        self.group = "API"
 
         self.addParameter(ParameterString(self.SERVER, 'Overpass API','http://overpass-api.de/api/', False, False))
         self.addParameter(ParameterString(self.QUERY_STRING,'Query (XML or OQL)', '<osm-script output="json">\n \
@@ -66,7 +66,7 @@ class OverpassQueryGeoAlgorithm(GeoAlgorithm):
         return True, QApplication.translate("QuickOSM", 'Help soon')
     
     def getIcon(self):
-        return QIcon(":/resources/icon")
+        return QIcon(dirname(dirname(abspath(__file__)))+"/icon.png")
 
     def processAlgorithm(self, progress):
         

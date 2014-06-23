@@ -4,6 +4,8 @@ Created on 11 juin 2014
 @author: etienne
 '''
 
+from processing.core.GeoAlgorithmExecutionException import GeoAlgorithmExecutionException
+
 import urllib
 import urllib2
 import json
@@ -32,3 +34,6 @@ class Nominatim:
         for result in data:
             if result['osm_type'] == "relation":
                 return result['osm_id']
+        
+        #If no result has been return
+        raise GeoAlgorithmExecutionException, "No nominatim area"
