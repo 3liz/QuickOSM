@@ -12,8 +12,12 @@ class OsmParser(QObject):
     '''
     Parse an OSM file with OGR
     '''
-    ping = pyqtSignal()
     
+    #Signal pourcentage
+    signalPourcentage = pyqtSignal(int, name='emitPourcentage')
+    
+    #Signal text
+    signalText = pyqtSignal(str, name='emitText')
     
     #Layers available in the OGR driver for OSM
     OSM_LAYERS = ['points','lines','multilinestrings','multipolygons','other_relations']
@@ -36,7 +40,6 @@ class OsmParser(QObject):
         Start parsing the osm file
         '''
         
-        print self.__whiteListColumn
         #Configuration for OGR
         current_dir = os.path.dirname(os.path.realpath(__file__))
         osmconf = current_dir + '/osmconf.ini'
@@ -51,6 +54,7 @@ class OsmParser(QObject):
         
         #Foreach layers
         for layer in self.__layers:
+            self.signalText.emit("Parsing layer : " + layer)
             layers[layer] = {}
             
             #Reading it with a QgsVectorLayer
@@ -100,7 +104,7 @@ class OsmParser(QObject):
 
         #Creating GeoJSON files for each layers
         for layer in self.__layers:
-            self.ping.emit()
+            self.signalText.emit("Creating GeoJSON file : " + layer)
             tf = tempfile.NamedTemporaryFile(delete=False,suffix="_"+layer+".geojson")
             layers[layer]['geojsonFile'] = tf.name
             tf.flush()

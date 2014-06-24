@@ -77,7 +77,7 @@ class OsmParserGeoAlgorithm(GeoAlgorithm):
         
         #Call the OSM Parser
         parser = OsmParser(filePath, self.LAYERS, whiteListValues)
-        parser.ping.connect(self.pong)
+        parser.signalText.connect(self.setText)
         #QObject.connect(parser, SIGNAL("osmParser()"), self.osmParserFunc)
         layers = parser.parse()
         print layers
@@ -90,6 +90,5 @@ class OsmParserGeoAlgorithm(GeoAlgorithm):
             for feature in layer.getFeatures():
                 layersOutputs[key].addFeature(feature)
                 
-    def pong(self):
-        print "hello"
-        self.progress.setText('Hello')
+    def setText(self,text):
+        self.progress.setText(text)
