@@ -8,7 +8,6 @@ Created on 10 juin 2014
 
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
-from qgis.gui import QgsMapCanvas
 from qgis.core import *
 from qgis.utils import iface
 
@@ -19,7 +18,7 @@ from processing.parameters.ParameterExtent import ParameterExtent
 from processing.parameters.ParameterString import ParameterString
 from processing.outputs.OutputFile import OutputFile
 from QuickOSM.CoreQuickOSM.ConnexionOAPI import ConnexionOAPI
-from QuickOSM.CoreQuickOSM.PrepareQuery import PrepareQuery
+from QuickOSM.CoreQuickOSM.Tools import PrepareQueryOqlXml
 from os.path import dirname,abspath
 
 
@@ -60,10 +59,10 @@ class OverpassQueryGeoAlgorithm(GeoAlgorithm):
             </osm-script>', True,False))
         self.addParameter(ParameterExtent(self.EXTENT, 'Extent for {{bbox}} '))
         
-        self.addOutput(OutputFile(self.OUTPUT_FILE))
+        self.addOutput(OutputFile(self.OUTPUT_FILE, 'OSM file'))
 
     def help(self):
-        return True, QApplication.translate("QuickOSM", 'Help soon')
+        return True, 'Help soon'
     
     def getIcon(self):
         return QIcon(dirname(dirname(abspath(__file__)))+"/icon.png")
@@ -77,7 +76,6 @@ class OverpassQueryGeoAlgorithm(GeoAlgorithm):
         extent = self.getParameterValue(self.EXTENT)
         #default value of processing : 0,1,0,1 
         if extent != "0,1,0,1":
-            print extent
             #xmin,xmax,ymin,ymax
             extent = [float(i) for i in extent.split(',')]
             geomExtent = QgsGeometry.fromRect(QgsRectangle(extent[0],extent[2],extent[1],extent[3]))
@@ -87,7 +85,7 @@ class OverpassQueryGeoAlgorithm(GeoAlgorithm):
             extent = geomExtent.boundingBox()
 
         #Make some transformation on the query ({{box}}, Nominatim, ...
-        query = PrepareQuery(query,extent)
+        query = PrepareQueryOqlXml(query,extent)
         
         oapi = ConnexionOAPI(url=server,output="xml")
         osmFile = oapi.getFileFromQuery(query)

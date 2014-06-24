@@ -7,7 +7,7 @@ Created on 16 juin 2014
 import re
 from Nominatim import Nominatim
 
-def PrepareQuery(query,extent):
+def PrepareQueryOqlXml(query,extent):
     '''
     Prepare the query before sending it to Overpassr
     '''

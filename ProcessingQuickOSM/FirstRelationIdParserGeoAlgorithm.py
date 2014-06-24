@@ -29,10 +29,10 @@ class FirstRelationIdParserGeoAlgorithm(GeoAlgorithm):
         self.group = "OSM Parser"
 
         self.addParameter(ParameterFile(self.OSM_FILE, 'Osm file', False, False))
-        self.addOutput(OutputNumber(self.OSM_ID))
+        self.addOutput(OutputNumber(self.OSM_ID, 'OSM id'))
 
     def help(self):
-        return True, QApplication.translate("QuickOSM", 'Help soon')
+        return True, 'Help soon'
     
     def getIcon(self):
         return QIcon(dirname(dirname(abspath(__file__)))+"/icon.png")
@@ -46,6 +46,4 @@ class FirstRelationIdParserGeoAlgorithm(GeoAlgorithm):
             osmID = parser.parse()
         except:
             raise
-        print "processing"
-        print osmID
         self.setOutputValue("OSM_ID",osmID)

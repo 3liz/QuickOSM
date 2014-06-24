@@ -7,12 +7,13 @@ Created on 10 juin 2014
 '''
 
 from processing.core.AlgorithmProvider import AlgorithmProvider
-from processing.core.ProcessingConfig import Setting, ProcessingConfig
+#from processing.core.ProcessingConfig import Setting, ProcessingConfig
 from OverpassQueryGeoAlgorithm import OverpassQueryGeoAlgorithm
 from XapiQueryGeoAlgorithm import XapiQueryGeoAlgorithm
 from NominatimQueryGeoAlgorithm import NominatimQueryGeoAlgorithm
 from OsmParserGeoAlgorithm import OsmParserGeoAlgorithm
 from FirstRelationIdParserGeoAlgorithm import FirstRelationIdParserGeoAlgorithm
+from ReadIniFileGeoAlgorithm import ReadIniFileGeoAlgorithm
 from PyQt4.QtGui import QIcon
 from os.path import dirname,abspath
 
@@ -28,7 +29,14 @@ class QuickOSMAlgorithmProvider(AlgorithmProvider):
         self.activate = True
 
         # Load algorithms
-        self.alglist = [OverpassQueryGeoAlgorithm(),NominatimQueryGeoAlgorithm(),OsmParserGeoAlgorithm(),XapiQueryGeoAlgorithm(),FirstRelationIdParserGeoAlgorithm()]
+        self.alglist = [OverpassQueryGeoAlgorithm(),
+                        NominatimQueryGeoAlgorithm(),
+                        OsmParserGeoAlgorithm(),
+                        XapiQueryGeoAlgorithm(),
+                        FirstRelationIdParserGeoAlgorithm(),
+                        ReadIniFileGeoAlgorithm(),
+                        ]
+        
         for alg in self.alglist:
             alg.provider = self
 

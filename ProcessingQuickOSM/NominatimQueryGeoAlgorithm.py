@@ -28,15 +28,15 @@ class NominatimQueryGeoAlgorithm(GeoAlgorithm):
 
     def defineCharacteristics(self):
         self.name = "Query nominatim API with a string"
-        self.group = "Query nominatim API"
+        self.group = "API"
 
         self.addParameter(ParameterString(self.SERVER, 'Nominatim server', 'http://nominatim.openstreetmap.org/search?format=json', False, False))
         self.addParameter(ParameterString(self.NOMINATIM_STRING, 'Search','Montpellier', False, False))
-        self.addOutput(OutputNumber(self.OSM_ID))
+        self.addOutput(OutputNumber(self.OSM_ID,'OSM id'))
 
 
     def help(self):
-        return True, QApplication.translate("QuickOSM", 'Help soon')
+        return True, 'Help soon'
     
     def getIcon(self):
         return QIcon(dirname(dirname(abspath(__file__)))+"/icon.png")

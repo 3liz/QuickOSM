@@ -18,6 +18,8 @@ from processing.outputs.OutputVector import OutputVector
 from processing.tools import vector
 from QuickOSM.CoreQuickOSM.OsmParser import OsmParser
 from os.path import dirname,abspath
+import re
+
 
 
 class OsmParserGeoAlgorithm(GeoAlgorithm):
@@ -26,6 +28,8 @@ class OsmParserGeoAlgorithm(GeoAlgorithm):
     '''
     
     def __init__(self):
+        self.slotOsmParser = SLOT("osmParser()")
+        
         self.FILE = 'FILE'
         
         self.LAYERS = ['multipolygons', 'multilinestrings', 'lines', 'points']
@@ -48,13 +52,13 @@ class OsmParserGeoAlgorithm(GeoAlgorithm):
             self.addOutput(OutputVector(self.OUTPUT_LAYERS[layer],'Output '+ layer +' layer'))
 
     def help(self):
-        return True, QApplication.translate("QuickOSM", 'Help soon')
+        return True, 'Help soon'
     
     def getIcon(self):
         return QIcon(dirname(dirname(abspath(__file__)))+"/icon.png")
 
     def processAlgorithm(self, progress):
-        
+        self.progress = progress
         filePath = self.getParameterValue(self.FILE)
         print filePath
         
@@ -62,17 +66,19 @@ class OsmParserGeoAlgorithm(GeoAlgorithm):
         whiteListValues = {}
         for layer in self.LAYERS:
             value = self.getParameterValue(self.WHITE_LIST[layer])
-            
-            #Delete space in OSM's keys
-            value = value.replace(" ","")
-            
-            if value != '':
+
+            #Delete space and tabs in OSM's keys
+            #Processing return a 'None' value as string
+            if not value or value != 'None':
+                value = re.sub ('\s', '', value)
                 whiteListValues[layer] = value.split(',')
             else:
                 whiteListValues[layer] = None
         
         #Call the OSM Parser
         parser = OsmParser(filePath, self.LAYERS, whiteListValues)
+        parser.ping.connect(self.pong)
+        #QObject.connect(parser, SIGNAL("osmParser()"), self.osmParserFunc)
         layers = parser.parse()
         print layers
         
@@ -83,3 +89,7 @@ class OsmParserGeoAlgorithm(GeoAlgorithm):
             layersOutputs[key] = QgsVectorFileWriter(outputParameter, 'UTF-8',layer.pendingFields(),values['geomType'], layer.crs())
             for feature in layer.getFeatures():
                 layersOutputs[key].addFeature(feature)
+                
+    def pong(self):
+        print "hello"
+        self.progress.setText('Hello')

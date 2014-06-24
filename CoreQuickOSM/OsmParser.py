@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from qgis.core import QgsVectorLayer, QgsFeature, QgsField, QgsFields, QgsVectorFileWriter
-from PyQt4.QtCore import QVariant
+from PyQt4.QtCore import *
 
 from osgeo import gdal
 from processing.core.GeoAlgorithmExecutionException import GeoAlgorithmExecutionException
@@ -8,16 +8,18 @@ import pghstore
 import tempfile
 import os
 
-class OsmParser:
+class OsmParser(QObject):
     '''
     Parse an OSM file with OGR
     '''
+    ping = pyqtSignal()
+    
     
     #Layers available in the OGR driver for OSM
     OSM_LAYERS = ['points','lines','multilinestrings','multipolygons','other_relations']
     
     #Dict to build the full ID of an object
-    OSM_TYPE = {'node':'n', 'way':'w', 'relation':'r'}
+    DIC_OSM_TYPE = {'node':'n', 'way':'w', 'relation':'r'}
     
     #Whitle list for the attribute table, if set to None all the keys will be keep
     WHITE_LIST = {'multilinestrings': None, 'points': None, 'lines': None, 'multipolygons': None}
@@ -27,12 +29,14 @@ class OsmParser:
         self.__layers = layers
         self.__whiteListColumn = whiteListColumn
         self.__deleteEmptyLayers = deleteEmptyLayers
+        QObject.__init__(self)
         
     def parse(self):
         '''
         Start parsing the osm file
         '''
         
+        print self.__whiteListColumn
         #Configuration for OGR
         current_dir = os.path.dirname(os.path.realpath(__file__))
         osmconf = current_dir + '/osmconf.ini'
@@ -44,7 +48,6 @@ class OsmParser:
         
         uri = self.__osmFile + "|layername="
         layers = {}
-        osm_type = {'node':'n', 'way':'w', 'relation':'r'}
         
         #Foreach layers
         for layer in self.__layers:
@@ -80,7 +83,7 @@ class OsmParser:
                     hstore = pghstore.loads(attrs[0])
                     for key in hstore:
                         if key not in layers[layer]['tags']: #If the key in OSM is not already in the table
-                            if self.__whiteListColumn[layer]: #
+                            if self.__whiteListColumn[layer]:
                                 if key in self.__whiteListColumn[layer]:
                                     layers[layer]['tags'].append(key)
                             else:
@@ -97,6 +100,7 @@ class OsmParser:
 
         #Creating GeoJSON files for each layers
         for layer in self.__layers:
+            self.ping.emit()
             tf = tempfile.NamedTemporaryFile(delete=False,suffix="_"+layer+".geojson")
             layers[layer]['geojsonFile'] = tf.name
             tf.flush()
@@ -118,15 +122,15 @@ class OsmParser:
                 
                 if layer in ['points','lines','multilinestrings']:
                     if layer == 'points':
-                        OSM_TYPE = "node"
+                        osmType = "node"
                     elif layer == 'lines':
-                        OSM_TYPE = "way"
+                        osmType = "way"
                     elif layer == 'multilinestrings':
-                        OSM_TYPE = 'relation'
+                        osmType = 'relation'
                     
-                    newAttrs.append(osm_type[OSM_TYPE]+str(attrs[0]))
+                    newAttrs.append(self.DIC_OSM_TYPE[osmType]+str(attrs[0]))
                     newAttrs.append(attrs[0])
-                    newAttrs.append(OSM_TYPE)
+                    newAttrs.append(osmType)
                     
                     if attrs[1]:
                         hstore = pghstore.loads(attrs[1])
@@ -140,14 +144,14 @@ class OsmParser:
                     
                 elif layer == 'multipolygons':
                     if attrs[0]:
-                        OSM_TYPE = "relation"
-                        newAttrs.append(osm_type[OSM_TYPE]+str(attrs[0]))
-                        newAttrs.append(osm_type[OSM_TYPE]+str(attrs[0]))
+                        osmType = "relation"
+                        newAttrs.append(self.DIC_OSM_TYPE[osmType]+str(attrs[0]))
+                        newAttrs.append(self.DIC_OSM_TYPE[osmType]+str(attrs[0]))
                     else:
-                        OSM_TYPE = "way"
-                        newAttrs.append(osm_type[OSM_TYPE]+str(attrs[1]))
+                        osmType = "way"
+                        newAttrs.append(self.DIC_OSM_TYPE[osmType]+str(attrs[1]))
                         newAttrs.append(attrs[1])
-                    newAttrs.append(OSM_TYPE)
+                    newAttrs.append(osmType)
                     
                     hstore = pghstore.loads(attrs[2])
                     for tag in layers[layer]['tags'][3:]:

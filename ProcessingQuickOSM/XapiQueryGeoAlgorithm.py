@@ -38,10 +38,10 @@ class XapiQueryGeoAlgorithm(GeoAlgorithm):
         self.addParameter(ParameterString(self.SERVER, 'XAPI','http://www.overpass-api.de/api/xapi?', False, False))
         self.addParameter(ParameterString(self.QUERY_STRING,'Query', 'relation[ref:INSEE=25047]', False,False))
         
-        self.addOutput(OutputFile(self.OUTPUT_FILE))
+        self.addOutput(OutputFile(self.OUTPUT_FILE,'OSM file'))
 
     def help(self):
-        return True, QApplication.translate("QuickOSM", 'Help soon')
+        return True, 'Help soon'
     
     def getIcon(self):
         return QIcon(dirname(dirname(abspath(__file__)))+"/icon.png")
