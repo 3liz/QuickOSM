@@ -15,25 +15,13 @@ from processing.core.GeoAlgorithmExecutionException import GeoAlgorithmExecution
 from processing.core.GeoAlgorithm import GeoAlgorithm
 from processing.parameters.ParameterFile import ParameterFile
 from processing.outputs.OutputString import OutputString
-import ConfigParser
-from os.path import dirname,abspath,join
-import ntpath
-from macpath import basename
-from genericpath import isfile
+from os.path import dirname,abspath
+from QuickOSM.CoreQuickOSM.ToolsIniFile import ParseIniFile
 
 class ReadIniFileGeoAlgorithm(GeoAlgorithm):
     '''
     Read an INI file 
     '''
-    
-    def __ConfigSectionMap(self,section):
-        iniDict = {}
-        for option in self.configParser.options(section):
-            try:
-                iniDict[option] = self.configParser.get(section, option)
-            except:
-                iniDict[option] = None
-        return iniDict
     
     def __init__(self):
         self.INI_FILE = 'QUERY_FILE'
@@ -61,26 +49,15 @@ class ReadIniFileGeoAlgorithm(GeoAlgorithm):
         return QIcon(dirname(dirname(abspath(__file__)))+"/icon.png")
 
     def processAlgorithm(self, progress):
-        self.configParser = ConfigParser.ConfigParser()
-        
+        self.progress = progress
+        self.progress.setInfo("Reading the ini file")
+                
         filePath = self.getParameterValue(self.INI_FILE)
-        tab = (ntpath.basename(filePath)).split('.')
         
-        if tab[1] != "ini":
-            raise GeoAlgorithmExecutionException, "Not an ini file"
+        iniDict = ParseIniFile(filePath)
         
-        directory = dirname(filePath)
+        self.setOutputValue('QUERY_STRING',iniDict['metadata']['query'])
         
-        queryFile = [join(directory, tab[0] + '.' + ext) for ext in ['oql','xml'] if isfile(join(directory, tab[0] + '.' + ext))]
-        try:
-            queryFile = queryFile[0]
-        except IndexError:
-            raise GeoAlgorithmExecutionException, "No query file (.xml or .oql)"
-        
-        query = open(queryFile, 'r').read()
-        self.setOutputValue('QUERY_STRING',query)
-        
-        self.configParser.read(filePath)
         for layer in self.LAYERS:
-            csv = self.__ConfigSectionMap(layer)['columns']
+            csv = iniDict[layer]['columns']
             self.setOutputValue(self.WHITE_LIST[layer],csv)

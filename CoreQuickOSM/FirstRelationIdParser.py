@@ -11,7 +11,6 @@ class FirstRelationIdParser():
     def __init__(self,osmFile):
         self.__osmFile = osmFile
 
-
     def parse(self):
         tree = ET.parse(self.__osmFile)
         root = tree.getroot()

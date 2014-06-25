@@ -38,12 +38,12 @@ class FirstRelationIdParserGeoAlgorithm(GeoAlgorithm):
         return QIcon(dirname(dirname(abspath(__file__)))+"/icon.png")
 
     def processAlgorithm(self, progress):
-        
         osmFile = self.getParameterValue(self.OSM_FILE)
         
         parser = FirstRelationIdParser(osmFile)
         try:
             osmID = parser.parse()
+            progress.setInfo("Getting first OSM relation ID from file :",osmID)
         except:
             raise
         self.setOutputValue("OSM_ID",osmID)

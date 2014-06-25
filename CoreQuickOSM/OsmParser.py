@@ -13,11 +13,10 @@ class OsmParser(QObject):
     Parse an OSM file with OGR
     '''
     
-    #Signal pourcentage
-    signalPourcentage = pyqtSignal(int, name='emitPourcentage')
-    
+    #Signal percentage
+    signalPercentage = pyqtSignal(int, name='signalPercentage')
     #Signal text
-    signalText = pyqtSignal(str, name='emitText')
+    signalText = pyqtSignal(str, name='signalText')
     
     #Layers available in the OGR driver for OSM
     OSM_LAYERS = ['points','lines','multilinestrings','multipolygons','other_relations']
@@ -72,7 +71,7 @@ class OsmParser(QObject):
             #Set a featureCount
             layers[layer]['featureCount'] = 0
             
-            for feature in layers[layer]['vectorLayer'].getFeatures():
+            for i, feature in enumerate(layers[layer]['vectorLayer'].getFeatures()):
                 layers[layer]['featureCount'] += 1
                 
                 #Get the "others_tags" field
@@ -92,6 +91,8 @@ class OsmParser(QObject):
                                     layers[layer]['tags'].append(key)
                             else:
                                 layers[layer]['tags'].append(key)
+                                
+                self.signalPercentage.emit(int(100 / len(self.__layers) * (i+1)))
         
         #Delete empty layers if this option is set to True
         if self.__deleteEmptyLayers:
@@ -105,6 +106,9 @@ class OsmParser(QObject):
         #Creating GeoJSON files for each layers
         for layer in self.__layers:
             self.signalText.emit("Creating GeoJSON file : " + layer)
+            self.signalPercentage.emit(0)
+            
+            #Creating the temp file
             tf = tempfile.NamedTemporaryFile(delete=False,suffix="_"+layer+".geojson")
             layers[layer]['geojsonFile'] = tf.name
             tf.flush()
@@ -117,7 +121,7 @@ class OsmParser(QObject):
             fileWriter = QgsVectorFileWriter(layers[layer]['geojsonFile'],'UTF-8',fields,layers[layer]['geomType'],layers[layer]['vectorLayer'].crs(),'GeoJSON')
             
             #Foreach feature in the layer
-            for feature in layers[layer]['vectorLayer'].getFeatures():
+            for i, feature in enumerate(layers[layer]['vectorLayer'].getFeatures()):
                 fet = QgsFeature()
                 fet.setGeometry(feature.geometry())
                 
@@ -165,6 +169,9 @@ class OsmParser(QObject):
                             newAttrs.append("")
                     fet.setAttributes(newAttrs)
                     fileWriter.addFeature(fet)
-                    
-            del fileWriter      
+            
+                    self.signalPercentage.emit(int(100 / layers[layer]['featureCount'] * (i+1)))
+                  
+            del fileWriter
+            
         return layers

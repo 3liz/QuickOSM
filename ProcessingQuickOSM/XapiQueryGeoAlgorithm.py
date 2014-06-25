@@ -47,6 +47,8 @@ class XapiQueryGeoAlgorithm(GeoAlgorithm):
         return QIcon(dirname(dirname(abspath(__file__)))+"/icon.png")
 
     def processAlgorithm(self, progress):
+        self.progress = progress
+        self.progress.setInfo("Downloading data from XAPI")
         
         server = self.getParameterValue(self.SERVER)
         query = self.getParameterValue(self.QUERY_STRING)
@@ -54,7 +56,6 @@ class XapiQueryGeoAlgorithm(GeoAlgorithm):
         xapi = ConnexionXAPI(url=server)
         osmFile = xapi.getFileFromQuery(query)
         
-        print osmFile
         #Set the output file for Processing
         self.setOutputValue(self.OUTPUT_FILE,osmFile)
         

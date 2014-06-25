@@ -68,6 +68,9 @@ class OverpassQueryGeoAlgorithm(GeoAlgorithm):
         return QIcon(dirname(dirname(abspath(__file__)))+"/icon.png")
 
     def processAlgorithm(self, progress):
+        self.progress = progress
+        self.progress.setInfo("Preparing the Overpass query")
+        self.progress.setPercentage(0)
         
         server = self.getParameterValue(self.SERVER)
         query = self.getParameterValue(self.QUERY_STRING)
@@ -88,8 +91,11 @@ class OverpassQueryGeoAlgorithm(GeoAlgorithm):
         query = PrepareQueryOqlXml(query,extent)
         
         oapi = ConnexionOAPI(url=server,output="xml")
+        self.progress.setInfo("Downloading data from Overpass")
+        self.progress.setPercentage(5)
         osmFile = oapi.getFileFromQuery(query)
         
+        self.progress.setPercentage(100)
         #Set the output file for Processing
         self.setOutputValue(self.OUTPUT_FILE,osmFile)
         

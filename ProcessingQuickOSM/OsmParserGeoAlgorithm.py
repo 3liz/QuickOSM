@@ -59,6 +59,8 @@ class OsmParserGeoAlgorithm(GeoAlgorithm):
 
     def processAlgorithm(self, progress):
         self.progress = progress
+        self.progress.setPercentage(0)
+        
         filePath = self.getParameterValue(self.FILE)
         print filePath
         
@@ -75,10 +77,12 @@ class OsmParserGeoAlgorithm(GeoAlgorithm):
             else:
                 whiteListValues[layer] = None
         
-        #Call the OSM Parser
+        #Call the OSM Parser and connect signals
         parser = OsmParser(filePath, self.LAYERS, whiteListValues)
-        parser.signalText.connect(self.setText)
-        #QObject.connect(parser, SIGNAL("osmParser()"), self.osmParserFunc)
+        parser.signalText.connect(self.setInfo)
+        parser.signalPercentage.connect(self.setPercentage)
+        
+        #Start to parse
         layers = parser.parse()
         print layers
         
@@ -90,5 +94,8 @@ class OsmParserGeoAlgorithm(GeoAlgorithm):
             for feature in layer.getFeatures():
                 layersOutputs[key].addFeature(feature)
                 
-    def setText(self,text):
-        self.progress.setText(text)
+    def setInfo(self,text):
+        self.progress.setInfo(text)
+    
+    def setPercentage(self,percent):
+        self.progress.setPercentage(percent)

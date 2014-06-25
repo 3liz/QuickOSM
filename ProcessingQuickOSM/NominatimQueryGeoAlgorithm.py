@@ -49,6 +49,7 @@ class NominatimQueryGeoAlgorithm(GeoAlgorithm):
         nominatim = Nominatim(url = server)
         try:
             osmID = nominatim.getFirstPolygonFromQuery(query)
+            progress.setInfo("Getting first OSM relation ID from Nominatim :",osmID)
         except:
             raise
         self.setOutputValue("OSM_ID",osmID)
