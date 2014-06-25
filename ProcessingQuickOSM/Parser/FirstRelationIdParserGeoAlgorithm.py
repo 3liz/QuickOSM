@@ -15,7 +15,7 @@ from processing.core.GeoAlgorithm import GeoAlgorithm
 from processing.core.GeoAlgorithmExecutionException import GeoAlgorithmExecutionException
 from processing.parameters.ParameterFile import ParameterFile
 from processing.outputs.OutputNumber import OutputNumber
-from QuickOSM.CoreQuickOSM.FirstRelationIdParser import FirstRelationIdParser
+from QuickOSM.CoreQuickOSM.Parser.FirstRelationIdParser import FirstRelationIdParser
 from os.path import dirname,abspath
 
 
@@ -35,7 +35,7 @@ class FirstRelationIdParserGeoAlgorithm(GeoAlgorithm):
         return True, 'Help soon'
     
     def getIcon(self):
-        return QIcon(dirname(dirname(abspath(__file__)))+"/icon.png")
+        return QIcon(dirname(dirname(dirname(abspath(__file__))))+"/icon.png")
 
     def processAlgorithm(self, progress):
         osmFile = self.getParameterValue(self.OSM_FILE)

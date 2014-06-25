@@ -16,7 +16,7 @@ from processing.parameters.ParameterString import ParameterString
 from processing.parameters.ParameterFile import ParameterFile
 from processing.outputs.OutputVector import OutputVector
 from processing.tools import vector
-from QuickOSM.CoreQuickOSM.OsmParser import OsmParser
+from QuickOSM.CoreQuickOSM.Parser.OsmParser import OsmParser
 from os.path import dirname,abspath
 import re
 
@@ -55,7 +55,7 @@ class OsmParserGeoAlgorithm(GeoAlgorithm):
         return True, 'Help soon'
     
     def getIcon(self):
-        return QIcon(dirname(dirname(abspath(__file__)))+"/icon.png")
+        return QIcon(dirname(dirname(dirname(abspath(__file__))))+"/icon.png")
 
     def processAlgorithm(self, progress):
         self.progress = progress

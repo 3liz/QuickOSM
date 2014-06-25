@@ -16,7 +16,7 @@ from processing.core.GeoAlgorithm import GeoAlgorithm
 from processing.core.GeoAlgorithmExecutionException import GeoAlgorithmExecutionException
 from processing.parameters.ParameterString import ParameterString
 from processing.outputs.OutputNumber import OutputNumber
-from QuickOSM.CoreQuickOSM.Nominatim import Nominatim
+from QuickOSM.CoreQuickOSM.API.Nominatim import Nominatim
 from os.path import dirname,abspath
 
 
@@ -39,7 +39,7 @@ class NominatimQueryGeoAlgorithm(GeoAlgorithm):
         return True, 'Help soon'
     
     def getIcon(self):
-        return QIcon(dirname(dirname(abspath(__file__)))+"/icon.png")
+        return QIcon(dirname(dirname(dirname(abspath(__file__))))+"/icon.png")
 
     def processAlgorithm(self, progress):
         

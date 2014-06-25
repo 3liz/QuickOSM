@@ -5,7 +5,7 @@ Created on 16 juin 2014
 '''
 
 import re
-from Nominatim import Nominatim
+from API.Nominatim import Nominatim
 
 def PrepareQueryOqlXml(query,extent):
     '''

@@ -5,9 +5,9 @@ Created on 17 juin 2014
 '''
 
 
-from CoreQuickOSM.OsmParser import OsmParser
-from CoreQuickOSM.ConnexionOAPI import ConnexionOAPI
-from CoreQuickOSM.PrepareQuery import PrepareQuery
+from CoreQuickOSM.Parser.OsmParser import OsmParser
+from CoreQuickOSM.API.ConnexionOAPI import ConnexionOAPI
+from CoreQuickOSM.Tools import PrepareQueryOqlXml
 
 def execute(query,\
             url = "http://overpass-api.de/api/",\
@@ -17,7 +17,7 @@ def execute(query,\
     Process which takes all the GUI's options and execute the process
     '''
     
-    query = PrepareQuery(query)
+    query = PrepareQueryOqlXml(query)
     oapi = ConnexionOAPI()
     osmFile = oapi.getFileFromQuery(query)
     parser = OsmParser(osmFile)

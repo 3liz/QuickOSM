@@ -17,7 +17,7 @@ from processing.core.GeoAlgorithmExecutionException import GeoAlgorithmExecution
 from processing.parameters.ParameterExtent import ParameterExtent
 from processing.parameters.ParameterString import ParameterString
 from processing.outputs.OutputFile import OutputFile
-from QuickOSM.CoreQuickOSM.ConnexionOAPI import ConnexionOAPI
+from QuickOSM.CoreQuickOSM.API.ConnexionOAPI import ConnexionOAPI
 from QuickOSM.CoreQuickOSM.Tools import PrepareQueryOqlXml
 from os.path import dirname,abspath
 
@@ -65,7 +65,7 @@ class OverpassQueryGeoAlgorithm(GeoAlgorithm):
         return True, 'Help soon'
     
     def getIcon(self):
-        return QIcon(dirname(dirname(abspath(__file__)))+"/icon.png")
+        return QIcon(dirname(dirname(dirname(abspath(__file__))))+"/icon.png")
 
     def processAlgorithm(self, progress):
         self.progress = progress
