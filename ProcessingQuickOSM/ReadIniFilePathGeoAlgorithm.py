@@ -13,18 +13,18 @@ from qgis.core import *
 from processing.core.Processing import Processing
 from processing.core.GeoAlgorithmExecutionException import GeoAlgorithmExecutionException
 from processing.core.GeoAlgorithm import GeoAlgorithm
-from processing.parameters.ParameterFile import ParameterFile
+from processing.parameters.ParameterString import ParameterString
 from processing.outputs.OutputString import OutputString
 from os.path import dirname,abspath
 from QuickOSM.CoreQuickOSM.IniFile import IniFile
 
-class ReadIniFileGeoAlgorithm(GeoAlgorithm):
+class ReadIniFilePathGeoAlgorithm(GeoAlgorithm):
     '''
     Read an INI file 
     '''
     
     def __init__(self):
-        self.INI_FILE = 'QUERY_FILE'
+        self.INI_FILEPATH = 'QUERY_FILE'
         self.LAYERS = ['multipolygons', 'multilinestrings', 'lines', 'points']
         self.WHITE_LIST = {}
         for layer in self.LAYERS:
@@ -32,10 +32,10 @@ class ReadIniFileGeoAlgorithm(GeoAlgorithm):
         GeoAlgorithm.__init__(self)
 
     def defineCharacteristics(self):
-        self.name = "Read an ini file"
+        self.name = "Read an ini file from string"
         self.group = "Tools"
         
-        self.addParameter(ParameterFile(self.INI_FILE, 'Query file (ini)', False, False))
+        self.addParameter(ParameterString(self.INI_FILEPATH, 'Filepath (ini)', '', False))
         
         for layer in self.LAYERS:
             self.addOutput(OutputString(self.WHITE_LIST[layer],'White list '+ layer +' layer'))
@@ -52,7 +52,7 @@ class ReadIniFileGeoAlgorithm(GeoAlgorithm):
         self.progress = progress
         self.progress.setInfo("Reading the ini file")
                 
-        filePath = self.getParameterValue(self.INI_FILE)
+        filePath = self.getParameterValue(self.INI_FILEPATH)
         iniFile = IniFile(filePath)
         iniDict = None
         if iniFile.isValid():

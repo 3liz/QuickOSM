@@ -14,6 +14,8 @@ from NominatimQueryGeoAlgorithm import NominatimQueryGeoAlgorithm
 from OsmParserGeoAlgorithm import OsmParserGeoAlgorithm
 from FirstRelationIdParserGeoAlgorithm import FirstRelationIdParserGeoAlgorithm
 from ReadIniFileGeoAlgorithm import ReadIniFileGeoAlgorithm
+from ReadIniFilePathGeoAlgorithm import ReadIniFilePathGeoAlgorithm
+from ListIniFilesGeoAlgorithm import ListIniFilesGeoAlgorithm
 from PyQt4.QtGui import QIcon
 from os.path import dirname,abspath
 
@@ -35,6 +37,8 @@ class QuickOSMAlgorithmProvider(AlgorithmProvider):
                         XapiQueryGeoAlgorithm(),
                         FirstRelationIdParserGeoAlgorithm(),
                         ReadIniFileGeoAlgorithm(),
+                        ReadIniFilePathGeoAlgorithm(),
+                        ListIniFilesGeoAlgorithm()
                         ]
         
         for alg in self.alglist:
