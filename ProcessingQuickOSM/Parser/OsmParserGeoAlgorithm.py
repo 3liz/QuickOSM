@@ -68,11 +68,14 @@ class OsmParserGeoAlgorithm(GeoAlgorithm):
         whiteListValues = {}
         for layer in self.LAYERS:
             value = self.getParameterValue(self.WHITE_LIST[layer])
-
+            
             #Delete space and tabs in OSM's keys
-            #Processing return a 'None' value as string
-            if not value or value != 'None':
-                value = re.sub ('\s', '', value)
+            #Processing return a 'None' value as unicode
+            value = re.sub ('\s', '', value)
+            if value == '' or value == 'None':
+                value = None
+            
+            if value:
                 whiteListValues[layer] = value.split(',')
             else:
                 whiteListValues[layer] = None
