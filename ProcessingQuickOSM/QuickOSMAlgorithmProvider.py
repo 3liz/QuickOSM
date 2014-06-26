@@ -7,7 +7,7 @@ Created on 10 juin 2014
 '''
 
 from processing.core.AlgorithmProvider import AlgorithmProvider
-#from processing.core.ProcessingConfig import Setting, ProcessingConfig
+from processing.core.ProcessingConfig import Setting, ProcessingConfig
 from API.OverpassQueryGeoAlgorithm import OverpassQueryGeoAlgorithm
 from API.XapiQueryGeoAlgorithm import XapiQueryGeoAlgorithm
 from API.NominatimQueryGeoAlgorithm import NominatimQueryGeoAlgorithm
@@ -17,13 +17,15 @@ from Tools.ReadIniFilePathGeoAlgorithm import ReadIniFilePathGeoAlgorithm
 from Parser.OsmParserGeoAlgorithm import OsmParserGeoAlgorithm
 from Parser.FirstRelationIdParserGeoAlgorithm import FirstRelationIdParserGeoAlgorithm
 from PyQt4.QtGui import QIcon
-from os.path import dirname,abspath
+from os.path import dirname,abspath,join
 
 
 class QuickOSMAlgorithmProvider(AlgorithmProvider):
     '''
     QuickOSM provide some GeoAlgorithms
     '''
+
+    QUERIES_FOLDER = 'QUERIES_FOLDER'
 
     def __init__(self):
         AlgorithmProvider.__init__(self)
@@ -46,9 +48,13 @@ class QuickOSMAlgorithmProvider(AlgorithmProvider):
 
     def initializeSettings(self):
         AlgorithmProvider.initializeSettings(self)
+        directory = join(dirname(dirname(abspath(__file__))),'queries')       
+        ProcessingConfig.addSetting(Setting(self.getDescription(),self.QUERIES_FOLDER,'Queries folder',directory))
+        
 
     def unload(self):
         AlgorithmProvider.unload(self)
+        ProcessingConfig.removeSetting(self.QUERIES_FOLDER)
 
     def getName(self):
         return 'QuickOSM'
