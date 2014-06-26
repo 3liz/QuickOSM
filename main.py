@@ -7,7 +7,7 @@ Created on 10 juin 2014
 '''
 from qgis.core import QgsApplication,QgsProviderRegistry
 
-from Core.Process import execute
+from CoreQuickOSM.Process import Process
 
 if __name__ == '__main__':
     
@@ -49,7 +49,7 @@ if __name__ == '__main__':
     whiteList['multipolygons'] = ('wikipedia')
     whiteList['other_relations'] = None
 
-    layers = execute(req,"http://overpass-api.de/api/interpreter",['points','lines','multilinestrings','multipolygons','other_relations'],whiteList)
+    layers = Process.execute(req,"http://overpass-api.de/api/interpreter",['points','lines','multilinestrings','multipolygons','other_relations'],whiteList)
     
     for key, values in layers.iteritems() :
         print key

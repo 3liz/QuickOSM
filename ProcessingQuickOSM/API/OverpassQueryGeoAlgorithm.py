@@ -18,7 +18,7 @@ from processing.parameters.ParameterExtent import ParameterExtent
 from processing.parameters.ParameterString import ParameterString
 from processing.outputs.OutputFile import OutputFile
 from QuickOSM.CoreQuickOSM.API.ConnexionOAPI import ConnexionOAPI
-from QuickOSM.CoreQuickOSM.Tools import PrepareQueryOqlXml
+from QuickOSM.CoreQuickOSM.Tools import Tools
 from os.path import dirname,abspath
 
 
@@ -88,7 +88,7 @@ class OverpassQueryGeoAlgorithm(GeoAlgorithm):
             extent = geomExtent.boundingBox()
 
         #Make some transformation on the query ({{box}}, Nominatim, ...
-        query = PrepareQueryOqlXml(query,extent)
+        query = Tools.PrepareQueryOqlXml(query,extent)
         
         oapi = ConnexionOAPI(url=server,output="xml")
         self.progress.setInfo("Downloading data from Overpass")
