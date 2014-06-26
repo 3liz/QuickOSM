@@ -9,6 +9,7 @@ import ConfigParser
 from genericpath import isfile
 from os.path import dirname, join
 from os import listdir
+import re
 
 class IniFile():
     '''
@@ -34,14 +35,17 @@ class IniFile():
         result = []
         for filePath in existingIniFiles:
             ini = IniFile(filePath)
+            ini.isValid()
             dic = {}
-            dic['name'] = ini.getValue("metadata", "name")
+            dic['name'] = ini.__name
             dic['path'] = filePath
             result.append(dic)
         return result
 
     def __init__(self,filePath):
         self.__filePath = filePath
+        self.__bboxTemplate = False
+        self.__nominatimTemplate = False
 
     def isValid(self):
         #Is it an ini file ?    
@@ -56,10 +60,34 @@ class IniFile():
         
         if queryFile[0]:
             self.__queryFile = queryFile[0]
-            return True
         else:
             #raise Exception, "No query file (.xml or .oql)"
             return False
+        
+        try:
+            self.__configParser
+        except AttributeError:
+            self.__configParser = ConfigParser.ConfigParser()
+            self.__configParser.read(self.__filePath)
+        
+        #Set the name
+        self.__name = self.__configSectionMap('metadata')['name']
+        
+        query = unicode(open(self.__queryFile, 'r').read(), "utf-8")
+        print query
+        #Check if there is a BBOX template
+        bboxQuery = re.search('<bbox-query {{bbox}}/>',query)
+        if bboxQuery:
+            self.__bboxTemplate = True
+            self.__name = self.__name + " [extent required]"
+            
+        nominatimQuery = re.search('{{nominatimArea:{{nominatim}}}}', query)
+        if nominatimQuery:
+            self.__nominatimTemplate = True
+            self.__name = self.__name + " [PLACENAME required]"
+            
+        return True
+        
         
     def getContent(self):
         
@@ -71,10 +99,13 @@ class IniFile():
         
         dic = {}
         dic['metadata'] = {}
-        dic['metadata']['query'] = open(self.__queryFile, 'r').read()
+        dic['metadata']['query'] = unicode(open(self.__queryFile, 'r').read(), "utf-8")
         
-        for item in ['name', 'description','logo']:
+        for item in ['description','logo']:
             dic['metadata'][item] = self.__configSectionMap('metadata')[item]
+        
+        print self.__name
+        dic['metadata']['name'] = self.__name
         
         for layer in IniFile.LAYERS:
             dic[layer] = {}
@@ -103,7 +134,7 @@ class IniFile():
         iniDict = {}
         for option in self.__configParser.options(section):
             try:
-                iniDict[option] = self.__configParser.get(section, option)
+                iniDict[option] = unicode(self.__configParser.get(section, option), "utf-8")
             except:
                 iniDict[option] = None
         return iniDict

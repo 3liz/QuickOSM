@@ -30,6 +30,7 @@ class OverpassQueryGeoAlgorithm(GeoAlgorithm):
     SERVER = 'SERVER'
     QUERY_STRING = 'QUERY_STRING'
     EXTENT = 'EXTENT'
+    NOMINATIM = 'NOMINATIM'
     OUTPUT_FILE = 'OUTPUT_FILE'
 
     def defineCharacteristics(self):
@@ -58,6 +59,7 @@ class OverpassQueryGeoAlgorithm(GeoAlgorithm):
               <print from="_" limit="" mode="skeleton" order="quadtile"/>\n \
             </osm-script>', True,False))
         self.addParameter(ParameterExtent(self.EXTENT, 'Extent for {{bbox}} '))
+        self.addParameter(ParameterString(self.NOMINATIM, 'Place for {{nominatim}}','Montpellier', False, True))
         
         self.addOutput(OutputFile(self.OUTPUT_FILE, 'OSM file'))
 
@@ -75,6 +77,8 @@ class OverpassQueryGeoAlgorithm(GeoAlgorithm):
         server = self.getParameterValue(self.SERVER)
         query = self.getParameterValue(self.QUERY_STRING)
         
+        nominatim = self.getParameterValue(self.NOMINATIM)
+        
         #Extent of the layer
         extent = self.getParameterValue(self.EXTENT)
         #default value of processing : 0,1,0,1 
@@ -88,7 +92,7 @@ class OverpassQueryGeoAlgorithm(GeoAlgorithm):
             extent = geomExtent.boundingBox()
 
         #Make some transformation on the query ({{box}}, Nominatim, ...
-        query = Tools.PrepareQueryOqlXml(query,extent)
+        query = Tools.PrepareQueryOqlXml(query,extent,nominatim)
         
         oapi = ConnexionOAPI(url=server,output="xml")
         self.progress.setInfo("Downloading data from Overpass")

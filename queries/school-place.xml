@@ -1,0 +1,25 @@
+<osm-script output="json" timeout="25">
+  <!-- fetch area “montpellier” to search in -->
+  <id-query {{nominatimArea:{{nominatim}}}} into="area"/>
+  <!-- gather results -->
+  <union>
+    <!-- query part for: “amenity=school” -->
+    <query type="node">
+      <has-kv k="amenity" v="school"/>
+      <area-query from="area"/>
+    </query>
+    <query type="way">
+      <has-kv k="amenity" v="school"/>
+      <area-query from="area"/>
+    </query>
+    <query type="relation">
+      <has-kv k="amenity" v="school"/>
+      <area-query from="area"/>
+    </query>
+  </union>
+  <union>
+    <item />
+    <recurse type="down"/>
+  </union>
+  <print mode="meta"/>
+</osm-script>

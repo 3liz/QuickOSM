@@ -19,6 +19,7 @@ class Nominatim:
         '''
         Perform a nominatim query
         '''
+        query = query.encode('utf8')
         params = { 'q': query }
         params['polygon_geojson'] = 0
         url = self.__url + "&" +  urllib.urlencode(params)

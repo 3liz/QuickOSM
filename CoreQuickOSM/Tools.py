@@ -10,7 +10,7 @@ from API.Nominatim import Nominatim
 class Tools:
     
     @staticmethod
-    def PrepareQueryOqlXml(query,extent):
+    def PrepareQueryOqlXml(query,extent,nominatimName):
         '''
         Prepare the query before sending it to Overpassr
         '''
@@ -25,10 +25,16 @@ class Tools:
         nominatimQuery = re.search('{{nominatimArea:(.*)}}', query)
         if nominatimQuery:
             result = nominatimQuery.groups()
+            search = result[0]
             nominatim = Nominatim()
-            osmid = nominatim.getFirstPolygonFromQuery(result[0])
-            print result[0] + " : " + osmid
+            
+            if search == "{{nominatim}}":
+                print nominatimName
+                search = nominatimName
+            
+            osmid = nominatim.getFirstPolygonFromQuery(search)
             area = int(osmid) + 3600000000
+            print area
             newString = '<id-query into="area" ref="'+str(area)+'" type="area"/>'
             query = re.sub(r'<id-query {{nominatimArea:(.*)}} into="area"/>',newString, query)
         
