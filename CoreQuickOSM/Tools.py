@@ -26,15 +26,23 @@ class Tools:
         if nominatimQuery:
             result = nominatimQuery.groups()
             search = result[0]
-            nominatim = Nominatim()
             
-            if search == "{{nominatim}}":
-                print nominatimName
-                search = nominatimName
+            osmid = None
             
-            osmid = nominatim.getFirstPolygonFromQuery(search)
+            #if the result is already a number, it's a relation ID, we don't perform a nominatim query
+            if search.isdigit():
+                osmid = search
+            else:
+                nominatim = Nominatim()
+                
+                #If {{nominatim}}, it's a template, we use the parameter
+                if search == "{{nominatim}}":
+                    search = nominatimName
+                    
+                #We perform a nominatim query
+                osmid = nominatim.getFirstPolygonFromQuery(search)
+            
             area = int(osmid) + 3600000000
-            print area
             newString = '<id-query into="area" ref="'+str(area)+'" type="area"/>'
             query = re.sub(r'<id-query {{nominatimArea:(.*)}} into="area"/>',newString, query)
         
