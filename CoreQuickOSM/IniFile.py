@@ -26,41 +26,39 @@ class IniFile():
         for filePath in files:
             ini = IniFile(filePath)
             if ini.isValid():
-                existingFiles.append(filePath)
+                existingFiles.append(ini)
         return existingFiles
     
     @staticmethod
     def getNamesAndPathsFromFolder(folder):
         existingIniFiles = IniFile.getIniFilesFromFolder(folder)
         result = []
-        for filePath in existingIniFiles:
-            ini = IniFile(filePath)
-            ini.isValid()
-            dic = {}
-            dic['name'] = ini.__name
-            dic['path'] = filePath
-            result.append(dic)
+        for ini in existingIniFiles:
+            result.append({'name': ini.__name, 'path' : ini.__filePath })
         return result
 
     def __init__(self,filePath):
         self.__filePath = filePath
-        self.__bboxTemplate = False
-        self.__nominatimTemplate = False
+        self.__bboxTemplate = None
+        self.__nominatimTemplate = None
 
     def isValid(self):
         #Is it an ini file ?    
         tab = (ntpath.basename(self.__filePath)).split('.')
+        filename = tab[0]
         if tab[1] != "ini":
             #raise Exception, "Not an ini file"
             return False
         
         #Is there another file with the query ?
         directory = dirname(self.__filePath)
-        queryFile = [join(directory, tab[0] + '.' + ext) for ext in IniFile.QUERY_EXTENSIONS if isfile(join(directory, tab[0] + '.' + ext))]
-        
-        if queryFile[0]:
-            self.__queryFile = queryFile[0]
-        else:
+        self.__queryExtension = None
+        self.__queryFile = None
+        for ext in IniFile.QUERY_EXTENSIONS:
+            if isfile(join(directory, filename + '.' + ext)):
+                self.__queryFile = join(directory, filename + '.' + ext)
+                self.__queryExtension = ext
+        if not self.__queryExtension and not self.__queryFile:
             #raise Exception, "No query file (.xml or .oql)"
             return False
         
@@ -73,18 +71,24 @@ class IniFile():
         #Set the name
         self.__name = self.__configSectionMap('metadata')['name']
         
-        query = unicode(open(self.__queryFile, 'r').read(), "utf-8")
-        print query
-        #Check if there is a BBOX template
-        bboxQuery = re.search('<bbox-query {{bbox}}/>',query)
-        if bboxQuery:
-            self.__bboxTemplate = True
-            self.__name = self.__name + " [extent required]"
+        #If XML, check for templates
+        if self.__queryExtension == 'xml':
+            query = unicode(open(self.__queryFile, 'r').read(), "utf-8")
             
-        nominatimQuery = re.search('{{nominatimArea:{{nominatim}}}}', query)
-        if nominatimQuery:
-            self.__nominatimTemplate = True
-            self.__name = self.__name + " [PLACENAME required]"
+            #Check if there is a BBOX template
+            bboxQuery = re.search('<bbox-query {{bbox}}/>',query)
+            if bboxQuery:
+                self.__bboxTemplate = True
+                self.__name = self.__name + " [extent required]"
+            
+            #Check if there is a Nominatim template    
+            nominatimQuery = re.search('{{nominatimArea:{{nominatim}}}}', query)
+            if nominatimQuery:
+                self.__nominatimTemplate = True
+                self.__name = self.__name + " [PLACENAME required]"
+        else:
+            self.__bboxTemplate = False
+            self.__nominatimTemplate = False
             
         return True
         
