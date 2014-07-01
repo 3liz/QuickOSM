@@ -48,14 +48,13 @@ class GetFirstFieldGeoAlgorithm(GeoAlgorithm):
         field = self.getParameterValue(self.FIELD)
         layer = self.getParameterValue(self.VECTOR_LAYER)
         
+        print "layer getFirstField",layer
         vectorLayer = dataobjects.getObjectFromUri(layer)
         features = vector.features(vectorLayer)
         fieldIndex = vector.resolveFieldIndex(vectorLayer, field)
-        print "fieldIndex" + str(fieldIndex)
         
         '''HACK, need to be corrected'''
         for feature in features:
             value = unicode(feature.attributes()[fieldIndex])
-            print value
             self.setOutputValue(self.OUTPUT_VALUE,value)
             break

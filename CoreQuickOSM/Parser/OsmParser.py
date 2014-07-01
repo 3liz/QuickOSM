@@ -39,6 +39,17 @@ class OsmParser(QObject):
         Start parsing the osm file
         '''
         
+        #Delete layers with a "," in the csv
+        #
+        #NEED to skip the layer, do not delete it for processing
+        for layer in self.__whiteListColumn:
+            if self.__whiteListColumn[layer] == ',':
+                try:
+                    self.__layers.remove(layer)
+                except:
+                    pass
+            
+        
         #Configuration for OGR
         current_dir = os.path.dirname(os.path.realpath(__file__))
         osmconf = current_dir + '/osmconf.ini'
