@@ -54,8 +54,8 @@ class OsmParserGeoAlgorithm(GeoAlgorithm):
     def help(self):
         return True, 'Help soon'
     
-    def getIcon(self):
-        return QIcon(dirname(dirname(dirname(abspath(__file__))))+"/icon.png")
+    '''def getIcon(self):
+        return QIcon(dirname(dirname(dirname(abspath(__file__))))+"/icon.png")'''
 
     def processAlgorithm(self, progress):
         self.progress = progress
@@ -76,7 +76,10 @@ class OsmParserGeoAlgorithm(GeoAlgorithm):
                 value = None
             
             if value:
-                whiteListValues[layer] = value.split(',')
+                if value != ',':
+                    whiteListValues[layer] = value.split(',')
+                else:
+                    whiteListValues[layer] = ','
             else:
                 whiteListValues[layer] = None
         

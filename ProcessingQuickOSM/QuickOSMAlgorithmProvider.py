@@ -14,8 +14,10 @@ from API.NominatimQueryGeoAlgorithm import NominatimQueryGeoAlgorithm
 from Tools.ListIniFilesGeoAlgorithm import ListIniFilesGeoAlgorithm
 from Tools.ReadIniFileGeoAlgorithm import ReadIniFileGeoAlgorithm
 from Tools.ReadIniFilePathGeoAlgorithm import ReadIniFilePathGeoAlgorithm
+from Tools.QueryFactoryGeoAlgorithm import QueryFactoryGeoAlgorithm
 from Parser.OsmParserGeoAlgorithm import OsmParserGeoAlgorithm
 from Parser.FirstRelationIdParserGeoAlgorithm import FirstRelationIdParserGeoAlgorithm
+from Tools.GetFirstFieldGeoAlgorithm import GetFirstFieldGeoAlgorithm
 from PyQt4.QtGui import QIcon
 from os.path import dirname,abspath,join
 
@@ -40,7 +42,9 @@ class QuickOSMAlgorithmProvider(AlgorithmProvider):
                         FirstRelationIdParserGeoAlgorithm(),
                         ReadIniFileGeoAlgorithm(),
                         ReadIniFilePathGeoAlgorithm(),
-                        ListIniFilesGeoAlgorithm()
+                        ListIniFilesGeoAlgorithm(),
+                        QueryFactoryGeoAlgorithm(),
+                        GetFirstFieldGeoAlgorithm()
                         ]
         
         for alg in self.alglist:

@@ -154,7 +154,7 @@ class OsmParser(QObject):
                     if attrs[0]:
                         osmType = "relation"
                         newAttrs.append(self.DIC_OSM_TYPE[osmType]+str(attrs[0]))
-                        newAttrs.append(self.DIC_OSM_TYPE[osmType]+str(attrs[0]))
+                        newAttrs.append(str(attrs[0]))
                     else:
                         osmType = "way"
                         newAttrs.append(self.DIC_OSM_TYPE[osmType]+str(attrs[1]))

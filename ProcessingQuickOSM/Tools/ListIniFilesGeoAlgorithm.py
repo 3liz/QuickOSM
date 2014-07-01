@@ -34,7 +34,6 @@ class ListIniFilesGeoAlgorithm(GeoAlgorithm):
         
         folder = join(dirname(dirname(dirname(abspath(__file__)))),"queries")
         self.__files = IniFile.getNamesAndPathsFromFolder(folder)
-        print self.__files
         
         names = [ f['name'] for f in self.__files]
         

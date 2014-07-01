@@ -8,7 +8,7 @@ class QueryFactory():
     
     OSM_TYPES = ['node','way','relation']
 
-    def __init__(self,key = None,value = None,bbox = None,nominatim = None,osmObjects = OSM_TYPES, output = 'xml', timeout='25', printMode = 'body'):
+    def __init__(self,key = None,value = None,bbox = None,nominatim = None,osmObjects = OSM_TYPES, output = 'xml', timeout=25, printMode = 'body'):
         self.__key = key
         self.__value = value
         self.__bbox = bbox
@@ -41,7 +41,7 @@ class QueryFactory():
                 return False, "Wrong OSM object"
           
         #TEST OK, so continue  
-        query = '<osm-script output="'+self.__output+'" timeout="'+self.__timeout+'"> \n'
+        query = '<osm-script output="%s" timeout="%s"> \n' %(self.__output,self.__timeout)
         
         if self.__nominatim:
             query += '\t<id-query {{nominatimArea:'+self.__nominatim+'}} into="area"/> \n'

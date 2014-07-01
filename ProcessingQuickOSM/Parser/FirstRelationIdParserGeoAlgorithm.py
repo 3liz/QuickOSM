@@ -34,8 +34,8 @@ class FirstRelationIdParserGeoAlgorithm(GeoAlgorithm):
     def help(self):
         return True, 'Help soon'
     
-    def getIcon(self):
-        return QIcon(dirname(dirname(dirname(abspath(__file__))))+"/icon.png")
+    '''def getIcon(self):
+        return QIcon(dirname(dirname(dirname(abspath(__file__))))+"/icon.png")'''
 
     def processAlgorithm(self, progress):
         osmFile = self.getParameterValue(self.OSM_FILE)
