@@ -99,7 +99,7 @@ class QuickOSM:
         self.iface.addPluginToMenu(u"&Quick OSM",self.quickQueryAction)
         self.quickQueryDockWidget = QuickQueryDockWidget()
         self.iface.addDockWidget(Qt.RightDockWidgetArea, self.quickQueryDockWidget)
-        self.quickQueryDockWidget.hide()
+        #self.quickQueryDockWidget.hide()
         self.quickQueryDockWidget.setObjectName("quickQueryWidget");
         
         

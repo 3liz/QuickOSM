@@ -34,7 +34,7 @@ class MainWindowDialog(QtGui.QDialog, Ui_MainWindow):
         self.pushButton_OAPI_timestamp.clicked.connect(self.getTimestampOAPI)
         self.comboBox_default_OAPI.currentIndexChanged[int].connect(self.setServerOAPI)
         
-        #Set settings
+        #Set settings about the OAPI
         self.defaultServer = Tools.getSetting('defaultOAPI')
         if self.defaultServer:
             index = self.comboBox_default_OAPI.findText(self.defaultServer)

@@ -23,7 +23,7 @@ class Tools:
         return qs.setValue(prefix + key, value)
     
     @staticmethod
-    def PrepareQueryOqlXml(query,extent,nominatimName):
+    def PrepareQueryOqlXml(query,extent = None, nominatimName = None):
         '''
         Prepare the query before sending it to Overpassr
         '''
