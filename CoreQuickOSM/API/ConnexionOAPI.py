@@ -72,3 +72,14 @@ class ConnexionOAPI:
         except urllib2.HTTPError as e:
             if e.code == 400:
                 raise GeoAlgorithmExecutionException, "Bad request OverpassAPI"
+            
+    def isValid(self):
+        '''
+        Try if the url is valid, NOT TESTED YET
+        '''
+        urlQuery = self.__url + 'interpreter'
+        try:
+            urllib2.urlopen(url=urlQuery)
+            return True
+        except urllib2.HTTPError:
+            return False

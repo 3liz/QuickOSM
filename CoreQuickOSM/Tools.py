@@ -4,10 +4,23 @@ Created on 16 juin 2014
 @author: etienne
 '''
 
+from PyQt4.QtCore import QSettings
 import re
 from API.Nominatim import Nominatim
 
 class Tools:
+
+    @staticmethod
+    def getSetting(key):
+        qs = QSettings()
+        prefix = "/QuickOSM/"
+        return qs.value(prefix + key)
+    
+    @staticmethod
+    def setSetting(key,value):
+        qs = QSettings()
+        prefix = "/QuickOSM/"
+        return qs.setValue(prefix + key, value)
     
     @staticmethod
     def PrepareQueryOqlXml(query,extent,nominatimName):

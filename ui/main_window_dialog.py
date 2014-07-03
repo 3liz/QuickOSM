@@ -22,8 +22,31 @@
 
 from PyQt4 import QtCore,QtGui
 from main_window import Ui_MainWindow
+from QuickOSM.CoreQuickOSM.API.ConnexionOAPI import ConnexionOAPI
+from QuickOSM.CoreQuickOSM.Tools import Tools
 
 class MainWindowDialog(QtGui.QDialog, Ui_MainWindow):
     def __init__(self, parent=None):
         QtGui.QDialog.__init__(self)
         self.setupUi(self)
+        
+        #Connect
+        self.pushButton_OAPI_timestamp.clicked.connect(self.getTimestampOAPI)
+        self.comboBox_default_OAPI.currentIndexChanged[int].connect(self.setServerOAPI)
+        
+        #Set settings
+        self.defaultServer = Tools.getSetting('defaultOAPI')
+        if self.defaultServer:
+            index = self.comboBox_default_OAPI.findText(self.defaultServer)
+            self.comboBox_default_OAPI.setCurrentIndex(index)
+        else:
+            self.defaultServer = self.comboBox_default_OAPI.currentText()
+        
+    def setServerOAPI(self,index):
+        self.defaultServer = self.comboBox_default_OAPI.currentText()
+        Tools.setSetting('defaultOAPI', self.defaultServer)
+        self.getTimestampOAPI()
+        
+    def getTimestampOAPI(self):
+        oapi = ConnexionOAPI(url=self.defaultServer)
+        self.label_timestamp_oapi.setText(oapi.getTimestamp())
