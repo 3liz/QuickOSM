@@ -69,6 +69,10 @@ class OsmParserGeoAlgorithm(GeoAlgorithm):
         for layer in self.LAYERS:
             value = self.getParameterValue(self.WHITE_LIST[layer])
             
+            print value
+            print len(value)
+            print value.__class__.__name__
+            
             #Delete space and tabs in OSM's keys
             #Processing return a 'None' value as unicode
             value = re.sub ('\s', '', value)

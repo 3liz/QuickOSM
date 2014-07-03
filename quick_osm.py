@@ -19,19 +19,21 @@
  *                                                                         *
  ***************************************************************************/
 """
-from PyQt4.QtCore import QSettings, QTranslator, qVersion, QCoreApplication
-from PyQt4.QtGui import QAction, QIcon
+from PyQt4.QtCore import *
+from PyQt4.QtGui import *
+from qgis.core import *
 from processing.core.Processing import Processing
 # Initialize Qt resources from file resources.py
 #import resources_rc
 # Import the code for the dialog
-from quick_osm_dialog import QuickOSMDialog
+from ui.main_window_dialog import MainWindowDialog
+from ui.my_queries_dialog import MyQueriesDockWidget
+from ui.quick_query_dialog import QuickQueryDockWidget
 from ProcessingQuickOSM.QuickOSMAlgorithmProvider import QuickOSMAlgorithmProvider
 import os.path
 
 
 class QuickOSM:
-    """QGIS Plugin Implementation."""
 
     def __init__(self, iface):
         """Constructor.
@@ -43,6 +45,7 @@ class QuickOSM:
         """
         # Save reference to the QGIS interface
         self.iface = iface
+
         # initialize plugin directory
         self.plugin_dir = os.path.dirname(__file__)
         # initialize locale
@@ -59,43 +62,67 @@ class QuickOSM:
             if qVersion() > '4.3.3':
                 QCoreApplication.installTranslator(self.translator)
 
-        # Create the dialog (after translation) and keep reference
-        self.dlg = QuickOSMDialog()
-
-        # Declare instance attributes
-        self.action = None
-
-    def initGui(self):
-        """Create the menu entries and toolbar icons inside the QGIS GUI."""
-        # Create action that will start plugin configuration
-        self.action = QAction(
-            QIcon(os.path.dirname(__file__) +"/icon.png"),
-            u"Quick OSM",
-            self.iface.mainWindow())
-        # connect the action to the run method
-        self.action.triggered.connect(self.run)
-
-        # Add toolbar button and menu item
-        self.iface.addToolBarIcon(self.action)
-        self.iface.addPluginToMenu(
-            u"&Quick OSM",
-            self.action)
-        
         #Add to processing
         self.provider = QuickOSMAlgorithmProvider()
         Processing.addProvider(self.provider, True)
+
+    def initGui(self):
         
-
+        self.mainWindowAction = QAction(
+            QIcon(os.path.dirname(__file__) +"/icon.png"),
+            u"Main Window",
+            self.iface.mainWindow())
+        
+        self.mainWindowAction.triggered.connect(self.openMainWindow)
+        self.iface.addToolBarIcon(self.mainWindowAction)
+        self.iface.addPluginToMenu(u"&Quick OSM",self.mainWindowAction)
+        self.mainWindowDialog = MainWindowDialog()
+        
+        
+        self.myQueriesAction = QAction(
+            QIcon(os.path.dirname(__file__) +"/icon.png"),
+            u"My queries",
+            self.iface.mainWindow())
+        self.myQueriesAction.triggered.connect(self.openMyQueriesDockWidget)
+        self.iface.addPluginToMenu(u"&Quick OSM",self.myQueriesAction)
+        self.myQueriesDockWidget = MyQueriesDockWidget()
+        self.iface.addDockWidget(Qt.RightDockWidgetArea, self.myQueriesDockWidget)
+        self.myQueriesDockWidget.hide()
+        self.myQueriesDockWidget.setObjectName("myQueriesWidget");
+        
+        
+        self.quickQueryAction = QAction(
+            QIcon(os.path.dirname(__file__) +"/icon.png"),
+            u"Quick query",
+            self.iface.mainWindow())
+        self.quickQueryAction.triggered.connect(self.openQuickQueryDockWidget)
+        self.iface.addPluginToMenu(u"&Quick OSM",self.quickQueryAction)
+        self.quickQueryDockWidget = QuickQueryDockWidget()
+        self.iface.addDockWidget(Qt.RightDockWidgetArea, self.quickQueryDockWidget)
+        self.quickQueryDockWidget.hide()
+        self.quickQueryDockWidget.setObjectName("quickQueryWidget");
+        
+        
     def unload(self):
-        """Removes the plugin menu item and icon from QGIS GUI."""
-        self.iface.removePluginMenu(
-            u"&Quick OSM",
-            self.action)
-        self.iface.removeToolBarIcon(self.action)
+        self.iface.removePluginMenu(u"&Quick OSM",self.mainWindowAction)
+        self.iface.removePluginMenu(u"&Quick OSM",self.myQueriesAction)
+        self.iface.removePluginMenu(u"&Quick OSM",self.quickQueryAction)
+        self.iface.removeToolBarIcon(self.mainWindowAction)
         Processing.removeProvider(self.provider)
-
     
-    def run(self):
-        # show the dialog
-        self.dlg.show()
+    def openMainWindow(self):
+        self.provider = QuickOSMAlgorithmProvider()
+        Processing.addProvider(self.provider, True)
+        self.mainWindowDialog.exec_()     
     
+    def openMyQueriesDockWidget(self):
+        if self.myQueriesDockWidget.isVisible():
+            self.myQueriesDockWidget.hide()
+        else:
+            self.myQueriesDockWidget.show()
+            
+    def openQuickQueryDockWidget(self):
+        if self.quickQueryDockWidget.isVisible():
+            self.quickQueryDockWidget.hide()
+        else:
+            self.quickQueryDockWidget.show()

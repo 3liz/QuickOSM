@@ -20,10 +20,6 @@ class QueryFactory():
         
     def make(self):
         
-        '''
-        if not self.__nominatim and not self.__bbox:
-            return False, "Nominatim or bbox required"'''
-        
         if self.__nominatim and self.__bbox:
             return False, "Nominatim OR bbox, not both"
         

@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/plugins/QuickOSM/resources" >
+        <file>general.svg</file>
+    </qresource>
+</RCC>

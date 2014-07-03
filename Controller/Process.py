@@ -4,21 +4,17 @@ Created on 17 juin 2014
 @author: etienne
 '''
 
+from QuickOSM.CoreQuickOSM.QueryFactory import QueryFactory
 
-from CoreQuickOSM.Parser.OsmParser import OsmParser
-from CoreQuickOSM.API.ConnexionOAPI import ConnexionOAPI
-from CoreQuickOSM.Tools import PrepareQueryOqlXml
 
 class Process:
 
+    '''
     @staticmethod
     def execute(query,\
                 url = "http://overpass-api.de/api/",\
                 layers = ['points','lines','multilinestrings','multipolygons','other_relations'],\
                 whiteList = None):
-        '''
-        Process which takes all the GUI's options and execute the process
-        '''
         
         query = PrepareQueryOqlXml(query)
         oapi = ConnexionOAPI()
@@ -27,3 +23,8 @@ class Process:
         layers = parser.parse()
         
         return layers
+    '''
+    
+    @staticmethod
+    def ProcessQuickQuery(self,key = None,value = None,bbox = None,nominatim = None,osmObjects = None, timeout=25):
+        queryFactory = QueryFactory(key=key,value=value,bbox=bbox,nominatim=nominatim,osmObjects)

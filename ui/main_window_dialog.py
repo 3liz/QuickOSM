@@ -20,21 +20,10 @@
  ***************************************************************************/
 """
 
-import os
+from PyQt4 import QtCore,QtGui
+from main_window import Ui_MainWindow
 
-from PyQt4 import QtGui, uic
-
-FORM_CLASS, _ = uic.loadUiType(os.path.join(
-    os.path.dirname(__file__), 'quick_osm_dialog_base.ui'))
-
-
-class QuickOSMDialog(QtGui.QDialog, FORM_CLASS):
+class MainWindowDialog(QtGui.QDialog, Ui_MainWindow):
     def __init__(self, parent=None):
-        """Constructor."""
-        super(QuickOSMDialog, self).__init__(parent)
-        # Set up the user interface from Designer.
-        # After setupUI you can access any designer object by doing
-        # self.<objectname>, and you can use autoconnect slots - see
-        # http://qt-project.org/doc/qt-4.8/designer-using-a-ui-file.html
-        # #widgets-and-dialogs-with-auto-connect
+        QtGui.QDialog.__init__(self)
         self.setupUi(self)

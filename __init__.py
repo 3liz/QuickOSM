@@ -23,6 +23,7 @@ This script initializes the plugin, making it known to QGIS.
 
 from ProcessingQuickOSM import *
 from CoreQuickOSM import *
+from ui import *
 
 def classFactory(iface):
     from quick_osm import QuickOSM
