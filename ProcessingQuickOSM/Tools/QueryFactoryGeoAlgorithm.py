@@ -45,8 +45,8 @@ class QueryFactoryGeoAlgorithm(GeoAlgorithm):
         self.addParameter(ParameterExtent(self.FIELD_EXTENT, 'Extent',))
         self.addParameter(ParameterString(self.FIELD_NOMINATIM, 'Nominatim',optional=True))
         
-        osm_objects = ['node','way','relation','all']
-        self.addParameter(ParameterSelection(self.FIELD_OSM_OBJECTS, 'OSM objects', osm_objects, default=3))
+        #osm_objects = ['node','way','relation','all']
+        #self.addParameter(ParameterSelection(self.FIELD_OSM_OBJECTS, 'OSM objects', osm_objects, default=3))
         
         self.addParameter(ParameterNumber(self.FIELD_TIMEOUT, 'Timeout',minValue=20, default=25))        
         
@@ -70,10 +70,8 @@ class QueryFactoryGeoAlgorithm(GeoAlgorithm):
         if value == '' or value =='None':
             value = None
         
-        osmObjects = self.getParameterValue(self.FIELD_OSM_OBJECTS)
+        #osmObjects = self.getParameterValue(self.FIELD_OSM_OBJECTS)
         timeout = self.getParameterValue(self.FIELD_TIMEOUT)
-        
-
         
         #Missing extent BBOX
         #Missing OSMObjects

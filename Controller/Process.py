@@ -32,7 +32,7 @@ class Process:
     '''
     
     @staticmethod
-    def ProcessQuickQuery(key = None,value = None,bbox = None,nominatim = None,osmObjects = None, timeout=25, output=None):
+    def ProcessQuickQuery(key = None,value = None,bbox = None,nominatim = None,osmObjects = None, timeout=25, outputDir=None, prefixFile=None):
         
         queryFactory = QueryFactory(key=key,value=value,bbox=bbox,nominatim=nominatim,osmObjects=osmObjects)
         query = queryFactory.make()
@@ -48,18 +48,22 @@ class Process:
                 
         for layer,item in layers.iteritems():
             if item['featureCount']:
-                outputLayerFile = None
-                if not output:
-                    outputLayerFile = getTempFilenameInTempFolder("_"+layer+"_quickosm.shp")
-                else:
-                    tab = (ntpath.basename(output)).split('.')
-                    outputLayerFile = tab[0] + "_" + layer + "." + tab[1]
-                    
+                
                 layerName = ''
                 for i in [key,value,nominatim]:
                     if i:
-                        layerName += i + " "
-                    
+                        layerName += i + "_"
+                layerName = layerName[:-1]
+                
+                outputLayerFile = None
+                if not outputDir:
+                    outputLayerFile = getTempFilenameInTempFolder("_"+layer+"_quickosm.shp")
+                else:
+                    if not prefixFile:
+                        prefixFile = layerName
+                        
+                    outputLayerFile = os.path.join(outputDir,prefixFile + "_" + layer + ".shp")
+                  
                 ogr2ogr(["","-f", "ESRI Shapefile", outputLayerFile, item["geojsonFile"]])
                 newlayer = QgsVectorLayer(outputLayerFile,layerName,"ogr")
                 QgsMapLayerRegistry.instance().addMapLayer(newlayer)

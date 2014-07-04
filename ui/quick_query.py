@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'quick_query.ui'
 #
-# Created: Thu Jul  3 16:44:23 2014
+# Created: Fri Jul  4 10:24:30 2014
 #      by: PyQt4 UI code generator 4.10.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -26,7 +26,7 @@ except AttributeError:
 class Ui_Form(object):
     def setupUi(self, Form):
         Form.setObjectName(_fromUtf8("Form"))
-        Form.resize(286, 276)
+        Form.resize(666, 580)
         self.verticalLayout = QtGui.QVBoxLayout(Form)
         self.verticalLayout.setObjectName(_fromUtf8("verticalLayout"))
         self.formLayout = QtGui.QFormLayout()
@@ -89,18 +89,30 @@ class Ui_Form(object):
         self.formLayout.setWidget(7, QtGui.QFormLayout.LabelRole, self.label_4)
         self.horizontalLayout = QtGui.QHBoxLayout()
         self.horizontalLayout.setObjectName(_fromUtf8("horizontalLayout"))
-        self.lineEdit_browseFile = QtGui.QLineEdit(Form)
-        self.lineEdit_browseFile.setObjectName(_fromUtf8("lineEdit_browseFile"))
-        self.horizontalLayout.addWidget(self.lineEdit_browseFile)
+        self.lineEdit_browseDir = QtGui.QLineEdit(Form)
+        self.lineEdit_browseDir.setObjectName(_fromUtf8("lineEdit_browseDir"))
+        self.horizontalLayout.addWidget(self.lineEdit_browseDir)
         self.pushButton_browse_output_file = QtGui.QPushButton(Form)
         self.pushButton_browse_output_file.setObjectName(_fromUtf8("pushButton_browse_output_file"))
         self.horizontalLayout.addWidget(self.pushButton_browse_output_file)
         self.formLayout.setLayout(7, QtGui.QFormLayout.FieldRole, self.horizontalLayout)
-        self.buttonBox = QtGui.QDialogButtonBox(Form)
-        self.buttonBox.setStandardButtons(QtGui.QDialogButtonBox.Cancel|QtGui.QDialogButtonBox.Ok)
-        self.buttonBox.setObjectName(_fromUtf8("buttonBox"))
-        self.formLayout.setWidget(8, QtGui.QFormLayout.FieldRole, self.buttonBox)
+        self.label_6 = QtGui.QLabel(Form)
+        self.label_6.setObjectName(_fromUtf8("label_6"))
+        self.formLayout.setWidget(8, QtGui.QFormLayout.LabelRole, self.label_6)
+        self.lineEdit_filePrefix = QtGui.QLineEdit(Form)
+        self.lineEdit_filePrefix.setObjectName(_fromUtf8("lineEdit_filePrefix"))
+        self.formLayout.setWidget(8, QtGui.QFormLayout.FieldRole, self.lineEdit_filePrefix)
         self.verticalLayout.addLayout(self.formLayout)
+        self.horizontalLayout_2 = QtGui.QHBoxLayout()
+        self.horizontalLayout_2.setSizeConstraint(QtGui.QLayout.SetMinimumSize)
+        self.horizontalLayout_2.setObjectName(_fromUtf8("horizontalLayout_2"))
+        self.pushButton_showQuery = QtGui.QPushButton(Form)
+        self.pushButton_showQuery.setObjectName(_fromUtf8("pushButton_showQuery"))
+        self.horizontalLayout_2.addWidget(self.pushButton_showQuery)
+        self.pushButton_runQuery = QtGui.QPushButton(Form)
+        self.pushButton_runQuery.setObjectName(_fromUtf8("pushButton_runQuery"))
+        self.horizontalLayout_2.addWidget(self.pushButton_runQuery)
+        self.verticalLayout.addLayout(self.horizontalLayout_2)
 
         self.retranslateUi(Form)
         QtCore.QMetaObject.connectSlotsByName(Form)
@@ -108,13 +120,19 @@ class Ui_Form(object):
     def retranslateUi(self, Form):
         Form.setWindowTitle(_translate("Form", "Form", None))
         self.label.setText(_translate("Form", "Key", None))
+        self.lineEdit_key.setText(_translate("Form", "shop", None))
         self.label_2.setText(_translate("Form", "Value", None))
+        self.lineEdit_value.setText(_translate("Form", "supermarket", None))
         self.label_3.setText(_translate("Form", "Place", None))
+        self.lineEdit_nominatim.setText(_translate("Form", "montpellier", None))
         self.label_7.setText(_translate("Form", "Node", None))
         self.label_8.setText(_translate("Form", "Way", None))
         self.label_9.setText(_translate("Form", "Relation", None))
         self.label_5.setText(_translate("Form", "Timeout", None))
-        self.label_4.setText(_translate("Form", "File", None))
-        self.lineEdit_browseFile.setPlaceholderText(_translate("Form", "Save to temporary file", None))
+        self.label_4.setText(_translate("Form", "Directory", None))
+        self.lineEdit_browseDir.setPlaceholderText(_translate("Form", "Save to temporary file", None))
         self.pushButton_browse_output_file.setText(_translate("Form", "Browse", None))
+        self.label_6.setText(_translate("Form", "File prefix", None))
+        self.pushButton_showQuery.setText(_translate("Form", "Show query", None))
+        self.pushButton_runQuery.setText(_translate("Form", "Run query", None))
 

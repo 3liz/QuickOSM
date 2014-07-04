@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>286</width>
-    <height>276</height>
+    <width>666</width>
+    <height>580</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -27,7 +27,11 @@
       </widget>
      </item>
      <item row="0" column="1">
-      <widget class="QLineEdit" name="lineEdit_key"/>
+      <widget class="QLineEdit" name="lineEdit_key">
+       <property name="text">
+        <string>shop</string>
+       </property>
+      </widget>
      </item>
      <item row="1" column="0">
       <widget class="QLabel" name="label_2">
@@ -37,7 +41,11 @@
       </widget>
      </item>
      <item row="1" column="1">
-      <widget class="QLineEdit" name="lineEdit_value"/>
+      <widget class="QLineEdit" name="lineEdit_value">
+       <property name="text">
+        <string>supermarket</string>
+       </property>
+      </widget>
      </item>
      <item row="2" column="0">
       <widget class="QLabel" name="label_3">
@@ -47,7 +55,11 @@
       </widget>
      </item>
      <item row="2" column="1">
-      <widget class="QLineEdit" name="lineEdit_nominatim"/>
+      <widget class="QLineEdit" name="lineEdit_nominatim">
+       <property name="text">
+        <string>montpellier</string>
+       </property>
+      </widget>
      </item>
      <item row="3" column="0">
       <widget class="QLabel" name="label_7">
@@ -126,14 +138,14 @@
      <item row="7" column="0">
       <widget class="QLabel" name="label_4">
        <property name="text">
-        <string>File</string>
+        <string>Directory</string>
        </property>
       </widget>
      </item>
      <item row="7" column="1">
       <layout class="QHBoxLayout" name="horizontalLayout">
        <item>
-        <widget class="QLineEdit" name="lineEdit_browseFile">
+        <widget class="QLineEdit" name="lineEdit_browseDir">
          <property name="placeholderText">
           <string>Save to temporary file</string>
          </property>
@@ -148,10 +160,34 @@
        </item>
       </layout>
      </item>
+     <item row="8" column="0">
+      <widget class="QLabel" name="label_6">
+       <property name="text">
+        <string>File prefix</string>
+       </property>
+      </widget>
+     </item>
      <item row="8" column="1">
-      <widget class="QDialogButtonBox" name="buttonBox">
-       <property name="standardButtons">
-        <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+      <widget class="QLineEdit" name="lineEdit_filePrefix"/>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout_2">
+     <property name="sizeConstraint">
+      <enum>QLayout::SetMinimumSize</enum>
+     </property>
+     <item>
+      <widget class="QPushButton" name="pushButton_showQuery">
+       <property name="text">
+        <string>Show query</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="pushButton_runQuery">
+       <property name="text">
+        <string>Run query</string>
        </property>
       </widget>
      </item>
