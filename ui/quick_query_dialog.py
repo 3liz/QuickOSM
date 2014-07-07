@@ -31,6 +31,9 @@ from qgis.utils import iface
 
 class QuickQueryWidget(QWidget, Ui_Form):
     def __init__(self, parent=None):
+        '''
+        QuickQueryWidget constructor
+        '''
         QWidget.__init__(self)
         self.setupUi(self)
         
@@ -44,6 +47,9 @@ class QuickQueryWidget(QWidget, Ui_Form):
         self.lineEdit_browseDir.textEdited.connect(self.disablePrefixFile)
 
     def disablePrefixFile(self):
+        '''
+        If the directory is empty, we disable the file prefix
+        '''
         if self.lineEdit_browseDir.text():
             self.lineEdit_filePrefix.setDisabled(False)
         else:
@@ -51,14 +57,21 @@ class QuickQueryWidget(QWidget, Ui_Form):
             self.lineEdit_filePrefix.setDisabled(True)
         
     def setOutDirPath(self):
+        '''
+        Fill the output directory path
+        '''
         outputFile = QFileDialog.getExistingDirectory(None, caption=QApplication.translate("QuickOSM", 'Select directory'))
         self.lineEdit_browseDir.setText(outputFile)
+        self.disablePrefixFile()
         
     def runQuery(self):
-        #Block the button
+        '''
+        Process for running the query
+        '''
+        #Block the button and save the initial text
         self.pushButton_runQuery.setDisabled(True)
         self.pushButton_runQuery.initialText = self.pushButton_runQuery.text()
-        self.pushButton_runQuery.setText("Running query ...")
+        self.pushButton_runQuery.setText(QApplication.translate("QuickOSM","Running query ..."))
         
         #Get all values
         key = unicode(self.lineEdit_key.text())
@@ -68,35 +81,37 @@ class QuickQueryWidget(QWidget, Ui_Form):
         outputDir = self.lineEdit_browseDir.text()
         prefixFile = self.lineEdit_filePrefix.text()
         
-        #Test values
-        if outputDir and os.path.isdir(outputDir):
-            msg = u"The output directory does not exist."
-            iface.messageBar().pushMessage(msg, level=QgsMessageBar.CRITICAL , duration=5)
-        else:
-            osmObjects = []
-            if self.checkBox_node.isChecked():
-                osmObjects.append('node')
-            if self.checkBox_way.isChecked():
-                osmObjects.append('way')
-            if self.checkBox_relation.isChecked():
-                osmObjects.append('relation')
-    
-            #miss bbox
-            if not Process.ProcessQuickQuery(key=key, value=value, nominatim=nominatim, osmObjects=osmObjects, timeout=timeout, outputDir=outputDir, prefixFile=prefixFile):
-                msg = u"Error"
-                iface.messageBar().pushMessage(msg, level=QgsMessageBar.CRITICAL , duration=5)
-
-        #Resetting the button
-        msg = u"Successful query !"
-        iface.messageBar().pushMessage(msg, level=QgsMessageBar.INFO , duration=5)
+        osmObjects = []
+        if self.checkBox_node.isChecked():
+            osmObjects.append('node')
+        if self.checkBox_way.isChecked():
+            osmObjects.append('way')
+        if self.checkBox_relation.isChecked():
+            osmObjects.append('relation')
         
-        self.pushButton_runQuery.setDisabled(False)
-        self.pushButton_runQuery.setText(self.pushButton_runQuery.initialText)
+        
+        try:
+            #Test values
+            if outputDir and not os.path.isdir(outputDir):
+                msg = u"The output directory does not exist."
+                raise Exception, msg
+
+            #miss bbox
+            Process.ProcessQuickQuery(key=key, value=value, nominatim=nominatim, osmObjects=osmObjects, timeout=timeout, outputDir=outputDir, prefixFile=prefixFile)
+            msg = u"Successful query !"
+            iface.messageBar().pushMessage(msg, level=QgsMessageBar.INFO , duration=5)
+        except Exception:
+            msg = u"Error"
+            iface.messageBar().pushMessage(msg, level=QgsMessageBar.CRITICAL , duration=5)
+        finally:
+            #Resetting the button
+            self.pushButton_runQuery.setDisabled(False)
+            self.pushButton_runQuery.setText(self.pushButton_runQuery.initialText)
         
     def showQuery(self):
         msg = u"Sorry man, not implemented yet ! ;-)"
         iface.messageBar().pushMessage(msg, level=QgsMessageBar.CRITICAL , duration=5)
-
+        
 
 class QuickQueryDockWidget(QDockWidget):
     def __init__(self, parent=None):

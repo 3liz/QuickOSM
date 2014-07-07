@@ -40,9 +40,13 @@ class Process:
         #missing extent
         query = Tools.PrepareQueryOqlXml(query=query, nominatimName = nominatim)
         
+        #Getting the default OAPI and running the query
+        ####PUT THE DEFAULT SERVER, without crashing
+        server = Tools.getSetting('defaultOAPI')
         connexionOAPI = ConnexionOAPI(output = "xml")
         osmFile = connexionOAPI.getFileFromQuery(query)
-        print osmFile
+        
+        #Parsing the file
         osmParser = OsmParser(osmFile)
         layers = osmParser.parse()
                 
@@ -55,16 +59,25 @@ class Process:
                         layerName += i + "_"
                 layerName = layerName[:-1]
                 
+                #Setting the output
                 outputLayerFile = None
                 if not outputDir:
+                    #if no directory, get a temporary shapefile
                     outputLayerFile = getTempFilenameInTempFolder("_"+layer+"_quickosm.shp")
                 else:
                     if not prefixFile:
                         prefixFile = layerName
                         
                     outputLayerFile = os.path.join(outputDir,prefixFile + "_" + layer + ".shp")
+                    
+                    if os.path.isfile(outputLayerFile):
+                        raise Exception, "outfile already exist, set a prefix"  
                   
-                ogr2ogr(["","-f", "ESRI Shapefile", outputLayerFile, item["geojsonFile"]])
+                #Transforming the vector file
+                if not ogr2ogr(["","-f", "ESRI Shapefile", outputLayerFile, item["geojsonFile"]]):
+                    raise Exception, "ogr2ogr error"                   
+                
+                #Loading the final vector file
                 newlayer = QgsVectorLayer(outputLayerFile,layerName,"ogr")
                 QgsMapLayerRegistry.instance().addMapLayer(newlayer)
                 

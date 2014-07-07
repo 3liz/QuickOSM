@@ -4,10 +4,11 @@ Created on 4 juil. 2014
 @author: etienne
 '''
 
-class QuickOsmException(Exception):
+from processing.core.GeoAlgorithmExecutionException import GeoAlgorithmExecutionException
+
+class QuickOsmException(GeoAlgorithmExecutionException):
     def __init__(self,msg):
-        Exception.__init__(self)
-        self.msg = msg
+        GeoAlgorithmExecutionException.__init__(self,msg)
 
 class DirectoryException(Exception):
     def __init__(self, msg):
