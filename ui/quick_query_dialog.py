@@ -99,7 +99,7 @@ class QuickQueryWidget(QWidget, Ui_Form):
                 raise DirectoryOutPutException
 
             #miss bbox
-            Process.ProcessQuickQuery(key=key, value=value, nominatim=nominatim, osmObjects=osmObjects, timeout=timeout, outputDir=outputDir, prefixFile=prefixFile, progressBar=self.progressBar_execution)
+            Process.ProcessQuickQuery(key=key, value=value, nominatim=nominatim, osmObjects=osmObjects, timeout=timeout, outputDir=outputDir, prefixFile=prefixFile)
             msg = u"Successful query !"
             iface.messageBar().pushMessage(msg, level=QgsMessageBar.INFO , duration=5)
         
@@ -110,6 +110,9 @@ class QuickQueryWidget(QWidget, Ui_Form):
             exc_type, exc_obj, exc_tb = sys.exc_info()
             fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
             print(exc_type, fname, exc_tb.tb_lineno)
+            ex_type, ex, tb = sys.exc_info()
+            import traceback
+            traceback.print_tb(tb)
             iface.messageBar().pushMessage("Erreur dans la console python", level=QgsMessageBar.CRITICAL , duration=5)
         
         finally:
