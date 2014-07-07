@@ -73,6 +73,9 @@ class QuickQueryWidget(QWidget, Ui_Form):
         self.pushButton_runQuery.setDisabled(True)
         self.pushButton_runQuery.initialText = self.pushButton_runQuery.text()
         self.pushButton_runQuery.setText(QApplication.translate("QuickOSM","Running query ..."))
+        self.progressBar_execution.setMinimum(0)
+        self.progressBar_execution.setMaximum(0)
+        self.progressBar_execution.setValue(0)
         
         #Get all values
         key = unicode(self.lineEdit_key.text())
@@ -96,7 +99,7 @@ class QuickQueryWidget(QWidget, Ui_Form):
                 raise DirectoryOutPutException
 
             #miss bbox
-            Process.ProcessQuickQuery(key=key, value=value, nominatim=nominatim, osmObjects=osmObjects, timeout=timeout, outputDir=outputDir, prefixFile=prefixFile)
+            Process.ProcessQuickQuery(key=key, value=value, nominatim=nominatim, osmObjects=osmObjects, timeout=timeout, outputDir=outputDir, prefixFile=prefixFile, progressBar=self.progressBar_execution)
             msg = u"Successful query !"
             iface.messageBar().pushMessage(msg, level=QgsMessageBar.INFO , duration=5)
         

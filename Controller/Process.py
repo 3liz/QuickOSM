@@ -44,7 +44,7 @@ class Process:
     '''
     
     @staticmethod
-    def ProcessQuickQuery(key = None,value = None,bbox = None,nominatim = None,osmObjects = None, timeout=25, outputDir=None, prefixFile=None):
+    def ProcessQuickQuery(progressBar = None, key = None,value = None,bbox = None,nominatim = None,osmObjects = None, timeout=25, outputDir=None, prefixFile=None):
         
         layerName = ''
         for i in [key,value,nominatim]:
