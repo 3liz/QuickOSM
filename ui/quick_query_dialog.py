@@ -106,8 +106,11 @@ class QuickQueryWidget(QWidget, Ui_Form):
         except GeoAlgorithmExecutionException,e:
             iface.messageBar().pushMessage(e.msg, level=QgsMessageBar.CRITICAL , duration=5)
         except Exception,e:
-            print e
-            iface.messageBar().pushMessage("Error", level=QgsMessageBar.CRITICAL , duration=5)
+            import sys, os
+            exc_type, exc_obj, exc_tb = sys.exc_info()
+            fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
+            print(exc_type, fname, exc_tb.tb_lineno)
+            iface.messageBar().pushMessage("Erreur dans la console python", level=QgsMessageBar.CRITICAL , duration=5)
         
         finally:
             #Resetting the button
