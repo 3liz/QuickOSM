@@ -30,7 +30,7 @@ class GetFirstFieldGeoAlgorithm(GeoAlgorithm):
     OUTPUT_VALUE = 'OUTPUT_VALUE'
         
     def defineCharacteristics(self):
-        self.name = "Get first attribute of a field"
+        self.name = "Get first field of an attribue"
         self.group = "Tools"
         
         self.addParameter(ParameterVector(self.VECTOR_LAYER, 'Vector layer',[ParameterVector.VECTOR_TYPE_ANY], True))
