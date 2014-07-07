@@ -90,7 +90,6 @@ class QuickQueryWidget(QWidget, Ui_Form):
         if self.checkBox_relation.isChecked():
             osmObjects.append('relation')
         
-        
         try:
             #Test values
             if outputDir and not os.path.isdir(outputDir):

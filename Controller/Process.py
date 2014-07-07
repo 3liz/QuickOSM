@@ -11,7 +11,18 @@ from QuickOSM.CoreQuickOSM.Parser.OsmParser import OsmParser
 from QuickOSM.CoreQuickOSM.ExceptionQuickOSM import FileOutPutException,Ogr2OgrException
 from processing.tools.system import *
 from qgis.core import QgsMapLayerRegistry
-from processing.algs.gdal.pyogr.ogr2ogr import main as ogr2ogr
+
+#Processing >=2.4
+try:
+    from processing.algs.gdal.pyogr.ogr2ogr import main as ogr2ogr
+except ImportError:
+    pass
+
+#Processing >=2.0
+try:
+    from processing.gdal.pyogr.ogr2ogr import main as ogr2ogr
+except ImportError:
+    pass
 import ntpath
 
 class Process:
@@ -35,16 +46,23 @@ class Process:
     @staticmethod
     def ProcessQuickQuery(key = None,value = None,bbox = None,nominatim = None,osmObjects = None, timeout=25, outputDir=None, prefixFile=None):
         
+        layerName = ''
+        for i in [key,value,nominatim]:
+            if i:
+                layerName += i + "_"
+        layerName = layerName[:-1]
+        
+        #Building the query
         queryFactory = QueryFactory(key=key,value=value,bbox=bbox,nominatim=nominatim,osmObjects=osmObjects)
         query = queryFactory.make()
         
+        #Replace Nominatim or BBOX
         #missing extent
         query = Tools.PrepareQueryOqlXml(query=query, nominatimName = nominatim)
         
         #Getting the default OAPI and running the query
-        ####PUT THE DEFAULT SERVER, without crashing
         server = Tools.getSetting('defaultOAPI')
-        connexionOAPI = ConnexionOAPI(output = "xml")
+        connexionOAPI = ConnexionOAPI(url=server,output = "xml")
         osmFile = connexionOAPI.getFileFromQuery(query)
         
         #Parsing the file
@@ -53,12 +71,6 @@ class Process:
                 
         for layer,item in layers.iteritems():
             if item['featureCount']:
-                
-                layerName = ''
-                for i in [key,value,nominatim]:
-                    if i:
-                        layerName += i + "_"
-                layerName = layerName[:-1]
                 
                 #Setting the output
                 outputLayerFile = None
