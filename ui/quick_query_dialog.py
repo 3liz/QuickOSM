@@ -25,6 +25,7 @@ from PyQt4.QtGui import *
 from qgis.gui import QgsMessageBar
 from quick_query import Ui_Form      
 from QuickOSM.Controller.Process import Process
+from QuickOSM.CoreQuickOSM.ExceptionQuickOSM import *
 import os
 from qgis.utils import iface
 
@@ -93,16 +94,19 @@ class QuickQueryWidget(QWidget, Ui_Form):
         try:
             #Test values
             if outputDir and not os.path.isdir(outputDir):
-                msg = u"The output directory does not exist."
-                raise Exception, msg
+                raise DirectoryOutPutException
 
             #miss bbox
             Process.ProcessQuickQuery(key=key, value=value, nominatim=nominatim, osmObjects=osmObjects, timeout=timeout, outputDir=outputDir, prefixFile=prefixFile)
             msg = u"Successful query !"
             iface.messageBar().pushMessage(msg, level=QgsMessageBar.INFO , duration=5)
-        except Exception:
-            msg = u"Error"
-            iface.messageBar().pushMessage(msg, level=QgsMessageBar.CRITICAL , duration=5)
+        
+        except GeoAlgorithmExecutionException,e:
+            iface.messageBar().pushMessage(e.msg, level=QgsMessageBar.CRITICAL , duration=5)
+        except Exception,e:
+            print e
+            iface.messageBar().pushMessage("Error", level=QgsMessageBar.CRITICAL , duration=5)
+        
         finally:
             #Resetting the button
             self.pushButton_runQuery.setDisabled(False)

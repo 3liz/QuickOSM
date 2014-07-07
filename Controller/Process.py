@@ -8,6 +8,7 @@ from QuickOSM.CoreQuickOSM.QueryFactory import QueryFactory
 from QuickOSM.CoreQuickOSM.Tools import Tools
 from QuickOSM.CoreQuickOSM.API.ConnexionOAPI import ConnexionOAPI
 from QuickOSM.CoreQuickOSM.Parser.OsmParser import OsmParser
+from QuickOSM.CoreQuickOSM.ExceptionQuickOSM import FileOutPutException,Ogr2OgrException
 from processing.tools.system import *
 from qgis.core import QgsMapLayerRegistry
 from processing.algs.gdal.pyogr.ogr2ogr import main as ogr2ogr
@@ -71,11 +72,11 @@ class Process:
                     outputLayerFile = os.path.join(outputDir,prefixFile + "_" + layer + ".shp")
                     
                     if os.path.isfile(outputLayerFile):
-                        raise Exception, "outfile already exist, set a prefix"  
+                        raise FileOutPutException
                   
                 #Transforming the vector file
                 if not ogr2ogr(["","-f", "ESRI Shapefile", outputLayerFile, item["geojsonFile"]]):
-                    raise Exception, "ogr2ogr error"                   
+                    raise Ogr2OgrException               
                 
                 #Loading the final vector file
                 newlayer = QgsVectorLayer(outputLayerFile,layerName,"ogr")

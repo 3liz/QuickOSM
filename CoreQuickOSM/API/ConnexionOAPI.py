@@ -5,6 +5,7 @@ Created on 4 juin 2014
 '''
 
 from processing.core.GeoAlgorithmExecutionException import GeoAlgorithmExecutionException
+from QuickOSM.CoreQuickOSM.ExceptionQuickOSM import OverpassBadRequestException,OutPutFormatException,OverpassTimeoutException
 import urllib2
 import urllib
 import re
@@ -19,7 +20,7 @@ class ConnexionOAPI:
         self.__url = url
 
         if output not in (None, "json","xml"):
-            raise Exception, "Output not available"
+            raise OutPutFormatException
         self.__output = output
         
     def query(self,req):
@@ -40,13 +41,12 @@ class ConnexionOAPI:
             data = urllib2.urlopen(url=urlQuery, data=queryString).read()
         except urllib2.HTTPError as e:
             if e.code == 400:
-                raise GeoAlgorithmExecutionException, "Bad request OverpassAPI"
-        #print req 
+                raise OverpassBadRequestException
+
         result = re.search('<remark> runtime error: Query timed out in "[a-z]+" at line [\d]+ after ([\d]+) seconds. </remark>', data)
         if result:
             result = result.groups()
-            #print "Timeout : " + result[0]
-            raise GeoAlgorithmExecutionException, "Timeout OverpassAPI"
+            raise OverpassTimeoutException
             
         return data
             
@@ -71,7 +71,7 @@ class ConnexionOAPI:
             return urllib2.urlopen(url=urlQuery).read()
         except urllib2.HTTPError as e:
             if e.code == 400:
-                raise GeoAlgorithmExecutionException, "Bad request OverpassAPI"
+                raise OverpassBadRequestException
             
     def isValid(self):
         '''
