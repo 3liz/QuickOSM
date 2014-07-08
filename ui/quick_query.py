@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'quick_query.ui'
 #
-# Created: Tue Jul  8 15:14:41 2014
+# Created: Tue Jul  8 16:09:08 2014
 #      by: PyQt4 UI code generator 4.10.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -44,12 +44,24 @@ class Ui_Form(object):
         self.lineEdit_value = QtGui.QLineEdit(Form)
         self.lineEdit_value.setObjectName(_fromUtf8("lineEdit_value"))
         self.formLayout.setWidget(1, QtGui.QFormLayout.FieldRole, self.lineEdit_value)
+        self.lineEdit_nominatim = QtGui.QLineEdit(Form)
+        self.lineEdit_nominatim.setObjectName(_fromUtf8("lineEdit_nominatim"))
+        self.formLayout.setWidget(3, QtGui.QFormLayout.FieldRole, self.lineEdit_nominatim)
+        self.radioButton_bbox = QtGui.QRadioButton(Form)
+        self.radioButton_bbox.setText(_fromUtf8(""))
+        self.radioButton_bbox.setObjectName(_fromUtf8("radioButton_bbox"))
+        self.formLayout.setWidget(4, QtGui.QFormLayout.LabelRole, self.radioButton_bbox)
         self.label_3 = QtGui.QLabel(Form)
         self.label_3.setObjectName(_fromUtf8("label_3"))
         self.formLayout.setWidget(2, QtGui.QFormLayout.LabelRole, self.label_3)
-        self.lineEdit_nominatim = QtGui.QLineEdit(Form)
-        self.lineEdit_nominatim.setObjectName(_fromUtf8("lineEdit_nominatim"))
-        self.formLayout.setWidget(2, QtGui.QFormLayout.FieldRole, self.lineEdit_nominatim)
+        self.label_13 = QtGui.QLabel(Form)
+        self.label_13.setObjectName(_fromUtf8("label_13"))
+        self.formLayout.setWidget(4, QtGui.QFormLayout.FieldRole, self.label_13)
+        self.radioButton_place = QtGui.QRadioButton(Form)
+        self.radioButton_place.setText(_fromUtf8(""))
+        self.radioButton_place.setChecked(True)
+        self.radioButton_place.setObjectName(_fromUtf8("radioButton_place"))
+        self.formLayout.setWidget(3, QtGui.QFormLayout.LabelRole, self.radioButton_place)
         self.verticalLayout.addLayout(self.formLayout)
         self.groupBox = QgsCollapsibleGroupBox(Form)
         self.groupBox.setChecked(False)
@@ -175,8 +187,9 @@ class Ui_Form(object):
         self.lineEdit_key.setText(_translate("Form", "shop", None))
         self.label_2.setText(_translate("Form", "Value", None))
         self.lineEdit_value.setText(_translate("Form", "supermarket", None))
-        self.label_3.setText(_translate("Form", "Place", None))
         self.lineEdit_nominatim.setText(_translate("Form", "montpellier", None))
+        self.label_3.setText(_translate("Form", "In", None))
+        self.label_13.setText(_translate("Form", "Extent of the map canvas", None))
         self.groupBox.setTitle(_translate("Form", "Advanced", None))
         self.label_7.setText(_translate("Form", "Node", None))
         self.label_8.setText(_translate("Form", "Way", None))

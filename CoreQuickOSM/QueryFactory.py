@@ -4,6 +4,8 @@ Created on 27 juin 2014
 @author: etienne
 '''
 
+from qgis.core import QgsRectangle
+
 class QueryFactory():
     
     OSM_TYPES = ['node','way','relation']
@@ -26,7 +28,7 @@ class QueryFactory():
         if self.__nominatim == '{{nominatim}}' or self.__nominatim == True:
             self.__nominatim = '{{nominatim}}'
             
-        if self.__bbox == '{{bbox}}' or self.__bbox == True:
+        if self.__bbox == '{{bbox}}' or self.__bbox == True or isinstance(self.__bbox, QgsRectangle):
             self.__bbox = '{{bbox}}'
         
         if not self.__key:

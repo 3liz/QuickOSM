@@ -63,6 +63,7 @@ class Tools:
         bboxQuery = re.search('<bbox-query {{bbox}}/>',query)
         if bboxQuery:
             newString = '<bbox-query e="'+str(extent.xMaximum())+'" n="'+str(extent.yMaximum())+'" s="'+str(extent.yMinimum())+'" w="'+str(extent.xMinimum())+'"/>'
+            print newString
             query = re.sub(r'<bbox-query {{bbox}}/>',newString, query)
         
         return query

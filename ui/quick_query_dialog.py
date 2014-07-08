@@ -23,6 +23,7 @@
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 from qgis.gui import QgsMessageBar
+from qgis.core import *
 from quick_query import Ui_Form      
 from QuickOSM.Controller.Process import Process
 from QuickOSM.CoreQuickOSM.ExceptionQuickOSM import *
@@ -41,12 +42,22 @@ class QuickQueryWidget(QWidget, Ui_Form):
         #Setup UI
         self.lineEdit_filePrefix.setDisabled(True)
         self.groupBox.setCollapsed(True)
+        self.bbox = None
                
         #connect
         self.pushButton_runQuery.clicked.connect(self.runQuery)
         self.pushButton_showQuery.clicked.connect(self.showQuery)
         self.pushButton_browse_output_file.clicked.connect(self.setOutDirPath)
         self.lineEdit_browseDir.textEdited.connect(self.disablePrefixFile)
+        self.radioButton_bbox.toggled.connect(self.bboxOrPlace)
+ 
+    def bboxOrPlace(self):
+        if self.radioButton_bbox.isChecked():
+            self.lineEdit_nominatim.setDisabled(True)
+            self.bbox = True
+        else:
+            self.lineEdit_nominatim.setDisabled(False)
+            self.bbox = None
 
     def disablePrefixFile(self):
         '''
@@ -89,6 +100,17 @@ class QuickQueryWidget(QWidget, Ui_Form):
         outputDir = self.lineEdit_browseDir.text()
         prefixFile = self.lineEdit_filePrefix.text()
         
+        #If bbox, we must set None to nominatim, we can't have both
+        if self.bbox:
+            nominatim = None
+            geomExtent = QgsGeometry.fromRect(iface.mapCanvas().extent())
+            sourceCrs = iface.mapCanvas().mapRenderer().destinationCrs()
+            crsTransform = QgsCoordinateTransform(sourceCrs, QgsCoordinateReferenceSystem("EPSG:4326"))
+            geomExtent.transform(crsTransform)
+            self.bbox = geomExtent.boundingBox()
+            print self.bbox
+        
+        #Which geometry at the end ?
         outputGeomTypes = []
         if self.checkBox_points.isChecked():
             outputGeomTypes.append('points')
@@ -98,6 +120,7 @@ class QuickQueryWidget(QWidget, Ui_Form):
         if self.checkBox_multipolygons.isChecked():
             outputGeomTypes.append('multipolygons')
         
+        #Which osm's objects ?
         osmObjects = []
         if self.checkBox_node.isChecked():
             osmObjects.append('node')
@@ -111,8 +134,7 @@ class QuickQueryWidget(QWidget, Ui_Form):
             if outputDir and not os.path.isdir(outputDir):
                 raise DirectoryOutPutException
 
-            #miss bbox
-            Process.ProcessQuickQuery(dialog = self, key=key, value=value, nominatim=nominatim, osmObjects=osmObjects, timeout=timeout, outputDir=outputDir, prefixFile=prefixFile,outputGeomTypes=outputGeomTypes)
+            Process.ProcessQuickQuery(dialog = self, key=key, value=value, nominatim=nominatim, bbox=self.bbox, osmObjects=osmObjects, timeout=timeout, outputDir=outputDir, prefixFile=prefixFile,outputGeomTypes=outputGeomTypes)
             msg = u"Successful query !"
             iface.messageBar().pushMessage(msg, level=QgsMessageBar.INFO , duration=5)
         

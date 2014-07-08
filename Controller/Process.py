@@ -80,7 +80,7 @@ class Process:
         
         #Replace Nominatim or BBOX
         #missing extent
-        query = Tools.PrepareQueryOqlXml(query=query, nominatimName = nominatim)
+        query = Tools.PrepareQueryOqlXml(query=query, nominatimName = nominatim, extent=bbox)
         
         #Getting the default OAPI and running the query
         server = Tools.getSetting('defaultOAPI')
