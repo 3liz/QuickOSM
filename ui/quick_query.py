@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'quick_query.ui'
 #
-# Created: Mon Jul  7 14:42:08 2014
+# Created: Tue Jul  8 11:31:35 2014
 #      by: PyQt4 UI code generator 4.10.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -113,6 +113,10 @@ class Ui_Form(object):
         self.pushButton_runQuery.setObjectName(_fromUtf8("pushButton_runQuery"))
         self.horizontalLayout_2.addWidget(self.pushButton_runQuery)
         self.verticalLayout.addLayout(self.horizontalLayout_2)
+        self.label_progress = QtGui.QLabel(Form)
+        self.label_progress.setText(_fromUtf8(""))
+        self.label_progress.setObjectName(_fromUtf8("label_progress"))
+        self.verticalLayout.addWidget(self.label_progress)
         self.progressBar_execution = QtGui.QProgressBar(Form)
         self.progressBar_execution.setProperty("value", 0)
         self.progressBar_execution.setObjectName(_fromUtf8("progressBar_execution"))

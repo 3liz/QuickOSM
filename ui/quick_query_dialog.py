@@ -70,12 +70,15 @@ class QuickQueryWidget(QWidget, Ui_Form):
         Process for running the query
         '''
         #Block the button and save the initial text
+        QApplication.setOverrideCursor(Qt.WaitCursor)
         self.pushButton_runQuery.setDisabled(True)
         self.pushButton_runQuery.initialText = self.pushButton_runQuery.text()
         self.pushButton_runQuery.setText(QApplication.translate("QuickOSM","Running query ..."))
         self.progressBar_execution.setMinimum(0)
         self.progressBar_execution.setMaximum(0)
         self.progressBar_execution.setValue(0)
+        self.label_progress.setText("")
+        QApplication.processEvents()
         
         #Get all values
         key = unicode(self.lineEdit_key.text())
@@ -99,14 +102,14 @@ class QuickQueryWidget(QWidget, Ui_Form):
                 raise DirectoryOutPutException
 
             #miss bbox
-            Process.ProcessQuickQuery(key=key, value=value, nominatim=nominatim, osmObjects=osmObjects, timeout=timeout, outputDir=outputDir, prefixFile=prefixFile)
+            Process.ProcessQuickQuery(dialog = self, key=key, value=value, nominatim=nominatim, osmObjects=osmObjects, timeout=timeout, outputDir=outputDir, prefixFile=prefixFile)
             msg = u"Successful query !"
             iface.messageBar().pushMessage(msg, level=QgsMessageBar.INFO , duration=5)
         
         except GeoAlgorithmExecutionException,e:
-            iface.messageBar().pushMessage(e.msg, level=QgsMessageBar.CRITICAL , duration=5)
+            iface.messageBar().pushMessage(e.msg, level=QgsMessageBar.CRITICAL , duration=7)
         except Exception,e:
-            import sys, os
+            import sys
             exc_type, exc_obj, exc_tb = sys.exc_info()
             fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
             print(exc_type, fname, exc_tb.tb_lineno)
@@ -119,11 +122,24 @@ class QuickQueryWidget(QWidget, Ui_Form):
             #Resetting the button
             self.pushButton_runQuery.setDisabled(False)
             self.pushButton_runQuery.setText(self.pushButton_runQuery.initialText)
+            self.progressBar_execution.setMinimum(0)
+            self.progressBar_execution.setMaximum(100)
+            self.progressBar_execution.setValue(100)
+            self.label_progress.setText("Successful query !")
+            QApplication.restoreOverrideCursor()
+            QApplication.processEvents()
         
     def showQuery(self):
         msg = u"Sorry man, not implemented yet ! ;-)"
         iface.messageBar().pushMessage(msg, level=QgsMessageBar.CRITICAL , duration=5)
         
+    def setProgressPercentage(self,percent):
+        self.progressBar_execution.setValue(percent)
+        QApplication.processEvents()
+        
+    def setProgressText(self,text):
+        self.label_progress.setText(text)
+        QApplication.processEvents()
 
 class QuickQueryDockWidget(QDockWidget):
     def __init__(self, parent=None):

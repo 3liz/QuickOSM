@@ -36,7 +36,9 @@ class DirectoryOutPutException(GeoAlgorithmExecutionException):
         self.errorNumber = 30
         
 class FileOutPutException(GeoAlgorithmExecutionException):
-    def __init__(self,msg=u"The output file already exist, set a prefix"):
+    def __init__(self,msg=u"The output file already exist, set a prefix",suffix=None):
+        if suffix:
+            msg = msg + " " + suffix
         GeoAlgorithmExecutionException.__init__(self,msg)
         self.errorNumber = 31
         

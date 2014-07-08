@@ -18,8 +18,9 @@ class OsmParser(QObject):
     #Signal text
     signalText = pyqtSignal(str, name='signalText')
     
-    #Layers available in the OGR driver for OSM
+    #Layers available in the OGR driver for OSM, other_relations is useless without specific parser
     OSM_LAYERS = ['points','lines','multilinestrings','multipolygons','other_relations']
+    OSM_LAYERS = ['points','lines','multilinestrings','multipolygons']
     
     #Dict to build the full ID of an object
     DIC_OSM_TYPE = {'node':'n', 'way':'w', 'relation':'r'}
