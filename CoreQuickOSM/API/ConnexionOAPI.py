@@ -17,6 +17,9 @@ class ConnexionOAPI:
     '''
 
     def __init__(self,url="http://overpass-api.de/api/", output = None):
+        if not url:
+            url="http://overpass-api.de/api/"
+            
         self.__url = url
 
         if output not in (None, "json","xml"):

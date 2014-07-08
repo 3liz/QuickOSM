@@ -41,6 +41,7 @@ class MainWindowDialog(QtGui.QDialog, Ui_MainWindow):
             self.comboBox_default_OAPI.setCurrentIndex(index)
         else:
             self.defaultServer = self.comboBox_default_OAPI.currentText()
+            Tools.setSetting('defaultOAPI', self.defaultServer)
         
     def setServerOAPI(self,index):
         self.defaultServer = self.comboBox_default_OAPI.currentText()
