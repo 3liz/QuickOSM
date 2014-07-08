@@ -40,6 +40,7 @@ class QuickQueryWidget(QWidget, Ui_Form):
         
         #Setup UI
         self.lineEdit_filePrefix.setDisabled(True)
+        self.groupBox.setCollapsed(True)
                
         #connect
         self.pushButton_runQuery.clicked.connect(self.runQuery)
@@ -88,6 +89,15 @@ class QuickQueryWidget(QWidget, Ui_Form):
         outputDir = self.lineEdit_browseDir.text()
         prefixFile = self.lineEdit_filePrefix.text()
         
+        outputGeomTypes = []
+        if self.checkBox_points.isChecked():
+            outputGeomTypes.append('points')
+        if self.checkBox_lines.isChecked():
+            outputGeomTypes.append('lines')
+            outputGeomTypes.append('multilinestrings')
+        if self.checkBox_multipolygons.isChecked():
+            outputGeomTypes.append('multipolygons')
+        
         osmObjects = []
         if self.checkBox_node.isChecked():
             osmObjects.append('node')
@@ -102,7 +112,7 @@ class QuickQueryWidget(QWidget, Ui_Form):
                 raise DirectoryOutPutException
 
             #miss bbox
-            Process.ProcessQuickQuery(dialog = self, key=key, value=value, nominatim=nominatim, osmObjects=osmObjects, timeout=timeout, outputDir=outputDir, prefixFile=prefixFile)
+            Process.ProcessQuickQuery(dialog = self, key=key, value=value, nominatim=nominatim, osmObjects=osmObjects, timeout=timeout, outputDir=outputDir, prefixFile=prefixFile,outputGeomTypes=outputGeomTypes)
             msg = u"Successful query !"
             iface.messageBar().pushMessage(msg, level=QgsMessageBar.INFO , duration=5)
         

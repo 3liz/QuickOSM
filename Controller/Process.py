@@ -46,7 +46,7 @@ class Process:
     '''
     
     @staticmethod
-    def ProcessQuickQuery(dialog = None, key = None,value = None,bbox = None,nominatim = None,osmObjects = None, timeout=25, outputDir=None, prefixFile=None):
+    def ProcessQuickQuery(dialog = None, key = None,value = None,bbox = None,nominatim = None,osmObjects = None, timeout=25, outputDir=None, prefixFile=None, outputGeomTypes=None):
         
         #Set the layername
         layerName = ''
@@ -89,7 +89,7 @@ class Process:
         osmFile = connexionOAPI.getFileFromQuery(query)
         
         #Parsing the file
-        osmParser = OsmParser(osmFile)
+        osmParser = OsmParser(osmFile, layers=outputGeomTypes)
         osmParser.signalText.connect(dialog.setProgressText)
         osmParser.signalPercentage.connect(dialog.setProgressPercentage)
         layers = osmParser.parse()
@@ -99,7 +99,7 @@ class Process:
         for i, (layer,item) in enumerate(layers.iteritems()):
             dialog.setProgressPercentage(i/len(layers)*100)  
             QApplication.processEvents()
-            if item['featureCount']:
+            if item['featureCount'] and layer in outputGeomTypes:
                 #Transforming the vector file
                 if not ogr2ogr(["","-f", "ESRI Shapefile", outputs[layer], item["geojsonFile"]]):
                     raise Ogr2OgrException               
