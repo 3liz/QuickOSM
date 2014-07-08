@@ -83,6 +83,8 @@ class QuickQueryWidget(QWidget, Ui_Form):
         '''
         #Block the button and save the initial text
         QApplication.setOverrideCursor(Qt.WaitCursor)
+        self.pushButton_browse_output_file.setDisabled(True)
+        self.pushButton_showQuery.setDisabled(True)
         self.pushButton_runQuery.setDisabled(True)
         self.pushButton_runQuery.initialText = self.pushButton_runQuery.text()
         self.pushButton_runQuery.setText(QApplication.translate("QuickOSM","Running query ..."))
@@ -108,7 +110,9 @@ class QuickQueryWidget(QWidget, Ui_Form):
             crsTransform = QgsCoordinateTransform(sourceCrs, QgsCoordinateReferenceSystem("EPSG:4326"))
             geomExtent.transform(crsTransform)
             self.bbox = geomExtent.boundingBox()
-            print self.bbox
+        
+        if nominatim == '':
+            nominatim = None
         
         #Which geometry at the end ?
         outputGeomTypes = []
@@ -134,9 +138,11 @@ class QuickQueryWidget(QWidget, Ui_Form):
             if outputDir and not os.path.isdir(outputDir):
                 raise DirectoryOutPutException
 
-            Process.ProcessQuickQuery(dialog = self, key=key, value=value, nominatim=nominatim, bbox=self.bbox, osmObjects=osmObjects, timeout=timeout, outputDir=outputDir, prefixFile=prefixFile,outputGeomTypes=outputGeomTypes)
-            msg = u"Successful query !"
-            iface.messageBar().pushMessage(msg, level=QgsMessageBar.INFO , duration=5)
+            numLayers = Process.ProcessQuickQuery(dialog = self, key=key, value=value, nominatim=nominatim, bbox=self.bbox, osmObjects=osmObjects, timeout=timeout, outputDir=outputDir, prefixFile=prefixFile,outputGeomTypes=outputGeomTypes)
+            if numLayers:
+                iface.messageBar().pushMessage(u"Successful query !", level=QgsMessageBar.INFO , duration=5)
+            else:
+                iface.messageBar().pushMessage(u"Successful query, but no result.", level=QgsMessageBar.WARNING , duration=7)
         
         except GeoAlgorithmExecutionException,e:
             iface.messageBar().pushMessage(e.msg, level=QgsMessageBar.CRITICAL , duration=7)
@@ -152,6 +158,8 @@ class QuickQueryWidget(QWidget, Ui_Form):
         
         finally:
             #Resetting the button
+            self.pushButton_browse_output_file.setDisabled(False)
+            self.pushButton_showQuery.setDisabled(False)
             self.pushButton_runQuery.setDisabled(False)
             self.pushButton_runQuery.setText(self.pushButton_runQuery.initialText)
             self.progressBar_execution.setMinimum(0)

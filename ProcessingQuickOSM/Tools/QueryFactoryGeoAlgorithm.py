@@ -69,13 +69,15 @@ class QueryFactoryGeoAlgorithm(GeoAlgorithm):
         
         if value == '' or value =='None':
             value = None
+            
+        if extent != "0,1,0,1" or extent == None or extent == u"None":
+            extent = None
         
         #osmObjects = self.getParameterValue(self.FIELD_OSM_OBJECTS)
         timeout = self.getParameterValue(self.FIELD_TIMEOUT)
         
-        #Missing extent BBOX
         #Missing OSMObjects
-        queryFactory = QueryFactory(key = key, value = value, nominatim = nominatim,timeout=timeout)
+        queryFactory = QueryFactory(key = key, value = value, nominatim = nominatim, bbox=extent,timeout=timeout)
         query = queryFactory.make()
         
         self.setOutputValue(self.OUTPUT_QUERY,query)

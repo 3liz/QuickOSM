@@ -85,6 +85,7 @@ class Process:
         #Getting the default OAPI and running the query
         server = Tools.getSetting('defaultOAPI')
         dialog.setProgressText("Downloading data from Overpass")
+        QApplication.processEvents()
         connexionOAPI = ConnexionOAPI(url=server,output = "xml")
         osmFile = connexionOAPI.getFileFromQuery(query)
         
@@ -95,6 +96,7 @@ class Process:
         layers = osmParser.parse()
         
         #Geojson to shapefile
+        numLayers = 0
         dialog.setProgressText("Transformation from GeoJSON to Shapefile")  
         for i, (layer,item) in enumerate(layers.iteritems()):
             dialog.setProgressPercentage(i/len(layers)*100)  
@@ -107,5 +109,6 @@ class Process:
                 #Loading the final vector file
                 newlayer = QgsVectorLayer(outputs[layer],layerName,"ogr")
                 QgsMapLayerRegistry.instance().addMapLayer(newlayer)
+                numLayers += 1
                 
-        return True
+        return numLayers
