@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>MainWindow</class>
- <widget class="QDialog" name="MainWindow">
+ <class>ui_main_window</class>
+ <widget class="QDialog" name="ui_main_window">
   <property name="windowModality">
    <enum>Qt::WindowModal</enum>
   </property>
@@ -197,6 +197,11 @@
    <container>1</container>
   </customwidget>
  </customwidgets>
+ <tabstops>
+  <tabstop>pushButton_OAPI_timestamp</tabstop>
+  <tabstop>comboBox_default_OAPI</tabstop>
+  <tabstop>listWidget</tabstop>
+ </tabstops>
  <resources/>
  <connections>
   <connection>

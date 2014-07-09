@@ -24,14 +24,14 @@ from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 from qgis.gui import QgsMessageBar
 from qgis.core import *
-from quick_query import Ui_Form      
+from quick_query import Ui_ui_quick_query      
 from QuickOSM.Controller.Process import Process
 from QuickOSM.CoreQuickOSM.ExceptionQuickOSM import *
 import os
 from qgis.utils import iface
 
 
-class QuickQueryWidget(QWidget, Ui_Form):
+class QuickQueryWidget(QWidget, Ui_ui_quick_query):
     def __init__(self, parent=None):
         '''
         QuickQueryWidget constructor
@@ -40,6 +40,7 @@ class QuickQueryWidget(QWidget, Ui_Form):
         self.setupUi(self)
         
         #Setup UI
+        self.pushButton_showQuery.hide()
         self.lineEdit_filePrefix.setDisabled(True)
         self.groupBox.setCollapsed(True)
         self.bbox = None
@@ -145,7 +146,7 @@ class QuickQueryWidget(QWidget, Ui_Form):
                 iface.messageBar().pushMessage(u"Successful query, but no result.", level=QgsMessageBar.WARNING , duration=7)
         
         except GeoAlgorithmExecutionException,e:
-            iface.messageBar().pushMessage(e.msg, level=QgsMessageBar.CRITICAL , duration=7)
+            iface.messageBar().pushMessage(QApplication.translate("Exception", e.msg), level=QgsMessageBar.CRITICAL , duration=7)
         except Exception,e:
             import sys
             exc_type, exc_obj, exc_tb = sys.exc_info()
@@ -154,7 +155,7 @@ class QuickQueryWidget(QWidget, Ui_Form):
             ex_type, ex, tb = sys.exc_info()
             import traceback
             traceback.print_tb(tb)
-            iface.messageBar().pushMessage("Erreur dans la console python", level=QgsMessageBar.CRITICAL , duration=5)
+            iface.messageBar().pushMessage("Error in the python console, please report it", level=QgsMessageBar.CRITICAL , duration=5)
         
         finally:
             #Resetting the button
@@ -171,6 +172,7 @@ class QuickQueryWidget(QWidget, Ui_Form):
         
     def showQuery(self):
         msg = u"Sorry man, not implemented yet ! ;-)"
+        QApplication.translate("Exception", msg)
         iface.messageBar().pushMessage(msg, level=QgsMessageBar.CRITICAL , duration=5)
         
     def setProgressPercentage(self,percent):
@@ -187,4 +189,4 @@ class QuickQueryDockWidget(QDockWidget):
         self.setAllowedAreas(Qt.LeftDockWidgetArea | Qt.RightDockWidgetArea)
         self.widget = QuickQueryWidget()
         self.setWidget(self.widget)
-        self.setWindowTitle(QApplication.translate("Form", "Quick query"))
+        self.setWindowTitle(QApplication.translate("ui_quick_query", "Quick query"))

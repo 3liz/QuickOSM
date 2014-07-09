@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'main_window.ui'
 #
-# Created: Thu Jul  3 10:52:42 2014
+# Created: Wed Jul  9 14:58:23 2014
 #      by: PyQt4 UI code generator 4.10.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -23,14 +23,14 @@ except AttributeError:
     def _translate(context, text, disambig):
         return QtGui.QApplication.translate(context, text, disambig)
 
-class Ui_MainWindow(object):
-    def setupUi(self, MainWindow):
-        MainWindow.setObjectName(_fromUtf8("MainWindow"))
-        MainWindow.setWindowModality(QtCore.Qt.WindowModal)
-        MainWindow.resize(701, 513)
-        self.gridLayout = QtGui.QGridLayout(MainWindow)
+class Ui_ui_main_window(object):
+    def setupUi(self, ui_main_window):
+        ui_main_window.setObjectName(_fromUtf8("ui_main_window"))
+        ui_main_window.setWindowModality(QtCore.Qt.WindowModal)
+        ui_main_window.resize(701, 513)
+        self.gridLayout = QtGui.QGridLayout(ui_main_window)
         self.gridLayout.setObjectName(_fromUtf8("gridLayout"))
-        self.listWidget = QtGui.QListWidget(MainWindow)
+        self.listWidget = QtGui.QListWidget(ui_main_window)
         sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Expanding)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -54,7 +54,7 @@ class Ui_MainWindow(object):
         item.setIcon(icon)
         self.listWidget.addItem(item)
         self.gridLayout.addWidget(self.listWidget, 0, 0, 1, 1)
-        self.stackedWidget = QtGui.QStackedWidget(MainWindow)
+        self.stackedWidget = QtGui.QStackedWidget(ui_main_window)
         sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Preferred, QtGui.QSizePolicy.Preferred)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -97,30 +97,32 @@ class Ui_MainWindow(object):
         self.stackedWidget.addWidget(self.parameters)
         self.gridLayout.addWidget(self.stackedWidget, 0, 1, 1, 1)
 
-        self.retranslateUi(MainWindow)
+        self.retranslateUi(ui_main_window)
         self.listWidget.setCurrentRow(-1)
         self.stackedWidget.setCurrentIndex(2)
         QtCore.QObject.connect(self.listWidget, QtCore.SIGNAL(_fromUtf8("currentRowChanged(int)")), self.stackedWidget.setCurrentIndex)
-        QtCore.QMetaObject.connectSlotsByName(MainWindow)
+        QtCore.QMetaObject.connectSlotsByName(ui_main_window)
+        ui_main_window.setTabOrder(self.pushButton_OAPI_timestamp, self.comboBox_default_OAPI)
+        ui_main_window.setTabOrder(self.comboBox_default_OAPI, self.listWidget)
 
-    def retranslateUi(self, MainWindow):
-        MainWindow.setWindowTitle(_translate("MainWindow", "Quick OSM", None))
+    def retranslateUi(self, ui_main_window):
+        ui_main_window.setWindowTitle(_translate("ui_main_window", "Quick OSM", None))
         __sortingEnabled = self.listWidget.isSortingEnabled()
         self.listWidget.setSortingEnabled(False)
         item = self.listWidget.item(0)
-        item.setText(_translate("MainWindow", "My queries", None))
+        item.setText(_translate("ui_main_window", "My queries", None))
         item = self.listWidget.item(1)
-        item.setText(_translate("MainWindow", "Quick query", None))
+        item.setText(_translate("ui_main_window", "Quick query", None))
         item = self.listWidget.item(2)
-        item.setText(_translate("MainWindow", "Parameters", None))
+        item.setText(_translate("ui_main_window", "Parameters", None))
         self.listWidget.setSortingEnabled(__sortingEnabled)
-        self.groupBox.setTitle(_translate("MainWindow", "Overpass API", None))
-        self.pushButton_OAPI_timestamp.setText(_translate("MainWindow", "Get timestamp", None))
-        self.label_timestamp_oapi.setText(_translate("MainWindow", "unknow", None))
-        self.comboBox_default_OAPI.setItemText(0, _translate("MainWindow", "http://www.overpass-api.de/api/", None))
-        self.comboBox_default_OAPI.setItemText(1, _translate("MainWindow", "http://overpass.osm.rambler.ru/cgi/", None))
-        self.comboBox_default_OAPI.setItemText(2, _translate("MainWindow", "http://api.openstreetmap.fr/oapi/", None))
-        self.label.setText(_translate("MainWindow", "Server", None))
+        self.groupBox.setTitle(_translate("ui_main_window", "Overpass API", None))
+        self.pushButton_OAPI_timestamp.setText(_translate("ui_main_window", "Get timestamp", None))
+        self.label_timestamp_oapi.setText(_translate("ui_main_window", "unknow", None))
+        self.comboBox_default_OAPI.setItemText(0, _translate("ui_main_window", "http://www.overpass-api.de/api/", None))
+        self.comboBox_default_OAPI.setItemText(1, _translate("ui_main_window", "http://overpass.osm.rambler.ru/cgi/", None))
+        self.comboBox_default_OAPI.setItemText(2, _translate("ui_main_window", "http://api.openstreetmap.fr/oapi/", None))
+        self.label.setText(_translate("ui_main_window", "Server", None))
 
 from quick_query_dialog import QuickQueryWidget
 from my_queries_dialog import MyQueriesWidget

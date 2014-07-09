@@ -97,7 +97,7 @@ class Process:
         
         #Geojson to shapefile
         numLayers = 0
-        dialog.setProgressText("Transformation from GeoJSON to Shapefile")  
+        dialog.setProgressText("From GeoJSON to Shapefile")  
         for i, (layer,item) in enumerate(layers.iteritems()):
             dialog.setProgressPercentage(i/len(layers)*100)  
             QApplication.processEvents()

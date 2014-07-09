@@ -21,11 +21,11 @@
 """
 
 from PyQt4 import QtCore,QtGui
-from main_window import Ui_MainWindow
+from main_window import Ui_ui_main_window
 from QuickOSM.CoreQuickOSM.API.ConnexionOAPI import ConnexionOAPI
 from QuickOSM.CoreQuickOSM.Tools import Tools
 
-class MainWindowDialog(QtGui.QDialog, Ui_MainWindow):
+class MainWindowDialog(QtGui.QDialog, Ui_ui_main_window):
     def __init__(self, parent=None):
         QtGui.QDialog.__init__(self)
         self.setupUi(self)

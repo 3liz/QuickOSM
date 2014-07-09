@@ -22,9 +22,9 @@
 
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
-from my_queries import Ui_Form
+from my_queries import Ui_ui_my_queries
 
-class MyQueriesWidget(QWidget, Ui_Form):
+class MyQueriesWidget(QWidget, Ui_ui_my_queries):
     def __init__(self, parent=None):
         QWidget.__init__(self)
         self.setupUi(self)
@@ -34,4 +34,4 @@ class MyQueriesDockWidget(QDockWidget):
         QDockWidget.__init__(self)
         self.setAllowedAreas(Qt.LeftDockWidgetArea | Qt.RightDockWidgetArea)
         self.setWidget(MyQueriesWidget())
-        self.setWindowTitle(QApplication.translate("Form", "My queries"))
+        self.setWindowTitle(QApplication.translate("ui_my_queries", "My queries"))

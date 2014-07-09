@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'my_queries.ui'
 #
-# Created: Wed Jul  2 11:58:39 2014
+# Created: Wed Jul  9 14:58:28 2014
 #      by: PyQt4 UI code generator 4.10.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -23,23 +23,23 @@ except AttributeError:
     def _translate(context, text, disambig):
         return QtGui.QApplication.translate(context, text, disambig)
 
-class Ui_Form(object):
-    def setupUi(self, Form):
-        Form.setObjectName(_fromUtf8("Form"))
-        Form.resize(225, 262)
+class Ui_ui_my_queries(object):
+    def setupUi(self, ui_my_queries):
+        ui_my_queries.setObjectName(_fromUtf8("ui_my_queries"))
+        ui_my_queries.resize(432, 468)
         sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Preferred, QtGui.QSizePolicy.Preferred)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(Form.sizePolicy().hasHeightForWidth())
-        Form.setSizePolicy(sizePolicy)
-        Form.setMinimumSize(QtCore.QSize(225, 262))
-        self.verticalLayout = QtGui.QVBoxLayout(Form)
+        sizePolicy.setHeightForWidth(ui_my_queries.sizePolicy().hasHeightForWidth())
+        ui_my_queries.setSizePolicy(sizePolicy)
+        ui_my_queries.setMinimumSize(QtCore.QSize(225, 262))
+        self.verticalLayout = QtGui.QVBoxLayout(ui_my_queries)
         self.verticalLayout.setObjectName(_fromUtf8("verticalLayout"))
-        self.scrollArea = QtGui.QScrollArea(Form)
+        self.scrollArea = QtGui.QScrollArea(ui_my_queries)
         self.scrollArea.setWidgetResizable(True)
         self.scrollArea.setObjectName(_fromUtf8("scrollArea"))
         self.scrollAreaWidgetContents = QtGui.QWidget()
-        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 211, 219))
+        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 418, 425))
         self.scrollAreaWidgetContents.setObjectName(_fromUtf8("scrollAreaWidgetContents"))
         self.verticalLayout_2 = QtGui.QVBoxLayout(self.scrollAreaWidgetContents)
         self.verticalLayout_2.setObjectName(_fromUtf8("verticalLayout_2"))
@@ -94,20 +94,20 @@ class Ui_Form(object):
         self.verticalLayout_2.addLayout(self.horizontalLayout_3)
         self.scrollArea.setWidget(self.scrollAreaWidgetContents)
         self.verticalLayout.addWidget(self.scrollArea)
-        self.buttonBox = QtGui.QDialogButtonBox(Form)
+        self.buttonBox = QtGui.QDialogButtonBox(ui_my_queries)
         self.buttonBox.setOrientation(QtCore.Qt.Horizontal)
         self.buttonBox.setStandardButtons(QtGui.QDialogButtonBox.Cancel|QtGui.QDialogButtonBox.Ok)
         self.buttonBox.setCenterButtons(False)
         self.buttonBox.setObjectName(_fromUtf8("buttonBox"))
         self.verticalLayout.addWidget(self.buttonBox)
 
-        self.retranslateUi(Form)
-        QtCore.QMetaObject.connectSlotsByName(Form)
+        self.retranslateUi(ui_my_queries)
+        QtCore.QMetaObject.connectSlotsByName(ui_my_queries)
 
-    def retranslateUi(self, Form):
-        Form.setWindowTitle(_translate("Form", "Form", None))
-        self.radioButton.setText(_translate("Form", "Extent map canvas", None))
-        self.radioButton_2.setText(_translate("Form", "Extent of a layer", None))
-        self.radioButton_3.setText(_translate("Form", "City place", None))
-        self.pushButton.setText(_translate("Form", "Browse", None))
+    def retranslateUi(self, ui_my_queries):
+        ui_my_queries.setWindowTitle(_translate("ui_my_queries", "Form", None))
+        self.radioButton.setText(_translate("ui_my_queries", "Extent map canvas", None))
+        self.radioButton_2.setText(_translate("ui_my_queries", "Extent of a layer", None))
+        self.radioButton_3.setText(_translate("ui_my_queries", "City place", None))
+        self.pushButton.setText(_translate("ui_my_queries", "Browse", None))
 
