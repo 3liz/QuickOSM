@@ -141,12 +141,12 @@ class QuickQueryWidget(QWidget, Ui_ui_quick_query):
 
             numLayers = Process.ProcessQuickQuery(dialog = self, key=key, value=value, nominatim=nominatim, bbox=self.bbox, osmObjects=osmObjects, timeout=timeout, outputDir=outputDir, prefixFile=prefixFile,outputGeomTypes=outputGeomTypes)
             if numLayers:
-                iface.messageBar().pushMessage(u"Successful query !", level=QgsMessageBar.INFO , duration=5)
+                iface.messageBar().pushMessage(QApplication.translate("QuickOSM",u"Successful query !"), level=QgsMessageBar.INFO , duration=5)
             else:
-                iface.messageBar().pushMessage(u"Successful query, but no result.", level=QgsMessageBar.WARNING , duration=7)
+                iface.messageBar().pushMessage(QApplication.translate("QuickOSM", u"Successful query, but no result."), level=QgsMessageBar.WARNING , duration=7)
         
         except GeoAlgorithmExecutionException,e:
-            iface.messageBar().pushMessage(QApplication.translate("Exception", e.msg), level=QgsMessageBar.CRITICAL , duration=7)
+            iface.messageBar().pushMessage(e.msg, level=QgsMessageBar.CRITICAL , duration=7)
         except Exception,e:
             import sys
             exc_type, exc_obj, exc_tb = sys.exc_info()
@@ -166,13 +166,13 @@ class QuickQueryWidget(QWidget, Ui_ui_quick_query):
             self.progressBar_execution.setMinimum(0)
             self.progressBar_execution.setMaximum(100)
             self.progressBar_execution.setValue(100)
-            self.label_progress.setText("Successful query !")
+            self.label_progress.setText(QApplication.translate("QuickOSM",u"Successful query !"))
             QApplication.restoreOverrideCursor()
             QApplication.processEvents()
         
     def showQuery(self):
         msg = u"Sorry man, not implemented yet ! ;-)"
-        QApplication.translate("Exception", msg)
+        msg = QApplication.translate("Exception", msg)
         iface.messageBar().pushMessage(msg, level=QgsMessageBar.CRITICAL , duration=5)
         
     def setProgressPercentage(self,percent):

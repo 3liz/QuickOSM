@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from qgis.core import QgsVectorLayer, QgsFeature, QgsField, QgsFields, QgsVectorFileWriter
 from PyQt4.QtCore import *
+from PyQt4.QtGui import QApplication
 
 from osgeo import gdal
 from processing.core.GeoAlgorithmExecutionException import GeoAlgorithmExecutionException
@@ -65,7 +66,7 @@ class OsmParser(QObject):
         
         #Foreach layers
         for layer in self.__layers:
-            self.signalText.emit("Parsing layer : " + layer)
+            self.signalText.emit(QApplication.translate("QuickOSM",u"Parsing layer : " + layer))
             layers[layer] = {}
             
             #Reading it with a QgsVectorLayer
@@ -117,7 +118,7 @@ class OsmParser(QObject):
 
         #Creating GeoJSON files for each layers
         for layer in self.__layers:
-            self.signalText.emit("Creating GeoJSON file : " + layer)
+            self.signalText.emit(QApplication.translate("QuickOSM",u"Creating GeoJSON file : " + layer))
             self.signalPercentage.emit(0)
             
             #Creating the temp file

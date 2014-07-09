@@ -1,40 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS>
-<TS version="2.0" language="fr_FR" sourcelanguage="en">
+<!DOCTYPE TS><TS version="2.0" language="fr_FR" sourcelanguage="en">
 <context>
     <name>Exception</name>
     <message>
-        <location filename="CoreQuickOSM/ExceptionQuickOSM.py" line="14"/>
+        <location filename="CoreQuickOSM/ExceptionQuickOSM.py" line="20"/>
         <source>Bad request OverpassAPI</source>
         <translation>Erreur de requête OverpassAPI</translation>
     </message>
     <message>
-        <location filename="CoreQuickOSM/ExceptionQuickOSM.py" line="19"/>
+        <location filename="CoreQuickOSM/ExceptionQuickOSM.py" line="27"/>
         <source>OverpassAPI timeout</source>
         <translation>Temps d&apos;exécution OverpassAPI atteint</translation>
     </message>
     <message>
-        <location filename="CoreQuickOSM/ExceptionQuickOSM.py" line="27"/>
+        <location filename="CoreQuickOSM/ExceptionQuickOSM.py" line="37"/>
         <source>No nominatim area</source>
         <translation>Absence de résultat Nominatim</translation>
     </message>
     <message>
-        <location filename="CoreQuickOSM/ExceptionQuickOSM.py" line="35"/>
+        <location filename="CoreQuickOSM/ExceptionQuickOSM.py" line="47"/>
         <source>The output directory does not exist.</source>
         <translation>Le dossier de sortie n&apos;existe pas.</translation>
     </message>
     <message>
-        <location filename="CoreQuickOSM/ExceptionQuickOSM.py" line="40"/>
+        <location filename="CoreQuickOSM/ExceptionQuickOSM.py" line="54"/>
         <source>The output file already exist, set a prefix</source>
         <translation>Le fichier de sortie existe déjà, préfixez</translation>
     </message>
     <message>
-        <location filename="CoreQuickOSM/ExceptionQuickOSM.py" line="47"/>
+        <location filename="CoreQuickOSM/ExceptionQuickOSM.py" line="63"/>
         <source>Output not available</source>
         <translation>Format non disponible</translation>
     </message>
     <message>
-        <location filename="CoreQuickOSM/ExceptionQuickOSM.py" line="52"/>
+        <location filename="CoreQuickOSM/ExceptionQuickOSM.py" line="70"/>
         <source>Error with ogr2ogr</source>
         <translation>Erreur avec ogr2ogr</translation>
     </message>
@@ -50,6 +49,31 @@
         <location filename="ui/quick_query_dialog.py" line="91"/>
         <source>Running query ...</source>
         <translation>Requête en cours ...</translation>
+    </message>
+    <message>
+        <location filename="ui/quick_query_dialog.py" line="144"/>
+        <source>Successful query !</source>
+        <translation>Requête réussie !</translation>
+    </message>
+    <message>
+        <location filename="ui/quick_query_dialog.py" line="146"/>
+        <source>Successful query, but no result.</source>
+        <translation>Requête réussie, mais pas de résultat.</translation>
+    </message>
+    <message>
+        <location filename="Controller/Process.py" line="61"/>
+        <source>Prepare outputs</source>
+        <translation>Préparation des fichiers</translation>
+    </message>
+    <message>
+        <location filename="Controller/Process.py" line="88"/>
+        <source>Downloading data from Overpass</source>
+        <translation>Téléchargement des données OSM</translation>
+    </message>
+    <message>
+        <location filename="Controller/Process.py" line="101"/>
+        <source>From GeoJSON to Shapefile</source>
+        <translation>Du GeoJSON au Shapefile</translation>
     </message>
 </context>
 <context>

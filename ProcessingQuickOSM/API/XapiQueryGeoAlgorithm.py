@@ -36,7 +36,7 @@ class XapiQueryGeoAlgorithm(GeoAlgorithm):
         self.group = "API"
 
         self.addParameter(ParameterString(self.SERVER, 'XAPI','http://www.overpass-api.de/api/xapi?', False, False))
-        self.addParameter(ParameterString(self.QUERY_STRING,'Query', 'relation[ref:INSEE=25047]', False,False))
+        self.addParameter(ParameterString(self.QUERY_STRING,'Query', '', False,False))
         
         self.addOutput(OutputFile(self.OUTPUT_FILE,'OSM file'))
 

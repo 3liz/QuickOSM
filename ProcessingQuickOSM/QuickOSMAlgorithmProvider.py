@@ -16,7 +16,6 @@ from Tools.ReadIniFileGeoAlgorithm import ReadIniFileGeoAlgorithm
 from Tools.ReadIniFilePathGeoAlgorithm import ReadIniFilePathGeoAlgorithm
 from Tools.QueryFactoryGeoAlgorithm import QueryFactoryGeoAlgorithm
 from Parser.OsmParserGeoAlgorithm import OsmParserGeoAlgorithm
-from Parser.FirstRelationIdParserGeoAlgorithm import FirstRelationIdParserGeoAlgorithm
 from Tools.GetFirstFieldGeoAlgorithm import GetFirstFieldGeoAlgorithm
 from PyQt4.QtGui import QIcon
 from os.path import dirname,abspath,join
@@ -36,10 +35,9 @@ class QuickOSMAlgorithmProvider(AlgorithmProvider):
 
         # Load algorithms
         self.alglist = [OverpassQueryGeoAlgorithm(),
-                        NominatimQueryGeoAlgorithm(),
+                        #NominatimQueryGeoAlgorithm(),
                         OsmParserGeoAlgorithm(),
-                        XapiQueryGeoAlgorithm(),
-                        FirstRelationIdParserGeoAlgorithm(),
+                        #XapiQueryGeoAlgorithm(),
                         ReadIniFileGeoAlgorithm(),
                         ReadIniFilePathGeoAlgorithm(),
                         ListIniFilesGeoAlgorithm(),
@@ -54,7 +52,6 @@ class QuickOSMAlgorithmProvider(AlgorithmProvider):
         AlgorithmProvider.initializeSettings(self)
         directory = join(dirname(dirname(abspath(__file__))),'queries')       
         ProcessingConfig.addSetting(Setting(self.getDescription(),self.QUERIES_FOLDER,'Queries folder',directory))
-        
 
     def unload(self):
         AlgorithmProvider.unload(self)

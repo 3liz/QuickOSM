@@ -57,7 +57,7 @@ class Process:
         layerName = layerName[:-1]
         
         #Prepare outputs
-        dialog.setProgressText("Prepare outputs")
+        dialog.setProgressText(QApplication.translate("QuickOSM",u"Prepare outputs"))
         #If a file already exist, we avoid downloading data for nothing
         outputs = {}
         for layer in ['points','lines','multilinestrings','multipolygons']:
@@ -84,7 +84,7 @@ class Process:
         
         #Getting the default OAPI and running the query
         server = Tools.getSetting('defaultOAPI')
-        dialog.setProgressText("Downloading data from Overpass")
+        dialog.setProgressText(QApplication.translate("QuickOSM",u"Downloading data from Overpass"))
         QApplication.processEvents()
         connexionOAPI = ConnexionOAPI(url=server,output = "xml")
         osmFile = connexionOAPI.getFileFromQuery(query)
@@ -97,7 +97,7 @@ class Process:
         
         #Geojson to shapefile
         numLayers = 0
-        dialog.setProgressText("From GeoJSON to Shapefile")  
+        dialog.setProgressText(QApplication.translate("QuickOSM",u"From GeoJSON to Shapefile"))
         for i, (layer,item) in enumerate(layers.iteritems()):
             dialog.setProgressPercentage(i/len(layers)*100)  
             QApplication.processEvents()

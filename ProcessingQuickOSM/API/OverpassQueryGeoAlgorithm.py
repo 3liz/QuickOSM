@@ -38,28 +38,9 @@ class OverpassQueryGeoAlgorithm(GeoAlgorithm):
         self.group = "API"
 
         self.addParameter(ParameterString(self.SERVER, 'Overpass API','http://overpass-api.de/api/', False, False))
-        self.addParameter(ParameterString(self.QUERY_STRING,'Query (XML or OQL)', '<osm-script output="json">\n \
-              <id-query into="area" ref="3600028722" type="area"/>\n \
-              <union into="_">\n \
-                <query into="_" type="node">\n \
-                  <has-kv k="amenity" modv="" v="school"/>\n \
-                  <area-query from="area" into="_" ref=""/>\n \
-                </query>\n \
-                <query into="_" type="way">\n \
-                  <has-kv k="amenity" modv="" v="school"/>\n \
-                  <area-query from="area" into="_" ref=""/>\n \
-                </query>\n \
-                <query into="_" type="relation">\n \
-                  <has-kv k="amenity" modv="" v="school"/>\n \
-                  <area-query from="area" into="_" ref=""/>\n \
-                </query>\n \
-              </union>\n \
-              <print from="_" limit="" mode="body" order="id"/>\n \
-              <recurse from="_" into="_" type="down"/>\n \
-              <print from="_" limit="" mode="skeleton" order="quadtile"/>\n \
-            </osm-script>', True,False))
-        self.addParameter(ParameterExtent(self.EXTENT, 'Extent for {{bbox}} '))
-        self.addParameter(ParameterString(self.NOMINATIM, 'Place for {{nominatim}}','Montpellier', False, True))
+        self.addParameter(ParameterString(self.QUERY_STRING,'Query (XML or OQL)', '', True,False))
+        self.addParameter(ParameterExtent(self.EXTENT, 'If {{bbox}} in the query, extent :'))
+        self.addParameter(ParameterString(self.NOMINATIM, 'If {{nominatim}} in the query, place :','', False, True))
         
         self.addOutput(OutputFile(self.OUTPUT_FILE, 'OSM file'))
 
