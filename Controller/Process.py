@@ -110,15 +110,16 @@ class Process:
                 #Loading the final vector file
                 newlayer = QgsVectorLayer(outputs[layer],layerName,"ogr")
                 
+                #Loading default styles
+                fields = newlayer.pendingFields()
+                if fields.indexFromName("colour") > 0:
+                    newlayer.loadNamedStyle(join(dirname(dirname(abspath(__file__))),"styles","colour.qml"))
+                
                 #Add action about OpenStreetMap
                 actions = newlayer.actions()
                 actions.addAction(QgsAction.OpenUrl,"OpenStreetMap Browser",'http://www.openstreetmap.org/browse/[% "osm_type" %]/[% "osm_id" %]',False)
                 actions.addAction(QgsAction.OpenUrl,"JOSM",'http://localhost:8111/load_object?objects=[% "full_id" %]',False)
                 actions.addAction(QgsAction.OpenUrl,"User default editor",'http://www.openstreetmap.org/edit?[% "osm_type" %]=[% "osm_id" %]',False)
-                
-                fields = newlayer.pendingFields()
-                if fields.indexFromName("colour") > 0:
-                    newlayer.loadNamedStyle(join(dirname(dirname(abspath(__file__))),"styles","colour.qml"))
                 
                 index = fields.indexFromName("url")
                 if index > 0:
