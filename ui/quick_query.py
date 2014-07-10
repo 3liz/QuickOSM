@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'quick_query.ui'
 #
-# Created: Wed Jul  9 14:58:19 2014
+# Created: Thu Jul 10 16:31:00 2014
 #      by: PyQt4 UI code generator 4.10.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -190,9 +190,9 @@ class Ui_ui_quick_query(object):
     def retranslateUi(self, ui_quick_query):
         ui_quick_query.setWindowTitle(_translate("ui_quick_query", "Form", None))
         self.label.setText(_translate("ui_quick_query", "Key", None))
-        self.lineEdit_key.setText(_translate("ui_quick_query", "shop", None))
+        self.lineEdit_key.setText(_translate("ui_quick_query", "route", None))
         self.label_2.setText(_translate("ui_quick_query", "Value", None))
-        self.lineEdit_value.setText(_translate("ui_quick_query", "supermarket", None))
+        self.lineEdit_value.setText(_translate("ui_quick_query", "tram", None))
         self.lineEdit_nominatim.setText(_translate("ui_quick_query", "montpellier", None))
         self.label_3.setText(_translate("ui_quick_query", "In", None))
         self.label_13.setText(_translate("ui_quick_query", "Extent of the map canvas", None))

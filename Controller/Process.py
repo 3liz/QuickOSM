@@ -13,6 +13,7 @@ from processing.tools.system import *
 from qgis.core import QgsMapLayerRegistry
 from PyQt4.QtGui import *
 import ntpath
+from os.path import dirname,abspath,join
 
 #Processing >=2.4
 try:
@@ -114,6 +115,19 @@ class Process:
                 actions.addAction(QgsAction.OpenUrl,"OpenStreetMap Browser",'http://www.openstreetmap.org/browse/[% "osm_type" %]/[% "osm_id" %]',False)
                 actions.addAction(QgsAction.OpenUrl,"JOSM",'http://localhost:8111/load_object?objects=[% "full_id" %]',False)
                 actions.addAction(QgsAction.OpenUrl,"User default editor",'http://www.openstreetmap.org/edit?[% "osm_type" %]=[% "osm_id" %]',False)
+                
+                fields = newlayer.pendingFields()
+                if fields.indexFromName("colour") > 0:
+                    newlayer.loadNamedStyle(join(dirname(dirname(abspath(__file__))),"styles","colour.qml"))
+                
+                index = fields.indexFromName("url")
+                if index > 0:
+                    actions.addAction(QgsAction.OpenUrl,"User default editor",'[% "url" %]',False)
+                
+                index = fields.indexFromName("website")
+                if index > 0:
+                    actions.addAction(QgsAction.OpenUrl,"User default editor",'[% "website" %]',False)
+                
                 QgsMapLayerRegistry.instance().addMapLayer(newlayer)
                 numLayers += 1
                 
