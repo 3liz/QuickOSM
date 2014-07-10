@@ -76,7 +76,7 @@ class OsmParser(QObject):
                 raise GeoAlgorithmExecutionException, "Error on the layer", layers[layer]['vectorLayer'].lastError()
             
             #Set some default tags
-            layers[layer]['tags'] = ['id_full','osm_id','osm_type']
+            layers[layer]['tags'] = ['full_id','osm_id','osm_type']
             
             #Save the geometry type of the layer
             layers[layer]['geomType'] = layers[layer]['vectorLayer'].wkbType()

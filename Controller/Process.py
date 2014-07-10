@@ -112,7 +112,8 @@ class Process:
                 #Add action about OpenStreetMap
                 actions = newlayer.actions()
                 actions.addAction(QgsAction.OpenUrl,"OpenStreetMap Browser",'http://www.openstreetmap.org/browse/[% "osm_type" %]/[% "osm_id" %]',False)
-                actions.addAction(QgsAction.OpenUrl,"JOSM",'http://localhost:8111/load_object?objects=[% "id_full" %]',False)
+                actions.addAction(QgsAction.OpenUrl,"JOSM",'http://localhost:8111/load_object?objects=[% "full_id" %]',False)
+                actions.addAction(QgsAction.OpenUrl,"User default editor",'http://www.openstreetmap.org/edit?[% "osm_type" %]=[% "osm_id" %]',False)
                 QgsMapLayerRegistry.instance().addMapLayer(newlayer)
                 numLayers += 1
                 
