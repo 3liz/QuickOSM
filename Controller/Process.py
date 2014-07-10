@@ -123,11 +123,15 @@ class Process:
                 
                 index = fields.indexFromName("url")
                 if index > 0:
-                    actions.addAction(QgsAction.OpenUrl,"User default editor",'[% "url" %]',False)
+                    actions.addAction(QgsAction.OpenUrl,"Website",'[% "url" %]',False)
+                    
+                index = fields.indexFromName("wikipedia")
+                if index > 0:
+                    actions.addAction(QgsAction.OpenUrl,"Wikipedia",'http://en.wikipedia.org/wiki/[% "wikipedia" %]',False)
                 
                 index = fields.indexFromName("website")
                 if index > 0:
-                    actions.addAction(QgsAction.OpenUrl,"User default editor",'[% "website" %]',False)
+                    actions.addAction(QgsAction.OpenUrl,"Website",'[% "website" %]',False)
                 
                 QgsMapLayerRegistry.instance().addMapLayer(newlayer)
                 numLayers += 1
