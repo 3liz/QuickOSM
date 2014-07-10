@@ -108,6 +108,11 @@ class Process:
                 
                 #Loading the final vector file
                 newlayer = QgsVectorLayer(outputs[layer],layerName,"ogr")
+                
+                #Add action about OpenStreetMap
+                actions = newlayer.actions()
+                actions.addAction(QgsAction.OpenUrl,"OpenStreetMap Browser",'http://www.openstreetmap.org/browse/[% "osm_type" %]/[% "osm_id" %]',False)
+                actions.addAction(QgsAction.OpenUrl,"JOSM",'http://localhost:8111/load_object?objects=[% "id_full" %]',False)
                 QgsMapLayerRegistry.instance().addMapLayer(newlayer)
                 numLayers += 1
                 
