@@ -26,6 +26,7 @@ from qgis.gui import QgsMessageBar
 from qgis.core import *
 from QuickOSM.Controller.Process import Process
 from QuickOSM.CoreQuickOSM.ExceptionQuickOSM import *
+from XMLHighlighter import XMLHighlighter
 import os
 from qgis.utils import iface
 from query import Ui_ui_query
@@ -35,23 +36,29 @@ class QueryWidget(QWidget, Ui_ui_query):
         QWidget.__init__(self)
         self.setupUi(self)
         
+        #Highlight XML
+        highlighter = XMLHighlighter(self.textEdit_query.document())
+        
         #Default query
-        self.plainTextEdit_query.insertPlainText('<osm-script output="json" timeout="25"><id-query into="area" ref="3600028722" type="area"/>\
-  <union><query type="node"><has-kv k="amenity" v="school"/>\
-      <area-query from="area"/>\
-    </query>\
-    <query type="way">\
-      <has-kv k="amenity" v="school"/>\
-      <area-query from="area"/>\
-    </query>\
-    <query type="relation">\
-      <has-kv k="amenity" v="school"/>\
-      <area-query from="area"/>\
-    </query>\
-  </union>\
-  <print mode="body"/>\
-  <recurse type="down"/>\
-  <print mode="skeleton" order="quadtile"/>\
+        self.textEdit_query.setPlainText('<osm-script output="json" timeout="25">\n \
+        <id-query into="area" ref="3600028722" type="area"/>\n \
+  <union>\n \
+  <query type="node">\n \
+  <has-kv k="amenity" v="school"/>\n \
+      <area-query from="area"/>\n \
+    </query>\n \
+    <query type="way">\n \
+      <has-kv k="amenity" v="school"/>\n \
+      <area-query from="area"/>\n \
+    </query>\n \
+    <query type="relation">\n \
+      <has-kv k="amenity" v="school"/>\n \
+      <area-query from="area"/>\n \
+    </query>\n \
+  </union>\n \
+  <print mode="body"/>\n \
+  <recurse type="down"/>\n \
+  <print mode="skeleton" order="quadtile"/>\n \
 </osm-script>')
 
         self.checkBox_points.setChecked(True)
@@ -64,12 +71,20 @@ class QueryWidget(QWidget, Ui_ui_query):
         self.lineEdit_filePrefix.setDisabled(True)
         self.groupBox.setCollapsed(True)
         self.bbox = None
+        
+
                
         #connect
         self.pushButton_runQuery.clicked.connect(self.runQuery)
         self.pushButton_showQuery.clicked.connect(self.showQuery)
         self.pushButton_browse_output_file.clicked.connect(self.setOutDirPath)
         self.lineEdit_browseDir.textEdited.connect(self.disablePrefixFile)
+        self.textEdit_query.cursorPositionChanged.connect(self.setHighlight)
+
+
+    def setHighlight(self):
+        #Highlight XML
+        highlighter = XMLHighlighter(self.textEdit_query.document())
 
     def disablePrefixFile(self):
         '''
@@ -107,7 +122,7 @@ class QueryWidget(QWidget, Ui_ui_query):
         QApplication.processEvents()
         
         #Get all values
-        query = unicode(self.plainTextEdit_query.toPlainText())
+        query = unicode(self.textEdit_query.toPlainText())
         timeout = self.spinBox_timeout.value()
         outputDir = self.lineEdit_browseDir.text()
         prefixFile = self.lineEdit_filePrefix.text()

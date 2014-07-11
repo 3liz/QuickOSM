@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'query.ui'
 #
-# Created: Fri Jul 11 11:45:24 2014
+# Created: Fri Jul 11 14:56:01 2014
 #      by: PyQt4 UI code generator 4.10.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -32,9 +32,9 @@ class Ui_ui_query(object):
         self.label = QtGui.QLabel(ui_query)
         self.label.setObjectName(_fromUtf8("label"))
         self.verticalLayout.addWidget(self.label)
-        self.plainTextEdit_query = QtGui.QPlainTextEdit(ui_query)
-        self.plainTextEdit_query.setObjectName(_fromUtf8("plainTextEdit_query"))
-        self.verticalLayout.addWidget(self.plainTextEdit_query)
+        self.textEdit_query = QtGui.QTextEdit(ui_query)
+        self.textEdit_query.setObjectName(_fromUtf8("textEdit_query"))
+        self.verticalLayout.addWidget(self.textEdit_query)
         self.groupBox = QgsCollapsibleGroupBox(ui_query)
         self.groupBox.setChecked(False)
         self.groupBox.setObjectName(_fromUtf8("groupBox"))
