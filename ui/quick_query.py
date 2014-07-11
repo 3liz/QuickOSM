@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'quick_query.ui'
 #
-# Created: Thu Jul 10 16:31:00 2014
+# Created: Fri Jul 11 10:11:43 2014
 #      by: PyQt4 UI code generator 4.10.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -36,15 +36,18 @@ class Ui_ui_quick_query(object):
         self.label.setObjectName(_fromUtf8("label"))
         self.formLayout.setWidget(0, QtGui.QFormLayout.LabelRole, self.label)
         self.lineEdit_key = QtGui.QLineEdit(ui_quick_query)
+        self.lineEdit_key.setText(_fromUtf8(""))
         self.lineEdit_key.setObjectName(_fromUtf8("lineEdit_key"))
         self.formLayout.setWidget(0, QtGui.QFormLayout.FieldRole, self.lineEdit_key)
         self.label_2 = QtGui.QLabel(ui_quick_query)
         self.label_2.setObjectName(_fromUtf8("label_2"))
         self.formLayout.setWidget(1, QtGui.QFormLayout.LabelRole, self.label_2)
         self.lineEdit_value = QtGui.QLineEdit(ui_quick_query)
+        self.lineEdit_value.setText(_fromUtf8(""))
         self.lineEdit_value.setObjectName(_fromUtf8("lineEdit_value"))
         self.formLayout.setWidget(1, QtGui.QFormLayout.FieldRole, self.lineEdit_value)
         self.lineEdit_nominatim = QtGui.QLineEdit(ui_quick_query)
+        self.lineEdit_nominatim.setText(_fromUtf8(""))
         self.lineEdit_nominatim.setObjectName(_fromUtf8("lineEdit_nominatim"))
         self.formLayout.setWidget(3, QtGui.QFormLayout.FieldRole, self.lineEdit_nominatim)
         self.radioButton_bbox = QtGui.QRadioButton(ui_quick_query)
@@ -117,12 +120,20 @@ class Ui_ui_quick_query(object):
         self.formLayout_4.setWidget(1, QtGui.QFormLayout.LabelRole, self.label_11)
         self.label_12 = QtGui.QLabel(self.groupBox)
         self.label_12.setObjectName(_fromUtf8("label_12"))
-        self.formLayout_4.setWidget(2, QtGui.QFormLayout.LabelRole, self.label_12)
+        self.formLayout_4.setWidget(3, QtGui.QFormLayout.LabelRole, self.label_12)
         self.checkBox_multipolygons = QtGui.QCheckBox(self.groupBox)
         self.checkBox_multipolygons.setText(_fromUtf8(""))
         self.checkBox_multipolygons.setChecked(True)
         self.checkBox_multipolygons.setObjectName(_fromUtf8("checkBox_multipolygons"))
-        self.formLayout_4.setWidget(2, QtGui.QFormLayout.FieldRole, self.checkBox_multipolygons)
+        self.formLayout_4.setWidget(3, QtGui.QFormLayout.FieldRole, self.checkBox_multipolygons)
+        self.label_14 = QtGui.QLabel(self.groupBox)
+        self.label_14.setObjectName(_fromUtf8("label_14"))
+        self.formLayout_4.setWidget(2, QtGui.QFormLayout.LabelRole, self.label_14)
+        self.checkBox_linestrings = QtGui.QCheckBox(self.groupBox)
+        self.checkBox_linestrings.setText(_fromUtf8(""))
+        self.checkBox_linestrings.setChecked(True)
+        self.checkBox_linestrings.setObjectName(_fromUtf8("checkBox_linestrings"))
+        self.formLayout_4.setWidget(2, QtGui.QFormLayout.FieldRole, self.checkBox_linestrings)
         self.horizontalLayout_3.addLayout(self.formLayout_4)
         self.verticalLayout_2.addLayout(self.horizontalLayout_3)
         self.formLayout_2 = QtGui.QFormLayout()
@@ -190,10 +201,7 @@ class Ui_ui_quick_query(object):
     def retranslateUi(self, ui_quick_query):
         ui_quick_query.setWindowTitle(_translate("ui_quick_query", "Form", None))
         self.label.setText(_translate("ui_quick_query", "Key", None))
-        self.lineEdit_key.setText(_translate("ui_quick_query", "route", None))
         self.label_2.setText(_translate("ui_quick_query", "Value", None))
-        self.lineEdit_value.setText(_translate("ui_quick_query", "tram", None))
-        self.lineEdit_nominatim.setText(_translate("ui_quick_query", "montpellier", None))
         self.label_3.setText(_translate("ui_quick_query", "In", None))
         self.label_13.setText(_translate("ui_quick_query", "Extent of the map canvas", None))
         self.groupBox.setTitle(_translate("ui_quick_query", "Advanced", None))
@@ -201,8 +209,9 @@ class Ui_ui_quick_query(object):
         self.label_8.setText(_translate("ui_quick_query", "Way", None))
         self.label_9.setText(_translate("ui_quick_query", "Relation", None))
         self.label_10.setText(_translate("ui_quick_query", "Points", None))
-        self.label_11.setText(_translate("ui_quick_query", "(multi)lines", None))
+        self.label_11.setText(_translate("ui_quick_query", "Lines", None))
         self.label_12.setText(_translate("ui_quick_query", "Multipolygons", None))
+        self.label_14.setText(_translate("ui_quick_query", "Linestrings", None))
         self.label_5.setText(_translate("ui_quick_query", "Timeout", None))
         self.label_4.setText(_translate("ui_quick_query", "Directory", None))
         self.lineEdit_browseDir.setPlaceholderText(_translate("ui_quick_query", "Save to temporary file", None))

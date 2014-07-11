@@ -120,18 +120,20 @@ class Process:
                 actions.addAction(QgsAction.OpenUrl,"OpenStreetMap Browser",'http://www.openstreetmap.org/browse/[% "osm_type" %]/[% "osm_id" %]',False)
                 actions.addAction(QgsAction.OpenUrl,"JOSM",'http://localhost:8111/load_object?objects=[% "full_id" %]',False)
                 actions.addAction(QgsAction.OpenUrl,"User default editor",'http://www.openstreetmap.org/edit?[% "osm_type" %]=[% "osm_id" %]',False)
+                #actions.addAction(QgsAction.OpenUrl,"Edit directly",'http://rawedit.openstreetmap.fr/edit/[% "osm_type" %]/[% "osm_id" %]',False)
+                actions.addAction(QgsAction.GenericPython,"Edit directly",'from PyQt4.QtCore import QUrl; from PyQt4.QtWebKit import QWebView;  myWV = QWebView(None); myWV.load(QUrl("http://rawedit.openstreetmap.fr/edit/[% "osm_type" %]/[% "osm_id" %]")); myWV.show()',False)
                 
-                index = fields.indexFromName("url")
-                if index > 0:
-                    actions.addAction(QgsAction.OpenUrl,"Website",'[% "url" %]',False)
+                if 'url' in item['tags']:
+                    actions.addAction(QgsAction.GenericPython,"Website",'var = QtGui.QDesktopServices(); var.openUrl(QtCore.QUrl("[% "url" %]")) if "[% "url" %]"!="" else QtGui.QMessageBox.information(None, "Sorry", "Sorry man, no website")',False)
                     
-                index = fields.indexFromName("wikipedia")
-                if index > 0:
-                    actions.addAction(QgsAction.OpenUrl,"Wikipedia",'http://en.wikipedia.org/wiki/[% "wikipedia" %]',False)
+                if 'wikipedia' in item['tags']:
+                    actions.addAction(QgsAction.GenericPython,"Wikipedia",'var = QtGui.QDesktopServices(); var.openUrl(QtCore.QUrl("http://en.wikipedia.org/wiki/[% "wikipedia" %]")) if "[% "wikipedia" %]"!="" else QtGui.QMessageBox.information(None, "Sorry", "Sorry man, no wikipedia")',False)
                 
-                index = fields.indexFromName("website")
-                if index > 0:
-                    actions.addAction(QgsAction.OpenUrl,"Website",'[% "website" %]',False)
+                if 'website' in item['tags']:
+                    actions.addAction(QgsAction.GenericPython,"Website",'var = QtGui.QDesktopServices(); var.openUrl(QtCore.QUrl("[% "website" %]")) if "[% "website" %]"!="" else QtGui.QMessageBox.information(None, "Sorry", "Sorry man, no website")',False)
+                 
+                if 'ref:UAI' in item['tags']:
+                    actions.addAction(QgsAction.GenericPython,"ref UAI",'var = QtGui.QDesktopServices(); var.openUrl(QtCore.QUrl("http://www.education.gouv.fr/pid24302/annuaire-resultat-recherche.html?lycee_name=[% "ref_UAI" %]")) if "[% "ref_UAI" %]"!="" else QtGui.QMessageBox.information(None, "Sorry", "Sorry man, no ref UAI")',False)
                 
                 QgsMapLayerRegistry.instance().addMapLayer(newlayer)
                 numLayers += 1

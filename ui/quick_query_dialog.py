@@ -39,6 +39,15 @@ class QuickQueryWidget(QWidget, Ui_ui_quick_query):
         QWidget.__init__(self)
         self.setupUi(self)
         
+        #Default query
+        self.lineEdit_key.setText("route")
+        self.lineEdit_value.setText("bus")
+        self.lineEdit_nominatim.setText("grenoble")
+        self.checkBox_points.setChecked(False)
+        self.checkBox_lines.setChecked(False)
+        self.checkBox_linestrings.setChecked(True)
+        self.checkBox_multipolygons.setChecked(False)
+        
         #Setup UI
         self.pushButton_showQuery.hide()
         self.lineEdit_filePrefix.setDisabled(True)
@@ -121,6 +130,7 @@ class QuickQueryWidget(QWidget, Ui_ui_quick_query):
             outputGeomTypes.append('points')
         if self.checkBox_lines.isChecked():
             outputGeomTypes.append('lines')
+        if self.checkBox_linestrings.isChecked():
             outputGeomTypes.append('multilinestrings')
         if self.checkBox_multipolygons.isChecked():
             outputGeomTypes.append('multipolygons')

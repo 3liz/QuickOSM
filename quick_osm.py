@@ -70,21 +70,21 @@ class QuickOSM:
         
         self.mainWindowAction = QAction(
             QIcon(os.path.dirname(__file__) +"/icon.png"),
-            u"Main Window",
+            u"Quick OSM",
             self.iface.mainWindow())
         
         self.mainWindowAction.triggered.connect(self.openMainWindow)
         self.iface.addToolBarIcon(self.mainWindowAction)
-        self.iface.addPluginToMenu(u"&Quick OSM",self.mainWindowAction)
+        self.iface.addPluginToWebMenu(u"&Quick OSM",self.mainWindowAction)
         self.mainWindowDialog = MainWindowDialog()
         
         
         self.myQueriesAction = QAction(
             QIcon(os.path.dirname(__file__) +"/icon.png"),
-            u"My queries",
+            QApplication.translate("ui_my_queries", "My queries"),
             self.iface.mainWindow())
         self.myQueriesAction.triggered.connect(self.openMyQueriesDockWidget)
-        self.iface.addPluginToMenu(u"&Quick OSM",self.myQueriesAction)
+        self.iface.addPluginToWebMenu(u"&Quick OSM",self.myQueriesAction)
         self.myQueriesDockWidget = MyQueriesDockWidget()
         self.iface.addDockWidget(Qt.RightDockWidgetArea, self.myQueriesDockWidget)
         self.myQueriesDockWidget.hide()
@@ -93,10 +93,10 @@ class QuickOSM:
         
         self.quickQueryAction = QAction(
             QIcon(os.path.dirname(__file__) +"/icon.png"),
-            u"Quick query",
+            QApplication.translate("ui_quick_query", "Quick query"),
             self.iface.mainWindow())
         self.quickQueryAction.triggered.connect(self.openQuickQueryDockWidget)
-        self.iface.addPluginToMenu(u"&Quick OSM",self.quickQueryAction)
+        self.iface.addPluginToWebMenu(u"&Quick OSM",self.quickQueryAction)
         self.quickQueryDockWidget = QuickQueryDockWidget()
         self.iface.addDockWidget(Qt.RightDockWidgetArea, self.quickQueryDockWidget)
         #self.quickQueryDockWidget.hide()
@@ -104,9 +104,9 @@ class QuickOSM:
         
         
     def unload(self):
-        self.iface.removePluginMenu(u"&Quick OSM",self.mainWindowAction)
-        self.iface.removePluginMenu(u"&Quick OSM",self.myQueriesAction)
-        self.iface.removePluginMenu(u"&Quick OSM",self.quickQueryAction)
+        self.iface.removePluginWebMenu(u"&Quick OSM",self.mainWindowAction)
+        self.iface.removePluginWebMenu(u"&Quick OSM",self.myQueriesAction)
+        self.iface.removePluginWebMenu(u"&Quick OSM",self.quickQueryAction)
         self.iface.removeToolBarIcon(self.mainWindowAction)
         Processing.removeProvider(self.provider)
     
