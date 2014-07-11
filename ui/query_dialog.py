@@ -40,25 +40,26 @@ class QueryWidget(QWidget, Ui_ui_query):
         highlighter = XMLHighlighter(self.textEdit_query.document())
         
         #Default query
-        self.textEdit_query.setPlainText('<osm-script output="json" timeout="25">\n \
-        <id-query into="area" ref="3600028722" type="area"/>\n \
-  <union>\n \
-  <query type="node">\n \
-  <has-kv k="amenity" v="school"/>\n \
-      <area-query from="area"/>\n \
-    </query>\n \
-    <query type="way">\n \
-      <has-kv k="amenity" v="school"/>\n \
-      <area-query from="area"/>\n \
-    </query>\n \
-    <query type="relation">\n \
-      <has-kv k="amenity" v="school"/>\n \
-      <area-query from="area"/>\n \
-    </query>\n \
-  </union>\n \
-  <print mode="body"/>\n \
-  <recurse type="down"/>\n \
-  <print mode="skeleton" order="quadtile"/>\n \
+        self.textEdit_query.setPlainText('\
+<osm-script output="json" timeout="25">\n \
+    <id-query into="area" ref="3600028722" type="area"/>\n \
+    <union>\n \
+        <query type="node">\n \
+            <has-kv k="amenity" v="school"/>\n \
+            <area-query from="area"/>\n \
+        </query>\n \
+        <query type="way">\n \
+            <has-kv k="amenity" v="school"/>\n \
+            <area-query from="area"/>\n \
+        </query>\n \
+        <query type="relation">\n \
+            <has-kv k="amenity" v="school"/>\n \
+            <area-query from="area"/>\n \
+        </query>\n \
+    </union>\n \
+    <print mode="body"/>\n \
+    <recurse type="down"/>\n \
+    <print mode="skeleton" order="quadtile"/>\n \
 </osm-script>')
 
         self.checkBox_points.setChecked(True)
