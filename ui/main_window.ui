@@ -63,6 +63,11 @@
      </item>
      <item>
       <property name="text">
+       <string>Query</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
        <string>Quick query</string>
       </property>
       <property name="icon">
@@ -96,9 +101,10 @@
       </size>
      </property>
      <property name="currentIndex">
-      <number>2</number>
+      <number>1</number>
      </property>
      <widget class="MyQueriesWidget" name="my_queries"/>
+     <widget class="QueryWidget" name="query"/>
      <widget class="QuickQueryWidget" name="quick_query"/>
      <widget class="QWidget" name="parameters">
       <widget class="QGroupBox" name="groupBox">
@@ -194,6 +200,12 @@
    <class>QuickQueryWidget</class>
    <extends>QWidget</extends>
    <header>quick_query_dialog.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>QueryWidget</class>
+   <extends>QWidget</extends>
+   <header>query_dialog.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'main_window.ui'
 #
-# Created: Wed Jul  9 14:58:23 2014
+# Created: Fri Jul 11 11:41:45 2014
 #      by: PyQt4 UI code generator 4.10.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -48,6 +48,8 @@ class Ui_ui_main_window(object):
         item.setIcon(icon)
         self.listWidget.addItem(item)
         item = QtGui.QListWidgetItem()
+        self.listWidget.addItem(item)
+        item = QtGui.QListWidgetItem()
         item.setIcon(icon)
         self.listWidget.addItem(item)
         item = QtGui.QListWidgetItem()
@@ -65,6 +67,9 @@ class Ui_ui_main_window(object):
         self.my_queries = MyQueriesWidget()
         self.my_queries.setObjectName(_fromUtf8("my_queries"))
         self.stackedWidget.addWidget(self.my_queries)
+        self.query = QueryWidget()
+        self.query.setObjectName(_fromUtf8("query"))
+        self.stackedWidget.addWidget(self.query)
         self.quick_query = QuickQueryWidget()
         self.quick_query.setObjectName(_fromUtf8("quick_query"))
         self.stackedWidget.addWidget(self.quick_query)
@@ -99,7 +104,7 @@ class Ui_ui_main_window(object):
 
         self.retranslateUi(ui_main_window)
         self.listWidget.setCurrentRow(-1)
-        self.stackedWidget.setCurrentIndex(2)
+        self.stackedWidget.setCurrentIndex(1)
         QtCore.QObject.connect(self.listWidget, QtCore.SIGNAL(_fromUtf8("currentRowChanged(int)")), self.stackedWidget.setCurrentIndex)
         QtCore.QMetaObject.connectSlotsByName(ui_main_window)
         ui_main_window.setTabOrder(self.pushButton_OAPI_timestamp, self.comboBox_default_OAPI)
@@ -112,8 +117,10 @@ class Ui_ui_main_window(object):
         item = self.listWidget.item(0)
         item.setText(_translate("ui_main_window", "My queries", None))
         item = self.listWidget.item(1)
-        item.setText(_translate("ui_main_window", "Quick query", None))
+        item.setText(_translate("ui_main_window", "Query", None))
         item = self.listWidget.item(2)
+        item.setText(_translate("ui_main_window", "Quick query", None))
+        item = self.listWidget.item(3)
         item.setText(_translate("ui_main_window", "Parameters", None))
         self.listWidget.setSortingEnabled(__sortingEnabled)
         self.groupBox.setTitle(_translate("ui_main_window", "Overpass API", None))
@@ -124,5 +131,6 @@ class Ui_ui_main_window(object):
         self.comboBox_default_OAPI.setItemText(2, _translate("ui_main_window", "http://api.openstreetmap.fr/oapi/", None))
         self.label.setText(_translate("ui_main_window", "Server", None))
 
+from query_dialog import QueryWidget
 from quick_query_dialog import QuickQueryWidget
 from my_queries_dialog import MyQueriesWidget

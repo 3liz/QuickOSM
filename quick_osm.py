@@ -28,6 +28,7 @@ from processing.core.Processing import Processing
 # Import the code for the dialog
 from ui.main_window_dialog import MainWindowDialog
 from ui.my_queries_dialog import MyQueriesDockWidget
+from ui.query_dialog import QueryDockWidget
 from ui.quick_query_dialog import QuickQueryDockWidget
 from ProcessingQuickOSM.QuickOSMAlgorithmProvider import QuickOSMAlgorithmProvider
 import os.path
@@ -91,6 +92,18 @@ class QuickOSM:
         self.myQueriesDockWidget.setObjectName("myQueriesWidget");
         
         
+        self.queryAction = QAction(
+            QIcon(os.path.dirname(__file__) +"/icon.png"),
+            QApplication.translate("ui_query", "Query"),
+            self.iface.mainWindow())
+        self.queryAction.triggered.connect(self.openQueryDockWidget)
+        self.iface.addPluginToWebMenu(u"&Quick OSM",self.queryAction)
+        self.queryDockWidget = QueryDockWidget()
+        self.iface.addDockWidget(Qt.RightDockWidgetArea, self.queryDockWidget)
+        #self.queryDockWidget.hide()
+        self.queryDockWidget.setObjectName("queryWidget");
+        
+        
         self.quickQueryAction = QAction(
             QIcon(os.path.dirname(__file__) +"/icon.png"),
             QApplication.translate("ui_quick_query", "Quick query"),
@@ -99,13 +112,14 @@ class QuickOSM:
         self.iface.addPluginToWebMenu(u"&Quick OSM",self.quickQueryAction)
         self.quickQueryDockWidget = QuickQueryDockWidget()
         self.iface.addDockWidget(Qt.RightDockWidgetArea, self.quickQueryDockWidget)
-        #self.quickQueryDockWidget.hide()
+        self.quickQueryDockWidget.hide()
         self.quickQueryDockWidget.setObjectName("quickQueryWidget");
         
         
     def unload(self):
         self.iface.removePluginWebMenu(u"&Quick OSM",self.mainWindowAction)
         self.iface.removePluginWebMenu(u"&Quick OSM",self.myQueriesAction)
+        self.iface.removePluginWebMenu(u"&Quick OSM",self.queryAction)
         self.iface.removePluginWebMenu(u"&Quick OSM",self.quickQueryAction)
         self.iface.removeToolBarIcon(self.mainWindowAction)
         Processing.removeProvider(self.provider)
@@ -120,6 +134,12 @@ class QuickOSM:
             self.myQueriesDockWidget.hide()
         else:
             self.myQueriesDockWidget.show()
+            
+    def openQueryDockWidget(self):
+        if self.queryDockWidget.isVisible():
+            self.queryDockWidget.hide()
+        else:
+            self.queryDockWidget.show()
             
     def openQuickQueryDockWidget(self):
         if self.quickQueryDockWidget.isVisible():
