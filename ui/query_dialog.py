@@ -72,9 +72,7 @@ class QueryWidget(QWidget, Ui_ui_query):
         self.lineEdit_filePrefix.setDisabled(True)
         self.groupBox.setCollapsed(True)
         self.bbox = None
-        
-
-               
+          
         #connect
         self.pushButton_runQuery.clicked.connect(self.runQuery)
         self.pushButton_showQuery.clicked.connect(self.showQuery)
@@ -130,30 +128,26 @@ class QueryWidget(QWidget, Ui_ui_query):
         
         #Which geometry at the end ?
         outputGeomTypes = []
+        whiteListValues = {}
         if self.checkBox_points.isChecked():
             outputGeomTypes.append('points')
+            whiteListValues['points'] = self.lineEdit_csv_points.text()
         if self.checkBox_lines.isChecked():
             outputGeomTypes.append('lines')
+            whiteListValues['lines'] = self.lineEdit_csv_lines.text()
         if self.checkBox_linestrings.isChecked():
             outputGeomTypes.append('multilinestrings')
+            whiteListValues['multilinestrings'] = self.lineEdit_csv_multilinestrings.text()
         if self.checkBox_multipolygons.isChecked():
             outputGeomTypes.append('multipolygons')
-        
-        #Which osm's objects ?
-        osmObjects = []
-        if self.checkBox_node.isChecked():
-            osmObjects.append('node')
-        if self.checkBox_way.isChecked():
-            osmObjects.append('way')
-        if self.checkBox_relation.isChecked():
-            osmObjects.append('relation')
+            whiteListValues['multipolygons'] = self.lineEdit_csv_multipolygons.text()
         
         try:
             #Test values
             if outputDir and not os.path.isdir(outputDir):
                 raise DirectoryOutPutException
 
-            numLayers = Process.Query(dialog = self, query=query, osmObjects=osmObjects, timeout=timeout, outputDir=outputDir, prefixFile=prefixFile,outputGeomTypes=outputGeomTypes)
+            numLayers = Process.ProcessQuery(dialog = self, query=query, timeout=timeout, outputDir=outputDir, prefixFile=prefixFile,outputGeomTypes=outputGeomTypes, whiteListValues=whiteListValues)
             if numLayers:
                 iface.messageBar().pushMessage(QApplication.translate("QuickOSM",u"Successful query !"), level=QgsMessageBar.INFO , duration=5)
             else:
