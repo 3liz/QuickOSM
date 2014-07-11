@@ -54,10 +54,10 @@ class QueryWidget(QWidget, Ui_ui_query):
   <print mode="skeleton" order="quadtile"/>\
 </osm-script>')
 
-        self.checkBox_points.setChecked(False)
+        self.checkBox_points.setChecked(True)
         self.checkBox_lines.setChecked(False)
-        self.checkBox_linestrings.setChecked(True)
-        self.checkBox_multipolygons.setChecked(False)
+        self.checkBox_linestrings.setChecked(False)
+        self.checkBox_multipolygons.setChecked(True)
         
         #Setup UI
         self.pushButton_showQuery.hide()
