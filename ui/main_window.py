@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'main_window.ui'
 #
-# Created: Fri Jul 11 11:41:45 2014
+# Created: Tue Jul 15 17:56:38 2014
 #      by: PyQt4 UI code generator 4.10.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -26,7 +26,7 @@ except AttributeError:
 class Ui_ui_main_window(object):
     def setupUi(self, ui_main_window):
         ui_main_window.setObjectName(_fromUtf8("ui_main_window"))
-        ui_main_window.setWindowModality(QtCore.Qt.WindowModal)
+        ui_main_window.setWindowModality(QtCore.Qt.NonModal)
         ui_main_window.resize(701, 513)
         self.gridLayout = QtGui.QGridLayout(ui_main_window)
         self.gridLayout.setObjectName(_fromUtf8("gridLayout"))

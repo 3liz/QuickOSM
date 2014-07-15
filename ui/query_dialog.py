@@ -26,6 +26,7 @@ from qgis.gui import QgsMessageBar
 from qgis.core import *
 from QuickOSM.Controller.Process import Process
 from QuickOSM.CoreQuickOSM.ExceptionQuickOSM import *
+from QuickOSM.CoreQuickOSM.Tools import Tools
 from XMLHighlighter import XMLHighlighter
 import os
 from qgis.utils import iface
@@ -68,14 +69,13 @@ class QueryWidget(QWidget, Ui_ui_query):
         self.checkBox_multipolygons.setChecked(True)
         
         #Setup UI
-        self.pushButton_showQuery.hide()
         self.lineEdit_filePrefix.setDisabled(True)
         self.groupBox.setCollapsed(True)
         self.bbox = None
           
         #connect
         self.pushButton_runQuery.clicked.connect(self.runQuery)
-        self.pushButton_showQuery.clicked.connect(self.showQuery)
+        self.pushButton_generateQuery.clicked.connect(self.generateQuery)
         self.pushButton_browse_output_file.clicked.connect(self.setOutDirPath)
         self.lineEdit_browseDir.textEdited.connect(self.disablePrefixFile)
         self.textEdit_query.cursorPositionChanged.connect(self.highlighter.rehighlight)
@@ -142,7 +142,7 @@ class QueryWidget(QWidget, Ui_ui_query):
             if outputDir and not os.path.isdir(outputDir):
                 raise DirectoryOutPutException
 
-            numLayers = Process.ProcessQuery(dialog = self, query=query, timeout=timeout, outputDir=outputDir, prefixFile=prefixFile,outputGeomTypes=outputGeomTypes, whiteListValues=whiteListValues)
+            numLayers = Process.ProcessQuery(dialog = self, query=query, outputDir=outputDir, prefixFile=prefixFile,outputGeomTypes=outputGeomTypes, whiteListValues=whiteListValues)
             if numLayers:
                 iface.messageBar().pushMessage(QApplication.translate("QuickOSM",u"Successful query !"), level=QgsMessageBar.INFO , duration=5)
                 self.label_progress.setText(QApplication.translate("QuickOSM",u"Successful query !"))
@@ -174,10 +174,16 @@ class QueryWidget(QWidget, Ui_ui_query):
             QApplication.restoreOverrideCursor()
             QApplication.processEvents()
             
-    def showQuery(self):
-        msg = u"Sorry man, not implemented yet ! ;-)"
-        msg = QApplication.translate("Exception", msg)
-        iface.messageBar().pushMessage(msg, level=QgsMessageBar.CRITICAL , duration=5)
+    def generateQuery(self):
+        query = unicode(self.textEdit_query.toPlainText())
+        geomExtent = QgsGeometry.fromRect(iface.mapCanvas().extent())
+        sourceCrs = iface.mapCanvas().mapRenderer().destinationCrs()
+        crsTransform = QgsCoordinateTransform(sourceCrs, QgsCoordinateReferenceSystem("EPSG:4326"))
+        geomExtent.transform(crsTransform)
+        bbox = geomExtent.boundingBox()
+        query = Tools.PrepareQueryOqlXml(query=query, extent=bbox)
+        self.textEdit_query.setPlainText(query)
+        
         
     def setProgressPercentage(self,percent):
         self.progressBar_execution.setValue(percent)

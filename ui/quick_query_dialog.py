@@ -27,6 +27,11 @@ from qgis.core import *
 from quick_query import Ui_ui_quick_query      
 from QuickOSM.Controller.Process import Process
 from QuickOSM.CoreQuickOSM.ExceptionQuickOSM import *
+#from QuickOSM.ui.main_window_dialog import MainWindowDialog
+
+#shoud not be here, use controller
+from QuickOSM.CoreQuickOSM.QueryFactory import QueryFactory
+
 import os
 from qgis.utils import iface
 
@@ -49,7 +54,7 @@ class QuickQueryWidget(QWidget, Ui_ui_quick_query):
         self.checkBox_multipolygons.setChecked(True)
         
         #Setup UI
-        self.pushButton_showQuery.hide()
+        #self.pushButton_showQuery.hide()
         self.lineEdit_filePrefix.setDisabled(True)
         self.groupBox.setCollapsed(True)
         self.bbox = None
@@ -86,7 +91,7 @@ class QuickQueryWidget(QWidget, Ui_ui_quick_query):
         outputFile = QFileDialog.getExistingDirectory(None, caption=QApplication.translate("QuickOSM", 'Select directory'))
         self.lineEdit_browseDir.setText(outputFile)
         self.disablePrefixFile()
-        
+
     def runQuery(self):
         '''
         Process for running the query
@@ -181,10 +186,41 @@ class QuickQueryWidget(QWidget, Ui_ui_quick_query):
             QApplication.processEvents()
         
     def showQuery(self):
-        msg = u"Sorry man, not implemented yet ! ;-)"
-        msg = QApplication.translate("Exception", msg)
-        iface.messageBar().pushMessage(msg, level=QgsMessageBar.CRITICAL , duration=5)
+        key = unicode(self.lineEdit_key.text())
+        value = unicode(self.lineEdit_value.text())
+        nominatim = unicode(self.lineEdit_nominatim.text())
+        timeout = self.spinBox_timeout.value()
+        if self.bbox:
+            nominatim = None
+            geomExtent = QgsGeometry.fromRect(iface.mapCanvas().extent())
+            sourceCrs = iface.mapCanvas().mapRenderer().destinationCrs()
+            crsTransform = QgsCoordinateTransform(sourceCrs, QgsCoordinateReferenceSystem("EPSG:4326"))
+            geomExtent.transform(crsTransform)
+            self.bbox = geomExtent.boundingBox()
         
+        if nominatim == '':
+            nominatim = None
+        
+        #Which osm's objects ?
+        osmObjects = []
+        if self.checkBox_node.isChecked():
+            osmObjects.append('node')
+        if self.checkBox_way.isChecked():
+            osmObjects.append('way')
+        if self.checkBox_relation.isChecked():
+            osmObjects.append('relation')
+        
+        quickQuery = None
+        for i in xrange(iface.mainWindowDialog.stackedWidget.count()):
+            if iface.mainWindowDialog.stackedWidget.widget(i).__class__.__name__ == "QueryWidget":
+                quickQuery = iface.mainWindowDialog.stackedWidget.widget(i)
+                break
+        queryFactory = QueryFactory(timeout=timeout,key=key,value=value,bbox=self.bbox,nominatim=nominatim,osmObjects=osmObjects)
+        query = queryFactory.make()
+        quickQuery.textEdit_query.setPlainText(query)
+        iface.mainWindowDialog.exec_()
+        
+            
     def setProgressPercentage(self,percent):
         self.progressBar_execution.setValue(percent)
         QApplication.processEvents()

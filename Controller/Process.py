@@ -34,7 +34,7 @@ class Process:
     '''
     
     @staticmethod
-    def ProcessQuery(dialog = None, query=None, nominatim=None, bbox=None, timeout=25, outputDir=None, prefixFile=None,outputGeomTypes=None, layerName = "OsmQuery", whiteListValues = None):
+    def ProcessQuery(dialog = None, query=None, nominatim=None, bbox=None, outputDir=None, prefixFile=None,outputGeomTypes=None, layerName = "OsmQuery", whiteListValues = None):
         
         #Prepare outputs
         dialog.setProgressText(QApplication.translate("QuickOSM",u"Prepare outputs"))
@@ -124,7 +124,7 @@ class Process:
         layerName = layerName[:-1]
         
         #Building the query
-        queryFactory = QueryFactory(key=key,value=value,bbox=bbox,nominatim=nominatim,osmObjects=osmObjects)
+        queryFactory = QueryFactory(timeout=timeout,key=key,value=value,bbox=bbox,nominatim=nominatim,osmObjects=osmObjects)
         query = queryFactory.make()
         
         #Call ProcessQuery with the new query
@@ -132,7 +132,6 @@ class Process:
                                     query=query,
                                     nominatim=nominatim,
                                     bbox=bbox,
-                                    timeout=timeout,
                                     outputDir=outputDir,
                                     prefixFile=prefixFile,
                                     outputGeomTypes=outputGeomTypes,

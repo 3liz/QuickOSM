@@ -25,6 +25,15 @@ from main_window import Ui_ui_main_window
 from QuickOSM.CoreQuickOSM.API.ConnexionOAPI import ConnexionOAPI
 from QuickOSM.CoreQuickOSM.Tools import Tools
 
+def singleton(class_):
+  instances = {}
+  def getinstance(*args, **kwargs):
+    if class_ not in instances:
+        instances[class_] = class_(*args, **kwargs)
+    return instances[class_]
+  return getinstance
+
+@singleton
 class MainWindowDialog(QtGui.QDialog, Ui_ui_main_window):
     def __init__(self, parent=None):
         QtGui.QDialog.__init__(self)

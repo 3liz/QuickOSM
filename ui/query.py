@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'query.ui'
 #
-# Created: Fri Jul 11 15:46:20 2014
+# Created: Tue Jul 15 18:13:10 2014
 #      by: PyQt4 UI code generator 4.10.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -104,20 +104,11 @@ class Ui_ui_query(object):
         self.formLayout_4.setWidget(0, QtGui.QFormLayout.LabelRole, self.label_3)
         self.verticalLayout_2.addLayout(self.formLayout_4)
         self.formLayout_2 = QtGui.QFormLayout()
+        self.formLayout_2.setFieldGrowthPolicy(QtGui.QFormLayout.ExpandingFieldsGrow)
         self.formLayout_2.setObjectName(_fromUtf8("formLayout_2"))
-        self.spinBox_timeout = QtGui.QSpinBox(self.groupBox)
-        self.spinBox_timeout.setButtonSymbols(QtGui.QAbstractSpinBox.UpDownArrows)
-        self.spinBox_timeout.setMinimum(25)
-        self.spinBox_timeout.setMaximum(2000)
-        self.spinBox_timeout.setSingleStep(25)
-        self.spinBox_timeout.setObjectName(_fromUtf8("spinBox_timeout"))
-        self.formLayout_2.setWidget(0, QtGui.QFormLayout.FieldRole, self.spinBox_timeout)
-        self.label_5 = QtGui.QLabel(self.groupBox)
-        self.label_5.setObjectName(_fromUtf8("label_5"))
-        self.formLayout_2.setWidget(0, QtGui.QFormLayout.LabelRole, self.label_5)
         self.label_4 = QtGui.QLabel(self.groupBox)
         self.label_4.setObjectName(_fromUtf8("label_4"))
-        self.formLayout_2.setWidget(1, QtGui.QFormLayout.LabelRole, self.label_4)
+        self.formLayout_2.setWidget(0, QtGui.QFormLayout.LabelRole, self.label_4)
         self.horizontalLayout = QtGui.QHBoxLayout()
         self.horizontalLayout.setObjectName(_fromUtf8("horizontalLayout"))
         self.lineEdit_browseDir = QtGui.QLineEdit(self.groupBox)
@@ -126,21 +117,21 @@ class Ui_ui_query(object):
         self.pushButton_browse_output_file = QtGui.QPushButton(self.groupBox)
         self.pushButton_browse_output_file.setObjectName(_fromUtf8("pushButton_browse_output_file"))
         self.horizontalLayout.addWidget(self.pushButton_browse_output_file)
-        self.formLayout_2.setLayout(1, QtGui.QFormLayout.FieldRole, self.horizontalLayout)
+        self.formLayout_2.setLayout(0, QtGui.QFormLayout.FieldRole, self.horizontalLayout)
         self.label_6 = QtGui.QLabel(self.groupBox)
         self.label_6.setObjectName(_fromUtf8("label_6"))
-        self.formLayout_2.setWidget(2, QtGui.QFormLayout.LabelRole, self.label_6)
+        self.formLayout_2.setWidget(1, QtGui.QFormLayout.LabelRole, self.label_6)
         self.lineEdit_filePrefix = QtGui.QLineEdit(self.groupBox)
         self.lineEdit_filePrefix.setObjectName(_fromUtf8("lineEdit_filePrefix"))
-        self.formLayout_2.setWidget(2, QtGui.QFormLayout.FieldRole, self.lineEdit_filePrefix)
+        self.formLayout_2.setWidget(1, QtGui.QFormLayout.FieldRole, self.lineEdit_filePrefix)
         self.verticalLayout_2.addLayout(self.formLayout_2)
         self.verticalLayout.addWidget(self.groupBox)
         self.horizontalLayout_2 = QtGui.QHBoxLayout()
         self.horizontalLayout_2.setSizeConstraint(QtGui.QLayout.SetMinimumSize)
         self.horizontalLayout_2.setObjectName(_fromUtf8("horizontalLayout_2"))
-        self.pushButton_showQuery = QtGui.QPushButton(ui_query)
-        self.pushButton_showQuery.setObjectName(_fromUtf8("pushButton_showQuery"))
-        self.horizontalLayout_2.addWidget(self.pushButton_showQuery)
+        self.pushButton_generateQuery = QtGui.QPushButton(ui_query)
+        self.pushButton_generateQuery.setObjectName(_fromUtf8("pushButton_generateQuery"))
+        self.horizontalLayout_2.addWidget(self.pushButton_generateQuery)
         self.pushButton_runQuery = QtGui.QPushButton(ui_query)
         self.pushButton_runQuery.setDefault(True)
         self.pushButton_runQuery.setObjectName(_fromUtf8("pushButton_runQuery"))
@@ -182,12 +173,11 @@ class Ui_ui_query(object):
         self.lineEdit_csv_multipolygons.setPlaceholderText(_translate("ui_query", "so do what the fuck you want !", None))
         self.label_12.setText(_translate("ui_query", "Multipolygons", None))
         self.label_3.setText(_translate("ui_query", "Outputs", None))
-        self.label_5.setText(_translate("ui_query", "Timeout", None))
         self.label_4.setText(_translate("ui_query", "Directory", None))
         self.lineEdit_browseDir.setPlaceholderText(_translate("ui_query", "Save to temporary file", None))
         self.pushButton_browse_output_file.setText(_translate("ui_query", "Browse", None))
         self.label_6.setText(_translate("ui_query", "File prefix", None))
-        self.pushButton_showQuery.setText(_translate("ui_query", "Show query", None))
+        self.pushButton_generateQuery.setText(_translate("ui_query", "Generate final query", None))
         self.pushButton_runQuery.setText(_translate("ui_query", "Run query", None))
 
 from qgis.gui import QgsCollapsibleGroupBox
