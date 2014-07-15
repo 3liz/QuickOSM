@@ -40,13 +40,13 @@ class QuickQueryWidget(QWidget, Ui_ui_quick_query):
         self.setupUi(self)
         
         #Default query
-        self.lineEdit_key.setText("route")
-        self.lineEdit_value.setText("bus")
+        self.lineEdit_key.setText("admin_level")
+        self.lineEdit_value.setText("8")
         self.lineEdit_nominatim.setText("grenoble")
         self.checkBox_points.setChecked(False)
         self.checkBox_lines.setChecked(False)
-        self.checkBox_linestrings.setChecked(True)
-        self.checkBox_multipolygons.setChecked(False)
+        self.checkBox_linestrings.setChecked(False)
+        self.checkBox_multipolygons.setChecked(True)
         
         #Setup UI
         self.pushButton_showQuery.hide()

@@ -97,19 +97,16 @@ class Process:
                 actions.addAction(QgsAction.OpenUrl,"User default editor",'http://www.openstreetmap.org/edit?[% "osm_type" %]=[% "osm_id" %]',False)
                 #actions.addAction(QgsAction.OpenUrl,"Edit directly",'http://rawedit.openstreetmap.fr/edit/[% "osm_type" %]/[% "osm_id" %]',False)
                 actions.addAction(QgsAction.GenericPython,"Edit directly",'from PyQt4.QtCore import QUrl; from PyQt4.QtWebKit import QWebView;  myWV = QWebView(None); myWV.load(QUrl("http://rawedit.openstreetmap.fr/edit/[% "osm_type" %]/[% "osm_id" %]")); myWV.show()',False)
+                #actions.addAction(QgsAction.GenericPython,"Edit directly",'from QuickOSM.CoreQuickOSM.Actions import Actions;Actions.run("rawedit","[% "osm_type" %]/[% "osm_id" %]")',False)
                 
-                if 'url' in item['tags']:
-                    actions.addAction(QgsAction.GenericPython,"Website",'var = QtGui.QDesktopServices(); var.openUrl(QtCore.QUrl("[% "url" %]")) if "[% "url" %]"!="" else QtGui.QMessageBox.information(None, "Sorry", "Sorry man, no website")',False)
-                    
-                if 'wikipedia' in item['tags']:
-                    actions.addAction(QgsAction.GenericPython,"Wikipedia",'var = QtGui.QDesktopServices(); var.openUrl(QtCore.QUrl("http://en.wikipedia.org/wiki/[% "wikipedia" %]")) if "[% "wikipedia" %]"!="" else QtGui.QMessageBox.information(None, "Sorry", "Sorry man, no wikipedia")',False)
-                
-                if 'website' in item['tags']:
-                    actions.addAction(QgsAction.GenericPython,"Website",'var = QtGui.QDesktopServices(); var.openUrl(QtCore.QUrl("[% "website" %]")) if "[% "website" %]"!="" else QtGui.QMessageBox.information(None, "Sorry", "Sorry man, no website")',False)
+                for link in ['url','website','wikipedia','ref:UAI']:
+                    if link in item['tags']:
+                        link = link.replace(":","_")
+                        actions.addAction(QgsAction.GenericPython,link,'from QuickOSM.CoreQuickOSM.Actions import Actions;Actions.run("'+link+'","[% "'+link+'" %]")',False)
                  
-                if 'ref:UAI' in item['tags']:
-                    actions.addAction(QgsAction.GenericPython,"ref UAI",'var = QtGui.QDesktopServices(); var.openUrl(QtCore.QUrl("http://www.education.gouv.fr/pid24302/annuaire-resultat-recherche.html?lycee_name=[% "ref_UAI" %]")) if "[% "ref_UAI" %]"!="" else QtGui.QMessageBox.information(None, "Sorry", "Sorry man, no ref UAI")',False)
-                
+                #Add index
+                newlayer.dataProvider().createSpatialIndex()
+                                
                 QgsMapLayerRegistry.instance().addMapLayer(newlayer)
                 numLayers += 1
                 

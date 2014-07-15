@@ -32,6 +32,8 @@ class OsmParser(QObject):
     def __init__(self,osmFile, layers = OSM_LAYERS, whiteListColumn = WHITE_LIST, deleteEmptyLayers = False):
         self.__osmFile = osmFile
         self.__layers = layers
+        if not whiteListColumn:
+            whiteListColumn = {'multilinestrings': None, 'points': None, 'lines': None, 'multipolygons': None}
         self.__whiteListColumn = whiteListColumn
         self.__deleteEmptyLayers = deleteEmptyLayers
         QObject.__init__(self)

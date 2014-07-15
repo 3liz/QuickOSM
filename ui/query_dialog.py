@@ -37,7 +37,7 @@ class QueryWidget(QWidget, Ui_ui_query):
         self.setupUi(self)
         
         #Highlight XML
-        highlighter = XMLHighlighter(self.textEdit_query.document())
+        self.highlighter = XMLHighlighter(self.textEdit_query.document())
         
         #Default query
         self.textEdit_query.setPlainText('\
@@ -78,12 +78,7 @@ class QueryWidget(QWidget, Ui_ui_query):
         self.pushButton_showQuery.clicked.connect(self.showQuery)
         self.pushButton_browse_output_file.clicked.connect(self.setOutDirPath)
         self.lineEdit_browseDir.textEdited.connect(self.disablePrefixFile)
-        self.textEdit_query.cursorPositionChanged.connect(self.setHighlight)
-
-
-    def setHighlight(self):
-        #Highlight XML
-        highlighter = XMLHighlighter(self.textEdit_query.document())
+        self.textEdit_query.cursorPositionChanged.connect(self.highlighter.rehighlight)
 
     def disablePrefixFile(self):
         '''
@@ -150,6 +145,7 @@ class QueryWidget(QWidget, Ui_ui_query):
             numLayers = Process.ProcessQuery(dialog = self, query=query, timeout=timeout, outputDir=outputDir, prefixFile=prefixFile,outputGeomTypes=outputGeomTypes, whiteListValues=whiteListValues)
             if numLayers:
                 iface.messageBar().pushMessage(QApplication.translate("QuickOSM",u"Successful query !"), level=QgsMessageBar.INFO , duration=5)
+                self.label_progress.setText(QApplication.translate("QuickOSM",u"Successful query !"))
             else:
                 iface.messageBar().pushMessage(QApplication.translate("QuickOSM", u"Successful query, but no result."), level=QgsMessageBar.WARNING , duration=7)
         
@@ -174,7 +170,7 @@ class QueryWidget(QWidget, Ui_ui_query):
             self.progressBar_execution.setMinimum(0)
             self.progressBar_execution.setMaximum(100)
             self.progressBar_execution.setValue(100)
-            self.label_progress.setText(QApplication.translate("QuickOSM",u"Successful query !"))
+            
             QApplication.restoreOverrideCursor()
             QApplication.processEvents()
             
