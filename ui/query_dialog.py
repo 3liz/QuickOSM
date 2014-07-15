@@ -117,7 +117,6 @@ class QueryWidget(QWidget, Ui_ui_query):
         
         #Get all values
         query = unicode(self.textEdit_query.toPlainText())
-        timeout = self.spinBox_timeout.value()
         outputDir = self.lineEdit_browseDir.text()
         prefixFile = self.lineEdit_filePrefix.text()
         

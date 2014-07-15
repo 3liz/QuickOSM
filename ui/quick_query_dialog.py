@@ -186,6 +186,16 @@ class QuickQueryWidget(QWidget, Ui_ui_quick_query):
             QApplication.processEvents()
         
     def showQuery(self):
+        quickQuery = None
+        for i in xrange(iface.mainWindowDialog.stackedWidget.count()):
+            if iface.mainWindowDialog.stackedWidget.widget(i).__class__.__name__ == "QueryWidget":
+                quickQuery = iface.mainWindowDialog.stackedWidget.widget(i)
+                break
+        else:
+            print "error"
+            return False
+        
+        
         key = unicode(self.lineEdit_key.text())
         value = unicode(self.lineEdit_value.text())
         nominatim = unicode(self.lineEdit_nominatim.text())
@@ -209,17 +219,17 @@ class QuickQueryWidget(QWidget, Ui_ui_quick_query):
             osmObjects.append('way')
         if self.checkBox_relation.isChecked():
             osmObjects.append('relation')
-        
-        quickQuery = None
-        for i in xrange(iface.mainWindowDialog.stackedWidget.count()):
-            if iface.mainWindowDialog.stackedWidget.widget(i).__class__.__name__ == "QueryWidget":
-                quickQuery = iface.mainWindowDialog.stackedWidget.widget(i)
-                break
+            
+        #Which geometry at the end ?
+        quickQuery.checkBox_points.setChecked(self.checkBox_points.isChecked())
+        quickQuery.checkBox_lines.setChecked(self.checkBox_lines.isChecked())
+        quickQuery.checkBox_linestrings.setChecked(self.checkBox_linestrings.isChecked())
+        quickQuery.checkBox_multipolygons.setChecked(self.checkBox_multipolygons.isChecked())
+
         queryFactory = QueryFactory(timeout=timeout,key=key,value=value,bbox=self.bbox,nominatim=nominatim,osmObjects=osmObjects)
         query = queryFactory.make()
         quickQuery.textEdit_query.setPlainText(query)
         iface.mainWindowDialog.exec_()
-        
             
     def setProgressPercentage(self,percent):
         self.progressBar_execution.setValue(percent)
