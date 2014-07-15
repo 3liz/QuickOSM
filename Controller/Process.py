@@ -86,9 +86,9 @@ class Process:
                 newlayer = QgsVectorLayer(outputs[layer],layerName,"ogr")
                 
                 #Loading default styles
-                fields = newlayer.pendingFields()
-                if fields.indexFromName("colour") > 0:
-                    newlayer.loadNamedStyle(join(dirname(dirname(abspath(__file__))),"styles","colour.qml"))
+                if layer == "multilinestrings":
+                    if "colour" in item['tags']:
+                        newlayer.loadNamedStyle(join(dirname(dirname(abspath(__file__))),"styles",layer+"_colour.qml"))
                 
                 #Add action about OpenStreetMap
                 actions = newlayer.actions()
