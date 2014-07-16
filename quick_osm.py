@@ -78,6 +78,7 @@ class QuickOSM:
         self.iface.addToolBarIcon(self.mainWindowAction)
         self.iface.addPluginToWebMenu(u"&Quick OSM",self.mainWindowAction)
         self.iface.mainWindowDialog = MainWindowDialog()
+        self.iface.mainWindowDialog.listWidget.setCurrentRow(0)
         
         
         self.myQueriesAction = QAction(
@@ -125,8 +126,6 @@ class QuickOSM:
         Processing.removeProvider(self.provider)
     
     def openMainWindow(self):
-        self.provider = QuickOSMAlgorithmProvider()
-        Processing.addProvider(self.provider, True)
         self.iface.mainWindowDialog.exec_()     
     
     def openMyQueriesDockWidget(self):

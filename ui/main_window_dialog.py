@@ -33,7 +33,7 @@ def singleton(class_):
     return instances[class_]
   return getinstance
 
-@singleton
+#@singleton
 class MainWindowDialog(QtGui.QDialog, Ui_ui_main_window):
     def __init__(self, parent=None):
         QtGui.QDialog.__init__(self)

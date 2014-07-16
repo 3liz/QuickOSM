@@ -241,7 +241,7 @@ class QuickQueryWidget(QWidget, Ui_ui_quick_query):
         queryFactory = QueryFactory(timeout=timeout,key=key,value=value,bbox=self.bbox,nominatim=nominatim,osmObjects=osmObjects)
         query = queryFactory.make()
         quickQuery.textEdit_query.setPlainText(query)
-        iface.mainWindowDialog.stackedWidget.setCurrentIndex(indexQuickQueryWidget)
+        iface.mainWindowDialog.listWidget.setCurrentRow(indexQuickQueryWidget)
         iface.mainWindowDialog.exec_()
             
     def setProgressPercentage(self,percent):
