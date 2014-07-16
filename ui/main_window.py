@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'main_window.ui'
 #
-# Created: Wed Jul 16 11:32:53 2014
+# Created: Wed Jul 16 17:59:59 2014
 #      by: PyQt4 UI code generator 4.10.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -27,10 +27,14 @@ class Ui_ui_main_window(object):
     def setupUi(self, ui_main_window):
         ui_main_window.setObjectName(_fromUtf8("ui_main_window"))
         ui_main_window.setWindowModality(QtCore.Qt.WindowModal)
-        ui_main_window.resize(701, 513)
-        self.gridLayout = QtGui.QGridLayout(ui_main_window)
-        self.gridLayout.setObjectName(_fromUtf8("gridLayout"))
-        self.listWidget = QtGui.QListWidget(ui_main_window)
+        ui_main_window.resize(837, 659)
+        self.horizontalLayout = QtGui.QHBoxLayout(ui_main_window)
+        self.horizontalLayout.setMargin(0)
+        self.horizontalLayout.setObjectName(_fromUtf8("horizontalLayout"))
+        self.splitter = QtGui.QSplitter(ui_main_window)
+        self.splitter.setOrientation(QtCore.Qt.Horizontal)
+        self.splitter.setObjectName(_fromUtf8("splitter"))
+        self.listWidget = QtGui.QListWidget(self.splitter)
         sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Expanding)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -38,7 +42,21 @@ class Ui_ui_main_window(object):
         self.listWidget.setSizePolicy(sizePolicy)
         self.listWidget.setMinimumSize(QtCore.QSize(100, 200))
         self.listWidget.setMaximumSize(QtCore.QSize(153, 16777215))
-        self.listWidget.setStyleSheet(_fromUtf8("background:rgb(74, 74, 74)"))
+        self.listWidget.setStyleSheet(_fromUtf8("QListWidget{\n"
+"    background-color: rgb(69, 69, 69, 220);\n"
+"    outline: 0;\n"
+"}\n"
+"QListWidget::item {\n"
+"    color: white;\n"
+"    padding: 3px;\n"
+"}\n"
+"QListWidget::item::selected {\n"
+"    color: black;\n"
+"    background-color:palette(Window);\n"
+"    padding-right: 0px;\n"
+"}"))
+        self.listWidget.setFrameShape(QtGui.QFrame.Box)
+        self.listWidget.setLineWidth(0)
         self.listWidget.setIconSize(QtCore.QSize(32, 32))
         self.listWidget.setUniformItemSizes(True)
         self.listWidget.setObjectName(_fromUtf8("listWidget"))
@@ -48,15 +66,15 @@ class Ui_ui_main_window(object):
         item.setIcon(icon)
         self.listWidget.addItem(item)
         item = QtGui.QListWidgetItem()
-        self.listWidget.addItem(item)
-        item = QtGui.QListWidgetItem()
         item.setIcon(icon)
         self.listWidget.addItem(item)
         item = QtGui.QListWidgetItem()
         item.setIcon(icon)
         self.listWidget.addItem(item)
-        self.gridLayout.addWidget(self.listWidget, 0, 0, 1, 1)
-        self.stackedWidget = QtGui.QStackedWidget(ui_main_window)
+        item = QtGui.QListWidgetItem()
+        item.setIcon(icon)
+        self.listWidget.addItem(item)
+        self.stackedWidget = QtGui.QStackedWidget(self.splitter)
         sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Preferred, QtGui.QSizePolicy.Preferred)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -100,7 +118,7 @@ class Ui_ui_main_window(object):
         self.label.setGeometry(QtCore.QRect(20, 40, 61, 16))
         self.label.setObjectName(_fromUtf8("label"))
         self.stackedWidget.addWidget(self.parameters)
-        self.gridLayout.addWidget(self.stackedWidget, 0, 1, 1, 1)
+        self.horizontalLayout.addWidget(self.splitter)
 
         self.retranslateUi(ui_main_window)
         self.listWidget.setCurrentRow(-1)
@@ -134,3 +152,4 @@ class Ui_ui_main_window(object):
 from query_dialog import QueryWidget
 from quick_query_dialog import QuickQueryWidget
 from my_queries_dialog import MyQueriesWidget
+import resources_rc

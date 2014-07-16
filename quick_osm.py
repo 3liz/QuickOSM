@@ -24,7 +24,7 @@ from PyQt4.QtGui import *
 from qgis.core import *
 from processing.core.Processing import Processing
 # Initialize Qt resources from file resources.py
-#import resources_rc
+import resources
 # Import the code for the dialog
 from ui.main_window_dialog import MainWindowDialog
 from ui.my_queries_dialog import MyQueriesDockWidget
@@ -70,7 +70,7 @@ class QuickOSM:
     def initGui(self):
         
         self.mainWindowAction = QAction(
-            QIcon(os.path.dirname(__file__) +"/icon.png"),
+            QIcon((":/plugins/QuickOSM/icon.png")),
             u"Quick OSM",
             self.iface.mainWindow())
         
