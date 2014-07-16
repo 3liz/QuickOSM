@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'query.ui'
 #
-# Created: Tue Jul 15 18:13:10 2014
+# Created: Wed Jul 16 08:47:13 2014
 #      by: PyQt4 UI code generator 4.10.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -177,7 +177,7 @@ class Ui_ui_query(object):
         self.lineEdit_browseDir.setPlaceholderText(_translate("ui_query", "Save to temporary file", None))
         self.pushButton_browse_output_file.setText(_translate("ui_query", "Browse", None))
         self.label_6.setText(_translate("ui_query", "File prefix", None))
-        self.pushButton_generateQuery.setText(_translate("ui_query", "Generate final query", None))
+        self.pushButton_generateQuery.setText(_translate("ui_query", "Generate query", None))
         self.pushButton_runQuery.setText(_translate("ui_query", "Run query", None))
 
 from qgis.gui import QgsCollapsibleGroupBox

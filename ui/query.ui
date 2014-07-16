@@ -212,7 +212,7 @@
      <item>
       <widget class="QPushButton" name="pushButton_generateQuery">
        <property name="text">
-        <string>Generate final query</string>
+        <string>Generate query</string>
        </property>
       </widget>
      </item>

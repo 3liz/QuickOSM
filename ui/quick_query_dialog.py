@@ -99,7 +99,7 @@ class QuickQueryWidget(QWidget, Ui_ui_quick_query):
         #Block the button and save the initial text
         QApplication.setOverrideCursor(Qt.WaitCursor)
         self.pushButton_browse_output_file.setDisabled(True)
-        self.pushButton_showQuery.setDisabled(True)
+        self.pushButton_generateQuery.setDisabled(True)
         self.pushButton_runQuery.setDisabled(True)
         self.pushButton_runQuery.initialText = self.pushButton_runQuery.text()
         self.pushButton_runQuery.setText(QApplication.translate("QuickOSM","Running query ..."))
@@ -175,7 +175,7 @@ class QuickQueryWidget(QWidget, Ui_ui_quick_query):
         finally:
             #Resetting the button
             self.pushButton_browse_output_file.setDisabled(False)
-            self.pushButton_showQuery.setDisabled(False)
+            self.pushButton_generateQuery.setDisabled(False)
             self.pushButton_runQuery.setDisabled(False)
             self.pushButton_runQuery.setText(self.pushButton_runQuery.initialText)
             self.progressBar_execution.setMinimum(0)
@@ -186,20 +186,28 @@ class QuickQueryWidget(QWidget, Ui_ui_quick_query):
             QApplication.processEvents()
         
     def showQuery(self):
+        
+        #We have to find the widget in the stackedwidget
         quickQuery = None
+        indexQuickQueryWidget = None
         for i in xrange(iface.mainWindowDialog.stackedWidget.count()):
             if iface.mainWindowDialog.stackedWidget.widget(i).__class__.__name__ == "QueryWidget":
                 quickQuery = iface.mainWindowDialog.stackedWidget.widget(i)
+                indexQuickQueryWidget = i
                 break
         else:
             print "error"
             return False
         
-        
+        #Get all values
         key = unicode(self.lineEdit_key.text())
         value = unicode(self.lineEdit_value.text())
         nominatim = unicode(self.lineEdit_nominatim.text())
         timeout = self.spinBox_timeout.value()
+        outputDir = self.lineEdit_browseDir.text()
+        prefixFile = self.lineEdit_filePrefix.text()
+        
+        #Set BBOX or nominatim
         if self.bbox:
             nominatim = None
             geomExtent = QgsGeometry.fromRect(iface.mapCanvas().extent())
@@ -225,10 +233,15 @@ class QuickQueryWidget(QWidget, Ui_ui_quick_query):
         quickQuery.checkBox_lines.setChecked(self.checkBox_lines.isChecked())
         quickQuery.checkBox_linestrings.setChecked(self.checkBox_linestrings.isChecked())
         quickQuery.checkBox_multipolygons.setChecked(self.checkBox_multipolygons.isChecked())
+        quickQuery.lineEdit_browseDir.setText(outputDir)
+        if prefixFile:
+            quickQuery.lineEdit_filePrefix.setText(prefixFile)
+            quickQuery.lineEdit_filePrefix.setEnabled(True)
 
         queryFactory = QueryFactory(timeout=timeout,key=key,value=value,bbox=self.bbox,nominatim=nominatim,osmObjects=osmObjects)
         query = queryFactory.make()
         quickQuery.textEdit_query.setPlainText(query)
+        iface.mainWindowDialog.stackedWidget.setCurrentIndex(indexQuickQueryWidget)
         iface.mainWindowDialog.exec_()
             
     def setProgressPercentage(self,percent):

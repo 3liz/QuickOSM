@@ -105,7 +105,7 @@ class QueryWidget(QWidget, Ui_ui_query):
         #Block the button and save the initial text
         QApplication.setOverrideCursor(Qt.WaitCursor)
         self.pushButton_browse_output_file.setDisabled(True)
-        self.pushButton_showQuery.setDisabled(True)
+        self.pushButton_generateQuery.setDisabled(True)
         self.pushButton_runQuery.setDisabled(True)
         self.pushButton_runQuery.initialText = self.pushButton_runQuery.text()
         self.pushButton_runQuery.setText(QApplication.translate("QuickOSM","Running query ..."))
@@ -163,7 +163,7 @@ class QueryWidget(QWidget, Ui_ui_query):
         finally:
             #Resetting the button
             self.pushButton_browse_output_file.setDisabled(False)
-            self.pushButton_showQuery.setDisabled(False)
+            self.pushButton_generateQuery.setDisabled(False)
             self.pushButton_runQuery.setDisabled(False)
             self.pushButton_runQuery.setText(self.pushButton_runQuery.initialText)
             self.progressBar_execution.setMinimum(0)
@@ -181,6 +181,7 @@ class QueryWidget(QWidget, Ui_ui_query):
         geomExtent.transform(crsTransform)
         bbox = geomExtent.boundingBox()
         query = Tools.PrepareQueryOqlXml(query=query, extent=bbox)
+        query = query.replace("    ","     ")
         self.textEdit_query.setPlainText(query)
         
         
