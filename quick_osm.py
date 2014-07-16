@@ -70,7 +70,7 @@ class QuickOSM:
     def initGui(self):
         
         self.mainWindowAction = QAction(
-            QIcon((":/plugins/QuickOSM/icon.png")),
+            QIcon(":/plugins/QuickOSM/icon.png"),
             u"Quick OSM",
             self.iface.mainWindow())
         
@@ -82,7 +82,7 @@ class QuickOSM:
         
         
         self.myQueriesAction = QAction(
-            QIcon(os.path.dirname(__file__) +"/icon.png"),
+            QIcon(":/plugins/QuickOSM/icon.png"),
             QApplication.translate("ui_my_queries", "My queries"),
             self.iface.mainWindow())
         self.myQueriesAction.triggered.connect(self.openMyQueriesDockWidget)
@@ -94,7 +94,7 @@ class QuickOSM:
         
         
         self.queryAction = QAction(
-            QIcon(os.path.dirname(__file__) +"/icon.png"),
+            QIcon(":/plugins/QuickOSM/icon.png"),
             QApplication.translate("ui_query", "Query"),
             self.iface.mainWindow())
         self.queryAction.triggered.connect(self.openQueryDockWidget)
@@ -106,7 +106,7 @@ class QuickOSM:
         
         
         self.quickQueryAction = QAction(
-            QIcon(os.path.dirname(__file__) +"/icon.png"),
+            QIcon(":/plugins/QuickOSM/icon.png"),
             QApplication.translate("ui_quick_query", "Quick query"),
             self.iface.mainWindow())
         self.quickQueryAction.triggered.connect(self.openQuickQueryDockWidget)
