@@ -45,13 +45,13 @@ class QuickQueryWidget(QWidget, Ui_ui_quick_query):
         self.setupUi(self)
         
         #Default query
-        self.lineEdit_key.setText("admin_level")
-        self.lineEdit_value.setText("8")
+        self.lineEdit_key.setText("route")
+        self.lineEdit_value.setText("bus")
         self.lineEdit_nominatim.setText("grenoble")
         self.checkBox_points.setChecked(False)
         self.checkBox_lines.setChecked(False)
-        self.checkBox_linestrings.setChecked(False)
-        self.checkBox_multipolygons.setChecked(True)
+        self.checkBox_linestrings.setChecked(True)
+        self.checkBox_multipolygons.setChecked(False)
         
         #Setup UI
         #self.pushButton_showQuery.hide()
@@ -99,7 +99,7 @@ class QuickQueryWidget(QWidget, Ui_ui_quick_query):
         #Block the button and save the initial text
         QApplication.setOverrideCursor(Qt.WaitCursor)
         self.pushButton_browse_output_file.setDisabled(True)
-        self.pushButton_generateQuery.setDisabled(True)
+        self.pushButton_showQuery.setDisabled(True)
         self.pushButton_runQuery.setDisabled(True)
         self.pushButton_runQuery.initialText = self.pushButton_runQuery.text()
         self.pushButton_runQuery.setText(QApplication.translate("QuickOSM","Running query ..."))
@@ -175,7 +175,7 @@ class QuickQueryWidget(QWidget, Ui_ui_quick_query):
         finally:
             #Resetting the button
             self.pushButton_browse_output_file.setDisabled(False)
-            self.pushButton_generateQuery.setDisabled(False)
+            self.pushButton_showQuery.setDisabled(False)
             self.pushButton_runQuery.setDisabled(False)
             self.pushButton_runQuery.setText(self.pushButton_runQuery.initialText)
             self.progressBar_execution.setMinimum(0)

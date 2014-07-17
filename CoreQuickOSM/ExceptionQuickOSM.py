@@ -70,3 +70,12 @@ class Ogr2OgrException(GeoAlgorithmExecutionException):
             msg = QApplication.translate("Exception", u"Error with ogr2ogr")
         GeoAlgorithmExecutionException.__init__(self,msg)
         self.errorNumber = 33
+        
+class FileDoesntExistException(GeoAlgorithmExecutionException):
+    def __init__(self, msg=None, suffix=None):
+        if not msg:
+            msg= QApplication.translate("Exception", u"The file doesn't exist")
+        if suffix:
+            msg = msg + " " + suffix
+        GeoAlgorithmExecutionException.__init__(self,msg)
+        self.errorNumber = 34

@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'osm_file.ui'
 #
-# Created: Thu Jul 17 08:29:56 2014
+# Created: Thu Jul 17 10:17:10 2014
 #      by: PyQt4 UI code generator 4.10.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -37,9 +37,9 @@ class Ui_ui_osm_file(object):
         self.formLayout.setWidget(0, QtGui.QFormLayout.LabelRole, self.label)
         self.horizontalLayout = QtGui.QHBoxLayout()
         self.horizontalLayout.setObjectName(_fromUtf8("horizontalLayout"))
-        self.lineEdi_osmFile = QtGui.QLineEdit(ui_osm_file)
-        self.lineEdi_osmFile.setObjectName(_fromUtf8("lineEdi_osmFile"))
-        self.horizontalLayout.addWidget(self.lineEdi_osmFile)
+        self.lineEdit_osmFile = QtGui.QLineEdit(ui_osm_file)
+        self.lineEdit_osmFile.setObjectName(_fromUtf8("lineEdit_osmFile"))
+        self.horizontalLayout.addWidget(self.lineEdit_osmFile)
         self.pushButton_browseOsmFile = QtGui.QPushButton(ui_osm_file)
         self.pushButton_browseOsmFile.setObjectName(_fromUtf8("pushButton_browseOsmFile"))
         self.horizontalLayout.addWidget(self.pushButton_browseOsmFile)
