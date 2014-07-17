@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'quick_query.ui'
 #
-# Created: Fri Jul 11 10:11:43 2014
+# Created: Thu Jul 17 10:55:47 2014
 #      by: PyQt4 UI code generator 4.10.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -211,7 +211,7 @@ class Ui_ui_quick_query(object):
         self.label_10.setText(_translate("ui_quick_query", "Points", None))
         self.label_11.setText(_translate("ui_quick_query", "Lines", None))
         self.label_12.setText(_translate("ui_quick_query", "Multipolygons", None))
-        self.label_14.setText(_translate("ui_quick_query", "Linestrings", None))
+        self.label_14.setText(_translate("ui_quick_query", "Multilinestrings", None))
         self.label_5.setText(_translate("ui_quick_query", "Timeout", None))
         self.label_4.setText(_translate("ui_quick_query", "Directory", None))
         self.lineEdit_browseDir.setPlaceholderText(_translate("ui_quick_query", "Save to temporary file", None))

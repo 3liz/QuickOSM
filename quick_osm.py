@@ -90,7 +90,7 @@ class QuickOSM:
         self.iface.addPluginToWebMenu(u"&Quick OSM",self.osmFileAction)
         self.osmFileDockWidget = OsmFileDockWidget()
         self.iface.addDockWidget(Qt.RightDockWidgetArea, self.osmFileDockWidget)
-        self.osmFileDockWidget.hide()
+        #self.osmFileDockWidget.hide()
         self.osmFileDockWidget.setObjectName("osmFileWidget");        
 
         

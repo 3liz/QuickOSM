@@ -29,13 +29,21 @@ class OsmParser(QObject):
     #Whitle list for the attribute table, if set to None all the keys will be keep
     WHITE_LIST = {'multilinestrings': None, 'points': None, 'lines': None, 'multipolygons': None}
     
-    def __init__(self,osmFile, layers = OSM_LAYERS, whiteListColumn = WHITE_LIST, deleteEmptyLayers = False):
+    def __init__(self,osmFile, layers = OSM_LAYERS, whiteListColumn = WHITE_LIST, deleteEmptyLayers = False, loadOnly = False, osmConf = None):
         self.__osmFile = osmFile
         self.__layers = layers
         if not whiteListColumn:
             whiteListColumn = {'multilinestrings': None, 'points': None, 'lines': None, 'multipolygons': None}
         self.__whiteListColumn = whiteListColumn
         self.__deleteEmptyLayers = deleteEmptyLayers
+        self.__loadOnly = loadOnly
+        
+        if not osmConf:
+            current_dir = os.path.dirname(os.path.realpath(__file__))
+            self.__osmconf = os.path.join(current_dir,'osmconf.ini')
+        else:
+            self.__osmconf = str(osmConf.encode("utf-8"))
+        
         QObject.__init__(self)
         
     def parse(self):
@@ -55,9 +63,7 @@ class OsmParser(QObject):
             
         
         #Configuration for OGR
-        current_dir = os.path.dirname(os.path.realpath(__file__))
-        osmconf = current_dir + '/osmconf.ini'
-        gdal.SetConfigOption('OSM_CONFIG_FILE', osmconf)
+        gdal.SetConfigOption('OSM_CONFIG_FILE', self.__osmconf)
         gdal.SetConfigOption('OSM_USE_CUSTOM_INDEXING', 'NO')
         
         if not os.path.isfile(self.__osmFile):
@@ -65,6 +71,19 @@ class OsmParser(QObject):
         
         uri = self.__osmFile + "|layername="
         layers = {}
+        
+        #If loadOnly, no parsing required:
+        #It's used only when we ask to open an osm file
+        if self.__loadOnly:
+            fileName = os.path.basename(self.__osmFile)
+            for layer in self.__layers:
+                layers[layer] = QgsVectorLayer(uri + layer, fileName + " " + layer,"ogr")
+            
+                if not layers[layer].isValid():
+                    print "Error on the layer", layers[layer].lastError()
+                
+            return layers
+                
         
         #Foreach layers
         for layer in self.__layers:
