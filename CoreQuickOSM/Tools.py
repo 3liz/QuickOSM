@@ -25,7 +25,7 @@ class Tools:
     @staticmethod
     def PrepareQueryOqlXml(query,extent = None, nominatimName = None):
         '''
-        Prepare the query before sending it to Overpassr
+        Prepare the query before sending it to Overpass
         '''
         
         #Delete spaces and tabs at the beginning and at the end
@@ -49,8 +49,9 @@ class Tools:
                 nominatim = Nominatim()
                 
                 #If {{nominatim}}, it's a template, we use the parameter
-                if search == "{{nominatim}}":
+                if search == "{{nominatim}}" or nominatimName:
                     search = nominatimName
+                    
                     
                 #We perform a nominatim query
                 osmid = nominatim.getFirstPolygonFromQuery(search)
@@ -63,7 +64,6 @@ class Tools:
         bboxQuery = re.search('<bbox-query {{bbox}}/>',query)
         if bboxQuery:
             newString = '<bbox-query e="'+str(extent.xMaximum())+'" n="'+str(extent.yMaximum())+'" s="'+str(extent.yMinimum())+'" w="'+str(extent.xMinimum())+'"/>'
-            print newString
             query = re.sub(r'<bbox-query {{bbox}}/>',newString, query)
         
         return query

@@ -79,3 +79,12 @@ class FileDoesntExistException(GeoAlgorithmExecutionException):
             msg = msg + " " + suffix
         GeoAlgorithmExecutionException.__init__(self,msg)
         self.errorNumber = 34
+        
+class MissingParameterException(GeoAlgorithmExecutionException):
+    def __init__(self, msg=None, suffix=None):
+        if not msg:
+            msg= QApplication.translate("Exception", u"A parameter is missing :")
+        if suffix:
+            msg = msg + " " + suffix
+        GeoAlgorithmExecutionException.__init__(self,msg)
+        self.errorNumber = 35

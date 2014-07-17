@@ -29,6 +29,7 @@ from QuickOSM.CoreQuickOSM.ExceptionQuickOSM import *
 from QuickOSM.CoreQuickOSM.Tools import Tools
 from XMLHighlighter import XMLHighlighter
 import os
+import re
 from qgis.utils import iface
 from query import Ui_ui_query
 
@@ -79,6 +80,7 @@ class QueryWidget(QWidget, Ui_ui_query):
         self.pushButton_browse_output_file.clicked.connect(self.setOutDirPath)
         self.lineEdit_browseDir.textEdited.connect(self.disablePrefixFile)
         self.textEdit_query.cursorPositionChanged.connect(self.highlighter.rehighlight)
+        self.textEdit_query.cursorPositionChanged.connect(self.allowNominatimOrExtent)
 
     def disablePrefixFile(self):
         '''
@@ -97,6 +99,15 @@ class QueryWidget(QWidget, Ui_ui_query):
         outputFile = QFileDialog.getExistingDirectory(None, caption=QApplication.translate("QuickOSM", 'Select directory'))
         self.lineEdit_browseDir.setText(outputFile)
         self.disablePrefixFile()
+
+    def allowNominatimOrExtent(self):
+        query = unicode(self.textEdit_query.toPlainText())
+
+        if re.search('{{nominatim}}', query) or re.search('{{nominatimArea:(.*)}}', query):
+            self.lineEdit_nominatim.setEnabled(True)
+        else:
+            self.lineEdit_nominatim.setEnabled(False)
+            self.lineEdit_nominatim.setText("")
 
     def runQuery(self):
         '''
@@ -119,6 +130,7 @@ class QueryWidget(QWidget, Ui_ui_query):
         query = unicode(self.textEdit_query.toPlainText())
         outputDir = self.lineEdit_browseDir.text()
         prefixFile = self.lineEdit_filePrefix.text()
+        nominatim = self.lineEdit_nominatim.text()
         
         #Which geometry at the end ?
         outputGeomTypes = []
@@ -141,7 +153,10 @@ class QueryWidget(QWidget, Ui_ui_query):
             if outputDir and not os.path.isdir(outputDir):
                 raise DirectoryOutPutException
 
-            numLayers = Process.ProcessQuery(dialog = self, query=query, outputDir=outputDir, prefixFile=prefixFile,outputGeomTypes=outputGeomTypes, whiteListValues=whiteListValues)
+            if not nominatim and re.search('{{nominatim}}', query):
+                raise MissingParameterException(suffix="nominatim field")
+
+            numLayers = Process.ProcessQuery(dialog = self, query=query, outputDir=outputDir, prefixFile=prefixFile,outputGeomTypes=outputGeomTypes, whiteListValues=whiteListValues, nominatim=nominatim)
             if numLayers:
                 iface.messageBar().pushMessage(QApplication.translate("QuickOSM",u"Successful query !"), level=QgsMessageBar.INFO , duration=5)
                 self.label_progress.setText(QApplication.translate("QuickOSM",u"Successful query !"))
