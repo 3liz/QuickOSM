@@ -82,16 +82,7 @@ QListWidget::item::selected {
         <string>My queries</string>
        </property>
        <property name="icon">
-        <iconset resource="../../../../../plugins/QuickOSM/resources.qrc">
-         <normaloff>:/plugins/QuickOSM/resources/general.svg</normaloff>:/plugins/QuickOSM/resources/general.svg</iconset>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>Query</string>
-       </property>
-       <property name="icon">
-        <iconset resource="../../../../../plugins/QuickOSM/resources.qrc">
+        <iconset resource="../resources.qrc">
          <normaloff>:/plugins/QuickOSM/resources/general.svg</normaloff>:/plugins/QuickOSM/resources/general.svg</iconset>
        </property>
       </item>
@@ -100,7 +91,25 @@ QListWidget::item::selected {
         <string>Quick query</string>
        </property>
        <property name="icon">
-        <iconset resource="../../../../../plugins/QuickOSM/resources.qrc">
+        <iconset resource="../resources.qrc">
+         <normaloff>:/plugins/QuickOSM/resources/general.svg</normaloff>:/plugins/QuickOSM/resources/general.svg</iconset>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Query</string>
+       </property>
+       <property name="icon">
+        <iconset resource="../resources.qrc">
+         <normaloff>:/plugins/QuickOSM/resources/general.svg</normaloff>:/plugins/QuickOSM/resources/general.svg</iconset>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>OSM File</string>
+       </property>
+       <property name="icon">
+        <iconset resource="../resources.qrc">
          <normaloff>:/plugins/QuickOSM/resources/general.svg</normaloff>:/plugins/QuickOSM/resources/general.svg</iconset>
        </property>
       </item>
@@ -109,7 +118,7 @@ QListWidget::item::selected {
         <string>Parameters</string>
        </property>
        <property name="icon">
-        <iconset resource="../../../../../plugins/QuickOSM/resources.qrc">
+        <iconset resource="../resources.qrc">
          <normaloff>:/plugins/QuickOSM/resources/general.svg</normaloff>:/plugins/QuickOSM/resources/general.svg</iconset>
        </property>
       </item>
@@ -128,11 +137,12 @@ QListWidget::item::selected {
        </size>
       </property>
       <property name="currentIndex">
-       <number>1</number>
+       <number>3</number>
       </property>
       <widget class="MyQueriesWidget" name="my_queries"/>
-      <widget class="QueryWidget" name="query"/>
       <widget class="QuickQueryWidget" name="quick_query"/>
+      <widget class="QueryWidget" name="query"/>
+      <widget class="OsmFileWidget" name="page"/>
       <widget class="QWidget" name="parameters">
        <widget class="QGroupBox" name="groupBox">
         <property name="geometry">
@@ -236,6 +246,12 @@ QListWidget::item::selected {
    <header>query_dialog.h</header>
    <container>1</container>
   </customwidget>
+  <customwidget>
+   <class>OsmFileWidget</class>
+   <extends>QWidget</extends>
+   <header>osm_file_dialog.h</header>
+   <container>1</container>
+  </customwidget>
  </customwidgets>
  <tabstops>
   <tabstop>pushButton_OAPI_timestamp</tabstop>
@@ -243,7 +259,7 @@ QListWidget::item::selected {
   <tabstop>listWidget</tabstop>
  </tabstops>
  <resources>
-  <include location="../../../../../plugins/QuickOSM/resources.qrc"/>
+  <include location="../resources.qrc"/>
  </resources>
  <connections>
   <connection>

@@ -24,11 +24,12 @@ from PyQt4.QtGui import *
 from qgis.core import *
 from processing.core.Processing import Processing
 # Initialize Qt resources from file resources.py
-import resources
+import resources_rc
 # Import the code for the dialog
 from ui.main_window_dialog import MainWindowDialog
 from ui.my_queries_dialog import MyQueriesDockWidget
 from ui.query_dialog import QueryDockWidget
+from ui.osm_file_dialog import OsmFileDockWidget
 from ui.quick_query_dialog import QuickQueryDockWidget
 from ProcessingQuickOSM.QuickOSMAlgorithmProvider import QuickOSMAlgorithmProvider
 import os.path
@@ -79,7 +80,19 @@ class QuickOSM:
         self.iface.addPluginToWebMenu(u"&Quick OSM",self.mainWindowAction)
         self.iface.mainWindowDialog = MainWindowDialog()
         self.iface.mainWindowDialog.listWidget.setCurrentRow(0)
-        
+
+
+        self.osmFileAction = QAction(
+            QIcon(":/plugins/QuickOSM/icon.png"),
+            QApplication.translate("ui_osm_file", "OSM File"),
+            self.iface.mainWindow())
+        self.osmFileAction.triggered.connect(self.openOsmFileDockWidget)
+        self.iface.addPluginToWebMenu(u"&Quick OSM",self.osmFileAction)
+        self.osmFileDockWidget = OsmFileDockWidget()
+        self.iface.addDockWidget(Qt.RightDockWidgetArea, self.osmFileDockWidget)
+        self.osmFileDockWidget.hide()
+        self.osmFileDockWidget.setObjectName("osmFileWidget");        
+
         
         self.myQueriesAction = QAction(
             QIcon(":/plugins/QuickOSM/icon.png"),
@@ -122,6 +135,7 @@ class QuickOSM:
         self.iface.removePluginWebMenu(u"&Quick OSM",self.myQueriesAction)
         self.iface.removePluginWebMenu(u"&Quick OSM",self.queryAction)
         self.iface.removePluginWebMenu(u"&Quick OSM",self.quickQueryAction)
+        self.iface.removePluginWebMenu(u"&Quick OSM",self.osmFileAction)
         self.iface.removeToolBarIcon(self.mainWindowAction)
         Processing.removeProvider(self.provider)
     
@@ -139,6 +153,12 @@ class QuickOSM:
             self.queryDockWidget.hide()
         else:
             self.queryDockWidget.show()
+            
+    def openOsmFileDockWidget(self):
+        if self.osmFileDockWidget.isVisible():
+            self.osmFileDockWidget.hide()
+        else:
+            self.osmFileDockWidget.show()
             
     def openQuickQueryDockWidget(self):
         if self.quickQueryDockWidget.isVisible():

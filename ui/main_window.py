@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'main_window.ui'
 #
-# Created: Wed Jul 16 17:59:59 2014
+# Created: Wed Jul 16 21:36:00 2014
 #      by: PyQt4 UI code generator 4.10.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -74,6 +74,9 @@ class Ui_ui_main_window(object):
         item = QtGui.QListWidgetItem()
         item.setIcon(icon)
         self.listWidget.addItem(item)
+        item = QtGui.QListWidgetItem()
+        item.setIcon(icon)
+        self.listWidget.addItem(item)
         self.stackedWidget = QtGui.QStackedWidget(self.splitter)
         sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Preferred, QtGui.QSizePolicy.Preferred)
         sizePolicy.setHorizontalStretch(0)
@@ -85,12 +88,15 @@ class Ui_ui_main_window(object):
         self.my_queries = MyQueriesWidget()
         self.my_queries.setObjectName(_fromUtf8("my_queries"))
         self.stackedWidget.addWidget(self.my_queries)
-        self.query = QueryWidget()
-        self.query.setObjectName(_fromUtf8("query"))
-        self.stackedWidget.addWidget(self.query)
         self.quick_query = QuickQueryWidget()
         self.quick_query.setObjectName(_fromUtf8("quick_query"))
         self.stackedWidget.addWidget(self.quick_query)
+        self.query = QueryWidget()
+        self.query.setObjectName(_fromUtf8("query"))
+        self.stackedWidget.addWidget(self.query)
+        self.page = OsmFileWidget()
+        self.page.setObjectName(_fromUtf8("page"))
+        self.stackedWidget.addWidget(self.page)
         self.parameters = QtGui.QWidget()
         self.parameters.setObjectName(_fromUtf8("parameters"))
         self.groupBox = QtGui.QGroupBox(self.parameters)
@@ -122,7 +128,7 @@ class Ui_ui_main_window(object):
 
         self.retranslateUi(ui_main_window)
         self.listWidget.setCurrentRow(-1)
-        self.stackedWidget.setCurrentIndex(1)
+        self.stackedWidget.setCurrentIndex(3)
         QtCore.QObject.connect(self.listWidget, QtCore.SIGNAL(_fromUtf8("currentRowChanged(int)")), self.stackedWidget.setCurrentIndex)
         QtCore.QMetaObject.connectSlotsByName(ui_main_window)
         ui_main_window.setTabOrder(self.pushButton_OAPI_timestamp, self.comboBox_default_OAPI)
@@ -135,10 +141,12 @@ class Ui_ui_main_window(object):
         item = self.listWidget.item(0)
         item.setText(_translate("ui_main_window", "My queries", None))
         item = self.listWidget.item(1)
-        item.setText(_translate("ui_main_window", "Query", None))
-        item = self.listWidget.item(2)
         item.setText(_translate("ui_main_window", "Quick query", None))
+        item = self.listWidget.item(2)
+        item.setText(_translate("ui_main_window", "Query", None))
         item = self.listWidget.item(3)
+        item.setText(_translate("ui_main_window", "OSM File", None))
+        item = self.listWidget.item(4)
         item.setText(_translate("ui_main_window", "Parameters", None))
         self.listWidget.setSortingEnabled(__sortingEnabled)
         self.groupBox.setTitle(_translate("ui_main_window", "Overpass API", None))
@@ -150,6 +158,7 @@ class Ui_ui_main_window(object):
         self.label.setText(_translate("ui_main_window", "Server", None))
 
 from query_dialog import QueryWidget
+from osm_file_dialog import OsmFileWidget
 from quick_query_dialog import QuickQueryWidget
 from my_queries_dialog import MyQueriesWidget
-import resources_rc
+from QuickOSM import resources_rc
