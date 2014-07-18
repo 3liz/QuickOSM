@@ -88,3 +88,12 @@ class MissingParameterException(GeoAlgorithmExecutionException):
             msg = msg + " " + suffix
         GeoAlgorithmExecutionException.__init__(self,msg)
         self.errorNumber = 35
+        
+class NoLayerException(GeoAlgorithmExecutionException):
+    def __init__(self, msg=None, suffix=None):
+        if not msg:
+            msg= QApplication.translate("Exception", u"The layer is missing :")
+        if suffix:
+            msg = msg + " " + suffix
+        GeoAlgorithmExecutionException.__init__(self,msg)
+        self.errorNumber = 36

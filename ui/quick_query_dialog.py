@@ -54,25 +54,44 @@ class QuickQueryWidget(QWidget, Ui_ui_quick_query):
         self.checkBox_multipolygons.setChecked(False)
         
         #Setup UI
-        #self.pushButton_showQuery.hide()
         self.lineEdit_filePrefix.setDisabled(True)
         self.groupBox.setCollapsed(True)
-        self.bbox = None
+        self.fillLayerCombobox()
                
         #connect
         self.pushButton_runQuery.clicked.connect(self.runQuery)
         self.pushButton_showQuery.clicked.connect(self.showQuery)
         self.pushButton_browse_output_file.clicked.connect(self.setOutDirPath)
         self.lineEdit_browseDir.textEdited.connect(self.disablePrefixFile)
-        self.radioButton_bbox.toggled.connect(self.bboxOrPlace)
+        self.radioButton_extentLayer.toggled.connect(self.bboxOrPlace)
+        self.radioButton_extentMapCanvas.toggled.connect(self.bboxOrPlace)
+        self.radioButton_place.toggled.connect(self.bboxOrPlace)
+        self.buttonBox_layers.button(QDialogButtonBox.Reset).clicked.connect(self.fillLayerCombobox)
  
     def bboxOrPlace(self):
-        if self.radioButton_bbox.isChecked():
+        if self.radioButton_extentMapCanvas.isChecked() or self.radioButton_extentLayer.isChecked():
             self.lineEdit_nominatim.setDisabled(True)
-            self.bbox = True
         else:
             self.lineEdit_nominatim.setDisabled(False)
-            self.bbox = None
+        
+        if self.radioButton_extentLayer.isChecked():
+            self.comboBox_extentLayer.setDisabled(False)
+            #self.buttonBox_layers.setDisabled(False)
+        else:
+            self.comboBox_extentLayer.setDisabled(True)
+            self.buttonBox_layers.setDisabled(True)
+
+
+    def fillLayerCombobox(self):
+        layers = iface.legendInterface().layers()
+        self.comboBox_extentLayer.clear()
+        for layer in layers:
+            self.comboBox_extentLayer.addItem(layer.name(),layer.id())
+            
+        if self.comboBox_extentLayer.count() < 1:
+            self.radioButton_extentLayer.setCheckable(False)
+        else:
+            self.radioButton_extentLayer.setCheckable(True)
 
     def disablePrefixFile(self):
         '''
@@ -117,17 +136,7 @@ class QuickQueryWidget(QWidget, Ui_ui_quick_query):
         outputDir = self.lineEdit_browseDir.text()
         prefixFile = self.lineEdit_filePrefix.text()
         
-        #If bbox, we must set None to nominatim, we can't have both
-        if self.bbox:
-            nominatim = None
-            geomExtent = QgsGeometry.fromRect(iface.mapCanvas().extent())
-            sourceCrs = iface.mapCanvas().mapRenderer().destinationCrs()
-            crsTransform = QgsCoordinateTransform(sourceCrs, QgsCoordinateReferenceSystem("EPSG:4326"))
-            geomExtent.transform(crsTransform)
-            self.bbox = geomExtent.boundingBox()
-        
-        if nominatim == '':
-            nominatim = None
+ 
         
         #Which geometry at the end ?
         outputGeomTypes = []
@@ -151,10 +160,20 @@ class QuickQueryWidget(QWidget, Ui_ui_quick_query):
         
         try:
             #Test values
+            
+            #If bbox, we must set None to nominatim, we can't have both
+            bbox = None
+            if self.radioButton_extentLayer.isChecked() or self.radioButton_extentMapCanvas.isChecked():
+                nominatim = None
+                bbox = self.__getBBox()
+            
+            if nominatim == '':
+                nominatim = None
+            
             if outputDir and not os.path.isdir(outputDir):
                 raise DirectoryOutPutException
 
-            numLayers = Process.ProcessQuickQuery(dialog = self, key=key, value=value, nominatim=nominatim, bbox=self.bbox, osmObjects=osmObjects, timeout=timeout, outputDir=outputDir, prefixFile=prefixFile,outputGeomTypes=outputGeomTypes)
+            numLayers = Process.ProcessQuickQuery(dialog = self, key=key, value=value, nominatim=nominatim, bbox=bbox, osmObjects=osmObjects, timeout=timeout, outputDir=outputDir, prefixFile=prefixFile,outputGeomTypes=outputGeomTypes)
             if numLayers:
                 iface.messageBar().pushMessage(QApplication.translate("QuickOSM",u"Successful query !"), level=QgsMessageBar.INFO , duration=5)
             else:
@@ -188,11 +207,11 @@ class QuickQueryWidget(QWidget, Ui_ui_quick_query):
     def showQuery(self):
         
         #We have to find the widget in the stackedwidget
-        quickQuery = None
+        queryWidget = None
         indexQuickQueryWidget = None
         for i in xrange(iface.mainWindowDialog.stackedWidget.count()):
             if iface.mainWindowDialog.stackedWidget.widget(i).__class__.__name__ == "QueryWidget":
-                quickQuery = iface.mainWindowDialog.stackedWidget.widget(i)
+                queryWidget = iface.mainWindowDialog.stackedWidget.widget(i)
                 indexQuickQueryWidget = i
                 break
         else:
@@ -207,14 +226,11 @@ class QuickQueryWidget(QWidget, Ui_ui_quick_query):
         outputDir = self.lineEdit_browseDir.text()
         prefixFile = self.lineEdit_filePrefix.text()
         
-        #Set BBOX or nominatim
-        if self.bbox:
+        #If bbox, we must set None to nominatim, we can't have both
+        bbox = None
+        if self.radioButton_extentLayer.isChecked() or self.radioButton_extentMapCanvas.isChecked():
             nominatim = None
-            geomExtent = QgsGeometry.fromRect(iface.mapCanvas().extent())
-            sourceCrs = iface.mapCanvas().mapRenderer().destinationCrs()
-            crsTransform = QgsCoordinateTransform(sourceCrs, QgsCoordinateReferenceSystem("EPSG:4326"))
-            geomExtent.transform(crsTransform)
-            self.bbox = geomExtent.boundingBox()
+            bbox = True
         
         if nominatim == '':
             nominatim = None
@@ -229,20 +245,52 @@ class QuickQueryWidget(QWidget, Ui_ui_quick_query):
             osmObjects.append('relation')
             
         #Which geometry at the end ?
-        quickQuery.checkBox_points.setChecked(self.checkBox_points.isChecked())
-        quickQuery.checkBox_lines.setChecked(self.checkBox_lines.isChecked())
-        quickQuery.checkBox_linestrings.setChecked(self.checkBox_linestrings.isChecked())
-        quickQuery.checkBox_multipolygons.setChecked(self.checkBox_multipolygons.isChecked())
-        quickQuery.lineEdit_browseDir.setText(outputDir)
+        queryWidget.checkBox_points.setChecked(self.checkBox_points.isChecked())
+        queryWidget.checkBox_lines.setChecked(self.checkBox_lines.isChecked())
+        queryWidget.checkBox_linestrings.setChecked(self.checkBox_linestrings.isChecked())
+        queryWidget.checkBox_multipolygons.setChecked(self.checkBox_multipolygons.isChecked())
+        
+        queryWidget.radioButton_extentLayer.setChecked(self.radioButton_extentLayer.isChecked())
+        queryWidget.radioButton_extentMapCanvas.setChecked(self.radioButton_extentMapCanvas.isChecked())
+        
+        if self.comboBox_extentLayer.count():
+            queryWidget.radioButton_extentLayer.setCheckable(True)
+        queryWidget.comboBox_extentLayer.setModel(self.comboBox_extentLayer.model())
+        
+        queryWidget.lineEdit_browseDir.setText(outputDir)
         if prefixFile:
-            quickQuery.lineEdit_filePrefix.setText(prefixFile)
-            quickQuery.lineEdit_filePrefix.setEnabled(True)
+            queryWidget.lineEdit_filePrefix.setText(prefixFile)
+            queryWidget.lineEdit_filePrefix.setEnabled(True)
 
-        queryFactory = QueryFactory(timeout=timeout,key=key,value=value,bbox=self.bbox,nominatim=nominatim,osmObjects=osmObjects)
+        queryFactory = QueryFactory(timeout=timeout,key=key,value=value,bbox=bbox,nominatim=nominatim,osmObjects=osmObjects)
         query = queryFactory.make()
-        quickQuery.textEdit_query.setPlainText(query)
+        queryWidget.textEdit_query.setPlainText(query)
         iface.mainWindowDialog.listWidget.setCurrentRow(indexQuickQueryWidget)
         iface.mainWindowDialog.exec_()
+
+    def __getBBox(self):
+        geomExtent = None
+        sourceCrs = None
+        
+        if self.radioButton_extentMapCanvas.isChecked():
+            geomExtent = iface.mapCanvas().extent()
+            sourceCrs = iface.mapCanvas().mapRenderer().destinationCrs()
+        else:
+            index = self.comboBox_extentLayer.currentIndex()
+            layerID = self.comboBox_extentLayer.itemData(index)
+            layers = iface.legendInterface().layers()
+            for layer in layers:
+                if layer.id() == layerID:
+                    geomExtent = layer.extent()
+                    sourceCrs = layer.crs()
+                    break
+            else:
+                raise NoLayerException()
+        
+        geomExtent = QgsGeometry.fromRect(geomExtent)
+        crsTransform = QgsCoordinateTransform(sourceCrs, QgsCoordinateReferenceSystem("EPSG:4326"))
+        geomExtent.transform(crsTransform)
+        return geomExtent.boundingBox()
             
     def setProgressPercentage(self,percent):
         self.progressBar_execution.setValue(percent)

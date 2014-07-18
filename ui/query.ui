@@ -38,14 +38,59 @@
         <property name="fieldGrowthPolicy">
          <enum>QFormLayout::ExpandingFieldsGrow</enum>
         </property>
+        <item row="0" column="0">
+         <widget class="QLabel" name="label_2">
+          <property name="text">
+           <string>{{nominatimArea:}}</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="QLineEdit" name="lineEdit_nominatim">
+          <property name="placeholderText">
+           <string>Can be override</string>
+          </property>
+         </widget>
+        </item>
         <item row="2" column="0">
+         <widget class="QLabel" name="label_5">
+          <property name="text">
+           <string>{{bbox}}</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="1">
+         <widget class="QRadioButton" name="radioButton_extentMapCanvas">
+          <property name="text">
+           <string>Extent of the map canvas</string>
+          </property>
+          <property name="checked">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="0">
+         <widget class="QLabel" name="label_3">
+          <property name="text">
+           <string>Outputs</string>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="1">
+         <widget class="QLabel" name="label_7">
+          <property name="text">
+           <string/>
+          </property>
+         </widget>
+        </item>
+        <item row="5" column="0">
          <widget class="QLabel" name="label_10">
           <property name="text">
            <string>Points</string>
           </property>
          </widget>
         </item>
-        <item row="2" column="1">
+        <item row="5" column="1">
          <layout class="QHBoxLayout" name="horizontalLayout_4">
           <item>
            <widget class="QCheckBox" name="checkBox_points">
@@ -66,7 +111,14 @@
           </item>
          </layout>
         </item>
-        <item row="3" column="1">
+        <item row="6" column="0">
+         <widget class="QLabel" name="label_11">
+          <property name="text">
+           <string>Lines</string>
+          </property>
+         </widget>
+        </item>
+        <item row="6" column="1">
          <layout class="QHBoxLayout" name="horizontalLayout_6">
           <item>
            <widget class="QCheckBox" name="checkBox_lines">
@@ -87,14 +139,14 @@
           </item>
          </layout>
         </item>
-        <item row="3" column="0">
-         <widget class="QLabel" name="label_11">
+        <item row="7" column="0">
+         <widget class="QLabel" name="label_14">
           <property name="text">
-           <string>Lines</string>
+           <string>Multilinestrings</string>
           </property>
          </widget>
         </item>
-        <item row="4" column="1">
+        <item row="7" column="1">
          <layout class="QHBoxLayout" name="horizontalLayout_7">
           <item>
            <widget class="QCheckBox" name="checkBox_linestrings">
@@ -115,14 +167,14 @@
           </item>
          </layout>
         </item>
-        <item row="4" column="0">
-         <widget class="QLabel" name="label_14">
+        <item row="8" column="0">
+         <widget class="QLabel" name="label_12">
           <property name="text">
-           <string>Multilinestrings</string>
+           <string>Multipolygons</string>
           </property>
          </widget>
         </item>
-        <item row="5" column="1">
+        <item row="8" column="1">
          <layout class="QHBoxLayout" name="horizontalLayout_8">
           <item>
            <widget class="QCheckBox" name="checkBox_multipolygons">
@@ -143,33 +195,29 @@
           </item>
          </layout>
         </item>
-        <item row="5" column="0">
-         <widget class="QLabel" name="label_12">
-          <property name="text">
-           <string>Multipolygons</string>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="0">
-         <widget class="QLabel" name="label_3">
-          <property name="text">
-           <string>Outputs</string>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="0">
-         <widget class="QLabel" name="label_2">
-          <property name="text">
-           <string>{{nominatimArea:}}</string>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="1">
-         <widget class="QLineEdit" name="lineEdit_nominatim">
-          <property name="placeholderText">
-           <string>Can be override</string>
-          </property>
-         </widget>
+        <item row="3" column="1">
+         <layout class="QHBoxLayout" name="horizontalLayout_3">
+          <item>
+           <widget class="QRadioButton" name="radioButton_extentLayer">
+            <property name="text">
+             <string>Extent of a layer</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QComboBox" name="comboBox_extentLayer"/>
+          </item>
+          <item>
+           <widget class="QDialogButtonBox" name="buttonBox_layers">
+            <property name="standardButtons">
+             <set>QDialogButtonBox::Reset</set>
+            </property>
+            <property name="centerButtons">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+         </layout>
         </item>
        </layout>
       </item>
