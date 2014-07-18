@@ -90,6 +90,9 @@ class QueryWidget(QWidget, Ui_ui_query):
         qgsMapLayerRegistry.layerWasAdded.connect(self.fillLayerCombobox)
 
     def fillLayerCombobox(self):
+        '''
+        Fill the combobox with layers which are in the legend
+        '''
         layers = iface.legendInterface().layers()
         self.comboBox_extentLayer.clear()
         for layer in layers:
@@ -118,6 +121,9 @@ class QueryWidget(QWidget, Ui_ui_query):
         self.disablePrefixFile()
 
     def allowNominatimOrExtent(self):
+        '''
+        Disable or enable radiobuttons if nominatim or extent
+        '''
         query = unicode(self.textEdit_query.toPlainText())
 
         if re.search('{{nominatim}}', query) or re.search('{{nominatimArea:(.*)}}', query):
@@ -139,6 +145,9 @@ class QueryWidget(QWidget, Ui_ui_query):
             self.comboBox_extentLayer.setEnabled(False)
 
     def extentRadio(self):
+        '''
+        Disable or enable the comboxbox
+        '''
         if self.radioButton_extentLayer.isChecked():
             self.comboBox_extentLayer.setDisabled(False)
         else:
@@ -169,7 +178,7 @@ class QueryWidget(QWidget, Ui_ui_query):
         
         bbox = None
         if self.radioButton_extentLayer.isChecked() or self.radioButton_extentMapCanvas.isChecked():
-            bbox = self.getBBox()
+            bbox = self.__getBBox()
         
         #Which geometry at the end ?
         outputGeomTypes = []
@@ -228,36 +237,57 @@ class QueryWidget(QWidget, Ui_ui_query):
             QApplication.processEvents()
             
     def generateQuery(self):
+        '''
+        Transform the template to query "out of the box"
+        '''
         query = unicode(self.textEdit_query.toPlainText())
-        bbox = self.getBBox()
+        bbox = self.__getBBox()
         query = Tools.PrepareQueryOqlXml(query=query, extent=bbox)
-        query = query.replace("    ","     ")
         self.textEdit_query.setPlainText(query)
         
-    def getBBox(self):
+    def __getBBox(self):
+        '''
+        Get the geometry of the bbox in WGS84
+        '''
         geomExtent = None
         sourceCrs = None
         
+        #If mapCanvas is checked
         if self.radioButton_extentMapCanvas.isChecked():
             geomExtent = iface.mapCanvas().extent()
             sourceCrs = iface.mapCanvas().mapRenderer().destinationCrs()
         else:
+            #Else if a layer is checked
             index = self.comboBox_extentLayer.currentIndex()
-            layer = self.comboBox_extentLayer.itemData(index)
-            geomExtent = layer.extent()
-            sourceCrs = layer.crs()
-            
+            layerID = self.comboBox_extentLayer.itemData(index)
+            layerName = self.comboBox_extentLayer.itemText(index)
+            layers = iface.legendInterface().layers()
+            for layer in layers:
+                if layer.id() == layerID:
+                    geomExtent = layer.extent()
+                    sourceCrs = layer.crs()
+                    break
+            else:
+                #the layer could be deleted before
+                raise NoLayerException(suffix=layerName)
+        
         geomExtent = QgsGeometry.fromRect(geomExtent)
         crsTransform = QgsCoordinateTransform(sourceCrs, QgsCoordinateReferenceSystem("EPSG:4326"))
         geomExtent.transform(crsTransform)
-        return geomExtent.boundingBox()    
+        return geomExtent.boundingBox()   
             
 
     def setProgressPercentage(self,percent):
+        '''
+        Slot to update percentage during process
+        '''
         self.progressBar_execution.setValue(percent)
         QApplication.processEvents()
         
     def setProgressText(self,text):
+        '''
+        Slot to update text during process
+        '''
         self.label_progress.setText(text)
         QApplication.processEvents()
 

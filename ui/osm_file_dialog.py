@@ -32,9 +32,13 @@ from qgis.utils import iface
 
 class OsmFileWidget(QWidget, Ui_ui_osm_file):
     def __init__(self, parent=None):
+        '''
+        OsmFileWidget constructor
+        '''
         QWidget.__init__(self)
         self.setupUi(self)
         
+        #Set default osmconf
         defaultOsmConf = join(dirname(dirname(abspath(__file__))),"CoreQuickOSM","Parser","osmconf.ini")
         self.lineEdit_osmConf.setText(defaultOsmConf)
         self.pushButton_openOsmFile.setEnabled(False)
@@ -63,12 +67,18 @@ class OsmFileWidget(QWidget, Ui_ui_osm_file):
         self.disableRunButton()
             
     def disableRunButton(self):
+        '''
+        If the two fields are empty
+        '''
         if self.lineEdit_osmConf.text() and self.lineEdit_osmFile.text():
             self.pushButton_openOsmFile.setEnabled(True)
         else:
             self.pushButton_openOsmFile.setEnabled(False)
         
     def openFile(self):
+        '''
+        Open the osm file with the osmconf
+        '''
         #Get fields
         osmFile = self.lineEdit_osmFile.text()
         osmConf = self.lineEdit_osmConf.text()
