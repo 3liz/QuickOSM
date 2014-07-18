@@ -164,6 +164,11 @@ class QuickQueryWidget(QWidget, Ui_ui_quick_query):
         
         try:
             #Test values
+            if not osmObjects:
+                raise OsmObjectsException
+            
+            if not outputGeomTypes:
+                raise OutPutGeomTypesException
             
             #If bbox, we must set None to nominatim, we can't have both
             bbox = None

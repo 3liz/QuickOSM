@@ -106,3 +106,17 @@ class NoLayerException(GeoAlgorithmExecutionException):
             msg = msg + " " + suffix
         GeoAlgorithmExecutionException.__init__(self,msg)
         self.errorNumber = 36
+        
+class OsmObjectsException(GeoAlgorithmExecutionException):
+    def __init__(self, msg=None):
+        if not msg:
+            msg= QApplication.translate("Exception", u"No osm objects selected")
+        GeoAlgorithmExecutionException.__init__(self,msg)
+        self.errorNumber = 37
+        
+class OutPutGeomTypesException(GeoAlgorithmExecutionException):
+    def __init__(self, msg=None):
+        if not msg:
+            msg= QApplication.translate("Exception", u"No outputs selected")
+        GeoAlgorithmExecutionException.__init__(self,msg)
+        self.errorNumber = 38

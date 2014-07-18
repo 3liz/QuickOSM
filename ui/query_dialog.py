@@ -198,6 +198,9 @@ class QueryWidget(QWidget, Ui_ui_query):
         
         try:
             #Test values
+            if not outputGeomTypes:
+                raise OutPutGeomTypesException
+            
             if outputDir and not os.path.isdir(outputDir):
                 raise DirectoryOutPutException
 
