@@ -15,6 +15,7 @@ class Actions:
 
     @staticmethod
     def run(field,value):
+        
         if value == '':
             iface.messageBar().pushMessage(QApplication.translate("QuickOSM", u"Sorry man, this field is empty for this entity."), level=QgsMessageBar.WARNING , duration=7)
         else:
@@ -27,6 +28,9 @@ class Actions:
                     
                 if field == "ref_UAI":
                     url = "http://www.education.gouv.fr/pid24302/annuaire-resultat-recherche.html?lycee_name="+value
+                    
+                if field == "wikipedia":
+                    url = "http://en.wikipedia.org/wiki/" + value
                     
                 var.openUrl(QUrl(url))
             
