@@ -40,7 +40,7 @@ class OsmParser(QObject):
         
         if not osmConf:
             current_dir = os.path.dirname(os.path.realpath(__file__))
-            self.__osmconf = os.path.join(current_dir,'osmconf.ini')
+            self.__osmconf = os.path.join(current_dir,'QuickOSMconf.ini')
         else:
             self.__osmconf = str(osmConf.encode("utf-8"))
         
