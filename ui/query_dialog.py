@@ -83,11 +83,7 @@ class QueryWidget(QWidget, Ui_ui_query):
         self.textEdit_query.cursorPositionChanged.connect(self.highlighter.rehighlight)
         self.textEdit_query.cursorPositionChanged.connect(self.allowNominatimOrExtent)
         self.radioButton_extentLayer.toggled.connect(self.extentRadio)
-
-        #Add or remove layers
-        qgsMapLayerRegistry = QgsMapLayerRegistry.instance()
-        qgsMapLayerRegistry.layerRemoved.connect(self.fillLayerCombobox)
-        qgsMapLayerRegistry.layerWasAdded.connect(self.fillLayerCombobox)
+        self.buttonBox_layers.button(QDialogButtonBox.Reset).clicked.connect(self.fillLayerCombobox)
 
     def fillLayerCombobox(self):
         '''

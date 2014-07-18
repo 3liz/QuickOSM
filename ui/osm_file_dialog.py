@@ -95,6 +95,9 @@ class OsmFileWidget(QWidget, Ui_ui_osm_file):
             outputGeomTypes.append('multipolygons')
         
         try:
+            if not outputGeomTypes:
+                raise OutPutGeomTypesException
+            
             if not isfile(osmFile):
                 raise FileDoesntExistException(suffix="*.osm or *.pbf")
             
