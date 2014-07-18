@@ -28,6 +28,15 @@ class OverpassTimeoutException(GeoAlgorithmExecutionException):
         GeoAlgorithmExecutionException.__init__(self,msg)
         self.errorNumber = 11
 
+class NetWorkErrorException(GeoAlgorithmExecutionException):
+    def __init__(self, msg=None, suffix=None):
+        if not msg:
+            msg = QApplication.translate("Exception", u"Network error")
+        if suffix:
+            msg = msg + " with " + suffix
+        GeoAlgorithmExecutionException.__init__(self,msg)
+        self.errorNumber = 12
+
 '''
 Error 20-29 - Nominatim
 '''

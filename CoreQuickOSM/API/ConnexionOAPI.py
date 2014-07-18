@@ -5,7 +5,7 @@ Created on 4 juin 2014
 '''
 
 from processing.core.GeoAlgorithmExecutionException import GeoAlgorithmExecutionException
-from QuickOSM.CoreQuickOSM.ExceptionQuickOSM import OverpassBadRequestException,OutPutFormatException,OverpassTimeoutException
+from QuickOSM.CoreQuickOSM.ExceptionQuickOSM import OverpassBadRequestException,OutPutFormatException,OverpassTimeoutException, NetWorkErrorException
 import urllib2
 import urllib
 import re
@@ -45,6 +45,8 @@ class ConnexionOAPI:
         except urllib2.HTTPError as e:
             if e.code == 400:
                 raise OverpassBadRequestException
+            else:
+                raise NetWorkErrorException(suffix="Overpass API")
 
         result = re.search('<remark> runtime error: Query timed out in "[a-z]+" at line [\d]+ after ([\d]+) seconds. </remark>', data)
         if result:

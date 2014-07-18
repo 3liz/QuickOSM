@@ -4,7 +4,7 @@ Created on 11 juin 2014
 @author: etienne
 '''
 
-from QuickOSM.CoreQuickOSM.ExceptionQuickOSM import NominatimAreaException
+from QuickOSM.CoreQuickOSM.ExceptionQuickOSM import NominatimAreaException,NetWorkErrorException
 
 import urllib
 import urllib2
@@ -23,7 +23,10 @@ class Nominatim:
         params = { 'q': query }
         params['polygon_geojson'] = 0
         url = self.__url + "&" +  urllib.urlencode(params)
-        data = urllib2.urlopen(url)
+        try:
+            data = urllib2.urlopen(url)
+        except urllib2.HTTPError as e:
+            raise NetWorkErrorException(suffix="Nominatim API")    
         response = data.read()
         return json.loads(response)
     
