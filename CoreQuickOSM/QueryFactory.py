@@ -38,27 +38,29 @@ class QueryFactory():
             if osmObject not in QueryFactory.OSM_TYPES:
                 return False, "Wrong OSM object"
           
-        #TEST OK, so continue  
+        #TEST OK, so continue
+        TAB = '     '
         query = '<osm-script output="%s" timeout="%s"> \n' %(self.__output,self.__timeout)
         
         if self.__nominatim:
-            query += '\t<id-query {{nominatimArea:'+self.__nominatim+'}} into="area"/> \n'
+            query += TAB + '<id-query {{nominatimArea:'+self.__nominatim+'}} into="area"/> \n'
             
-        query += '\t<union>\n'
+        query += TAB + '<union>\n'
         
         for osmObject in self.__osmObjects:
-            query += '\t\t<query type="'+osmObject+'"><has-kv k="'+self.__key+'" '
+            query += TAB + TAB +'<query type="'+osmObject+'">\n'
+            query += TAB + TAB + TAB +'<has-kv k="'+self.__key+'" '
             if self.__value:
                 query += 'v="'+self.__value+'"'
             query += '/> \n'
             
             if self.__nominatim:
-                query += '\t\t\t<area-query from="area"/>\n'
+                query += TAB + TAB + TAB + '<area-query from="area"/>\n'
             elif self.__bbox:
-                query += '\t\t<bbox-query '+self.__bbox+'/>\n'
-            query += '\t\t</query>\n'
+                query += TAB + TAB + TAB + '<bbox-query '+self.__bbox+'/>\n'
+            query += TAB + TAB + '</query>\n'
         
-        query += '\t</union>\n\t<union>\n\t\t<item />\n\t\t<recurse type="down"/>\n\t</union>\n'
-        query += '\t<print mode="'+self.__printMode+'" />\n</osm-script>'
+        query += TAB + '</union>\n'+TAB+'<union>\n'+TAB + TAB +'<item />\n'+TAB + TAB +'<recurse type="down"/>\n'+TAB +'</union>\n'
+        query += TAB + '<print mode="'+self.__printMode+'" />\n</osm-script>'
         
         return query
