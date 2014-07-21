@@ -9,6 +9,7 @@ import ConfigParser
 from os.path import dirname, join,isfile
 from os import listdir
 import re
+from reportlab.lib.validators import isBoolean
 
 class FileQuery:
     '''
@@ -66,6 +67,11 @@ class FileQuery:
         if not self.__name or not self.__category:
             return False
         
+        #Check if layers are presents in the ini file
+        for layer in FileQuery.LAYERS:
+            if not isBoolean(self.__configSectionMap(layer)['load']):
+                return False
+        
         #Is there another file with the query ?
         directory = dirname(self.__filePath)
         self.__queryExtension = None
@@ -113,9 +119,6 @@ class FileQuery:
         dic = {}
         dic['metadata'] = {}
         dic['metadata']['query'] = unicode(open(self.__queryFile, 'r').read(), "utf-8")
-        
-        for item in ['description','logo']:
-            dic['metadata'][item] = self.__configSectionMap('metadata')[item]
         
         dic['metadata']['name'] = self.__name
         
