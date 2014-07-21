@@ -21,10 +21,11 @@ class FileQuery:
 
     @staticmethod
     def getIniFilesFromFolder(folder):
-        files = [ join(folder,f) for f in listdir(folder) if isfile(join(folder,f))]
-        for filePath in files:
-            ini = FileQuery(filePath)
-            ini.isValid()
+        if not FileQuery.FILES:
+            files = [ join(folder,f) for f in listdir(folder) if isfile(join(folder,f))]
+            for filePath in files:
+                ini = FileQuery(filePath)
+                ini.isValid()
         return FileQuery.FILES
 
     def __init__(self,filePath):
