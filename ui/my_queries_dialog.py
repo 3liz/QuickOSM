@@ -95,8 +95,10 @@ class MyQueriesWidget(QWidget, Ui_ui_my_queries):
             return False
 
     def openAndRunQuery(self):
-        self.openQuery()
-        self.runQuery()
+        item = self.treeQueries.currentItem()
+        if isinstance(item, TreeQueryItem):
+            self.openQuery()
+            self.runQuery()
     
     def openQuery(self):
         item = self.treeQueries.currentItem()

@@ -34,9 +34,27 @@ class Actions:
                     
                 var.openUrl(QUrl(url))
             
+            elif field == "josm":
+                import urllib2
+                try:
+                    url = "http://localhost:8111/load_object?objects="+value
+                    data = urllib2.urlopen(url).read()
+                except urllib2.URLError:
+                    iface.messageBar().pushMessage(QApplication.translate("QuickOSM", u"Sorry man, the JOSM remote is not enabled."), level=QgsMessageBar.CRITICAL , duration=7)
+            
             #NOT USED    
             elif field == "rawedit":
                 url = QUrl("http://rawedit.openstreetmap.fr/edit/"+value)
                 webBrowser = QWebView(None)
                 webBrowser.load(url)
                 webBrowser.show()
+                
+    @staticmethod
+    def runSketchLine(network,ref):
+        
+        if network == '' or ref == '':
+            iface.messageBar().pushMessage(QApplication.translate("QuickOSM", u"Sorry man, this field is empty for this entity."), level=QgsMessageBar.WARNING , duration=7)
+        else:
+            var = QDesktopServices()
+            url = "http://www.overpass-api.de/api/sketch-line?network="+network+"&ref="+ref
+            var.openUrl(QUrl(url))
