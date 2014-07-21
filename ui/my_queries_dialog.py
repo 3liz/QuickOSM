@@ -47,6 +47,7 @@ class MyQueriesWidget(QWidget, Ui_ui_my_queries):
         self.lineEdit_search.textChanged.connect(self.textChanged)
         self.radioButton_extentLayer.toggled.connect(self.extentRadio)
         self.buttonBox_layers.button(QDialogButtonBox.Reset).clicked.connect(self.fillLayerCombobox)
+        #self.treeQueries.customContextMenuRequested.connect(self.showPopupMenu)
         
         #Fill the treeview
         self.fillTree()
