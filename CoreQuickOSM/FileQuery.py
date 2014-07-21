@@ -6,41 +6,43 @@ Created on 25 juin 2014
 
 import ntpath
 import ConfigParser
-from genericpath import isfile
-from os.path import dirname, join
+from os.path import dirname, join,isfile
 from os import listdir
 import re
 
-class IniFile():
+class FileQuery:
     '''
     Read an INI file
     '''
 
     LAYERS = ['multipolygons', 'multilinestrings', 'lines', 'points']
     QUERY_EXTENSIONS = ['oql','xml']
-    
+    FILES = {}
+
     @staticmethod
     def getIniFilesFromFolder(folder):
-        existingFiles = []
         files = [ join(folder,f) for f in listdir(folder) if isfile(join(folder,f))]
         for filePath in files:
-            ini = IniFile(filePath)
-            if ini.isValid():
-                existingFiles.append(ini)
-        return existingFiles
-    
-    @staticmethod
-    def getNamesAndPathsFromFolder(folder):
-        existingIniFiles = IniFile.getIniFilesFromFolder(folder)
-        result = []
-        for ini in existingIniFiles:
-            result.append({'name': ini.__name,'nameFull': ini.__nameFull, 'category':ini.__category,'path' : ini.__filePath, 'bbox': ini.__bboxTemplate, 'nominatim':ini.__nominatimTemplate })
-        return result
+            ini = FileQuery(filePath)
+            ini.isValid()
+        return FileQuery.FILES
 
     def __init__(self,filePath):
         self.__filePath = filePath
+        self.__name = None
+        self.__category = None
         self.__bboxTemplate = None
         self.__nominatimTemplate = None
+        self.__icon = None
+
+    def getName(self):
+        return self.__name
+
+    def getCategory(self):
+        return self.__category
+    
+    def getIcon(self):
+        return self.__icon
 
     def isValid(self):
         #Is it an ini file ?    
@@ -50,18 +52,7 @@ class IniFile():
             #raise Exception, "Not an ini file"
             return False
         
-        #Is there another file with the query ?
-        directory = dirname(self.__filePath)
-        self.__queryExtension = None
-        self.__queryFile = None
-        for ext in IniFile.QUERY_EXTENSIONS:
-            if isfile(join(directory, filename + '.' + ext)):
-                self.__queryFile = join(directory, filename + '.' + ext)
-                self.__queryExtension = ext
-        if not self.__queryExtension and not self.__queryFile:
-            #raise Exception, "No query file (.xml or .oql)"
-            return False
-        
+        #Get the ini parser
         try:
             self.__configParser
         except AttributeError:
@@ -70,30 +61,45 @@ class IniFile():
         
         #Set the name
         self.__name = self.__configSectionMap('metadata')['name']
-        self.__nameFull = self.__name
         self.__category = self.__configSectionMap('metadata')['category']
+        if not self.__name or not self.__category:
+            return False
+        
+        #Is there another file with the query ?
+        directory = dirname(self.__filePath)
+        self.__queryExtension = None
+        self.__queryFile = None
+        for ext in FileQuery.QUERY_EXTENSIONS:
+            if isfile(join(directory, filename + '.' + ext)):
+                self.__queryFile = join(directory, filename + '.' + ext)
+                self.__queryExtension = ext
+        if not self.__queryExtension and not self.__queryFile:
+            return False
+        
+        #Test OK, so add it to the list
+        if self.__category not in FileQuery.FILES:
+            FileQuery.FILES[self.__category] = []
+        
+        FileQuery.FILES[self.__category].append(self)  
+        return True
+
+    def isTemplate(self):
+        self.__bboxTemplate = False
+        self.__nominatimTemplate = False
         
         #If XML, check for templates
         if self.__queryExtension == 'xml':
             query = unicode(open(self.__queryFile, 'r').read(), "utf-8")
             
             #Check if there is a BBOX template
-            bboxQuery = re.search('<bbox-query {{bbox}}/>',query)
-            if bboxQuery:
+            if re.search('<bbox-query {{bbox}}/>',query):
                 self.__bboxTemplate = True
-                self.__nameFull = self.__nameFull + " [extent required]"
             
             #Check if there is a Nominatim template    
-            nominatimQuery = re.search('{{nominatimArea:{{nominatim}}}}', query)
-            if nominatimQuery:
+            if re.search('{{nominatim}}', query) or re.search('{{nominatimArea:(.*)}}', query):
                 self.__nominatimTemplate = True
-                self.__nameFull = self.__nameFull + " [PLACENAME required]"
-        else:
-            self.__bboxTemplate = False
-            self.__nominatimTemplate = False
-            
-        return True
-        
+
+        return {"nominatim" : self.__nominatimTemplate, "bbox":self.__bboxTemplate}
         
     def getContent(self):
         
@@ -112,10 +118,11 @@ class IniFile():
         
         dic['metadata']['name'] = self.__name
         
-        for layer in IniFile.LAYERS:
-            dic[layer] = {}
-            for item in ['namelayer', 'columns','style']:
-                dic[layer][item] = self.__configSectionMap(layer)[item]
+        dic['layers'] = {}
+        for layer in FileQuery.LAYERS:
+            dic['layers'][layer] = {}
+            for item in ['namelayer', 'columns','style','load','alias']:
+                dic['layers'][layer][item] = self.__configSectionMap(layer)[item]
             
         return dic
 
@@ -129,7 +136,13 @@ class IniFile():
         for var in self.__configParser.options(section):
             if var == item:
                 try:
-                    return unicode(self.__configParser.get(section, var), "utf-8")
+                    value = unicode(self.__configParser.get(section, var), "utf-8") 
+                    if value == u"True":
+                        return True
+                    elif value == u"False":
+                        return False
+                    else:
+                        return value
                 except:
                     return False
         return False
@@ -139,7 +152,14 @@ class IniFile():
         iniDict = {}
         for option in self.__configParser.options(section):
             try:
-                iniDict[option] = unicode(self.__configParser.get(section, option), "utf-8")
+                value = unicode(self.__configParser.get(section, option), "utf-8")
+                if value == u"True":
+                    iniDict[option] = True
+                elif value == u"False":
+                    iniDict[option] = False
+                else:
+                    iniDict[option] = value
+                
             except:
                 iniDict[option] = None
         return iniDict

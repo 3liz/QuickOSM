@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'query.ui'
 #
-# Created: Thu Jul 17 18:58:51 2014
+# Created: Mon Jul 21 12:15:12 2014
 #      by: PyQt4 UI code generator 4.10.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -196,7 +196,7 @@ class Ui_ui_query(object):
         self.label.setText(_translate("ui_query", "Query", None))
         self.groupBox.setTitle(_translate("ui_query", "Advanced", None))
         self.label_2.setText(_translate("ui_query", "{{nominatimArea:}}", None))
-        self.lineEdit_nominatim.setPlaceholderText(_translate("ui_query", "Can be override", None))
+        self.lineEdit_nominatim.setPlaceholderText(_translate("ui_query", "Can be overridden", None))
         self.label_5.setText(_translate("ui_query", "{{bbox}}", None))
         self.radioButton_extentMapCanvas.setText(_translate("ui_query", "Extent of the map canvas", None))
         self.label_3.setText(_translate("ui_query", "Outputs", None))

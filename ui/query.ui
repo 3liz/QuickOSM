@@ -48,7 +48,7 @@
         <item row="0" column="1">
          <widget class="QLineEdit" name="lineEdit_nominatim">
           <property name="placeholderText">
-           <string>Can be override</string>
+           <string>Can be overridden</string>
           </property>
          </widget>
         </item>

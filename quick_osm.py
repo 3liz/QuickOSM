@@ -78,8 +78,7 @@ class QuickOSM:
         self.mainWindowAction.triggered.connect(self.openMainWindow)
         self.iface.addToolBarIcon(self.mainWindowAction)
         self.iface.addPluginToWebMenu(u"&Quick OSM",self.mainWindowAction)
-        self.iface.mainWindowDialog = MainWindowDialog()
-        self.iface.mainWindowDialog.listWidget.setCurrentRow(0)
+
 
 
         self.osmFileAction = QAction(
@@ -102,7 +101,7 @@ class QuickOSM:
         self.iface.addPluginToWebMenu(u"&Quick OSM",self.myQueriesAction)
         self.myQueriesDockWidget = MyQueriesDockWidget()
         self.iface.addDockWidget(Qt.RightDockWidgetArea, self.myQueriesDockWidget)
-        self.myQueriesDockWidget.hide()
+        #self.myQueriesDockWidget.hide()
         self.myQueriesDockWidget.setObjectName("myQueriesWidget");
         
         
@@ -126,7 +125,7 @@ class QuickOSM:
         self.iface.addPluginToWebMenu(u"&Quick OSM",self.quickQueryAction)
         self.quickQueryDockWidget = QuickQueryDockWidget()
         self.iface.addDockWidget(Qt.RightDockWidgetArea, self.quickQueryDockWidget)
-        #self.quickQueryDockWidget.hide()
+        self.quickQueryDockWidget.hide()
         self.quickQueryDockWidget.setObjectName("quickQueryWidget");
         
         
@@ -140,6 +139,8 @@ class QuickOSM:
         Processing.removeProvider(self.provider)
     
     def openMainWindow(self):
+        self.iface.mainWindowDialog = MainWindowDialog()
+        self.iface.mainWindowDialog.listWidget.setCurrentRow(0)
         self.iface.mainWindowDialog.exec_()     
     
     def openMyQueriesDockWidget(self):
