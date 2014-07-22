@@ -73,12 +73,12 @@ class FileQuery:
                 return False
         
         #Is there another file with the query ?
-        directory = dirname(self.__filePath)
+        self.directory = dirname(self.__filePath)
         self.__queryExtension = None
         self.__queryFile = None
         for ext in FileQuery.QUERY_EXTENSIONS:
-            if isfile(join(directory, filename + '.' + ext)):
-                self.__queryFile = join(directory, filename + '.' + ext)
+            if isfile(join(self.directory, filename + '.' + ext)):
+                self.__queryFile = join(self.directory, filename + '.' + ext)
                 self.__queryExtension = ext
         if not self.__queryExtension and not self.__queryFile:
             return False
@@ -127,7 +127,14 @@ class FileQuery:
             dic['layers'][layer] = {}
             for item in ['namelayer', 'columns','style','load','alias']:
                 dic['layers'][layer][item] = self.__configSectionMap(layer)[item]
-            
+                
+                if item == 'style':
+                    if isfile(join(self.directory,dic['layers'][layer][item])):
+                        dic['layers'][layer][item] = join(self.directory,dic['layers'][layer][item])
+                    else:
+                        dic['layers'][layer][item] = None
+                        
+        
         return dic
 
     def getValue(self,section,item):

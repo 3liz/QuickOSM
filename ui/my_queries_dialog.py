@@ -38,6 +38,9 @@ class MyQueriesWidget(QWidget, Ui_ui_my_queries):
         QWidget.__init__(self)
         self.setupUi(self)
         
+        self.pushButton_runQuery.setDisabled(True)
+        self.fillLayerCombobox()
+        
         #Connect
         self.pushButton_runQuery.clicked.connect(self.runQuery)
         self.pushButton_browse_output_file.clicked.connect(self.setOutDirPath)
@@ -122,17 +125,17 @@ class MyQueriesWidget(QWidget, Ui_ui_my_queries):
                 self.lineEdit_nominatim.setText("")
                 
             config = item.query.getContent()
-            configLayer = config['layers']
-            self.checkBox_points.setChecked(configLayer['points']['load'])
-            self.lineEdit_csv_points.setText(configLayer['points']['columns'])
-            self.checkBox_lines.setChecked(configLayer['lines']['load'])
-            self.lineEdit_csv_lines.setText(configLayer['lines']['columns'])
-            self.checkBox_linestrings.setChecked(configLayer['multilinestrings']['load'])
-            self.lineEdit_csv_multilinestrings.setText(configLayer['multilinestrings']['columns'])
-            self.checkBox_multipolygons.setChecked(configLayer['multipolygons']['load'])
-            self.lineEdit_csv_multipolygons.setText(configLayer['multipolygons']['columns'])
-            
+            self.configLayer = config['layers']
+            self.checkBox_points.setChecked(self.configLayer['points']['load'])
+            self.lineEdit_csv_points.setText(self.configLayer['points']['columns'])
+            self.checkBox_lines.setChecked(self.configLayer['lines']['load'])
+            self.lineEdit_csv_lines.setText(self.configLayer['lines']['columns'])
+            self.checkBox_linestrings.setChecked(self.configLayer['multilinestrings']['load'])
+            self.lineEdit_csv_multilinestrings.setText(self.configLayer['multilinestrings']['columns'])
+            self.checkBox_multipolygons.setChecked(self.configLayer['multipolygons']['load'])
+            self.lineEdit_csv_multipolygons.setText(self.configLayer['multipolygons']['columns'])
             self.currentQuery = config['metadata']['query']
+            self.pushButton_runQuery.setDisabled(False)
 
     def extentRadio(self):
         '''
@@ -228,7 +231,7 @@ class MyQueriesWidget(QWidget, Ui_ui_my_queries):
             if not nominatim and (re.search('{{nominatim}}', query) or re.search('{{nominatimArea:}}', query)):
                 raise MissingParameterException(suffix="nominatim field")
 
-            numLayers = Process.ProcessQuery(dialog = self, query=query, outputDir=outputDir, prefixFile=prefixFile,outputGeomTypes=outputGeomTypes, whiteListValues=whiteListValues, nominatim=nominatim, bbox=bbox)
+            numLayers = Process.ProcessQuery(dialog = self, query=query, outputDir=outputDir, prefixFile=prefixFile,outputGeomTypes=outputGeomTypes, whiteListValues=whiteListValues, nominatim=nominatim, bbox=bbox, configOutputs=self.configLayer)
             if numLayers:
                 iface.messageBar().pushMessage(QApplication.translate("QuickOSM",u"Successful query !"), level=QgsMessageBar.INFO , duration=5)
                 self.label_progress.setText(QApplication.translate("QuickOSM",u"Successful query !"))

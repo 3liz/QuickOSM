@@ -14,6 +14,7 @@ from qgis.core import QgsMapLayerRegistry
 from PyQt4.QtGui import *
 import ntpath
 from os.path import dirname,abspath,join
+from genericpath import isfile
 
 #Processing >=2.4
 try:
@@ -34,7 +35,7 @@ class Process:
     '''
     
     @staticmethod
-    def ProcessQuery(dialog = None, query=None, nominatim=None, bbox=None, outputDir=None, prefixFile=None,outputGeomTypes=None, layerName = "OsmQuery", whiteListValues = None):
+    def ProcessQuery(dialog = None, query=None, nominatim=None, bbox=None, outputDir=None, prefixFile=None,outputGeomTypes=None, layerName = "OsmQuery", whiteListValues = None, configOutputs = None):
         
         #Prepare outputs
         dialog.setProgressText(QApplication.translate("QuickOSM",u"Prepare outputs"))
@@ -53,7 +54,6 @@ class Process:
                 
                 if os.path.isfile(outputs[layer]):
                     raise FileOutPutException(suffix="("+outputs[layer]+")")
-        
         
         #Replace Nominatim or BBOX
         query = Tools.PrepareQueryOqlXml(query=query, nominatimName = nominatim, extent=bbox)
@@ -78,17 +78,29 @@ class Process:
             dialog.setProgressPercentage(i/len(layers)*100)  
             QApplication.processEvents()
             if item['featureCount'] and layer in outputGeomTypes:
+                
+                finalLayerName = layerName
+                #If configOutputs is not None (from My Queries)
+                if configOutputs:
+                    if configOutputs[layer]['namelayer']:
+                        finalLayerName = configOutputs[layer]['namelayer']
+                
+                
                 #Transforming the vector file
                 if not ogr2ogr(["","-f", "ESRI Shapefile", outputs[layer], item["geojsonFile"]]):
                     raise Ogr2OgrException               
                 
                 #Loading the final vector file
-                newlayer = QgsVectorLayer(outputs[layer],layerName,"ogr")
+                newlayer = QgsVectorLayer(outputs[layer],finalLayerName,"ogr")
                 
-                #Loading default styles
-                if layer == "multilinestrings":
-                    if "colour" in item['tags']:
-                        newlayer.loadNamedStyle(join(dirname(dirname(abspath(__file__))),"styles",layer+"_colour.qml"))
+                #Try to set styling if defined
+                if configOutputs and configOutputs[layer]['style']:
+                    newlayer.loadNamedStyle(configOutputs[layer]['style'])
+                else:
+                    #Loading default styles
+                    if layer == "multilinestrings":
+                        if "colour" in item['tags']:
+                            newlayer.loadNamedStyle(join(dirname(dirname(abspath(__file__))),"styles",layer+"_colour.qml"))
                 
                 #Add action about OpenStreetMap
                 actions = newlayer.actions()
