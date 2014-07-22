@@ -1,0 +1,36 @@
+<osm-script output="json" timeout="25">
+  <!-- gather results -->
+  <union>
+    <!-- query part for: “natural” -->
+    <query type="node">
+      <has-kv k="natural"/>
+      <bbox-query {{bbox}}/>
+    </query>
+    <query type="way">
+      <has-kv k="natural"/>
+      <bbox-query {{bbox}}/>
+    </query>
+    <query type="relation">
+      <has-kv k="natural"/>
+      <bbox-query {{bbox}}/>
+    </query>
+    <!-- query part for: “landuse” -->
+    <query type="node">
+      <has-kv k="landuse"/>
+      <bbox-query {{bbox}}/>
+    </query>
+    <query type="way">
+      <has-kv k="landuse"/>
+      <bbox-query {{bbox}}/>
+    </query>
+    <query type="relation">
+      <has-kv k="landuse"/>
+      <bbox-query {{bbox}}/>
+    </query>
+  </union>
+     <union>
+          <item />
+          <recurse type="down"/>
+     </union>
+     <print mode="body" />
+</osm-script>

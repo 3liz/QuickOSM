@@ -1,0 +1,7 @@
+<osm-script>
+  <union into="_">
+    <bbox-query {{bbox}}/>
+    <recurse type="up"/>
+  </union>
+  <print mode="meta"/>
+</osm-script>
