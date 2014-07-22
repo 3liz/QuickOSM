@@ -300,6 +300,13 @@
       <enum>QLayout::SetMinimumSize</enum>
      </property>
      <item>
+      <widget class="QPushButton" name="pushButton_showQuery">
+       <property name="text">
+        <string>Show query</string>
+       </property>
+      </widget>
+     </item>
+     <item>
       <widget class="QPushButton" name="pushButton_runQuery">
        <property name="text">
         <string>Run query</string>

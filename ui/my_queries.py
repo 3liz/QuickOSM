@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'my_queries.ui'
 #
-# Created: Tue Jul 22 10:02:17 2014
+# Created: Tue Jul 22 14:44:24 2014
 #      by: PyQt4 UI code generator 4.10.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -170,6 +170,9 @@ class Ui_ui_my_queries(object):
         self.horizontalLayout_3 = QtGui.QHBoxLayout()
         self.horizontalLayout_3.setSizeConstraint(QtGui.QLayout.SetMinimumSize)
         self.horizontalLayout_3.setObjectName(_fromUtf8("horizontalLayout_3"))
+        self.pushButton_showQuery = QtGui.QPushButton(ui_my_queries)
+        self.pushButton_showQuery.setObjectName(_fromUtf8("pushButton_showQuery"))
+        self.horizontalLayout_3.addWidget(self.pushButton_showQuery)
         self.pushButton_runQuery = QtGui.QPushButton(ui_my_queries)
         self.pushButton_runQuery.setDefault(True)
         self.pushButton_runQuery.setObjectName(_fromUtf8("pushButton_runQuery"))
@@ -213,6 +216,7 @@ class Ui_ui_my_queries(object):
         self.lineEdit_browseDir.setPlaceholderText(_translate("ui_my_queries", "Save to temporary file", None))
         self.pushButton_browse_output_file.setText(_translate("ui_my_queries", "Browse", None))
         self.label_6.setText(_translate("ui_my_queries", "File prefix", None))
+        self.pushButton_showQuery.setText(_translate("ui_my_queries", "Show query", None))
         self.pushButton_runQuery.setText(_translate("ui_my_queries", "Run query", None))
 
 from qgis.gui import QgsCollapsibleGroupBox

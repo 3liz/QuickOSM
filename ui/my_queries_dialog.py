@@ -40,10 +40,12 @@ class MyQueriesWidget(QWidget, Ui_ui_my_queries):
         self.setupUi(self)
         
         self.pushButton_runQuery.setDisabled(True)
+        self.pushButton_showQuery.setDisabled(True)
         self.fillLayerCombobox()
         
         #Connect
         self.pushButton_runQuery.clicked.connect(self.runQuery)
+        self.pushButton_showQuery.clicked.connect(self.showQuery)
         self.pushButton_browse_output_file.clicked.connect(self.setOutDirPath)
         self.lineEdit_browseDir.textEdited.connect(self.disablePrefixFile)
         self.treeQueries.doubleClicked.connect(self.openAndRunQuery)
@@ -137,6 +139,7 @@ class MyQueriesWidget(QWidget, Ui_ui_my_queries):
             self.lineEdit_csv_multipolygons.setText(self.configLayer['multipolygons']['columns'])
             self.currentQuery = config['metadata']['query']
             self.pushButton_runQuery.setDisabled(False)
+            self.pushButton_showQuery.setDisabled(False)
 
     def extentRadio(self):
         '''
@@ -263,6 +266,66 @@ class MyQueriesWidget(QWidget, Ui_ui_my_queries):
             
             QApplication.restoreOverrideCursor()
             QApplication.processEvents()
+
+    def showQuery(self):
+        '''
+        Show the query in the main window
+        '''
+        #We have to find the widget in the stackedwidget of the main window
+        queryWidget = None
+        indexQuickQueryWidget = None
+        for i in xrange(iface.QuickOSM_mainWindowDialog.stackedWidget.count()):
+            if iface.QuickOSM_mainWindowDialog.stackedWidget.widget(i).__class__.__name__ == "QueryWidget":
+                queryWidget = iface.QuickOSM_mainWindowDialog.stackedWidget.widget(i)
+                indexQuickQueryWidget = i
+                break
+        
+        #Get all values
+        query = self.currentQuery
+        outputDir = self.lineEdit_browseDir.text()
+        prefixFile = self.lineEdit_filePrefix.text()
+        nominatim = self.lineEdit_nominatim.text()
+        
+        #If bbox, we must set None to nominatim, we can't have both
+        bbox = None
+        if self.radioButton_extentLayer.isChecked() or self.radioButton_extentMapCanvas.isChecked():
+            nominatim = None
+            bbox = True
+        
+        if nominatim == '':
+            nominatim = None
+            
+        #Which geometry at the end ?
+        queryWidget.checkBox_points.setChecked(self.checkBox_points.isChecked())
+        queryWidget.lineEdit_csv_points.setText(self.lineEdit_csv_points.text())
+        
+        queryWidget.checkBox_lines.setChecked(self.checkBox_lines.isChecked())
+        queryWidget.lineEdit_csv_lines.setText(self.lineEdit_csv_lines.text())
+        
+        queryWidget.checkBox_linestrings.setChecked(self.checkBox_linestrings.isChecked())
+        queryWidget.lineEdit_csv_multilinestrings.setText(self.lineEdit_csv_multilinestrings.text())
+        
+        queryWidget.checkBox_multipolygons.setChecked(self.checkBox_multipolygons.isChecked())
+        queryWidget.lineEdit_csv_multipolygons.setText(self.lineEdit_csv_multipolygons.text())
+        
+        queryWidget.radioButton_extentLayer.setChecked(self.radioButton_extentLayer.isChecked())
+        queryWidget.radioButton_extentMapCanvas.setChecked(self.radioButton_extentMapCanvas.isChecked())
+        
+        #Transfer the combobox from QuickQuery to Query
+        if self.comboBox_extentLayer.count():
+            queryWidget.radioButton_extentLayer.setCheckable(True)
+        queryWidget.comboBox_extentLayer.setModel(self.comboBox_extentLayer.model())
+        
+        #Transfer the output
+        queryWidget.lineEdit_browseDir.setText(outputDir)
+        if prefixFile:
+            queryWidget.lineEdit_filePrefix.setText(prefixFile)
+            queryWidget.lineEdit_filePrefix.setEnabled(True)
+
+        #Transfert the query
+        queryWidget.textEdit_query.setPlainText(query)
+        iface.QuickOSM_mainWindowDialog.listWidget.setCurrentRow(indexQuickQueryWidget)
+        iface.QuickOSM_mainWindowDialog.exec_()
 
     def __getBBox(self):
         '''
