@@ -49,11 +49,11 @@ class MyQueriesWidget(QWidget, Ui_ui_my_queries):
         self.pushButton_browse_output_file.clicked.connect(self.setOutDirPath)
         self.lineEdit_browseDir.textEdited.connect(self.disablePrefixFile)
         self.treeQueries.doubleClicked.connect(self.openAndRunQuery)
+        self.treeQueries.customContextMenuRequested.connect(self.showPopupMenu)
         self.treeQueries.clicked.connect(self.openQuery)
         self.lineEdit_search.textChanged.connect(self.textChanged)
         self.radioButton_extentLayer.toggled.connect(self.extentRadio)
         self.pushButton_refreshLayers.clicked.connect(self.fillLayerCombobox)
-        #self.treeQueries.customContextMenuRequested.connect(self.showPopupMenu)
         
         #Fill the treeview
         self.fillTree()
@@ -99,6 +99,21 @@ class MyQueriesWidget(QWidget, Ui_ui_my_queries):
         else:
             item.setHidden(True)
             return False
+
+    def showPopupMenu(self, point):
+        item = self.treeQueries.itemAt(point)
+        if isinstance(item, TreeQueryItem):
+            config = item.query.getContent()
+            self.currentQuery = config['metadata']['query']
+            
+            popupmenu = QMenu()
+            executeAction = QAction(self.tr('Execute'), self.treeQueries)
+            executeAction.triggered.connect(self.openAndRunQuery)
+            popupmenu.addAction(executeAction)
+            showAction = QAction(self.tr('Show query'), self.treeQueries)
+            showAction.triggered.connect(self.showQuery)
+            popupmenu.addAction(showAction)
+            popupmenu.exec_(self.treeQueries.mapToGlobal(point))
 
     def openAndRunQuery(self):
         item = self.treeQueries.currentItem()

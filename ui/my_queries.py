@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'my_queries.ui'
 #
-# Created: Tue Jul 22 14:44:24 2014
+# Created: Tue Jul 22 16:17:31 2014
 #      by: PyQt4 UI code generator 4.10.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -39,6 +39,7 @@ class Ui_ui_my_queries(object):
         self.lineEdit_search.setObjectName(_fromUtf8("lineEdit_search"))
         self.verticalLayout.addWidget(self.lineEdit_search)
         self.treeQueries = QtGui.QTreeWidget(ui_my_queries)
+        self.treeQueries.setContextMenuPolicy(QtCore.Qt.CustomContextMenu)
         self.treeQueries.setColumnCount(1)
         self.treeQueries.setObjectName(_fromUtf8("treeQueries"))
         self.treeQueries.header().setVisible(False)

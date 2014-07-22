@@ -46,10 +46,11 @@ class QueryWidget(QWidget, Ui_ui_query):
         self.groupBox.setCollapsed(True)
         self.bbox = None
         self.fillLayerCombobox()
-          
+        self.pushButton_saveQuery.hide()  
         #connect
         self.pushButton_runQuery.clicked.connect(self.runQuery)
         self.pushButton_generateQuery.clicked.connect(self.generateQuery)
+        self.pushButton_saveQuery.clicked.connect(self.saveQuery)
         self.pushButton_browse_output_file.clicked.connect(self.setOutDirPath)
         self.lineEdit_browseDir.textEdited.connect(self.disablePrefixFile)
         self.textEdit_query.cursorPositionChanged.connect(self.highlighter.rehighlight)
@@ -246,7 +247,9 @@ class QueryWidget(QWidget, Ui_ui_query):
         crsTransform = QgsCoordinateTransform(sourceCrs, QgsCoordinateReferenceSystem("EPSG:4326"))
         geomExtent.transform(crsTransform)
         return geomExtent.boundingBox()   
-            
+
+    def saveQuery(self):
+        print "hello"
 
     def setProgressPercentage(self,percent):
         '''

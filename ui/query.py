@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'query.ui'
 #
-# Created: Tue Jul 22 10:01:12 2014
+# Created: Tue Jul 22 15:25:18 2014
 #      by: PyQt4 UI code generator 4.10.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -169,6 +169,9 @@ class Ui_ui_query(object):
         self.pushButton_runQuery.setDefault(True)
         self.pushButton_runQuery.setObjectName(_fromUtf8("pushButton_runQuery"))
         self.horizontalLayout_2.addWidget(self.pushButton_runQuery)
+        self.pushButton_saveQuery = QtGui.QPushButton(ui_query)
+        self.pushButton_saveQuery.setObjectName(_fromUtf8("pushButton_saveQuery"))
+        self.horizontalLayout_2.addWidget(self.pushButton_saveQuery)
         self.verticalLayout.addLayout(self.horizontalLayout_2)
         self.label_progress = QtGui.QLabel(ui_query)
         sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Maximum, QtGui.QSizePolicy.Preferred)
@@ -217,6 +220,7 @@ class Ui_ui_query(object):
         self.label_6.setText(_translate("ui_query", "File prefix", None))
         self.pushButton_generateQuery.setText(_translate("ui_query", "Generate query", None))
         self.pushButton_runQuery.setText(_translate("ui_query", "Run query", None))
+        self.pushButton_saveQuery.setText(_translate("ui_query", "Save query", None))
 
 from qgis.gui import QgsCollapsibleGroupBox
 from QuickOSM import resources_rc

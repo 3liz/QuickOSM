@@ -35,6 +35,9 @@
    </item>
    <item>
     <widget class="QTreeWidget" name="treeQueries">
+     <property name="contextMenuPolicy">
+      <enum>Qt::CustomContextMenu</enum>
+     </property>
      <property name="sortingEnabled">
       <bool>false</bool>
      </property>
