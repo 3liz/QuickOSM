@@ -15,7 +15,6 @@ class XMLHighlighter(QtGui.QSyntaxHighlighter):
  
         keywordFormat = QtGui.QTextCharFormat()
         keywordFormat.setForeground(QtCore.Qt.darkMagenta)
-        #keywordFormat.setFontWeight(QtGui.QFont.Bold)
  
         keywordPatterns = ["\\b?xml\\b", "/>", ">", "<"]
  
@@ -23,9 +22,14 @@ class XMLHighlighter(QtGui.QSyntaxHighlighter):
                 for pattern in keywordPatterns]
  
         xmlElementFormat = QtGui.QTextCharFormat()
-        #xmlElementFormat.setFontWeight(QtGui.QFont.Bold)
         xmlElementFormat.setForeground(QtGui.QColor("#117700"))
         self.highlightingRules.append((QtCore.QRegExp("\\b[A-Za-z0-9_\-]+(?=[\s/>])"), xmlElementFormat))
+ 
+        nominatimAreaFormat = QtGui.QTextCharFormat()
+        nominatimAreaFormat.setFontItalic(True)
+        nominatimAreaFormat.setFontWeight(QtGui.QFont.Bold)
+        nominatimAreaFormat.setForeground(QtGui.QColor("#FF7C00"))
+        self.highlightingRules.append((QtCore.QRegExp("\{\{[A-Za-z0-9:, ]*\}\}"), nominatimAreaFormat))
  
         xmlAttributeFormat = QtGui.QTextCharFormat()
         xmlAttributeFormat.setFontItalic(True)
