@@ -29,6 +29,7 @@ from qgis.gui import QgsMessageBar
 from os.path import dirname,abspath,isfile, join
 from QuickOSM.CoreQuickOSM.FileQuery import FileQuery
 from QuickOSM.CoreQuickOSM.ExceptionQuickOSM import *
+from QuickOSM.CoreQuickOSM.Tools import *
 from qgis.utils import iface
 import os
 import re
@@ -59,7 +60,7 @@ class MyQueriesWidget(QWidget, Ui_ui_my_queries):
         self.treeQueries.clear()
         
         #Get the folder and all filequeries
-        folder = join(dirname(dirname(abspath(__file__))),"queries")
+        folder = Tools.userFolder()
         catfiles = FileQuery.getIniFilesFromFolder(folder)
         
         #Fill all categories

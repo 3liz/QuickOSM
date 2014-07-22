@@ -7,8 +7,20 @@ Created on 16 juin 2014
 from PyQt4.QtCore import QSettings
 import re
 from API.Nominatim import Nominatim
+import shutil
+from PyQt4.QtCore import *
+from qgis.core import *
+from os.path import join,dirname,abspath
 
 class Tools:
+
+    @staticmethod
+    def userFolder():
+        userDir = QFileInfo(QgsApplication.qgisUserDbFilePath()).path()+'QuickOSM'
+        if not QDir(userDir).exists():
+            folder = join(dirname(dirname(abspath(__file__))),"queries")
+            shutil.copytree(folder, QDir.toNativeSeparators(userDir))
+        return unicode(QDir.toNativeSeparators(userDir))
 
     @staticmethod
     def getSetting(key):
