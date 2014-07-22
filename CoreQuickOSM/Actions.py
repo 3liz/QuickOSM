@@ -40,7 +40,7 @@ class Actions:
                     url = "http://localhost:8111/load_object?objects="+value
                     data = urllib2.urlopen(url).read()
                 except urllib2.URLError:
-                    iface.messageBar().pushMessage(QApplication.translate("QuickOSM", u"Sorry man, the JOSM remote is not enabled."), level=QgsMessageBar.CRITICAL , duration=7)
+                    iface.messageBar().pushMessage(QApplication.translate("QuickOSM", u"The JOSM remote seems to be disabled."), level=QgsMessageBar.CRITICAL , duration=7)
             
             #NOT USED    
             elif field == "rawedit":

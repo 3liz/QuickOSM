@@ -323,4 +323,4 @@ class MyQueriesDockWidget(QDockWidget):
         QDockWidget.__init__(self)
         self.setAllowedAreas(Qt.LeftDockWidgetArea | Qt.RightDockWidgetArea)
         self.setWidget(MyQueriesWidget())
-        self.setWindowTitle(QApplication.translate("ui_my_queries", "My queries"))
+        self.setWindowTitle(QApplication.translate("ui_my_queries", "QuickOSM - My queries"))

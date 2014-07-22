@@ -222,9 +222,9 @@ class QuickQueryWidget(QWidget, Ui_ui_quick_query):
         #We have to find the widget in the stackedwidget of the main window
         queryWidget = None
         indexQuickQueryWidget = None
-        for i in xrange(iface.mainWindowDialog.stackedWidget.count()):
-            if iface.mainWindowDialog.stackedWidget.widget(i).__class__.__name__ == "QueryWidget":
-                queryWidget = iface.mainWindowDialog.stackedWidget.widget(i)
+        for i in xrange(iface.QuickOSM_mainWindowDialog.stackedWidget.count()):
+            if iface.QuickOSM_mainWindowDialog.stackedWidget.widget(i).__class__.__name__ == "QueryWidget":
+                queryWidget = iface.QuickOSM_mainWindowDialog.stackedWidget.widget(i)
                 indexQuickQueryWidget = i
                 break
         
@@ -278,8 +278,8 @@ class QuickQueryWidget(QWidget, Ui_ui_quick_query):
         queryFactory = QueryFactory(timeout=timeout,key=key,value=value,bbox=bbox,nominatim=nominatim,osmObjects=osmObjects)
         query = queryFactory.make()
         queryWidget.textEdit_query.setPlainText(query)
-        iface.mainWindowDialog.listWidget.setCurrentRow(indexQuickQueryWidget)
-        iface.mainWindowDialog.exec_()
+        iface.QuickOSM_mainWindowDialog.listWidget.setCurrentRow(indexQuickQueryWidget)
+        iface.QuickOSM_mainWindowDialog.exec_()
 
     def __getBBox(self):
         '''
@@ -332,4 +332,4 @@ class QuickQueryDockWidget(QDockWidget):
         self.setAllowedAreas(Qt.LeftDockWidgetArea | Qt.RightDockWidgetArea)
         self.widget = QuickQueryWidget()
         self.setWidget(self.widget)
-        self.setWindowTitle(QApplication.translate("ui_quick_query", "Quick query"))
+        self.setWindowTitle(QApplication.translate("ui_quick_query", "QuickOSM - Quick query"))
