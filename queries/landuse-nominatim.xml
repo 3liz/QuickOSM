@@ -1,0 +1,38 @@
+<osm-script output="json" timeout="25">
+  <!-- fetch area “grenoble” to search in -->
+  <id-query {{nominatimArea:grenoble}} into="area"/>
+  <!-- gather results -->
+  <union>
+    <!-- query part for: “natural” -->
+    <query type="node">
+      <has-kv k="natural"/>
+      <area-query from="area"/>
+    </query>
+    <query type="way">
+      <has-kv k="natural"/>
+      <area-query from="area"/>
+    </query>
+    <query type="relation">
+      <has-kv k="natural"/>
+      <area-query from="area"/>
+    </query>
+    <!-- query part for: “landuse” -->
+    <query type="node">
+      <has-kv k="landuse"/>
+      <area-query from="area"/>
+    </query>
+    <query type="way">
+      <has-kv k="landuse"/>
+      <area-query from="area"/>
+    </query>
+    <query type="relation">
+      <has-kv k="landuse"/>
+      <area-query from="area"/>
+    </query>
+  </union>
+     <union>
+          <item />
+          <recurse type="down"/>
+     </union>
+     <print mode="body" />
+</osm-script>
