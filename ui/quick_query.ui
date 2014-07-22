@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>587</width>
+    <width>609</width>
     <height>565</height>
    </rect>
   </property>
@@ -105,12 +105,13 @@
         </widget>
        </item>
        <item>
-        <widget class="QDialogButtonBox" name="buttonBox_layers">
-         <property name="standardButtons">
-          <set>QDialogButtonBox::Reset</set>
+        <widget class="QPushButton" name="pushButton_refreshLayers">
+         <property name="text">
+          <string/>
          </property>
-         <property name="centerButtons">
-          <bool>true</bool>
+         <property name="icon">
+          <iconset resource="../resources.qrc">
+           <normaloff>:/plugins/QuickOSM/resources/refresh.png</normaloff>:/plugins/QuickOSM/resources/refresh.png</iconset>
          </property>
         </widget>
        </item>
@@ -397,6 +398,8 @@
    <container>1</container>
   </customwidget>
  </customwidgets>
- <resources/>
+ <resources>
+  <include location="../resources.qrc"/>
+ </resources>
  <connections/>
 </ui>

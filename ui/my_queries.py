@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'my_queries.ui'
 #
-# Created: Mon Jul 21 17:55:59 2014
+# Created: Tue Jul 22 10:02:17 2014
 #      by: PyQt4 UI code generator 4.10.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -135,11 +135,13 @@ class Ui_ui_my_queries(object):
         self.comboBox_extentLayer = QtGui.QComboBox(self.groupBox)
         self.comboBox_extentLayer.setObjectName(_fromUtf8("comboBox_extentLayer"))
         self.horizontalLayout_5.addWidget(self.comboBox_extentLayer)
-        self.buttonBox_layers = QtGui.QDialogButtonBox(self.groupBox)
-        self.buttonBox_layers.setStandardButtons(QtGui.QDialogButtonBox.Reset)
-        self.buttonBox_layers.setCenterButtons(True)
-        self.buttonBox_layers.setObjectName(_fromUtf8("buttonBox_layers"))
-        self.horizontalLayout_5.addWidget(self.buttonBox_layers)
+        self.pushButton_refreshLayers = QtGui.QPushButton(self.groupBox)
+        self.pushButton_refreshLayers.setText(_fromUtf8(""))
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap(_fromUtf8(":/plugins/QuickOSM/resources/refresh.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.pushButton_refreshLayers.setIcon(icon)
+        self.pushButton_refreshLayers.setObjectName(_fromUtf8("pushButton_refreshLayers"))
+        self.horizontalLayout_5.addWidget(self.pushButton_refreshLayers)
         self.formLayout_4.setLayout(3, QtGui.QFormLayout.FieldRole, self.horizontalLayout_5)
         self.verticalLayout_2.addLayout(self.formLayout_4)
         self.formLayout_2 = QtGui.QFormLayout()
@@ -214,3 +216,4 @@ class Ui_ui_my_queries(object):
         self.pushButton_runQuery.setText(_translate("ui_my_queries", "Run query", None))
 
 from qgis.gui import QgsCollapsibleGroupBox
+from QuickOSM import resources_rc

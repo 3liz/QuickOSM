@@ -66,7 +66,7 @@ class QuickQueryWidget(QWidget, Ui_ui_quick_query):
         self.radioButton_extentLayer.toggled.connect(self.allowNominatimOrExtent)
         self.radioButton_extentMapCanvas.toggled.connect(self.allowNominatimOrExtent)
         self.radioButton_place.toggled.connect(self.allowNominatimOrExtent)
-        self.buttonBox_layers.button(QDialogButtonBox.Reset).clicked.connect(self.fillLayerCombobox)
+        self.pushButton_refreshLayers.clicked.connect(self.fillLayerCombobox)
  
     def allowNominatimOrExtent(self):
         '''

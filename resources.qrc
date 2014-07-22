@@ -1,6 +1,7 @@
 <RCC>
-    <qresource prefix="/plugins/QuickOSM" >
-        <file>icon.png</file>
-        <file>resources/general.svg</file>
-    </qresource>
+  <qresource prefix="/plugins/QuickOSM">
+    <file>resources/refresh.png</file>
+    <file>icon.png</file>
+    <file>resources/general.svg</file>
+  </qresource>
 </RCC>
