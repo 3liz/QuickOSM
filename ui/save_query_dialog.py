@@ -46,7 +46,6 @@ class SaveQueryDialog(QDialog, Ui_ui_save_query):
         self.whiteListValues = whiteListValues
         self.outputGeomTypes = outputGeomTypes
         self.query = query
-        self.setWindowTitle(QApplication.translate("QuickOSM", "QuickOSM - Save query"))
         
     def accept(self):
         category = self.lineEdit_category.text()

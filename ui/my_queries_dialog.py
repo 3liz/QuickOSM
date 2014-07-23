@@ -108,10 +108,10 @@ class MyQueriesWidget(QWidget, Ui_ui_my_queries):
             self.currentQuery = config['metadata']['query']
             
             popupmenu = QMenu()
-            executeAction = QAction(self.tr('Execute'), self.treeQueries)
+            executeAction = QAction(QApplication.translate("QuickOSM", 'Execute'), self.treeQueries)
             executeAction.triggered.connect(self.openAndRunQuery)
             popupmenu.addAction(executeAction)
-            showAction = QAction(self.tr('Show query'), self.treeQueries)
+            showAction = QAction(QApplication.translate("QuickOSM", 'Show query'), self.treeQueries)
             showAction.triggered.connect(self.showQuery)
             popupmenu.addAction(showAction)
             popupmenu.exec_(self.treeQueries.mapToGlobal(point))

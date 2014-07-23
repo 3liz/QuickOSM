@@ -17,7 +17,7 @@ Error 10-19 - Overpass
 class OverpassBadRequestException(GeoAlgorithmExecutionException):
     def __init__(self, msg=None):
         if not msg:
-            msg = QApplication.translate("Exception", u"Bad request OverpassAPI")
+            msg = QApplication.translate("QuickOSM", u"Bad request OverpassAPI")
         GeoAlgorithmExecutionException.__init__(self,msg)
         self.errorNumber = 10
         

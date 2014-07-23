@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'save_query.ui'
 #
-# Created: Wed Jul 23 09:35:52 2014
+# Created: Wed Jul 23 17:53:03 2014
 #      by: PyQt4 UI code generator 4.10.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -56,7 +56,7 @@ class Ui_ui_save_query(object):
         QtCore.QMetaObject.connectSlotsByName(ui_save_query)
 
     def retranslateUi(self, ui_save_query):
-        ui_save_query.setWindowTitle(_translate("ui_save_query", "Dialog", None))
+        ui_save_query.setWindowTitle(_translate("ui_save_query", "QuickOSM - Save query", None))
         self.label.setText(_translate("ui_save_query", "Category", None))
         self.label_2.setText(_translate("ui_save_query", "Name", None))
 

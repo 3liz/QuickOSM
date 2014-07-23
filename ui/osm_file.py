@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'osm_file.ui'
 #
-# Created: Thu Jul 17 12:21:30 2014
+# Created: Wed Jul 23 18:00:12 2014
 #      by: PyQt4 UI code generator 4.10.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -99,7 +99,7 @@ class Ui_ui_osm_file(object):
         QtCore.QMetaObject.connectSlotsByName(ui_osm_file)
 
     def retranslateUi(self, ui_osm_file):
-        ui_osm_file.setWindowTitle(_translate("ui_osm_file", "Form", None))
+        ui_osm_file.setWindowTitle(_translate("ui_osm_file", "QuickOSM - OSM File", None))
         self.label.setText(_translate("ui_osm_file", "OSM File", None))
         self.pushButton_browseOsmFile.setText(_translate("ui_osm_file", "Browse", None))
         self.label_2.setText(_translate("ui_osm_file", "OSMConf", None))

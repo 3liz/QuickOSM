@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'quick_query.ui'
 #
-# Created: Tue Jul 22 10:01:36 2014
+# Created: Wed Jul 23 18:07:53 2014
 #      by: PyQt4 UI code generator 4.10.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -224,7 +224,7 @@ class Ui_ui_quick_query(object):
         QtCore.QMetaObject.connectSlotsByName(ui_quick_query)
 
     def retranslateUi(self, ui_quick_query):
-        ui_quick_query.setWindowTitle(_translate("ui_quick_query", "Form", None))
+        ui_quick_query.setWindowTitle(_translate("ui_quick_query", "QuickOSM - Quick query", None))
         self.label.setText(_translate("ui_quick_query", "Key", None))
         self.label_2.setText(_translate("ui_quick_query", "Value", None))
         self.label_3.setText(_translate("ui_quick_query", "In", None))

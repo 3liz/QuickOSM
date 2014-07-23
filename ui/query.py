@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'query.ui'
 #
-# Created: Tue Jul 22 15:25:18 2014
+# Created: Wed Jul 23 18:09:38 2014
 #      by: PyQt4 UI code generator 4.10.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -197,7 +197,7 @@ class Ui_ui_query(object):
         QtCore.QMetaObject.connectSlotsByName(ui_query)
 
     def retranslateUi(self, ui_query):
-        ui_query.setWindowTitle(_translate("ui_query", "Form", None))
+        ui_query.setWindowTitle(_translate("ui_query", "QuickOSM - Query", None))
         self.label.setText(_translate("ui_query", "Query", None))
         self.groupBox.setTitle(_translate("ui_query", "Advanced", None))
         self.label_2.setText(_translate("ui_query", "{{nominatimArea:}}", None))

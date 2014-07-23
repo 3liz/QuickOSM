@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'my_queries.ui'
 #
-# Created: Tue Jul 22 16:17:31 2014
+# Created: Wed Jul 23 17:58:00 2014
 #      by: PyQt4 UI code generator 4.10.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -194,7 +194,7 @@ class Ui_ui_my_queries(object):
         QtCore.QMetaObject.connectSlotsByName(ui_my_queries)
 
     def retranslateUi(self, ui_my_queries):
-        ui_my_queries.setWindowTitle(_translate("ui_my_queries", "Form", None))
+        ui_my_queries.setWindowTitle(_translate("ui_my_queries", "QuickOSM - My queries", None))
         self.lineEdit_search.setPlaceholderText(_translate("ui_my_queries", "Search", None))
         self.treeQueries.setSortingEnabled(False)
         self.treeQueries.headerItem().setText(0, _translate("ui_my_queries", "Query", None))

@@ -55,10 +55,10 @@ class QueryWidget(QWidget, Ui_ui_query):
         
         #Setup menu for saving
         popupmenu = QMenu()
-        saveFinalQueryAction = QAction(self.tr('Save as final query'),self.pushButton_saveQuery)
+        saveFinalQueryAction = QAction(QApplication.translate("QuickOSM", 'Save as final query'),self.pushButton_saveQuery)
         saveFinalQueryAction.triggered.connect(self.saveFinalQuery)
         popupmenu.addAction(saveFinalQueryAction)
-        saveTemplateQueryAction = QAction(self.tr('Save as template'),self.pushButton_saveQuery)
+        saveTemplateQueryAction = QAction(QApplication.translate("QuickOSM", 'Save as template'),self.pushButton_saveQuery)
         saveTemplateQueryAction.triggered.connect(self.saveTemplateQuery)
         popupmenu.addAction(saveTemplateQueryAction)
         self.pushButton_saveQuery.setMenu(popupmenu)
