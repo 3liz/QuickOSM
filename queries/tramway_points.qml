@@ -287,10 +287,4 @@
   <editorlayout>generatedlayout</editorlayout>
   <excludeAttributesWMS/>
   <excludeAttributesWFS/>
-  <attributeactions>
-    <actionsetting action="http://www.openstreetmap.org/browse/[% &quot;osm_type&quot; %]/[% &quot;osm_id&quot; %]" capture="0" type="5" name="OpenStreetMap Browser"/>
-    <actionsetting action="from QuickOSM.CoreQuickOSM.Actions import Actions;Actions.run(&quot;josm&quot;,&quot;[% &quot;full_id&quot; %]&quot;)" capture="0" type="1" name="JOSM"/>
-    <actionsetting action="http://www.openstreetmap.org/edit?[% &quot;osm_type&quot; %]=[% &quot;osm_id&quot; %]" capture="0" type="5" name="User default editor"/>
-    <actionsetting action="from PyQt4.QtCore import QUrl; from PyQt4.QtWebKit import QWebView;  myWV = QWebView(None); myWV.load(QUrl(&quot;http://rawedit.openstreetmap.fr/edit/[% &quot;osm_type&quot; %]/[% &quot;osm_id&quot; %]&quot;)); myWV.show()" capture="0" type="1" name="Edit directly"/>
-  </attributeactions>
 </qgis>
