@@ -36,12 +36,17 @@ import re
 
 class MyQueriesWidget(QWidget, Ui_ui_my_queries):
     def __init__(self, parent=None):
+        '''
+        MyQueriesWidget constructor
+        '''
         QWidget.__init__(self)
         self.setupUi(self)
         
+        #Setup UI
         self.pushButton_runQuery.setDisabled(True)
         self.pushButton_showQuery.setDisabled(True)
         self.fillLayerCombobox()
+        self.fillTree()
         
         #Connect
         self.pushButton_runQuery.clicked.connect(self.runQuery)
@@ -54,11 +59,12 @@ class MyQueriesWidget(QWidget, Ui_ui_my_queries):
         self.lineEdit_search.textChanged.connect(self.textChanged)
         self.radioButton_extentLayer.toggled.connect(self.extentRadio)
         self.pushButton_refreshLayers.clicked.connect(self.fillLayerCombobox)
-        
-        #Fill the treeview
-        self.fillTree()
 
     def fillTree(self, force=False):
+        '''
+        Fill the tree with queries
+        '''
+        
         self.treeQueries.clear()
         
         #Get the folder and all filequeries
@@ -74,9 +80,11 @@ class MyQueriesWidget(QWidget, Ui_ui_my_queries):
                 self.treeQueries.addTopLevelItem(queryItem)
             
         self.treeQueries.resizeColumnToContents(0)
-        #QApplication.processEvents()
         
     def textChanged(self):
+        '''
+        Update the tree according to the search box
+        '''
         text = self.lineEdit_search.text().strip(' ').lower()
         self.__filterItem(self.treeQueries.invisibleRootItem(), text)
         if text:
@@ -85,6 +93,9 @@ class MyQueriesWidget(QWidget, Ui_ui_my_queries):
             self.treeQueries.collapseAll()
 
     def __filterItem(self, item, text):
+        '''
+        search an item in the tree
+        '''
         if (item.childCount() > 0):
             show = False
             for i in xrange(item.childCount()):
@@ -102,11 +113,17 @@ class MyQueriesWidget(QWidget, Ui_ui_my_queries):
             return False
 
     def showPopupMenu(self, point):
+        '''
+        Right click in the tree
+        '''
         item = self.treeQueries.itemAt(point)
         if isinstance(item, TreeQueryItem):
             config = item.query.getContent()
+            
+            #We set the query
             self.currentQuery = config['metadata']['query']
             
+            #We create the menu
             popupmenu = QMenu()
             executeAction = QAction(QApplication.translate("QuickOSM", 'Execute'), self.treeQueries)
             executeAction.triggered.connect(self.openAndRunQuery)
@@ -117,12 +134,19 @@ class MyQueriesWidget(QWidget, Ui_ui_my_queries):
             popupmenu.exec_(self.treeQueries.mapToGlobal(point))
 
     def openAndRunQuery(self):
+        '''
+        If we choose "execute" from the right-click menu
+        '''
         item = self.treeQueries.currentItem()
         if isinstance(item, TreeQueryItem):
             self.openQuery()
             self.runQuery()
     
     def openQuery(self):
+        '''
+        simple click on the tree
+        open the query
+        '''
         item = self.treeQueries.currentItem()
         if isinstance(item, TreeQueryItem):
             template = item.query.isTemplate()
@@ -204,7 +228,6 @@ class MyQueriesWidget(QWidget, Ui_ui_my_queries):
         #Block the button and save the initial text
         QApplication.setOverrideCursor(Qt.WaitCursor)
         self.pushButton_browse_output_file.setDisabled(True)
-        #self.pushButton_generateQuery.setDisabled(True)
         self.pushButton_runQuery.setDisabled(True)
         self.pushButton_runQuery.initialText = self.pushButton_runQuery.text()
         self.pushButton_runQuery.setText(QApplication.translate("QuickOSM","Running query ..."))
@@ -390,7 +413,9 @@ class MyQueriesWidget(QWidget, Ui_ui_my_queries):
         QApplication.processEvents()
             
 class TreeQueryItem(QTreeWidgetItem):
-
+    '''
+    Class QTreeQueryItem which populate the tree
+    '''
     def __init__(self, parent, query):
         QTreeWidgetItem.__init__(self,parent)
         self.query = query
@@ -409,4 +434,7 @@ class MyQueriesDockWidget(QDockWidget):
         self.setWindowTitle(QApplication.translate("ui_my_queries", "QuickOSM - My queries"))
         
     def onNewQuerySuccessful(self):
+        '''
+        Slots which refresh the tree
+        '''
         self.widget().fillTree(force=True)
