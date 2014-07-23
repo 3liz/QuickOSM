@@ -131,7 +131,7 @@ class FileQuery:
         dic['layers'] = {}
         for layer in FileQuery.LAYERS:
             dic['layers'][layer] = {}
-            for item in ['namelayer', 'columns','style','load','alias']:
+            for item in ['namelayer', 'columns','style','load']:
                 dic['layers'][layer][item] = self.__configSectionMap(layer)[item]
                 
                 if item == 'style':
@@ -139,7 +139,6 @@ class FileQuery:
                         dic['layers'][layer][item] = join(self.directory,dic['layers'][layer][item])
                     else:
                         dic['layers'][layer][item] = None
-                        
         
         return dic
 
@@ -175,8 +174,7 @@ class FileQuery:
                 elif value == u"False":
                     iniDict[option] = False
                 else:
-                    iniDict[option] = value
-                
+                    iniDict[option] = value   
             except:
                 iniDict[option] = None
         return iniDict

@@ -33,7 +33,7 @@ class FileQueryWriter:
             self.config.add_section(layer)
             load = True if layer in self.outputGeomTypes else False
             csv = "" if layer not in self.whiteListValues else self.whiteListValues[layer]
-            infoLayer = {"load":load,"namelayer":"","columns":csv,"alias":"","style":""}
+            infoLayer = {"load":load,"namelayer":"","columns":csv,"style":""}
             for key in infoLayer.keys():
                 self.config.set(layer, key, infoLayer[key])
     
