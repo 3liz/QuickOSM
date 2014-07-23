@@ -21,7 +21,9 @@ class FileQuery:
     FILES = {}
 
     @staticmethod
-    def getIniFilesFromFolder(folder):
+    def getIniFilesFromFolder(folder,force=False):
+        if force:
+            FileQuery.FILES = {}
         if not FileQuery.FILES:
             files = [ join(folder,f) for f in listdir(folder) if isfile(join(folder,f))]
             for filePath in files:
@@ -49,6 +51,9 @@ class FileQuery:
     def isValid(self):
         #Is it an ini file ?    
         tab = (ntpath.basename(self.__filePath)).split('.')
+        if len(tab)<2:
+            return False
+        
         filename = tab[0]
         if tab[1] != "ini":
             #raise Exception, "Not an ini file"
@@ -62,33 +67,34 @@ class FileQuery:
             self.__configParser.read(self.__filePath)
         
         #Set the name
-        self.__name = self.__configSectionMap('metadata')['name']
-        self.__category = self.__configSectionMap('metadata')['category']
-        if not self.__name or not self.__category:
-            return False
+        try:
+            self.__name = self.__configSectionMap('metadata')['name']
+            self.__category = self.__configSectionMap('metadata')['category']
         
-        #Check if layers are presents in the ini file
-        for layer in FileQuery.LAYERS:
-            if not isBoolean(self.__configSectionMap(layer)['load']):
+            #Check if layers are presents in the ini file
+            for layer in FileQuery.LAYERS:
+                if not isBoolean(self.__configSectionMap(layer)['load']):
+                    return False
+            
+            #Is there another file with the query ?
+            self.directory = dirname(self.__filePath)
+            self.__queryExtension = None
+            self.__queryFile = None
+            for ext in FileQuery.QUERY_EXTENSIONS:
+                if isfile(join(self.directory, filename + '.' + ext)):
+                    self.__queryFile = join(self.directory, filename + '.' + ext)
+                    self.__queryExtension = ext
+            if not self.__queryExtension and not self.__queryFile:
                 return False
-        
-        #Is there another file with the query ?
-        self.directory = dirname(self.__filePath)
-        self.__queryExtension = None
-        self.__queryFile = None
-        for ext in FileQuery.QUERY_EXTENSIONS:
-            if isfile(join(self.directory, filename + '.' + ext)):
-                self.__queryFile = join(self.directory, filename + '.' + ext)
-                self.__queryExtension = ext
-        if not self.__queryExtension and not self.__queryFile:
+            
+            #Test OK, so add it to the list
+            if self.__category not in FileQuery.FILES:
+                FileQuery.FILES[self.__category] = []
+            
+            FileQuery.FILES[self.__category].append(self)
+            return True
+        except Exception:
             return False
-        
-        #Test OK, so add it to the list
-        if self.__category not in FileQuery.FILES:
-            FileQuery.FILES[self.__category] = []
-        
-        FileQuery.FILES[self.__category].append(self)  
-        return True
 
     def isTemplate(self):
         self.__bboxTemplate = False

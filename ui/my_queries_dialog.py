@@ -58,12 +58,12 @@ class MyQueriesWidget(QWidget, Ui_ui_my_queries):
         #Fill the treeview
         self.fillTree()
 
-    def fillTree(self):
+    def fillTree(self, force=False):
         self.treeQueries.clear()
         
         #Get the folder and all filequeries
         folder = Tools.userFolder()
-        catfiles = FileQuery.getIniFilesFromFolder(folder)
+        catfiles = FileQuery.getIniFilesFromFolder(folder,force=force)
         
         #Fill all categories
         for cat,files in catfiles.iteritems():
@@ -74,6 +74,7 @@ class MyQueriesWidget(QWidget, Ui_ui_my_queries):
                 self.treeQueries.addTopLevelItem(queryItem)
             
         self.treeQueries.resizeColumnToContents(0)
+        #QApplication.processEvents()
         
     def textChanged(self):
         text = self.lineEdit_search.text().strip(' ').lower()
@@ -406,3 +407,6 @@ class MyQueriesDockWidget(QDockWidget):
         self.setAllowedAreas(Qt.LeftDockWidgetArea | Qt.RightDockWidgetArea)
         self.setWidget(MyQueriesWidget())
         self.setWindowTitle(QApplication.translate("ui_my_queries", "QuickOSM - My queries"))
+        
+    def onNewQuerySuccessful(self):
+        self.widget().fillTree(force=True)

@@ -26,6 +26,10 @@ from QuickOSM.CoreQuickOSM.API.ConnexionOAPI import ConnexionOAPI
 from QuickOSM.CoreQuickOSM.Tools import Tools
 
 class MainWindowDialog(QtGui.QDialog, Ui_ui_main_window):
+    
+    #Signal new query
+    signalNewQuerySuccessful = QtCore.pyqtSignal(name='signalNewQuerySuccessful')
+    
     def __init__(self, parent=None):
         QtGui.QDialog.__init__(self)
         self.setupUi(self)
@@ -33,6 +37,8 @@ class MainWindowDialog(QtGui.QDialog, Ui_ui_main_window):
         #Connect
         self.pushButton_OAPI_timestamp.clicked.connect(self.getTimestampOAPI)
         self.comboBox_default_OAPI.currentIndexChanged[int].connect(self.setServerOAPI)
+        self.query.signalNewQuerySuccessful.connect(self.onNewQuerySuccessful)
+        self.query.signalNewQuerySuccessful.connect(self.signalNewQuerySuccessful.emit)
         
         #Set settings about the OAPI
         self.defaultServer = Tools.getSetting('defaultOAPI')
@@ -42,7 +48,10 @@ class MainWindowDialog(QtGui.QDialog, Ui_ui_main_window):
         else:
             self.defaultServer = self.comboBox_default_OAPI.currentText()
             Tools.setSetting('defaultOAPI', self.defaultServer)
-        
+
+    def onNewQuerySuccessful(self):
+        self.my_queries.fillTree(force=True)
+            
     def setServerOAPI(self,index):
         self.defaultServer = self.comboBox_default_OAPI.currentText()
         Tools.setSetting('defaultOAPI', self.defaultServer)

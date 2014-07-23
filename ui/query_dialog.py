@@ -26,6 +26,7 @@ from qgis.gui import QgsMessageBar
 from qgis.core import *
 from QuickOSM.Controller.Process import Process
 from QuickOSM.CoreQuickOSM.ExceptionQuickOSM import *
+from save_query_dialog import SaveQueryDialog
 from QuickOSM.CoreQuickOSM.Tools import Tools
 from XMLHighlighter import XMLHighlighter
 import os
@@ -34,6 +35,10 @@ from qgis.utils import iface
 from query import Ui_ui_query
 
 class QueryWidget(QWidget, Ui_ui_query):
+    
+    #Signal new query
+    signalNewQuerySuccessful = pyqtSignal(name='signalNewQuerySuccessful')
+    
     def __init__(self, parent=None):
         QWidget.__init__(self)
         self.setupUi(self)
@@ -46,11 +51,21 @@ class QueryWidget(QWidget, Ui_ui_query):
         self.groupBox.setCollapsed(True)
         self.bbox = None
         self.fillLayerCombobox()
-        self.pushButton_saveQuery.hide()  
+        #self.pushButton_saveQuery.hide()
+        
+        #Setup menu for saving
+        popupmenu = QMenu()
+        saveFinalQueryAction = QAction(self.tr('Save as final query'),self.pushButton_saveQuery)
+        saveFinalQueryAction.triggered.connect(self.saveFinalQuery)
+        popupmenu.addAction(saveFinalQueryAction)
+        saveTemplateQueryAction = QAction(self.tr('Save as template'),self.pushButton_saveQuery)
+        saveTemplateQueryAction.triggered.connect(self.saveTemplateQuery)
+        popupmenu.addAction(saveTemplateQueryAction)
+        self.pushButton_saveQuery.setMenu(popupmenu)
+        
         #connect
         self.pushButton_runQuery.clicked.connect(self.runQuery)
         self.pushButton_generateQuery.clicked.connect(self.generateQuery)
-        self.pushButton_saveQuery.clicked.connect(self.saveQuery)
         self.pushButton_browse_output_file.clicked.connect(self.setOutDirPath)
         self.lineEdit_browseDir.textEdited.connect(self.disablePrefixFile)
         self.textEdit_query.cursorPositionChanged.connect(self.highlighter.rehighlight)
@@ -213,8 +228,9 @@ class QueryWidget(QWidget, Ui_ui_query):
         Transform the template to query "out of the box"
         '''
         query = unicode(self.textEdit_query.toPlainText())
+        nominatim = unicode(self.lineEdit_nominatim.text())
         bbox = self.__getBBox()
-        query = Tools.PrepareQueryOqlXml(query=query, extent=bbox)
+        query = Tools.PrepareQueryOqlXml(query=query, extent=bbox, nominatimName=nominatim)
         self.textEdit_query.setPlainText(query)
         
     def __getBBox(self):
@@ -248,8 +264,55 @@ class QueryWidget(QWidget, Ui_ui_query):
         geomExtent.transform(crsTransform)
         return geomExtent.boundingBox()   
 
-    def saveQuery(self):
-        print "hello"
+    def saveFinalQuery(self):
+        
+        #Which geometry at the end ?
+        outputGeomTypes = []
+        whiteListValues = {}
+        if self.checkBox_points.isChecked():
+            outputGeomTypes.append('points')
+            whiteListValues['points'] = self.lineEdit_csv_points.text()
+        if self.checkBox_lines.isChecked():
+            outputGeomTypes.append('lines')
+            whiteListValues['lines'] = self.lineEdit_csv_lines.text()
+        if self.checkBox_linestrings.isChecked():
+            outputGeomTypes.append('multilinestrings')
+            whiteListValues['multilinestrings'] = self.lineEdit_csv_multilinestrings.text()
+        if self.checkBox_multipolygons.isChecked():
+            outputGeomTypes.append('multipolygons')
+            whiteListValues['multipolygons'] = self.lineEdit_csv_multipolygons.text()
+        
+        query = unicode(self.textEdit_query.toPlainText())
+        nominatim = unicode(self.lineEdit_nominatim.text())
+        bbox = self.__getBBox()
+        query = Tools.PrepareQueryOqlXml(query=query, extent=bbox, nominatimName=nominatim)
+        
+        saveQueryDialog = SaveQueryDialog(query=query,outputGeomTypes=outputGeomTypes,whiteListValues=whiteListValues)
+        saveQueryDialog.signalNewQuerySuccessful.connect(self.signalNewQuerySuccessful.emit)
+        saveQueryDialog.exec_()
+        
+    def saveTemplateQuery(self):
+        #Which geometry at the end ?
+        outputGeomTypes = []
+        whiteListValues = {}
+        if self.checkBox_points.isChecked():
+            outputGeomTypes.append('points')
+            whiteListValues['points'] = self.lineEdit_csv_points.text()
+        if self.checkBox_lines.isChecked():
+            outputGeomTypes.append('lines')
+            whiteListValues['lines'] = self.lineEdit_csv_lines.text()
+        if self.checkBox_linestrings.isChecked():
+            outputGeomTypes.append('multilinestrings')
+            whiteListValues['multilinestrings'] = self.lineEdit_csv_multilinestrings.text()
+        if self.checkBox_multipolygons.isChecked():
+            outputGeomTypes.append('multipolygons')
+            whiteListValues['multipolygons'] = self.lineEdit_csv_multipolygons.text()
+        
+        query = unicode(self.textEdit_query.toPlainText())
+        
+        saveQueryDialog = SaveQueryDialog(query=query,outputGeomTypes=outputGeomTypes,whiteListValues=whiteListValues)
+        saveQueryDialog.signalNewQuerySuccessful.connect(self.signalNewQuerySuccessful.emit)
+        saveQueryDialog.exec_()
 
     def setProgressPercentage(self,percent):
         '''

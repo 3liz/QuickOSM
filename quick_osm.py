@@ -125,9 +125,14 @@ class QuickOSM:
         self.iface.addPluginToWebMenu(u"&Quick OSM",self.quickQueryAction)
         self.quickQueryDockWidget = QuickQueryDockWidget()
         self.iface.addDockWidget(Qt.RightDockWidgetArea, self.quickQueryDockWidget)
-        self.quickQueryDockWidget.hide()
+        #self.quickQueryDockWidget.hide()
         self.quickQueryDockWidget.setObjectName("quickQueryWidget");
         
+        #Connect signals and slots
+        self.iface.QuickOSM_mainWindowDialog.signalNewQuerySuccessful.connect(self.onNewQuerySuccessful)
+        
+    def onNewQuerySuccessful(self):
+        self.myQueriesDockWidget.onNewQuerySuccessful()
         
     def unload(self):
         self.iface.removePluginWebMenu(u"&Quick OSM",self.mainWindowAction)
