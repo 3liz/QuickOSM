@@ -28,6 +28,7 @@ from qgis.gui import QgsMessageBar
 from os.path import dirname,abspath,isfile, join
 from QuickOSM.CoreQuickOSM.FileQueryWriter import FileQueryWriter
 from QuickOSM.CoreQuickOSM.Tools import Tools
+from QuickOSM.CoreQuickOSM.ExceptionQuickOSM import GeoAlgorithmExecutionException
 
 class SaveQueryDialog(QDialog, Ui_ui_save_query):
     
@@ -38,6 +39,10 @@ class SaveQueryDialog(QDialog, Ui_ui_save_query):
         super(SaveQueryDialog, self).__init__(parent)
         QDialog.__init__(self)
         self.setupUi(self)
+        self.bar = QgsMessageBar()
+        self.bar.setSizePolicy( QSizePolicy.Minimum, QSizePolicy.Fixed )
+        self.layout().addWidget(self.bar)
+        
         self.whiteListValues = whiteListValues
         self.outputGeomTypes = outputGeomTypes
         self.query = query
@@ -50,7 +55,9 @@ class SaveQueryDialog(QDialog, Ui_ui_save_query):
         folder = Tools.userFolder()
         
         iniFile = FileQueryWriter(path=folder,name=name,category=category,query=self.query,whiteListValues=self.whiteListValues,outputGeomTypes=self.outputGeomTypes)
-        result = iniFile.save()
-        if result:
+        try:
+            iniFile.save()
             self.signalNewQuerySuccessful.emit()
             self.hide()
+        except GeoAlgorithmExecutionException,e:
+            self.bar.pushMessage(e.msg, level=QgsMessageBar.CRITICAL , duration=7)

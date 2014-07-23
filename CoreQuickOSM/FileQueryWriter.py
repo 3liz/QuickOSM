@@ -5,6 +5,7 @@ Created on 22 juil. 2014
 '''
 
 from PyQt4.QtCore import *
+from QuickOSM.CoreQuickOSM.ExceptionQuickOSM import QueryAlreadyExistsException
 import ConfigParser
 import os
 
@@ -44,7 +45,7 @@ class FileQueryWriter:
             self.config.write(fh)
             fh.close()
         else:
-            return False
+            raise QueryAlreadyExistsException
         
         filePath = os.path.join(self.path,self.queryFile)
         if not os.path.isfile(filePath):
@@ -53,4 +54,4 @@ class FileQueryWriter:
             fh.close()
             return True
         else:
-            return False        
+            raise QueryAlreadyExistsException        

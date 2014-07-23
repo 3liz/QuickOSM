@@ -120,3 +120,10 @@ class OutPutGeomTypesException(GeoAlgorithmExecutionException):
             msg= QApplication.translate("Exception", u"No outputs selected")
         GeoAlgorithmExecutionException.__init__(self,msg)
         self.errorNumber = 38
+        
+class QueryAlreadyExistsException(GeoAlgorithmExecutionException):
+    def __init__(self, msg=None):
+        if not msg:
+            msg= QApplication.translate("Exception", u"This query already exists")
+        GeoAlgorithmExecutionException.__init__(self,msg)
+        self.errorNumber = 39
