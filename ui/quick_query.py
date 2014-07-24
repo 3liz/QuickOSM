@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'quick_query.ui'
 #
-# Created: Wed Jul 23 18:07:53 2014
+# Created: Thu Jul 24 11:40:56 2014
 #      by: PyQt4 UI code generator 4.10.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -154,11 +154,11 @@ class Ui_ui_quick_query(object):
         self.label_14 = QtGui.QLabel(self.groupBox)
         self.label_14.setObjectName(_fromUtf8("label_14"))
         self.formLayout_4.setWidget(2, QtGui.QFormLayout.LabelRole, self.label_14)
-        self.checkBox_linestrings = QtGui.QCheckBox(self.groupBox)
-        self.checkBox_linestrings.setText(_fromUtf8(""))
-        self.checkBox_linestrings.setChecked(True)
-        self.checkBox_linestrings.setObjectName(_fromUtf8("checkBox_linestrings"))
-        self.formLayout_4.setWidget(2, QtGui.QFormLayout.FieldRole, self.checkBox_linestrings)
+        self.checkBox_multilinestrings = QtGui.QCheckBox(self.groupBox)
+        self.checkBox_multilinestrings.setText(_fromUtf8(""))
+        self.checkBox_multilinestrings.setChecked(True)
+        self.checkBox_multilinestrings.setObjectName(_fromUtf8("checkBox_multilinestrings"))
+        self.formLayout_4.setWidget(2, QtGui.QFormLayout.FieldRole, self.checkBox_multilinestrings)
         self.horizontalLayout_3.addLayout(self.formLayout_4)
         self.verticalLayout_2.addLayout(self.horizontalLayout_3)
         self.formLayout_2 = QtGui.QFormLayout()

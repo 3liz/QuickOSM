@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'my_queries.ui'
 #
-# Created: Wed Jul 23 17:58:00 2014
+# Created: Thu Jul 24 11:24:45 2014
 #      by: PyQt4 UI code generator 4.10.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -105,11 +105,11 @@ class Ui_ui_my_queries(object):
         self.formLayout_4.setWidget(7, QtGui.QFormLayout.LabelRole, self.label_14)
         self.horizontalLayout_7 = QtGui.QHBoxLayout()
         self.horizontalLayout_7.setObjectName(_fromUtf8("horizontalLayout_7"))
-        self.checkBox_linestrings = QtGui.QCheckBox(self.groupBox)
-        self.checkBox_linestrings.setText(_fromUtf8(""))
-        self.checkBox_linestrings.setChecked(True)
-        self.checkBox_linestrings.setObjectName(_fromUtf8("checkBox_linestrings"))
-        self.horizontalLayout_7.addWidget(self.checkBox_linestrings)
+        self.checkBox_multilinestrings = QtGui.QCheckBox(self.groupBox)
+        self.checkBox_multilinestrings.setText(_fromUtf8(""))
+        self.checkBox_multilinestrings.setChecked(True)
+        self.checkBox_multilinestrings.setObjectName(_fromUtf8("checkBox_multilinestrings"))
+        self.horizontalLayout_7.addWidget(self.checkBox_multilinestrings)
         self.lineEdit_csv_multilinestrings = QtGui.QLineEdit(self.groupBox)
         self.lineEdit_csv_multilinestrings.setObjectName(_fromUtf8("lineEdit_csv_multilinestrings"))
         self.horizontalLayout_7.addWidget(self.lineEdit_csv_multilinestrings)

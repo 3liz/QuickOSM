@@ -59,4 +59,6 @@ class SaveQueryDialog(QDialog, Ui_ui_save_query):
             self.signalNewQuerySuccessful.emit()
             self.hide()
         except GeoAlgorithmExecutionException,e:
-            self.bar.pushMessage(e.msg, level=QgsMessageBar.CRITICAL , duration=7)
+            self.displayGeoAlgorithmException(e)
+        except Exception,e:
+            self.displayException(e)

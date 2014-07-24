@@ -22,6 +22,7 @@
 
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
+from QuickOSMWidget import *
 from osm_file import Ui_ui_osm_file
 from os.path import dirname,abspath,join,isfile
 from QuickOSM.CoreQuickOSM.ExceptionQuickOSM import *
@@ -30,12 +31,12 @@ from qgis.core import QgsMapLayerRegistry
 from qgis.gui import QgsMessageBar
 from qgis.utils import iface
 
-class OsmFileWidget(QWidget, Ui_ui_osm_file):
+class OsmFileWidget(QuickOSMWidget, Ui_ui_osm_file):
     def __init__(self, parent=None):
         '''
         OsmFileWidget constructor
         '''
-        QWidget.__init__(self)
+        QuickOSMWidget.__init__(self)
         self.setupUi(self)
         
         #Set default osmconf
@@ -94,15 +95,7 @@ class OsmFileWidget(QWidget, Ui_ui_osm_file):
         osmConf = self.lineEdit_osmConf.text()
         
         #Which geometry at the end ?
-        outputGeomTypes = []
-        if self.checkBox_points.isChecked():
-            outputGeomTypes.append('points')
-        if self.checkBox_lines.isChecked():
-            outputGeomTypes.append('lines')
-        if self.checkBox_multilinestrings.isChecked():
-            outputGeomTypes.append('multilinestrings')
-        if self.checkBox_multipolygons.isChecked():
-            outputGeomTypes.append('multipolygons')
+        outputGeomTypes = self.getOutputGeomTypes()
         
         try:
             if not outputGeomTypes:
@@ -120,16 +113,9 @@ class OsmFileWidget(QWidget, Ui_ui_osm_file):
                 QgsMapLayerRegistry.instance().addMapLayer(item)
             
         except GeoAlgorithmExecutionException,e:
-            iface.messageBar().pushMessage(e.msg, level=QgsMessageBar.CRITICAL , duration=7)
+            self.displayGeoAlgorithmException(e)
         except Exception,e:
-            import sys
-            exc_type, exc_obj, exc_tb = sys.exc_info()
-            fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
-            print(exc_type, fname, exc_tb.tb_lineno)
-            ex_type, ex, tb = sys.exc_info()
-            import traceback
-            traceback.print_tb(tb)
-            iface.messageBar().pushMessage("Error in the python console, please report it", level=QgsMessageBar.CRITICAL , duration=5)
+            self.displayException(e)
 
 class OsmFileDockWidget(QDockWidget):
     def __init__(self, parent=None):

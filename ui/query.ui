@@ -149,7 +149,7 @@
         <item row="7" column="1">
          <layout class="QHBoxLayout" name="horizontalLayout_7">
           <item>
-           <widget class="QCheckBox" name="checkBox_linestrings">
+           <widget class="QCheckBox" name="checkBox_multilinestrings">
             <property name="text">
              <string/>
             </property>
@@ -378,7 +378,7 @@
    </hints>
   </connection>
   <connection>
-   <sender>checkBox_linestrings</sender>
+   <sender>checkBox_multilinestrings</sender>
    <signal>toggled(bool)</signal>
    <receiver>lineEdit_csv_multilinestrings</receiver>
    <slot>setEnabled(bool)</slot>

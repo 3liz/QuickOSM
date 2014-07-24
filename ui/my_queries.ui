@@ -179,7 +179,7 @@
         <item row="7" column="1">
          <layout class="QHBoxLayout" name="horizontalLayout_7">
           <item>
-           <widget class="QCheckBox" name="checkBox_linestrings">
+           <widget class="QCheckBox" name="checkBox_multilinestrings">
             <property name="text">
              <string/>
             </property>

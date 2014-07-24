@@ -22,12 +22,12 @@
 
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
+from QuickOSMWidget import *
 from qgis.gui import QgsMessageBar
 from qgis.core import *
 from quick_query import Ui_ui_quick_query      
 from QuickOSM.Controller.Process import Process
 from QuickOSM.CoreQuickOSM.ExceptionQuickOSM import *
-#from QuickOSM.ui.main_window_dialog import MainWindowDialog
 
 #shoud not be here, use controller
 from QuickOSM.CoreQuickOSM.QueryFactory import QueryFactory
@@ -36,22 +36,13 @@ import os
 from qgis.utils import iface
 
 
-class QuickQueryWidget(QWidget, Ui_ui_quick_query):
+class QuickQueryWidget(QuickOSMWidget, Ui_ui_quick_query):
     def __init__(self, parent=None):
         '''
         QuickQueryWidget constructor
         '''
-        QWidget.__init__(self)
+        QuickOSMWidget.__init__(self)
         self.setupUi(self)
-        
-        #Default query
-        self.lineEdit_key.setText("route")
-        self.lineEdit_value.setText("bus")
-        self.lineEdit_nominatim.setText("grenoble")
-        self.checkBox_points.setChecked(False)
-        self.checkBox_lines.setChecked(False)
-        self.checkBox_linestrings.setChecked(True)
-        self.checkBox_multipolygons.setChecked(False)
         
         #Setup UI
         self.lineEdit_filePrefix.setDisabled(True)
@@ -84,39 +75,6 @@ class QuickQueryWidget(QWidget, Ui_ui_quick_query):
             self.comboBox_extentLayer.setDisabled(True)
             self.pushButton_refreshLayers.setDisabled(True)
 
-
-    def fillLayerCombobox(self):
-        '''
-        Fill the combobox with layers which are in the legend
-        '''
-        layers = iface.legendInterface().layers()
-        self.comboBox_extentLayer.clear()
-        for layer in layers:
-            self.comboBox_extentLayer.addItem(layer.name(),layer.id())
-            
-        if self.comboBox_extentLayer.count() < 1:
-            self.radioButton_extentLayer.setCheckable(False)
-        else:
-            self.radioButton_extentLayer.setCheckable(True)
-
-    def disablePrefixFile(self):
-        '''
-        If the directory is empty, we disable the file prefix
-        '''
-        if self.lineEdit_browseDir.text():
-            self.lineEdit_filePrefix.setDisabled(False)
-        else:
-            self.lineEdit_filePrefix.setText("")
-            self.lineEdit_filePrefix.setDisabled(True)
-        
-    def setOutDirPath(self):
-        '''
-        Fill the output directory path
-        '''
-        outputFile = QFileDialog.getExistingDirectory(None, caption=QApplication.translate("QuickOSM", 'Select directory'))
-        self.lineEdit_browseDir.setText(outputFile)
-        self.disablePrefixFile()
-
     def runQuery(self):
         '''
         Process for running the query
@@ -125,13 +83,7 @@ class QuickQueryWidget(QWidget, Ui_ui_quick_query):
         QApplication.setOverrideCursor(Qt.WaitCursor)
         self.pushButton_browse_output_file.setDisabled(True)
         self.pushButton_showQuery.setDisabled(True)
-        self.pushButton_runQuery.setDisabled(True)
-        self.pushButton_runQuery.initialText = self.pushButton_runQuery.text()
-        self.pushButton_runQuery.setText(QApplication.translate("QuickOSM","Running query ..."))
-        self.progressBar_execution.setMinimum(0)
-        self.progressBar_execution.setMaximum(0)
-        self.progressBar_execution.setValue(0)
-        self.label_progress.setText("")
+        self.startProcess()
         QApplication.processEvents()
         
         #Get all values
@@ -143,15 +95,7 @@ class QuickQueryWidget(QWidget, Ui_ui_quick_query):
         prefixFile = self.lineEdit_filePrefix.text()
         
         #Which geometry at the end ?
-        outputGeomTypes = []
-        if self.checkBox_points.isChecked():
-            outputGeomTypes.append('points')
-        if self.checkBox_lines.isChecked():
-            outputGeomTypes.append('lines')
-        if self.checkBox_linestrings.isChecked():
-            outputGeomTypes.append('multilinestrings')
-        if self.checkBox_multipolygons.isChecked():
-            outputGeomTypes.append('multipolygons')
+        outputGeomTypes = self.getOutputGeomTypes()
         
         #Which osm's objects ?
         osmObjects = []
@@ -174,7 +118,7 @@ class QuickQueryWidget(QWidget, Ui_ui_quick_query):
             bbox = None
             if self.radioButton_extentLayer.isChecked() or self.radioButton_extentMapCanvas.isChecked():
                 nominatim = None
-                bbox = self.__getBBox()
+                bbox = self.getBBox()
             
             if nominatim == '':
                 nominatim = None
@@ -191,30 +135,18 @@ class QuickQueryWidget(QWidget, Ui_ui_quick_query):
                 iface.messageBar().pushMessage(QApplication.translate("QuickOSM", u"Successful query, but no result."), level=QgsMessageBar.WARNING , duration=7)
         
         except GeoAlgorithmExecutionException,e:
-            self.label_progress.setText("")
-            iface.messageBar().pushMessage(e.msg, level=QgsMessageBar.CRITICAL , duration=7)
+            self.displayGeoAlgorithmException(e)
         except Exception,e:
-            import sys
-            exc_type, exc_obj, exc_tb = sys.exc_info()
-            fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
-            print(exc_type, fname, exc_tb.tb_lineno)
-            ex_type, ex, tb = sys.exc_info()
-            import traceback
-            traceback.print_tb(tb)
-            iface.messageBar().pushMessage("Error in the python console, please report it", level=QgsMessageBar.CRITICAL , duration=5)
+            self.displayException(e)
         
         finally:
             #Resetting the button
             self.pushButton_browse_output_file.setDisabled(False)
             self.pushButton_showQuery.setDisabled(False)
-            self.pushButton_runQuery.setDisabled(False)
-            self.pushButton_runQuery.setText(self.pushButton_runQuery.initialText)
-            self.progressBar_execution.setMinimum(0)
-            self.progressBar_execution.setMaximum(100)
-            self.progressBar_execution.setValue(100)
             QApplication.restoreOverrideCursor()
+            self.endProcess()
             QApplication.processEvents()
-        
+            
     def showQuery(self):
         '''
         Show the query in the main window
@@ -257,7 +189,7 @@ class QuickQueryWidget(QWidget, Ui_ui_quick_query):
         #Which geometry at the end ?
         queryWidget.checkBox_points.setChecked(self.checkBox_points.isChecked())
         queryWidget.checkBox_lines.setChecked(self.checkBox_lines.isChecked())
-        queryWidget.checkBox_linestrings.setChecked(self.checkBox_linestrings.isChecked())
+        queryWidget.checkBox_multilinestrings.setChecked(self.checkBox_multilinestrings.isChecked())
         queryWidget.checkBox_multipolygons.setChecked(self.checkBox_multipolygons.isChecked())
         
         queryWidget.radioButton_extentLayer.setChecked(self.radioButton_extentLayer.isChecked())
@@ -280,51 +212,6 @@ class QuickQueryWidget(QWidget, Ui_ui_quick_query):
         queryWidget.textEdit_query.setPlainText(query)
         iface.QuickOSM_mainWindowDialog.listWidget.setCurrentRow(indexQuickQueryWidget)
         iface.QuickOSM_mainWindowDialog.exec_()
-
-    def __getBBox(self):
-        '''
-        Get the geometry of the bbox in WGS84
-        '''
-        geomExtent = None
-        sourceCrs = None
-        
-        #If mapCanvas is checked
-        if self.radioButton_extentMapCanvas.isChecked():
-            geomExtent = iface.mapCanvas().extent()
-            sourceCrs = iface.mapCanvas().mapRenderer().destinationCrs()
-        else:
-            #Else if a layer is checked
-            index = self.comboBox_extentLayer.currentIndex()
-            layerID = self.comboBox_extentLayer.itemData(index)
-            layerName = self.comboBox_extentLayer.itemText(index)
-            layers = iface.legendInterface().layers()
-            for layer in layers:
-                if layer.id() == layerID:
-                    geomExtent = layer.extent()
-                    sourceCrs = layer.crs()
-                    break
-            else:
-                #the layer could be deleted before
-                raise NoLayerException(suffix=layerName)
-        
-        geomExtent = QgsGeometry.fromRect(geomExtent)
-        crsTransform = QgsCoordinateTransform(sourceCrs, QgsCoordinateReferenceSystem("EPSG:4326"))
-        geomExtent.transform(crsTransform)
-        return geomExtent.boundingBox()
-            
-    def setProgressPercentage(self,percent):
-        '''
-        Slot to update percentage during process
-        '''
-        self.progressBar_execution.setValue(percent)
-        QApplication.processEvents()
-        
-    def setProgressText(self,text):
-        '''
-        Slot to update text during process
-        '''
-        self.label_progress.setText(text)
-        QApplication.processEvents()
 
 class QuickQueryDockWidget(QDockWidget):
     def __init__(self, parent=None):
