@@ -66,6 +66,8 @@ class MyQueriesWidget(QuickOSMWidget, Ui_ui_my_queries):
     def fillTree(self, force=False):
         '''
         Fill the tree with queries
+        @param force:To force the tree to refresh. Force=False with class's var in FileQuery to avoir to parse twice each query
+        @type force: bool
         '''
         
         self.treeQueries.clear()
@@ -98,6 +100,12 @@ class MyQueriesWidget(QuickOSMWidget, Ui_ui_my_queries):
     def __filterItem(self, item, text):
         '''
         search an item in the tree
+        @param item: check if the item should be shown
+        @type item: QTreeItem
+        @param text: text to search
+        @type text: str
+        @return: show or hide the item
+        @rtype: bool 
         '''
         if (item.childCount() > 0):
             show = False
@@ -118,6 +126,8 @@ class MyQueriesWidget(QuickOSMWidget, Ui_ui_my_queries):
     def showPopupMenu(self, point):
         '''
         Right click in the tree
+        @param point:Cursor's point
+        @type point:QPoint
         '''
         item = self.treeQueries.itemAt(point)
         if isinstance(item, TreeQueryItem):
@@ -175,6 +185,7 @@ class MyQueriesWidget(QuickOSMWidget, Ui_ui_my_queries):
                 
             config = item.query.getContent()
             self.configLayer = config['layers']
+            #setup the UI with parameters
             self.checkBox_points.setChecked(self.configLayer['points']['load'])
             self.lineEdit_csv_points.setText(self.configLayer['points']['columns'])
             self.checkBox_lines.setChecked(self.configLayer['lines']['load'])
@@ -226,6 +237,7 @@ class MyQueriesWidget(QuickOSMWidget, Ui_ui_my_queries):
         prefixFile = self.lineEdit_filePrefix.text()
         nominatim = self.lineEdit_nominatim.text()
         
+        #Set the bbox
         bbox = None
         if self.radioButton_extentLayer.isChecked() or self.radioButton_extentMapCanvas.isChecked():
             bbox = self.getBBox()

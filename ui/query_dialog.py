@@ -42,6 +42,9 @@ class QueryWidget(QuickOSMWidget, Ui_ui_query):
     signalNewQuerySuccessful = pyqtSignal(name='signalNewQuerySuccessful')
     
     def __init__(self, parent=None):
+        '''
+        QueryWidget constructor
+        '''
         QuickOSMWidget.__init__(self)
         self.setupUi(self)
         
@@ -78,6 +81,7 @@ class QueryWidget(QuickOSMWidget, Ui_ui_query):
         '''
         Disable or enable radiobuttons if nominatim or extent
         '''
+        
         query = unicode(self.textEdit_query.toPlainText())
 
         if re.search('{{nominatim}}', query) or re.search('{{nominatimArea:(.*)}}', query):
@@ -102,6 +106,7 @@ class QueryWidget(QuickOSMWidget, Ui_ui_query):
         '''
         Process for running the query
         '''
+        
         #Block the button and save the initial text
         self.pushButton_browse_output_file.setDisabled(True)
         self.pushButton_generateQuery.setDisabled(True)
@@ -115,6 +120,7 @@ class QueryWidget(QuickOSMWidget, Ui_ui_query):
         prefixFile = self.lineEdit_filePrefix.text()
         nominatim = self.lineEdit_nominatim.text()
         
+        #Set bbox
         bbox = None
         if self.radioButton_extentLayer.isChecked() or self.radioButton_extentMapCanvas.isChecked():
             bbox = self.getBBox()
@@ -158,6 +164,7 @@ class QueryWidget(QuickOSMWidget, Ui_ui_query):
         '''
         Transform the template to query "out of the box"
         '''
+        
         query = unicode(self.textEdit_query.toPlainText())
         nominatim = unicode(self.lineEdit_nominatim.text())
         bbox = self.getBBox()
@@ -165,6 +172,9 @@ class QueryWidget(QuickOSMWidget, Ui_ui_query):
         self.textEdit_query.setPlainText(query)  
 
     def saveFinalQuery(self):
+        '''
+        Save the query without any templates, usefull for bbox
+        '''
         
         #Which geometry at the end ?
         outputGeomTypes = self.getOutputGeomTypes()
@@ -173,19 +183,27 @@ class QueryWidget(QuickOSMWidget, Ui_ui_query):
         query = unicode(self.textEdit_query.toPlainText())
         nominatim = unicode(self.lineEdit_nominatim.text())
         bbox = self.getBBox()
+        
+        #Delete any templates
         query = Tools.PrepareQueryOqlXml(query=query, extent=bbox, nominatimName=nominatim)
         
+        #Save the query
         saveQueryDialog = SaveQueryDialog(query=query,outputGeomTypes=outputGeomTypes,whiteListValues=whiteListValues)
         saveQueryDialog.signalNewQuerySuccessful.connect(self.signalNewQuerySuccessful.emit)
         saveQueryDialog.exec_()
         
     def saveTemplateQuery(self):
+        '''
+        Save the query with templates if some are presents
+        '''
+        
         #Which geometry at the end ?
         outputGeomTypes = self.getOutputGeomTypes()
         whiteListValues = self.getWhiteListValues()
         
         query = unicode(self.textEdit_query.toPlainText())
         
+        #save the query
         saveQueryDialog = SaveQueryDialog(query=query,outputGeomTypes=outputGeomTypes,whiteListValues=whiteListValues)
         saveQueryDialog.signalNewQuerySuccessful.connect(self.signalNewQuerySuccessful.emit)
         saveQueryDialog.exec_()

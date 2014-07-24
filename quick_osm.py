@@ -71,18 +71,18 @@ class QuickOSM:
         Processing.addProvider(self.provider, True)
 
     def initGui(self):
-        
+
+        #Main window        
         self.mainWindowAction = QAction(
             QIcon(":/plugins/QuickOSM/icon.png"),
             u"Quick OSM",
             self.iface.mainWindow())
-        
         self.mainWindowAction.triggered.connect(self.openMainWindow)
         self.iface.addToolBarIcon(self.mainWindowAction)
         self.iface.addPluginToWebMenu(u"&Quick OSM",self.mainWindowAction)
         self.iface.QuickOSM_mainWindowDialog = MainWindowDialog()
 
-
+        #OSM File
         self.osmFileAction = QAction(
             QIcon(":/plugins/QuickOSM/icon.png"),
             QApplication.translate("ui_osm_file", "OSM File"),
@@ -94,7 +94,7 @@ class QuickOSM:
         self.osmFileDockWidget.hide()
         self.osmFileDockWidget.setObjectName("osmFileWidget");        
 
-        
+        #My queries
         self.myQueriesAction = QAction(
             QIcon(":/plugins/QuickOSM/icon.png"),
             QApplication.translate("ui_my_queries", "My queries"),
@@ -103,10 +103,10 @@ class QuickOSM:
         self.iface.addPluginToWebMenu(u"&Quick OSM",self.myQueriesAction)
         self.myQueriesDockWidget = MyQueriesDockWidget()
         self.iface.addDockWidget(Qt.RightDockWidgetArea, self.myQueriesDockWidget)
-        #self.myQueriesDockWidget.hide()
+        self.myQueriesDockWidget.hide()
         self.myQueriesDockWidget.setObjectName("myQueriesWidget");
         
-        
+        #Query
         self.queryAction = QAction(
             QIcon(":/plugins/QuickOSM/icon.png"),
             QApplication.translate("ui_query", "Query"),
@@ -118,7 +118,7 @@ class QuickOSM:
         self.queryDockWidget.hide()
         self.queryDockWidget.setObjectName("queryWidget");
         
-        
+        #Quick query
         self.quickQueryAction = QAction(
             QIcon(":/plugins/QuickOSM/icon.png"),
             QApplication.translate("ui_quick_query", "Quick query"),
@@ -127,7 +127,7 @@ class QuickOSM:
         self.iface.addPluginToWebMenu(u"&Quick OSM",self.quickQueryAction)
         self.quickQueryDockWidget = QuickQueryDockWidget()
         self.iface.addDockWidget(Qt.RightDockWidgetArea, self.quickQueryDockWidget)
-        #self.quickQueryDockWidget.hide()
+        self.quickQueryDockWidget.hide()
         self.quickQueryDockWidget.setObjectName("quickQueryWidget");
         
         #Connect signals and slots

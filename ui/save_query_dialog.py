@@ -37,6 +37,15 @@ class SaveQueryDialog(QDialog, Ui_ui_save_query):
     signalNewQuerySuccessful = pyqtSignal(name='signalNewQuerySuccessful')
     
     def __init__(self, parent=None, query=None,whiteListValues=None,outputGeomTypes=None):
+        '''
+        SaveQueryDialog constructor
+        @param query:query to save
+        @type query: str
+        @param whiteListValues: doc of layers with columns
+        @type whiteListValues: dic
+        @param outputGeomTypes: list of layers
+        @type outputGeomTypes: list
+        '''
         super(SaveQueryDialog, self).__init__(parent)
         QDialog.__init__(self)
         self.setupUi(self)
@@ -49,9 +58,13 @@ class SaveQueryDialog(QDialog, Ui_ui_save_query):
         self.query = query
         
     def accept(self):
+        '''
+        On accept, we call the FileQueryWriter
+        '''
         category = self.lineEdit_category.text()
         name = self.lineEdit_name.text()
         
+        #Get folder .qgis2/ on linux for instance
         folder = Tools.userFolder()
         
         iniFile = FileQueryWriter(path=folder,name=name,category=category,query=self.query,whiteListValues=self.whiteListValues,outputGeomTypes=self.outputGeomTypes)

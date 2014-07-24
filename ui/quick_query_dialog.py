@@ -63,6 +63,10 @@ class QuickQueryWidget(QuickOSMWidget, Ui_ui_quick_query):
         self.pushButton_refreshLayers.clicked.connect(self.fillLayerCombobox)
 
     def allowButtons(self):
+        '''
+        Disable show and run buttons if the key is empty
+        '''
+        
         if self.lineEdit_key.text():
             self.pushButton_runQuery.setDisabled(False)
             self.pushButton_showQuery.setDisabled(False)
@@ -74,6 +78,7 @@ class QuickQueryWidget(QuickOSMWidget, Ui_ui_quick_query):
         '''
         Disable or enable radiobuttons if nominatim or extent
         '''
+        
         if self.radioButton_extentMapCanvas.isChecked() or self.radioButton_extentLayer.isChecked():
             self.lineEdit_nominatim.setDisabled(True)
         else:
@@ -86,10 +91,26 @@ class QuickQueryWidget(QuickOSMWidget, Ui_ui_quick_query):
             self.comboBox_extentLayer.setDisabled(True)
             self.pushButton_refreshLayers.setDisabled(True)
 
+    def __getOsmObjects(self):
+        '''
+        Get a list of osm objects from checkbox
+        @return: list of osm objects to query on
+        @rtype: list
+        '''
+        osmObjects = []
+        if self.checkBox_node.isChecked():
+            osmObjects.append('node')
+        if self.checkBox_way.isChecked():
+            osmObjects.append('way')
+        if self.checkBox_relation.isChecked():
+            osmObjects.append('relation')
+        return osmObjects
+
     def runQuery(self):
         '''
         Process for running the query
         '''
+        
         #Block the button and save the initial text
         QApplication.setOverrideCursor(Qt.WaitCursor)
         self.pushButton_browse_output_file.setDisabled(True)
@@ -109,13 +130,7 @@ class QuickQueryWidget(QuickOSMWidget, Ui_ui_quick_query):
         outputGeomTypes = self.getOutputGeomTypes()
         
         #Which osm's objects ?
-        osmObjects = []
-        if self.checkBox_node.isChecked():
-            osmObjects.append('node')
-        if self.checkBox_way.isChecked():
-            osmObjects.append('way')
-        if self.checkBox_relation.isChecked():
-            osmObjects.append('relation')
+        osmObjects = self.__getOsmObjects()
         
         try:
             #Test values
@@ -138,6 +153,7 @@ class QuickQueryWidget(QuickOSMWidget, Ui_ui_quick_query):
                 raise DirectoryOutPutException
 
             numLayers = Process.ProcessQuickQuery(dialog = self, key=key, value=value, nominatim=nominatim, bbox=bbox, osmObjects=osmObjects, timeout=timeout, outputDir=outputDir, prefixFile=prefixFile,outputGeomTypes=outputGeomTypes)
+            #We can test numLayers to see if there are some results
             if numLayers:
                 self.label_progress.setText(QApplication.translate("QuickOSM",u"Successful query !"))
                 iface.messageBar().pushMessage(QApplication.translate("QuickOSM",u"Successful query !"), level=QgsMessageBar.INFO , duration=5)
@@ -162,6 +178,7 @@ class QuickQueryWidget(QuickOSMWidget, Ui_ui_quick_query):
         '''
         Show the query in the main window
         '''
+        
         #We have to find the widget in the stackedwidget of the main window
         queryWidget = None
         indexQuickQueryWidget = None
@@ -189,13 +206,7 @@ class QuickQueryWidget(QuickOSMWidget, Ui_ui_quick_query):
             nominatim = None
         
         #Which osm's objects ?
-        osmObjects = []
-        if self.checkBox_node.isChecked():
-            osmObjects.append('node')
-        if self.checkBox_way.isChecked():
-            osmObjects.append('way')
-        if self.checkBox_relation.isChecked():
-            osmObjects.append('relation')
+        osmObjects = self.__getOsmObjects()
             
         #Which geometry at the end ?
         queryWidget.checkBox_points.setChecked(self.checkBox_points.isChecked())

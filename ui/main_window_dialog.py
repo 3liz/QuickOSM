@@ -32,6 +32,9 @@ class MainWindowDialog(QtGui.QDialog, Ui_ui_main_window):
     signalNewQuerySuccessful = QtCore.pyqtSignal(name='signalNewQuerySuccessful')
     
     def __init__(self, parent=None):
+        '''
+        Constructor
+        '''
         QtGui.QDialog.__init__(self)
         self.setupUi(self)
         
@@ -51,13 +54,22 @@ class MainWindowDialog(QtGui.QDialog, Ui_ui_main_window):
             Tools.setSetting('defaultOAPI', self.defaultServer)
 
     def onNewQuerySuccessful(self):
+        '''
+        Slot which force the tree to refresh
+        '''
         self.my_queries.fillTree(force=True)
             
     def setServerOAPI(self,index):
+        '''
+        Save the new OAPI server
+        '''
         self.defaultServer = self.comboBox_default_OAPI.currentText()
         Tools.setSetting('defaultOAPI', self.defaultServer)
         self.getTimestampOAPI()
         
     def getTimestampOAPI(self):
+        '''
+        Get the timestamp of the current server
+        '''
         oapi = ConnexionOAPI(url=self.defaultServer)
         self.label_timestamp_oapi.setText(oapi.getTimestamp())
