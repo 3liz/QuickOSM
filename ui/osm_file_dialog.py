@@ -39,8 +39,10 @@ class OsmFileWidget(QWidget, Ui_ui_osm_file):
         self.setupUi(self)
         
         #Set default osmconf
-        defaultOsmConf = join(dirname(dirname(abspath(__file__))),"CoreQuickOSM","Parser","osmconf.ini")
-        self.lineEdit_osmConf.setText(defaultOsmConf)
+        self.defaultOsmConf = join(dirname(dirname(abspath(__file__))),"osmconf.ini")
+        if not isfile(self.defaultOsmConf):
+            self.defaultOsmConf = ''
+        self.lineEdit_osmConf.setText(self.defaultOsmConf)
         self.pushButton_openOsmFile.setEnabled(False)
         
         #Connect
@@ -49,6 +51,7 @@ class OsmFileWidget(QWidget, Ui_ui_osm_file):
         self.lineEdit_osmConf.textEdited.connect(self.disableRunButton)
         self.lineEdit_osmFile.textEdited.connect(self.disableRunButton)
         self.pushButton_openOsmFile.clicked.connect(self.openFile)
+        self.pushButton_resetIni.clicked.connect(self.resetIni)
         
     def setOsmFilePath(self):
         '''
@@ -63,8 +66,15 @@ class OsmFileWidget(QWidget, Ui_ui_osm_file):
         Fill the osmConf file
         '''
         osmConf = QFileDialog.getOpenFileName(parent=None, caption=QApplication.translate("QuickOSM", 'Select osm conf'), filter="OsmConf file (*.ini)")
-        self.lineEdit_osmConf.setText(osmConf)
+        if osmConf:
+            self.lineEdit_osmConf.setText(osmConf)
         self.disableRunButton()
+        
+    def resetIni(self):
+        '''
+        Reset the default osmConf file
+        '''
+        self.lineEdit_osmConf.setText(self.defaultOsmConf)
             
     def disableRunButton(self):
         '''

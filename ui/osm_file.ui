@@ -59,6 +59,17 @@
          </property>
         </widget>
        </item>
+       <item>
+        <widget class="QPushButton" name="pushButton_resetIni">
+         <property name="text">
+          <string/>
+         </property>
+         <property name="icon">
+          <iconset resource="../../../../../plugins/QuickOSM/resources.qrc">
+           <normaloff>:/plugins/QuickOSM/resources/refresh.png</normaloff>:/plugins/QuickOSM/resources/refresh.png</iconset>
+         </property>
+        </widget>
+       </item>
       </layout>
      </item>
      <item row="2" column="0">
@@ -153,6 +164,8 @@
    </item>
   </layout>
  </widget>
- <resources/>
+ <resources>
+  <include location="../../../../../plugins/QuickOSM/resources.qrc"/>
+ </resources>
  <connections/>
 </ui>

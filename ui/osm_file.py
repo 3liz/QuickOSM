@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'osm_file.ui'
 #
-# Created: Wed Jul 23 18:00:12 2014
+# Created: Thu Jul 24 10:40:19 2014
 #      by: PyQt4 UI code generator 4.10.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -55,6 +55,13 @@ class Ui_ui_osm_file(object):
         self.pushButton_browseOsmConf = QtGui.QPushButton(ui_osm_file)
         self.pushButton_browseOsmConf.setObjectName(_fromUtf8("pushButton_browseOsmConf"))
         self.horizontalLayout_2.addWidget(self.pushButton_browseOsmConf)
+        self.pushButton_resetIni = QtGui.QPushButton(ui_osm_file)
+        self.pushButton_resetIni.setText(_fromUtf8(""))
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap(_fromUtf8(":/plugins/QuickOSM/resources/refresh.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.pushButton_resetIni.setIcon(icon)
+        self.pushButton_resetIni.setObjectName(_fromUtf8("pushButton_resetIni"))
+        self.horizontalLayout_2.addWidget(self.pushButton_resetIni)
         self.formLayout.setLayout(1, QtGui.QFormLayout.FieldRole, self.horizontalLayout_2)
         self.label_3 = QtGui.QLabel(ui_osm_file)
         self.label_3.setObjectName(_fromUtf8("label_3"))
@@ -110,3 +117,4 @@ class Ui_ui_osm_file(object):
         self.label_6.setText(_translate("ui_osm_file", "Multipolygons", None))
         self.pushButton_openOsmFile.setText(_translate("ui_osm_file", "Open", None))
 
+from QuickOSM import resources_rc

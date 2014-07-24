@@ -45,6 +45,7 @@ class MyQueriesWidget(QWidget, Ui_ui_my_queries):
         #Setup UI
         self.pushButton_runQuery.setDisabled(True)
         self.pushButton_showQuery.setDisabled(True)
+        self.groupBox.setDisabled(True)
         self.fillLayerCombobox()
         self.fillTree()
         
@@ -183,6 +184,11 @@ class MyQueriesWidget(QWidget, Ui_ui_my_queries):
             self.currentQuery = config['metadata']['query']
             self.pushButton_runQuery.setDisabled(False)
             self.pushButton_showQuery.setDisabled(False)
+            self.groupBox.setDisabled(False)
+        else:
+            self.groupBox.setDisabled(True)
+            self.pushButton_runQuery.setDisabled(True)
+            self.pushButton_showQuery.setDisabled(True)
 
     def deleteQuery(self):
         '''
