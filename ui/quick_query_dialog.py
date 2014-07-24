@@ -48,16 +48,26 @@ class QuickQueryWidget(QuickOSMWidget, Ui_ui_quick_query):
         self.lineEdit_filePrefix.setDisabled(True)
         self.groupBox.setCollapsed(True)
         self.fillLayerCombobox()
+        self.allowButtons()
                
         #connect
         self.pushButton_runQuery.clicked.connect(self.runQuery)
         self.pushButton_showQuery.clicked.connect(self.showQuery)
         self.pushButton_browse_output_file.clicked.connect(self.setOutDirPath)
+        self.lineEdit_key.textEdited.connect(self.allowButtons)
         self.lineEdit_browseDir.textEdited.connect(self.disablePrefixFile)
         self.radioButton_extentLayer.toggled.connect(self.allowNominatimOrExtent)
         self.radioButton_extentMapCanvas.toggled.connect(self.allowNominatimOrExtent)
         self.radioButton_place.toggled.connect(self.allowNominatimOrExtent)
         self.pushButton_refreshLayers.clicked.connect(self.fillLayerCombobox)
+
+    def allowButtons(self):
+        if self.lineEdit_key.text():
+            self.pushButton_runQuery.setDisabled(False)
+            self.pushButton_showQuery.setDisabled(False)
+        else:
+            self.pushButton_runQuery.setDisabled(True)
+            self.pushButton_showQuery.setDisabled(True)
  
     def allowNominatimOrExtent(self):
         '''
