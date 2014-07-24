@@ -33,6 +33,7 @@ class FileQuery:
 
     def __init__(self,filePath):
         self.__filePath = filePath
+        self.__queryFile = None
         self.__name = None
         self.__category = None
         self.__bboxTemplate = None
@@ -47,6 +48,12 @@ class FileQuery:
     
     def getIcon(self):
         return self.__icon
+    
+    def getQueryFile(self):
+        return self.__queryFile
+    
+    def getFilePath(self):
+        return self.__filePath
 
     def isValid(self):
         #Is it an ini file ?    
@@ -79,7 +86,6 @@ class FileQuery:
             #Is there another file with the query ?
             self.directory = dirname(self.__filePath)
             self.__queryExtension = None
-            self.__queryFile = None
             for ext in FileQuery.QUERY_EXTENSIONS:
                 if isfile(join(self.directory, filename + '.' + ext)):
                     self.__queryFile = join(self.directory, filename + '.' + ext)
@@ -115,32 +121,34 @@ class FileQuery:
         return {"nominatim" : self.__nominatimTemplate, "bbox":self.__bboxTemplate}
         
     def getContent(self):
-        
         try:
-            self.__configParser
+            return self.__dic
         except AttributeError:
-            self.__configParser = ConfigParser.ConfigParser()
-            self.__configParser.read(self.__filePath)
-        
-        dic = {}
-        dic['metadata'] = {}
-        dic['metadata']['query'] = unicode(open(self.__queryFile, 'r').read(), "utf-8")
-        
-        dic['metadata']['name'] = self.__name
-        
-        dic['layers'] = {}
-        for layer in FileQuery.LAYERS:
-            dic['layers'][layer] = {}
-            for item in ['namelayer', 'columns','style','load']:
-                dic['layers'][layer][item] = self.__configSectionMap(layer)[item]
-                
-                if item == 'style':
-                    if isfile(join(self.directory,dic['layers'][layer][item])):
-                        dic['layers'][layer][item] = join(self.directory,dic['layers'][layer][item])
-                    else:
-                        dic['layers'][layer][item] = None
-        
-        return dic
+            try:
+                self.__configParser
+            except AttributeError:
+                self.__configParser = ConfigParser.ConfigParser()
+                self.__configParser.read(self.__filePath)
+            
+            dic = {}
+            dic['metadata'] = {}
+            dic['metadata']['query'] = unicode(open(self.__queryFile, 'r').read(), "utf-8")
+            
+            dic['metadata']['name'] = self.__name
+            
+            dic['layers'] = {}
+            for layer in FileQuery.LAYERS:
+                dic['layers'][layer] = {}
+                for item in ['namelayer', 'columns','style','load']:
+                    dic['layers'][layer][item] = self.__configSectionMap(layer)[item]
+                    
+                    if item == 'style':
+                        if isfile(join(self.directory,dic['layers'][layer][item])):
+                            dic['layers'][layer][item] = join(self.directory,dic['layers'][layer][item])
+                        else:
+                            dic['layers'][layer][item] = None
+            self.__dic = dic
+            return self.__dic
 
     def getValue(self,section,item):
         try:

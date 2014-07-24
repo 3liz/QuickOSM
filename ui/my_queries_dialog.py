@@ -131,6 +131,9 @@ class MyQueriesWidget(QWidget, Ui_ui_my_queries):
             showAction = QAction(QApplication.translate("QuickOSM", 'Show query'), self.treeQueries)
             showAction.triggered.connect(self.showQuery)
             popupmenu.addAction(showAction)
+            deleteAction = QAction(QApplication.translate("QuickOSM", 'Delete'), self.treeQueries)
+            deleteAction.triggered.connect(self.deleteQuery)
+            popupmenu.addAction(deleteAction)
             popupmenu.exec_(self.treeQueries.mapToGlobal(point))
 
     def openAndRunQuery(self):
@@ -180,6 +183,23 @@ class MyQueriesWidget(QWidget, Ui_ui_my_queries):
             self.currentQuery = config['metadata']['query']
             self.pushButton_runQuery.setDisabled(False)
             self.pushButton_showQuery.setDisabled(False)
+
+    def deleteQuery(self):
+        '''
+        If we want to delete the query from the right-click menu
+        '''
+        item = self.treeQueries.currentItem()
+        if isinstance(item, TreeQueryItem):
+            ret = QMessageBox.warning(self, "QuickOSM",QApplication.translate("QuickOSM","Are you sure you want to delete the query ?"),QMessageBox.Yes,QMessageBox.Cancel)
+            if (ret == QMessageBox.Yes):
+                QFile.remove(item.query.getFilePath())
+                QFile.remove(item.query.getQueryFile())
+                contents = item.query.getContent()
+                layers = contents['layers']
+                for layer in layers:
+                    if layers[layer]['style']:
+                        QFile.remove(layers[layer]['style'])
+                self.fillTree(force=True)
 
     def extentRadio(self):
         '''
