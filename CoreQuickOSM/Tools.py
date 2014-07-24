@@ -30,9 +30,17 @@ from qgis.core import *
 from os.path import join,dirname,abspath
 
 class Tools:
+    '''
+    Usefull tools
+    '''
 
     @staticmethod
     def userFolder():
+        '''
+        Get the user folder, ~/.qgis2 on linux for instance
+        @rtype: str
+        @return: path
+        '''
         userDir = QFileInfo(QgsApplication.qgisUserDbFilePath()).path()+'QuickOSM'
         if not QDir(userDir).exists():
             folder = join(dirname(dirname(abspath(__file__))),"queries")
@@ -41,12 +49,28 @@ class Tools:
 
     @staticmethod
     def getSetting(key):
+        '''
+        Get a value in the QSettings
+        @param key: key
+        @type key: str
+        @return: value
+        @rtype: str 
+        '''
         qs = QSettings()
         prefix = "/QuickOSM/"
         return qs.value(prefix + key)
     
     @staticmethod
     def setSetting(key,value):
+        '''
+        Set a value in the QSettings
+        @param key: key
+        @type key: str
+        @param value: value
+        @type value: str
+        @return: result
+        @rtype: bool
+        '''
         qs = QSettings()
         prefix = "/QuickOSM/"
         return qs.setValue(prefix + key, value)
@@ -55,6 +79,14 @@ class Tools:
     def PrepareQueryOqlXml(query,extent = None, nominatimName = None):
         '''
         Prepare the query before sending it to Overpass
+        @param query: the query, in XML or OQL
+        @type query: str
+        @param extent: the extent if {{bbox}}
+        @type extent: QgsRectangle
+        @param nominatimName: the city if {{nominatimArea:}}
+        @type nominatimName: str
+        @return: the final query
+        @rtype: str  
         '''
         
         #Delete spaces and tabs at the beginning and at the end

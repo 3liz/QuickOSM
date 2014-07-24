@@ -27,10 +27,28 @@ import ConfigParser
 import os
 
 class FileQueryWriter:
-    
+    '''
+    Write a query and metadatas into files
+    '''
     LAYERS = ['multipolygons', 'multilinestrings', 'lines', 'points']
     
     def __init__(self,path,name,category,query,whiteListValues,outputGeomTypes):
+        '''
+        Constructor
+        @param path:Folder where to save the query
+        @type path:str
+        @param name:Query's name
+        @type name:str
+        @param category:Query's category
+        @type category:str
+        @param query:query
+        @type query:str
+        @param whiteListValues:doc of layers with columns
+        @type whiteListValues:dic
+        @param outputGeomTypes:list of layers
+        @type outputGeomTypes:list
+        '''
+
         self.path = path
         self.name = name
         self.category = category
@@ -40,13 +58,16 @@ class FileQueryWriter:
         self.iniFile = self.category + "-" + self.name + ".ini"
         self.queryFile = self.category + "-" + self.name + ".xml"
         
+        #Set the INI writer
         self.config = ConfigParser.ConfigParser()
+        
+        #Write metadata
         info = {"name":self.name,"category":self.category}
-
         self.config.add_section('metadata')
         for key in info.keys():
             self.config.set('metadata', key, info[key])
 
+        #Write every config for each layers
         for layer in FileQueryWriter.LAYERS:
             self.config.add_section(layer)
             load = True if layer in self.outputGeomTypes else False
@@ -56,6 +77,13 @@ class FileQueryWriter:
                 self.config.set(layer, key, infoLayer[key])
     
     def save(self):
+        '''
+        Write the 2 files on disk
+        
+        @raise QueryAlreadyExistsException
+        @return: True if success
+        @rtype: bool
+        '''
         filePath = os.path.join(self.path,self.iniFile)
         if not os.path.isfile(filePath):
             fh = open(filePath,"w")

@@ -28,14 +28,29 @@ import urllib2
 import json
 
 class Nominatim:
-    
+    '''
+    Manage connexion to Nominatim
+    '''
+        
     def __init__(self, url = "http://nominatim.openstreetmap.org/search?format=json"):
+        '''
+        Constructor
+        @param url:URL of Nominatim
+        @type url:str
+        '''
+
         self.__url = url
         
     def query(self, query):
         '''
         Perform a nominatim query
+        @param req:Query to execute
+        @type req:str
+        @raise NetWorkErrorException
+        @return: the result of the query
+        @rtype: str
         '''
+        
         query = query.encode('utf8')
         params = { 'q': query }
         params['polygon_geojson'] = 0
@@ -50,6 +65,11 @@ class Nominatim:
     def getFirstPolygonFromQuery(self,query):
         '''
         Get first OSM_ID of a Nominatim area
+        @param query: Query to execute
+        @type query: str
+        @raise NominatimAreaException: 
+        @return: First relation's osm_id
+        @rtype: str
         '''
         data = self.query(query)
         for result in data:

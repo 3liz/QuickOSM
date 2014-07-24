@@ -24,10 +24,34 @@
 from qgis.core import QgsRectangle
 
 class QueryFactory():
+    '''
+    Build a XML query
+    '''
     
     OSM_TYPES = ['node','way','relation']
 
     def __init__(self,key = None,value = None,bbox = None,nominatim = None,osmObjects = OSM_TYPES, output = 'xml', timeout=25, printMode = 'body'):
+        '''
+        Constructor with key=value according to OpenStreetMap
+        A bbox or nominatim can be provided
+        
+        @param key: key
+        @type key: str
+        @param value: value
+        @type value: str
+        @param bbox: if we want a {{bbox}}
+        @type bbox: QgsRectangle or bool or "{{bbox}}"
+        @param nominatim: a place
+        @type nominatim: str
+        @param osmObjects: list of osm objects to query on (node/way/relation)
+        @type osmObjects: list
+        @param output:output of overpass : xml or json
+        @type output: str
+        @param timeout: timeout of the query
+        @type timeout: int
+        @param printMode: print type of the overpass query (read overpass doc)
+        @type printMode: str 
+        '''
         self.__key = key
         self.__value = value
         self.__bbox = bbox
@@ -38,7 +62,13 @@ class QueryFactory():
         self.__printMode = printMode
         
     def make(self):
+        '''
+        Make the query
+        @return: query
+        @rtype: str
+        '''
         
+        #Check if is ok ?
         if self.__nominatim and self.__bbox:
             return False, "Nominatim OR bbox, not both"
         
@@ -55,7 +85,7 @@ class QueryFactory():
             if osmObject not in QueryFactory.OSM_TYPES:
                 return False, "Wrong OSM object"
           
-        #TEST OK, so continue
+        #TEST OK, so continue and build the query
         TAB = '     '
         query = '<osm-script output="%s" timeout="%s"> \n' %(self.__output,self.__timeout)
         

@@ -50,9 +50,9 @@ class QuickOSMAlgorithmProvider(AlgorithmProvider):
 
         # Load algorithms
         self.alglist = [OverpassQueryGeoAlgorithm(),
-                        #NominatimQueryGeoAlgorithm(),
+                        NominatimQueryGeoAlgorithm(),
                         OsmParserGeoAlgorithm(),
-                        #XapiQueryGeoAlgorithm(),
+                        XapiQueryGeoAlgorithm(),
                         ReadIniFileGeoAlgorithm(),
                         ReadIniFilePathGeoAlgorithm(),
                         ListIniFilesGeoAlgorithm(),

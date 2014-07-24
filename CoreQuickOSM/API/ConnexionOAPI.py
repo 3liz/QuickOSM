@@ -21,7 +21,6 @@
  ***************************************************************************/
 """
 
-from processing.core.GeoAlgorithmExecutionException import GeoAlgorithmExecutionException
 from QuickOSM.CoreQuickOSM.ExceptionQuickOSM import OverpassBadRequestException,OutPutFormatException,OverpassTimeoutException, NetWorkErrorException
 import urllib2
 import urllib
@@ -34,6 +33,14 @@ class ConnexionOAPI:
     '''
 
     def __init__(self,url="http://overpass-api.de/api/", output = None):
+        '''
+        Constructor
+        @param url:URL of OverPass
+        @type url:str
+        @param output:Output desired (XML or JSON)
+        @type output:str
+        '''
+        
         if not url:
             url="http://overpass-api.de/api/"
             
@@ -46,6 +53,11 @@ class ConnexionOAPI:
     def query(self,req):
         '''
         Make a query to the overpass
+        @param req:Query to execute
+        @type req:str
+        @raise OverpassBadRequestException,NetWorkErrorException,OverpassTimeoutException
+        @return: the result of the query
+        @rtype: str
         '''
         req = req.encode('utf8')
         urlQuery = self.__url + 'interpreter'
@@ -75,6 +87,10 @@ class ConnexionOAPI:
     def getFileFromQuery(self,req):
         '''
         Make a query to the overpass and put the result in a temp file
+        @param req:Query to execute
+        @type req:str
+        @return: temporary filepath
+        @rtype: str
         '''
         req = self.query(req)
         tf = tempfile.NamedTemporaryFile(delete=False,suffix=".osm")
@@ -87,6 +103,8 @@ class ConnexionOAPI:
     def getTimestamp(self):
         '''
         Get the timestamp of the OSM data on the server
+        @return: Timestamp
+        @rtype: str
         '''
         urlQuery = self.__url + 'timestamp'
         try:

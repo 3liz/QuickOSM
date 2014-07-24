@@ -73,6 +73,11 @@ class QuickOSMWidget(QWidget):
             self.comboBox_extentLayer.setDisabled(True)
 
     def getOutputGeomTypes(self):
+        '''
+        Get all checkbox about outputs and return a list
+        @rtype: list
+        @return: list of layers
+        '''
         outputGeomTypes = []
         if self.checkBox_points.isChecked():
             outputGeomTypes.append('points')
@@ -85,6 +90,11 @@ class QuickOSMWidget(QWidget):
         return outputGeomTypes
     
     def getWhiteListValues(self):
+        '''
+        Get all lineedits about columns for each layers and return a dic
+        @rtype: dic
+        @return: doc of layers with columns
+        '''
         whiteListValues = {}
         if self.checkBox_points.isChecked():
             whiteListValues['points'] = self.lineEdit_csv_points.text()
@@ -99,6 +109,8 @@ class QuickOSMWidget(QWidget):
     def getBBox(self):
         '''
         Get the geometry of the bbox in WGS84
+        @rtype: QGsRectangle in WGS84
+        @return: the extent of the map canvas
         '''
         geomExtent = None
         sourceCrs = None
@@ -128,6 +140,9 @@ class QuickOSMWidget(QWidget):
         return geomExtent.boundingBox()
 
     def startProcess(self):
+        '''
+        Make some stuff before launching the process
+        '''
         self.pushButton_runQuery.setDisabled(True)
         self.pushButton_runQuery.initialText = self.pushButton_runQuery.text()
         self.pushButton_runQuery.setText(QApplication.translate("QuickOSM","Running query ..."))
@@ -138,6 +153,9 @@ class QuickOSMWidget(QWidget):
         
         
     def endProcess(self):
+        '''
+        Make some stuff after the process
+        '''
         self.pushButton_runQuery.setDisabled(False)
         self.pushButton_runQuery.setText(self.pushButton_runQuery.initialText)
         self.progressBar_execution.setMinimum(0)
@@ -160,10 +178,16 @@ class QuickOSMWidget(QWidget):
         QApplication.processEvents()
     
     def displayGeoAlgorithmException(self,e):
+        '''
+        Display quickosm's exceptions 
+        '''
         self.label_progress.setText("")
         iface.messageBar().pushMessage(e.msg, level=QgsMessageBar.CRITICAL , duration=7)
 
     def displayException(self,e):
+        '''
+        Display others exceptions 
+        '''
         import sys,os
         exc_type, exc_obj, exc_tb = sys.exc_info()
         fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]

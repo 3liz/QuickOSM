@@ -29,9 +29,20 @@ from qgis.gui import QgsMessageBar
 from qgis.utils import iface
 
 class Actions:
+    '''
+    Manage actions available on layers
+    '''
 
     @staticmethod
     def run(field,value):
+        '''
+        Run an action with only one value as parameter
+        
+        @param field:Type of the action
+        @type field:str
+        @param value:Value of the field for one entity
+        @type value:str
+        '''
         
         if value == '':
             iface.messageBar().pushMessage(QApplication.translate("QuickOSM", u"Sorry man, this field is empty for this entity."), level=QgsMessageBar.WARNING , duration=7)
@@ -59,7 +70,7 @@ class Actions:
                 except urllib2.URLError:
                     iface.messageBar().pushMessage(QApplication.translate("QuickOSM", u"The JOSM remote seems to be disabled."), level=QgsMessageBar.CRITICAL , duration=7)
             
-            #NOT USED    
+            #NOT USED 
             elif field == "rawedit":
                 url = QUrl("http://rawedit.openstreetmap.fr/edit/"+value)
                 webBrowser = QWebView(None)
@@ -68,6 +79,14 @@ class Actions:
                 
     @staticmethod
     def runSketchLine(network,ref):
+        '''
+        Run an action with two values for sketchline
+        
+        @param network:network of the bus
+        @type network:str
+        @param ref:ref of the bus
+        @type ref:str
+        '''
         
         if network == '' or ref == '':
             iface.messageBar().pushMessage(QApplication.translate("QuickOSM", u"Sorry man, this field is empty for this entity."), level=QgsMessageBar.WARNING , duration=7)
