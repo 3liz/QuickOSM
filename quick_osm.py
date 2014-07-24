@@ -4,10 +4,11 @@
  QuickOSM
                                  A QGIS plugin
  OSM's Overpass API frontend
-                              -------------------
+                             -------------------
         begin                : 2014-06-11
         copyright            : (C) 2014 by 3Liz
-        email                : info@3liz.com
+        email                : info at 3liz dot com
+        contributor          : Etienne Trimaille
  ***************************************************************************/
 
 /***************************************************************************
@@ -19,6 +20,7 @@
  *                                                                         *
  ***************************************************************************/
 """
+
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 from qgis.core import *
