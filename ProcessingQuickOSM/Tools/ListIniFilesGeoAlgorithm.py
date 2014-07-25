@@ -26,11 +26,10 @@ from PyQt4.QtGui import *
 from qgis.core import *
 
 from processing.core.Processing import Processing
-from processing.core.GeoAlgorithmExecutionException import GeoAlgorithmExecutionException
 from processing.core.GeoAlgorithm import GeoAlgorithm
 from processing.parameters.ParameterSelection import ParameterSelection
 from processing.outputs.OutputString import OutputString
-from os.path import dirname,abspath,join
+from os.path import dirname,abspath,join,isfile
 from QuickOSM.CoreQuickOSM.IniFile import IniFile
 from QuickOSM import resources_rc
 
@@ -59,7 +58,9 @@ class ListIniFilesGeoAlgorithm(GeoAlgorithm):
         self.addOutput(OutputString(self.OUTPUT_INI,"Ini filepath as string"))
 
     def help(self):
-        return True, 'Help soon'
+        if isfile(__file__+".html"):
+            return False, __file__+".html"
+        return False, None
     
     def getIcon(self):
         return QIcon(":/plugins/QuickOSM/icon.png")

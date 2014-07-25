@@ -26,12 +26,12 @@ from PyQt4.QtGui import *
 from qgis.core import *
 
 from processing.core.Processing import Processing
-from processing.core.GeoAlgorithmExecutionException import GeoAlgorithmExecutionException
 from processing.core.GeoAlgorithm import GeoAlgorithm
 from processing.parameters.ParameterString import ParameterString
 from processing.outputs.OutputString import OutputString
 from QuickOSM import resources_rc
 from QuickOSM.CoreQuickOSM.IniFile import IniFile
+from os.path import isfile
 
 class ReadIniFilePathGeoAlgorithm(GeoAlgorithm):
     '''
@@ -58,7 +58,9 @@ class ReadIniFilePathGeoAlgorithm(GeoAlgorithm):
         self.addOutput(OutputString('QUERY_STRING',"Query string"))
 
     def help(self):
-        return True, 'Help soon'
+        if isfile(__file__+".html"):
+            return False, __file__+".html"
+        return False, None
     
     def getIcon(self):
         return QIcon(":/plugins/QuickOSM/icon.png")

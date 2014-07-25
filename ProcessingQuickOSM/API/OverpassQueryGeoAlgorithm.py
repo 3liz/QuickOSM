@@ -34,6 +34,7 @@ from processing.outputs.OutputFile import OutputFile
 from QuickOSM.CoreQuickOSM.API.ConnexionOAPI import ConnexionOAPI
 from QuickOSM.CoreQuickOSM.Tools import Tools
 from QuickOSM import resources_rc
+from os.path import isfile
 
 
 class OverpassQueryGeoAlgorithm(GeoAlgorithm):
@@ -59,7 +60,9 @@ class OverpassQueryGeoAlgorithm(GeoAlgorithm):
         self.addOutput(OutputFile(self.OUTPUT_FILE, 'OSM file'))
 
     def help(self):
-        return True, 'Help soon'
+        if isfile(__file__+".html"):
+            return False, __file__+".html"
+        return False, None
     
     def getIcon(self):
         return QIcon(":/plugins/QuickOSM/icon.png")

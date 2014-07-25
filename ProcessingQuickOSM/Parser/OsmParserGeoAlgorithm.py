@@ -34,6 +34,7 @@ from processing.tools import vector
 from QuickOSM.CoreQuickOSM.Parser.OsmParser import OsmParser
 from QuickOSM import resources_rc
 import re
+from os.path import isfile
 
 
 
@@ -67,7 +68,9 @@ class OsmParserGeoAlgorithm(GeoAlgorithm):
             self.addOutput(OutputVector(self.OUTPUT_LAYERS[layer],'Output '+ layer +' layer'))
 
     def help(self):
-        return True, 'Help soon'
+        if isfile(__file__+".html"):
+            return False, __file__+".html"
+        return False, None
     
     def getIcon(self):
         return QIcon(":/plugins/QuickOSM/icon.png")

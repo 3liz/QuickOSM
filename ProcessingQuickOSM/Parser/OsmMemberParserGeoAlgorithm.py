@@ -31,6 +31,7 @@ from processing.parameters.ParameterFile import ParameterFile
 from processing.outputs.OutputTable import OutputTable
 from QuickOSM import resources_rc
 from QuickOSM.CoreQuickOSM.Parser.OsmMemberParser import OsmMemberParser
+from os.path import isfile
 
 class OsmMemberParserGeoAlgorithm(GeoAlgorithm):
     '''
@@ -54,7 +55,9 @@ class OsmMemberParserGeoAlgorithm(GeoAlgorithm):
         self.addOutput(OutputTable(self.TABLE,'Output '))
 
     def help(self):
-        return True, 'Help soon'
+        if isfile(__file__+".html"):
+            return False, __file__+".html"
+        return False, None
     
     def getIcon(self):
         return QIcon(":/plugins/QuickOSM/icon.png")

@@ -35,6 +35,7 @@ from processing.parameters.ParameterString import ParameterString
 from processing.outputs.OutputFile import OutputFile
 from QuickOSM.CoreQuickOSM.API.ConnexionXAPI import ConnexionXAPI
 from QuickOSM import resources_rc
+from os.path import isfile
 
 
 class XapiQueryGeoAlgorithm(GeoAlgorithm):
@@ -56,7 +57,9 @@ class XapiQueryGeoAlgorithm(GeoAlgorithm):
         self.addOutput(OutputFile(self.OUTPUT_FILE,'OSM file'))
 
     def help(self):
-        return True, 'Help soon'
+        if isfile(__file__+".html"):
+            return False, __file__+".html"
+        return False, None
     
     def getIcon(self):
         return QIcon(":/plugins/QuickOSM/icon.png")

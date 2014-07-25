@@ -26,7 +26,6 @@ from PyQt4.QtGui import *
 from qgis.core import *
 
 from processing.core.Processing import Processing
-from processing.core.GeoAlgorithmExecutionException import GeoAlgorithmExecutionException
 from processing.core.GeoAlgorithm import GeoAlgorithm
 from processing.parameters.ParameterSelection import ParameterSelection
 from processing.parameters.ParameterString import ParameterString
@@ -35,6 +34,7 @@ from processing.parameters.ParameterNumber import ParameterNumber
 from processing.outputs.OutputString import OutputString
 from QuickOSM.CoreQuickOSM.QueryFactory import QueryFactory
 from QuickOSM import resources_rc
+from os.path import isfile
 
 
 class QueryFactoryGeoAlgorithm(GeoAlgorithm):
@@ -69,7 +69,9 @@ class QueryFactoryGeoAlgorithm(GeoAlgorithm):
         self.addOutput(OutputString(self.OUTPUT_QUERY,"Query"))
 
     def help(self):
-        return True, 'Help soon'
+        if isfile(__file__+".html"):
+            return False, __file__+".html"
+        return False, None
     
     def getIcon(self):
         return QIcon(":/plugins/QuickOSM/icon.png")

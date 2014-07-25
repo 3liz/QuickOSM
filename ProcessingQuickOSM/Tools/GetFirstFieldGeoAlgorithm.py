@@ -26,13 +26,12 @@ from PyQt4.QtGui import *
 from qgis.core import *
 
 from processing.core.Processing import Processing
-from processing.core.GeoAlgorithmExecutionException import GeoAlgorithmExecutionException
 from processing.core.GeoAlgorithm import GeoAlgorithm
 from processing.parameters.ParameterVector import ParameterVector
 from processing.parameters.ParameterString import ParameterString
 from processing.outputs.OutputString import OutputString
 from processing.tools import dataobjects, vector
-from os.path import dirname,abspath,isfile, join
+from os.path import isfile
 from os import listdir
 from QuickOSM import resources_rc
 from QuickOSM.CoreQuickOSM.QueryFactory import QueryFactory
@@ -57,7 +56,9 @@ class GetFirstFieldGeoAlgorithm(GeoAlgorithm):
         self.addOutput(OutputString(self.OUTPUT_VALUE,"Value"))
 
     def help(self):
-        return True, 'Help soon'
+        if isfile(__file__+".html"):
+            return False, __file__+".html"
+        return False, None
     
     def getIcon(self):
         return QIcon(":/plugins/QuickOSM/icon.png")
