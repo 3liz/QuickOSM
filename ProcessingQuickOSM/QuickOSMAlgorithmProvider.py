@@ -22,7 +22,7 @@
 """
 
 from processing.core.AlgorithmProvider import AlgorithmProvider
-from processing.core.ProcessingConfig import Setting, ProcessingConfig
+from processing.core.ProcessingConfig import ProcessingConfig
 from API.OverpassQueryGeoAlgorithm import OverpassQueryGeoAlgorithm
 from API.XapiQueryGeoAlgorithm import XapiQueryGeoAlgorithm
 from API.NominatimQueryGeoAlgorithm import NominatimQueryGeoAlgorithm
@@ -31,10 +31,10 @@ from Tools.ReadIniFileGeoAlgorithm import ReadIniFileGeoAlgorithm
 from Tools.ReadIniFilePathGeoAlgorithm import ReadIniFilePathGeoAlgorithm
 from Tools.QueryFactoryGeoAlgorithm import QueryFactoryGeoAlgorithm
 from Parser.OsmParserGeoAlgorithm import OsmParserGeoAlgorithm
+from Parser.OsmMemberParserGeoAlgorithm import OsmMemberParserGeoAlgorithm
 from Tools.GetFirstFieldGeoAlgorithm import GetFirstFieldGeoAlgorithm
 from PyQt4.QtGui import QIcon
-from os.path import dirname,abspath,join
-
+from QuickOSM import resources_rc
 
 class QuickOSMAlgorithmProvider(AlgorithmProvider):
     '''
@@ -57,6 +57,7 @@ class QuickOSMAlgorithmProvider(AlgorithmProvider):
                         ReadIniFilePathGeoAlgorithm(),
                         ListIniFilesGeoAlgorithm(),
                         QueryFactoryGeoAlgorithm(),
+                        OsmMemberParserGeoAlgorithm(),
                         GetFirstFieldGeoAlgorithm()
                         ]
         
@@ -65,8 +66,6 @@ class QuickOSMAlgorithmProvider(AlgorithmProvider):
 
     def initializeSettings(self):
         AlgorithmProvider.initializeSettings(self)
-        directory = join(dirname(dirname(abspath(__file__))),'queries')       
-        ProcessingConfig.addSetting(Setting(self.getDescription(),self.QUERIES_FOLDER,'Queries folder',directory))
 
     def unload(self):
         AlgorithmProvider.unload(self)
@@ -79,7 +78,10 @@ class QuickOSMAlgorithmProvider(AlgorithmProvider):
         return 'QuickOSM'
 
     def getIcon(self):
-        return QIcon(dirname(dirname(abspath(__file__)))+"/icon.png")
+        return QIcon(":/plugins/QuickOSM/icon.png")
     
     def _loadAlgorithms(self):
         self.algs = self.alglist
+
+    def getSupportedOutputTableExtensions(self):
+        return ['csv']
