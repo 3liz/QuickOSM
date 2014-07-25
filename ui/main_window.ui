@@ -122,6 +122,24 @@ QListWidget::item::selected {
          <normaloff>:/plugins/QuickOSM/resources/general.svg</normaloff>:/plugins/QuickOSM/resources/general.svg</iconset>
        </property>
       </item>
+      <item>
+       <property name="text">
+        <string>Help</string>
+       </property>
+       <property name="icon">
+        <iconset resource="../resources.qrc">
+         <normaloff>:/plugins/QuickOSM/resources/general.svg</normaloff>:/plugins/QuickOSM/resources/general.svg</iconset>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>About</string>
+       </property>
+       <property name="icon">
+        <iconset resource="../resources.qrc">
+         <normaloff>:/plugins/QuickOSM/resources/general.svg</normaloff>:/plugins/QuickOSM/resources/general.svg</iconset>
+       </property>
+      </item>
      </widget>
      <widget class="QStackedWidget" name="stackedWidget">
       <property name="sizePolicy">
@@ -137,90 +155,128 @@ QListWidget::item::selected {
        </size>
       </property>
       <property name="currentIndex">
-       <number>3</number>
+       <number>5</number>
       </property>
       <widget class="MyQueriesWidget" name="my_queries"/>
       <widget class="QuickQueryWidget" name="quick_query"/>
       <widget class="QueryWidget" name="query"/>
-      <widget class="OsmFileWidget" name="page"/>
+      <widget class="OsmFileWidget" name="osm_file"/>
       <widget class="QWidget" name="parameters">
-       <widget class="QGroupBox" name="groupBox">
-        <property name="geometry">
-         <rect>
-          <x>10</x>
-          <y>10</y>
-          <width>501</width>
-          <height>381</height>
-         </rect>
-        </property>
-        <property name="title">
-         <string>Overpass API</string>
-        </property>
-        <widget class="QWidget" name="layoutWidget">
-         <property name="geometry">
-          <rect>
-           <x>20</x>
-           <y>70</y>
-           <width>321</width>
-           <height>27</height>
-          </rect>
-         </property>
-         <layout class="QHBoxLayout" name="horizontalLayout_2">
-          <item>
-           <widget class="QPushButton" name="pushButton_OAPI_timestamp">
-            <property name="text">
-             <string>Get timestamp</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QLabel" name="label_timestamp_oapi">
-            <property name="text">
-             <string>unknow</string>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </widget>
-        <widget class="QComboBox" name="comboBox_default_OAPI">
-         <property name="geometry">
-          <rect>
-           <x>60</x>
-           <y>40</y>
-           <width>261</width>
-           <height>24</height>
-          </rect>
-         </property>
-         <item>
-          <property name="text">
-           <string>http://www.overpass-api.de/api/</string>
+       <layout class="QVBoxLayout" name="verticalLayout_2">
+        <item>
+         <widget class="QGroupBox" name="groupBox">
+          <property name="title">
+           <string>Overpass API</string>
           </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>http://overpass.osm.rambler.ru/cgi/</string>
+          <layout class="QVBoxLayout" name="verticalLayout">
+           <item>
+            <widget class="QComboBox" name="comboBox_default_OAPI">
+             <item>
+              <property name="text">
+               <string>http://www.overpass-api.de/api/</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>http://overpass.osm.rambler.ru/cgi/</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>http://api.openstreetmap.fr/oapi/</string>
+              </property>
+             </item>
+            </widget>
+           </item>
+           <item>
+            <layout class="QHBoxLayout" name="horizontalLayout_2">
+             <item>
+              <widget class="QPushButton" name="pushButton_OAPI_timestamp">
+               <property name="text">
+                <string>Get timestamp</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLabel" name="label_timestamp_oapi">
+               <property name="text">
+                <string>unknow</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item>
+         <spacer name="verticalSpacer">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
           </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>http://api.openstreetmap.fr/oapi/</string>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>40</height>
+           </size>
           </property>
-         </item>
-        </widget>
-        <widget class="QLabel" name="label">
-         <property name="geometry">
-          <rect>
-           <x>20</x>
-           <y>40</y>
-           <width>61</width>
-           <height>16</height>
-          </rect>
-         </property>
-         <property name="text">
-          <string>Server</string>
-         </property>
-        </widget>
-       </widget>
+         </spacer>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="help">
+       <layout class="QVBoxLayout" name="verticalLayout_3">
+        <item>
+         <widget class="QScrollArea" name="scrollArea">
+          <property name="widgetResizable">
+           <bool>true</bool>
+          </property>
+          <widget class="QWidget" name="scrollAreaWidgetContents">
+           <property name="geometry">
+            <rect>
+             <x>0</x>
+             <y>0</y>
+             <width>667</width>
+             <height>645</height>
+            </rect>
+           </property>
+           <layout class="QVBoxLayout" name="verticalLayout_5">
+            <item>
+             <widget class="QLabel" name="label_help">
+              <property name="text">
+               <string>Help</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <spacer name="verticalSpacer_2">
+              <property name="orientation">
+               <enum>Qt::Vertical</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>20</width>
+                <height>40</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+           </layout>
+          </widget>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="about">
+       <layout class="QVBoxLayout" name="verticalLayout_4">
+        <item>
+         <widget class="QGroupBox" name="groupBox_2">
+          <property name="title">
+           <string>Blabla</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
       </widget>
      </widget>
     </widget>

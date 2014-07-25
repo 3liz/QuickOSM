@@ -30,13 +30,14 @@ class MainWindowDialog(QtGui.QDialog, Ui_ui_main_window):
     
     #Signal new query
     signalNewQuerySuccessful = QtCore.pyqtSignal(name='signalNewQuerySuccessful')
-    
+       
     def __init__(self, parent=None):
         '''
         Constructor
         '''
         QtGui.QDialog.__init__(self)
         self.setupUi(self)
+        self.setHelp()
         
         #Connect
         self.pushButton_OAPI_timestamp.clicked.connect(self.getTimestampOAPI)
@@ -52,6 +53,12 @@ class MainWindowDialog(QtGui.QDialog, Ui_ui_main_window):
         else:
             self.defaultServer = self.comboBox_default_OAPI.currentText()
             Tools.setSetting('defaultOAPI', self.defaultServer)
+
+    def setHelp(self):
+        '''
+        Set the help
+        '''
+        self.label_help.setText("<h2>Aide utilisateur</h2><br /> Bye !")
 
     def onNewQuerySuccessful(self):
         '''
