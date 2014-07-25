@@ -28,7 +28,6 @@ from qgis.utils import iface
 
 from processing.core.Processing import Processing
 from processing.core.GeoAlgorithm import GeoAlgorithm
-from processing.core.GeoAlgorithmExecutionException import GeoAlgorithmExecutionException
 from processing.parameters.ParameterExtent import ParameterExtent
 from processing.parameters.ParameterString import ParameterString
 from processing.outputs.OutputFile import OutputFile
@@ -62,8 +61,8 @@ class OverpassQueryGeoAlgorithm(GeoAlgorithm):
     def help(self):
         return True, 'Help soon'
     
-    '''def getIcon(self):
-        return QIcon(dirname(dirname(dirname(abspath(__file__))))+"/icon.png")'''
+    def getIcon(self):
+        return QIcon(":/plugins/QuickOSM/icon.png")
 
     def processAlgorithm(self, progress):
         self.progress = progress
@@ -72,9 +71,15 @@ class OverpassQueryGeoAlgorithm(GeoAlgorithm):
         
         server = self.getParameterValue(self.SERVER)
         query = self.getParameterValue(self.QUERY_STRING)
-        
         nominatim = self.getParameterValue(self.NOMINATIM)
         
+        #Processing return "None" as unicode
+        '''
+        print "OAPI Nominatim :"
+        print nominatim
+        print nominatim.__class__.__name__
+        print len(nominatim)
+        '''
         #Extent of the layer
         extent = self.getParameterValue(self.EXTENT)
         #default value of processing : 0,1,0,1 
@@ -95,7 +100,6 @@ class OverpassQueryGeoAlgorithm(GeoAlgorithm):
         self.progress.setPercentage(5)
         osmFile = oapi.getFileFromQuery(query)
         
-        self.progress.setPercentage(100)
         #Set the output file for Processing
+        self.progress.setPercentage(100)
         self.setOutputValue(self.OUTPUT_FILE,osmFile)
-        

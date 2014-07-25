@@ -58,8 +58,8 @@ class XapiQueryGeoAlgorithm(GeoAlgorithm):
     def help(self):
         return True, 'Help soon'
     
-    '''def getIcon(self):
-        return QIcon(dirname(dirname(dirname(abspath(__file__))))+"/icon.png")'''
+    def getIcon(self):
+        return QIcon(":/plugins/QuickOSM/icon.png")
 
     def processAlgorithm(self, progress):
         self.progress = progress
