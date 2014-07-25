@@ -32,7 +32,7 @@ from processing.parameters.ParameterFile import ParameterFile
 from processing.outputs.OutputVector import OutputVector
 from processing.tools import vector
 from QuickOSM.CoreQuickOSM.Parser.OsmParser import OsmParser
-from os.path import dirname,abspath
+from QuickOSM import resources_rc
 import re
 
 

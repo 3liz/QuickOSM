@@ -30,9 +30,9 @@ from processing.core.GeoAlgorithmExecutionException import GeoAlgorithmExecution
 from processing.core.GeoAlgorithm import GeoAlgorithm
 from processing.parameters.ParameterSelection import ParameterSelection
 from processing.outputs.OutputString import OutputString
-from os.path import dirname,abspath,isfile, join
-from os import listdir
+from os.path import dirname,abspath,join
 from QuickOSM.CoreQuickOSM.IniFile import IniFile
+from QuickOSM import resources_rc
 
 
 class ListIniFilesGeoAlgorithm(GeoAlgorithm):
@@ -61,8 +61,8 @@ class ListIniFilesGeoAlgorithm(GeoAlgorithm):
     def help(self):
         return True, 'Help soon'
     
-    '''def getIcon(self):
-        return QIcon(dirname(dirname(abspath(__file__)))+"/icon.png")'''
+    def getIcon(self):
+        return QIcon(":/plugins/QuickOSM/icon.png")
 
     def processAlgorithm(self, progress):
         index = self.getParameterValue(self.NAME_FILE)

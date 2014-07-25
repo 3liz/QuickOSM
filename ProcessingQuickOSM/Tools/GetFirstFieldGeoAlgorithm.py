@@ -34,6 +34,7 @@ from processing.outputs.OutputString import OutputString
 from processing.tools import dataobjects, vector
 from os.path import dirname,abspath,isfile, join
 from os import listdir
+from QuickOSM import resources_rc
 from QuickOSM.CoreQuickOSM.QueryFactory import QueryFactory
 
 
@@ -47,7 +48,7 @@ class GetFirstFieldGeoAlgorithm(GeoAlgorithm):
     OUTPUT_VALUE = 'OUTPUT_VALUE'
         
     def defineCharacteristics(self):
-        self.name = "Get first field of an attribue"
+        self.name = "Get first field of an attribute"
         self.group = "Tools"
         
         self.addParameter(ParameterVector(self.VECTOR_LAYER, 'Vector layer',[ParameterVector.VECTOR_TYPE_ANY], True))
@@ -58,8 +59,8 @@ class GetFirstFieldGeoAlgorithm(GeoAlgorithm):
     def help(self):
         return True, 'Help soon'
     
-    '''def getIcon(self):
-        return QIcon(dirname(dirname(abspath(__file__)))+"/icon.png")'''
+    def getIcon(self):
+        return QIcon(":/plugins/QuickOSM/icon.png")
 
     def processAlgorithm(self, progress):
         field = self.getParameterValue(self.FIELD)

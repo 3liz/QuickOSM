@@ -33,7 +33,7 @@ from processing.parameters.ParameterString import ParameterString
 from processing.outputs.OutputFile import OutputFile
 from QuickOSM.CoreQuickOSM.API.ConnexionOAPI import ConnexionOAPI
 from QuickOSM.CoreQuickOSM.Tools import Tools
-from os.path import dirname,abspath
+from QuickOSM import resources_rc
 
 
 class OverpassQueryGeoAlgorithm(GeoAlgorithm):

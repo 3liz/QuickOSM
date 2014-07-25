@@ -29,7 +29,7 @@ from processing.core.Processing import Processing
 from processing.core.GeoAlgorithm import GeoAlgorithm
 from processing.parameters.ParameterFile import ParameterFile
 from processing.outputs.OutputTable import OutputTable
-
+from QuickOSM import resources_rc
 from QuickOSM.CoreQuickOSM.Parser.OsmMemberParser import OsmMemberParser
 
 class OsmMemberParserGeoAlgorithm(GeoAlgorithm):

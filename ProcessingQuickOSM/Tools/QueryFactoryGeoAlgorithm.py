@@ -33,9 +33,8 @@ from processing.parameters.ParameterString import ParameterString
 from processing.parameters.ParameterExtent import ParameterExtent
 from processing.parameters.ParameterNumber import ParameterNumber
 from processing.outputs.OutputString import OutputString
-from os.path import dirname,abspath,isfile, join
-from os import listdir
 from QuickOSM.CoreQuickOSM.QueryFactory import QueryFactory
+from QuickOSM import resources_rc
 
 
 class QueryFactoryGeoAlgorithm(GeoAlgorithm):
@@ -72,8 +71,8 @@ class QueryFactoryGeoAlgorithm(GeoAlgorithm):
     def help(self):
         return True, 'Help soon'
     
-    '''def getIcon(self):
-        return QIcon(dirname(dirname(abspath(__file__)))+"/icon.png")'''
+    def getIcon(self):
+        return QIcon(":/plugins/QuickOSM/icon.png")
 
     def processAlgorithm(self, progress):
         key = self.getParameterValue(self.FIELD_KEY)

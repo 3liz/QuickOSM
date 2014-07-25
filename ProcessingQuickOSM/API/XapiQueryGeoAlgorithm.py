@@ -34,7 +34,7 @@ from processing.parameters.ParameterExtent import ParameterExtent
 from processing.parameters.ParameterString import ParameterString
 from processing.outputs.OutputFile import OutputFile
 from QuickOSM.CoreQuickOSM.API.ConnexionXAPI import ConnexionXAPI
-from os.path import dirname,abspath
+from QuickOSM import resources_rc
 
 
 class XapiQueryGeoAlgorithm(GeoAlgorithm):
