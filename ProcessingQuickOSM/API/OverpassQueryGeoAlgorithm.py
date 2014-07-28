@@ -60,6 +60,7 @@ class OverpassQueryGeoAlgorithm(GeoAlgorithm):
         self.addOutput(OutputFile(self.OUTPUT_FILE, 'OSM file'))
 
     def help(self):
+        print __file__+".html"
         if isfile(__file__+".html"):
             return False, __file__+".html"
         return False, None

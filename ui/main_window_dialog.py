@@ -62,7 +62,6 @@ class MainWindowDialog(QtGui.QDialog, Ui_ui_main_window):
         '''
         Set the help
         '''
-
         self.helpFile = join(dirname(dirname(abspath(__file__))),"doc","user.html")
         if isfile(self.helpFile):
             self.webBrowser.load(QUrl(self.helpFile))
