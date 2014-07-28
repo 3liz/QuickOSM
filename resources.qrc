@@ -3,5 +3,13 @@
     <file>resources/refresh.png</file>
     <file>icon.png</file>
     <file>resources/general.svg</file>
+    <file>resources/3liz.png</file>
+    <file>resources/about.png</file>
+    <file>resources/open.png</file>
+    <file>resources/edit.png</file>
+    <file>resources/favorites.png</file>
+    <file>resources/quick.png</file>
+    <file>resources/gnu.png</file>
+    <file>resources/info.png</file>
   </qresource>
 </RCC>

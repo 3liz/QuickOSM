@@ -1,0 +1,27 @@
+<h2>QuickOSM</h2>
+<p>Description</p>
+<ul>
+<li><a href="#my-queries">My queries</a></li>
+<li><a href="#quick-query">Quick query</a></li>
+<li><a href="#query">Query</a></li>
+<li><a href="#osm-file">OSM file</a></li>
+<li><a href="#processing">Processing</a></li>
+</ul>
+<h3 id="my-queries">My queries</h3>
+<p>My queries shows you all predefined queries.</p>
+<p>A query is composed of two files.
+<ul>
+<li>.ini</li>
+<li>.xml or .oql</li>
+</ul>
+</p>
+<h3 id="quick_query">Quick query</h3>
+<p>Quickquery allows you to query on one key=value. You can choose between the extent of the map canvas or in a city. The city is searched by Nominatim, you can avoid strange result by writting the relation OSM's ID.</p>
+<h3 id="query">Query</h3>
+<p>This panel allow you write your own query manually (in XML or OQL).</p>
+<p>For each layers provided by OGR, you can specify the outputs you want and which fields you want to get.</p>
+<h3 id="osm-file">OSM file</h3>
+<p>OGR can open a OSM file with the help of a special file configuration called osmconf. This file is used to describe each key you want for a column. You can specify these fields for each layer.
+<p>You can copy/paste the default osmconf so as to modify it.</p>
+<p>For more informations OSM in OGR, <a href="http://www.gdal.org/drv_osm.html">read the documentation</a></p>
+<h3 id="processing">Processing</h3>

@@ -22,9 +22,12 @@
 """
 
 from PyQt4 import QtCore,QtGui
+from PyQt4.QtCore import QUrl
 from main_window import Ui_ui_main_window
 from QuickOSM.CoreQuickOSM.API.ConnexionOAPI import ConnexionOAPI
 from QuickOSM.CoreQuickOSM.Tools import Tools
+from os.path import dirname,abspath,join,isfile
+from PyQt4.QtWebKit import QWebView
 
 class MainWindowDialog(QtGui.QDialog, Ui_ui_main_window):
     
@@ -37,9 +40,10 @@ class MainWindowDialog(QtGui.QDialog, Ui_ui_main_window):
         '''
         QtGui.QDialog.__init__(self)
         self.setupUi(self)
-        self.setHelp()
+        self.setHelpWebView()
         
         #Connect
+        self.pushButton_homeHelp.clicked.connect(self.getRootHelp)
         self.pushButton_OAPI_timestamp.clicked.connect(self.getTimestampOAPI)
         self.comboBox_default_OAPI.currentIndexChanged[int].connect(self.setServerOAPI)
         self.query.signalNewQuerySuccessful.connect(self.onNewQuerySuccessful)
@@ -54,11 +58,22 @@ class MainWindowDialog(QtGui.QDialog, Ui_ui_main_window):
             self.defaultServer = self.comboBox_default_OAPI.currentText()
             Tools.setSetting('defaultOAPI', self.defaultServer)
 
-    def setHelp(self):
+    def setHelpWebView(self):
         '''
         Set the help
         '''
-        self.label_help.setText("<h2>Aide utilisateur</h2><br /> Bye !")
+
+        self.helpFile = join(dirname(dirname(abspath(__file__))),"doc","user.html")
+        if isfile(self.helpFile):
+            self.webBrowser.load(QUrl(self.helpFile))
+        else:
+            self.webBrowser.setHtml("<h3>Help not available</h3>")
+    
+    def getRootHelp(self):
+        '''
+        "home" button set the default help page
+        '''
+        self.webBrowser.load(QUrl(self.helpFile))
 
     def onNewQuerySuccessful(self):
         '''
