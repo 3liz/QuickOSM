@@ -32,7 +32,7 @@ from processing.outputs.OutputNumber import OutputNumber
 from QuickOSM.CoreQuickOSM.API.Nominatim import Nominatim
 from QuickOSM.CoreQuickOSM.ExceptionQuickOSM import NominatimAreaException
 from QuickOSM import resources_rc
-from os.path import isfile
+from os.path import isfile,join,basename,dirname,abspath
 
 class NominatimQueryGeoAlgorithm(GeoAlgorithm):
 
@@ -49,8 +49,22 @@ class NominatimQueryGeoAlgorithm(GeoAlgorithm):
         self.addOutput(OutputNumber(self.OSM_ID,'OSM id'))
 
     def help(self):
-        if isfile(__file__+".html"):
-            return False, __file__+".html"
+        locale = QSettings().value("locale/userLocale")[0:2]
+        locale = "." + locale
+
+        currentFile = __file__
+        if currentFile.endswith('pyc'):
+            currentFile = currentFile[:-1]
+        currentFile = basename(currentFile)
+        
+        helps = [currentFile + locale +".html", currentFile + ".html"]
+        
+        docPath = join(dirname(dirname(dirname(abspath(__file__)))),'doc')
+        for helpFileName in helps :
+            fileHelpPath = join(docPath,helpFileName)
+            if isfile(fileHelpPath):
+                return False, fileHelpPath
+        
         return False, None
     
     def getIcon(self):

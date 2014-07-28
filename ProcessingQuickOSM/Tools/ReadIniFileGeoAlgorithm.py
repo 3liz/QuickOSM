@@ -31,7 +31,7 @@ from processing.parameters.ParameterFile import ParameterFile
 from processing.outputs.OutputString import OutputString
 from QuickOSM import resources_rc
 from QuickOSM.CoreQuickOSM.IniFile import IniFile
-from os.path import isfile
+from os.path import isfile,join,basename,dirname,abspath
 
 class ReadIniFileGeoAlgorithm(GeoAlgorithm):
     '''
@@ -58,8 +58,22 @@ class ReadIniFileGeoAlgorithm(GeoAlgorithm):
         self.addOutput(OutputString('QUERY_STRING',"Query string"))
 
     def help(self):
-        if isfile(__file__+".html"):
-            return False, __file__+".html"
+        locale = QSettings().value("locale/userLocale")[0:2]
+        locale = "." + locale
+
+        currentFile = __file__
+        if currentFile.endswith('pyc'):
+            currentFile = currentFile[:-1]
+        currentFile = basename(currentFile)
+        
+        helps = [currentFile + locale +".html", currentFile + ".html"]
+        
+        docPath = join(dirname(dirname(dirname(abspath(__file__)))),'doc')
+        for helpFileName in helps :
+            fileHelpPath = join(docPath,helpFileName)
+            if isfile(fileHelpPath):
+                return False, fileHelpPath
+        
         return False, None
     
     def getIcon(self):

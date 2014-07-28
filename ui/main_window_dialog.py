@@ -22,7 +22,7 @@
 """
 
 from PyQt4 import QtCore,QtGui
-from PyQt4.QtCore import QUrl
+from PyQt4.QtCore import QUrl,QSettings
 from main_window import Ui_ui_main_window
 from QuickOSM.CoreQuickOSM.API.ConnexionOAPI import ConnexionOAPI
 from QuickOSM.CoreQuickOSM.Tools import Tools
@@ -62,9 +62,18 @@ class MainWindowDialog(QtGui.QDialog, Ui_ui_main_window):
         '''
         Set the help
         '''
-        self.helpFile = join(dirname(dirname(abspath(__file__))),"doc","user.html")
-        if isfile(self.helpFile):
-            self.webBrowser.load(QUrl(self.helpFile))
+        locale = QSettings().value("locale/userLocale")[0:2]
+        locale = "." + locale
+        helpFileBase = "main"
+        helps = [helpFileBase + locale +".html", helpFileBase + ".html"]
+        
+        docPath = join(dirname(dirname(abspath(__file__))),'doc')
+        for helpFileName in helps:
+            fileHelpPath = join(docPath,helpFileName)
+            if isfile(fileHelpPath):
+                self.helpFile = fileHelpPath
+                self.webBrowser.load(QUrl(self.helpFile))
+                break
         else:
             self.webBrowser.setHtml("<h3>Help not available</h3>")
     

@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'main_window.ui'
 #
-# Created: Mon Jul 28 12:09:30 2014
+# Created: Mon Jul 28 18:12:25 2014
 #      by: PyQt4 UI code generator 4.10.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -27,7 +27,7 @@ class Ui_ui_main_window(object):
     def setupUi(self, ui_main_window):
         ui_main_window.setObjectName(_fromUtf8("ui_main_window"))
         ui_main_window.setWindowModality(QtCore.Qt.WindowModal)
-        ui_main_window.resize(837, 792)
+        ui_main_window.resize(860, 792)
         self.horizontalLayout = QtGui.QHBoxLayout(ui_main_window)
         self.horizontalLayout.setMargin(0)
         self.horizontalLayout.setObjectName(_fromUtf8("horizontalLayout"))
@@ -178,7 +178,7 @@ class Ui_ui_main_window(object):
         self.scrollArea_2.setWidgetResizable(True)
         self.scrollArea_2.setObjectName(_fromUtf8("scrollArea_2"))
         self.scrollAreaWidgetContents_2 = QtGui.QWidget()
-        self.scrollAreaWidgetContents_2.setGeometry(QtCore.QRect(0, 0, 405, 491))
+        self.scrollAreaWidgetContents_2.setGeometry(QtCore.QRect(0, 0, 690, 778))
         self.scrollAreaWidgetContents_2.setObjectName(_fromUtf8("scrollAreaWidgetContents_2"))
         self.verticalLayout_9 = QtGui.QVBoxLayout(self.scrollAreaWidgetContents_2)
         self.verticalLayout_9.setObjectName(_fromUtf8("verticalLayout_9"))
@@ -244,13 +244,20 @@ class Ui_ui_main_window(object):
         self.verticalLayout_6.setObjectName(_fromUtf8("verticalLayout_6"))
         self.gridLayout_3 = QtGui.QGridLayout()
         self.gridLayout_3.setObjectName(_fromUtf8("gridLayout_3"))
-        self.label_15 = QtGui.QLabel(self.groupBox_4)
-        self.label_15.setObjectName(_fromUtf8("label_15"))
-        self.gridLayout_3.addWidget(self.label_15, 0, 0, 1, 1)
+        self.label = QtGui.QLabel(self.groupBox_4)
+        self.label.setObjectName(_fromUtf8("label"))
+        self.gridLayout_3.addWidget(self.label, 2, 0, 1, 1)
         self.label_16 = QtGui.QLabel(self.groupBox_4)
+        self.label_16.setAlignment(QtCore.Qt.AlignCenter)
         self.label_16.setOpenExternalLinks(True)
         self.label_16.setObjectName(_fromUtf8("label_16"))
-        self.gridLayout_3.addWidget(self.label_16, 0, 1, 1, 1)
+        self.gridLayout_3.addWidget(self.label_16, 1, 1, 1, 1)
+        self.label_15 = QtGui.QLabel(self.groupBox_4)
+        self.label_15.setObjectName(_fromUtf8("label_15"))
+        self.gridLayout_3.addWidget(self.label_15, 1, 0, 1, 1)
+        self.label_2 = QtGui.QLabel(self.groupBox_4)
+        self.label_2.setObjectName(_fromUtf8("label_2"))
+        self.gridLayout_3.addWidget(self.label_2, 2, 1, 1, 1)
         self.verticalLayout_6.addLayout(self.gridLayout_3)
         self.verticalLayout_9.addWidget(self.groupBox_4)
         self.scrollArea_2.setWidget(self.scrollAreaWidgetContents_2)
@@ -260,7 +267,7 @@ class Ui_ui_main_window(object):
 
         self.retranslateUi(ui_main_window)
         self.listWidget.setCurrentRow(-1)
-        self.stackedWidget.setCurrentIndex(5)
+        self.stackedWidget.setCurrentIndex(6)
         QtCore.QObject.connect(self.listWidget, QtCore.SIGNAL(_fromUtf8("currentRowChanged(int)")), self.stackedWidget.setCurrentIndex)
         QtCore.QMetaObject.connectSlotsByName(ui_main_window)
         ui_main_window.setTabOrder(self.pushButton_OAPI_timestamp, self.comboBox_default_OAPI)
@@ -304,8 +311,10 @@ class Ui_ui_main_window(object):
         self.label_19.setText(_translate("ui_main_window", "Github\'s repository", None))
         self.label_20.setText(_translate("ui_main_window", "<a href=\"https://github.com/3liz/QgisQuickExportPlugin\" style=\"color:#7BA11A;text-decoration:none;\">https://github.com/3liz/QgisQuickExportPlugin</a>", None))
         self.groupBox_4.setTitle(_translate("ui_main_window", "Licence", None))
-        self.label_15.setText(_translate("ui_main_window", "Licence GPL Version 2", None))
+        self.label.setText(_translate("ui_main_window", "OpenStreetMap", None))
         self.label_16.setText(_translate("ui_main_window", "<html><head/><body><p><a href=\"https://www.gnu.org/licenses/gpl-2.0.html\"><img src=\":/plugins/QuickOSM/resources/gnu.png\"/></a></p></body></html>", None))
+        self.label_15.setText(_translate("ui_main_window", "Plugin : Licence GPL Version 2", None))
+        self.label_2.setText(_translate("ui_main_window", "<html><head/><body><p>ODBL : © OpenStreetMap\'s contributors </p><p><a href=\"http://www.openstreetmap.org/copyright\"><span style=\" text-decoration: underline; color:#0057ae;\">http://www.openstreetmap.org/copyright</span></a></p></body></html>", None))
 
 from PyQt4 import QtWebKit
 from query_dialog import QueryWidget

@@ -34,7 +34,7 @@ from processing.parameters.ParameterNumber import ParameterNumber
 from processing.outputs.OutputString import OutputString
 from QuickOSM.CoreQuickOSM.QueryFactory import QueryFactory
 from QuickOSM import resources_rc
-from os.path import isfile
+from os.path import isfile,join,basename,dirname,abspath
 
 
 class QueryFactoryGeoAlgorithm(GeoAlgorithm):
@@ -69,8 +69,22 @@ class QueryFactoryGeoAlgorithm(GeoAlgorithm):
         self.addOutput(OutputString(self.OUTPUT_QUERY,"Query"))
 
     def help(self):
-        if isfile(__file__+".html"):
-            return False, __file__+".html"
+        locale = QSettings().value("locale/userLocale")[0:2]
+        locale = "." + locale
+
+        currentFile = __file__
+        if currentFile.endswith('pyc'):
+            currentFile = currentFile[:-1]
+        currentFile = basename(currentFile)
+        
+        helps = [currentFile + locale +".html", currentFile + ".html"]
+        
+        docPath = join(dirname(dirname(dirname(abspath(__file__)))),'doc')
+        for helpFileName in helps :
+            fileHelpPath = join(docPath,helpFileName)
+            if isfile(fileHelpPath):
+                return False, fileHelpPath
+        
         return False, None
     
     def getIcon(self):
