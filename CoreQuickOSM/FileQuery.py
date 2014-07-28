@@ -26,7 +26,6 @@ import ConfigParser
 from os.path import dirname, join,isfile
 from os import listdir
 import re
-from reportlab.lib.validators import isBoolean
 
 class FileQuery:
     '''
@@ -97,7 +96,7 @@ class FileQuery:
         
             #Check if layers are presents in the ini file
             for layer in FileQuery.LAYERS:
-                if not isBoolean(self.__configSectionMap(layer)['load']):
+                if not isinstance(self.__configSectionMap(layer)['load'], bool):
                     return False
             
             #Is there another file with the query ?
