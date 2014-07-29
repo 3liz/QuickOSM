@@ -7,11 +7,11 @@
 # This file should be included when you package your plugin.# Mandatory items:
 
 [general]
-name=Quick OSM
+name=QuickOSM
 qgisMinimumVersion=2.0
 description=OSM's Overpass API frontend
 version=0.1
-author=3Liz
+author=Etienne Trimaille
 email=info@3liz.com
 
 # End of mandatory metadata
@@ -22,11 +22,11 @@ email=info@3liz.com
 # changelog=
 
 # Tags are comma separated with spaces allowed
-tags=
+tags=osm,openstreetmap,api
 
-homepage=
-tracker=
-repository=
+homepage=https://github.com/3liz/QgisQuickOSMPlugin
+tracker=https://github.com/3liz/QgisQuickOSMPlugin/issues
+repository=https://github.com/3liz/QgisQuickOSMPlugin
 icon=icon.png
 # experimental flag
 experimental=False
