@@ -21,11 +21,8 @@
  ***************************************************************************/
 """
 
-from PyQt4.QtCore import *
-from PyQt4.QtGui import *
-from qgis.core import *
+from QuickOSM import *
 from save_query import Ui_ui_save_query
-from qgis.gui import QgsMessageBar
 from os.path import dirname,abspath,isfile, join
 from QuickOSM.CoreQuickOSM.FileQueryWriter import FileQueryWriter
 from QuickOSM.CoreQuickOSM.Tools import Tools

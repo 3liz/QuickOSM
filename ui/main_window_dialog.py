@@ -21,24 +21,22 @@
  ***************************************************************************/
 """
 
-from PyQt4 import QtCore,QtGui
-from PyQt4.QtCore import QUrl,QSettings
+from QuickOSM import *
 from main_window import Ui_ui_main_window
 from QuickOSM.CoreQuickOSM.API.ConnexionOAPI import ConnexionOAPI
 from QuickOSM.CoreQuickOSM.Tools import Tools
 from os.path import dirname,abspath,join,isfile
-from PyQt4.QtWebKit import QWebView
 
-class MainWindowDialog(QtGui.QDialog, Ui_ui_main_window):
+class MainWindowDialog(QDialog, Ui_ui_main_window):
     
     #Signal new query
-    signalNewQuerySuccessful = QtCore.pyqtSignal(name='signalNewQuerySuccessful')
+    signalNewQuerySuccessful = pyqtSignal(name='signalNewQuerySuccessful')
        
     def __init__(self, parent=None):
         '''
         Constructor
         '''
-        QtGui.QDialog.__init__(self)
+        QDialog.__init__(self)
         self.setupUi(self)
         self.setHelpWebView()
         

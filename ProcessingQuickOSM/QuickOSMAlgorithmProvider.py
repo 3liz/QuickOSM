@@ -21,6 +21,7 @@
  ***************************************************************************/
 """
 
+from QuickOSM import *
 from processing.core.AlgorithmProvider import AlgorithmProvider
 from processing.core.ProcessingConfig import ProcessingConfig
 from API.OverpassQueryGeoAlgorithm import OverpassQueryGeoAlgorithm
@@ -33,8 +34,6 @@ from Tools.QueryFactoryGeoAlgorithm import QueryFactoryGeoAlgorithm
 from Parser.OsmParserGeoAlgorithm import OsmParserGeoAlgorithm
 from Parser.OsmMemberParserGeoAlgorithm import OsmMemberParserGeoAlgorithm
 from Tools.GetFirstFieldGeoAlgorithm import GetFirstFieldGeoAlgorithm
-from PyQt4.QtGui import QIcon
-from QuickOSM import resources_rc
 
 class QuickOSMAlgorithmProvider(AlgorithmProvider):
     '''

@@ -21,11 +21,8 @@
  ***************************************************************************/
 """
 
-from PyQt4.QtCore import *
-from PyQt4.QtGui import *
+from QuickOSM import *
 from QuickOSMWidget import *
-from qgis.gui import QgsMessageBar
-from qgis.core import *
 from QuickOSM.Controller.Process import Process
 from QuickOSM.CoreQuickOSM.ExceptionQuickOSM import *
 from save_query_dialog import SaveQueryDialog

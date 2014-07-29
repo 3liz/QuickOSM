@@ -21,8 +21,9 @@
  ***************************************************************************/
 """
 
+from QuickOSM import *
+
 from processing.core.GeoAlgorithmExecutionException import GeoAlgorithmExecutionException
-from PyQt4.QtGui import QApplication
 
 """
 QApplication.translate doesn't work in contructor's parameters

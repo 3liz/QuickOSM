@@ -21,9 +21,11 @@ email : info@3liz.com
 This script initializes the plugin, making it known to QGIS.
 """
 
-from ProcessingQuickOSM import *
-from CoreQuickOSM import *
-from ui import *
+from PyQt4.QtCore import *
+from PyQt4.QtGui import *
+from qgis.core import *
+from qgis.gui import *
+import resources_rc
 
 def classFactory(iface):
     from quick_osm import QuickOSM

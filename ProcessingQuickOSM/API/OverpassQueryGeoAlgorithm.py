@@ -21,16 +21,13 @@
  ***************************************************************************/
 """
 
-from PyQt4.QtCore import *
-from PyQt4.QtGui import *
-from qgis.core import *
+from QuickOSM import *
 from qgis.utils import iface
 
 from QuickOSM.ProcessingQuickOSM import *
 
 from QuickOSM.CoreQuickOSM.API.ConnexionOAPI import ConnexionOAPI
 from QuickOSM.CoreQuickOSM.Tools import Tools
-from QuickOSM import resources_rc
 from os.path import isfile,join,basename,dirname,abspath
 
 

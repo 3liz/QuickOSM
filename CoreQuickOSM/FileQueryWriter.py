@@ -21,7 +21,8 @@
  ***************************************************************************/
 """
 
-from PyQt4.QtCore import *
+from QuickOSM import *
+
 from QuickOSM.CoreQuickOSM.ExceptionQuickOSM import QueryAlreadyExistsException
 import ConfigParser
 import os

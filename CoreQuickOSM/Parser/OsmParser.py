@@ -20,10 +20,7 @@
  *                                                                         *
  ***************************************************************************/
 """
-
-from qgis.core import QgsVectorLayer, QgsFeature, QgsField, QgsFields, QgsVectorFileWriter
-from PyQt4.QtCore import *
-from PyQt4.QtGui import QApplication
+from QuickOSM import *
 
 from osgeo import gdal
 from processing.core.GeoAlgorithmExecutionException import GeoAlgorithmExecutionException

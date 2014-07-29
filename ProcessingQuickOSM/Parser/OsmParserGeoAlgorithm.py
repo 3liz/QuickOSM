@@ -21,14 +21,10 @@
  ***************************************************************************/
 """
 
-from PyQt4.QtCore import *
-from PyQt4.QtGui import *
-from qgis.core import *
-
+from QuickOSM import *
 from QuickOSM.ProcessingQuickOSM import *
 
 from QuickOSM.CoreQuickOSM.Parser.OsmParser import OsmParser
-from QuickOSM import resources_rc
 import re
 from os.path import isfile,join,basename,dirname,abspath
 

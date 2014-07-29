@@ -21,12 +21,9 @@
  ***************************************************************************/
 """
 
-from PyQt4.QtCore import *
-from PyQt4.QtGui import *
-from qgis.core import *
+from QuickOSM import *
 from processing.core.Processing import Processing
-# Initialize Qt resources from file resources.py
-import resources_rc
+
 # Import the code for the dialog
 from ui.main_window_dialog import MainWindowDialog
 from ui.my_queries_dialog import MyQueriesDockWidget
@@ -35,7 +32,6 @@ from ui.osm_file_dialog import OsmFileDockWidget
 from ui.quick_query_dialog import QuickQueryDockWidget
 from ProcessingQuickOSM.QuickOSMAlgorithmProvider import QuickOSMAlgorithmProvider
 import os.path
-
 
 class QuickOSM:
 

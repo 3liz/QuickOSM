@@ -21,13 +21,10 @@
  ***************************************************************************/
 """
 
-from PyQt4.QtCore import *
-from PyQt4.QtGui import *
-from qgis.core import *
+from QuickOSM import *
 from QuickOSMWidget import *
 from my_queries import Ui_ui_my_queries
 from QuickOSM.Controller.Process import Process
-from qgis.gui import QgsMessageBar
 from os.path import dirname,abspath,isfile, join
 from QuickOSM.CoreQuickOSM.FileQuery import FileQuery
 from QuickOSM.CoreQuickOSM.ExceptionQuickOSM import *

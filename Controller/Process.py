@@ -20,31 +20,18 @@
  *                                                                         *
  ***************************************************************************/
 """
+from QuickOSM import *
 
+from QuickOSM.CoreQuickOSM.Parser.ogr2ogr import main as ogr2ogr
 from QuickOSM.CoreQuickOSM.QueryFactory import QueryFactory
 from QuickOSM.CoreQuickOSM.Tools import Tools
 from QuickOSM.CoreQuickOSM.API.ConnexionOAPI import ConnexionOAPI
 from QuickOSM.CoreQuickOSM.Parser.OsmParser import OsmParser
 from QuickOSM.CoreQuickOSM.ExceptionQuickOSM import FileOutPutException,Ogr2OgrException
 from processing.tools.system import *
-from qgis.core import QgsMapLayerRegistry
-from PyQt4.QtGui import *
 import ntpath
 from os.path import dirname,abspath,join
 from genericpath import isfile
-
-#Processing >=2.4
-try:
-    from processing.algs.gdal.pyogr.ogr2ogr import main as ogr2ogr
-except ImportError:
-    pass
-
-#Processing >=2.0
-try:
-    from processing.gdal.pyogr.ogr2ogr import main as ogr2ogr
-except ImportError:
-    pass
-
 
 class Process:
     '''

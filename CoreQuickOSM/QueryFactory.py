@@ -21,7 +21,7 @@
  ***************************************************************************/
 """
 
-from qgis.core import QgsRectangle
+from QuickOSM import *
 
 class QueryFactory():
     '''

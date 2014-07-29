@@ -21,15 +21,12 @@
  ***************************************************************************/
 """
 
-from PyQt4.QtCore import *
-from PyQt4.QtGui import *
+from QuickOSM import *
 from QuickOSMWidget import *
 from osm_file import Ui_ui_osm_file
 from os.path import dirname,abspath,join,isfile
 from QuickOSM.CoreQuickOSM.ExceptionQuickOSM import *
 from QuickOSM.CoreQuickOSM.Parser.OsmParser import *
-from qgis.core import QgsMapLayerRegistry
-from qgis.gui import QgsMessageBar
 from qgis.utils import iface
 
 class OsmFileWidget(QuickOSMWidget, Ui_ui_osm_file):

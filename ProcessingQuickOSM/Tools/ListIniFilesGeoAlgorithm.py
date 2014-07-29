@@ -21,16 +21,12 @@
  ***************************************************************************/
 """
 
-from PyQt4.QtCore import *
-from PyQt4.QtGui import *
-from qgis.core import *
-
+from QuickOSM import *
 from QuickOSM.ProcessingQuickOSM import *
 
 from os.path import isfile,join,basename,dirname,abspath
 from QuickOSM.CoreQuickOSM.FileQuery import FileQuery
 from QuickOSM.CoreQuickOSM.Tools import *
-from QuickOSM import resources_rc
 
 
 class ListIniFilesGeoAlgorithm(GeoAlgorithm):

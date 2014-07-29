@@ -21,12 +21,10 @@
  ***************************************************************************/
 """
 
-from PyQt4.QtCore import QSettings
+from QuickOSM import *
 import re
 from API.Nominatim import Nominatim
 import shutil
-from PyQt4.QtCore import *
-from qgis.core import *
 from os.path import join,dirname,abspath
 
 class Tools:

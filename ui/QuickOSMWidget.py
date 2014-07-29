@@ -21,10 +21,7 @@
  ***************************************************************************/
 """
 
-from PyQt4.QtCore import *
-from PyQt4.QtGui import *
-from qgis.core import *
-from qgis.gui import QgsMessageBar
+from QuickOSM import *
 from qgis.utils import iface
 from QuickOSM.CoreQuickOSM.ExceptionQuickOSM import *
 
