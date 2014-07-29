@@ -57,6 +57,7 @@ class OsmParser(QObject):
         self.__deleteEmptyLayers = deleteEmptyLayers
         self.__loadOnly = loadOnly
         
+        #If an osmconf is provided ?
         if not osmConf:
             current_dir = os.path.dirname(os.path.realpath(__file__))
             self.__osmconf = os.path.join(current_dir,'QuickOSMconf.ini')
@@ -68,18 +69,7 @@ class OsmParser(QObject):
     def parse(self):
         '''
         Start parsing the osm file
-        '''
-        
-        #Delete layers with a "," in the csv
-        #
-        #NEED to skip the layer, do not delete it for processing
-        for layer in self.__whiteListColumn:
-            if self.__whiteListColumn[layer] == ',':
-                try:
-                    self.__layers.remove(layer)
-                except:
-                    pass
-            
+        ''' 
         
         #Configuration for OGR
         gdal.SetConfigOption('OSM_CONFIG_FILE', self.__osmconf)
@@ -101,8 +91,7 @@ class OsmParser(QObject):
                 if not layers[layer].isValid():
                     print "Error on the layer", layers[layer].lastError()
                 
-            return layers
-                
+            return layers              
         
         #Foreach layers
         for layer in self.__layers:
@@ -126,6 +115,10 @@ class OsmParser(QObject):
             
             for i, feature in enumerate(layers[layer]['vectorLayer'].getFeatures()):
                 layers[layer]['featureCount'] += 1
+                
+                #Improve the parsing if comma in whitelist, we skip the parsing of tags, but featureCount is needed
+                if self.__whiteListColumn[layer] == ',':
+                    continue
                 
                 #Get the "others_tags" field
                 attrs = None
