@@ -56,8 +56,8 @@ class QueryFactoryGeoAlgorithm(GeoAlgorithm):
         self.name = "Query factory"
         self.group = "Tools"
         
-        self.addParameter(ParameterString(self.FIELD_KEY, 'Key','ref:INSEE',optional=False))
-        self.addParameter(ParameterString(self.FIELD_VALUE, 'Value','25047',optional=True))
+        self.addParameter(ParameterString(self.FIELD_KEY, 'Key','',optional=False))
+        self.addParameter(ParameterString(self.FIELD_VALUE, 'Value','',optional=True))
         self.addParameter(ParameterExtent(self.FIELD_EXTENT, 'Extent',))
         self.addParameter(ParameterString(self.FIELD_NOMINATIM, 'Nominatim',optional=True))
         

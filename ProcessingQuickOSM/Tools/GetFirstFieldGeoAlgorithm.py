@@ -51,7 +51,7 @@ class GetFirstFieldGeoAlgorithm(GeoAlgorithm):
         self.group = "Tools"
         
         self.addParameter(ParameterVector(self.VECTOR_LAYER, 'Vector layer',[ParameterVector.VECTOR_TYPE_ANY], True))
-        self.addParameter(ParameterString(self.FIELD, 'Field','ref:INSEE', False, False))
+        self.addParameter(ParameterString(self.FIELD, 'Field','', False, False))
         
         self.addOutput(OutputString(self.OUTPUT_VALUE,"Value"))
 

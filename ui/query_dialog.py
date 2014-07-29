@@ -56,6 +56,10 @@ class QueryWidget(QuickOSMWidget, Ui_ui_query):
         self.groupBox.setCollapsed(True)
         self.bbox = None
         self.fillLayerCombobox()
+        #Disable buttons
+        self.pushButton_generateQuery.setDisabled(True)
+        self.pushButton_saveQuery.setDisabled(True)
+        self.pushButton_runQuery.setDisabled(True)
         
         #Setup menu for saving
         popupmenu = QMenu()
@@ -80,9 +84,19 @@ class QueryWidget(QuickOSMWidget, Ui_ui_query):
     def allowNominatimOrExtent(self):
         '''
         Disable or enable radiobuttons if nominatim or extent
+        Disable buttons if the query is empty
         '''
         
         query = unicode(self.textEdit_query.toPlainText())
+
+        if not query:
+            self.pushButton_generateQuery.setDisabled(True)
+            self.pushButton_saveQuery.setDisabled(True)
+            self.pushButton_runQuery.setDisabled(True)
+        else:
+            self.pushButton_generateQuery.setDisabled(False)
+            self.pushButton_saveQuery.setDisabled(False)
+            self.pushButton_runQuery.setDisabled(False)
 
         if re.search('{{nominatim}}', query) or re.search('{{nominatimArea:(.*)}}', query):
             self.lineEdit_nominatim.setEnabled(True)
