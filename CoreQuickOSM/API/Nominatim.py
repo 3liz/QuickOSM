@@ -58,7 +58,10 @@ class Nominatim:
         try:
             data = urllib2.urlopen(url)
         except urllib2.HTTPError as e:
-            raise NetWorkErrorException(suffix="Nominatim API")    
+            raise NetWorkErrorException(suffix="Nominatim API")   
+        except urllib2.URLError as e:
+            raise NetWorkErrorException(suffix="Nominatim API")
+        
         response = data.read()
         return json.loads(response)
     

@@ -23,6 +23,7 @@
 
 import urllib2
 import tempfile
+from QuickOSM.CoreQuickOSM.ExceptionQuickOSM import NetWorkErrorException
 
 class ConnexionXAPI:
     '''
@@ -53,9 +54,9 @@ class ConnexionXAPI:
         try:
             data = urllib2.urlopen(url=urlQuery).read()
         except urllib2.HTTPError as e:
-            if e.code == 400:
-                raise Exception
-                #raise GeoAlgorithmExecutionException, "Bad request XAPI"
+            raise NetWorkErrorException(suffix="XAPI")   
+        except urllib2.URLError as e:
+            raise NetWorkErrorException(suffix="XAPI")
         
         return data
 

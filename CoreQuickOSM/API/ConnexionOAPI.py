@@ -76,6 +76,8 @@ class ConnexionOAPI:
                 raise OverpassBadRequestException
             else:
                 raise NetWorkErrorException(suffix="Overpass API")
+        except urllib2.URLError as e:
+            raise NetWorkErrorException(suffix="Overpass API")
 
         result = re.search('<remark> runtime error: Query timed out in "[a-z]+" at line [\d]+ after ([\d]+) seconds. </remark>', data)
         if result:
