@@ -41,8 +41,6 @@ class QuickOSMAlgorithmProvider(AlgorithmProvider):
     QuickOSM provide some GeoAlgorithms
     '''
 
-    QUERIES_FOLDER = 'QUERIES_FOLDER'
-
     def __init__(self):
         AlgorithmProvider.__init__(self)
 
@@ -69,7 +67,6 @@ class QuickOSMAlgorithmProvider(AlgorithmProvider):
 
     def unload(self):
         AlgorithmProvider.unload(self)
-        ProcessingConfig.removeSetting(self.QUERIES_FOLDER)
 
     def getName(self):
         return 'QuickOSM'

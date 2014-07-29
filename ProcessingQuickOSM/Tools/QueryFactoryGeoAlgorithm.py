@@ -88,7 +88,7 @@ class QueryFactoryGeoAlgorithm(GeoAlgorithm):
         return False, None
     
     def getIcon(self):
-        return QIcon(":/plugins/QuickOSM/icon.png")
+        return QIcon(dirname(__file__) + '/../../icon.png')
 
     def processAlgorithm(self, progress):
         key = self.getParameterValue(self.FIELD_KEY)

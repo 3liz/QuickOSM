@@ -86,14 +86,13 @@ class OsmParserGeoAlgorithm(GeoAlgorithm):
         return False, None
     
     def getIcon(self):
-        return QIcon(":/plugins/QuickOSM/icon.png")
+        return QIcon(dirname(__file__) + '/../../icon.png')
 
     def processAlgorithm(self, progress):
         self.progress = progress
         self.progress.setPercentage(0)
         
         filePath = self.getParameterValue(self.FILE)
-        print filePath
         
         #Creating the dict for columns
         whiteListValues = {}
@@ -121,7 +120,6 @@ class OsmParserGeoAlgorithm(GeoAlgorithm):
         
         #Start to parse
         layers = parser.parse()
-        print layers
         
         layersOutputs = {}
         for key, values in layers.iteritems():

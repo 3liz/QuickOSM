@@ -74,7 +74,7 @@ class OsmMemberParserGeoAlgorithm(GeoAlgorithm):
         return False, None
     
     def getIcon(self):
-        return QIcon(":/plugins/QuickOSM/icon.png")
+        return QIcon(dirname(__file__) + '/../../icon.png')
 
     def processAlgorithm(self, progress):
         self.progress = progress

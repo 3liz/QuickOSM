@@ -79,7 +79,6 @@ class FileQuery:
         
         filename = tab[0]
         if tab[1] != "ini":
-            #raise Exception, "Not an ini file"
             return False
         
         #Get the ini parser
@@ -91,6 +90,9 @@ class FileQuery:
         
         #Set the name
         try:
+            #metadata-name and
+            #metadata-category and
+            #(layers)-load (bool) are compulsory
             self.__name = self.__configSectionMap('metadata')['name']
             self.__category = self.__configSectionMap('metadata')['category']
         

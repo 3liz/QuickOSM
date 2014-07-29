@@ -30,7 +30,7 @@ from processing.core.GeoAlgorithm import GeoAlgorithm
 from processing.parameters.ParameterString import ParameterString
 from processing.outputs.OutputString import OutputString
 from QuickOSM import resources_rc
-from QuickOSM.CoreQuickOSM.IniFile import IniFile
+from QuickOSM.CoreQuickOSM.FileQuery import FileQuery
 from os.path import isfile,join,basename,dirname,abspath
 
 class ReadIniFilePathGeoAlgorithm(GeoAlgorithm):
@@ -77,20 +77,20 @@ class ReadIniFilePathGeoAlgorithm(GeoAlgorithm):
         return False, None
     
     def getIcon(self):
-        return QIcon(":/plugins/QuickOSM/icon.png")
+        return QIcon(dirname(__file__) + '/../../icon.png')
 
     def processAlgorithm(self, progress):
         self.progress = progress
         self.progress.setInfo("Reading the ini file")
                 
         filePath = self.getParameterValue(self.INI_FILEPATH)
-        iniFile = IniFile(filePath)
+        iniFile = FileQuery(filePath)
         iniDict = None
         if iniFile.isValid():
             iniDict = iniFile.getContent()
-
+        
         self.setOutputValue('QUERY_STRING',iniDict['metadata']['query'])
         
         for layer in self.LAYERS:
-            csv = iniDict[layer]['columns']
+            csv = iniDict['layers'][layer]['columns']
             self.setOutputValue(self.WHITE_LIST[layer],csv)

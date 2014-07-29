@@ -30,7 +30,8 @@ from processing.core.GeoAlgorithm import GeoAlgorithm
 from processing.parameters.ParameterSelection import ParameterSelection
 from processing.outputs.OutputString import OutputString
 from os.path import isfile,join,basename,dirname,abspath
-from QuickOSM.CoreQuickOSM.IniFile import IniFile
+from QuickOSM.CoreQuickOSM.FileQuery import FileQuery
+from QuickOSM.CoreQuickOSM.Tools import *
 from QuickOSM import resources_rc
 
 
@@ -48,12 +49,18 @@ class ListIniFilesGeoAlgorithm(GeoAlgorithm):
         self.name = "Queries available"
         self.group = "Tools"
         
-        folder = join(dirname(dirname(dirname(abspath(__file__)))),"queries")
-        self.__files = IniFile.getNamesAndPathsFromFolder(folder)
+        #Get the folder and all filequeries
+        folder = Tools.userFolder()
+        catfiles = FileQuery.getIniFilesFromFolder(folder,force=False)
         
-        names = [ f['nameFull'] for f in self.__files]
+        self.__queries = {}
+        for cat in catfiles:
+            for query in catfiles[cat]:
+                self.__queries[cat + " : " + query.getName()] = query
         
-        self.addParameter(ParameterSelection(self.NAME_FILE, 'Queries available', names))
+        self.__names = self.__queries.keys()
+        
+        self.addParameter(ParameterSelection(self.NAME_FILE, 'Queries available', self.__names))
         
         self.addOutput(OutputString(self.OUTPUT_INI,"Ini filepath as string"))
 
@@ -77,9 +84,11 @@ class ListIniFilesGeoAlgorithm(GeoAlgorithm):
         return False, None
     
     def getIcon(self):
-        return QIcon(":/plugins/QuickOSM/icon.png")
-
+        return QIcon(dirname(__file__) + '/../../icon.png')
+        
     def processAlgorithm(self, progress):
         index = self.getParameterValue(self.NAME_FILE)
-        ini = self.__files[index]
-        self.setOutputValue(self.OUTPUT_INI,ini['path'])
+        for query in self.__queries:
+            if query == self.__names[index]:
+                path = self.__queries[query].getFilePath()
+                self.setOutputValue(self.OUTPUT_INI,path)
