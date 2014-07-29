@@ -11,5 +11,6 @@
     <file>resources/quick.png</file>
     <file>resources/gnu.png</file>
     <file>resources/info.png</file>
+    <file>resources/turbo.png</file>
   </qresource>
 </RCC>

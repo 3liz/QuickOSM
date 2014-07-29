@@ -77,6 +77,8 @@ class QueryWidget(QuickOSMWidget, Ui_ui_query):
         self.textEdit_query.cursorPositionChanged.connect(self.allowNominatimOrExtent)
         self.radioButton_extentLayer.toggled.connect(self.extentRadio)
         self.pushButton_refreshLayers.clicked.connect(self.fillLayerCombobox)
+        self.pushButton_docOverpass.clicked.connect(self.openDocOverpass)
+        self.pushButton_overpassTurbo.clicked.connect(self.openOverpassTurbo)
 
     def allowNominatimOrExtent(self):
         '''
@@ -218,6 +220,22 @@ class QueryWidget(QuickOSMWidget, Ui_ui_query):
         saveQueryDialog = SaveQueryDialog(query=query,outputGeomTypes=outputGeomTypes,whiteListValues=whiteListValues)
         saveQueryDialog.signalNewQuerySuccessful.connect(self.signalNewQuerySuccessful.emit)
         saveQueryDialog.exec_()
+        
+
+    def openOverpassTurbo(self):
+        '''
+        Open Overpass Turbo
+        '''
+        desktopService = QDesktopServices()
+        desktopService.openUrl(QUrl("http://overpass-turbo.eu/"))
+    
+    def openDocOverpass(self):
+        '''
+        Open Overpass's documentation
+        '''
+        desktopService = QDesktopServices()
+        desktopService.openUrl(QUrl("http://wiki.openstreetmap.org/wiki/Overpass_API/Language_Guide"))
+    
 
 class QueryDockWidget(QDockWidget):
     def __init__(self, parent=None):

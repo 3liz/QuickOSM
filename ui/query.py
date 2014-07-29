@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'query.ui'
 #
-# Created: Thu Jul 24 11:29:34 2014
+# Created: Tue Jul 29 17:25:54 2014
 #      by: PyQt4 UI code generator 4.10.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -186,6 +186,18 @@ class Ui_ui_query(object):
         self.progressBar_execution.setProperty("value", 0)
         self.progressBar_execution.setObjectName(_fromUtf8("progressBar_execution"))
         self.verticalLayout.addWidget(self.progressBar_execution)
+        self.horizontalLayout_5 = QtGui.QHBoxLayout()
+        self.horizontalLayout_5.setObjectName(_fromUtf8("horizontalLayout_5"))
+        self.pushButton_overpassTurbo = QtGui.QPushButton(ui_query)
+        icon1 = QtGui.QIcon()
+        icon1.addPixmap(QtGui.QPixmap(_fromUtf8(":/plugins/QuickOSM/resources/turbo.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.pushButton_overpassTurbo.setIcon(icon1)
+        self.pushButton_overpassTurbo.setObjectName(_fromUtf8("pushButton_overpassTurbo"))
+        self.horizontalLayout_5.addWidget(self.pushButton_overpassTurbo)
+        self.pushButton_docOverpass = QtGui.QPushButton(ui_query)
+        self.pushButton_docOverpass.setObjectName(_fromUtf8("pushButton_docOverpass"))
+        self.horizontalLayout_5.addWidget(self.pushButton_docOverpass)
+        self.verticalLayout.addLayout(self.horizontalLayout_5)
         spacerItem = QtGui.QSpacerItem(20, 71, QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Expanding)
         self.verticalLayout.addItem(spacerItem)
 
@@ -221,6 +233,8 @@ class Ui_ui_query(object):
         self.pushButton_generateQuery.setText(_translate("ui_query", "Generate query", None))
         self.pushButton_runQuery.setText(_translate("ui_query", "Run query", None))
         self.pushButton_saveQuery.setText(_translate("ui_query", "Save query", None))
+        self.pushButton_overpassTurbo.setText(_translate("ui_query", "Overpass Turbo", None))
+        self.pushButton_docOverpass.setText(_translate("ui_query", "Overpass\'s documentation", None))
 
 from qgis.gui import QgsCollapsibleGroupBox
 from QuickOSM import resources_rc
