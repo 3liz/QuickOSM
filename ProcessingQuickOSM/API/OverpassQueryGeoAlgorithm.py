@@ -26,11 +26,8 @@ from PyQt4.QtGui import *
 from qgis.core import *
 from qgis.utils import iface
 
-from processing.core.Processing import Processing
-from processing.core.GeoAlgorithm import GeoAlgorithm
-from processing.parameters.ParameterExtent import ParameterExtent
-from processing.parameters.ParameterString import ParameterString
-from processing.outputs.OutputFile import OutputFile
+from QuickOSM.ProcessingQuickOSM import *
+
 from QuickOSM.CoreQuickOSM.API.ConnexionOAPI import ConnexionOAPI
 from QuickOSM.CoreQuickOSM.Tools import Tools
 from QuickOSM import resources_rc

@@ -25,10 +25,13 @@ from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 from qgis.core import *
 
-from processing.core.Processing import Processing
-from processing.core.GeoAlgorithm import GeoAlgorithm
-from processing.parameters.ParameterString import ParameterString
-from processing.outputs.OutputNumber import OutputNumber
+from QuickOSM.ProcessingQuickOSM import *
+#from processing.core.Processing import Processing
+#from processing.core.GeoAlgorithm import GeoAlgorithm
+#from processing.parameters.ParameterString import ParameterString
+#from processing.outputs.OutputNumber import OutputNumber
+#from QuickOSM.ProcessingQuickOSM import ParameterString
+#from QuickOSM.ProcessingQuickOSM import OutputNumber
 from QuickOSM.CoreQuickOSM.API.Nominatim import Nominatim
 from QuickOSM.CoreQuickOSM.ExceptionQuickOSM import NominatimAreaException
 from QuickOSM import resources_rc

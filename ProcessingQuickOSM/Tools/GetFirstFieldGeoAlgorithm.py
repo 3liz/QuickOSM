@@ -25,17 +25,10 @@ from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 from qgis.core import *
 
-from processing.core.Processing import Processing
-from processing.core.GeoAlgorithm import GeoAlgorithm
-from processing.parameters.ParameterVector import ParameterVector
-from processing.parameters.ParameterString import ParameterString
-from processing.outputs.OutputString import OutputString
-from processing.tools import dataobjects, vector
-from os.path import isfile,join,basename,dirname,abspath
-from os import listdir
-from QuickOSM import resources_rc
-from QuickOSM.CoreQuickOSM.QueryFactory import QueryFactory
+from QuickOSM.ProcessingQuickOSM import *
 
+from os.path import isfile,join,basename,dirname,abspath
+from QuickOSM import resources_rc
 
 class GetFirstFieldGeoAlgorithm(GeoAlgorithm):
     '''

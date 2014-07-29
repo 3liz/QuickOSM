@@ -25,10 +25,8 @@ from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 from qgis.core import *
 
-from processing.core.Processing import Processing
-from processing.core.GeoAlgorithm import GeoAlgorithm
-from processing.parameters.ParameterFile import ParameterFile
-from processing.outputs.OutputTable import OutputTable
+from QuickOSM.ProcessingQuickOSM import *
+
 from QuickOSM import resources_rc
 from QuickOSM.CoreQuickOSM.Parser.OsmMemberParser import OsmMemberParser
 from os.path import isfile,join,basename,dirname,abspath
