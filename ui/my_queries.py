@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'my_queries.ui'
 #
-# Created: Thu Jul 24 11:24:45 2014
+# Created: Tue Jul 29 18:12:59 2014
 #      by: PyQt4 UI code generator 4.10.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -191,6 +191,10 @@ class Ui_ui_my_queries(object):
         self.verticalLayout.addItem(spacerItem)
 
         self.retranslateUi(ui_my_queries)
+        QtCore.QObject.connect(self.checkBox_points, QtCore.SIGNAL(_fromUtf8("toggled(bool)")), self.lineEdit_csv_points.setEnabled)
+        QtCore.QObject.connect(self.checkBox_lines, QtCore.SIGNAL(_fromUtf8("toggled(bool)")), self.lineEdit_csv_lines.setEnabled)
+        QtCore.QObject.connect(self.checkBox_multilinestrings, QtCore.SIGNAL(_fromUtf8("toggled(bool)")), self.lineEdit_csv_multilinestrings.setEnabled)
+        QtCore.QObject.connect(self.checkBox_multipolygons, QtCore.SIGNAL(_fromUtf8("toggled(bool)")), self.lineEdit_csv_multipolygons.setEnabled)
         QtCore.QMetaObject.connectSlotsByName(ui_my_queries)
 
     def retranslateUi(self, ui_my_queries):

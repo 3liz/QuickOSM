@@ -361,5 +361,70 @@
  <resources>
   <include location="../../../../../plugins/QuickOSM/resources.qrc"/>
  </resources>
- <connections/>
+ <connections>
+  <connection>
+   <sender>checkBox_points</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>lineEdit_csv_points</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>134</x>
+     <y>376</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>492</x>
+     <y>376</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_lines</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>lineEdit_csv_lines</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>134</x>
+     <y>405</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>492</x>
+     <y>405</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_multilinestrings</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>lineEdit_csv_multilinestrings</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>134</x>
+     <y>434</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>492</x>
+     <y>434</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_multipolygons</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>lineEdit_csv_multipolygons</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>134</x>
+     <y>463</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>492</x>
+     <y>463</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>
