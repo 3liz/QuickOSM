@@ -75,15 +75,6 @@ class Ogr2OgrException(QuickOsmException):
         if not msg:
             msg = QApplication.translate("Exception", u"Error with ogr2ogr")
         QuickOsmException.__init__(self,msg)
-
-class NoPointsLayerException(QuickOsmException):
-    def __init__(self, msg=None, suffix=None):
-        if not msg:
-            msg= QApplication.translate("Exception", u"The result doesn't contain any nodes. Only nodes have coordinates. You should modify the query.")
-        if suffix:
-            msg = msg + " " + suffix
-        QuickOsmException.__init__(self,msg)
-        self.level = QgsMessageBar.WARNING
         
 class NoLayerException(QuickOsmException):
     def __init__(self, msg=None, suffix=None):

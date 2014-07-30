@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'my_queries.ui'
 #
-# Created: Wed Jul 30 11:34:58 2014
+# Created: Wed Jul 30 18:03:48 2014
 #      by: PyQt4 UI code generator 4.10.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -119,6 +119,7 @@ class Ui_ui_my_queries(object):
         self.checkBox_multilinestrings.setObjectName(_fromUtf8("checkBox_multilinestrings"))
         self.horizontalLayout_7.addWidget(self.checkBox_multilinestrings)
         self.lineEdit_csv_multilinestrings = QtGui.QLineEdit(self.groupBox)
+        self.lineEdit_csv_multilinestrings.setPlaceholderText(_fromUtf8(""))
         self.lineEdit_csv_multilinestrings.setObjectName(_fromUtf8("lineEdit_csv_multilinestrings"))
         self.horizontalLayout_7.addWidget(self.lineEdit_csv_multilinestrings)
         self.formLayout_4.setLayout(7, QtGui.QFormLayout.FieldRole, self.horizontalLayout_7)
@@ -133,6 +134,7 @@ class Ui_ui_my_queries(object):
         self.checkBox_multipolygons.setObjectName(_fromUtf8("checkBox_multipolygons"))
         self.horizontalLayout_8.addWidget(self.checkBox_multipolygons)
         self.lineEdit_csv_multipolygons = QtGui.QLineEdit(self.groupBox)
+        self.lineEdit_csv_multipolygons.setPlaceholderText(_fromUtf8(""))
         self.lineEdit_csv_multipolygons.setObjectName(_fromUtf8("lineEdit_csv_multipolygons"))
         self.horizontalLayout_8.addWidget(self.lineEdit_csv_multipolygons)
         self.formLayout_4.setLayout(8, QtGui.QFormLayout.FieldRole, self.horizontalLayout_8)
@@ -220,11 +222,9 @@ class Ui_ui_my_queries(object):
         self.label_10.setText(_translate("ui_my_queries", "Points", None))
         self.lineEdit_csv_points.setPlaceholderText(_translate("ui_my_queries", "col1,col2,col3", None))
         self.label_11.setText(_translate("ui_my_queries", "Lines", None))
-        self.lineEdit_csv_lines.setPlaceholderText(_translate("ui_my_queries", "or put a comma to ignore the layer", None))
+        self.lineEdit_csv_lines.setPlaceholderText(_translate("ui_my_queries", "or let empty", None))
         self.label_14.setText(_translate("ui_my_queries", "Multilinestrings", None))
-        self.lineEdit_csv_multilinestrings.setPlaceholderText(_translate("ui_my_queries", "or set empty to keep all columns", None))
         self.label_12.setText(_translate("ui_my_queries", "Multipolygons", None))
-        self.lineEdit_csv_multipolygons.setPlaceholderText(_translate("ui_my_queries", "so do what the fuck you want !", None))
         self.radioButton_extentLayer.setText(_translate("ui_my_queries", "Extent of a layer", None))
         self.label_4.setText(_translate("ui_my_queries", "Directory", None))
         self.lineEdit_browseDir.setPlaceholderText(_translate("ui_my_queries", "Save to temporary file", None))

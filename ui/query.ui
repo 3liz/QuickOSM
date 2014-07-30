@@ -175,7 +175,7 @@
               <item>
                <widget class="QLineEdit" name="lineEdit_csv_lines">
                 <property name="placeholderText">
-                 <string>or put a comma to ignore the layer</string>
+                 <string>or let empty</string>
                 </property>
                </widget>
               </item>
@@ -203,7 +203,7 @@
               <item>
                <widget class="QLineEdit" name="lineEdit_csv_multilinestrings">
                 <property name="placeholderText">
-                 <string>or set empty to keep all columns</string>
+                 <string/>
                 </property>
                </widget>
               </item>
@@ -231,7 +231,7 @@
               <item>
                <widget class="QLineEdit" name="lineEdit_csv_multipolygons">
                 <property name="placeholderText">
-                 <string>so do what the fuck you want !</string>
+                 <string/>
                 </property>
                </widget>
               </item>
