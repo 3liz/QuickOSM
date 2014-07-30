@@ -179,7 +179,7 @@ class QuickOSMWidget(QWidget):
         Display quickosm's exceptions 
         '''
         self.label_progress.setText("")
-        iface.messageBar().pushMessage(e.msg, level=QgsMessageBar.CRITICAL , duration=7)
+        iface.messageBar().pushMessage(e.msg, level=e.level , duration=e.duration)
 
     def displayException(self,e):
         '''

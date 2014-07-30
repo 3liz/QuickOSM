@@ -78,6 +78,17 @@ class OsmParser(QObject):
         if not os.path.isfile(self.__osmFile):
             raise GeoAlgorithmExecutionException, "File doesn't exist"
         
+        import re
+
+        with open(self.__osmFile) as f:
+            for line in f:
+                s=re.search(r'node',line)
+                if s:
+                    break
+            else:
+                raise NoPointsLayerException
+        
+        
         uri = self.__osmFile + "|layername="
         layers = {}
         

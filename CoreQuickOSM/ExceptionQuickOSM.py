@@ -29,119 +29,126 @@ from processing.core.GeoAlgorithmExecutionException import GeoAlgorithmExecution
 QApplication.translate doesn't work in contructor's parameters
 """
 
+class QuickOsmException(GeoAlgorithmExecutionException):
+    def __init__(self, msg=None):
+        GeoAlgorithmExecutionException.__init__(self,msg)    
+        self.level = QgsMessageBar.CRITICAL
+        self.duration = 7
+
 '''
-Error 10-19 - Overpass
+Overpass or network
 '''
-class OverpassBadRequestException(GeoAlgorithmExecutionException):
+class OverpassBadRequestException(QuickOsmException):
     def __init__(self, msg=None):
         if not msg:
             msg = QApplication.translate("QuickOSM", u"Bad request OverpassAPI")
-        GeoAlgorithmExecutionException.__init__(self,msg)
-        self.errorNumber = 10
+        QuickOsmException.__init__(self,msg)
         
-class OverpassTimeoutException(GeoAlgorithmExecutionException):
+class OverpassTimeoutException(QuickOsmException):
     def __init__(self, msg=None):
         if not msg:
             msg = QApplication.translate("Exception", u"OverpassAPI timeout")
-        GeoAlgorithmExecutionException.__init__(self,msg)
-        self.errorNumber = 11
+        QuickOsmException.__init__(self,msg)
 
-class NetWorkErrorException(GeoAlgorithmExecutionException):
+class NetWorkErrorException(QuickOsmException):
     def __init__(self, msg=None, suffix=None):
         if not msg:
             msg = QApplication.translate("Exception", u"Network error")
         if suffix:
             msg = msg + " with " + suffix
-        GeoAlgorithmExecutionException.__init__(self,msg)
-        self.errorNumber = 12
+        QuickOsmException.__init__(self,msg)
 
 '''
-Error 20-29 - Nominatim
+Nominatim
 '''
-class NominatimAreaException(GeoAlgorithmExecutionException):
+class NominatimAreaException(QuickOsmException):
     def __init__(self, msg=None):
         if not msg:
             msg = QApplication.translate("Exception", u"No nominatim area")
-        GeoAlgorithmExecutionException.__init__(self,msg)
-        self.errorNumber = 20
+        QuickOsmException.__init__(self,msg)
 
 '''
-Error 30-39 - Other
+Ogr2Ogr
 '''
-class DirectoryOutPutException(GeoAlgorithmExecutionException):
-    def __init__(self, msg=None):
-        if not msg:
-            msg = QApplication.translate("Exception", u"The output directory does not exist.")
-        GeoAlgorithmExecutionException.__init__(self,msg)
-        self.errorNumber = 30
-        
-class FileOutPutException(GeoAlgorithmExecutionException):
-    def __init__(self, msg=None, suffix=None):
-        if not msg:
-            msg= QApplication.translate("Exception", u"The output file already exist, set a prefix")
-        if suffix:
-            msg = msg + " " + suffix
-        GeoAlgorithmExecutionException.__init__(self,msg)
-        self.errorNumber = 31
-        
-class OutPutFormatException(GeoAlgorithmExecutionException):
-    def __init__(self,msg=None):
-        if not msg:
-            msg = QApplication.translate("Exception", u"Output not available")
-        GeoAlgorithmExecutionException.__init__(self,msg)
-        self.errorNumber = 32
-
-class Ogr2OgrException(GeoAlgorithmExecutionException):
+class Ogr2OgrException(QuickOsmException):
     def __init__(self,msg=None):
         if not msg:
             msg = QApplication.translate("Exception", u"Error with ogr2ogr")
-        GeoAlgorithmExecutionException.__init__(self,msg)
-        self.errorNumber = 33
-        
-class FileDoesntExistException(GeoAlgorithmExecutionException):
+        QuickOsmException.__init__(self,msg)
+
+class NoPointsLayerException(QuickOsmException):
     def __init__(self, msg=None, suffix=None):
         if not msg:
-            msg= QApplication.translate("Exception", u"The file doesn't exist")
+            msg= QApplication.translate("Exception", u"The result doesn't contain any nodes. Only nodes have coordinates. You should modify the query.")
         if suffix:
             msg = msg + " " + suffix
-        GeoAlgorithmExecutionException.__init__(self,msg)
-        self.errorNumber = 34
+        QuickOsmException.__init__(self,msg)
+        self.level = QgsMessageBar.WARNING
         
-class MissingParameterException(GeoAlgorithmExecutionException):
-    def __init__(self, msg=None, suffix=None):
-        if not msg:
-            msg= QApplication.translate("Exception", u"A parameter is missing :")
-        if suffix:
-            msg = msg + " " + suffix
-        GeoAlgorithmExecutionException.__init__(self,msg)
-        self.errorNumber = 35
-        
-class NoLayerException(GeoAlgorithmExecutionException):
+class NoLayerException(QuickOsmException):
     def __init__(self, msg=None, suffix=None):
         if not msg:
             msg= QApplication.translate("Exception", u"The layer is missing :")
         if suffix:
             msg = msg + " " + suffix
-        GeoAlgorithmExecutionException.__init__(self,msg)
-        self.errorNumber = 36
-        
-class OsmObjectsException(GeoAlgorithmExecutionException):
+        QuickOsmException.__init__(self,msg)
+
+'''
+File and directory
+'''     
+class FileDoesntExistException(QuickOsmException):
+    def __init__(self, msg=None, suffix=None):
+        if not msg:
+            msg= QApplication.translate("Exception", u"The file doesn't exist")
+        if suffix:
+            msg = msg + " " + suffix
+        QuickOsmException.__init__(self,msg)
+
+class DirectoryOutPutException(QuickOsmException):
     def __init__(self, msg=None):
         if not msg:
-            msg= QApplication.translate("Exception", u"No osm objects selected")
-        GeoAlgorithmExecutionException.__init__(self,msg)
-        self.errorNumber = 37
+            msg = QApplication.translate("Exception", u"The output directory does not exist.")
+        QuickOsmException.__init__(self,msg)
         
-class OutPutGeomTypesException(GeoAlgorithmExecutionException):
-    def __init__(self, msg=None):
+class FileOutPutException(QuickOsmException):
+    def __init__(self, msg=None, suffix=None):
         if not msg:
-            msg= QApplication.translate("Exception", u"No outputs selected")
-        GeoAlgorithmExecutionException.__init__(self,msg)
-        self.errorNumber = 38
+            msg= QApplication.translate("Exception", u"The output file already exist, set a prefix")
+        if suffix:
+            msg = msg + " " + suffix
+        QuickOsmException.__init__(self,msg)
         
-class QueryAlreadyExistsException(GeoAlgorithmExecutionException):
+class OutPutFormatException(QuickOsmException):
+    def __init__(self,msg=None):
+        if not msg:
+            msg = QApplication.translate("Exception", u"Output not available")
+        QuickOsmException.__init__(self,msg)
+        
+class QueryAlreadyExistsException(QuickOsmException):
     def __init__(self, msg=None):
         if not msg:
             msg= QApplication.translate("Exception", u"This query already exists")
-        GeoAlgorithmExecutionException.__init__(self,msg)
-        self.errorNumber = 39
+        QuickOsmException.__init__(self,msg)
+        
+'''
+Forms
+'''
+class MissingParameterException(QuickOsmException):
+    def __init__(self, msg=None, suffix=None):
+        if not msg:
+            msg= QApplication.translate("Exception", u"A parameter is missing :")
+        if suffix:
+            msg = msg + " " + suffix
+        QuickOsmException.__init__(self,msg)
+        
+class OsmObjectsException(QuickOsmException):
+    def __init__(self, msg=None):
+        if not msg:
+            msg= QApplication.translate("Exception", u"No osm objects selected")
+        QuickOsmException.__init__(self,msg)
+        
+class OutPutGeomTypesException(QuickOsmException):
+    def __init__(self, msg=None):
+        if not msg:
+            msg= QApplication.translate("Exception", u"No outputs selected")
+        QuickOsmException.__init__(self,msg)
