@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'save_query.ui'
 #
-# Created: Wed Jul 23 17:53:03 2014
+# Created: Wed Jul 30 11:57:33 2014
 #      by: PyQt4 UI code generator 4.10.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -26,9 +26,12 @@ except AttributeError:
 class Ui_ui_save_query(object):
     def setupUi(self, ui_save_query):
         ui_save_query.setObjectName(_fromUtf8("ui_save_query"))
-        ui_save_query.resize(452, 89)
+        ui_save_query.resize(452, 108)
         self.verticalLayout = QtGui.QVBoxLayout(ui_save_query)
         self.verticalLayout.setObjectName(_fromUtf8("verticalLayout"))
+        self.label_3 = QtGui.QLabel(ui_save_query)
+        self.label_3.setObjectName(_fromUtf8("label_3"))
+        self.verticalLayout.addWidget(self.label_3)
         self.formLayout = QtGui.QFormLayout()
         self.formLayout.setObjectName(_fromUtf8("formLayout"))
         self.label = QtGui.QLabel(ui_save_query)
@@ -57,6 +60,7 @@ class Ui_ui_save_query(object):
 
     def retranslateUi(self, ui_save_query):
         ui_save_query.setWindowTitle(_translate("ui_save_query", "QuickOSM - Save query", None))
+        self.label_3.setText(_translate("ui_save_query", "The styles and names of these layers won\'t be saved.", None))
         self.label.setText(_translate("ui_save_query", "Category", None))
         self.label_2.setText(_translate("ui_save_query", "Name", None))
 

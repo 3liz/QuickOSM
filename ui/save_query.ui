@@ -7,13 +7,20 @@
     <x>0</x>
     <y>0</y>
     <width>452</width>
-    <height>89</height>
+    <height>108</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>QuickOSM - Save query</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <widget class="QLabel" name="label_3">
+     <property name="text">
+      <string>The styles and names of these layers won't be saved.</string>
+     </property>
+    </widget>
+   </item>
    <item>
     <layout class="QFormLayout" name="formLayout">
      <item row="0" column="0">
