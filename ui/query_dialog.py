@@ -24,7 +24,6 @@
 from QuickOSM import *
 from QuickOSMWidget import *
 from QuickOSM.Controller.Process import Process
-from QuickOSM.CoreQuickOSM.ExceptionQuickOSM import *
 from save_query_dialog import SaveQueryDialog
 from QuickOSM.CoreQuickOSM.Tools import Tools
 from XMLHighlighter import XMLHighlighter

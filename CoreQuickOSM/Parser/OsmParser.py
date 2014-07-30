@@ -23,7 +23,6 @@
 from QuickOSM import *
 
 from osgeo import gdal
-from processing.core.GeoAlgorithmExecutionException import GeoAlgorithmExecutionException
 import pghstore
 import tempfile
 import os

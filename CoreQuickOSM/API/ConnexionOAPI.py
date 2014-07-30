@@ -21,7 +21,6 @@
  ***************************************************************************/
 """
 
-from QuickOSM.CoreQuickOSM.ExceptionQuickOSM import OverpassBadRequestException,OutPutFormatException,OverpassTimeoutException, NetWorkErrorException
 import urllib2
 import urllib
 import re

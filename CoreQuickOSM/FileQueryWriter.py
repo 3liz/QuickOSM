@@ -23,7 +23,6 @@
 
 from QuickOSM import *
 
-from QuickOSM.CoreQuickOSM.ExceptionQuickOSM import QueryAlreadyExistsException
 import ConfigParser
 import os
 

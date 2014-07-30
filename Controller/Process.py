@@ -27,7 +27,6 @@ from QuickOSM.CoreQuickOSM.QueryFactory import QueryFactory
 from QuickOSM.CoreQuickOSM.Tools import Tools
 from QuickOSM.CoreQuickOSM.API.ConnexionOAPI import ConnexionOAPI
 from QuickOSM.CoreQuickOSM.Parser.OsmParser import OsmParser
-from QuickOSM.CoreQuickOSM.ExceptionQuickOSM import FileOutPutException,Ogr2OgrException
 from processing.tools.system import *
 import ntpath
 from os.path import dirname,abspath,join

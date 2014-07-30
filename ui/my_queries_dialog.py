@@ -27,7 +27,6 @@ from my_queries import Ui_ui_my_queries
 from QuickOSM.Controller.Process import Process
 from os.path import dirname,abspath,isfile, join
 from QuickOSM.CoreQuickOSM.FileQuery import FileQuery
-from QuickOSM.CoreQuickOSM.ExceptionQuickOSM import *
 from QuickOSM.CoreQuickOSM.Tools import *
 from qgis.utils import iface
 import os

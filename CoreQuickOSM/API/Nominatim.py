@@ -21,8 +21,6 @@
  ***************************************************************************/
 """
 
-from QuickOSM.CoreQuickOSM.ExceptionQuickOSM import NominatimAreaException,NetWorkErrorException
-
 import urllib
 import urllib2
 import json

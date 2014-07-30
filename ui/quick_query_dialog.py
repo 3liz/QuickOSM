@@ -25,7 +25,6 @@ from QuickOSM import *
 from QuickOSMWidget import *
 from quick_query import Ui_ui_quick_query      
 from QuickOSM.Controller.Process import Process
-from QuickOSM.CoreQuickOSM.ExceptionQuickOSM import *
 
 #shoud not be here, use controller
 from QuickOSM.CoreQuickOSM.QueryFactory import QueryFactory

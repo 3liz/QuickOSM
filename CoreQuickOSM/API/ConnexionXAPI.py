@@ -23,7 +23,6 @@
 
 import urllib2
 import tempfile
-from QuickOSM.CoreQuickOSM.ExceptionQuickOSM import NetWorkErrorException
 
 class ConnexionXAPI:
     '''

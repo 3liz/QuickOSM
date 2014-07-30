@@ -23,7 +23,6 @@
 
 from QuickOSM import *
 from qgis.utils import iface
-from QuickOSM.CoreQuickOSM.ExceptionQuickOSM import *
 
 class QuickOSMWidget(QWidget):
     def __init__(self):

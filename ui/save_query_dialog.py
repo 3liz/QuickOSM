@@ -26,7 +26,6 @@ from save_query import Ui_ui_save_query
 from os.path import dirname,abspath,isfile, join
 from QuickOSM.CoreQuickOSM.FileQueryWriter import FileQueryWriter
 from QuickOSM.CoreQuickOSM.Tools import Tools
-from QuickOSM.CoreQuickOSM.ExceptionQuickOSM import GeoAlgorithmExecutionException
 
 class SaveQueryDialog(QDialog, Ui_ui_save_query):
     

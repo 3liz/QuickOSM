@@ -25,7 +25,6 @@ from QuickOSM import *
 from QuickOSMWidget import *
 from osm_file import Ui_ui_osm_file
 from os.path import dirname,abspath,join,isfile
-from QuickOSM.CoreQuickOSM.ExceptionQuickOSM import *
 from QuickOSM.CoreQuickOSM.Parser.OsmParser import *
 from qgis.utils import iface
 
