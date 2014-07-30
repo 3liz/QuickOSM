@@ -364,7 +364,7 @@
       </sizepolicy>
      </property>
      <property name="text">
-      <string/>
+      <string>progress text</string>
      </property>
     </widget>
    </item>

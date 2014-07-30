@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'quick_query.ui'
 #
-# Created: Thu Jul 24 11:40:56 2014
+# Created: Wed Jul 30 09:43:20 2014
 #      by: PyQt4 UI code generator 4.10.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -210,7 +210,6 @@ class Ui_ui_quick_query(object):
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.label_progress.sizePolicy().hasHeightForWidth())
         self.label_progress.setSizePolicy(sizePolicy)
-        self.label_progress.setText(_fromUtf8(""))
         self.label_progress.setObjectName(_fromUtf8("label_progress"))
         self.verticalLayout.addWidget(self.label_progress)
         self.progressBar_execution = QtGui.QProgressBar(ui_quick_query)
@@ -245,6 +244,7 @@ class Ui_ui_quick_query(object):
         self.label_6.setText(_translate("ui_quick_query", "File prefix", None))
         self.pushButton_showQuery.setText(_translate("ui_quick_query", "Show query", None))
         self.pushButton_runQuery.setText(_translate("ui_quick_query", "Run query", None))
+        self.label_progress.setText(_translate("ui_quick_query", "progress text", None))
 
 from qgis.gui import QgsCollapsibleGroupBox
 from QuickOSM import resources_rc

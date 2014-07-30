@@ -43,6 +43,7 @@ class QuickQueryWidget(QuickOSMWidget, Ui_ui_quick_query):
         self.setupUi(self)
         
         #Setup UI
+        self.label_progress.setText("")
         self.lineEdit_filePrefix.setDisabled(True)
         self.groupBox.setCollapsed(True)
         self.fillLayerCombobox()

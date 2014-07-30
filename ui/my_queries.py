@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'my_queries.ui'
 #
-# Created: Tue Jul 29 18:12:59 2014
+# Created: Wed Jul 30 09:42:04 2014
 #      by: PyQt4 UI code generator 4.10.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -180,7 +180,6 @@ class Ui_ui_my_queries(object):
         self.horizontalLayout_3.addWidget(self.pushButton_runQuery)
         self.verticalLayout.addLayout(self.horizontalLayout_3)
         self.label_progress = QtGui.QLabel(ui_my_queries)
-        self.label_progress.setText(_fromUtf8(""))
         self.label_progress.setObjectName(_fromUtf8("label_progress"))
         self.verticalLayout.addWidget(self.label_progress)
         self.progressBar_execution = QtGui.QProgressBar(ui_my_queries)
@@ -223,6 +222,8 @@ class Ui_ui_my_queries(object):
         self.label_6.setText(_translate("ui_my_queries", "File prefix", None))
         self.pushButton_showQuery.setText(_translate("ui_my_queries", "Show query", None))
         self.pushButton_runQuery.setText(_translate("ui_my_queries", "Run query", None))
+        self.label_progress.setText(_translate("ui_my_queries", "text progress", None))
 
 from qgis.gui import QgsCollapsibleGroupBox
 from QuickOSM import resources_rc
+

@@ -49,6 +49,7 @@ class QueryWidget(QuickOSMWidget, Ui_ui_query):
         self.highlighter = XMLHighlighter(self.textEdit_query.document())
                
         #Setup UI
+        self.label_progress.setText("")
         self.lineEdit_filePrefix.setDisabled(True)
         self.groupBox.setCollapsed(True)
         self.bbox = None
@@ -79,6 +80,21 @@ class QueryWidget(QuickOSMWidget, Ui_ui_query):
         self.pushButton_refreshLayers.clicked.connect(self.fillLayerCombobox)
         self.pushButton_docOverpass.clicked.connect(self.openDocOverpass)
         self.pushButton_overpassTurbo.clicked.connect(self.openOverpassTurbo)
+        self.buttonBox.button(QDialogButtonBox.Reset).clicked.connect(self.resetForm)
+
+    def resetForm(self):
+        self.textEdit_query.setText("")
+        self.lineEdit_nominatim.setText("")
+        self.checkBox_points.setChecked(True)
+        self.checkBox_lines.setChecked(True)
+        self.checkBox_multilinestrings.setChecked(True)
+        self.checkBox_multipolygons.setChecked(True)
+        self.lineEdit_csv_points.setText("")
+        self.lineEdit_csv_lines.setText("")
+        self.lineEdit_csv_multilinestrings.setText("")
+        self.lineEdit_csv_multipolygons.setText("")
+        self.lineEdit_browseDir.setText("")
+        self.lineEdit_filePrefix.setText("")
 
     def allowNominatimOrExtent(self):
         '''

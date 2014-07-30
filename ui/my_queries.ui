@@ -324,7 +324,7 @@
    <item>
     <widget class="QLabel" name="label_progress">
      <property name="text">
-      <string/>
+      <string>text progress</string>
      </property>
     </widget>
    </item>

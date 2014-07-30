@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'query.ui'
 #
-# Created: Tue Jul 29 17:25:54 2014
+# Created: Wed Jul 30 09:28:13 2014
 #      by: PyQt4 UI code generator 4.10.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -26,12 +26,22 @@ except AttributeError:
 class Ui_ui_query(object):
     def setupUi(self, ui_query):
         ui_query.setObjectName(_fromUtf8("ui_query"))
-        ui_query.resize(673, 677)
+        ui_query.resize(753, 677)
         self.verticalLayout = QtGui.QVBoxLayout(ui_query)
         self.verticalLayout.setObjectName(_fromUtf8("verticalLayout"))
+        self.horizontalLayout_9 = QtGui.QHBoxLayout()
+        self.horizontalLayout_9.setObjectName(_fromUtf8("horizontalLayout_9"))
         self.label = QtGui.QLabel(ui_query)
         self.label.setObjectName(_fromUtf8("label"))
-        self.verticalLayout.addWidget(self.label)
+        self.horizontalLayout_9.addWidget(self.label)
+        spacerItem = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
+        self.horizontalLayout_9.addItem(spacerItem)
+        self.buttonBox = QtGui.QDialogButtonBox(ui_query)
+        self.buttonBox.setStandardButtons(QtGui.QDialogButtonBox.Reset)
+        self.buttonBox.setCenterButtons(True)
+        self.buttonBox.setObjectName(_fromUtf8("buttonBox"))
+        self.horizontalLayout_9.addWidget(self.buttonBox)
+        self.verticalLayout.addLayout(self.horizontalLayout_9)
         self.textEdit_query = QtGui.QTextEdit(ui_query)
         self.textEdit_query.setObjectName(_fromUtf8("textEdit_query"))
         self.verticalLayout.addWidget(self.textEdit_query)
@@ -179,7 +189,6 @@ class Ui_ui_query(object):
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.label_progress.sizePolicy().hasHeightForWidth())
         self.label_progress.setSizePolicy(sizePolicy)
-        self.label_progress.setText(_fromUtf8(""))
         self.label_progress.setObjectName(_fromUtf8("label_progress"))
         self.verticalLayout.addWidget(self.label_progress)
         self.progressBar_execution = QtGui.QProgressBar(ui_query)
@@ -198,8 +207,8 @@ class Ui_ui_query(object):
         self.pushButton_docOverpass.setObjectName(_fromUtf8("pushButton_docOverpass"))
         self.horizontalLayout_5.addWidget(self.pushButton_docOverpass)
         self.verticalLayout.addLayout(self.horizontalLayout_5)
-        spacerItem = QtGui.QSpacerItem(20, 71, QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Expanding)
-        self.verticalLayout.addItem(spacerItem)
+        spacerItem1 = QtGui.QSpacerItem(20, 71, QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Expanding)
+        self.verticalLayout.addItem(spacerItem1)
 
         self.retranslateUi(ui_query)
         QtCore.QObject.connect(self.checkBox_points, QtCore.SIGNAL(_fromUtf8("toggled(bool)")), self.lineEdit_csv_points.setEnabled)
@@ -210,7 +219,7 @@ class Ui_ui_query(object):
 
     def retranslateUi(self, ui_query):
         ui_query.setWindowTitle(_translate("ui_query", "QuickOSM - Query", None))
-        self.label.setText(_translate("ui_query", "Query", None))
+        self.label.setText(_translate("ui_query", "Overpass query", None))
         self.groupBox.setTitle(_translate("ui_query", "Advanced", None))
         self.label_2.setText(_translate("ui_query", "{{nominatimArea:}}", None))
         self.lineEdit_nominatim.setPlaceholderText(_translate("ui_query", "Can be overridden", None))
@@ -233,6 +242,7 @@ class Ui_ui_query(object):
         self.pushButton_generateQuery.setText(_translate("ui_query", "Generate query", None))
         self.pushButton_runQuery.setText(_translate("ui_query", "Run query", None))
         self.pushButton_saveQuery.setText(_translate("ui_query", "Save query", None))
+        self.label_progress.setText(_translate("ui_query", "progress text", None))
         self.pushButton_overpassTurbo.setText(_translate("ui_query", "Overpass Turbo", None))
         self.pushButton_docOverpass.setText(_translate("ui_query", "Overpass\'s documentation", None))
 

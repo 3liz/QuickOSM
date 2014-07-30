@@ -42,6 +42,7 @@ class MyQueriesWidget(QuickOSMWidget, Ui_ui_my_queries):
         self.setupUi(self)
         
         #Setup UI
+        self.label_progress.setText("")
         self.pushButton_runQuery.setDisabled(True)
         self.pushButton_showQuery.setDisabled(True)
         self.groupBox.setDisabled(True)
