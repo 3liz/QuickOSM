@@ -24,10 +24,10 @@
 from QuickOSM import *
 from QuickOSM.ProcessingQuickOSM import *
 
-from QuickOSM.CoreQuickOSM.Parser.OsmMemberParser import OsmMemberParser
+from QuickOSM.CoreQuickOSM.Parser.OsmRelationParser import OsmRelationParser
 from os.path import isfile,join,basename,dirname,abspath
 
-class OsmMemberParserGeoAlgorithm(GeoAlgorithm):
+class OsmRelationParserGeoAlgorithm(GeoAlgorithm):
     '''
     Parse an OSM file with SAX and return a table
     '''
@@ -41,7 +41,7 @@ class OsmMemberParserGeoAlgorithm(GeoAlgorithm):
         GeoAlgorithm.__init__(self)
 
     def defineCharacteristics(self):
-        self.name = "Relation Member SAX Parser"
+        self.name = "Relation SAX Parser"
         self.group = "OSM Parser"
 
         self.addParameter(ParameterFile(self.FILE, 'OSM file', False, False))
@@ -76,13 +76,19 @@ class OsmMemberParserGeoAlgorithm(GeoAlgorithm):
         
         filePath = self.getParameterValue(self.FILE)
         
-        parser = OsmMemberParser(filePath)
-        fields = parser.getFields()
+        parser = OsmRelationParser(filePath)
         
         results = parser.parse()
+        firstItem = None
+        for item in results :
+            firstItem = item
+            break
+        fields = parser.getFields()
         
         table = self.getOutputFromName(self.TABLE)
         tableWriter = table.getTableWriter(fields)
+
+        tableWriter.addRecord(firstItem)
         for item in results:
             tableWriter.addRecord(item)
                 

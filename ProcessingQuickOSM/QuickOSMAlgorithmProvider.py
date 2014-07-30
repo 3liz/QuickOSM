@@ -33,6 +33,7 @@ from Tools.ReadIniFilePathGeoAlgorithm import ReadIniFilePathGeoAlgorithm
 from Tools.QueryFactoryGeoAlgorithm import QueryFactoryGeoAlgorithm
 from Parser.OsmParserGeoAlgorithm import OsmParserGeoAlgorithm
 from Parser.OsmMemberParserGeoAlgorithm import OsmMemberParserGeoAlgorithm
+from Parser.OsmRelationParserGeoAlgorithm import OsmRelationParserGeoAlgorithm
 from Tools.GetFirstFieldGeoAlgorithm import GetFirstFieldGeoAlgorithm
 
 class QuickOSMAlgorithmProvider(AlgorithmProvider):
@@ -55,6 +56,7 @@ class QuickOSMAlgorithmProvider(AlgorithmProvider):
                         ListIniFilesGeoAlgorithm(),
                         QueryFactoryGeoAlgorithm(),
                         OsmMemberParserGeoAlgorithm(),
+                        OsmRelationParserGeoAlgorithm(),
                         GetFirstFieldGeoAlgorithm()
                         ]
         
