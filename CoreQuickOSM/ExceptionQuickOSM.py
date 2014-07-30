@@ -93,6 +93,14 @@ class NoLayerException(QuickOsmException):
             msg = msg + " " + suffix
         QuickOsmException.__init__(self,msg)
 
+class WrongOrderOSMException(QuickOsmException):
+    def __init__(self, msg=None, suffix=None):
+        if not msg:
+            msg= QApplication.translate("Exception", u"The order must be node-way-relation. Check the print statement.")
+        if suffix:
+            msg = msg + " " + suffix
+        QuickOsmException.__init__(self,msg)
+
 '''
 File and directory
 '''     

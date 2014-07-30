@@ -26,6 +26,7 @@ from osgeo import gdal
 import pghstore
 import tempfile
 import os
+import re
 
 class OsmParser(QObject):
     '''
@@ -77,17 +78,6 @@ class OsmParser(QObject):
         if not os.path.isfile(self.__osmFile):
             raise GeoAlgorithmExecutionException, "File doesn't exist"
         
-        import re
-
-        with open(self.__osmFile) as f:
-            for line in f:
-                s=re.search(r'node',line)
-                if s:
-                    break
-            else:
-                raise NoPointsLayerException
-        
-        
         uri = self.__osmFile + "|layername="
         layers = {}
         
@@ -102,6 +92,15 @@ class OsmParser(QObject):
                     print "Error on the layer", layers[layer].lastError()
                 
             return layers              
+        
+        #Check if the order is node before way,relation
+        #We don't check way before relation, because we can have only nodes and relations
+        with open(self.__osmFile) as f:
+            for line in f:
+                if re.search(r'node',line):
+                    break
+                if re.search(r'(way|relation)',line):
+                    raise WrongOrderOSMException
         
         #Foreach layers
         for layer in self.__layers:
