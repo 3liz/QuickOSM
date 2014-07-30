@@ -48,8 +48,8 @@ class OverpassQueryGeoAlgorithm(GeoAlgorithm):
 
         self.addParameter(ParameterString(self.SERVER, 'Overpass API','http://overpass-api.de/api/', False, False))
         self.addParameter(ParameterString(self.QUERY_STRING,'Query (XML or OQL)', '', True,False))
-        self.addParameter(ParameterExtent(self.EXTENT, 'If {{bbox}} in the query, extent :'))
-        self.addParameter(ParameterString(self.NOMINATIM, 'If {{nominatim}} in the query, place :','', False, True))
+        self.addParameter(ParameterExtent(self.EXTENT, 'If {{bbox}} in the query, extent (999,999,999,999 is a wrong value)', default="999,999,999,999"))
+        self.addParameter(ParameterString(self.NOMINATIM, 'If {{nominatim}} in the query, place','', False, True))
         
         self.addOutput(OutputFile(self.OUTPUT_FILE, 'OSM file'))
 
@@ -84,17 +84,9 @@ class OverpassQueryGeoAlgorithm(GeoAlgorithm):
         query = self.getParameterValue(self.QUERY_STRING)
         nominatim = self.getParameterValue(self.NOMINATIM)
         
-        #Processing return "None" as unicode
-        '''
-        print "OAPI Nominatim :"
-        print nominatim
-        print nominatim.__class__.__name__
-        print len(nominatim)
-        '''
         #Extent of the layer
         extent = self.getParameterValue(self.EXTENT)
-        #default value of processing : 0,1,0,1 
-        if extent != "0,1,0,1":
+        if extent != "999,999,999,999":
             #xmin,xmax,ymin,ymax
             extent = [float(i) for i in extent.split(',')]
             geomExtent = QgsGeometry.fromRect(QgsRectangle(extent[0],extent[2],extent[1],extent[3]))
@@ -104,6 +96,9 @@ class OverpassQueryGeoAlgorithm(GeoAlgorithm):
             extent = geomExtent.boundingBox()
         else:
             extent = None
+            
+        if nominatim == "":
+            nominatim = None
 
         #Make some transformation on the query ({{box}}, Nominatim, ...
         query = Tools.PrepareQueryOqlXml(query,extent,nominatim)

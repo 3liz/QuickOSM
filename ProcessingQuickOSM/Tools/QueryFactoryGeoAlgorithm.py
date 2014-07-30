@@ -49,7 +49,7 @@ class QueryFactoryGeoAlgorithm(GeoAlgorithm):
         
         self.addParameter(ParameterString(self.FIELD_KEY, 'Key','',optional=False))
         self.addParameter(ParameterString(self.FIELD_VALUE, 'Value','',optional=True))
-        self.addParameter(ParameterExtent(self.FIELD_EXTENT, 'Extent',))
+        self.addParameter(ParameterExtent(self.FIELD_EXTENT, 'Extent (999,999,999,999 is wrong value)', default="999,999,999,999"))
         self.addParameter(ParameterString(self.FIELD_NOMINATIM, 'Nominatim',optional=True))
         
         #osm_objects = ['node','way','relation','all']
@@ -87,13 +87,13 @@ class QueryFactoryGeoAlgorithm(GeoAlgorithm):
         extent = self.getParameterValue(self.FIELD_EXTENT)
         nominatim = self.getParameterValue(self.FIELD_NOMINATIM)
         
-        if nominatim == '' or nominatim == 'None':
+        if nominatim == '':
             nominatim = None
         
-        if value == '' or value =='None':
+        if value == '':
             value = None
-            
-        if extent == "0,1,0,1" or extent == None or extent == u"None":
+        
+        if extent == "999,999,999,999":
             extent = None
         
         #osmObjects = self.getParameterValue(self.FIELD_OSM_OBJECTS)
