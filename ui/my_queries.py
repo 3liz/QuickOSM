@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'my_queries.ui'
 #
-# Created: Wed Jul 30 09:42:04 2014
+# Created: Wed Jul 30 11:34:58 2014
 #      by: PyQt4 UI code generator 4.10.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -26,25 +26,33 @@ except AttributeError:
 class Ui_ui_my_queries(object):
     def setupUi(self, ui_my_queries):
         ui_my_queries.setObjectName(_fromUtf8("ui_my_queries"))
-        ui_my_queries.resize(847, 792)
+        ui_my_queries.resize(727, 794)
         sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Preferred, QtGui.QSizePolicy.Preferred)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(ui_my_queries.sizePolicy().hasHeightForWidth())
         ui_my_queries.setSizePolicy(sizePolicy)
         ui_my_queries.setMinimumSize(QtCore.QSize(225, 262))
-        self.verticalLayout = QtGui.QVBoxLayout(ui_my_queries)
+        self.verticalLayout_3 = QtGui.QVBoxLayout(ui_my_queries)
+        self.verticalLayout_3.setObjectName(_fromUtf8("verticalLayout_3"))
+        self.scrollArea = QtGui.QScrollArea(ui_my_queries)
+        self.scrollArea.setWidgetResizable(True)
+        self.scrollArea.setObjectName(_fromUtf8("scrollArea"))
+        self.scrollAreaWidgetContents = QtGui.QWidget()
+        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 713, 780))
+        self.scrollAreaWidgetContents.setObjectName(_fromUtf8("scrollAreaWidgetContents"))
+        self.verticalLayout = QtGui.QVBoxLayout(self.scrollAreaWidgetContents)
         self.verticalLayout.setObjectName(_fromUtf8("verticalLayout"))
-        self.lineEdit_search = QtGui.QLineEdit(ui_my_queries)
+        self.lineEdit_search = QtGui.QLineEdit(self.scrollAreaWidgetContents)
         self.lineEdit_search.setObjectName(_fromUtf8("lineEdit_search"))
         self.verticalLayout.addWidget(self.lineEdit_search)
-        self.treeQueries = QtGui.QTreeWidget(ui_my_queries)
+        self.treeQueries = QtGui.QTreeWidget(self.scrollAreaWidgetContents)
         self.treeQueries.setContextMenuPolicy(QtCore.Qt.CustomContextMenu)
         self.treeQueries.setColumnCount(1)
         self.treeQueries.setObjectName(_fromUtf8("treeQueries"))
         self.treeQueries.header().setVisible(False)
         self.verticalLayout.addWidget(self.treeQueries)
-        self.groupBox = QgsCollapsibleGroupBox(ui_my_queries)
+        self.groupBox = QgsCollapsibleGroupBox(self.scrollAreaWidgetContents)
         self.groupBox.setChecked(False)
         self.groupBox.setObjectName(_fromUtf8("groupBox"))
         self.verticalLayout_2 = QtGui.QVBoxLayout(self.groupBox)
@@ -171,23 +179,25 @@ class Ui_ui_my_queries(object):
         self.horizontalLayout_3 = QtGui.QHBoxLayout()
         self.horizontalLayout_3.setSizeConstraint(QtGui.QLayout.SetMinimumSize)
         self.horizontalLayout_3.setObjectName(_fromUtf8("horizontalLayout_3"))
-        self.pushButton_showQuery = QtGui.QPushButton(ui_my_queries)
+        self.pushButton_showQuery = QtGui.QPushButton(self.scrollAreaWidgetContents)
         self.pushButton_showQuery.setObjectName(_fromUtf8("pushButton_showQuery"))
         self.horizontalLayout_3.addWidget(self.pushButton_showQuery)
-        self.pushButton_runQuery = QtGui.QPushButton(ui_my_queries)
+        self.pushButton_runQuery = QtGui.QPushButton(self.scrollAreaWidgetContents)
         self.pushButton_runQuery.setDefault(True)
         self.pushButton_runQuery.setObjectName(_fromUtf8("pushButton_runQuery"))
         self.horizontalLayout_3.addWidget(self.pushButton_runQuery)
         self.verticalLayout.addLayout(self.horizontalLayout_3)
-        self.label_progress = QtGui.QLabel(ui_my_queries)
+        self.label_progress = QtGui.QLabel(self.scrollAreaWidgetContents)
         self.label_progress.setObjectName(_fromUtf8("label_progress"))
         self.verticalLayout.addWidget(self.label_progress)
-        self.progressBar_execution = QtGui.QProgressBar(ui_my_queries)
+        self.progressBar_execution = QtGui.QProgressBar(self.scrollAreaWidgetContents)
         self.progressBar_execution.setProperty("value", 0)
         self.progressBar_execution.setObjectName(_fromUtf8("progressBar_execution"))
         self.verticalLayout.addWidget(self.progressBar_execution)
         spacerItem = QtGui.QSpacerItem(20, 40, QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Expanding)
         self.verticalLayout.addItem(spacerItem)
+        self.scrollArea.setWidget(self.scrollAreaWidgetContents)
+        self.verticalLayout_3.addWidget(self.scrollArea)
 
         self.retranslateUi(ui_my_queries)
         QtCore.QObject.connect(self.checkBox_points, QtCore.SIGNAL(_fromUtf8("toggled(bool)")), self.lineEdit_csv_points.setEnabled)
@@ -226,4 +236,3 @@ class Ui_ui_my_queries(object):
 
 from qgis.gui import QgsCollapsibleGroupBox
 from QuickOSM import resources_rc
-
