@@ -53,6 +53,7 @@ class QueryWidget(QuickOSMWidget, Ui_ui_query):
         self.groupBox.setCollapsed(True)
         self.bbox = None
         self.fillLayerCombobox()
+        self.groupBox.setCollapsed(True)
         #Disable buttons
         self.pushButton_generateQuery.setDisabled(True)
         self.pushButton_saveQuery.setDisabled(True)

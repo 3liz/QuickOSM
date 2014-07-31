@@ -10,7 +10,7 @@
 name=QuickOSM
 qgisMinimumVersion=2.0
 description=OSM's Overpass API frontend
-version=0.1
+version=1.0
 author=Etienne Trimaille
 email=info@3liz.com
 
@@ -22,7 +22,7 @@ email=info@3liz.com
 # changelog=
 
 # Tags are comma separated with spaces allowed
-tags=osm,openstreetmap,api
+tags=osm,openstreetmap,overpass
 
 homepage=https://github.com/3liz/QgisQuickOSMPlugin
 tracker=https://github.com/3liz/QgisQuickOSMPlugin/issues

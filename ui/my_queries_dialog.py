@@ -47,6 +47,7 @@ class MyQueriesWidget(QuickOSMWidget, Ui_ui_my_queries):
         self.groupBox.setDisabled(True)
         self.fillLayerCombobox()
         self.fillTree()
+        self.groupBox.setCollapsed(True)
         
         #Connect
         self.pushButton_runQuery.clicked.connect(self.runQuery)
