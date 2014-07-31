@@ -21,6 +21,7 @@
  ***************************************************************************/
 """
 
+from QuickOSM import *
 import urllib2
 import tempfile
 

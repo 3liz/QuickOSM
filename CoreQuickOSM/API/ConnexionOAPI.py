@@ -21,6 +21,7 @@
  ***************************************************************************/
 """
 
+from QuickOSM import *
 import urllib2
 import urllib
 import re
@@ -66,7 +67,7 @@ class ConnexionOAPI:
             req = re.sub(r'output="[a-z]*"','output="'+self.__output+'"', req)
             req = re.sub(r'\[out:[a-z]*','[out:'+self.__output, req)
         
-        queryString = urllib.urlencode({'data':req})
+        queryString = urllib.urlencode({'data':req,'info':'QgisQuickOSMPlugin'})
         
         try:
             data = urllib2.urlopen(url=urlQuery, data=queryString).read()
