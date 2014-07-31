@@ -1,0 +1,22 @@
+<osm-script output="xml" timeout="25"> 
+     <id-query {{nominatimArea:montpellier}} into="area"/> 
+     <union>
+          <query type="node">
+               <has-kv k="shop"/>
+               <area-query from="area"/>
+          </query>
+          <query type="way">
+               <has-kv k="shop"/>
+               <area-query from="area"/>
+          </query>
+          <query type="relation">
+               <has-kv k="shop"/>
+               <area-query from="area"/>
+          </query>
+  	 </union>
+     <union>
+          <item />
+          <recurse type="down"/>
+     </union>
+     <print mode="body" />
+</osm-script>

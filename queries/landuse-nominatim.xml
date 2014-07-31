@@ -29,6 +29,19 @@
       <has-kv k="landuse"/>
       <area-query from="area"/>
     </query>
+    <!-- query part for: “waterway” -->
+    <query type="node">
+      <has-kv k="waterway"/>
+      <bbox-query {{bbox}}/>
+    </query>
+    <query type="way">
+      <has-kv k="waterway"/>
+      <bbox-query {{bbox}}/>
+    </query>
+    <query type="relation">
+      <has-kv k="waterway"/>
+      <bbox-query {{bbox}}/>
+    </query>
   </union>
      <union>
           <item />

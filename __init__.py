@@ -26,7 +26,9 @@ from PyQt4.QtGui import *
 from qgis.core import *
 from qgis.gui import *
 import resources_rc
+from processing.core.GeoAlgorithmExecutionException import GeoAlgorithmExecutionException
 from CoreQuickOSM.ExceptionQuickOSM import *
+
 
 def classFactory(iface):
     from quick_osm import QuickOSM
