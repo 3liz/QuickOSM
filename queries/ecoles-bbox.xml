@@ -1,7 +1,5 @@
-<osm-script output="json" timeout="25">
-  <!-- gather results -->
+<osm-script output="json">
   <union>
-    <!-- query part for: “amenity=school” -->
     <query type="node">
       <has-kv k="amenity" v="school"/>
       <bbox-query {{bbox}}/>
@@ -19,6 +17,5 @@
     <item />
     <recurse type="down"/>
   </union>
-  <!-- print results -->
   <print mode="meta"/>
 </osm-script>

@@ -1,4 +1,4 @@
-<osm-script output="json" timeout="25">
+<osm-script output="json">
   <!-- gather results -->
   <union>
     <!-- query part for: “natural” -->

@@ -1,7 +1,5 @@
-<osm-script output="json" timeout="25">
-  <!-- gather results -->
+<osm-script output="json">
   <union>
-    <!-- query part for: “boundary=administrative and admin_level=8” -->
     <query type="node">
       <has-kv k="boundary" v="administrative"/>
       <has-kv k="admin_level" v="8"/>
