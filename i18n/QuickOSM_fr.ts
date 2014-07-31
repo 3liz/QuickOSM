@@ -4,72 +4,72 @@
 <context>
     <name>Exception</name>
     <message>
-        <location filename="CoreQuickOSM/ExceptionQuickOSM.py" line="50"/>
+        <location filename="CoreQuickOSM/ExceptionQuickOSM.py" line="48"/>
         <source>OverpassAPI timeout</source>
         <translation>Temps d&apos;exécution OverpassAPI atteint</translation>
     </message>
     <message>
-        <location filename="CoreQuickOSM/ExceptionQuickOSM.py" line="67"/>
+        <location filename="CoreQuickOSM/ExceptionQuickOSM.py" line="65"/>
         <source>No nominatim area</source>
         <translation>Absence de résultat Nominatim</translation>
     </message>
     <message>
-        <location filename="CoreQuickOSM/ExceptionQuickOSM.py" line="109"/>
+        <location filename="CoreQuickOSM/ExceptionQuickOSM.py" line="107"/>
         <source>The output directory does not exist.</source>
         <translation>Le dossier de sortie n&apos;existe pas.</translation>
     </message>
     <message>
-        <location filename="CoreQuickOSM/ExceptionQuickOSM.py" line="115"/>
+        <location filename="CoreQuickOSM/ExceptionQuickOSM.py" line="113"/>
         <source>The output file already exist, set a prefix</source>
         <translation>Le fichier de sortie existe déjà, préfixez</translation>
     </message>
     <message>
-        <location filename="CoreQuickOSM/ExceptionQuickOSM.py" line="123"/>
+        <location filename="CoreQuickOSM/ExceptionQuickOSM.py" line="121"/>
         <source>Output not available</source>
         <translation>Format non disponible</translation>
     </message>
     <message>
-        <location filename="CoreQuickOSM/ExceptionQuickOSM.py" line="76"/>
+        <location filename="CoreQuickOSM/ExceptionQuickOSM.py" line="74"/>
         <source>Error with ogr2ogr</source>
         <translation>Erreur avec ogr2ogr</translation>
     </message>
     <message>
-        <location filename="CoreQuickOSM/ExceptionQuickOSM.py" line="56"/>
+        <location filename="CoreQuickOSM/ExceptionQuickOSM.py" line="54"/>
         <source>Network error</source>
         <translation>Erreur de réseau</translation>
     </message>
     <message>
-        <location filename="CoreQuickOSM/ExceptionQuickOSM.py" line="101"/>
+        <location filename="CoreQuickOSM/ExceptionQuickOSM.py" line="99"/>
         <source>The file doesn&apos;t exist</source>
         <translation>Le fichier n&apos;existe pas</translation>
     </message>
     <message>
-        <location filename="CoreQuickOSM/ExceptionQuickOSM.py" line="138"/>
+        <location filename="CoreQuickOSM/ExceptionQuickOSM.py" line="136"/>
         <source>A parameter is missing :</source>
         <translation>Un paramètre manque :</translation>
     </message>
     <message>
-        <location filename="CoreQuickOSM/ExceptionQuickOSM.py" line="82"/>
+        <location filename="CoreQuickOSM/ExceptionQuickOSM.py" line="80"/>
         <source>The layer is missing :</source>
         <translation>La couche est absente :</translation>
     </message>
     <message>
-        <location filename="CoreQuickOSM/ExceptionQuickOSM.py" line="146"/>
+        <location filename="CoreQuickOSM/ExceptionQuickOSM.py" line="144"/>
         <source>No osm objects selected</source>
         <translation>Aucun objet OSM sélectionné</translation>
     </message>
     <message>
-        <location filename="CoreQuickOSM/ExceptionQuickOSM.py" line="152"/>
+        <location filename="CoreQuickOSM/ExceptionQuickOSM.py" line="150"/>
         <source>No outputs selected</source>
         <translation>Aucune sortie sélectionnée</translation>
     </message>
     <message>
-        <location filename="CoreQuickOSM/ExceptionQuickOSM.py" line="129"/>
+        <location filename="CoreQuickOSM/ExceptionQuickOSM.py" line="127"/>
         <source>This query already exists</source>
         <translation>Cette requête existe déjà</translation>
     </message>
     <message>
-        <location filename="CoreQuickOSM/ExceptionQuickOSM.py" line="90"/>
+        <location filename="CoreQuickOSM/ExceptionQuickOSM.py" line="88"/>
         <source>The order must be node-way-relation. Check the print statement.</source>
         <translation>L&apos;ordre doit être node-way-relation. Vérifiez le &quot;print&quot;.</translation>
     </message>
@@ -122,7 +122,7 @@
         <translation>La télécommande JOSM semble inactive.</translation>
     </message>
     <message>
-        <location filename="CoreQuickOSM/ExceptionQuickOSM.py" line="44"/>
+        <location filename="CoreQuickOSM/ExceptionQuickOSM.py" line="42"/>
         <source>Bad request OverpassAPI</source>
         <translation>Erreur de requête OverpassAPI</translation>
     </message>
@@ -171,56 +171,66 @@
         <source>Are you sure you want to delete the query ?</source>
         <translation>Voulez-vous vraiment supprimer cette requête ?</translation>
     </message>
+    <message>
+        <location filename="ui/main_window_dialog.py" line="104"/>
+        <source>Fetching the timestamp ...</source>
+        <translation>Récupération du timestamp ...</translation>
+    </message>
+    <message>
+        <location filename="ui/main_window_dialog.py" line="114"/>
+        <source>Copy ...</source>
+        <translation>Copie ...</translation>
+    </message>
 </context>
 <context>
     <name>ui_main_window</name>
     <message>
-        <location filename="ui/main_window.py" line="277"/>
+        <location filename="ui/main_window.py" line="290"/>
         <source>Quick OSM</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="ui/main_window.py" line="281"/>
+        <location filename="ui/main_window.py" line="294"/>
         <source>My queries</source>
         <translation>Mes requêtes</translation>
     </message>
     <message>
-        <location filename="ui/main_window.py" line="283"/>
+        <location filename="ui/main_window.py" line="296"/>
         <source>Quick query</source>
         <translation>Requête rapide</translation>
     </message>
     <message>
-        <location filename="ui/main_window.py" line="289"/>
+        <location filename="ui/main_window.py" line="302"/>
         <source>Parameters</source>
         <translation>Configuration</translation>
     </message>
     <message>
-        <location filename="ui/main_window.py" line="295"/>
+        <location filename="ui/main_window.py" line="308"/>
         <source>Overpass API</source>
         <translation>Overpass API</translation>
     </message>
     <message>
-        <location filename="ui/main_window.py" line="299"/>
+        <location filename="ui/main_window.py" line="312"/>
         <source>Get timestamp</source>
         <translation>Obtenir le timestamp</translation>
     </message>
     <message>
-        <location filename="ui/main_window.py" line="300"/>
+        <location filename="ui/main_window.py" line="313"/>
         <source>unknow</source>
         <translation>inconnu</translation>
     </message>
     <message>
-        <location filename="ui/main_window.py" line="296"/>
+        <location filename="ui/main_window.py" line="309"/>
         <source>http://www.overpass-api.de/api/</source>
         <translation>http://www.overpass-api.de/api/</translation>
     </message>
     <message>
-        <location filename="ui/main_window.py" line="297"/>
+        <location filename="ui/main_window.py" line="310"/>
         <source>http://overpass.osm.rambler.ru/cgi/</source>
         <translation>http://overpass.osm.rambler.ru/cgi/</translation>
     </message>
     <message>
-        <location filename="ui/main_window.py" line="298"/>
+        <location filename="ui/main_window.py" line="311"/>
         <source>http://api.openstreetmap.fr/oapi/</source>
         <translation>http://api.openstreetmap.fr/oapi/</translation>
     </message>
@@ -230,105 +240,115 @@
         <translation type="obsolete">Serveur</translation>
     </message>
     <message>
-        <location filename="ui/main_window.py" line="285"/>
+        <location filename="ui/main_window.py" line="298"/>
         <source>Query</source>
         <translation>Requête</translation>
     </message>
     <message>
-        <location filename="ui/main_window.py" line="287"/>
+        <location filename="ui/main_window.py" line="300"/>
         <source>OSM File</source>
         <translation>Fichier OSM</translation>
     </message>
     <message>
-        <location filename="ui/main_window.py" line="291"/>
+        <location filename="ui/main_window.py" line="304"/>
         <source>Help</source>
         <translation>Aide</translation>
     </message>
     <message>
-        <location filename="ui/main_window.py" line="293"/>
+        <location filename="ui/main_window.py" line="306"/>
         <source>About</source>
         <translation>À propos</translation>
     </message>
     <message>
-        <location filename="ui/main_window.py" line="301"/>
+        <location filename="ui/main_window.py" line="316"/>
         <source>Home</source>
         <translation>Accueil</translation>
     </message>
     <message>
-        <location filename="ui/main_window.py" line="302"/>
+        <location filename="ui/main_window.py" line="317"/>
         <source>Realization</source>
         <translation>Réalisation</translation>
     </message>
     <message>
-        <location filename="ui/main_window.py" line="303"/>
+        <location filename="ui/main_window.py" line="318"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Etienne Trimaille&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Etienne Trimaille&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="ui/main_window.py" line="304"/>
+        <location filename="ui/main_window.py" line="319"/>
         <source>&lt;a href=&quot;mailto:etienne@trimaille.eu?subject=Plugin QuickOSM - About&quot; style=&quot;color:#7BA11A;text-decoration:none;&quot;&gt;etienne@trimaille.eu&lt;/a&gt;</source>
         <translation>&lt;a href=&quot;mailto:etienne@trimaille.eu?subject=Plugin QuickOSM - About&quot; style=&quot;color:#7BA11A;text-decoration:none;&quot;&gt;etienne@trimaille.eu&lt;/a&gt;</translation>
     </message>
     <message>
-        <location filename="ui/main_window.py" line="305"/>
+        <location filename="ui/main_window.py" line="320"/>
         <source>Supervision</source>
         <translation>Encadrement</translation>
     </message>
     <message>
-        <location filename="ui/main_window.py" line="306"/>
+        <location filename="ui/main_window.py" line="321"/>
         <source>This intership was supervised by 3Liz</source>
         <translation>Ce stage a été encadré par 3Liz</translation>
     </message>
     <message>
-        <location filename="ui/main_window.py" line="307"/>
+        <location filename="ui/main_window.py" line="322"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;http://www.3liz.com/&quot;&gt;&lt;img src=&quot;:/plugins/QuickOSM/resources/3liz.png&quot;/&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;
 </source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;http://www.3liz.com/&quot;&gt;&lt;img src=&quot;:/plugins/QuickOSM/resources/3liz.png&quot;/&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html</translation>
     </message>
     <message>
-        <location filename="ui/main_window.py" line="309"/>
+        <location filename="ui/main_window.py" line="324"/>
         <source>&lt;a href=&quot;http://www.3liz.com&quot; style=&quot;color:#7BA11A;text-decoration:none;&quot;&gt;LibÃ©rez vos SIG !&lt;/a&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/main_window.py" line="310"/>
+        <location filename="ui/main_window.py" line="325"/>
         <source>Sources</source>
         <translation>Sources</translation>
     </message>
     <message>
-        <location filename="ui/main_window.py" line="311"/>
+        <location filename="ui/main_window.py" line="326"/>
         <source>Github&apos;s repository</source>
         <translation>Dépôt Github</translation>
     </message>
     <message>
-        <location filename="ui/main_window.py" line="312"/>
+        <location filename="ui/main_window.py" line="327"/>
         <source>&lt;a href=&quot;https://github.com/3liz/QgisQuickExportPlugin&quot; style=&quot;color:#7BA11A;text-decoration:none;&quot;&gt;https://github.com/3liz/QgisQuickExportPlugin&lt;/a&gt;</source>
         <translation>&lt;a href=&quot;https://github.com/3liz/QgisQuickExportPlugin&quot; style=&quot;color:#7BA11A;text-decoration:none;&quot;&gt;https://github.com/3liz/QgisQuickExportPlugin&lt;/a&gt;</translation>
     </message>
     <message>
-        <location filename="ui/main_window.py" line="313"/>
+        <location filename="ui/main_window.py" line="328"/>
         <source>Licence</source>
         <translation>Licence</translation>
     </message>
     <message>
-        <location filename="ui/main_window.py" line="314"/>
+        <location filename="ui/main_window.py" line="329"/>
         <source>OpenStreetMap</source>
         <translation>OpenStreetMap</translation>
     </message>
     <message>
-        <location filename="ui/main_window.py" line="315"/>
+        <location filename="ui/main_window.py" line="330"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;https://www.gnu.org/licenses/gpl-2.0.html&quot;&gt;&lt;img src=&quot;:/plugins/QuickOSM/resources/gnu.png&quot;/&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;https://www.gnu.org/licenses/gpl-2.0.html&quot;&gt;&lt;img src=&quot;:/plugins/QuickOSM/resources/gnu.png&quot;/&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="ui/main_window.py" line="316"/>
+        <location filename="ui/main_window.py" line="331"/>
         <source>Plugin : Licence GPL Version 2</source>
         <translation>Plugin : Licence GPL Version 2</translation>
     </message>
     <message>
-        <location filename="ui/main_window.py" line="317"/>
+        <location filename="ui/main_window.py" line="332"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;ODBL : Â© OpenStreetMap&apos;s contributors &lt;/p&gt;&lt;p&gt;&lt;a href=&quot;http://www.openstreetmap.org/copyright&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0057ae;&quot;&gt;http://www.openstreetmap.org/copyright&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;ODBL : © Les contributeurs OpenStreetMap &lt;/p&gt;&lt;p&gt;&lt;a href=&quot;http://www.openstreetmap.org/copyright&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0057ae;&quot;&gt;http://www.openstreetmap.org/copyright&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <location filename="ui/main_window.py" line="314"/>
+        <source>Queries</source>
+        <translation>Requêtes</translation>
+    </message>
+    <message>
+        <location filename="ui/main_window.py" line="315"/>
+        <source>Restore queries</source>
+        <translation>Restaurer les requêtes</translation>
     </message>
 </context>
 <context>
@@ -612,7 +632,7 @@
     <message>
         <location filename="ui/query.py" line="256"/>
         <source>Overpass Turbo</source>
-        <translation type="unfinished"></translation>
+        <translation>Overpass Turbo</translation>
     </message>
     <message>
         <location filename="ui/query.py" line="257"/>
