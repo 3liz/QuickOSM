@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'quick_query.ui'
 #
-# Created: Wed Jul 30 11:41:14 2014
+# Created: Thu Jul 31 16:30:21 2014
 #      by: PyQt4 UI code generator 4.10.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -236,7 +236,9 @@ class Ui_ui_quick_query(object):
         ui_quick_query.setWindowTitle(_translate("ui_quick_query", "QuickOSM - Quick query", None))
         self.label.setText(_translate("ui_quick_query", "Key", None))
         self.label_2.setText(_translate("ui_quick_query", "Value", None))
+        self.lineEdit_value.setPlaceholderText(_translate("ui_quick_query", "Query on all values", None))
         self.label_3.setText(_translate("ui_quick_query", "In", None))
+        self.lineEdit_nominatim.setPlaceholderText(_translate("ui_quick_query", "A village, a town, ...", None))
         self.label_13.setText(_translate("ui_quick_query", "Extent of the map canvas", None))
         self.label_15.setText(_translate("ui_quick_query", "Extent of a layer", None))
         self.groupBox.setTitle(_translate("ui_quick_query", "Advanced", None))

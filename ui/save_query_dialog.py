@@ -69,7 +69,6 @@ class SaveQueryDialog(QDialog, Ui_ui_save_query):
             self.signalNewQuerySuccessful.emit()
             self.hide()
         except GeoAlgorithmExecutionException,e:
-            self.label_progress.setText("")
             self.bar.pushMessage(e.msg, level=e.level , duration=e.duration)
         except Exception,e:
             import sys,os

@@ -542,7 +542,7 @@
     <message>
         <location filename="ui/query.py" line="236"/>
         <source>{{nominatimArea:}}</source>
-        <translation type="unfinished">{{nominatimArea:}}</translation>
+        <translation>{{nominatimArea:}}</translation>
     </message>
     <message>
         <location filename="ui/query.py" line="237"/>
@@ -678,99 +678,109 @@
         <translation>Valeur</translation>
     </message>
     <message>
-        <location filename="ui/quick_query.py" line="239"/>
+        <location filename="ui/quick_query.py" line="240"/>
         <source>In</source>
         <translation>Dans</translation>
     </message>
     <message>
-        <location filename="ui/quick_query.py" line="240"/>
+        <location filename="ui/quick_query.py" line="242"/>
         <source>Extent of the map canvas</source>
         <translation>Emprise de la vue actuelle</translation>
     </message>
     <message>
-        <location filename="ui/quick_query.py" line="241"/>
+        <location filename="ui/quick_query.py" line="243"/>
         <source>Extent of a layer</source>
         <translation>Emprise d&apos;une couche</translation>
     </message>
     <message>
-        <location filename="ui/quick_query.py" line="242"/>
+        <location filename="ui/quick_query.py" line="244"/>
         <source>Advanced</source>
         <translation>Avancé</translation>
     </message>
     <message>
-        <location filename="ui/quick_query.py" line="243"/>
+        <location filename="ui/quick_query.py" line="245"/>
         <source>Node</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/quick_query.py" line="244"/>
+        <location filename="ui/quick_query.py" line="246"/>
         <source>Way</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/quick_query.py" line="245"/>
+        <location filename="ui/quick_query.py" line="247"/>
         <source>Relation</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/quick_query.py" line="246"/>
+        <location filename="ui/quick_query.py" line="248"/>
         <source>Points</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/quick_query.py" line="247"/>
+        <location filename="ui/quick_query.py" line="249"/>
         <source>Lines</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/quick_query.py" line="248"/>
+        <location filename="ui/quick_query.py" line="250"/>
         <source>Multipolygons</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/quick_query.py" line="249"/>
+        <location filename="ui/quick_query.py" line="251"/>
         <source>Multilinestrings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/quick_query.py" line="250"/>
+        <location filename="ui/quick_query.py" line="252"/>
         <source>Timeout</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/quick_query.py" line="251"/>
+        <location filename="ui/quick_query.py" line="253"/>
         <source>Directory</source>
         <translation>Répertoire</translation>
     </message>
     <message>
-        <location filename="ui/quick_query.py" line="252"/>
+        <location filename="ui/quick_query.py" line="254"/>
         <source>Save to temporary file</source>
         <translation>Enregister temporairement</translation>
     </message>
     <message>
-        <location filename="ui/quick_query.py" line="253"/>
+        <location filename="ui/quick_query.py" line="255"/>
         <source>Browse</source>
         <translation>Parcourir</translation>
     </message>
     <message>
-        <location filename="ui/quick_query.py" line="254"/>
+        <location filename="ui/quick_query.py" line="256"/>
         <source>File prefix</source>
         <translation>Préfix de fichier</translation>
     </message>
     <message>
-        <location filename="ui/quick_query.py" line="255"/>
+        <location filename="ui/quick_query.py" line="257"/>
         <source>Show query</source>
         <translation>Montrer la requête</translation>
     </message>
     <message>
-        <location filename="ui/quick_query.py" line="256"/>
+        <location filename="ui/quick_query.py" line="258"/>
         <source>Run query</source>
         <translation>Exécuter</translation>
     </message>
     <message>
-        <location filename="ui/quick_query.py" line="257"/>
+        <location filename="ui/quick_query.py" line="259"/>
         <source>progress text</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ui/quick_query.py" line="239"/>
+        <source>Query on all values</source>
+        <translation>Requêter sur toutes les valeurs</translation>
+    </message>
+    <message>
+        <location filename="ui/quick_query.py" line="241"/>
+        <source>A village, a town, ...</source>
+        <translation>Un village, une ville, ...</translation>
     </message>
 </context>
 <context>

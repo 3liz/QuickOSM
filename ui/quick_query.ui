@@ -60,6 +60,9 @@
            <property name="text">
             <string/>
            </property>
+           <property name="placeholderText">
+            <string>Query on all values</string>
+           </property>
           </widget>
          </item>
          <item row="2" column="0">
@@ -83,6 +86,9 @@
           <widget class="QLineEdit" name="lineEdit_nominatim">
            <property name="text">
             <string/>
+           </property>
+           <property name="placeholderText">
+            <string>A village, a town, ...</string>
            </property>
           </widget>
          </item>
