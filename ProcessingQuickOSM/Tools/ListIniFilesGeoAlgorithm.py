@@ -44,7 +44,7 @@ class ListIniFilesGeoAlgorithm(GeoAlgorithm):
         self.group = "Tools"
         
         #Get the folder and all filequeries
-        folder = Tools.userFolder()
+        folder = Tools.getUserQueryFolder()
         catfiles = FileQuery.getIniFilesFromFolder(folder,force=False)
         
         self.__queries = {}

@@ -70,7 +70,7 @@ class MyQueriesWidget(QuickOSMWidget, Ui_ui_my_queries):
         self.treeQueries.clear()
         
         #Get the folder and all filequeries
-        folder = Tools.userFolder()
+        folder = Tools.getUserQueryFolder()
         catfiles = FileQuery.getIniFilesFromFolder(folder,force=force)
         
         #Fill all categories

@@ -155,7 +155,7 @@ QListWidget::item::selected {
        </size>
       </property>
       <property name="currentIndex">
-       <number>6</number>
+       <number>4</number>
       </property>
       <widget class="MyQueriesWidget" name="my_queries"/>
       <widget class="QuickQueryWidget" name="quick_query"/>
@@ -210,6 +210,39 @@ QListWidget::item::selected {
          </widget>
         </item>
         <item>
+         <widget class="QGroupBox" name="groupBox_3">
+          <property name="title">
+           <string>Queries</string>
+          </property>
+          <layout class="QVBoxLayout" name="verticalLayout_10">
+           <item>
+            <layout class="QHBoxLayout" name="horizontalLayout_7">
+             <item>
+              <widget class="QPushButton" name="pushButton_restoreQueries">
+               <property name="text">
+                <string>Restore queries</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <spacer name="horizontalSpacer_2">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>40</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+            </layout>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item>
          <spacer name="verticalSpacer">
           <property name="orientation">
            <enum>Qt::Vertical</enum>
@@ -236,7 +269,7 @@ QListWidget::item::selected {
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>667</width>
+             <width>690</width>
              <height>778</height>
             </rect>
            </property>

@@ -24,8 +24,9 @@
 from QuickOSM import *
 import re
 from API.Nominatim import Nominatim
-import shutil
 from os.path import join,dirname,abspath
+import os
+from shutil import *
 
 class Tools:
     '''
@@ -33,17 +34,28 @@ class Tools:
     '''
 
     @staticmethod
-    def userFolder():
+    def getUserFolder():
         '''
-        Get the user folder, ~/.qgis2 on linux for instance
+        Get the user folder, ~/.qgis2/QuickOSM on linux for instance
         @rtype: str
         @return: path
         '''
         userDir = QFileInfo(QgsApplication.qgisUserDbFilePath()).path()+'QuickOSM'
-        if not QDir(userDir).exists():
-            folder = join(dirname(dirname(abspath(__file__))),"queries")
-            shutil.copytree(folder, QDir.toNativeSeparators(userDir))
         return unicode(QDir.toNativeSeparators(userDir))
+
+    @staticmethod
+    def getUserQueryFolder(overWrite = False):
+        '''
+        Get the user folder for queries, ~/.qgis2/QuickOSM/queries on linux for instance
+        @rtype: str
+        @return: path
+        '''
+        folder = Tools.getUserFolder()
+        queriesFolder = os.path.join(folder, 'queries')
+        if not QDir(queriesFolder).exists() or overWrite:
+            folder = join(dirname(dirname(abspath(__file__))),"queries")
+            Tools.copytree(folder, QDir.toNativeSeparators(queriesFolder))
+        return unicode(QDir.toNativeSeparators(queriesFolder))
 
     @staticmethod
     def getSetting(key):
@@ -126,3 +138,45 @@ class Tools:
             query = re.sub(r'<bbox-query {{bbox}}/>',newString, query)
         
         return query
+    
+    @staticmethod
+    def copytree(src, dst, symlinks=False, ignore=None):
+        names = os.listdir(src)
+        if ignore is not None:
+            ignored_names = ignore(src, names)
+        else:
+            ignored_names = set()
+    
+        if not os.path.isdir(dst): # This one line does the trick
+            os.makedirs(dst)
+        errors = []
+        for name in names:
+            if name in ignored_names:
+                continue
+            srcname = os.path.join(src, name)
+            dstname = os.path.join(dst, name)
+            try:
+                if symlinks and os.path.islink(srcname):
+                    linkto = os.readlink(srcname)
+                    os.symlink(linkto, dstname)
+                elif os.path.isdir(srcname):
+                    copytree(srcname, dstname, symlinks, ignore)
+                else:
+                    # Will raise a SpecialFileError for unsupported file types
+                    copy2(srcname, dstname)
+            # catch the Error from the recursive copytree so that we can
+            # continue with other files
+            except Error, err:
+                errors.extend(err.args[0])
+            except EnvironmentError, why:
+                errors.append((srcname, dstname, str(why)))
+        try:
+            copystat(src, dst)
+        except OSError, why:
+            if WindowsError is not None and isinstance(why, WindowsError):
+                # Copying file access times may fail on Windows
+                pass
+            else:
+                errors.extend((src, dst, str(why)))
+        if errors:
+            raise Error, errors

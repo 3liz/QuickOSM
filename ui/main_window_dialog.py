@@ -46,6 +46,7 @@ class MainWindowDialog(QDialog, Ui_ui_main_window):
         self.comboBox_default_OAPI.currentIndexChanged[int].connect(self.setServerOAPI)
         self.query.signalNewQuerySuccessful.connect(self.onNewQuerySuccessful)
         self.query.signalNewQuerySuccessful.connect(self.signalNewQuerySuccessful.emit)
+        self.pushButton_restoreQueries.clicked.connect(self.restoreDefaultQueries)
         
         #Set settings about the OAPI
         self.defaultServer = Tools.getSetting('defaultOAPI')
@@ -99,5 +100,19 @@ class MainWindowDialog(QDialog, Ui_ui_main_window):
         '''
         Get the timestamp of the current server
         '''
+        text = self.pushButton_OAPI_timestamp.text()
+        self.pushButton_OAPI_timestamp.setText(QApplication.translate("QuickOSM", 'Fetching the timestamp ...'))
         oapi = ConnexionOAPI(url=self.defaultServer)
         self.label_timestamp_oapi.setText(oapi.getTimestamp())
+        self.pushButton_OAPI_timestamp.setText(text)
+        
+    def restoreDefaultQueries(self):
+        '''
+        Overwrite all queries
+        '''
+        text = self.pushButton_restoreQueries.text()
+        self.pushButton_restoreQueries.setText(QApplication.translate("QuickOSM", 'Copy ...'))
+        Tools.getUserQueryFolder(overWrite=True)
+        self.signalNewQuerySuccessful.emit()
+        self.my_queries.fillTree(force=True)
+        self.pushButton_restoreQueries.setText(text)

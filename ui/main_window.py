@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'main_window.ui'
 #
-# Created: Mon Jul 28 18:12:25 2014
+# Created: Thu Jul 31 14:20:51 2014
 #      by: PyQt4 UI code generator 4.10.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -139,8 +139,21 @@ class Ui_ui_main_window(object):
         self.horizontalLayout_2.addWidget(self.label_timestamp_oapi)
         self.verticalLayout.addLayout(self.horizontalLayout_2)
         self.verticalLayout_2.addWidget(self.groupBox)
-        spacerItem = QtGui.QSpacerItem(20, 40, QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Expanding)
-        self.verticalLayout_2.addItem(spacerItem)
+        self.groupBox_3 = QtGui.QGroupBox(self.parameters)
+        self.groupBox_3.setObjectName(_fromUtf8("groupBox_3"))
+        self.verticalLayout_10 = QtGui.QVBoxLayout(self.groupBox_3)
+        self.verticalLayout_10.setObjectName(_fromUtf8("verticalLayout_10"))
+        self.horizontalLayout_7 = QtGui.QHBoxLayout()
+        self.horizontalLayout_7.setObjectName(_fromUtf8("horizontalLayout_7"))
+        self.pushButton_restoreQueries = QtGui.QPushButton(self.groupBox_3)
+        self.pushButton_restoreQueries.setObjectName(_fromUtf8("pushButton_restoreQueries"))
+        self.horizontalLayout_7.addWidget(self.pushButton_restoreQueries)
+        spacerItem = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
+        self.horizontalLayout_7.addItem(spacerItem)
+        self.verticalLayout_10.addLayout(self.horizontalLayout_7)
+        self.verticalLayout_2.addWidget(self.groupBox_3)
+        spacerItem1 = QtGui.QSpacerItem(20, 40, QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Expanding)
+        self.verticalLayout_2.addItem(spacerItem1)
         self.stackedWidget.addWidget(self.parameters)
         self.help = QtGui.QWidget()
         self.help.setObjectName(_fromUtf8("help"))
@@ -150,7 +163,7 @@ class Ui_ui_main_window(object):
         self.scrollArea.setWidgetResizable(True)
         self.scrollArea.setObjectName(_fromUtf8("scrollArea"))
         self.scrollAreaWidgetContents = QtGui.QWidget()
-        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 667, 778))
+        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 690, 778))
         self.scrollAreaWidgetContents.setObjectName(_fromUtf8("scrollAreaWidgetContents"))
         self.verticalLayout_5 = QtGui.QVBoxLayout(self.scrollAreaWidgetContents)
         self.verticalLayout_5.setObjectName(_fromUtf8("verticalLayout_5"))
@@ -159,14 +172,14 @@ class Ui_ui_main_window(object):
         self.pushButton_homeHelp = QtGui.QPushButton(self.scrollAreaWidgetContents)
         self.pushButton_homeHelp.setObjectName(_fromUtf8("pushButton_homeHelp"))
         self.horizontalLayout_3.addWidget(self.pushButton_homeHelp)
-        spacerItem1 = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
-        self.horizontalLayout_3.addItem(spacerItem1)
+        spacerItem2 = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
+        self.horizontalLayout_3.addItem(spacerItem2)
         self.verticalLayout_5.addLayout(self.horizontalLayout_3)
         self.webBrowser = QtWebKit.QWebView(self.scrollAreaWidgetContents)
         self.webBrowser.setObjectName(_fromUtf8("webBrowser"))
         self.verticalLayout_5.addWidget(self.webBrowser)
-        spacerItem2 = QtGui.QSpacerItem(20, 40, QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Expanding)
-        self.verticalLayout_5.addItem(spacerItem2)
+        spacerItem3 = QtGui.QSpacerItem(20, 40, QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Expanding)
+        self.verticalLayout_5.addItem(spacerItem3)
         self.scrollArea.setWidget(self.scrollAreaWidgetContents)
         self.verticalLayout_3.addWidget(self.scrollArea)
         self.stackedWidget.addWidget(self.help)
@@ -267,7 +280,7 @@ class Ui_ui_main_window(object):
 
         self.retranslateUi(ui_main_window)
         self.listWidget.setCurrentRow(-1)
-        self.stackedWidget.setCurrentIndex(6)
+        self.stackedWidget.setCurrentIndex(4)
         QtCore.QObject.connect(self.listWidget, QtCore.SIGNAL(_fromUtf8("currentRowChanged(int)")), self.stackedWidget.setCurrentIndex)
         QtCore.QMetaObject.connectSlotsByName(ui_main_window)
         ui_main_window.setTabOrder(self.pushButton_OAPI_timestamp, self.comboBox_default_OAPI)
@@ -298,6 +311,8 @@ class Ui_ui_main_window(object):
         self.comboBox_default_OAPI.setItemText(2, _translate("ui_main_window", "http://api.openstreetmap.fr/oapi/", None))
         self.pushButton_OAPI_timestamp.setText(_translate("ui_main_window", "Get timestamp", None))
         self.label_timestamp_oapi.setText(_translate("ui_main_window", "unknow", None))
+        self.groupBox_3.setTitle(_translate("ui_main_window", "Queries", None))
+        self.pushButton_restoreQueries.setText(_translate("ui_main_window", "Restore queries", None))
         self.pushButton_homeHelp.setText(_translate("ui_main_window", "Home", None))
         self.groupBox_2.setTitle(_translate("ui_main_window", "Realization", None))
         self.label_13.setText(_translate("ui_main_window", "<html><head/><body><p>Etienne Trimaille</p></body></html>", None))
