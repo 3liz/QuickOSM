@@ -1,127 +1,180 @@
-<h2>QuickOSM</h2>
-<p>QuickOSM is a plugin to execute some querys on Overpass and to display the results.</p>
-<ul>
-	<li><a href="#generalities">Generalities</a></li>
-	<li><a href="#overpass-turbo">Overpass Turbo</a></li>
-	<li><a href="#my-queries">My queries</a></li>
-	<li><a href="#quick-query">Quick query</a></li>
-	<li><a href="#query">Query</a></li>
-	<li><a href="#osm-file">OSM file</a></li>
-	<li><a href="#processing">Processing</a></li>
-</ul>
-
-<h3 id="generalities">Generalities</h3>
-<p>
-The plugin will keep all columns available in OSM's datas.
-</p>
-<p>
-If no styling file is defined, QuickOSM will check if a "colour" field is present in a line vector layer. This is usefull for route=bus/tram.
-</p>
-<p>
-Some actions are enabled by default. You can edit, open with JOSM each entities. Some actions may be added if some fields are presents :
-<ul>
-	<li>url, website</li>
-	<li>wikipedia</li>
-	<li>ref:UAI for French's schools</li>
-	<li>network and ref will open the sketchline from Overpass</li>
-</ul>
-</p>
-
-<h3 id="overpass-turbo">Overpass Turbo</h3>
-<p>
-Overpass Turbo is another front-end for OverpassAPI.
-<br />
-<strong>Be careful</strong> with some queries which come from Overpass Turbo :
-<ul>
-<li>some shortcuts are not available today in this plugin. We only support {{nominatimArea:}} and {{bbox}}.</li>
-<li>the order in the result have to be like this : node, then way and finally relation. With the default wizard of Overpass Turbo, you may get the reverse order. Our parser, OGR, can not work with this. You have to modify the print statement at the end.</li>
-</ul>
-For instance, the query is good : <br />
-<pre><code>
-&lt;osm-script output="xml" timeout="25"&gt; 
-     &lt;id-query {{nominatimArea:montpellier}} into="area"/&gt; 
-     &lt;union&gt;
-          &lt;query type="node"&gt;
-               &lt;has-kv k="route" v="tram"/&gt; 
-               &lt;area-query from="area"/&gt;
-          &lt;/query&gt;
-          &lt;query type="way"&gt;
-               &lt;has-kv k="route" v="tram"/&gt; 
-               &lt;area-query from="area"/&gt;
-          &lt;/query&gt;
-          &lt;query type="relation"&gt;
-               &lt;has-kv k="route" v="tram"/&gt; 
-               &lt;area-query from="area"/&gt;
-          &lt;/query&gt;
-     &lt;/union&gt;
-     &lt;union&gt;
-          &lt;item /&gt;
-          &lt;recurse type="down"/&gt;
-     &lt;/union&gt;
-     &lt;print mode="body" /&gt;
-&lt;/osm-script&gt;
-</code></pre>
-</p>
-
-<h3 id="my-queries">My queries</h3>
-<p>"My queries" shows you all predefined queries.</p>
-<p>A query is composed of two files.
-<ul>
-	<li>.ini with all metadata</li>
-	<li>.xml or .oql with the query in XML or OQL</li>
-</ul>
-So as to add your queries, you have to go to "Query" where you can save your query.
-A ini file is composed with many blocks :
-<ul>
-	<li>metadata
+<html>
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+		<style>
+        	body{
+    			font-family: Arial, Verdana, sans-serif;
+            }
+        </style>
+	</head>
+	<body>
+		<h2>QuickOSM</h2>
+		<p>
+			QuickOSM allows you to get quickly with OSM datas in QGIS thanks to Overpass API.
+			<ul>
+				<li>Write some queries for you by providing a key/value</li>
+				<li>Choose to run the query on an area or an extent</li>
+				<li>Configure the query : which layers, which columns ...</li>
+				<li>Save your queries in categories and run them later</li>
+				<li>Open a local OSM (.osm or .pbf) with a specific osmconf in QGIS</li>
+				<li>Build some models with QGIS Processing</li>
+			</ul>
+			There are some usefull tips, like automatic colours on lines (if the tag is present) or some actions (right-click in the attribute table) for each entities (edit in JOSM for instance).
+		</p>
+		<h3>Menu</h3>
 		<ul>
-			<li>name : compulsory</li>
-			<li>category : compulsory</li>
+			<li><a href="#generalities">Generalities</a></li>
+			<li><a href="#overpass-turbo">Overpass Turbo</a></li>
+			<li><a href="#my-queries">My queries</a></li>
+			<li><a href="#quick-query">Quick query</a></li>
+			<li><a href="#query">Query</a></li>
+			<li><a href="#osm-file">OSM file</a></li>
+			<li><a href="#processing">Processing</a></li>
 		</ul>
-	</li>
-	<li>points|lines|multilinestrings|multipolygons : each blocks about these layers are compulsory.
-		<ul>
-			<li>load : compulsory, boolean True or False. If this layer should be load.</li>
-			<li>nameLayer : optional, string with the name of the layer</li>
-			<li>columns : optional, list of columns seperated by a comma. If empty, all columns will be keep</li>
-			<li>style : optional, name of the QML style to apply</li>
-		</ul>
-	</li>
-</ul>
-</p>
-
-<h3 id="quick-query">Quick query</h3>
-<p>Quickquery allows you to query on one key=value. You can choose between the extent of the map canvas or in a city. The city is searched by Nominatim, you can avoid strange result by writting the relation OSM's ID.</p>
-<p>You can choose which OSM objects :
-<ul>
-	<li>Node</li>
-	<li>Way</li>
-	<li>Relation</li>
-</ul>
-You can choose which geometries you want at the end :
-<ul>
-	<li>Points</li>
-	<li>Lines</li>
-	<li>Multilinestrings</li>
-	<li>Multipolygons</li>
-</ul>
-If you want to specify which columns you want, you can click on "Show query".
-</p>
-<h3 id="query">Query</h3>
-<p>This panel allows you to write your own query manually (in XML or OQL).</p>
-<p>For each layers provided by OGR, you can specify the outputs you want and which fields you want to get.</p>
-<p>From this panel, you can save your query. The outputs and each whitelists will be save.
-<ul>
-	<li>as template : this will save the query which is written above. The query won't be change. If you want to change the city, change it in the XML.</li>
-	<li>as finale query : the query will be generated before. This is usefull if you don't want to save {{bbox}} but the actual extent.</li>
-</ul>
-</p>
-
-<h3 id="osm-file">OSM file</h3>
-<p>OGR can open a OSM file with the help of a special file configuration called osmconf. This file is used to describe each key you want for a column. You can specify these fields for each layer.
-<p>You can copy/paste the default osmconf.ini so as to modify it.</p>
-<p>For more informations about OSM in OGR, <a href="http://www.gdal.org/drv_osm.html">read the documentation</a></p>
-
-<h3 id="processing">Processing</h3>
-<p>QuickOSM brings a lot of new processing algorithms. You should have a look to these algos. Some models are available in the models's folder of the plugin.</p>
-<p>Let your imagination take off with processing !</p>
+		
+		<h3 id="generalities">Generalities</h3>
+		<p>
+			The plugin will keep all columns availables in OSM's datas. You can filter the columns you want by writing col1,col2,col3 with commas.
+			<br />
+			If no styling file is defined, QuickOSM will check if a "colour" field is present in a line vector layer. This is usefull for route=bus/tram.
+		</p>
+		<p>
+		Some actions are enabled by default. You can open in openstreetmap.org or with JOSM each entities. Some actions may be added if some fields are presents :
+			<ul>
+				<li>url, website</li>
+				<li>wikipedia</li>
+				<li>ref:UAI for French's schools</li>
+				<li>network and ref will open the sketchline from Overpass</li>
+			</ul>
+		</p>
+		
+		<h3 id="overpass-turbo">Overpass Turbo</h3>
+		<p>
+			Overpass Turbo is another front-end for OverpassAPI.
+			<br />
+			<strong>Be careful</strong> with some queries which come from Overpass Turbo :
+			<ul>
+				<li>some shortcuts are not available today in this plugin. We only support {{nominatimArea:}} and {{bbox}}.</li>
+				<li>the order in the result have to be like this : node, then way and finally relation. With the default wizard of Overpass Turbo, you may get the reverse order. Our parser, OGR, can not work with this. You have to modify the print statement at the end.</li>
+			</ul>
+			For instance, this query is good :
+			<br />
+			<pre>
+				<code>
+					&lt;osm-script output="xml" timeout="25"&gt; 
+					     &lt;id-query {{nominatimArea:montpellier}} into="area"/&gt; 
+					     &lt;union&gt;
+					          &lt;query type="node"&gt;
+					               &lt;has-kv k="route" v="tram"/&gt; 
+					               &lt;area-query from="area"/&gt;
+					          &lt;/query&gt;
+					          &lt;query type="way"&gt;
+					               &lt;has-kv k="route" v="tram"/&gt; 
+					               &lt;area-query from="area"/&gt;
+					          &lt;/query&gt;
+					          &lt;query type="relation"&gt;
+					               &lt;has-kv k="route" v="tram"/&gt; 
+					               &lt;area-query from="area"/&gt;
+					          &lt;/query&gt;
+					     &lt;/union&gt;
+					     &lt;union&gt;
+					          &lt;item /&gt;
+					          &lt;recurse type="down"/&gt;
+					     &lt;/union&gt;
+					     &lt;print mode="body" /&gt;
+					&lt;/osm-script&gt;
+				</code>
+			</pre>
+		</p>
+		
+		<h3 id="my-queries">My queries</h3>
+		<p>
+			"My queries" shows you all predefined queries.
+			<br />
+			A query is composed of two files in the user's folder (~/.qgis2/QuickOSM on Linux) :
+			<ul>
+				<li>.ini with all metadata</li>
+				<li>.xml or .oql with the query in XML or OQL</li>
+			</ul>
+			So as to add your queries, you have to go to "Query".
+			<br />
+			If you want to delete a query, you have to right-click on it.
+			<br />
+			A ini file is composed with many blocks :
+			<ul>
+				<li>metadata
+					<ul>
+						<li>name : compulsory</li>
+						<li>category : compulsory</li>
+					</ul>
+				</li>
+				<li>points|lines|multilinestrings|multipolygons : each blocks about these layers are compulsory.
+					<ul>
+						<li>load : compulsory, boolean True or False. If this layer should be load.</li>
+						<li>nameLayer : optional, string with the name of the layer</li>
+						<li>columns : optional, list of columns seperated by a comma. If empty, all columns will be keep</li>
+						<li>style : optional, name of the QML style to apply</li>
+					</ul>
+				</li>
+			</ul>
+		</p>
+		
+		<h3 id="quick-query">Quick query</h3>
+		<p>
+			Quickquery allows you to query on one key=value. You can choose between the extent of the map canvas or in a city. The city is searched by Nominatim, you can avoid strange result by writting the relation OSM's ID.
+			<br />
+			If you check "Nominatim" but if you let the field empty, it will make a attribute query.
+			<br />
+			You can let the value empty.
+			<br />
+			You can choose which OSM objects you want to query on :
+			<ul>
+				<li>Node</li>
+				<li>Way</li>
+				<li>Relation</li>
+			</ul>
+			You can choose which geometries you want at the end :
+			<ul>
+				<li>Points</li>
+				<li>Lines</li>
+				<li>Multilinestrings</li>
+				<li>Multipolygons</li>
+			</ul>
+			If you want to specify which columns you want, you must click on "Show query".
+		</p>
+		<h3 id="query">Query</h3>
+		<p>
+			This panel allows you to write your own query manually (in XML or OQL).
+			<br />
+			For each layers provided by OGR, you can specify the outputs you want and which fields you want to get.
+			<br />
+			From this panel, you can save your query. The outputs and each whitelists will be saved.
+			<ul>
+				<li>as template : this will save the query which is written above. The query won't be change. If you want to change the city, change it in the XML.</li>
+				<li>as finale query : the query will be generated before. This is usefull if you don't want to save {{bbox}} but the actual extent.</li>
+			</ul>
+			<br />
+			<a href="http://wiki.openstreetmap.org/wiki/Overpass_API/Language_Guide">For more informations about XML or OQL.</a>
+		</p>
+		
+		<h3 id="osm-file">OSM file</h3>
+		<p>
+			OGR can open an OSM file with the help of a special file configuration called osmconf. This file is used to describe each key you want for a column. You can specify these fields for each layer.
+			<br />
+			You can copy/paste the default osmconf.ini so as to modify it.
+			<br />
+			For more informations about OSM in OGR, <a href="http://www.gdal.org/drv_osm.html">read the documentation</a>
+		</p>
+		
+		<h3 id="processing">Processing</h3>
+		<p>
+			QuickOSM brings a lot of new processing algorithms. You should have a look to these algos. Some models are available in the models's folder of the plugin.
+			<br />
+			In processing, it's required to <strong>parse all layers</strong> (points, lines, multilinestrings and multipolygons). To improve performance on layers you don't want, you can put a single comma in the field about columns. This comma avoids a loop in the parser.
+			<br />
+			For each algorithm, some helps are provided.
+			<br />
+			Let your imagination take off with processing !
+		</p>
+	</body>
+</html>
