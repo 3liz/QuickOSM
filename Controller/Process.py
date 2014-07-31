@@ -22,12 +22,12 @@
 """
 from QuickOSM import *
 
-from QuickOSM.CoreQuickOSM.Parser.ogr2ogr import main as ogr2ogr
 from QuickOSM.CoreQuickOSM.QueryFactory import QueryFactory
 from QuickOSM.CoreQuickOSM.Tools import Tools
 from QuickOSM.CoreQuickOSM.API.ConnexionOAPI import ConnexionOAPI
 from QuickOSM.CoreQuickOSM.Parser.OsmParser import OsmParser
 from processing.tools.system import *
+import processing
 import ntpath
 from os.path import dirname,abspath,join
 from genericpath import isfile
@@ -90,8 +90,7 @@ class Process:
                 
                 
                 #Transforming the vector file
-                if not ogr2ogr(["","-f", "ESRI Shapefile", outputs[layer], item["geojsonFile"]]):
-                    raise Ogr2OgrException               
+                processing.runalg("gdalogr:ogr2ogr",item["geojsonFile"],0,"",outputs[layer])
                 
                 #Loading the final vector file
                 newlayer = QgsVectorLayer(outputs[layer],finalLayerName,"ogr")
@@ -108,11 +107,8 @@ class Process:
                 #Add action about OpenStreetMap
                 actions = newlayer.actions()
                 actions.addAction(QgsAction.OpenUrl,"OpenStreetMap Browser",'http://www.openstreetmap.org/browse/[% "osm_type" %]/[% "osm_id" %]',False)
-                #actions.addAction(QgsAction.OpenUrl,"JOSM",'http://localhost:8111/load_object?objects=[% "full_id" %]',False)
                 actions.addAction(QgsAction.GenericPython,'JOSM','from QuickOSM.CoreQuickOSM.Actions import Actions;Actions.run("josm","[% "full_id" %]")',False)
                 actions.addAction(QgsAction.OpenUrl,"User default editor",'http://www.openstreetmap.org/edit?[% "osm_type" %]=[% "osm_id" %]',False)
-                #actions.addAction(QgsAction.OpenUrl,"Edit directly",'http://rawedit.openstreetmap.fr/edit/[% "osm_type" %]/[% "osm_id" %]',False)
-                actions.addAction(QgsAction.GenericPython,"Edit directly",'from PyQt4.QtCore import QUrl; from PyQt4.QtWebKit import QWebView;  myWV = QWebView(None); myWV.load(QUrl("http://rawedit.openstreetmap.fr/edit/[% "osm_type" %]/[% "osm_id" %]")); myWV.show()',False)
                 #actions.addAction(QgsAction.GenericPython,"Edit directly",'from QuickOSM.CoreQuickOSM.Actions import Actions;Actions.run("rawedit","[% "osm_type" %]/[% "osm_id" %]")',False)
                 
                 for link in ['url','website','wikipedia','ref:UAI']:
