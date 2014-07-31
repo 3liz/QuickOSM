@@ -93,6 +93,7 @@ class FileQueryWriter:
             raise QueryAlreadyExistsException
         
         filePath = os.path.join(self.path,self.queryFile)
+        print self.query
         if not os.path.isfile(filePath):
             fh = open(filePath,"w")
             fh.write(self.query)

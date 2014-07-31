@@ -60,8 +60,8 @@ class SaveQueryDialog(QDialog, Ui_ui_save_query):
         category = self.lineEdit_category.text()
         name = self.lineEdit_name.text()
         
-        #Get folder .qgis2/ on linux for instance
-        folder = Tools.userFolder()
+        #Get folder .qgis2/QuickOSM/queries on linux for instance
+        folder = Tools.getUserQueryFolder()
         
         iniFile = FileQueryWriter(path=folder,name=name,category=category,query=self.query,whiteListValues=self.whiteListValues,outputGeomTypes=self.outputGeomTypes)
         try:
@@ -69,6 +69,14 @@ class SaveQueryDialog(QDialog, Ui_ui_save_query):
             self.signalNewQuerySuccessful.emit()
             self.hide()
         except GeoAlgorithmExecutionException,e:
-            self.displayGeoAlgorithmException(e)
+            self.label_progress.setText("")
+            self.bar.pushMessage(e.msg, level=e.level , duration=e.duration)
         except Exception,e:
-            self.displayException(e)
+            import sys,os
+            exc_type, exc_obj, exc_tb = sys.exc_info()
+            fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
+            print(exc_type, fname, exc_tb.tb_lineno)
+            ex_type, ex, tb = sys.exc_info()
+            import traceback
+            traceback.print_tb(tb)
+            self.bar.pushMessage("Error in the python console, please report it", level=QgsMessageBar.CRITICAL , duration=5)
