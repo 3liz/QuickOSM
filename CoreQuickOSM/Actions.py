@@ -46,6 +46,9 @@ class Actions:
         if value == '':
             iface.messageBar().pushMessage(QApplication.translate("QuickOSM", u"Sorry man, this field is empty for this entity."), level=QgsMessageBar.WARNING , duration=7)
         else:
+            field = unicode(field, "UTF-8")
+            value = unicode(value, "UTF-8")
+            
             if field in ["url","website","wikipedia"]:
                 var = QDesktopServices()
                 url = None
@@ -86,6 +89,9 @@ class Actions:
         @param ref:ref of the bus
         @type ref:str
         '''
+        
+        network = unicode(network, "UTF-8")
+        ref = unicode(ref, "UTF-8")
         
         if network == '' or ref == '':
             iface.messageBar().pushMessage(QApplication.translate("QuickOSM", u"Sorry man, this field is empty for this entity."), level=QgsMessageBar.WARNING , duration=7)
