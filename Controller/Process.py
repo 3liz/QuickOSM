@@ -100,7 +100,7 @@ class Process:
                     newlayer.loadNamedStyle(configOutputs[layer]['style'])
                 else:
                     #Loading default styles
-                    if layer == "multilinestrings":
+                    if layer == "multilinestrings" or layer == "lines":
                         if "colour" in item['tags']:
                             newlayer.loadNamedStyle(join(dirname(dirname(abspath(__file__))),"styles",layer+"_colour.qml"))
                 
