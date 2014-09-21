@@ -40,6 +40,8 @@ class QuickOSMWidget(QWidget):
         if self.comboBox_extentLayer.count() < 1:
             self.radioButton_extentLayer.setCheckable(False)
             self.radioButton_extentMapCanvas.setChecked(True)
+        else:
+            self.radioButton_extentLayer.setCheckable(True)
             
     def disablePrefixFile(self):
         '''

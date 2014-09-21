@@ -112,10 +112,8 @@ class QuickQueryWidget(QuickOSMWidget, Ui_ui_quick_query):
         
         if self.radioButton_extentLayer.isChecked():
             self.comboBox_extentLayer.setDisabled(False)
-            #self.pushButton_refreshLayers.setDisabled(False)
         else:
             self.comboBox_extentLayer.setDisabled(True)
-            self.pushButton_refreshLayers.setDisabled(True)
 
     def __getOsmObjects(self):
         '''
