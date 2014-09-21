@@ -95,7 +95,9 @@ class QuickQueryWidget(QuickOSMWidget, Ui_ui_quick_query):
         except AttributeError:
             return
         
-        currentValues.insert(0, "")
+        if currentValues[0] != "":
+            currentValues.insert(0, "")
+        
         valuesCompleter = QCompleter(currentValues)
         self.comboBox_value.setCompleter(valuesCompleter)
         self.comboBox_value.addItems(currentValues)
