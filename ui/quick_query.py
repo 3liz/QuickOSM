@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'quick_query.ui'
 #
-# Created: Thu Jul 31 16:30:21 2014
+# Created: Sat Sep 20 17:36:34 2014
 #      by: PyQt4 UI code generator 4.10.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -26,14 +26,14 @@ except AttributeError:
 class Ui_ui_quick_query(object):
     def setupUi(self, ui_quick_query):
         ui_quick_query.setObjectName(_fromUtf8("ui_quick_query"))
-        ui_quick_query.resize(1180, 866)
+        ui_quick_query.resize(604, 866)
         self.verticalLayout_3 = QtGui.QVBoxLayout(ui_quick_query)
         self.verticalLayout_3.setObjectName(_fromUtf8("verticalLayout_3"))
         self.scrollArea = QtGui.QScrollArea(ui_quick_query)
         self.scrollArea.setWidgetResizable(True)
         self.scrollArea.setObjectName(_fromUtf8("scrollArea"))
         self.scrollAreaWidgetContents = QtGui.QWidget()
-        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 1166, 852))
+        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 590, 852))
         self.scrollAreaWidgetContents.setObjectName(_fromUtf8("scrollAreaWidgetContents"))
         self.verticalLayout = QtGui.QVBoxLayout(self.scrollAreaWidgetContents)
         self.verticalLayout.setObjectName(_fromUtf8("verticalLayout"))
@@ -43,17 +43,9 @@ class Ui_ui_quick_query(object):
         self.label = QtGui.QLabel(self.scrollAreaWidgetContents)
         self.label.setObjectName(_fromUtf8("label"))
         self.formLayout.setWidget(0, QtGui.QFormLayout.LabelRole, self.label)
-        self.lineEdit_key = QtGui.QLineEdit(self.scrollAreaWidgetContents)
-        self.lineEdit_key.setText(_fromUtf8(""))
-        self.lineEdit_key.setObjectName(_fromUtf8("lineEdit_key"))
-        self.formLayout.setWidget(0, QtGui.QFormLayout.FieldRole, self.lineEdit_key)
         self.label_2 = QtGui.QLabel(self.scrollAreaWidgetContents)
         self.label_2.setObjectName(_fromUtf8("label_2"))
         self.formLayout.setWidget(1, QtGui.QFormLayout.LabelRole, self.label_2)
-        self.lineEdit_value = QtGui.QLineEdit(self.scrollAreaWidgetContents)
-        self.lineEdit_value.setText(_fromUtf8(""))
-        self.lineEdit_value.setObjectName(_fromUtf8("lineEdit_value"))
-        self.formLayout.setWidget(1, QtGui.QFormLayout.FieldRole, self.lineEdit_value)
         self.label_3 = QtGui.QLabel(self.scrollAreaWidgetContents)
         self.label_3.setObjectName(_fromUtf8("label_3"))
         self.formLayout.setWidget(2, QtGui.QFormLayout.LabelRole, self.label_3)
@@ -98,6 +90,26 @@ class Ui_ui_quick_query(object):
         self.radioButton_extentLayer.setText(_fromUtf8(""))
         self.radioButton_extentLayer.setObjectName(_fromUtf8("radioButton_extentLayer"))
         self.formLayout.setWidget(5, QtGui.QFormLayout.LabelRole, self.radioButton_extentLayer)
+        self.comboBox_key = QtGui.QComboBox(self.scrollAreaWidgetContents)
+        sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Fixed)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.comboBox_key.sizePolicy().hasHeightForWidth())
+        self.comboBox_key.setSizePolicy(sizePolicy)
+        self.comboBox_key.setEditable(True)
+        self.comboBox_key.setSizeAdjustPolicy(QtGui.QComboBox.AdjustToContents)
+        self.comboBox_key.setObjectName(_fromUtf8("comboBox_key"))
+        self.formLayout.setWidget(0, QtGui.QFormLayout.FieldRole, self.comboBox_key)
+        self.comboBox_value = QtGui.QComboBox(self.scrollAreaWidgetContents)
+        sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Fixed)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.comboBox_value.sizePolicy().hasHeightForWidth())
+        self.comboBox_value.setSizePolicy(sizePolicy)
+        self.comboBox_value.setEditable(True)
+        self.comboBox_value.setSizeAdjustPolicy(QtGui.QComboBox.AdjustToContents)
+        self.comboBox_value.setObjectName(_fromUtf8("comboBox_value"))
+        self.formLayout.setWidget(1, QtGui.QFormLayout.FieldRole, self.comboBox_value)
         self.verticalLayout.addLayout(self.formLayout)
         self.groupBox = QgsCollapsibleGroupBox(self.scrollAreaWidgetContents)
         self.groupBox.setChecked(False)
@@ -236,7 +248,6 @@ class Ui_ui_quick_query(object):
         ui_quick_query.setWindowTitle(_translate("ui_quick_query", "QuickOSM - Quick query", None))
         self.label.setText(_translate("ui_quick_query", "Key", None))
         self.label_2.setText(_translate("ui_quick_query", "Value", None))
-        self.lineEdit_value.setPlaceholderText(_translate("ui_quick_query", "Query on all values", None))
         self.label_3.setText(_translate("ui_quick_query", "In", None))
         self.lineEdit_nominatim.setPlaceholderText(_translate("ui_quick_query", "A village, a town, ...", None))
         self.label_13.setText(_translate("ui_quick_query", "Extent of the map canvas", None))

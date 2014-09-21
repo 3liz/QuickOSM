@@ -30,8 +30,9 @@ from QuickOSM.Controller.Process import Process
 from QuickOSM.CoreQuickOSM.QueryFactory import QueryFactory
 
 import os
+import json
 from qgis.utils import iface
-
+from os.path import dirname,abspath,join,isfile
 
 class QuickQueryWidget(QuickOSMWidget, Ui_ui_quick_query):
     def __init__(self, parent=None):
@@ -46,31 +47,58 @@ class QuickQueryWidget(QuickOSMWidget, Ui_ui_quick_query):
         self.lineEdit_filePrefix.setDisabled(True)
         self.groupBox.setCollapsed(True)
         self.fillLayerCombobox()
-        self.allowButtons()
         self.groupBox.setCollapsed(True)
                
         #connect
         self.pushButton_runQuery.clicked.connect(self.runQuery)
         self.pushButton_showQuery.clicked.connect(self.showQuery)
         self.pushButton_browse_output_file.clicked.connect(self.setOutDirPath)
-        self.lineEdit_key.textEdited.connect(self.allowButtons)
+        self.comboBox_key.editTextChanged.connect(self.keyEdited)
         self.lineEdit_browseDir.textEdited.connect(self.disablePrefixFile)
         self.radioButton_extentLayer.toggled.connect(self.allowNominatimOrExtent)
         self.radioButton_extentMapCanvas.toggled.connect(self.allowNominatimOrExtent)
         self.radioButton_place.toggled.connect(self.allowNominatimOrExtent)
         self.pushButton_refreshLayers.clicked.connect(self.fillLayerCombobox)
-
-    def allowButtons(self):
+        
+        #Setup autocompletation
+        mapFeaturesJsonFilePath = join(dirname(dirname(abspath(__file__))),'mapFeatures.json')
+        if isfile(mapFeaturesJsonFilePath):            
+            self.osmKeys = json.load(open(mapFeaturesJsonFilePath))
+            keys = self.osmKeys.keys()
+            keys.sort()
+            keysCompleter = QCompleter(keys)
+            self.comboBox_key.addItems(keys)
+            self.comboBox_key.setCompleter(keysCompleter)
+            self.comboBox_key.completer().setCompletionMode(QCompleter.PopupCompletion)
+        self.keyEdited()
+        
+    def keyEdited(self):
         '''
         Disable show and run buttons if the key is empty
+        and add values to the combobox
         '''
-        
-        if self.lineEdit_key.text():
+        if self.comboBox_key.currentText():
             self.pushButton_runQuery.setDisabled(False)
             self.pushButton_showQuery.setDisabled(False)
         else:
             self.pushButton_runQuery.setDisabled(True)
             self.pushButton_showQuery.setDisabled(True)
+        
+        self.comboBox_value.clear()
+        self.comboBox_value.setCompleter(None)
+        
+        try:
+            self.osmKeys
+            currentValues = self.osmKeys[unicode(self.comboBox_key.currentText())]
+        except KeyError:
+            return
+        except AttributeError:
+            return
+        
+        currentValues.insert(0, "")
+        valuesCompleter = QCompleter(currentValues)
+        self.comboBox_value.setCompleter(valuesCompleter)
+        self.comboBox_value.addItems(currentValues)
  
     def allowNominatimOrExtent(self):
         '''
@@ -117,8 +145,8 @@ class QuickQueryWidget(QuickOSMWidget, Ui_ui_quick_query):
         QApplication.processEvents()
         
         #Get all values
-        key = unicode(self.lineEdit_key.text())
-        value = unicode(self.lineEdit_value.text())
+        key = unicode(self.comboBox_key.currentText())
+        value = unicode(self.comboBox_value.currentText())
         nominatim = unicode(self.lineEdit_nominatim.text())
         timeout = self.spinBox_timeout.value()
         outputDir = self.lineEdit_browseDir.text()
@@ -187,8 +215,8 @@ class QuickQueryWidget(QuickOSMWidget, Ui_ui_quick_query):
                 break
         
         #Get all values
-        key = unicode(self.lineEdit_key.text())
-        value = unicode(self.lineEdit_value.text())
+        key = unicode(self.comboBox_key.currentText())
+        value = unicode(self.comboBox_value.currentText())
         nominatim = unicode(self.lineEdit_nominatim.text())
         timeout = self.spinBox_timeout.value()
         outputDir = self.lineEdit_browseDir.text()
