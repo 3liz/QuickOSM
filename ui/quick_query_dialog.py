@@ -199,10 +199,10 @@ class QuickQueryWidget(QuickOSMWidget, Ui_ui_quick_query):
             #We can test numLayers to see if there are some results
             if numLayers:
                 self.label_progress.setText(QApplication.translate("QuickOSM",u"Successful query !"))
-                iface.messageBar().pushMessage(QApplication.translate("QuickOSM",u"Successful query !"), level=QgsMessageBar.INFO , duration=5)
+                Tools.displayMessageBar(QApplication.translate("QuickOSM",u"Successful query !"), level=QgsMessageBar.INFO , duration=5)
             else:
                 self.label_progress.setText(QApplication.translate("QuickOSM",u"No result"))
-                iface.messageBar().pushMessage(QApplication.translate("QuickOSM", u"Successful query, but no result."), level=QgsMessageBar.WARNING , duration=7)
+                Tools.displayMessageBar(QApplication.translate("QuickOSM", u"Successful query, but no result."), level=QgsMessageBar.WARNING , duration=7)
         
         except GeoAlgorithmExecutionException,e:
             self.displayGeoAlgorithmException(e)

@@ -180,10 +180,10 @@ class QueryWidget(QuickOSMWidget, Ui_ui_query):
 
             numLayers = Process.ProcessQuery(dialog = self, query=query, outputDir=outputDir, prefixFile=prefixFile,outputGeomTypes=outputGeomTypes, whiteListValues=whiteListValues, nominatim=nominatim, bbox=bbox)
             if numLayers:
-                iface.messageBar().pushMessage(QApplication.translate("QuickOSM",u"Successful query !"), level=QgsMessageBar.INFO , duration=5)
+                Tools.displayMessageBar(QApplication.translate("QuickOSM",u"Successful query !"), level=QgsMessageBar.INFO , duration=5)
                 self.label_progress.setText(QApplication.translate("QuickOSM",u"Successful query !"))
             else:
-                iface.messageBar().pushMessage(QApplication.translate("QuickOSM", u"Successful query, but no result."), level=QgsMessageBar.WARNING , duration=7)
+                Tools.displayMessageBar(QApplication.translate("QuickOSM", u"Successful query, but no result."), level=QgsMessageBar.WARNING , duration=7)
         
         except GeoAlgorithmExecutionException,e:
             self.displayGeoAlgorithmException(e)

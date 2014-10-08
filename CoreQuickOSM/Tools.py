@@ -27,11 +27,22 @@ from API.Nominatim import Nominatim
 from os.path import join,dirname,abspath
 import os
 from shutil import *
+from qgis.utils import iface
 
 class Tools:
     '''
     Usefull tools
     '''
+
+    @staticmethod
+    def displayMessageBar(title = None, msg = None,level=QgsMessageBar.INFO,duration=5):
+        '''
+        Display the message at the good place
+        '''
+        if iface.QuickOSM_mainWindowDialog.isVisible():
+            iface.QuickOSM_mainWindowDialog.messageBar.pushMessage(title, msg, level,duration)
+        else:
+            iface.messageBar().pushMessage(title, msg, level,duration)
 
     @staticmethod
     def getUserFolder():

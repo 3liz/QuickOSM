@@ -9,43 +9,36 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>860</width>
-    <height>792</height>
+    <width>790</width>
+    <height>642</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Quick OSM</string>
   </property>
   <layout class="QHBoxLayout" name="horizontalLayout">
-   <property name="margin">
-    <number>0</number>
-   </property>
    <item>
-    <widget class="QSplitter" name="splitter">
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
+    <widget class="QListWidget" name="listWidget">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
      </property>
-     <widget class="QListWidget" name="listWidget">
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
-        <horstretch>0</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
-      </property>
-      <property name="minimumSize">
-       <size>
-        <width>100</width>
-        <height>200</height>
-       </size>
-      </property>
-      <property name="maximumSize">
-       <size>
-        <width>153</width>
-        <height>16777215</height>
-       </size>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">QListWidget{
+     <property name="minimumSize">
+      <size>
+       <width>100</width>
+       <height>200</height>
+      </size>
+     </property>
+     <property name="maximumSize">
+      <size>
+       <width>153</width>
+       <height>16777215</height>
+      </size>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QListWidget{
 	background-color: rgb(69, 69, 69, 220);
 	outline: 0;
 }
@@ -58,233 +51,181 @@ QListWidget::item::selected {
 	background-color:palette(Window);
     padding-right: 0px;
 }</string>
+     </property>
+     <property name="frameShape">
+      <enum>QFrame::Box</enum>
+     </property>
+     <property name="lineWidth">
+      <number>0</number>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>32</width>
+       <height>32</height>
+      </size>
+     </property>
+     <property name="uniformItemSizes">
+      <bool>true</bool>
+     </property>
+     <property name="currentRow">
+      <number>-1</number>
+     </property>
+     <item>
+      <property name="text">
+       <string>My queries</string>
       </property>
-      <property name="frameShape">
-       <enum>QFrame::Box</enum>
+      <property name="icon">
+       <iconset resource="../resources.qrc">
+        <normaloff>:/plugins/QuickOSM/resources/favorites.png</normaloff>:/plugins/QuickOSM/resources/favorites.png</iconset>
       </property>
-      <property name="lineWidth">
-       <number>0</number>
+     </item>
+     <item>
+      <property name="text">
+       <string>Quick query</string>
       </property>
-      <property name="iconSize">
-       <size>
-        <width>32</width>
-        <height>32</height>
-       </size>
+      <property name="icon">
+       <iconset resource="../resources.qrc">
+        <normaloff>:/plugins/QuickOSM/resources/quick.png</normaloff>:/plugins/QuickOSM/resources/quick.png</iconset>
       </property>
-      <property name="uniformItemSizes">
-       <bool>true</bool>
+     </item>
+     <item>
+      <property name="text">
+       <string>Query</string>
       </property>
-      <property name="currentRow">
-       <number>-1</number>
+      <property name="icon">
+       <iconset resource="../resources.qrc">
+        <normaloff>:/plugins/QuickOSM/resources/edit.png</normaloff>:/plugins/QuickOSM/resources/edit.png</iconset>
       </property>
-      <item>
-       <property name="text">
-        <string>My queries</string>
-       </property>
-       <property name="icon">
-        <iconset resource="../resources.qrc">
-         <normaloff>:/plugins/QuickOSM/resources/favorites.png</normaloff>:/plugins/QuickOSM/resources/favorites.png</iconset>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>Quick query</string>
-       </property>
-       <property name="icon">
-        <iconset resource="../resources.qrc">
-         <normaloff>:/plugins/QuickOSM/resources/quick.png</normaloff>:/plugins/QuickOSM/resources/quick.png</iconset>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>Query</string>
-       </property>
-       <property name="icon">
-        <iconset resource="../resources.qrc">
-         <normaloff>:/plugins/QuickOSM/resources/edit.png</normaloff>:/plugins/QuickOSM/resources/edit.png</iconset>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>OSM File</string>
-       </property>
-       <property name="icon">
-        <iconset resource="../resources.qrc">
-         <normaloff>:/plugins/QuickOSM/resources/open.png</normaloff>:/plugins/QuickOSM/resources/open.png</iconset>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>Parameters</string>
-       </property>
-       <property name="icon">
-        <iconset resource="../resources.qrc">
-         <normaloff>:/plugins/QuickOSM/resources/general.svg</normaloff>:/plugins/QuickOSM/resources/general.svg</iconset>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>Help</string>
-       </property>
-       <property name="icon">
-        <iconset resource="../resources.qrc">
-         <normaloff>:/plugins/QuickOSM/resources/about.png</normaloff>:/plugins/QuickOSM/resources/about.png</iconset>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>About</string>
-       </property>
-       <property name="icon">
-        <iconset resource="../resources.qrc">
-         <normaloff>:/plugins/QuickOSM/resources/info.png</normaloff>:/plugins/QuickOSM/resources/info.png</iconset>
-       </property>
-      </item>
-     </widget>
-     <widget class="QStackedWidget" name="stackedWidget">
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-        <horstretch>0</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
+     </item>
+     <item>
+      <property name="text">
+       <string>OSM File</string>
       </property>
-      <property name="minimumSize">
-       <size>
-        <width>300</width>
-        <height>200</height>
-       </size>
+      <property name="icon">
+       <iconset resource="../resources.qrc">
+        <normaloff>:/plugins/QuickOSM/resources/open.png</normaloff>:/plugins/QuickOSM/resources/open.png</iconset>
       </property>
-      <property name="currentIndex">
-       <number>4</number>
+     </item>
+     <item>
+      <property name="text">
+       <string>Parameters</string>
       </property>
-      <widget class="MyQueriesWidget" name="my_queries"/>
-      <widget class="QuickQueryWidget" name="quick_query"/>
-      <widget class="QueryWidget" name="query"/>
-      <widget class="OsmFileWidget" name="osm_file"/>
-      <widget class="QWidget" name="parameters">
-       <layout class="QVBoxLayout" name="verticalLayout_2">
-        <item>
-         <widget class="QGroupBox" name="groupBox">
-          <property name="title">
-           <string>Overpass API</string>
-          </property>
-          <layout class="QVBoxLayout" name="verticalLayout">
-           <item>
-            <widget class="QComboBox" name="comboBox_default_OAPI">
-             <item>
-              <property name="text">
-               <string>http://www.overpass-api.de/api/</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>http://overpass.osm.rambler.ru/cgi/</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>http://api.openstreetmap.fr/oapi/</string>
-              </property>
-             </item>
-            </widget>
-           </item>
-           <item>
-            <layout class="QHBoxLayout" name="horizontalLayout_2">
-             <item>
-              <widget class="QPushButton" name="pushButton_OAPI_timestamp">
-               <property name="text">
-                <string>Get timestamp</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QLabel" name="label_timestamp_oapi">
-               <property name="text">
-                <string>unknow</string>
-               </property>
-              </widget>
-             </item>
-            </layout>
-           </item>
-          </layout>
-         </widget>
-        </item>
-        <item>
-         <widget class="QGroupBox" name="groupBox_3">
-          <property name="title">
-           <string>Queries</string>
-          </property>
-          <layout class="QVBoxLayout" name="verticalLayout_10">
-           <item>
-            <layout class="QHBoxLayout" name="horizontalLayout_7">
-             <item>
-              <widget class="QPushButton" name="pushButton_restoreQueries">
-               <property name="text">
-                <string>Restore queries</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <spacer name="horizontalSpacer_2">
-               <property name="orientation">
-                <enum>Qt::Horizontal</enum>
-               </property>
-               <property name="sizeHint" stdset="0">
-                <size>
-                 <width>40</width>
-                 <height>20</height>
-                </size>
-               </property>
-              </spacer>
-             </item>
-            </layout>
-           </item>
-          </layout>
-         </widget>
-        </item>
-        <item>
-         <spacer name="verticalSpacer">
-          <property name="orientation">
-           <enum>Qt::Vertical</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>20</width>
-            <height>40</height>
-           </size>
-          </property>
-         </spacer>
-        </item>
-       </layout>
-      </widget>
-      <widget class="QWidget" name="help">
-       <layout class="QVBoxLayout" name="verticalLayout_3">
-        <item>
-         <widget class="QScrollArea" name="scrollArea">
-          <property name="widgetResizable">
-           <bool>true</bool>
-          </property>
-          <widget class="QWidget" name="scrollAreaWidgetContents">
-           <property name="geometry">
-            <rect>
-             <x>0</x>
-             <y>0</y>
-             <width>690</width>
-             <height>778</height>
-            </rect>
+      <property name="icon">
+       <iconset resource="../resources.qrc">
+        <normaloff>:/plugins/QuickOSM/resources/general.svg</normaloff>:/plugins/QuickOSM/resources/general.svg</iconset>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Help</string>
+      </property>
+      <property name="icon">
+       <iconset resource="../resources.qrc">
+        <normaloff>:/plugins/QuickOSM/resources/about.png</normaloff>:/plugins/QuickOSM/resources/about.png</iconset>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>About</string>
+      </property>
+      <property name="icon">
+       <iconset resource="../resources.qrc">
+        <normaloff>:/plugins/QuickOSM/resources/info.png</normaloff>:/plugins/QuickOSM/resources/info.png</iconset>
+      </property>
+     </item>
+    </widget>
+   </item>
+   <item>
+    <layout class="QVBoxLayout" name="verticalLayout_13">
+     <item>
+      <widget class="QgsMessageBar" name="messageBar" native="true"/>
+     </item>
+     <item>
+      <widget class="QStackedWidget" name="stackedWidget">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="minimumSize">
+        <size>
+         <width>300</width>
+         <height>200</height>
+        </size>
+       </property>
+       <property name="currentIndex">
+        <number>4</number>
+       </property>
+       <widget class="MyQueriesWidget" name="my_queries"/>
+       <widget class="QuickQueryWidget" name="quick_query"/>
+       <widget class="QueryWidget" name="query"/>
+       <widget class="OsmFileWidget" name="osm_file"/>
+       <widget class="QWidget" name="parameters">
+        <layout class="QVBoxLayout" name="verticalLayout_2">
+         <item>
+          <widget class="QGroupBox" name="groupBox">
+           <property name="title">
+            <string>Overpass API</string>
            </property>
-           <layout class="QVBoxLayout" name="verticalLayout_5">
+           <layout class="QVBoxLayout" name="verticalLayout">
             <item>
-             <layout class="QHBoxLayout" name="horizontalLayout_3">
+             <widget class="QComboBox" name="comboBox_default_OAPI">
               <item>
-               <widget class="QPushButton" name="pushButton_homeHelp">
+               <property name="text">
+                <string>http://www.overpass-api.de/api/</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>http://overpass.osm.rambler.ru/cgi/</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>http://api.openstreetmap.fr/oapi/</string>
+               </property>
+              </item>
+             </widget>
+            </item>
+            <item>
+             <layout class="QHBoxLayout" name="horizontalLayout_2">
+              <item>
+               <widget class="QPushButton" name="pushButton_OAPI_timestamp">
                 <property name="text">
-                 <string>Home</string>
+                 <string>Get timestamp</string>
                 </property>
                </widget>
               </item>
               <item>
-               <spacer name="horizontalSpacer">
+               <widget class="QLabel" name="label_timestamp_oapi">
+                <property name="text">
+                 <string>unknow</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+           </layout>
+          </widget>
+         </item>
+         <item>
+          <widget class="QGroupBox" name="groupBox_3">
+           <property name="title">
+            <string>Queries</string>
+           </property>
+           <layout class="QVBoxLayout" name="verticalLayout_10">
+            <item>
+             <layout class="QHBoxLayout" name="horizontalLayout_7">
+              <item>
+               <widget class="QPushButton" name="pushButton_restoreQueries">
+                <property name="text">
+                 <string>Restore queries</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <spacer name="horizontalSpacer_2">
                 <property name="orientation">
                  <enum>Qt::Horizontal</enum>
                 </property>
@@ -298,228 +239,288 @@ QListWidget::item::selected {
               </item>
              </layout>
             </item>
-            <item>
-             <widget class="QWebView" name="webBrowser" native="true"/>
-            </item>
-            <item>
-             <spacer name="verticalSpacer_2">
-              <property name="orientation">
-               <enum>Qt::Vertical</enum>
-              </property>
-              <property name="sizeHint" stdset="0">
-               <size>
-                <width>20</width>
-                <height>40</height>
-               </size>
-              </property>
-             </spacer>
-            </item>
            </layout>
           </widget>
-         </widget>
-        </item>
-       </layout>
-      </widget>
-      <widget class="QWidget" name="about">
-       <layout class="QVBoxLayout" name="verticalLayout_4">
-        <item>
-         <widget class="QScrollArea" name="scrollArea_2">
-          <property name="widgetResizable">
-           <bool>true</bool>
-          </property>
-          <widget class="QWidget" name="scrollAreaWidgetContents_2">
-           <property name="geometry">
-            <rect>
-             <x>0</x>
-             <y>0</y>
-             <width>690</width>
-             <height>778</height>
-            </rect>
+         </item>
+         <item>
+          <spacer name="verticalSpacer">
+           <property name="orientation">
+            <enum>Qt::Vertical</enum>
            </property>
-           <layout class="QVBoxLayout" name="verticalLayout_9">
-            <item>
-             <widget class="QGroupBox" name="groupBox_2">
-              <property name="title">
-               <string>Realization</string>
-              </property>
-              <layout class="QHBoxLayout" name="horizontalLayout_6">
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>20</width>
+             <height>40</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+        </layout>
+       </widget>
+       <widget class="QWidget" name="help">
+        <layout class="QVBoxLayout" name="verticalLayout_3">
+         <item>
+          <widget class="QScrollArea" name="scrollArea">
+           <property name="widgetResizable">
+            <bool>true</bool>
+           </property>
+           <widget class="QWidget" name="scrollAreaWidgetContents">
+            <property name="geometry">
+             <rect>
+              <x>0</x>
+              <y>0</y>
+              <width>73</width>
+              <height>52</height>
+             </rect>
+            </property>
+            <layout class="QVBoxLayout" name="verticalLayout_5">
+             <item>
+              <layout class="QHBoxLayout" name="horizontalLayout_3">
                <item>
-                <layout class="QHBoxLayout" name="horizontalLayout_5">
-                 <item>
-                  <widget class="QLabel" name="label_13">
-                   <property name="maximumSize">
-                    <size>
-                     <width>16777215</width>
-                     <height>16777215</height>
-                    </size>
-                   </property>
-                   <property name="text">
-                    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Etienne Trimaille&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                   </property>
-                   <property name="scaledContents">
-                    <bool>false</bool>
-                   </property>
-                   <property name="openExternalLinks">
-                    <bool>true</bool>
-                   </property>
-                  </widget>
-                 </item>
-                 <item>
-                  <widget class="QLabel" name="label_14">
-                   <property name="text">
-                    <string>&lt;a href=&quot;mailto:etienne@trimaille.eu?subject=Plugin QuickOSM - About&quot; style=&quot;color:#7BA11A;text-decoration:none;&quot;&gt;etienne@trimaille.eu&lt;/a&gt;</string>
-                   </property>
-                   <property name="openExternalLinks">
-                    <bool>true</bool>
-                   </property>
-                  </widget>
-                 </item>
-                </layout>
-               </item>
-              </layout>
-             </widget>
-            </item>
-            <item>
-             <widget class="QGroupBox" name="groupBox_5">
-              <property name="title">
-               <string>Supervision</string>
-              </property>
-              <layout class="QVBoxLayout" name="verticalLayout_7">
-               <item>
-                <widget class="QLabel" name="label_10">
+                <widget class="QPushButton" name="pushButton_homeHelp">
                  <property name="text">
-                  <string>This intership was supervised by 3Liz</string>
-                 </property>
-                 <property name="wordWrap">
-                  <bool>true</bool>
+                  <string>Home</string>
                  </property>
                 </widget>
                </item>
                <item>
-                <layout class="QHBoxLayout" name="horizontalLayout_4">
-                 <item>
-                  <widget class="QLabel" name="label_12">
-                   <property name="maximumSize">
-                    <size>
-                     <width>16777215</width>
-                     <height>16777215</height>
-                    </size>
-                   </property>
-                   <property name="text">
-                    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;http://www.3liz.com/&quot;&gt;&lt;img src=&quot;:/plugins/QuickOSM/resources/3liz.png&quot;/&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;
-</string>
-                   </property>
-                   <property name="scaledContents">
-                    <bool>false</bool>
-                   </property>
-                   <property name="alignment">
-                    <set>Qt::AlignCenter</set>
-                   </property>
-                   <property name="openExternalLinks">
-                    <bool>true</bool>
-                   </property>
-                  </widget>
-                 </item>
-                 <item>
-                  <widget class="QLabel" name="label_11">
-                   <property name="text">
-                    <string>&lt;a href=&quot;http://www.3liz.com&quot; style=&quot;color:#7BA11A;text-decoration:none;&quot;&gt;Libérez vos SIG !&lt;/a&gt;</string>
-                   </property>
-                   <property name="openExternalLinks">
-                    <bool>true</bool>
-                   </property>
-                  </widget>
-                 </item>
-                </layout>
+                <spacer name="horizontalSpacer">
+                 <property name="orientation">
+                  <enum>Qt::Horizontal</enum>
+                 </property>
+                 <property name="sizeHint" stdset="0">
+                  <size>
+                   <width>40</width>
+                   <height>20</height>
+                  </size>
+                 </property>
+                </spacer>
                </item>
               </layout>
-             </widget>
-            </item>
-            <item>
-             <widget class="QGroupBox" name="groupBox_6">
-              <property name="title">
-               <string>Sources</string>
-              </property>
-              <layout class="QVBoxLayout" name="verticalLayout_8">
-               <item>
-                <layout class="QGridLayout" name="gridLayout_4">
-                 <item row="0" column="0">
-                  <widget class="QLabel" name="label_19">
-                   <property name="text">
-                    <string>Github's repository</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="0" column="1">
-                  <widget class="QLabel" name="label_20">
-                   <property name="text">
-                    <string>&lt;a href=&quot;https://github.com/3liz/QgisQuickExportPlugin&quot; style=&quot;color:#7BA11A;text-decoration:none;&quot;&gt;https://github.com/3liz/QgisQuickExportPlugin&lt;/a&gt;</string>
-                   </property>
-                   <property name="openExternalLinks">
-                    <bool>true</bool>
-                   </property>
-                  </widget>
-                 </item>
-                </layout>
-               </item>
-              </layout>
-             </widget>
-            </item>
-            <item>
-             <widget class="QGroupBox" name="groupBox_4">
-              <property name="title">
-               <string>Licence</string>
-              </property>
-              <layout class="QVBoxLayout" name="verticalLayout_6">
-               <item>
-                <layout class="QGridLayout" name="gridLayout_3">
-                 <item row="2" column="0">
-                  <widget class="QLabel" name="label">
-                   <property name="text">
-                    <string>OpenStreetMap</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="1" column="1">
-                  <widget class="QLabel" name="label_16">
-                   <property name="text">
-                    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;https://www.gnu.org/licenses/gpl-2.0.html&quot;&gt;&lt;img src=&quot;:/plugins/QuickOSM/resources/gnu.png&quot;/&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                   </property>
-                   <property name="alignment">
-                    <set>Qt::AlignCenter</set>
-                   </property>
-                   <property name="openExternalLinks">
-                    <bool>true</bool>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="1" column="0">
-                  <widget class="QLabel" name="label_15">
-                   <property name="text">
-                    <string>Plugin : Licence GPL Version 2</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="2" column="1">
-                  <widget class="QLabel" name="label_2">
-                   <property name="text">
-                    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;ODBL : © OpenStreetMap's contributors &lt;/p&gt;&lt;p&gt;&lt;a href=&quot;http://www.openstreetmap.org/copyright&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0057ae;&quot;&gt;http://www.openstreetmap.org/copyright&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                   </property>
-                  </widget>
-                 </item>
-                </layout>
-               </item>
-              </layout>
-             </widget>
-            </item>
-           </layout>
+             </item>
+             <item>
+              <widget class="QWebView" name="webBrowser" native="true"/>
+             </item>
+             <item>
+              <spacer name="verticalSpacer_2">
+               <property name="orientation">
+                <enum>Qt::Vertical</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>20</width>
+                 <height>40</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+            </layout>
+           </widget>
           </widget>
-         </widget>
-        </item>
-       </layout>
+         </item>
+        </layout>
+       </widget>
+       <widget class="QWidget" name="about">
+        <layout class="QVBoxLayout" name="verticalLayout_4">
+         <item>
+          <widget class="QScrollArea" name="scrollArea_2">
+           <property name="widgetResizable">
+            <bool>true</bool>
+           </property>
+           <widget class="QWidget" name="scrollAreaWidgetContents_2">
+            <property name="geometry">
+             <rect>
+              <x>0</x>
+              <y>0</y>
+              <width>432</width>
+              <height>537</height>
+             </rect>
+            </property>
+            <layout class="QVBoxLayout" name="verticalLayout_9">
+             <item>
+              <widget class="QGroupBox" name="groupBox_2">
+               <property name="title">
+                <string>Realization</string>
+               </property>
+               <layout class="QHBoxLayout" name="horizontalLayout_6">
+                <item>
+                 <layout class="QHBoxLayout" name="horizontalLayout_5">
+                  <item>
+                   <widget class="QLabel" name="label_13">
+                    <property name="maximumSize">
+                     <size>
+                      <width>16777215</width>
+                      <height>16777215</height>
+                     </size>
+                    </property>
+                    <property name="text">
+                     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Etienne Trimaille&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                    </property>
+                    <property name="scaledContents">
+                     <bool>false</bool>
+                    </property>
+                    <property name="openExternalLinks">
+                     <bool>true</bool>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QLabel" name="label_14">
+                    <property name="text">
+                     <string>&lt;a href=&quot;mailto:etienne@trimaille.eu?subject=Plugin QuickOSM - About&quot; style=&quot;color:#7BA11A;text-decoration:none;&quot;&gt;etienne@trimaille.eu&lt;/a&gt;</string>
+                    </property>
+                    <property name="openExternalLinks">
+                     <bool>true</bool>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </item>
+               </layout>
+              </widget>
+             </item>
+             <item>
+              <widget class="QGroupBox" name="groupBox_5">
+               <property name="title">
+                <string>Supervision</string>
+               </property>
+               <layout class="QVBoxLayout" name="verticalLayout_7">
+                <item>
+                 <widget class="QLabel" name="label_10">
+                  <property name="text">
+                   <string>This intership was supervised by 3Liz</string>
+                  </property>
+                  <property name="wordWrap">
+                   <bool>true</bool>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <layout class="QHBoxLayout" name="horizontalLayout_4">
+                  <item>
+                   <widget class="QLabel" name="label_12">
+                    <property name="maximumSize">
+                     <size>
+                      <width>16777215</width>
+                      <height>16777215</height>
+                     </size>
+                    </property>
+                    <property name="text">
+                     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;http://www.3liz.com/&quot;&gt;&lt;img src=&quot;:/plugins/QuickOSM/resources/3liz.png&quot;/&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;
+</string>
+                    </property>
+                    <property name="scaledContents">
+                     <bool>false</bool>
+                    </property>
+                    <property name="alignment">
+                     <set>Qt::AlignCenter</set>
+                    </property>
+                    <property name="openExternalLinks">
+                     <bool>true</bool>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QLabel" name="label_11">
+                    <property name="text">
+                     <string>&lt;a href=&quot;http://www.3liz.com&quot; style=&quot;color:#7BA11A;text-decoration:none;&quot;&gt;Libérez vos SIG !&lt;/a&gt;</string>
+                    </property>
+                    <property name="openExternalLinks">
+                     <bool>true</bool>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </item>
+               </layout>
+              </widget>
+             </item>
+             <item>
+              <widget class="QGroupBox" name="groupBox_6">
+               <property name="title">
+                <string>Sources</string>
+               </property>
+               <layout class="QVBoxLayout" name="verticalLayout_8">
+                <item>
+                 <layout class="QGridLayout" name="gridLayout_4">
+                  <item row="0" column="0">
+                   <widget class="QLabel" name="label_19">
+                    <property name="text">
+                     <string>Github's repository</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="0" column="1">
+                   <widget class="QLabel" name="label_20">
+                    <property name="text">
+                     <string>&lt;a href=&quot;https://github.com/3liz/QgisQuickExportPlugin&quot; style=&quot;color:#7BA11A;text-decoration:none;&quot;&gt;https://github.com/3liz/QgisQuickExportPlugin&lt;/a&gt;</string>
+                    </property>
+                    <property name="openExternalLinks">
+                     <bool>true</bool>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </item>
+               </layout>
+              </widget>
+             </item>
+             <item>
+              <widget class="QGroupBox" name="groupBox_4">
+               <property name="title">
+                <string>Licence</string>
+               </property>
+               <layout class="QVBoxLayout" name="verticalLayout_6">
+                <item>
+                 <layout class="QGridLayout" name="gridLayout_3">
+                  <item row="2" column="0">
+                   <widget class="QLabel" name="label">
+                    <property name="text">
+                     <string>OpenStreetMap</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="1" column="1">
+                   <widget class="QLabel" name="label_16">
+                    <property name="text">
+                     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;https://www.gnu.org/licenses/gpl-2.0.html&quot;&gt;&lt;img src=&quot;:/plugins/QuickOSM/resources/gnu.png&quot;/&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                    </property>
+                    <property name="alignment">
+                     <set>Qt::AlignCenter</set>
+                    </property>
+                    <property name="openExternalLinks">
+                     <bool>true</bool>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="1" column="0">
+                   <widget class="QLabel" name="label_15">
+                    <property name="text">
+                     <string>Plugin : Licence GPL Version 2</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="2" column="1">
+                   <widget class="QLabel" name="label_2">
+                    <property name="text">
+                     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;ODBL : © OpenStreetMap's contributors &lt;/p&gt;&lt;p&gt;&lt;a href=&quot;http://www.openstreetmap.org/copyright&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0057ae;&quot;&gt;http://www.openstreetmap.org/copyright&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </item>
+               </layout>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </widget>
+         </item>
+        </layout>
+       </widget>
       </widget>
-     </widget>
-    </widget>
+     </item>
+    </layout>
    </item>
   </layout>
  </widget>
@@ -552,6 +553,12 @@ QListWidget::item::selected {
    <class>QWebView</class>
    <extends>QWidget</extends>
    <header>qwebview.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>QgsMessageBar</class>
+   <extends>QWidget</extends>
+   <header>qgis/gui.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

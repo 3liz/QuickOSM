@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'main_window.ui'
 #
-# Created: Thu Jul 31 14:20:51 2014
+# Created: Wed Oct  8 20:09:39 2014
 #      by: PyQt4 UI code generator 4.10.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -27,14 +27,10 @@ class Ui_ui_main_window(object):
     def setupUi(self, ui_main_window):
         ui_main_window.setObjectName(_fromUtf8("ui_main_window"))
         ui_main_window.setWindowModality(QtCore.Qt.WindowModal)
-        ui_main_window.resize(860, 792)
+        ui_main_window.resize(790, 642)
         self.horizontalLayout = QtGui.QHBoxLayout(ui_main_window)
-        self.horizontalLayout.setMargin(0)
         self.horizontalLayout.setObjectName(_fromUtf8("horizontalLayout"))
-        self.splitter = QtGui.QSplitter(ui_main_window)
-        self.splitter.setOrientation(QtCore.Qt.Horizontal)
-        self.splitter.setObjectName(_fromUtf8("splitter"))
-        self.listWidget = QtGui.QListWidget(self.splitter)
+        self.listWidget = QtGui.QListWidget(ui_main_window)
         sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Expanding)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -95,7 +91,13 @@ class Ui_ui_main_window(object):
         icon6.addPixmap(QtGui.QPixmap(_fromUtf8(":/plugins/QuickOSM/resources/info.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         item.setIcon(icon6)
         self.listWidget.addItem(item)
-        self.stackedWidget = QtGui.QStackedWidget(self.splitter)
+        self.horizontalLayout.addWidget(self.listWidget)
+        self.verticalLayout_13 = QtGui.QVBoxLayout()
+        self.verticalLayout_13.setObjectName(_fromUtf8("verticalLayout_13"))
+        self.messageBar = QgsMessageBar(ui_main_window)
+        self.messageBar.setObjectName(_fromUtf8("messageBar"))
+        self.verticalLayout_13.addWidget(self.messageBar)
+        self.stackedWidget = QtGui.QStackedWidget(ui_main_window)
         sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Preferred, QtGui.QSizePolicy.Preferred)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -163,7 +165,7 @@ class Ui_ui_main_window(object):
         self.scrollArea.setWidgetResizable(True)
         self.scrollArea.setObjectName(_fromUtf8("scrollArea"))
         self.scrollAreaWidgetContents = QtGui.QWidget()
-        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 690, 778))
+        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 73, 52))
         self.scrollAreaWidgetContents.setObjectName(_fromUtf8("scrollAreaWidgetContents"))
         self.verticalLayout_5 = QtGui.QVBoxLayout(self.scrollAreaWidgetContents)
         self.verticalLayout_5.setObjectName(_fromUtf8("verticalLayout_5"))
@@ -191,7 +193,7 @@ class Ui_ui_main_window(object):
         self.scrollArea_2.setWidgetResizable(True)
         self.scrollArea_2.setObjectName(_fromUtf8("scrollArea_2"))
         self.scrollAreaWidgetContents_2 = QtGui.QWidget()
-        self.scrollAreaWidgetContents_2.setGeometry(QtCore.QRect(0, 0, 690, 778))
+        self.scrollAreaWidgetContents_2.setGeometry(QtCore.QRect(0, 0, 432, 537))
         self.scrollAreaWidgetContents_2.setObjectName(_fromUtf8("scrollAreaWidgetContents_2"))
         self.verticalLayout_9 = QtGui.QVBoxLayout(self.scrollAreaWidgetContents_2)
         self.verticalLayout_9.setObjectName(_fromUtf8("verticalLayout_9"))
@@ -276,7 +278,8 @@ class Ui_ui_main_window(object):
         self.scrollArea_2.setWidget(self.scrollAreaWidgetContents_2)
         self.verticalLayout_4.addWidget(self.scrollArea_2)
         self.stackedWidget.addWidget(self.about)
-        self.horizontalLayout.addWidget(self.splitter)
+        self.verticalLayout_13.addWidget(self.stackedWidget)
+        self.horizontalLayout.addLayout(self.verticalLayout_13)
 
         self.retranslateUi(ui_main_window)
         self.listWidget.setCurrentRow(-1)
@@ -332,6 +335,7 @@ class Ui_ui_main_window(object):
         self.label_2.setText(_translate("ui_main_window", "<html><head/><body><p>ODBL : © OpenStreetMap\'s contributors </p><p><a href=\"http://www.openstreetmap.org/copyright\"><span style=\" text-decoration: underline; color:#0057ae;\">http://www.openstreetmap.org/copyright</span></a></p></body></html>", None))
 
 from PyQt4 import QtWebKit
+from qgis.gui import QgsMessageBar
 from query_dialog import QueryWidget
 from osm_file_dialog import OsmFileWidget
 from quick_query_dialog import QuickQueryWidget

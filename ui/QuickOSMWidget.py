@@ -180,7 +180,7 @@ class QuickOSMWidget(QWidget):
         Display quickosm's exceptions 
         '''
         self.label_progress.setText("")
-        iface.messageBar().pushMessage(e.msg, level=e.level , duration=e.duration)
+        Tools.displayMessageBar(e.msg, level=e.level , duration=e.duration)
 
     def displayException(self,e):
         '''
@@ -193,7 +193,7 @@ class QuickOSMWidget(QWidget):
         ex_type, ex, tb = sys.exc_info()
         import traceback
         traceback.print_tb(tb)
-        iface.messageBar().pushMessage("Error in the python console, please report it", level=QgsMessageBar.CRITICAL , duration=5)
+        Tools.displayMessageBar("Error in the python console, please report it", level=QgsMessageBar.CRITICAL , duration=5)
         
     def openMapFeatures(self):
         '''
