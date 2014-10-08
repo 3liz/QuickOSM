@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'quick_query.ui'
 #
-# Created: Sat Sep 20 17:36:34 2014
+# Created: Wed Oct  8 19:14:22 2014
 #      by: PyQt4 UI code generator 4.10.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -236,8 +236,16 @@ class Ui_ui_quick_query(object):
         self.progressBar_execution.setProperty("value", 0)
         self.progressBar_execution.setObjectName(_fromUtf8("progressBar_execution"))
         self.verticalLayout.addWidget(self.progressBar_execution)
-        spacerItem = QtGui.QSpacerItem(20, 40, QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Expanding)
-        self.verticalLayout.addItem(spacerItem)
+        self.horizontalLayout_4 = QtGui.QHBoxLayout()
+        self.horizontalLayout_4.setObjectName(_fromUtf8("horizontalLayout_4"))
+        self.pushButton_mapFeatures = QtGui.QPushButton(self.scrollAreaWidgetContents)
+        self.pushButton_mapFeatures.setObjectName(_fromUtf8("pushButton_mapFeatures"))
+        self.horizontalLayout_4.addWidget(self.pushButton_mapFeatures)
+        spacerItem = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
+        self.horizontalLayout_4.addItem(spacerItem)
+        self.verticalLayout.addLayout(self.horizontalLayout_4)
+        spacerItem1 = QtGui.QSpacerItem(20, 40, QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Expanding)
+        self.verticalLayout.addItem(spacerItem1)
         self.scrollArea.setWidget(self.scrollAreaWidgetContents)
         self.verticalLayout_3.addWidget(self.scrollArea)
 
@@ -268,6 +276,7 @@ class Ui_ui_quick_query(object):
         self.pushButton_showQuery.setText(_translate("ui_quick_query", "Show query", None))
         self.pushButton_runQuery.setText(_translate("ui_quick_query", "Run query", None))
         self.label_progress.setText(_translate("ui_quick_query", "progress text", None))
+        self.pushButton_mapFeatures.setText(_translate("ui_quick_query", "Help with key/value", None))
 
 from qgis.gui import QgsCollapsibleGroupBox
 from QuickOSM import resources_rc

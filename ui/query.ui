@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1178</width>
+    <width>603</width>
     <height>871</height>
    </rect>
   </property>
@@ -24,7 +24,7 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>1164</width>
+        <width>589</width>
         <height>857</height>
        </rect>
       </property>
@@ -374,9 +374,9 @@
           </widget>
          </item>
          <item>
-          <widget class="QPushButton" name="pushButton_docOverpass">
+          <widget class="QPushButton" name="pushButton_documentation">
            <property name="text">
-            <string>Overpass's documentation</string>
+            <string>Documentation</string>
            </property>
           </widget>
          </item>

@@ -77,22 +77,22 @@
 <context>
     <name>QuickOSM</name>
     <message>
-        <location filename="ui/QuickOSMWidget.py" line="58"/>
+        <location filename="ui/QuickOSMWidget.py" line="60"/>
         <source>Select directory</source>
         <translation>Sélectionner un répertoire</translation>
     </message>
     <message>
-        <location filename="ui/QuickOSMWidget.py" line="144"/>
+        <location filename="ui/QuickOSMWidget.py" line="146"/>
         <source>Running query ...</source>
         <translation>Requête en cours ...</translation>
     </message>
     <message>
-        <location filename="ui/quick_query_dialog.py" line="156"/>
+        <location filename="ui/quick_query_dialog.py" line="186"/>
         <source>Successful query !</source>
         <translation>Requête réussie !</translation>
     </message>
     <message>
-        <location filename="ui/quick_query_dialog.py" line="159"/>
+        <location filename="ui/quick_query_dialog.py" line="189"/>
         <source>Successful query, but no result.</source>
         <translation>Requête réussie, mais pas de résultat.</translation>
     </message>
@@ -112,12 +112,12 @@
         <translation>Du GeoJSON au Shapefile</translation>
     </message>
     <message>
-        <location filename="CoreQuickOSM/Actions.py" line="91"/>
+        <location filename="CoreQuickOSM/Actions.py" line="97"/>
         <source>Sorry man, this field is empty for this entity.</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="CoreQuickOSM/Actions.py" line="70"/>
+        <location filename="CoreQuickOSM/Actions.py" line="73"/>
         <source>The JOSM remote seems to be disabled.</source>
         <translation>La télécommande JOSM semble inactive.</translation>
     </message>
@@ -127,12 +127,12 @@
         <translation>Erreur de requête OverpassAPI</translation>
     </message>
     <message>
-        <location filename="ui/my_queries_dialog.py" line="138"/>
+        <location filename="ui/my_queries_dialog.py" line="142"/>
         <source>Execute</source>
         <translation>Exécuter</translation>
     </message>
     <message>
-        <location filename="ui/my_queries_dialog.py" line="141"/>
+        <location filename="ui/my_queries_dialog.py" line="145"/>
         <source>Show query</source>
         <translation>Montrer la requête</translation>
     </message>
@@ -147,39 +147,49 @@
         <translation>Fichier osmconf</translation>
     </message>
     <message>
-        <location filename="ui/query_dialog.py" line="63"/>
+        <location filename="ui/query_dialog.py" line="64"/>
         <source>Save as final query</source>
         <translation>Sauvegarder comme requête finale</translation>
     </message>
     <message>
-        <location filename="ui/query_dialog.py" line="66"/>
+        <location filename="ui/query_dialog.py" line="67"/>
         <source>Save as template</source>
         <translation>Sauvegarder comme modèle</translation>
     </message>
     <message>
-        <location filename="ui/quick_query_dialog.py" line="158"/>
+        <location filename="ui/quick_query_dialog.py" line="188"/>
         <source>No result</source>
         <translation>Pas de résultat</translation>
     </message>
     <message>
-        <location filename="ui/my_queries_dialog.py" line="144"/>
+        <location filename="ui/my_queries_dialog.py" line="148"/>
         <source>Delete</source>
         <translation>Supprimer</translation>
     </message>
     <message>
-        <location filename="ui/my_queries_dialog.py" line="209"/>
+        <location filename="ui/my_queries_dialog.py" line="213"/>
         <source>Are you sure you want to delete the query ?</source>
         <translation>Voulez-vous vraiment supprimer cette requête ?</translation>
     </message>
     <message>
-        <location filename="ui/main_window_dialog.py" line="104"/>
+        <location filename="ui/main_window_dialog.py" line="105"/>
         <source>Fetching the timestamp ...</source>
         <translation>Récupération du timestamp ...</translation>
     </message>
     <message>
-        <location filename="ui/main_window_dialog.py" line="114"/>
+        <location filename="ui/main_window_dialog.py" line="115"/>
         <source>Copy ...</source>
         <translation>Copie ...</translation>
+    </message>
+    <message>
+        <location filename="ui/query_dialog.py" line="74"/>
+        <source>Map Features</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ui/query_dialog.py" line="77"/>
+        <source>Overpass</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -637,7 +647,7 @@
     <message>
         <location filename="ui/query.py" line="257"/>
         <source>Overpass&apos;s documentation</source>
-        <translation>Documentation Overpass</translation>
+        <translation type="obsolete">Documentation Overpass</translation>
     </message>
     <message>
         <location filename="ui/query.py" line="234"/>
@@ -654,6 +664,11 @@
         <source>progress text</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <location filename="ui/query.py" line="257"/>
+        <source>Documentation</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ui_quick_query</name>
@@ -663,124 +678,129 @@
         <translation>Requête rapide</translation>
     </message>
     <message>
-        <location filename="ui/quick_query.py" line="236"/>
+        <location filename="ui/quick_query.py" line="256"/>
         <source>QuickOSM - Quick query</source>
         <translation>QuickOSM - Requête rapide</translation>
     </message>
     <message>
-        <location filename="ui/quick_query.py" line="237"/>
+        <location filename="ui/quick_query.py" line="257"/>
         <source>Key</source>
         <translation>Clé</translation>
     </message>
     <message>
-        <location filename="ui/quick_query.py" line="238"/>
+        <location filename="ui/quick_query.py" line="258"/>
         <source>Value</source>
         <translation>Valeur</translation>
     </message>
     <message>
-        <location filename="ui/quick_query.py" line="240"/>
+        <location filename="ui/quick_query.py" line="259"/>
         <source>In</source>
         <translation>Dans</translation>
     </message>
     <message>
-        <location filename="ui/quick_query.py" line="242"/>
+        <location filename="ui/quick_query.py" line="261"/>
         <source>Extent of the map canvas</source>
         <translation>Emprise de la vue actuelle</translation>
     </message>
     <message>
-        <location filename="ui/quick_query.py" line="243"/>
+        <location filename="ui/quick_query.py" line="262"/>
         <source>Extent of a layer</source>
         <translation>Emprise d&apos;une couche</translation>
     </message>
     <message>
-        <location filename="ui/quick_query.py" line="244"/>
+        <location filename="ui/quick_query.py" line="263"/>
         <source>Advanced</source>
         <translation>Avancé</translation>
     </message>
     <message>
-        <location filename="ui/quick_query.py" line="245"/>
+        <location filename="ui/quick_query.py" line="264"/>
         <source>Node</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/quick_query.py" line="246"/>
+        <location filename="ui/quick_query.py" line="265"/>
         <source>Way</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/quick_query.py" line="247"/>
+        <location filename="ui/quick_query.py" line="266"/>
         <source>Relation</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/quick_query.py" line="248"/>
+        <location filename="ui/quick_query.py" line="267"/>
         <source>Points</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/quick_query.py" line="249"/>
+        <location filename="ui/quick_query.py" line="268"/>
         <source>Lines</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/quick_query.py" line="250"/>
+        <location filename="ui/quick_query.py" line="269"/>
         <source>Multipolygons</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/quick_query.py" line="251"/>
+        <location filename="ui/quick_query.py" line="270"/>
         <source>Multilinestrings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/quick_query.py" line="252"/>
+        <location filename="ui/quick_query.py" line="271"/>
         <source>Timeout</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/quick_query.py" line="253"/>
+        <location filename="ui/quick_query.py" line="272"/>
         <source>Directory</source>
         <translation>Répertoire</translation>
     </message>
     <message>
-        <location filename="ui/quick_query.py" line="254"/>
+        <location filename="ui/quick_query.py" line="273"/>
         <source>Save to temporary file</source>
         <translation>Enregister temporairement</translation>
     </message>
     <message>
-        <location filename="ui/quick_query.py" line="255"/>
+        <location filename="ui/quick_query.py" line="274"/>
         <source>Browse</source>
         <translation>Parcourir</translation>
     </message>
     <message>
-        <location filename="ui/quick_query.py" line="256"/>
+        <location filename="ui/quick_query.py" line="275"/>
         <source>File prefix</source>
         <translation>Préfix de fichier</translation>
     </message>
     <message>
-        <location filename="ui/quick_query.py" line="257"/>
+        <location filename="ui/quick_query.py" line="276"/>
         <source>Show query</source>
         <translation>Montrer la requête</translation>
     </message>
     <message>
-        <location filename="ui/quick_query.py" line="258"/>
+        <location filename="ui/quick_query.py" line="277"/>
         <source>Run query</source>
         <translation>Exécuter</translation>
     </message>
     <message>
-        <location filename="ui/quick_query.py" line="259"/>
+        <location filename="ui/quick_query.py" line="278"/>
         <source>progress text</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="ui/quick_query.py" line="239"/>
         <source>Query on all values</source>
-        <translation>Requêter sur toutes les valeurs</translation>
+        <translation type="obsolete">Requêter sur toutes les valeurs</translation>
     </message>
     <message>
-        <location filename="ui/quick_query.py" line="241"/>
+        <location filename="ui/quick_query.py" line="260"/>
         <source>A village, a town, ...</source>
         <translation>Un village, une ville, ...</translation>
+    </message>
+    <message>
+        <location filename="ui/quick_query.py" line="279"/>
+        <source>Help with key/value</source>
+        <translation>Aide sur les clés/valeurs</translation>
     </message>
 </context>
 <context>

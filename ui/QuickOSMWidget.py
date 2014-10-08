@@ -194,3 +194,10 @@ class QuickOSMWidget(QWidget):
         import traceback
         traceback.print_tb(tb)
         iface.messageBar().pushMessage("Error in the python console, please report it", level=QgsMessageBar.CRITICAL , duration=5)
+        
+    def openMapFeatures(self):
+        '''
+        Open MapFeatures
+        '''
+        desktopService = QDesktopServices()
+        desktopService.openUrl(QUrl("http://wiki.openstreetmap.org/wiki/Mapfeatures"))

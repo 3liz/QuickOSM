@@ -59,6 +59,7 @@ class QuickQueryWidget(QuickOSMWidget, Ui_ui_quick_query):
         self.radioButton_extentMapCanvas.toggled.connect(self.allowNominatimOrExtent)
         self.radioButton_place.toggled.connect(self.allowNominatimOrExtent)
         self.pushButton_refreshLayers.clicked.connect(self.fillLayerCombobox)
+        self.pushButton_mapFeatures.clicked.connect(self.openMapFeatures)
         
         #Setup autocompletation
         mapFeaturesJsonFilePath = join(dirname(dirname(abspath(__file__))),'mapFeatures.json')

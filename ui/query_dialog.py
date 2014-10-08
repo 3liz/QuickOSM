@@ -69,6 +69,16 @@ class QueryWidget(QuickOSMWidget, Ui_ui_query):
         popupmenu.addAction(saveTemplateQueryAction)
         self.pushButton_saveQuery.setMenu(popupmenu)
         
+        #Setup menu for documentation
+        popupmenu = QMenu()
+        mapFeaturesAction = QAction(QApplication.translate("QuickOSM", 'Map Features'),self.pushButton_documentation)
+        mapFeaturesAction.triggered.connect(self.openMapFeatures)
+        popupmenu.addAction(mapFeaturesAction)
+        overpassAction = QAction(QApplication.translate("QuickOSM", 'Overpass'),self.pushButton_documentation)
+        overpassAction.triggered.connect(self.openDocOverpass)
+        popupmenu.addAction(overpassAction)
+        self.pushButton_documentation.setMenu(popupmenu)
+        
         #connect
         self.pushButton_runQuery.clicked.connect(self.runQuery)
         self.pushButton_generateQuery.clicked.connect(self.generateQuery)
@@ -78,7 +88,6 @@ class QueryWidget(QuickOSMWidget, Ui_ui_query):
         self.textEdit_query.cursorPositionChanged.connect(self.allowNominatimOrExtent)
         self.radioButton_extentLayer.toggled.connect(self.extentRadio)
         self.pushButton_refreshLayers.clicked.connect(self.fillLayerCombobox)
-        self.pushButton_docOverpass.clicked.connect(self.openDocOverpass)
         self.pushButton_overpassTurbo.clicked.connect(self.openOverpassTurbo)
         self.buttonBox.button(QDialogButtonBox.Reset).clicked.connect(self.resetForm)
 

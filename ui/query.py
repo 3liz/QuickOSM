@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'query.ui'
 #
-# Created: Wed Jul 30 18:03:35 2014
+# Created: Wed Oct  8 19:11:46 2014
 #      by: PyQt4 UI code generator 4.10.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -26,14 +26,14 @@ except AttributeError:
 class Ui_ui_query(object):
     def setupUi(self, ui_query):
         ui_query.setObjectName(_fromUtf8("ui_query"))
-        ui_query.resize(1178, 871)
+        ui_query.resize(603, 871)
         self.verticalLayout_3 = QtGui.QVBoxLayout(ui_query)
         self.verticalLayout_3.setObjectName(_fromUtf8("verticalLayout_3"))
         self.scrollArea = QtGui.QScrollArea(ui_query)
         self.scrollArea.setWidgetResizable(True)
         self.scrollArea.setObjectName(_fromUtf8("scrollArea"))
         self.scrollAreaWidgetContents = QtGui.QWidget()
-        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 1164, 857))
+        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 589, 857))
         self.scrollAreaWidgetContents.setObjectName(_fromUtf8("scrollAreaWidgetContents"))
         self.verticalLayout = QtGui.QVBoxLayout(self.scrollAreaWidgetContents)
         self.verticalLayout.setObjectName(_fromUtf8("verticalLayout"))
@@ -213,9 +213,9 @@ class Ui_ui_query(object):
         self.pushButton_overpassTurbo.setIcon(icon1)
         self.pushButton_overpassTurbo.setObjectName(_fromUtf8("pushButton_overpassTurbo"))
         self.horizontalLayout_5.addWidget(self.pushButton_overpassTurbo)
-        self.pushButton_docOverpass = QtGui.QPushButton(self.scrollAreaWidgetContents)
-        self.pushButton_docOverpass.setObjectName(_fromUtf8("pushButton_docOverpass"))
-        self.horizontalLayout_5.addWidget(self.pushButton_docOverpass)
+        self.pushButton_documentation = QtGui.QPushButton(self.scrollAreaWidgetContents)
+        self.pushButton_documentation.setObjectName(_fromUtf8("pushButton_documentation"))
+        self.horizontalLayout_5.addWidget(self.pushButton_documentation)
         self.verticalLayout.addLayout(self.horizontalLayout_5)
         spacerItem1 = QtGui.QSpacerItem(20, 71, QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Expanding)
         self.verticalLayout.addItem(spacerItem1)
@@ -254,7 +254,7 @@ class Ui_ui_query(object):
         self.pushButton_saveQuery.setText(_translate("ui_query", "Save query", None))
         self.label_progress.setText(_translate("ui_query", "progress text", None))
         self.pushButton_overpassTurbo.setText(_translate("ui_query", "Overpass Turbo", None))
-        self.pushButton_docOverpass.setText(_translate("ui_query", "Overpass\'s documentation", None))
+        self.pushButton_documentation.setText(_translate("ui_query", "Documentation", None))
 
 from qgis.gui import QgsCollapsibleGroupBox
 from QuickOSM import resources_rc
