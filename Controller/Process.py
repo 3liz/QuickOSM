@@ -90,7 +90,12 @@ class Process:
                 
                 
                 #Transforming the vector file
-                processing.runalg("gdalogr:ogr2ogr",item["geojsonFile"],0,"",outputs[layer])
+                osmGeom = {'points':QGis.WKBPoint,'lines':QGis.WKBLineString,'multilinestrings':QGis.WKBMultiLineString,'multipolygons':QGis.WKBMultiPolygon}
+                geojsonlayer = QgsVectorLayer(item['geojsonFile'],"temp","ogr")
+                writer = QgsVectorFileWriter(outputs[layer], "UTF-8", geojsonlayer.pendingFields(), osmGeom[layer], geojsonlayer.crs(), "ESRI Shapefile")
+                for f in geojsonlayer.getFeatures():
+                    writer.addFeature(f)
+                del writer
                 
                 #Loading the final vector file
                 newlayer = QgsVectorLayer(outputs[layer],finalLayerName,"ogr")
