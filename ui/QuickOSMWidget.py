@@ -116,7 +116,7 @@ class QuickOSMWidget(QWidget):
         #If mapCanvas is checked
         if self.radioButton_extentMapCanvas.isChecked():
             geomExtent = iface.mapCanvas().extent()
-            sourceCrs = iface.mapCanvas().mapRenderer().destinationCrs()
+            sourceCrs = iface.mapCanvas().mapSettings().destinationCrs() if hasattr(iface.mapCanvas(),"mapSettings") else iface.mapCanvas().mapRenderer().destinationCrs()
         else:
             #Else if a layer is checked
             index = self.comboBox_extentLayer.currentIndex()
