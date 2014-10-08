@@ -53,7 +53,7 @@ class QuickOSM:
         locale_path = os.path.join(
             self.plugin_dir,
             'i18n',
-            'QuickOSM_{}.qm'.format(locale))
+            'QuickOSM_{0}.qm'.format(locale))
 
         if os.path.exists(locale_path):
             self.translator = QTranslator()
