@@ -60,6 +60,7 @@ class QuickQueryWidget(QuickOSMWidget, Ui_ui_quick_query):
         self.radioButton_place.toggled.connect(self.allowNominatimOrExtent)
         self.pushButton_refreshLayers.clicked.connect(self.fillLayerCombobox)
         self.pushButton_mapFeatures.clicked.connect(self.openMapFeatures)
+        self.buttonBox.button(QDialogButtonBox.Reset).clicked.connect(self.resetForm)
         
         #Setup autocompletation
         mapFeaturesJsonFilePath = join(dirname(dirname(abspath(__file__))),'mapFeatures.json')
@@ -72,6 +73,21 @@ class QuickQueryWidget(QuickOSMWidget, Ui_ui_quick_query):
             self.comboBox_key.setCompleter(keysCompleter)
             self.comboBox_key.completer().setCompletionMode(QCompleter.PopupCompletion)
         self.keyEdited()
+
+    def resetForm(self):
+        self.comboBox_key.setCurrentIndex(0)
+        self.lineEdit_nominatim.setText("")
+        self.radioButton_place.setChecked(True)
+        self.checkBox_points.setChecked(True)
+        self.checkBox_lines.setChecked(True)
+        self.checkBox_multilinestrings.setChecked(True)
+        self.checkBox_multipolygons.setChecked(True)
+        self.checkBox_node.setChecked(True)
+        self.checkBox_way.setChecked(True)
+        self.checkBox_relation.setChecked(True)
+        self.spinBox_timeout.setValue(25)
+        self.lineEdit_browseDir.setText("")
+        self.lineEdit_filePrefix.setText("")
         
     def keyEdited(self):
         '''
