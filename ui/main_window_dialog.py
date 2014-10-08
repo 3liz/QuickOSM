@@ -31,6 +31,7 @@ class MainWindowDialog(QDialog, Ui_ui_main_window):
     
     #Signal new query
     signalNewQuerySuccessful = pyqtSignal(name='signalNewQuerySuccessful')
+    signalDeleteQuerySuccessful = pyqtSignal(name='signalDeleteQuerySuccessful')
        
     def __init__(self, parent=None):
         '''
@@ -44,8 +45,8 @@ class MainWindowDialog(QDialog, Ui_ui_main_window):
         self.pushButton_homeHelp.clicked.connect(self.getRootHelp)
         self.pushButton_OAPI_timestamp.clicked.connect(self.getTimestampOAPI)
         self.comboBox_default_OAPI.currentIndexChanged[int].connect(self.setServerOAPI)
-        self.query.signalNewQuerySuccessful.connect(self.onNewQuerySuccessful)
         self.query.signalNewQuerySuccessful.connect(self.signalNewQuerySuccessful.emit)
+        self.my_queries.signalDeleteQuerySuccessful.connect(self.signalDeleteQuerySuccessful.emit)
         self.pushButton_restoreQueries.clicked.connect(self.restoreDefaultQueries)
         
         #Set settings about the OAPI
@@ -82,7 +83,7 @@ class MainWindowDialog(QDialog, Ui_ui_main_window):
         '''
         self.webBrowser.load(QUrl(self.helpFile))
 
-    def onNewQuerySuccessful(self):
+    def refreshMyQueriesTree(self):
         '''
         Slot which force the tree to refresh
         '''

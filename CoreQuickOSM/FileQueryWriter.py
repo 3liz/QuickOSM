@@ -25,6 +25,7 @@ from QuickOSM import *
 
 import ConfigParser
 import os
+import codecs
 
 class FileQueryWriter:
     '''
@@ -93,10 +94,11 @@ class FileQueryWriter:
             raise QueryAlreadyExistsException
         
         filePath = os.path.join(self.path,self.queryFile)
-        print self.query
+
         if not os.path.isfile(filePath):
             fh = open(filePath,"w")
-            fh.write(self.query)
+            fh.write(codecs.BOM_UTF8)
+            fh.write(self.query.encode('utf8'))
             fh.close()
             return True
         else:

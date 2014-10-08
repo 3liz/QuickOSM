@@ -33,6 +33,9 @@ import os
 import re
 
 class MyQueriesWidget(QuickOSMWidget, Ui_ui_my_queries):
+    
+    signalDeleteQuerySuccessful = pyqtSignal(name='signalDeleteQuerySuccessful')
+    
     def __init__(self, parent=None):
         '''
         MyQueriesWidget constructor
@@ -216,7 +219,7 @@ class MyQueriesWidget(QuickOSMWidget, Ui_ui_my_queries):
                 for layer in layers:
                     if layers[layer]['style']:
                         QFile.remove(layers[layer]['style'])
-                self.fillTree(force=True)
+                self.signalDeleteQuerySuccessful.emit()
         
     def runQuery(self):
         '''
@@ -349,13 +352,18 @@ class TreeQueryItem(QTreeWidgetItem):
         self.setText(0, name)
 
 class MyQueriesDockWidget(QDockWidget):
+    
+    signalDeleteQuerySuccessful = pyqtSignal(name='signalDeleteQuerySuccessful')
+    
     def __init__(self, parent=None):
         QDockWidget.__init__(self)
         self.setAllowedAreas(Qt.LeftDockWidgetArea | Qt.RightDockWidgetArea)
         self.setWidget(MyQueriesWidget())
         self.setWindowTitle(QApplication.translate("ui_my_queries", "QuickOSM - My queries"))
         
-    def onNewQuerySuccessful(self):
+        self.widget().signalDeleteQuerySuccessful.connect(self.signalDeleteQuerySuccessful.emit)
+        
+    def refreshMyQueriesTree(self):
         '''
         Slots which refresh the tree
         '''

@@ -126,11 +126,17 @@ class QuickOSM:
         self.quickQueryDockWidget.hide()
         self.quickQueryDockWidget.setObjectName("quickQueryWidget");
         
-        #Connect signals and slots
-        self.iface.QuickOSM_mainWindowDialog.signalNewQuerySuccessful.connect(self.onNewQuerySuccessful)
+        #Connect signals and slots from dock
+        self.queryDockWidget.signalNewQuerySuccessful.connect(self.iface.QuickOSM_mainWindowDialog.refreshMyQueriesTree)
+        self.queryDockWidget.signalNewQuerySuccessful.connect(self.myQueriesDockWidget.refreshMyQueriesTree)
+        self.myQueriesDockWidget.signalDeleteQuerySuccessful.connect(self.myQueriesDockWidget.refreshMyQueriesTree)
+        self.myQueriesDockWidget.signalDeleteQuerySuccessful.connect(self.iface.QuickOSM_mainWindowDialog.refreshMyQueriesTree)
         
-    def onNewQuerySuccessful(self):
-        self.myQueriesDockWidget.onNewQuerySuccessful()
+        #Connect signals and slots from mainWindow
+        self.iface.QuickOSM_mainWindowDialog.signalNewQuerySuccessful.connect(self.myQueriesDockWidget.refreshMyQueriesTree)
+        self.iface.QuickOSM_mainWindowDialog.signalNewQuerySuccessful.connect(self.iface.QuickOSM_mainWindowDialog.refreshMyQueriesTree)
+        self.iface.QuickOSM_mainWindowDialog.signalDeleteQuerySuccessful.connect(self.myQueriesDockWidget.refreshMyQueriesTree)
+        self.iface.QuickOSM_mainWindowDialog.signalDeleteQuerySuccessful.connect(self.iface.QuickOSM_mainWindowDialog.refreshMyQueriesTree)
         
     def unload(self):
         self.iface.removePluginWebMenu(u"&Quick OSM",self.mainWindowAction)
