@@ -1,128 +1,456 @@
-NAME:voirie_insee
-GROUP:quickosm
-PARAMETER:ParameterString|STRING_INSEE|INSEE|25047
-120.0,60.0
-PARAMETER:ParameterString|STRING_KEY|key|highway
-150.0,527.0
-PARAMETER:ParameterString|STRING_VALUE|value|
-146.0,456.0
-PARAMETER:ParameterNumber|NUMBER_BUFFER|buffer|0.0|None|500.0
-1306.0,78.0
-VALUE:HARDCODEDPARAMVALUE_FIELD_KEY_0===ref:INSEE
-VALUE:HARDCODEDPARAMVALUE_WHITE_LIST_lines_2===None
-VALUE:HARDCODEDPARAMVALUE_FIELD_KEY_4===highway
-VALUE:HARDCODEDPARAMVALUE_WHITE_LIST_lines_6===None
-VALUE:HARDCODEDPARAMVALUE_DISSOLVE_7===True
-VALUE:HARDCODEDPARAMVALUE_DISTANCE_7===500
-VALUE:HARDCODEDPARAMVALUE_WHITE_LIST_multipolygons_6===None
-VALUE:HARDCODEDPARAMVALUE_SERVER_1===http://overpass-api.de/api/
-VALUE:HARDCODEDPARAMVALUE_EXTENT_1===0,1,0,1
-VALUE:HARDCODEDPARAMVALUE_SERVER_5===http://overpass-api.de/api/
-VALUE:HARDCODEDPARAMVALUE_EXTENT_5===0,1,0,1
-VALUE:HARDCODEDPARAMVALUE_FIELD_VALUE_0===25047
-VALUE:HARDCODEDPARAMVALUE_TARGET_CRS_10===EPSG:2154
-VALUE:HARDCODEDPARAMVALUE_FIELD_VALUE_4===None
-VALUE:HARDCODEDPARAMVALUE_SEGMENTS_7===5
-VALUE:HARDCODEDPARAMVALUE_WHITE_LIST_multipolygons_2===None
-VALUE:HARDCODEDPARAMVALUE_FIELD_3===osm_id
-VALUE:HARDCODEDPARAMVALUE_FIELD_EXTENT_4===0,1,0,1
-VALUE:HARDCODEDPARAMVALUE_WHITE_LIST_points_6===None
-VALUE:HARDCODEDPARAMVALUE_WHITE_LIST_points_2===None
-VALUE:HARDCODEDPARAMVALUE_FIELD_TIMEOUT_0===25
-VALUE:HARDCODEDPARAMVALUE_FIELD_OSM_OBJECTS_4===0
-VALUE:HARDCODEDPARAMVALUE_FIELD_TIMEOUT_4===25
-VALUE:HARDCODEDPARAMVALUE_FIELD_OSM_OBJECTS_0===0
-VALUE:HARDCODEDPARAMVALUE_WHITE_LIST_multilinestrings_6===None
-VALUE:HARDCODEDPARAMVALUE_WHITE_LIST_multilinestrings_2===None
-VALUE:HARDCODEDPARAMVALUE_FIELD_EXTENT_0===0,1,0,1
-VALUE:HARDCODEDPARAMVALUE_NOMINATIM_5===Montpellier
-VALUE:HARDCODEDPARAMVALUE_NOMINATIM_1===Montpellier
-VALUE:HARDCODEDPARAMVALUE_TARGET_CRS_9===EPSG:2154
-VALUE:HARDCODEDPARAMVALUE_FIELD_NOMINATIM_0===None
-ALGORITHM:quickosm:queryfactory
-149.0,140.0
-None
--1|HARDCODEDPARAMVALUE_FIELD_KEY_0
--1|STRING_INSEE
--1|HARDCODEDPARAMVALUE_FIELD_EXTENT_0
--1|HARDCODEDPARAMVALUE_FIELD_NOMINATIM_0
--1|HARDCODEDPARAMVALUE_FIELD_TIMEOUT_0
-ALGORITHM:quickosm:queryoverpassapiwithastring
-332.0,198.0
-None
--1|HARDCODEDPARAMVALUE_SERVER_1
-0|OUTPUT_QUERY
--1|HARDCODEDPARAMVALUE_EXTENT_1
--1|HARDCODEDPARAMVALUE_NOMINATIM_1
-None
-ALGORITHM:quickosm:ogrdefault
-515.0,257.0
-None
-1|OUTPUT_FILE
--1|HARDCODEDPARAMVALUE_WHITE_LIST_multipolygons_2
--1|HARDCODEDPARAMVALUE_WHITE_LIST_multilinestrings_2
--1|HARDCODEDPARAMVALUE_WHITE_LIST_lines_2
--1|HARDCODEDPARAMVALUE_WHITE_LIST_points_2
-commune|886.0,286.0
-None
-None
-None
-ALGORITHM:quickosm:getfirstfieldofanattribute
-642.0,387.0
-None
-2|multipolygons_LAYER
--1|HARDCODEDPARAMVALUE_FIELD_3
-ALGORITHM:quickosm:queryfactory
-805.0,446.0
-None
--1|STRING_KEY
--1|STRING_VALUE
--1|HARDCODEDPARAMVALUE_FIELD_EXTENT_4
-3|OUTPUT_VALUE
--1|HARDCODEDPARAMVALUE_FIELD_TIMEOUT_4
-ALGORITHM:quickosm:queryoverpassapiwithastring
-972.0,504.0
-None
--1|HARDCODEDPARAMVALUE_SERVER_5
-4|OUTPUT_QUERY
--1|HARDCODEDPARAMVALUE_EXTENT_5
--1|HARDCODEDPARAMVALUE_NOMINATIM_5
-None
-ALGORITHM:quickosm:ogrdefault
-1135.0,562.0
-None
-5|OUTPUT_FILE
--1|HARDCODEDPARAMVALUE_WHITE_LIST_multipolygons_6
--1|HARDCODEDPARAMVALUE_WHITE_LIST_multilinestrings_6
--1|HARDCODEDPARAMVALUE_WHITE_LIST_lines_6
--1|HARDCODEDPARAMVALUE_WHITE_LIST_points_6
-None
-None
-None
-None
-ALGORITHM:qgis:fixeddistancebuffer
-1410.0,502.0
-None
-9|OUTPUT
--1|NUMBER_BUFFER
--1|HARDCODEDPARAMVALUE_SEGMENTS_7
--1|HARDCODEDPARAMVALUE_DISSOLVE_7
-None
-ALGORITHM:qgis:clip
-1563.0,691.0
-None
-10|OUTPUT
-7|OUTPUT
-voirie|1808.0,725.0
-ALGORITHM:qgis:reprojectlayer
-1164.0,400.0
-None
-2|multipolygons_LAYER
--1|HARDCODEDPARAMVALUE_TARGET_CRS_9
-None
-ALGORITHM:qgis:reprojectlayer
-1324.0,630.0
-None
-6|lines_LAYER
--1|HARDCODEDPARAMVALUE_TARGET_CRS_10
-None
+{
+    "values": {
+        "inputs": {
+            "NUMBER_BUFFER": {
+                "values": {
+                    "pos": {
+                        "values": {
+                            "y": 40.0, 
+                            "x": 759.0
+                        }, 
+                        "class": "point"
+                    }, 
+                    "param": {
+                        "values": {
+                            "isAdvanced": false, 
+                            "name": "NUMBER_BUFFER", 
+                            "min": 0.0, 
+                            "default": 500.0, 
+                            "max": null, 
+                            "value": null, 
+                            "hidden": false, 
+                            "isInteger": false, 
+                            "description": "buffer"
+                        }, 
+                        "class": "processing.core.parameters.ParameterNumber"
+                    }
+                }, 
+                "class": "processing.modeler.ModelerAlgorithm.ModelerParameter"
+            }, 
+            "STRING_INSEE": {
+                "values": {
+                    "pos": {
+                        "values": {
+                            "y": 25.0, 
+                            "x": 111.0
+                        }, 
+                        "class": "point"
+                    }, 
+                    "param": {
+                        "values": {
+                            "isAdvanced": false, 
+                            "name": "STRING_INSEE", 
+                            "default": "25047", 
+                            "value": null, 
+                            "multiline": false, 
+                            "hidden": false, 
+                            "optional": false, 
+                            "description": "INSEE"
+                        }, 
+                        "class": "processing.core.parameters.ParameterString"
+                    }
+                }, 
+                "class": "processing.modeler.ModelerAlgorithm.ModelerParameter"
+            }
+        }, 
+        "group": "quickosm", 
+        "name": "voirie_insee", 
+        "algs": {
+            "QUICKOSMOGRDEFAULT_2": {
+                "values": {
+                    "name": "QUICKOSMOGRDEFAULT_2", 
+                    "paramsFolded": true, 
+                    "outputs": {}, 
+                    "pos": {
+                        "values": {
+                            "y": 489.0, 
+                            "x": 955.0
+                        }, 
+                        "class": "point"
+                    }, 
+                    "outputsFolded": true, 
+                    "dependencies": [], 
+                    "params": {
+                        "WHITE_LIST_lines": null, 
+                        "WHITE_LIST_multilinestrings": null, 
+                        "WHITE_LIST_multipolygons": null, 
+                        "FILE": {
+                            "values": {
+                                "alg": "QUICKOSMQUERYOVERPASSAPIWITHASTRING_2", 
+                                "output": "OUTPUT_FILE"
+                            }, 
+                            "class": "processing.modeler.ModelerAlgorithm.ValueFromOutput"
+                        }, 
+                        "WHITE_LIST_points": null
+                    }, 
+                    "active": true, 
+                    "consoleName": "quickosm:ogrdefault", 
+                    "description": "OGR default"
+                }, 
+                "class": "processing.modeler.ModelerAlgorithm.Algorithm"
+            }, 
+            "QUICKOSMOGRDEFAULT_1": {
+                "values": {
+                    "name": "QUICKOSMOGRDEFAULT_1", 
+                    "paramsFolded": true, 
+                    "outputs": {
+                        "multipolygons_LAYER": {
+                            "values": {
+                                "description": "commune", 
+                                "pos": {
+                                    "values": {
+                                        "y": 198.0, 
+                                        "x": 687.0
+                                    }, 
+                                    "class": "point"
+                                }
+                            }, 
+                            "class": "processing.modeler.ModelerAlgorithm.ModelerOutput"
+                        }
+                    }, 
+                    "pos": {
+                        "values": {
+                            "y": 208.0, 
+                            "x": 385.0
+                        }, 
+                        "class": "point"
+                    }, 
+                    "outputsFolded": true, 
+                    "dependencies": [], 
+                    "params": {
+                        "WHITE_LIST_lines": null, 
+                        "WHITE_LIST_multilinestrings": null, 
+                        "WHITE_LIST_multipolygons": null, 
+                        "FILE": {
+                            "values": {
+                                "alg": "QUICKOSMQUERYOVERPASSAPIWITHASTRING_1", 
+                                "output": "OUTPUT_FILE"
+                            }, 
+                            "class": "processing.modeler.ModelerAlgorithm.ValueFromOutput"
+                        }, 
+                        "WHITE_LIST_points": null
+                    }, 
+                    "active": true, 
+                    "consoleName": "quickosm:ogrdefault", 
+                    "description": "OGR default"
+                }, 
+                "class": "processing.modeler.ModelerAlgorithm.Algorithm"
+            }, 
+            "QUICKOSMQUERYFACTORY_1": {
+                "values": {
+                    "name": "QUICKOSMQUERYFACTORY_1", 
+                    "paramsFolded": true, 
+                    "outputs": {}, 
+                    "pos": {
+                        "values": {
+                            "y": 92.0, 
+                            "x": 124.0
+                        }, 
+                        "class": "point"
+                    }, 
+                    "outputsFolded": true, 
+                    "dependencies": [], 
+                    "params": {
+                        "FIELD_NOMINATIM": null, 
+                        "FIELD_KEY": "ref:INSEE", 
+                        "FIELD_TIMEOUT": 25.0, 
+                        "FIELD_EXTENT": [
+                            "0,0,0,0"
+                        ], 
+                        "FIELD_VALUE": {
+                            "values": {
+                                "name": "STRING_INSEE"
+                            }, 
+                            "class": "processing.modeler.ModelerAlgorithm.ValueFromInput"
+                        }
+                    }, 
+                    "active": true, 
+                    "consoleName": "quickosm:queryfactory", 
+                    "description": "Query factory"
+                }, 
+                "class": "processing.modeler.ModelerAlgorithm.Algorithm"
+            }, 
+            "QUICKOSMQUERYFACTORY_2": {
+                "values": {
+                    "name": "QUICKOSMQUERYFACTORY_2", 
+                    "paramsFolded": true, 
+                    "outputs": {}, 
+                    "outputsFolded": true, 
+                    "pos": {
+                        "values": {
+                            "y": 373.0, 
+                            "x": 691.0
+                        }, 
+                        "class": "point"
+                    }, 
+                    "dependencies": [], 
+                    "params": {
+                        "FIELD_NOMINATIM": {
+                            "values": {
+                                "alg": "QUICKOSMGETFIRSTFIELDOFANATTRIBUTE_1", 
+                                "output": "OUTPUT_VALUE"
+                            }, 
+                            "class": "processing.modeler.ModelerAlgorithm.ValueFromOutput"
+                        }, 
+                        "FIELD_KEY": "highway", 
+                        "FIELD_TIMEOUT": 25.0, 
+                        "FIELD_EXTENT": [
+                            "0,0,0,0"
+                        ], 
+                        "FIELD_VALUE": null
+                    }, 
+                    "active": true, 
+                    "consoleName": "quickosm:queryfactory", 
+                    "description": "Query factory"
+                }, 
+                "class": "processing.modeler.ModelerAlgorithm.Algorithm"
+            }, 
+            "QUICKOSMGETFIRSTFIELDOFANATTRIBUTE_1": {
+                "values": {
+                    "name": "QUICKOSMGETFIRSTFIELDOFANATTRIBUTE_1", 
+                    "paramsFolded": true, 
+                    "outputs": {}, 
+                    "pos": {
+                        "values": {
+                            "y": 295.0, 
+                            "x": 547.0
+                        }, 
+                        "class": "point"
+                    }, 
+                    "outputsFolded": true, 
+                    "dependencies": [], 
+                    "params": {
+                        "FIELD": "osm_id", 
+                        "VECTOR_LAYER": {
+                            "values": {
+                                "alg": "QUICKOSMOGRDEFAULT_1", 
+                                "output": "multipolygons_LAYER"
+                            }, 
+                            "class": "processing.modeler.ModelerAlgorithm.ValueFromOutput"
+                        }
+                    }, 
+                    "active": true, 
+                    "consoleName": "quickosm:getfirstfieldofanattribute", 
+                    "description": "Get first field of an attribute"
+                }, 
+                "class": "processing.modeler.ModelerAlgorithm.Algorithm"
+            }, 
+            "QUICKOSMQUERYOVERPASSAPIWITHASTRING_2": {
+                "values": {
+                    "name": "QUICKOSMQUERYOVERPASSAPIWITHASTRING_2", 
+                    "paramsFolded": true, 
+                    "outputs": {}, 
+                    "pos": {
+                        "values": {
+                            "y": 431.0, 
+                            "x": 823.0
+                        }, 
+                        "class": "point"
+                    }, 
+                    "outputsFolded": true, 
+                    "dependencies": [], 
+                    "params": {
+                        "QUERY_STRING": {
+                            "values": {
+                                "alg": "QUICKOSMQUERYFACTORY_2", 
+                                "output": "OUTPUT_QUERY"
+                            }, 
+                            "class": "processing.modeler.ModelerAlgorithm.ValueFromOutput"
+                        }, 
+                        "NOMINATIM": null, 
+                        "EXTENT": [
+                            "0,0,0,0"
+                        ], 
+                        "SERVER": "http://overpass-api.de/api/"
+                    }, 
+                    "active": true, 
+                    "consoleName": "quickosm:queryoverpassapiwithastring", 
+                    "description": "Query overpass API with a string"
+                }, 
+                "class": "processing.modeler.ModelerAlgorithm.Algorithm"
+            }, 
+            "QUICKOSMQUERYOVERPASSAPIWITHASTRING_1": {
+                "values": {
+                    "name": "QUICKOSMQUERYOVERPASSAPIWITHASTRING_1", 
+                    "paramsFolded": true, 
+                    "outputs": {}, 
+                    "pos": {
+                        "values": {
+                            "y": 154.0, 
+                            "x": 233.0
+                        }, 
+                        "class": "point"
+                    }, 
+                    "outputsFolded": true, 
+                    "dependencies": [], 
+                    "params": {
+                        "QUERY_STRING": {
+                            "values": {
+                                "alg": "QUICKOSMQUERYFACTORY_1", 
+                                "output": "OUTPUT_QUERY"
+                            }, 
+                            "class": "processing.modeler.ModelerAlgorithm.ValueFromOutput"
+                        }, 
+                        "NOMINATIM": null, 
+                        "EXTENT": [
+                            "0,0,0,0"
+                        ], 
+                        "SERVER": "http://overpass-api.de/api/"
+                    }, 
+                    "active": true, 
+                    "consoleName": "quickosm:queryoverpassapiwithastring", 
+                    "description": "Query overpass API with a string"
+                }, 
+                "class": "processing.modeler.ModelerAlgorithm.Algorithm"
+            }, 
+            "QGISCLIP_1": {
+                "values": {
+                    "name": "QGISCLIP_1", 
+                    "paramsFolded": true, 
+                    "outputs": {
+                        "OUTPUT": {
+                            "values": {
+                                "description": "voirie", 
+                                "pos": {
+                                    "values": {
+                                        "y": 632.0, 
+                                        "x": 1531.0
+                                    }, 
+                                    "class": "point"
+                                }
+                            }, 
+                            "class": "processing.modeler.ModelerAlgorithm.ModelerOutput"
+                        }
+                    }, 
+                    "pos": {
+                        "values": {
+                            "y": 605.0, 
+                            "x": 1319.0
+                        }, 
+                        "class": "point"
+                    }, 
+                    "outputsFolded": true, 
+                    "dependencies": [], 
+                    "params": {
+                        "INPUT": {
+                            "values": {
+                                "alg": "QGISREPROJECTLAYER_2", 
+                                "output": "OUTPUT"
+                            }, 
+                            "class": "processing.modeler.ModelerAlgorithm.ValueFromOutput"
+                        }, 
+                        "OVERLAY": {
+                            "values": {
+                                "alg": "QGISFIXEDDISTANCEBUFFER_1", 
+                                "output": "OUTPUT"
+                            }, 
+                            "class": "processing.modeler.ModelerAlgorithm.ValueFromOutput"
+                        }
+                    }, 
+                    "active": true, 
+                    "consoleName": "qgis:clip", 
+                    "description": "Clip"
+                }, 
+                "class": "processing.modeler.ModelerAlgorithm.Algorithm"
+            }, 
+            "QGISREPROJECTLAYER_1": {
+                "values": {
+                    "name": "QGISREPROJECTLAYER_1", 
+                    "paramsFolded": true, 
+                    "outputs": {}, 
+                    "pos": {
+                        "values": {
+                            "y": 276.0, 
+                            "x": 818.0
+                        }, 
+                        "class": "point"
+                    }, 
+                    "outputsFolded": true, 
+                    "dependencies": [], 
+                    "params": {
+                        "INPUT": {
+                            "values": {
+                                "alg": "QUICKOSMOGRDEFAULT_1", 
+                                "output": "multipolygons_LAYER"
+                            }, 
+                            "class": "processing.modeler.ModelerAlgorithm.ValueFromOutput"
+                        }, 
+                        "TARGET_CRS": "EPSG:2154"
+                    }, 
+                    "active": true, 
+                    "consoleName": "qgis:reprojectlayer", 
+                    "description": "Reproject layer"
+                }, 
+                "class": "processing.modeler.ModelerAlgorithm.Algorithm"
+            }, 
+            "QGISREPROJECTLAYER_2": {
+                "values": {
+                    "name": "QGISREPROJECTLAYER_2", 
+                    "paramsFolded": true, 
+                    "outputs": {}, 
+                    "pos": {
+                        "values": {
+                            "y": 547.0, 
+                            "x": 1082.0
+                        }, 
+                        "class": "point"
+                    }, 
+                    "outputsFolded": true, 
+                    "dependencies": [], 
+                    "params": {
+                        "INPUT": {
+                            "values": {
+                                "alg": "QUICKOSMOGRDEFAULT_2", 
+                                "output": "lines_LAYER"
+                            }, 
+                            "class": "processing.modeler.ModelerAlgorithm.ValueFromOutput"
+                        }, 
+                        "TARGET_CRS": "EPSG:2154"
+                    }, 
+                    "active": true, 
+                    "consoleName": "qgis:reprojectlayer", 
+                    "description": "Reproject layer"
+                }, 
+                "class": "processing.modeler.ModelerAlgorithm.Algorithm"
+            }, 
+            "QGISFIXEDDISTANCEBUFFER_1": {
+                "values": {
+                    "name": "QGISFIXEDDISTANCEBUFFER_1", 
+                    "paramsFolded": true, 
+                    "outputs": {}, 
+                    "pos": {
+                        "values": {
+                            "y": 431.0, 
+                            "x": 1162.0
+                        }, 
+                        "class": "point"
+                    }, 
+                    "outputsFolded": true, 
+                    "dependencies": [], 
+                    "params": {
+                        "INPUT": {
+                            "values": {
+                                "alg": "QGISREPROJECTLAYER_1", 
+                                "output": "OUTPUT"
+                            }, 
+                            "class": "processing.modeler.ModelerAlgorithm.ValueFromOutput"
+                        }, 
+                        "SEGMENTS": "5", 
+                        "DISSOLVE": "True", 
+                        "DISTANCE": {
+                            "values": {
+                                "name": "NUMBER_BUFFER"
+                            }, 
+                            "class": "processing.modeler.ModelerAlgorithm.ValueFromInput"
+                        }
+                    }, 
+                    "active": true, 
+                    "consoleName": "qgis:fixeddistancebuffer", 
+                    "description": "Fixed distance buffer"
+                }, 
+                "class": "processing.modeler.ModelerAlgorithm.Algorithm"
+            }
+        }
+    }, 
+    "class": "processing.modeler.ModelerAlgorithm.ModelerAlgorithm"
+}

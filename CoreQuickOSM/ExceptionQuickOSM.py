@@ -57,6 +57,17 @@ class NetWorkErrorException(QuickOsmException):
         QuickOsmException.__init__(self,msg)
 
 '''
+QueryFactory
+'''
+class QueryFactoryException(QuickOsmException):
+    def __init__(self, msg=None, suffix=None):
+        if not msg:
+            msg = QApplication.translate("Exception", u"Error while building the query")
+        if suffix:
+            msg = msg + " : " + suffix
+        QuickOsmException.__init__(self,msg)
+
+'''
 Nominatim
 '''
 class NominatimAreaException(QuickOsmException):

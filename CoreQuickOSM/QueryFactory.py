@@ -70,7 +70,7 @@ class QueryFactory():
         
         #Check if is ok ?
         if self.__nominatim and self.__bbox:
-            return False, "Nominatim OR bbox, not both"
+            raise QueryFactoryException(suffix="nominatim OR bbox, not both")
         
         if self.__nominatim == '{{nominatim}}' or self.__nominatim == True:
             self.__nominatim = '{{nominatim}}'
@@ -79,11 +79,11 @@ class QueryFactory():
             self.__bbox = '{{bbox}}'
         
         if not self.__key:
-            return False, "Key required"
+            raise QueryFactoryException(suffix="key required")
         
         for osmObject in self.__osmObjects:
             if osmObject not in QueryFactory.OSM_TYPES:
-                return False, "Wrong OSM object"
+                raise QueryFactoryException(suffix="wrong OSM object")
           
         #TEST OK, so continue and build the query
         TAB = '     '

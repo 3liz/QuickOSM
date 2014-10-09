@@ -48,7 +48,7 @@ class OverpassQueryGeoAlgorithm(GeoAlgorithm):
 
         self.addParameter(ParameterString(self.SERVER, 'Overpass API','http://overpass-api.de/api/', False, False))
         self.addParameter(ParameterString(self.QUERY_STRING,'Query (XML or OQL)', '', True,False))
-        self.addParameter(ParameterExtent(self.EXTENT, 'If {{bbox}} in the query, extent (999,999,999,999 is a wrong value)', default="999,999,999,999"))
+        self.addParameter(ParameterExtent(self.EXTENT, 'If {{bbox}} in the query, extent (0,0,0,0 is a wrong value)', default="0,0,0,0"))
         self.addParameter(ParameterString(self.NOMINATIM, 'If {{nominatim}} in the query, place','', False, True))
         
         self.addOutput(OutputFile(self.OUTPUT_FILE, 'OSM file'))
@@ -86,7 +86,7 @@ class OverpassQueryGeoAlgorithm(GeoAlgorithm):
         
         #Extent of the layer
         extent = self.getParameterValue(self.EXTENT)
-        if extent != "999,999,999,999":
+        if extent != "0,0,0,0":
             #xmin,xmax,ymin,ymax
             extent = [float(i) for i in extent.split(',')]
             geomExtent = QgsGeometry.fromRect(QgsRectangle(extent[0],extent[2],extent[1],extent[3]))
