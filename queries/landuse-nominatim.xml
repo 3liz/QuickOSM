@@ -32,15 +32,15 @@
     <!-- query part for: “waterway” -->
     <query type="node">
       <has-kv k="waterway"/>
-      <bbox-query {{bbox}}/>
+      <area-query from="area"/>
     </query>
     <query type="way">
       <has-kv k="waterway"/>
-      <bbox-query {{bbox}}/>
+      <area-query from="area"/>
     </query>
     <query type="relation">
       <has-kv k="waterway"/>
-      <bbox-query {{bbox}}/>
+      <area-query from="area"/>
     </query>
   </union>
      <union>
