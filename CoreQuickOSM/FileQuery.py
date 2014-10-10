@@ -123,6 +123,7 @@ class FileQuery:
     def isTemplate(self):
         self.__bboxTemplate = False
         self.__nominatimTemplate = False
+        self.__nominatimDefaultValue = None
         
         #If XML, check for templates
         if self.__queryExtension == 'xml':
@@ -133,10 +134,15 @@ class FileQuery:
                 self.__bboxTemplate = True
             
             #Check if there is a Nominatim template    
-            if re.search('{{nominatim}}', query) or re.search('{{nominatimArea:(.*)}}', query):
+            if re.search('{{nominatim}}', query):
                 self.__nominatimTemplate = True
-
-        return {"nominatim" : self.__nominatimTemplate, "bbox":self.__bboxTemplate}
+                self.__nominatimDefaultValue = False
+            m = re.search('{{nominatimArea:(.*)}}', query)
+            if m:
+                self.__nominatimTemplate = True
+                self.__nominatimDefaultValue = m.groups(1)[0]
+                
+        return {"nominatim" : self.__nominatimTemplate, "nominatimDefaultValue" : self.__nominatimDefaultValue, "bbox":self.__bboxTemplate}
         
     def getContent(self):
         try:
