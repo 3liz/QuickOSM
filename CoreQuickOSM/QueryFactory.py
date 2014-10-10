@@ -70,7 +70,7 @@ class QueryFactory():
         
         #Check if is ok ?
         if self.__nominatim and self.__bbox:
-            raise QueryFactoryException(suffix="nominatim OR bbox, not both")
+            raise QueryFactoryException(suffix=QApplication.translate("QuickOSM","nominatim OR bbox, not both"))
         
         if self.__nominatim == '{{nominatim}}' or self.__nominatim == True:
             self.__nominatim = '{{nominatim}}'
@@ -79,11 +79,11 @@ class QueryFactory():
             self.__bbox = '{{bbox}}'
         
         if not self.__key:
-            raise QueryFactoryException(suffix="key required")
+            raise QueryFactoryException(suffix=QApplication.translate("QuickOSM","key required"))
         
         for osmObject in self.__osmObjects:
             if osmObject not in QueryFactory.OSM_TYPES:
-                raise QueryFactoryException(suffix="wrong OSM object")
+                raise QueryFactoryException(suffix=QApplication.translate("QuickOSM","wrong OSM object"))
           
         #TEST OK, so continue and build the query
         TAB = '     '
