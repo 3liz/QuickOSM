@@ -48,6 +48,10 @@ class MyQueriesWidget(QuickOSMWidget, Ui_ui_my_queries):
         self.pushButton_runQuery.setDisabled(True)
         self.pushButton_showQuery.setDisabled(True)
         self.groupBox.setDisabled(True)
+        self.lineEdit_nominatim.setEnabled(False)
+        self.radioButton_extentLayer.setEnabled(False)
+        self.radioButton_extentMapCanvas.setEnabled(False)
+        
         self.fillLayerCombobox()
         self.fillTree()
         self.groupBox.setCollapsed(True)
@@ -189,6 +193,7 @@ class MyQueriesWidget(QuickOSMWidget, Ui_ui_my_queries):
             else:
                 self.lineEdit_nominatim.setEnabled(False)
                 self.lineEdit_nominatim.setText("")
+                self.lineEdit_nominatim.setPlaceholderText("")
                 
             config = item.query.getContent()
             self.configLayer = config['layers']
