@@ -155,7 +155,7 @@ QListWidget::item::selected {
         </size>
        </property>
        <property name="currentIndex">
-        <number>4</number>
+        <number>6</number>
        </property>
        <widget class="MyQueriesWidget" name="my_queries"/>
        <widget class="QuickQueryWidget" name="quick_query"/>
@@ -269,8 +269,8 @@ QListWidget::item::selected {
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>73</width>
-              <height>52</height>
+              <width>609</width>
+              <height>614</height>
              </rect>
             </property>
             <layout class="QVBoxLayout" name="verticalLayout_5">
@@ -332,8 +332,8 @@ QListWidget::item::selected {
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>432</width>
-              <height>537</height>
+              <width>609</width>
+              <height>614</height>
              </rect>
             </property>
             <layout class="QVBoxLayout" name="verticalLayout_9">
@@ -453,7 +453,7 @@ QListWidget::item::selected {
                   <item row="0" column="1">
                    <widget class="QLabel" name="label_20">
                     <property name="text">
-                     <string>&lt;a href=&quot;https://github.com/3liz/QgisQuickExportPlugin&quot; style=&quot;color:#7BA11A;text-decoration:none;&quot;&gt;https://github.com/3liz/QgisQuickExportPlugin&lt;/a&gt;</string>
+                     <string>&lt;a href=&quot;https://github.com/3liz/QgisQuickOSMPlugin&quot; style=&quot;color:#7BA11A;text-decoration:none;&quot;&gt;https://github.com/3liz/QgisQuickOSMPlugin&lt;/a&gt;</string>
                     </property>
                     <property name="openExternalLinks">
                      <bool>true</bool>
