@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>790</width>
-    <height>642</height>
+    <width>752</width>
+    <height>589</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -170,23 +170,11 @@ QListWidget::item::selected {
            </property>
            <layout class="QVBoxLayout" name="verticalLayout">
             <item>
-             <widget class="QComboBox" name="comboBox_default_OAPI">
+             <layout class="QHBoxLayout" name="horizontalLayout_8">
               <item>
-               <property name="text">
-                <string>http://www.overpass-api.de/api/</string>
-               </property>
+               <widget class="QComboBox" name="comboBox_default_OAPI"/>
               </item>
-              <item>
-               <property name="text">
-                <string>http://overpass.osm.rambler.ru/cgi/</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>http://api.openstreetmap.fr/oapi/</string>
-               </property>
-              </item>
-             </widget>
+             </layout>
             </item>
             <item>
              <layout class="QHBoxLayout" name="horizontalLayout_2">
@@ -269,8 +257,8 @@ QListWidget::item::selected {
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>609</width>
-              <height>614</height>
+              <width>571</width>
+              <height>561</height>
              </rect>
             </property>
             <layout class="QVBoxLayout" name="verticalLayout_5">
@@ -332,8 +320,8 @@ QListWidget::item::selected {
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>609</width>
-              <height>614</height>
+              <width>571</width>
+              <height>561</height>
              </rect>
             </property>
             <layout class="QVBoxLayout" name="verticalLayout_9">
@@ -564,7 +552,6 @@ QListWidget::item::selected {
  </customwidgets>
  <tabstops>
   <tabstop>pushButton_OAPI_timestamp</tabstop>
-  <tabstop>comboBox_default_OAPI</tabstop>
   <tabstop>listWidget</tabstop>
  </tabstops>
  <resources>

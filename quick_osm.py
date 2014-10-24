@@ -31,7 +31,8 @@ from ui.query_dialog import QueryDockWidget
 from ui.osm_file_dialog import OsmFileDockWidget
 from ui.quick_query_dialog import QuickQueryDockWidget
 from ProcessingQuickOSM.QuickOSMAlgorithmProvider import QuickOSMAlgorithmProvider
-import os.path
+from os.path import isfile
+import json
 
 class QuickOSM:
 
@@ -137,6 +138,13 @@ class QuickOSM:
         self.iface.QuickOSM_mainWindowDialog.signalNewQuerySuccessful.connect(self.iface.QuickOSM_mainWindowDialog.refreshMyQueriesTree)
         self.iface.QuickOSM_mainWindowDialog.signalDeleteQuerySuccessful.connect(self.myQueriesDockWidget.refreshMyQueriesTree)
         self.iface.QuickOSM_mainWindowDialog.signalDeleteQuerySuccessful.connect(self.iface.QuickOSM_mainWindowDialog.refreshMyQueriesTree)
+        
+        #Read the config file
+        configJsonFilePath = join(dirname(abspath(__file__)),'config.json')
+        if isfile(configJsonFilePath):  
+            self.config = json.load(open(configJsonFilePath))
+            for server in self.config['overpass_servers']:
+                self.iface.QuickOSM_mainWindowDialog.comboBox_default_OAPI.addItem(server)
         
     def unload(self):
         self.iface.removePluginWebMenu(u"&Quick OSM",self.mainWindowAction)

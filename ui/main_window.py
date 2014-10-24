@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'main_window.ui'
 #
-# Created: Mon Oct 13 09:42:32 2014
+# Created: Fri Oct 24 19:22:57 2014
 #      by: PyQt4 UI code generator 4.10.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -27,7 +27,7 @@ class Ui_ui_main_window(object):
     def setupUi(self, ui_main_window):
         ui_main_window.setObjectName(_fromUtf8("ui_main_window"))
         ui_main_window.setWindowModality(QtCore.Qt.WindowModal)
-        ui_main_window.resize(790, 642)
+        ui_main_window.resize(752, 589)
         self.horizontalLayout = QtGui.QHBoxLayout(ui_main_window)
         self.horizontalLayout.setObjectName(_fromUtf8("horizontalLayout"))
         self.listWidget = QtGui.QListWidget(ui_main_window)
@@ -125,12 +125,12 @@ class Ui_ui_main_window(object):
         self.groupBox.setObjectName(_fromUtf8("groupBox"))
         self.verticalLayout = QtGui.QVBoxLayout(self.groupBox)
         self.verticalLayout.setObjectName(_fromUtf8("verticalLayout"))
+        self.horizontalLayout_8 = QtGui.QHBoxLayout()
+        self.horizontalLayout_8.setObjectName(_fromUtf8("horizontalLayout_8"))
         self.comboBox_default_OAPI = QtGui.QComboBox(self.groupBox)
         self.comboBox_default_OAPI.setObjectName(_fromUtf8("comboBox_default_OAPI"))
-        self.comboBox_default_OAPI.addItem(_fromUtf8(""))
-        self.comboBox_default_OAPI.addItem(_fromUtf8(""))
-        self.comboBox_default_OAPI.addItem(_fromUtf8(""))
-        self.verticalLayout.addWidget(self.comboBox_default_OAPI)
+        self.horizontalLayout_8.addWidget(self.comboBox_default_OAPI)
+        self.verticalLayout.addLayout(self.horizontalLayout_8)
         self.horizontalLayout_2 = QtGui.QHBoxLayout()
         self.horizontalLayout_2.setObjectName(_fromUtf8("horizontalLayout_2"))
         self.pushButton_OAPI_timestamp = QtGui.QPushButton(self.groupBox)
@@ -165,7 +165,7 @@ class Ui_ui_main_window(object):
         self.scrollArea.setWidgetResizable(True)
         self.scrollArea.setObjectName(_fromUtf8("scrollArea"))
         self.scrollAreaWidgetContents = QtGui.QWidget()
-        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 609, 614))
+        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 571, 561))
         self.scrollAreaWidgetContents.setObjectName(_fromUtf8("scrollAreaWidgetContents"))
         self.verticalLayout_5 = QtGui.QVBoxLayout(self.scrollAreaWidgetContents)
         self.verticalLayout_5.setObjectName(_fromUtf8("verticalLayout_5"))
@@ -193,7 +193,7 @@ class Ui_ui_main_window(object):
         self.scrollArea_2.setWidgetResizable(True)
         self.scrollArea_2.setObjectName(_fromUtf8("scrollArea_2"))
         self.scrollAreaWidgetContents_2 = QtGui.QWidget()
-        self.scrollAreaWidgetContents_2.setGeometry(QtCore.QRect(0, 0, 609, 614))
+        self.scrollAreaWidgetContents_2.setGeometry(QtCore.QRect(0, 0, 571, 561))
         self.scrollAreaWidgetContents_2.setObjectName(_fromUtf8("scrollAreaWidgetContents_2"))
         self.verticalLayout_9 = QtGui.QVBoxLayout(self.scrollAreaWidgetContents_2)
         self.verticalLayout_9.setObjectName(_fromUtf8("verticalLayout_9"))
@@ -286,8 +286,7 @@ class Ui_ui_main_window(object):
         self.stackedWidget.setCurrentIndex(6)
         QtCore.QObject.connect(self.listWidget, QtCore.SIGNAL(_fromUtf8("currentRowChanged(int)")), self.stackedWidget.setCurrentIndex)
         QtCore.QMetaObject.connectSlotsByName(ui_main_window)
-        ui_main_window.setTabOrder(self.pushButton_OAPI_timestamp, self.comboBox_default_OAPI)
-        ui_main_window.setTabOrder(self.comboBox_default_OAPI, self.listWidget)
+        ui_main_window.setTabOrder(self.pushButton_OAPI_timestamp, self.listWidget)
 
     def retranslateUi(self, ui_main_window):
         ui_main_window.setWindowTitle(_translate("ui_main_window", "Quick OSM", None))
@@ -309,9 +308,6 @@ class Ui_ui_main_window(object):
         item.setText(_translate("ui_main_window", "About", None))
         self.listWidget.setSortingEnabled(__sortingEnabled)
         self.groupBox.setTitle(_translate("ui_main_window", "Overpass API", None))
-        self.comboBox_default_OAPI.setItemText(0, _translate("ui_main_window", "http://www.overpass-api.de/api/", None))
-        self.comboBox_default_OAPI.setItemText(1, _translate("ui_main_window", "http://overpass.osm.rambler.ru/cgi/", None))
-        self.comboBox_default_OAPI.setItemText(2, _translate("ui_main_window", "http://api.openstreetmap.fr/oapi/", None))
         self.pushButton_OAPI_timestamp.setText(_translate("ui_main_window", "Get timestamp", None))
         self.label_timestamp_oapi.setText(_translate("ui_main_window", "unknow", None))
         self.groupBox_3.setTitle(_translate("ui_main_window", "Queries", None))
