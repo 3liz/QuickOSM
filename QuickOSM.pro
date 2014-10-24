@@ -38,4 +38,5 @@ SOURCES = __init__.py \
 	ui/save_query.py \
 	ui/QuickOSMWidget.py
 
-TRANSLATIONS = i18n/QuickOSM_fr.ts
+TRANSLATIONS = i18n/QuickOSM_fr.ts \
+	i18n/QuickOSM_ru.ts
