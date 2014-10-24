@@ -27,6 +27,7 @@ from API.Nominatim import Nominatim
 from os.path import join,dirname,abspath
 import os
 from shutil import *
+from PyQt4.QtNetwork import QNetworkProxy
 from qgis.utils import iface
 
 class Tools:
@@ -95,6 +96,44 @@ class Tools:
         qs = QSettings()
         prefix = "/QuickOSM/"
         return qs.setValue(prefix + key, value)
+    
+    @staticmethod
+    def getProxy():
+        '''
+        Get a proxy according to QSettings
+        @return: proxy
+        @rtype: QNetworkProxy
+        '''
+        #procedure to set proxy if needed
+        s = QSettings()
+        if s.value("proxy/proxyEnabled", "") == "true":
+            
+            proxyType = s.value("proxy/proxyType", "" )
+            proxyHost = s.value("proxy/proxyHost", "" )
+            proxyPort = s.value("proxy/proxyPort", "" )
+            proxyUser = s.value("proxy/proxyUser", "" )
+            proxyPassword = s.value("proxy/proxyPassword", "" )
+            
+            proxy = QNetworkProxy()
+            
+            if proxyType == "DefaultProxy":
+                proxy.setType(QNetworkProxy.DefaultProxy)
+            elif proxyType == "Socks5Proxy":
+                proxy.setType(QNetworkProxy.Socks5Proxy)
+            elif proxyType == "HttpProxy":
+                proxy.setType(QNetworkProxy.HttpProxy)
+            elif proxyType == "HttpCachingProxy":
+                proxy.setType(QNetworkProxy.HttpCachingProxy)
+            elif proxyType == "FtpCachingProxy":
+                proxy.setType(QNetworkProxy.FtpCachingProxy)
+            
+            proxy.setHostName(proxyHost)
+            proxy.setPort(int(proxyPort))
+            proxy.setUser(proxyUser)
+            proxy.setPassword(proxyPassword)
+            return proxy
+        else:
+            return None
     
     @staticmethod
     def PrepareQueryOqlXml(query,extent = None, nominatimName = None):

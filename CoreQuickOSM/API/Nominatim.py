@@ -22,8 +22,7 @@
 """
 
 from QuickOSM import *
-import urllib
-import urllib2
+from PyQt4.QtNetwork import QNetworkAccessManager,QNetworkRequest,QNetworkReply
 import json
 
 class Nominatim:
@@ -39,6 +38,8 @@ class Nominatim:
         '''
 
         self.__url = url
+        self.network = QNetworkAccessManager()
+        self.data = None
         
     def query(self, query):
         '''
@@ -50,19 +51,31 @@ class Nominatim:
         @rtype: str
         '''
         
-        query = query.encode('utf8')
-        params = { 'q': query }
-        params['polygon_geojson'] = 0
-        url = self.__url + "&" +  urllib.urlencode(params)
-        try:
-            data = urllib2.urlopen(url)
-        except urllib2.HTTPError as e:
-            raise NetWorkErrorException(suffix="Nominatim API")   
-        except urllib2.URLError as e:
-            raise NetWorkErrorException(suffix="Nominatim API")
+        urlQuery = QUrl(self.__url)
         
-        response = data.read()
-        return json.loads(response)
+        query = QUrl.toPercentEncoding(query)
+        urlQuery.addEncodedQueryItem('q',query)
+        urlQuery.addQueryItem('info','QgisQuickOSMPlugin')
+        urlQuery.setPort(80)
+        
+        from QuickOSM.CoreQuickOSM.Tools import *
+        proxy = Tools.getProxy()
+        if proxy:
+            self.network.setProxy(proxy)
+        
+        self.networkReply = self.network.get(QNetworkRequest(urlQuery))
+        self.loop = QEventLoop();
+        self.network.finished.connect(self.__endOfRequest)
+        self.loop.exec_()
+        
+        if self.networkReply.error() == QNetworkReply.NoError:
+            return json.loads(unicode(self.data))
+        else:
+            raise NetWorkErrorException(suffix="Nominatim API")
+
+    def __endOfRequest(self,test):
+        self.data = self.networkReply.readAll()
+        self.loop.quit()
     
     def getFirstPolygonFromQuery(self,query):
         '''

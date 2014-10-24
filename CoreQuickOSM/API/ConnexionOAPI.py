@@ -22,8 +22,8 @@
 """
 
 from QuickOSM import *
+from PyQt4.QtNetwork import QNetworkAccessManager,QNetworkRequest,QNetworkReply
 import urllib2
-import urllib
 import re
 import tempfile
 
@@ -45,10 +45,12 @@ class ConnexionOAPI:
             url="http://overpass-api.de/api/"
             
         self.__url = url
+        self.data = None
 
         if output not in (None, "json","xml"):
             raise OutPutFormatException
         self.__output = output
+        self.network = QNetworkAccessManager()
         
     def query(self,req):
         '''
@@ -59,32 +61,42 @@ class ConnexionOAPI:
         @return: the result of the query
         @rtype: str
         '''
-        req = req.encode('utf8')
-        urlQuery = self.__url + 'interpreter'
-        
+
+        urlQuery = QUrl(self.__url + 'interpreter')
+
         #The output format can be forced (JSON or XML)
         if self.__output:
             req = re.sub(r'output="[a-z]*"','output="'+self.__output+'"', req)
             req = re.sub(r'\[out:[a-z]*','[out:'+self.__output, req)
         
-        queryString = urllib.urlencode({'data':req,'info':'QgisQuickOSMPlugin'})
+        encodedQuery = QUrl.toPercentEncoding(req)
+        urlQuery.addEncodedQueryItem('data',encodedQuery)
+        urlQuery.addQueryItem('info','QgisQuickOSMPlugin')
+        urlQuery.setPort(80)
         
-        try:
-            data = urllib2.urlopen(url=urlQuery, data=queryString).read()
-        except urllib2.HTTPError as e:
-            if e.code == 400:
-                raise OverpassBadRequestException
+        proxy = Tools.getProxy()
+        if proxy:
+            self.network.setProxy(proxy)
+        
+        self.networkReply = self.network.get(QNetworkRequest(urlQuery))
+        self.loop = QEventLoop();
+        self.network.finished.connect(self.__endOfRequest)
+        self.loop.exec_()
+        
+        if self.networkReply.error() == QNetworkReply.NoError:
+            if re.search('<remark> runtime error: Query timed out in "[a-z]+" at line [\d]+ after ([\d]+) seconds. </remark>', self.data):
+                raise OverpassTimeoutException
             else:
-                raise NetWorkErrorException(suffix="Overpass API")
-        except urllib2.URLError as e:
+                return self.data
+        
+        elif self.networkReply.error() == QNetworkReply.UnknownContentError:
+            raise OverpassBadRequestException
+        else:
             raise NetWorkErrorException(suffix="Overpass API")
 
-        result = re.search('<remark> runtime error: Query timed out in "[a-z]+" at line [\d]+ after ([\d]+) seconds. </remark>', data)
-        if result:
-            result = result.groups()
-            raise OverpassTimeoutException
-            
-        return data
+    def __endOfRequest(self,test):
+        self.data = self.networkReply.readAll()
+        self.loop.quit()
             
     def getFileFromQuery(self,req):
         '''
