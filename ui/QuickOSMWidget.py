@@ -193,6 +193,7 @@ class QuickOSMWidget(QWidget):
         ex_type, ex, tb = sys.exc_info()
         import traceback
         traceback.print_tb(tb)
+        print e
         Tools.displayMessageBar("Error in the python console, please report it", level=QgsMessageBar.CRITICAL , duration=5)
         
     def openMapFeatures(self):
