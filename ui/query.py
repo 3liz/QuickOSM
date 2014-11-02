@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'query.ui'
 #
-# Created: Wed Oct  8 19:11:46 2014
+# Created: Fri Oct 24 23:11:46 2014
 #      by: PyQt4 UI code generator 4.10.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -51,6 +51,7 @@ class Ui_ui_query(object):
         self.horizontalLayout_9.addWidget(self.buttonBox)
         self.verticalLayout.addLayout(self.horizontalLayout_9)
         self.textEdit_query = QtGui.QTextEdit(self.scrollAreaWidgetContents)
+        self.textEdit_query.setAcceptRichText(False)
         self.textEdit_query.setObjectName(_fromUtf8("textEdit_query"))
         self.verticalLayout.addWidget(self.textEdit_query)
         self.groupBox = QgsCollapsibleGroupBox(self.scrollAreaWidgetContents)

@@ -64,7 +64,11 @@
         </layout>
        </item>
        <item>
-        <widget class="QTextEdit" name="textEdit_query"/>
+        <widget class="QTextEdit" name="textEdit_query">
+         <property name="acceptRichText">
+          <bool>false</bool>
+         </property>
+        </widget>
        </item>
        <item>
         <widget class="QgsCollapsibleGroupBox" name="groupBox">
