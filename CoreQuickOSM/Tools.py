@@ -134,6 +134,22 @@ class Tools:
             return proxy
         else:
             return None
+
+    @staticmethod
+    def getOgrVersion():
+        from osgeo import gdal
+        return int(gdal.VersionInfo('VERSION_NUM'))
+
+    @staticmethod
+    def osmDriverIsEnabled():
+        if Tools.getOgrVersion < 1100000:
+            return False
+        
+        from osgeo import ogr
+        if not ogr.GetDriverByName("OSM"):
+            return False
+        
+        return True
     
     @staticmethod
     def PrepareQueryOqlXml(query,extent = None, nominatimName = None):

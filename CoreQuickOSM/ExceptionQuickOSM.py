@@ -79,6 +79,12 @@ class NominatimAreaException(QuickOsmException):
 '''
 Ogr2Ogr
 '''
+class OsmDriver(QuickOsmException):
+    def __init__(self,msg=None):
+        if not msg:
+            msg = QApplication.translate("Exception", u"The OSM's driver is not installed. You must install the driver first.")
+        QuickOsmException.__init__(self,msg)        
+
 class Ogr2OgrException(QuickOsmException):
     def __init__(self,msg=None):
         if not msg:

@@ -40,6 +40,10 @@ class Process:
     @staticmethod
     def ProcessQuery(dialog = None, query=None, nominatim=None, bbox=None, outputDir=None, prefixFile=None,outputGeomTypes=None, layerName = "OsmQuery", whiteListValues = None, configOutputs = None):
         
+        #Check OGR
+        if not Tools.osmDriverIsEnabled():
+            raise OsmDriver
+        
         #Prepare outputs
         dialog.setProgressText(QApplication.translate("QuickOSM",u"Prepare outputs"))
         #If a file already exist, we avoid downloading data for nothing
