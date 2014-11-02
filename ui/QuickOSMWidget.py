@@ -35,7 +35,7 @@ class QuickOSMWidget(QWidget):
         layers = iface.legendInterface().layers()
         self.comboBox_extentLayer.clear()
         for layer in layers:
-            self.comboBox_extentLayer.addItem(layer.name(),layer)
+            self.comboBox_extentLayer.addItem(layer.name(),layer.id())
             
         if self.comboBox_extentLayer.count() < 1:
             self.radioButton_extentLayer.setCheckable(False)
@@ -121,7 +121,6 @@ class QuickOSMWidget(QWidget):
             #Else if a layer is checked
             index = self.comboBox_extentLayer.currentIndex()
             layerID = self.comboBox_extentLayer.itemData(index)
-            layerName = self.comboBox_extentLayer.itemText(index)
             layers = iface.legendInterface().layers()
             for layer in layers:
                 if layer.id() == layerID:
@@ -130,6 +129,7 @@ class QuickOSMWidget(QWidget):
                     break
             else:
                 #the layer could be deleted before
+                layerName = self.comboBox_extentLayer.itemText(index)
                 raise NoLayerException(suffix=layerName)
         
         geomExtent = QgsGeometry.fromRect(geomExtent)

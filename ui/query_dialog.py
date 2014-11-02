@@ -163,6 +163,10 @@ class QueryWidget(QuickOSMWidget, Ui_ui_query):
         if self.radioButton_extentLayer.isChecked() or self.radioButton_extentMapCanvas.isChecked():
             bbox = self.getBBox()
         
+        #Check nominatim
+        if nominatim == '':
+            nominatim = None     
+        
         #Which geometry at the end ?
         outputGeomTypes = self.getOutputGeomTypes()
         whiteListValues = self.getWhiteListValues()
