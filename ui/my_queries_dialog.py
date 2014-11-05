@@ -186,7 +186,7 @@ class MyQueriesWidget(QuickOSMWidget, Ui_ui_my_queries):
                 self.lineEdit_nominatim.setEnabled(True)
                 
                 if template['nominatimDefaultValue']:
-                    self.lineEdit_nominatim.setPlaceholderText(template['nominatimDefaultValue'] + QApplication.translate("QuickOSM"," can be overridden"))
+                    self.lineEdit_nominatim.setPlaceholderText(template['nominatimDefaultValue'] + " " + QApplication.translate("QuickOSM","can be overridden"))
                 else:
                     self.lineEdit_nominatim.setPlaceholderText(QApplication.translate("QuickOSM","A village, a town, ..."))
                 
