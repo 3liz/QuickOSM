@@ -95,7 +95,6 @@ class MainWindowDialog(QDialog, Ui_ui_main_window):
         '''
         self.defaultServer = self.comboBox_default_OAPI.currentText()
         Tools.setSetting('defaultOAPI', self.defaultServer)
-        self.getTimestampOAPI()
         
     def getTimestampOAPI(self):
         '''
