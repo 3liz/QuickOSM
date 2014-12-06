@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'main_window.ui'
 #
-# Created: Sat Dec  6 20:15:32 2014
+# Created: Sat Dec  6 21:45:48 2014
 #      by: PyQt4 UI code generator 4.10.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -154,6 +154,17 @@ class Ui_ui_main_window(object):
         self.horizontalLayout_7.addItem(spacerItem)
         self.verticalLayout_10.addLayout(self.horizontalLayout_7)
         self.verticalLayout_2.addWidget(self.groupBox_3)
+        self.groupBox_7 = QtGui.QGroupBox(self.parameters)
+        self.groupBox_7.setObjectName(_fromUtf8("groupBox_7"))
+        self.verticalLayout_11 = QtGui.QVBoxLayout(self.groupBox_7)
+        self.verticalLayout_11.setObjectName(_fromUtf8("verticalLayout_11"))
+        self.radioButton_outputJson = QtGui.QRadioButton(self.groupBox_7)
+        self.radioButton_outputJson.setObjectName(_fromUtf8("radioButton_outputJson"))
+        self.verticalLayout_11.addWidget(self.radioButton_outputJson)
+        self.radioButton_outputShape = QtGui.QRadioButton(self.groupBox_7)
+        self.radioButton_outputShape.setObjectName(_fromUtf8("radioButton_outputShape"))
+        self.verticalLayout_11.addWidget(self.radioButton_outputShape)
+        self.verticalLayout_2.addWidget(self.groupBox_7)
         spacerItem1 = QtGui.QSpacerItem(20, 40, QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Expanding)
         self.verticalLayout_2.addItem(spacerItem1)
         self.stackedWidget.addWidget(self.parameters)
@@ -165,7 +176,7 @@ class Ui_ui_main_window(object):
         self.scrollArea.setWidgetResizable(True)
         self.scrollArea.setObjectName(_fromUtf8("scrollArea"))
         self.scrollAreaWidgetContents = QtGui.QWidget()
-        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 94, 54))
+        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 82, 54))
         self.scrollAreaWidgetContents.setObjectName(_fromUtf8("scrollAreaWidgetContents"))
         self.verticalLayout_5 = QtGui.QVBoxLayout(self.scrollAreaWidgetContents)
         self.verticalLayout_5.setObjectName(_fromUtf8("verticalLayout_5"))
@@ -193,7 +204,7 @@ class Ui_ui_main_window(object):
         self.scrollArea_2.setWidgetResizable(True)
         self.scrollArea_2.setObjectName(_fromUtf8("scrollArea_2"))
         self.scrollAreaWidgetContents_2 = QtGui.QWidget()
-        self.scrollAreaWidgetContents_2.setGeometry(QtCore.QRect(0, 0, 571, 561))
+        self.scrollAreaWidgetContents_2.setGeometry(QtCore.QRect(0, 0, 528, 555))
         self.scrollAreaWidgetContents_2.setObjectName(_fromUtf8("scrollAreaWidgetContents_2"))
         self.verticalLayout_9 = QtGui.QVBoxLayout(self.scrollAreaWidgetContents_2)
         self.verticalLayout_9.setObjectName(_fromUtf8("verticalLayout_9"))
@@ -283,7 +294,7 @@ class Ui_ui_main_window(object):
 
         self.retranslateUi(ui_main_window)
         self.listWidget.setCurrentRow(-1)
-        self.stackedWidget.setCurrentIndex(6)
+        self.stackedWidget.setCurrentIndex(4)
         QtCore.QObject.connect(self.listWidget, QtCore.SIGNAL(_fromUtf8("currentRowChanged(int)")), self.stackedWidget.setCurrentIndex)
         QtCore.QMetaObject.connectSlotsByName(ui_main_window)
         ui_main_window.setTabOrder(self.pushButton_OAPI_timestamp, self.listWidget)
@@ -312,6 +323,9 @@ class Ui_ui_main_window(object):
         self.label_timestamp_oapi.setText(_translate("ui_main_window", "unknow", None))
         self.groupBox_3.setTitle(_translate("ui_main_window", "Queries", None))
         self.pushButton_restoreQueries.setText(_translate("ui_main_window", "Restore queries", None))
+        self.groupBox_7.setTitle(_translate("ui_main_window", "Outputs", None))
+        self.radioButton_outputJson.setText(_translate("ui_main_window", "GeoJSON (not editable, colmun\'s name longer)", None))
+        self.radioButton_outputShape.setText(_translate("ui_main_window", "Shapefile (editable, colmun\'s name shorter)", None))
         self.pushButton_homeHelp.setText(_translate("ui_main_window", "Home", None))
         self.groupBox_2.setTitle(_translate("ui_main_window", "Realization", None))
         self.label_13.setText(_translate("ui_main_window", "<html><head/><body><p>Etienne Trimaille</p></body></html>", None))

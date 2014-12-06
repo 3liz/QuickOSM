@@ -44,6 +44,9 @@ class Process:
         if not Tools.osmDriverIsEnabled():
             raise OsmDriver
         
+        #Get output's format
+        outputFormat = Tools.getSetting('outputFormat')
+        
         #Prepare outputs
         dialog.setProgressText(QApplication.translate("QuickOSM",u"Prepare outputs"))
         #If a file already exist, we avoid downloading data for nothing
@@ -52,12 +55,19 @@ class Process:
             QApplication.processEvents()
             if not outputDir:
                 #if no directory, get a temporary shapefile
-                outputs[layer] = getTempFilenameInTempFolder("_"+layer+"_quickosm.shp")
+                if outputFormat == "shape":
+                    outputs[layer] = getTempFilenameInTempFolder("_"+layer+"_quickosm.shp")
+                else:
+                    #We should avoid this copy of geojson in the temp folder
+                    outputs[layer] = getTempFilenameInTempFolder("_"+layer+"_quickosm.geojson")
             else:
                 if not prefixFile:
                     prefixFile = layerName
-                    
-                outputs[layer] = os.path.join(outputDir,prefixFile + "_" + layer + ".shp")
+                
+                if outputFormat == "shape":    
+                    outputs[layer] = os.path.join(outputDir,prefixFile + "_" + layer + ".shp")
+                else:
+                    outputs[layer] = os.path.join(outputDir,prefixFile + "_" + layer + ".geojson")
                 
                 if os.path.isfile(outputs[layer]):
                     raise FileOutPutException(suffix="("+outputs[layer]+")")
@@ -78,9 +88,11 @@ class Process:
         osmParser.signalPercentage.connect(dialog.setProgressPercentage)
         layers = osmParser.parse()
         
-        #Geojson to shapefile
+        #Finishing the process with geojson
         numLayers = 0
-        dialog.setProgressText(QApplication.translate("QuickOSM",u"From GeoJSON to Shapefile"))
+        if outputFormat == "shape": 
+            dialog.setProgressText(QApplication.translate("QuickOSM",u"From GeoJSON to Shapefile"))
+        
         for i, (layer,item) in enumerate(layers.iteritems()):
             dialog.setProgressPercentage(i/len(layers)*100)  
             QApplication.processEvents()
@@ -91,12 +103,17 @@ class Process:
                 if configOutputs:
                     if configOutputs[layer]['namelayer']:
                         finalLayerName = configOutputs[layer]['namelayer']
-                
-                
+
                 #Transforming the vector file
                 osmGeom = {'points':QGis.WKBPoint,'lines':QGis.WKBLineString,'multilinestrings':QGis.WKBMultiLineString,'multipolygons':QGis.WKBMultiPolygon}
                 geojsonlayer = QgsVectorLayer(item['geojsonFile'],"temp","ogr")
-                writer = QgsVectorFileWriter(outputs[layer], "UTF-8", geojsonlayer.pendingFields(), osmGeom[layer], geojsonlayer.crs(), "ESRI Shapefile")
+                
+                writer = None
+                if outputFormat == "shape":
+                    writer = QgsVectorFileWriter(outputs[layer], "UTF-8", geojsonlayer.pendingFields(), osmGeom[layer], geojsonlayer.crs(), "ESRI Shapefile")
+                else:
+                    writer = QgsVectorFileWriter(outputs[layer], "UTF-8", geojsonlayer.pendingFields(), osmGeom[layer], geojsonlayer.crs(), "GeoJSON")
+                
                 for f in geojsonlayer.getFeatures():
                     writer.addFeature(f)
                 del writer
@@ -128,8 +145,9 @@ class Process:
                 if 'network' in item['tags'] and 'ref' in item['tags']:
                     actions.addAction(QgsAction.GenericPython,"Sketchline",'from QuickOSM.CoreQuickOSM.Actions import Actions;Actions.runSketchLine("[% "network" %]","[% "ref" %]")',False)
                  
-                #Add index
-                newlayer.dataProvider().createSpatialIndex()
+                #Add index if possible
+                if outputFormat == "shape": 
+                    newlayer.dataProvider().createSpatialIndex()
                                 
                 QgsMapLayerRegistry.instance().addMapLayer(newlayer)
                 numLayers += 1

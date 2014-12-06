@@ -48,6 +48,7 @@ class MainWindowDialog(QDialog, Ui_ui_main_window):
         self.query.signalNewQuerySuccessful.connect(self.signalNewQuerySuccessful.emit)
         self.my_queries.signalDeleteQuerySuccessful.connect(self.signalDeleteQuerySuccessful.emit)
         self.pushButton_restoreQueries.clicked.connect(self.restoreDefaultQueries)
+        self.radioButton_outputJson.toggled.connect(self.setOutputFormat)
         
         #Set settings about the OAPI
         self.defaultServer = Tools.getSetting('defaultOAPI')
@@ -57,6 +58,16 @@ class MainWindowDialog(QDialog, Ui_ui_main_window):
         else:
             self.defaultServer = self.comboBox_default_OAPI.currentText()
             Tools.setSetting('defaultOAPI', self.defaultServer)
+        
+        #Set settings about the output    
+        self.outputFormat = Tools.getSetting('outputFormat')
+        if self.outputFormat == "geojson":
+            self.radioButton_outputJson.setChecked(True)
+        elif self.outputFormat == "shape":
+            self.radioButton_outputShape.setChecked(True)
+        else:
+            Tools.setSetting('outputFormat', 'shape')
+            self.radioButton_outputShape.setChecked(True)
 
     def setHelpWebView(self):
         '''
@@ -105,6 +116,15 @@ class MainWindowDialog(QDialog, Ui_ui_main_window):
         oapi = ConnexionOAPI(url=self.defaultServer)
         self.label_timestamp_oapi.setText(oapi.getTimestamp())
         self.pushButton_OAPI_timestamp.setText(text)
+
+    def setOutputFormat(self):
+        '''
+        Save the new output format
+        '''
+        if self.radioButton_outputJson.isChecked():
+            Tools.setSetting('outputFormat', 'geojson')
+        else:
+            Tools.setSetting('outputFormat', 'shape')
         
     def restoreDefaultQueries(self):
         '''

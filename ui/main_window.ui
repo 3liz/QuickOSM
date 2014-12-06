@@ -239,14 +239,14 @@ QListWidget::item::selected {
             <item>
              <widget class="QRadioButton" name="radioButton_outputJson">
               <property name="text">
-               <string>GeoJSON (faster, not editable)</string>
+               <string>GeoJSON (not editable, colmun's name longer)</string>
               </property>
              </widget>
             </item>
             <item>
              <widget class="QRadioButton" name="radioButton_outputShape">
               <property name="text">
-               <string>Shapefile (slower, editable)</string>
+               <string>Shapefile (editable, colmun's name shorter)</string>
               </property>
              </widget>
             </item>
@@ -343,8 +343,8 @@ QListWidget::item::selected {
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>571</width>
-              <height>561</height>
+              <width>528</width>
+              <height>555</height>
              </rect>
             </property>
             <layout class="QVBoxLayout" name="verticalLayout_9">
