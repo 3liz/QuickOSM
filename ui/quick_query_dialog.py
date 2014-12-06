@@ -48,6 +48,7 @@ class QuickQueryWidget(QuickOSMWidget, Ui_ui_quick_query):
         self.groupBox.setCollapsed(True)
         self.fillLayerCombobox()
         self.groupBox.setCollapsed(True)
+        self.lineEdit_nominatim.setDisabled(True)
                
         #connect
         self.pushButton_runQuery.clicked.connect(self.runQuery)
