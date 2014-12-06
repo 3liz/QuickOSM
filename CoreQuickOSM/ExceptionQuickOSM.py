@@ -82,7 +82,7 @@ Ogr2Ogr
 class OsmDriver(QuickOsmException):
     def __init__(self,msg=None):
         if not msg:
-            msg = QApplication.translate("Exception", u"The OSM's driver is not installed. You must install the driver first.")
+            msg = QApplication.translate("Exception", u"The OSM's driver is not installed. You must have GDAL/OGR >= 1.10.")
         QuickOsmException.__init__(self,msg)        
 
 class Ogr2OgrException(QuickOsmException):

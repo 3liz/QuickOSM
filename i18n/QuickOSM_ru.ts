@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS>
-<TS version="2.0" language="ru_RU" sourcelanguage="en">
+<!DOCTYPE TS><TS version="2.0" language="ru_RU" sourcelanguage="en">
 <context>
     <name>Exception</name>
     <message>
@@ -80,7 +79,7 @@
     </message>
     <message>
         <location filename="CoreQuickOSM/ExceptionQuickOSM.py" line="85"/>
-        <source>The OSM&apos;s driver is not installed. You must install the driver first.</source>
+        <source>The OSM&apos;s driver is not installed. You must have GDAL/OGR &gt;= 1.10.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -97,27 +96,27 @@
         <translation>Выполнение запроса ...</translation>
     </message>
     <message>
-        <location filename="ui/quick_query_dialog.py" line="202"/>
+        <location filename="ui/quick_query_dialog.py" line="203"/>
         <source>Successful query !</source>
         <translation>Успешный запрос !</translation>
     </message>
     <message>
-        <location filename="ui/quick_query_dialog.py" line="205"/>
+        <location filename="ui/quick_query_dialog.py" line="206"/>
         <source>Successful query, but no result.</source>
         <translation>Успешный запрос, но без результата.</translation>
     </message>
     <message>
-        <location filename="Controller/Process.py" line="48"/>
+        <location filename="Controller/Process.py" line="51"/>
         <source>Prepare outputs</source>
         <translation>Подготовка результата</translation>
     </message>
     <message>
-        <location filename="Controller/Process.py" line="70"/>
+        <location filename="Controller/Process.py" line="80"/>
         <source>Downloading data from Overpass</source>
         <translation>Загрузить данные из Overpass</translation>
     </message>
     <message>
-        <location filename="Controller/Process.py" line="83"/>
+        <location filename="Controller/Process.py" line="94"/>
         <source>From GeoJSON to Shapefile</source>
         <translation>Из GeoJSON в Shapefile</translation>
     </message>
@@ -167,7 +166,7 @@
         <translation>Сохранить как шаблон</translation>
     </message>
     <message>
-        <location filename="ui/quick_query_dialog.py" line="204"/>
+        <location filename="ui/quick_query_dialog.py" line="205"/>
         <source>No result</source>
         <translation>Нет результата</translation>
     </message>
@@ -182,12 +181,12 @@
         <translation>Вы уверены, что хотите удалить этот запрос ?</translation>
     </message>
     <message>
-        <location filename="ui/main_window_dialog.py" line="105"/>
+        <location filename="ui/main_window_dialog.py" line="115"/>
         <source>Fetching the timestamp ...</source>
         <translation>Получить время ...</translation>
     </message>
     <message>
-        <location filename="ui/main_window_dialog.py" line="115"/>
+        <location filename="ui/main_window_dialog.py" line="134"/>
         <source>Copy ...</source>
         <translation>Копировать ...</translation>
     </message>
@@ -200,11 +199,6 @@
         <location filename="ui/query_dialog.py" line="77"/>
         <source>Overpass</source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="ui/my_queries_dialog.py" line="189"/>
-        <source> can be overridden</source>
-        <translation type="obsolete">можно перезаписать</translation>
     </message>
     <message>
         <location filename="ui/my_queries_dialog.py" line="191"/>
@@ -235,174 +229,164 @@
 <context>
     <name>ui_main_window</name>
     <message>
-        <location filename="ui/main_window.py" line="292"/>
+        <location filename="ui/main_window.py" line="303"/>
         <source>Quick OSM</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="ui/main_window.py" line="296"/>
+        <location filename="ui/main_window.py" line="309"/>
         <source>My queries</source>
         <translation>Мои запросы</translation>
     </message>
     <message>
-        <location filename="ui/main_window.py" line="298"/>
+        <location filename="ui/main_window.py" line="307"/>
         <source>Quick query</source>
         <translation>Быстрый запрос</translation>
     </message>
     <message>
-        <location filename="ui/main_window.py" line="304"/>
+        <location filename="ui/main_window.py" line="315"/>
         <source>Parameters</source>
         <translation>Параметры</translation>
     </message>
     <message>
-        <location filename="ui/main_window.py" line="310"/>
+        <location filename="ui/main_window.py" line="321"/>
         <source>Overpass API</source>
         <translation>Overpass API</translation>
     </message>
     <message>
-        <location filename="ui/main_window.py" line="311"/>
+        <location filename="ui/main_window.py" line="322"/>
         <source>Get timestamp</source>
         <translation>Время</translation>
     </message>
     <message>
-        <location filename="ui/main_window.py" line="312"/>
+        <location filename="ui/main_window.py" line="323"/>
         <source>unknow</source>
         <translation>неизвестно</translation>
     </message>
     <message>
-        <location filename="ui/main_window.py" line="312"/>
-        <source>http://www.overpass-api.de/api/</source>
-        <translation type="obsolete">http://www.overpass-api.de/api/</translation>
-    </message>
-    <message>
-        <location filename="ui/main_window.py" line="313"/>
-        <source>http://overpass.osm.rambler.ru/cgi/</source>
-        <translation type="obsolete">http://overpass.osm.rambler.ru/cgi/</translation>
-    </message>
-    <message>
-        <location filename="ui/main_window.py" line="314"/>
-        <source>http://api.openstreetmap.fr/oapi/</source>
-        <translation type="obsolete">http://api.openstreetmap.fr/oapi/</translation>
-    </message>
-    <message>
-        <location filename="ui/main_window.py" line="158"/>
-        <source>Server</source>
-        <translation type="obsolete">Сервер</translation>
-    </message>
-    <message>
-        <location filename="ui/main_window.py" line="300"/>
+        <location filename="ui/main_window.py" line="311"/>
         <source>Query</source>
         <translation>Запрос</translation>
     </message>
     <message>
-        <location filename="ui/main_window.py" line="302"/>
+        <location filename="ui/main_window.py" line="313"/>
         <source>OSM File</source>
         <translation>OSM Файл</translation>
     </message>
     <message>
-        <location filename="ui/main_window.py" line="306"/>
+        <location filename="ui/main_window.py" line="317"/>
         <source>Help</source>
         <translation>Помощь</translation>
     </message>
     <message>
-        <location filename="ui/main_window.py" line="308"/>
+        <location filename="ui/main_window.py" line="319"/>
         <source>About</source>
         <translation>О программе</translation>
     </message>
     <message>
-        <location filename="ui/main_window.py" line="315"/>
+        <location filename="ui/main_window.py" line="329"/>
         <source>Home</source>
         <translation>Домой</translation>
     </message>
     <message>
-        <location filename="ui/main_window.py" line="316"/>
+        <location filename="ui/main_window.py" line="330"/>
         <source>Realization</source>
         <translation>Реализация</translation>
     </message>
     <message>
-        <location filename="ui/main_window.py" line="317"/>
+        <location filename="ui/main_window.py" line="331"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Etienne Trimaille&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Etienne Trimaille&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="ui/main_window.py" line="318"/>
+        <location filename="ui/main_window.py" line="332"/>
         <source>&lt;a href=&quot;mailto:etienne@trimaille.eu?subject=Plugin QuickOSM - About&quot; style=&quot;color:#7BA11A;text-decoration:none;&quot;&gt;etienne@trimaille.eu&lt;/a&gt;</source>
         <translation>&lt;a href=&quot;mailto:etienne@trimaille.eu?subject=Plugin QuickOSM - About&quot; style=&quot;color:#7BA11A;text-decoration:none;&quot;&gt;etienne@trimaille.eu&lt;/a&gt;</translation>
     </message>
     <message>
-        <location filename="ui/main_window.py" line="319"/>
+        <location filename="ui/main_window.py" line="333"/>
         <source>Supervision</source>
         <translation>Наблюдение</translation>
     </message>
     <message>
-        <location filename="ui/main_window.py" line="320"/>
+        <location filename="ui/main_window.py" line="334"/>
         <source>This intership was supervised by 3Liz</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/main_window.py" line="321"/>
+        <location filename="ui/main_window.py" line="335"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;http://www.3liz.com/&quot;&gt;&lt;img src=&quot;:/plugins/QuickOSM/resources/3liz.png&quot;/&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;
 </source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;http://www.3liz.com/&quot;&gt;&lt;img src=&quot;:/plugins/QuickOSM/resources/3liz.png&quot;/&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html</translation>
     </message>
     <message>
-        <location filename="ui/main_window.py" line="323"/>
-        <source>&lt;a href=&quot;http://www.3liz.com&quot; style=&quot;color:#7BA11A;text-decoration:none;&quot;&gt;LibÃ©rez vos SIG !&lt;/a&gt;</source>
+        <location filename="ui/main_window.py" line="337"/>
+        <source>&lt;a href=&quot;http://www.3liz.com&quot; style=&quot;color:#7BA11A;text-decoration:none;&quot;&gt;Lib&#xc3;&#xa9;rez vos SIG !&lt;/a&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/main_window.py" line="324"/>
+        <location filename="ui/main_window.py" line="338"/>
         <source>Sources</source>
         <translation>Исходники</translation>
     </message>
     <message>
-        <location filename="ui/main_window.py" line="325"/>
+        <location filename="ui/main_window.py" line="339"/>
         <source>Github&apos;s repository</source>
         <translation>Github репозиторий</translation>
     </message>
     <message>
-        <location filename="ui/main_window.py" line="330"/>
-        <source>&lt;a href=&quot;https://github.com/3liz/QgisQuickExportPlugin&quot; style=&quot;color:#7BA11A;text-decoration:none;&quot;&gt;https://github.com/3liz/QgisQuickExportPlugin&lt;/a&gt;</source>
-        <translation type="obsolete">&lt;a href=&quot;https://github.com/3liz/QgisQuickExportPlugin&quot; style=&quot;color:#7BA11A;text-decoration:none;&quot;&gt;https://github.com/3liz/QgisQuickExportPlugin&lt;/a&gt;</translation>
-    </message>
-    <message>
-        <location filename="ui/main_window.py" line="327"/>
+        <location filename="ui/main_window.py" line="341"/>
         <source>Licence</source>
         <translation>Лицензия</translation>
     </message>
     <message>
-        <location filename="ui/main_window.py" line="328"/>
+        <location filename="ui/main_window.py" line="342"/>
         <source>OpenStreetMap</source>
         <translation>OpenStreetMap</translation>
     </message>
     <message>
-        <location filename="ui/main_window.py" line="329"/>
+        <location filename="ui/main_window.py" line="343"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;https://www.gnu.org/licenses/gpl-2.0.html&quot;&gt;&lt;img src=&quot;:/plugins/QuickOSM/resources/gnu.png&quot;/&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;https://www.gnu.org/licenses/gpl-2.0.html&quot;&gt;&lt;img src=&quot;:/plugins/QuickOSM/resources/gnu.png&quot;/&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="ui/main_window.py" line="330"/>
+        <location filename="ui/main_window.py" line="344"/>
         <source>Plugin : Licence GPL Version 2</source>
         <translation>Plugin : Licence GPL Version 2</translation>
     </message>
     <message>
-        <location filename="ui/main_window.py" line="331"/>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;ODBL : Â© OpenStreetMap&apos;s contributors &lt;/p&gt;&lt;p&gt;&lt;a href=&quot;http://www.openstreetmap.org/copyright&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0057ae;&quot;&gt;http://www.openstreetmap.org/copyright&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <location filename="ui/main_window.py" line="345"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;ODBL : &#xc2;&#xa9; OpenStreetMap&apos;s contributors &lt;/p&gt;&lt;p&gt;&lt;a href=&quot;http://www.openstreetmap.org/copyright&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0057ae;&quot;&gt;http://www.openstreetmap.org/copyright&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;ODBL : © Les contributeurs OpenStreetMap &lt;/p&gt;&lt;p&gt;&lt;a href=&quot;http://www.openstreetmap.org/copyright&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0057ae;&quot;&gt;http://www.openstreetmap.org/copyright&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="ui/main_window.py" line="313"/>
+        <location filename="ui/main_window.py" line="324"/>
         <source>Queries</source>
         <translation>Запросы</translation>
     </message>
     <message>
-        <location filename="ui/main_window.py" line="314"/>
+        <location filename="ui/main_window.py" line="325"/>
         <source>Restore queries</source>
         <translation>Восстановить запросы</translation>
     </message>
     <message>
-        <location filename="ui/main_window.py" line="326"/>
+        <location filename="ui/main_window.py" line="340"/>
         <source>&lt;a href=&quot;https://github.com/3liz/QgisQuickOSMPlugin&quot; style=&quot;color:#7BA11A;text-decoration:none;&quot;&gt;https://github.com/3liz/QgisQuickOSMPlugin&lt;/a&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ui/main_window.py" line="326"/>
+        <source>Outputs</source>
+        <translation type="unfinished">Результаты</translation>
+    </message>
+    <message>
+        <location filename="ui/main_window.py" line="327"/>
+        <source>GeoJSON (not editable, colmun&apos;s name longer)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ui/main_window.py" line="328"/>
+        <source>Shapefile (editable, colmun&apos;s name shorter)</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -447,11 +431,6 @@
         <location filename="ui/my_queries.py" line="219"/>
         <source>{{nominatimArea:}}</source>
         <translation>{{nominatimArea:}}</translation>
-    </message>
-    <message>
-        <location filename="ui/my_queries.py" line="218"/>
-        <source>Can be overridden</source>
-        <translation type="obsolete">Может быть перезаписан</translation>
     </message>
     <message>
         <location filename="ui/my_queries.py" line="220"/>
@@ -690,11 +669,6 @@
         <translation>Overpass Turbo</translation>
     </message>
     <message>
-        <location filename="ui/query.py" line="257"/>
-        <source>Overpass&apos;s documentation</source>
-        <translation type="obsolete">Documentation Overpass</translation>
-    </message>
-    <message>
         <location filename="ui/query.py" line="235"/>
         <source>Overpass query</source>
         <translation>Overpass запрос</translation>
@@ -831,11 +805,6 @@
         <location filename="ui/quick_query.py" line="283"/>
         <source>progress text</source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="ui/quick_query.py" line="239"/>
-        <source>Query on all values</source>
-        <translation type="obsolete">Запросить все значения</translation>
     </message>
     <message>
         <location filename="ui/quick_query.py" line="265"/>
