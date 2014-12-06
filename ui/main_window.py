@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'main_window.ui'
 #
-# Created: Fri Oct 24 19:22:57 2014
+# Created: Sat Dec  6 20:15:32 2014
 #      by: PyQt4 UI code generator 4.10.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -58,12 +58,12 @@ class Ui_ui_main_window(object):
         self.listWidget.setObjectName(_fromUtf8("listWidget"))
         item = QtGui.QListWidgetItem()
         icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap(_fromUtf8(":/plugins/QuickOSM/resources/favorites.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon.addPixmap(QtGui.QPixmap(_fromUtf8(":/plugins/QuickOSM/resources/quick.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         item.setIcon(icon)
         self.listWidget.addItem(item)
         item = QtGui.QListWidgetItem()
         icon1 = QtGui.QIcon()
-        icon1.addPixmap(QtGui.QPixmap(_fromUtf8(":/plugins/QuickOSM/resources/quick.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon1.addPixmap(QtGui.QPixmap(_fromUtf8(":/plugins/QuickOSM/resources/favorites.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         item.setIcon(icon1)
         self.listWidget.addItem(item)
         item = QtGui.QListWidgetItem()
@@ -94,7 +94,7 @@ class Ui_ui_main_window(object):
         self.horizontalLayout.addWidget(self.listWidget)
         self.verticalLayout_13 = QtGui.QVBoxLayout()
         self.verticalLayout_13.setObjectName(_fromUtf8("verticalLayout_13"))
-        self.messageBar = QgsMessageBar(ui_main_window)
+        self.messageBar = gui.QgsMessageBar(ui_main_window)
         self.messageBar.setObjectName(_fromUtf8("messageBar"))
         self.verticalLayout_13.addWidget(self.messageBar)
         self.stackedWidget = QtGui.QStackedWidget(ui_main_window)
@@ -105,12 +105,12 @@ class Ui_ui_main_window(object):
         self.stackedWidget.setSizePolicy(sizePolicy)
         self.stackedWidget.setMinimumSize(QtCore.QSize(300, 200))
         self.stackedWidget.setObjectName(_fromUtf8("stackedWidget"))
-        self.my_queries = MyQueriesWidget()
-        self.my_queries.setObjectName(_fromUtf8("my_queries"))
-        self.stackedWidget.addWidget(self.my_queries)
         self.quick_query = QuickQueryWidget()
         self.quick_query.setObjectName(_fromUtf8("quick_query"))
         self.stackedWidget.addWidget(self.quick_query)
+        self.my_queries = MyQueriesWidget()
+        self.my_queries.setObjectName(_fromUtf8("my_queries"))
+        self.stackedWidget.addWidget(self.my_queries)
         self.query = QueryWidget()
         self.query.setObjectName(_fromUtf8("query"))
         self.stackedWidget.addWidget(self.query)
@@ -165,7 +165,7 @@ class Ui_ui_main_window(object):
         self.scrollArea.setWidgetResizable(True)
         self.scrollArea.setObjectName(_fromUtf8("scrollArea"))
         self.scrollAreaWidgetContents = QtGui.QWidget()
-        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 571, 561))
+        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 94, 54))
         self.scrollAreaWidgetContents.setObjectName(_fromUtf8("scrollAreaWidgetContents"))
         self.verticalLayout_5 = QtGui.QVBoxLayout(self.scrollAreaWidgetContents)
         self.verticalLayout_5.setObjectName(_fromUtf8("verticalLayout_5"))
@@ -293,9 +293,9 @@ class Ui_ui_main_window(object):
         __sortingEnabled = self.listWidget.isSortingEnabled()
         self.listWidget.setSortingEnabled(False)
         item = self.listWidget.item(0)
-        item.setText(_translate("ui_main_window", "My queries", None))
-        item = self.listWidget.item(1)
         item.setText(_translate("ui_main_window", "Quick query", None))
+        item = self.listWidget.item(1)
+        item.setText(_translate("ui_main_window", "My queries", None))
         item = self.listWidget.item(2)
         item.setText(_translate("ui_main_window", "Query", None))
         item = self.listWidget.item(3)
@@ -330,8 +330,8 @@ class Ui_ui_main_window(object):
         self.label_15.setText(_translate("ui_main_window", "Plugin : Licence GPL Version 2", None))
         self.label_2.setText(_translate("ui_main_window", "<html><head/><body><p>ODBL : © OpenStreetMap\'s contributors </p><p><a href=\"http://www.openstreetmap.org/copyright\"><span style=\" text-decoration: underline; color:#0057ae;\">http://www.openstreetmap.org/copyright</span></a></p></body></html>", None))
 
+from qgis import gui
 from PyQt4 import QtWebKit
-from qgis.gui import QgsMessageBar
 from query_dialog import QueryWidget
 from osm_file_dialog import OsmFileWidget
 from quick_query_dialog import QuickQueryWidget
