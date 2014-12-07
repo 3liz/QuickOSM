@@ -36,23 +36,11 @@ class Process:
     '''
     This class makes the link between GUI and Core
     '''
-    
+
     @staticmethod
-    def ProcessQuery(dialog = None, query=None, nominatim=None, bbox=None, outputDir=None, prefixFile=None,outputGeomTypes=None, layerName = "OsmQuery", whiteListValues = None, configOutputs = None):
-        
-        #Check OGR
-        if not Tools.osmDriverIsEnabled():
-            raise OsmDriver
-        
-        #Get output's format
-        outputFormat = Tools.getSetting('outputFormat')
-        
-        #Prepare outputs
-        dialog.setProgressText(QApplication.translate("QuickOSM",u"Prepare outputs"))
-        #If a file already exist, we avoid downloading data for nothing
+    def getOutputs(outputDir, outputFormat, prefixFile, layerName):
         outputs = {}
         for layer in ['points','lines','multilinestrings','multipolygons']:
-            QApplication.processEvents()
             if not outputDir:
                 #if no directory, get a temporary shapefile
                 if outputFormat == "shape":
@@ -71,26 +59,25 @@ class Process:
                 
                 if os.path.isfile(outputs[layer]):
                     raise FileOutPutException(suffix="("+outputs[layer]+")")
+        return outputs
+
+    '''
+    open an osm file
+    '''
+    @staticmethod
+    def openFile(dialog = None, osmFile = None, outputGeomTypes = None, whiteListColumn = None, outputFormat = None, layerName = "OsmFile", configOutputs = None, outputDir = None, prefixFile = None):
         
-        #Replace Nominatim or BBOX
-        query = Tools.PrepareQueryOqlXml(query=query, nominatimName = nominatim, extent=bbox)
-        
-        #Getting the default OAPI and running the query
-        server = Tools.getSetting('defaultOAPI')
-        dialog.setProgressText(QApplication.translate("QuickOSM",u"Downloading data from Overpass"))
-        QApplication.processEvents()
-        connexionOAPI = ConnexionOAPI(url=server,output = "xml")
-        osmFile = connexionOAPI.getFileFromQuery(query)
+        outputs = Process.getOutputs(outputDir, outputFormat, prefixFile, layerName)
         
         #Parsing the file
-        osmParser = OsmParser(osmFile, layers=outputGeomTypes, whiteListColumn=whiteListValues)
+        osmParser = OsmParser(osmFile, layers=outputGeomTypes, whiteListColumn=whiteListColumn)
         osmParser.signalText.connect(dialog.setProgressText)
         osmParser.signalPercentage.connect(dialog.setProgressPercentage)
         layers = osmParser.parse()
         
-        #Finishing the process with geojson
+        #Finishing the process with geojson or shapefile
         numLayers = 0
-        if outputFormat == "shape": 
+        if outputFormat == "shape":
             dialog.setProgressText(QApplication.translate("QuickOSM",u"From GeoJSON to Shapefile"))
         
         for i, (layer,item) in enumerate(layers.iteritems()):
@@ -153,7 +140,46 @@ class Process:
                 numLayers += 1
                 
         return numLayers
-    
+
+    '''
+    execute a query and send the resultfile to "openFile"
+    '''    
+    @staticmethod
+    def ProcessQuery(dialog = None, query=None, nominatim=None, bbox=None, outputDir=None, prefixFile=None,outputGeomTypes=None, layerName = "OsmQuery", whiteListValues = None, configOutputs = None):
+        
+        #Check OGR
+        if not Tools.osmDriverIsEnabled():
+            raise OsmDriver
+        
+        #Get output's format
+        outputFormat = Tools.getSetting('outputFormat')
+        
+        #Prepare outputs
+        dialog.setProgressText(QApplication.translate("QuickOSM",u"Prepare outputs"))
+        #If a file already exist, we avoid downloading data for nothing
+        outputs = Process.getOutputs(outputDir, outputFormat, prefixFile, layerName)
+
+        #Replace Nominatim or BBOX
+        query = Tools.PrepareQueryOqlXml(query=query, nominatimName = nominatim, extent=bbox)
+        
+        #Getting the default OAPI and running the query
+        server = Tools.getSetting('defaultOAPI')
+        dialog.setProgressText(QApplication.translate("QuickOSM",u"Downloading data from Overpass"))
+        QApplication.processEvents()
+        connexionOAPI = ConnexionOAPI(url=server,output = "xml")
+        osmFile = connexionOAPI.getFileFromQuery(query)
+        
+        return Process.openFile(dialog=dialog,
+                                osmFile = osmFile,
+                                outputGeomTypes = outputGeomTypes,
+                                whiteListColumn = whiteListValues,
+                                layerName = layerName,
+                                outputFormat = outputFormat,
+                                configOutputs = configOutputs)
+
+    '''
+    generate a query and send it to "processQuery"
+    '''    
     @staticmethod
     def ProcessQuickQuery(dialog = None, key = None,value = None,bbox = None,nominatim = None,osmObjects = None, timeout=25, outputDir=None, prefixFile=None, outputGeomTypes=None):
         
@@ -178,3 +204,4 @@ class Process:
                                     prefixFile=prefixFile,
                                     outputGeomTypes=outputGeomTypes,
                                     layerName=layerName)
+        

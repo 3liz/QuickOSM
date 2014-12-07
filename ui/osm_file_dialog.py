@@ -23,6 +23,7 @@
 
 from QuickOSM import *
 from QuickOSMWidget import *
+from QuickOSM.Controller.Process import Process
 from osm_file import Ui_ui_osm_file
 from os.path import dirname,abspath,join,isfile
 from QuickOSM.CoreQuickOSM.Parser.OsmParser import *
@@ -36,20 +37,28 @@ class OsmFileWidget(QuickOSMWidget, Ui_ui_osm_file):
         QuickOSMWidget.__init__(self)
         self.setupUi(self)
         
+        #Set UI
+        self.radioButton_osmConf.setChecked(True)
+        self.groupBox_file.setEnabled(False)
+        self.label_progress.setText("")
+        self.lineEdit_filePrefix.setDisabled(True)
+        
         #Set default osmconf
         self.defaultOsmConf = join(dirname(dirname(abspath(__file__))),"osmconf.ini")
         if not isfile(self.defaultOsmConf):
             self.defaultOsmConf = ''
         self.lineEdit_osmConf.setText(self.defaultOsmConf)
-        self.pushButton_openOsmFile.setEnabled(False)
+        self.pushButton_runQuery.setEnabled(False)
         
         #Connect
         self.pushButton_browseOsmFile.clicked.connect(self.setOsmFilePath)
         self.pushButton_browseOsmConf.clicked.connect(self.setOsmConfPath)
         self.lineEdit_osmConf.textEdited.connect(self.disableRunButton)
         self.lineEdit_osmFile.textEdited.connect(self.disableRunButton)
-        self.pushButton_openOsmFile.clicked.connect(self.openFile)
+        self.radioButton_osmConf.toggled.connect(self.disableRunButton)
+        self.pushButton_runQuery.clicked.connect(self.openFile)
         self.pushButton_resetIni.clicked.connect(self.resetIni)
+        self.lineEdit_browseDir.textEdited.connect(self.disablePrefixFile)
         
     def setOsmFilePath(self):
         '''
@@ -76,20 +85,34 @@ class OsmFileWidget(QuickOSMWidget, Ui_ui_osm_file):
             
     def disableRunButton(self):
         '''
-        If the two fields are empty
+        If the two fields are empty or allTags
         '''
-        if self.lineEdit_osmConf.text() and self.lineEdit_osmFile.text():
-            self.pushButton_openOsmFile.setEnabled(True)
+        if self.lineEdit_osmFile.text():
+            self.pushButton_runQuery.setEnabled(False)
+        
+        if self.radioButton_osmConf.isChecked():
+            if self.lineEdit_osmConf.text():
+                self.pushButton_runQuery.setEnabled(True)
+            else:
+                self.pushButton_runQuery.setEnabled(False)
         else:
-            self.pushButton_openOsmFile.setEnabled(False)
+            self.pushButton_runQuery.setEnabled(True)
         
     def openFile(self):
         '''
         Open the osm file with the osmconf
         '''
+        
+        QApplication.setOverrideCursor(Qt.WaitCursor)
+        self.startProcess()
+        QApplication.processEvents()
+        
         #Get fields
         osmFile = self.lineEdit_osmFile.text()
         osmConf = self.lineEdit_osmConf.text()
+        outputDir = self.lineEdit_browseDir.text()
+        prefixFile = self.lineEdit_filePrefix.text()
+        loadOnly = self.radioButton_osmConf.isChecked()
         
         #Which geometry at the end ?
         outputGeomTypes = self.getOutputGeomTypes()
@@ -101,18 +124,33 @@ class OsmFileWidget(QuickOSMWidget, Ui_ui_osm_file):
             if not isfile(osmFile):
                 raise FileDoesntExistException(suffix="*.osm or *.pbf")
             
-            if not isfile(osmConf):
-                raise FileDoesntExistException(suffix="*.ini")
+            if loadOnly:
+                if not isfile(osmConf):
+                    raise FileDoesntExistException(suffix="*.ini")
             
-            osmParser = OsmParser(osmFile, loadOnly=True, osmConf=osmConf, layers = outputGeomTypes)
-            layers = osmParser.parse()
-            for layer,item in layers.iteritems():
-                QgsMapLayerRegistry.instance().addMapLayer(item)
+            if outputDir and not os.path.isdir(outputDir):
+                raise DirectoryOutPutException
+            
+            #Check OGR
+            if not Tools.osmDriverIsEnabled():
+                raise OsmDriver
+        
+            if loadOnly:
+                osmParser = OsmParser(osmFile, loadOnly=True, osmConf=osmConf, layers=outputGeomTypes)
+                layers = osmParser.parse()
+                for layer,item in layers.iteritems():
+                    QgsMapLayerRegistry.instance().addMapLayer(item)
+            else:
+                Process.openFile(dialog=self,osmFile=osmFile, outputGeomTypes = outputGeomTypes, outputDir=outputDir, prefixFile=prefixFile)
             
         except GeoAlgorithmExecutionException,e:
             self.displayGeoAlgorithmException(e)
         except Exception,e:
             self.displayException(e)
+        finally:
+            QApplication.restoreOverrideCursor()
+            self.endProcess()
+            QApplication.processEvents()
 
 class OsmFileDockWidget(QDockWidget):
     def __init__(self, parent=None):
