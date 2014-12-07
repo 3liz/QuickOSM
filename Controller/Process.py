@@ -26,8 +26,8 @@ from QuickOSM.CoreQuickOSM.QueryFactory import QueryFactory
 from QuickOSM.CoreQuickOSM.Tools import Tools
 from QuickOSM.CoreQuickOSM.API.ConnexionOAPI import ConnexionOAPI
 from QuickOSM.CoreQuickOSM.Parser.OsmParser import OsmParser
-from processing.tools.system import *
 import processing
+import tempfile
 import ntpath
 from os.path import dirname,abspath,join
 from genericpath import isfile
@@ -42,12 +42,17 @@ class Process:
         outputs = {}
         for layer in ['points','lines','multilinestrings','multipolygons']:
             if not outputDir:
-                #if no directory, get a temporary shapefile
+                #if no directory, get a temporary file
+                tf = None
                 if outputFormat == "shape":
-                    outputs[layer] = getTempFilenameInTempFolder("_"+layer+"_quickosm.shp")
+                    tf = tempfile.NamedTemporaryFile(delete=False,suffix="_"+layer+"_quickosm.shp")
                 else:
                     #We should avoid this copy of geojson in the temp folder
-                    outputs[layer] = getTempFilenameInTempFolder("_"+layer+"_quickosm.geojson")
+                    tf = tempfile.NamedTemporaryFile(delete=False,suffix="_"+layer+"_quickosm.geojson")
+                    
+                outputs[layer] = tf.name
+                tf.flush()
+                tf.close()
             else:
                 if not prefixFile:
                     prefixFile = layerName
