@@ -171,13 +171,14 @@ class Tools:
         #Correction of ; in the OQL at the end
         query = re.sub(r';;$',';', query)
         
+        #Get format of the query
         isOQL = True if query[-1] == ";" else False
     
-        #Replace nominatimArea by <id-query />
-        nominatimQuery = re.search('{{nominatimArea:(.*)}}', query)
+        #Replace nominatimArea
+        nominatimQuery = re.search('{{(nominatimArea|geocodeArea):(.*)}}', query)
         if nominatimQuery:
             result = nominatimQuery.groups()
-            search = result[0]
+            search = result[1]
             
             osmid = None
             
@@ -185,19 +186,17 @@ class Tools:
             if search.isdigit():
                 osmid = search
             else:
-                nominatim = Nominatim()
-                
-                #If {{nominatim}}, it's a template, we use the parameter
-                if search == "{{nominatim}}" or nominatimName:
-                    search = nominatimName
-                    
-                    
                 #We perform a nominatim query
+                nominatim = Nominatim()
                 osmid = nominatim.getFirstPolygonFromQuery(search)
             
             area = int(osmid) + 3600000000
-            newString = '<id-query into="area" ref="'+str(area)+'" type="area"/>'
-            query = re.sub(r'<id-query {{nominatimArea:(.*)}} into="area"/>',newString, query)
+            newString = None
+            if isOQL:
+                newString = 'area('+str(area)+')'
+            else:
+                newString = 'ref="'+str(area)+'" type="area"'
+            query = re.sub(r'{{(nominatimArea|geocodeArea):(.*)}}',newString, query)
         
         #Replace {{bbox}}
         bboxQuery = re.search('{{bbox}}',query)
