@@ -170,6 +170,8 @@ class Tools:
         
         #Correction of ; in the OQL at the end
         query = re.sub(r';;$',';', query)
+        
+        isOQL = True if query[-1] == ";" else False
     
         #Replace nominatimArea by <id-query />
         nominatimQuery = re.search('{{nominatimArea:(.*)}}', query)
@@ -197,11 +199,15 @@ class Tools:
             newString = '<id-query into="area" ref="'+str(area)+'" type="area"/>'
             query = re.sub(r'<id-query {{nominatimArea:(.*)}} into="area"/>',newString, query)
         
-        #Replace {{bbox}} by <bbox-query />
-        bboxQuery = re.search('<bbox-query {{bbox}}/>',query)
+        #Replace {{bbox}}
+        bboxQuery = re.search('{{bbox}}',query)
         if bboxQuery:
-            newString = '<bbox-query e="'+str(extent.xMaximum())+'" n="'+str(extent.yMaximum())+'" s="'+str(extent.yMinimum())+'" w="'+str(extent.xMinimum())+'"/>'
-            query = re.sub(r'<bbox-query {{bbox}}/>',newString, query)
+            newString = None
+            if isOQL:
+                newString = str(extent.yMinimum())+','+str(extent.xMinimum())+','+str(extent.yMaximum())+','+str(extent.xMinimum())
+            else:
+                newString = 'e="'+str(extent.xMaximum())+'" n="'+str(extent.yMaximum())+'" s="'+str(extent.yMinimum())+'" w="'+str(extent.xMinimum())+'"'
+            query = re.sub(r'{{bbox}}',newString, query)
         
         return query
     
