@@ -182,6 +182,9 @@ class Tools:
             
             osmid = None
             
+            if nominatimName:
+                search = nominatimName
+            
             #if the result is already a number, it's a relation ID, we don't perform a nominatim query
             if search.isdigit():
                 osmid = search
