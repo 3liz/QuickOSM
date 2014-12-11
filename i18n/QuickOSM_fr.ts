@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS><TS version="2.0" language="fr_FR" sourcelanguage="en">
+<!DOCTYPE TS>
+<TS version="2.0" language="fr_FR" sourcelanguage="en">
 <context>
     <name>Exception</name>
     <message>
@@ -321,7 +322,7 @@
     </message>
     <message>
         <location filename="ui/main_window.py" line="337"/>
-        <source>&lt;a href=&quot;http://www.3liz.com&quot; style=&quot;color:#7BA11A;text-decoration:none;&quot;&gt;Lib&#xc3;&#xa9;rez vos SIG !&lt;/a&gt;</source>
+        <source>&lt;a href=&quot;http://www.3liz.com&quot; style=&quot;color:#7BA11A;text-decoration:none;&quot;&gt;LibÃ©rez vos SIG !&lt;/a&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -356,7 +357,7 @@
     </message>
     <message>
         <location filename="ui/main_window.py" line="345"/>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;ODBL : &#xc2;&#xa9; OpenStreetMap&apos;s contributors &lt;/p&gt;&lt;p&gt;&lt;a href=&quot;http://www.openstreetmap.org/copyright&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0057ae;&quot;&gt;http://www.openstreetmap.org/copyright&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;ODBL : Â© OpenStreetMap&apos;s contributors &lt;/p&gt;&lt;p&gt;&lt;a href=&quot;http://www.openstreetmap.org/copyright&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0057ae;&quot;&gt;http://www.openstreetmap.org/copyright&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;ODBL : © Les contributeurs OpenStreetMap &lt;/p&gt;&lt;p&gt;&lt;a href=&quot;http://www.openstreetmap.org/copyright&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0057ae;&quot;&gt;http://www.openstreetmap.org/copyright&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
@@ -377,17 +378,17 @@
     <message>
         <location filename="ui/main_window.py" line="326"/>
         <source>Outputs</source>
-        <translation type="unfinished">Sortie</translation>
+        <translation>Sortie</translation>
     </message>
     <message>
         <location filename="ui/main_window.py" line="327"/>
         <source>GeoJSON (not editable, colmun&apos;s name longer)</source>
-        <translation type="unfinished"></translation>
+        <translation>GeoJSON (non éditable, nom des champs non tronqués)</translation>
     </message>
     <message>
         <location filename="ui/main_window.py" line="328"/>
         <source>Shapefile (editable, colmun&apos;s name shorter)</source>
-        <translation type="unfinished"></translation>
+        <translation>Shapefile (éditable, nom des champs tronqués)</translation>
     </message>
 </context>
 <context>
