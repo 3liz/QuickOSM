@@ -20,11 +20,12 @@ email=info@3liz.com
 
 # Uncomment the following line and add your changelog:
 # changelog=
-Version 1.2
-* {{geocodeArea}} is implemented
-* A local osm file can now be parsed
-* Add an option to select output format : geojson or shapefile
-* Fix some minor bugs
+  Version 1.2
+  * Options - Ajout du menu Vue/Décorations dans l'interface Cadastre
+  * geocodeArea is implemented
+  * A local osm file can now be parsed
+  * Add an option to select output format : geojson or shapefile
+  * Fix some minor bugs
 
 # Tags are comma separated with spaces allowed
 tags=osm,openstreetmap,overpass
