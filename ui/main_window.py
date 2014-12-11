@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'main_window.ui'
 #
-# Created: Sat Dec  6 21:45:48 2014
+# Created: Thu Dec 11 11:58:39 2014
 #      by: PyQt4 UI code generator 4.10.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -204,7 +204,7 @@ class Ui_ui_main_window(object):
         self.scrollArea_2.setWidgetResizable(True)
         self.scrollArea_2.setObjectName(_fromUtf8("scrollArea_2"))
         self.scrollAreaWidgetContents_2 = QtGui.QWidget()
-        self.scrollAreaWidgetContents_2.setGeometry(QtCore.QRect(0, 0, 528, 555))
+        self.scrollAreaWidgetContents_2.setGeometry(QtCore.QRect(0, 0, 556, 617))
         self.scrollAreaWidgetContents_2.setObjectName(_fromUtf8("scrollAreaWidgetContents_2"))
         self.verticalLayout_9 = QtGui.QVBoxLayout(self.scrollAreaWidgetContents_2)
         self.verticalLayout_9.setObjectName(_fromUtf8("verticalLayout_9"))
@@ -249,6 +249,20 @@ class Ui_ui_main_window(object):
         self.horizontalLayout_4.addWidget(self.label_11)
         self.verticalLayout_7.addLayout(self.horizontalLayout_4)
         self.verticalLayout_9.addWidget(self.groupBox_5)
+        self.groupBox_8 = QtGui.QGroupBox(self.scrollAreaWidgetContents_2)
+        self.groupBox_8.setObjectName(_fromUtf8("groupBox_8"))
+        self.horizontalLayout_9 = QtGui.QHBoxLayout(self.groupBox_8)
+        self.horizontalLayout_9.setObjectName(_fromUtf8("horizontalLayout_9"))
+        self.horizontalLayout_10 = QtGui.QHBoxLayout()
+        self.horizontalLayout_10.setObjectName(_fromUtf8("horizontalLayout_10"))
+        self.label_4 = QtGui.QLabel(self.groupBox_8)
+        self.label_4.setObjectName(_fromUtf8("label_4"))
+        self.horizontalLayout_10.addWidget(self.label_4)
+        self.label_3 = QtGui.QLabel(self.groupBox_8)
+        self.label_3.setObjectName(_fromUtf8("label_3"))
+        self.horizontalLayout_10.addWidget(self.label_3)
+        self.horizontalLayout_9.addLayout(self.horizontalLayout_10)
+        self.verticalLayout_9.addWidget(self.groupBox_8)
         self.groupBox_6 = QtGui.QGroupBox(self.scrollAreaWidgetContents_2)
         self.groupBox_6.setObjectName(_fromUtf8("groupBox_6"))
         self.verticalLayout_8 = QtGui.QVBoxLayout(self.groupBox_6)
@@ -294,7 +308,7 @@ class Ui_ui_main_window(object):
 
         self.retranslateUi(ui_main_window)
         self.listWidget.setCurrentRow(-1)
-        self.stackedWidget.setCurrentIndex(4)
+        self.stackedWidget.setCurrentIndex(6)
         QtCore.QObject.connect(self.listWidget, QtCore.SIGNAL(_fromUtf8("currentRowChanged(int)")), self.stackedWidget.setCurrentIndex)
         QtCore.QMetaObject.connectSlotsByName(ui_main_window)
         ui_main_window.setTabOrder(self.pushButton_OAPI_timestamp, self.listWidget)
@@ -335,6 +349,9 @@ class Ui_ui_main_window(object):
         self.label_12.setText(_translate("ui_main_window", "<html><head/><body><p><a href=\"http://www.3liz.com/\"><img src=\":/plugins/QuickOSM/resources/3liz.png\"/></a></p></body></html>\n"
 "", None))
         self.label_11.setText(_translate("ui_main_window", "<a href=\"http://www.3liz.com\" style=\"color:#7BA11A;text-decoration:none;\">Libérez vos SIG !</a>", None))
+        self.groupBox_8.setTitle(_translate("ui_main_window", "Translators", None))
+        self.label_4.setText(_translate("ui_main_window", "Russian :", None))
+        self.label_3.setText(_translate("ui_main_window", "<a href=\"https://github.com/freeExec\" style=\"color:#7BA11A;text-decoration:none;\">freeExec</a>", None))
         self.groupBox_6.setTitle(_translate("ui_main_window", "Sources", None))
         self.label_19.setText(_translate("ui_main_window", "Github\'s repository", None))
         self.label_20.setText(_translate("ui_main_window", "<a href=\"https://github.com/3liz/QgisQuickOSMPlugin\" style=\"color:#7BA11A;text-decoration:none;\">https://github.com/3liz/QgisQuickOSMPlugin</a>", None))
