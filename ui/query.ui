@@ -101,7 +101,7 @@
             <item row="2" column="0">
              <widget class="QLabel" name="label_5">
               <property name="text">
-               <string>{{bbox}}</string>
+               <string>{{bbox}} or {{center}}</string>
               </property>
              </widget>
             </item>
@@ -409,7 +409,7 @@
   <customwidget>
    <class>QgsCollapsibleGroupBox</class>
    <extends>QGroupBox</extends>
-   <header>qgis/gui.h</header>
+   <header>qgscollapsiblegroupbox.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

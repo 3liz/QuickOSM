@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'query.ui'
 #
-# Created: Fri Oct 24 23:11:46 2014
+# Created: Tue Feb 24 19:15:25 2015
 #      by: PyQt4 UI code generator 4.10.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -54,7 +54,7 @@ class Ui_ui_query(object):
         self.textEdit_query.setAcceptRichText(False)
         self.textEdit_query.setObjectName(_fromUtf8("textEdit_query"))
         self.verticalLayout.addWidget(self.textEdit_query)
-        self.groupBox = QgsCollapsibleGroupBox(self.scrollAreaWidgetContents)
+        self.groupBox = gui.QgsCollapsibleGroupBox(self.scrollAreaWidgetContents)
         self.groupBox.setChecked(False)
         self.groupBox.setObjectName(_fromUtf8("groupBox"))
         self.verticalLayout_2 = QtGui.QVBoxLayout(self.groupBox)
@@ -236,7 +236,7 @@ class Ui_ui_query(object):
         self.groupBox.setTitle(_translate("ui_query", "Advanced", None))
         self.label_2.setText(_translate("ui_query", "{{nominatimArea:}}", None))
         self.lineEdit_nominatim.setPlaceholderText(_translate("ui_query", "Can be overridden", None))
-        self.label_5.setText(_translate("ui_query", "{{bbox}}", None))
+        self.label_5.setText(_translate("ui_query", "{{bbox}} or {{center}}", None))
         self.radioButton_extentMapCanvas.setText(_translate("ui_query", "Extent of the map canvas", None))
         self.label_3.setText(_translate("ui_query", "Outputs", None))
         self.label_10.setText(_translate("ui_query", "Points", None))
@@ -257,5 +257,5 @@ class Ui_ui_query(object):
         self.pushButton_overpassTurbo.setText(_translate("ui_query", "Overpass Turbo", None))
         self.pushButton_documentation.setText(_translate("ui_query", "Documentation", None))
 
-from qgis.gui import QgsCollapsibleGroupBox
+from qgis import gui
 from QuickOSM import resources_rc

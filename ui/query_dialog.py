@@ -122,13 +122,13 @@ class QueryWidget(QuickOSMWidget, Ui_ui_query):
             self.pushButton_saveQuery.setDisabled(False)
             self.pushButton_runQuery.setDisabled(False)
 
-        if re.search('{{nominatim}}', query) or re.search('{{nominatimArea:(.*)}}', query):
+        if re.search('{{nominatim}}', query) or re.search('{{nominatimArea:(.*)}}', query) or re.search('{{geocodeArea:(.*)}}', query):
             self.lineEdit_nominatim.setEnabled(True)
         else:
             self.lineEdit_nominatim.setEnabled(False)
             self.lineEdit_nominatim.setText("")
             
-        if re.search('{{bbox}}', query):
+        if re.search('{{(bbox|center)}}', query):
             self.radioButton_extentLayer.setEnabled(True)
             self.radioButton_extentMapCanvas.setEnabled(True)
             if self.radioButton_extentLayer.isChecked():
