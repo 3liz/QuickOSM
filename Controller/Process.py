@@ -186,18 +186,22 @@ class Process:
     generate a query and send it to "processQuery"
     '''    
     @staticmethod
-    def ProcessQuickQuery(dialog = None, key = None,value = None,bbox = None,nominatim = None,osmObjects = None, timeout=25, outputDir=None, prefixFile=None, outputGeomTypes=None):
+    def ProcessQuickQuery(dialog = None, key = None,value = None,bbox = None,nominatim = None, isAround = None, distance = None, osmObjects = None, timeout=25, outputDir=None, prefixFile=None, outputGeomTypes=None):
         
         #Set the layername
         layerName = ''
         for i in [key,value,nominatim]:
             if i:
                 layerName += i + "_"
+        
+        if isAround:
+            layerName += str(distance) + "_"
+        
         #Delete last "_"
         layerName = layerName[:-1]
         
         #Building the query
-        queryFactory = QueryFactory(timeout=timeout,key=key,value=value,bbox=bbox,nominatim=nominatim,osmObjects=osmObjects)
+        queryFactory = QueryFactory(timeout=timeout, key=key, value=value, bbox=bbox, isAround=isAround, distance=distance, nominatim=nominatim, osmObjects=osmObjects)
         query = queryFactory.make()
         
         #Call ProcessQuery with the new query

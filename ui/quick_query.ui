@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>604</width>
-    <height>866</height>
+    <width>644</width>
+    <height>805</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -24,8 +24,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>590</width>
-        <height>852</height>
+        <width>630</width>
+        <height>791</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout">
@@ -112,13 +112,6 @@
           </widget>
          </item>
          <item row="2" column="0">
-          <widget class="QLabel" name="label_3">
-           <property name="text">
-            <string>In</string>
-           </property>
-          </widget>
-         </item>
-         <item row="3" column="0">
           <widget class="QRadioButton" name="radioButton_place">
            <property name="text">
             <string/>
@@ -128,15 +121,45 @@
            </property>
           </widget>
          </item>
-         <item row="3" column="1">
-          <widget class="QLineEdit" name="lineEdit_nominatim">
-           <property name="text">
-            <string/>
-           </property>
-           <property name="placeholderText">
-            <string>A village, a town, ...</string>
-           </property>
-          </widget>
+         <item row="2" column="1">
+          <layout class="QHBoxLayout" name="horizontalLayout_8">
+           <item>
+            <widget class="QComboBox" name="comboBox_in_around"/>
+           </item>
+           <item>
+            <widget class="QLineEdit" name="lineEdit_nominatim">
+             <property name="text">
+              <string/>
+             </property>
+             <property name="placeholderText">
+              <string>A village, a town, ...</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QSpinBox" name="spinBox_distance_point">
+             <property name="minimum">
+              <number>1</number>
+             </property>
+             <property name="maximum">
+              <number>999999999</number>
+             </property>
+             <property name="singleStep">
+              <number>100</number>
+             </property>
+             <property name="value">
+              <number>1000</number>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="label_distance_point">
+             <property name="text">
+              <string>m</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
          </item>
          <item row="4" column="0">
           <widget class="QRadioButton" name="radioButton_extentMapCanvas">
@@ -465,7 +488,7 @@
   <customwidget>
    <class>QgsCollapsibleGroupBox</class>
    <extends>QGroupBox</extends>
-   <header>qgis/gui.h</header>
+   <header>qgscollapsiblegroupbox.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

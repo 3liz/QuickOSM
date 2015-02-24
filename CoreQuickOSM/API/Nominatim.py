@@ -93,3 +93,20 @@ class Nominatim:
         
         #If no result has been return
         raise NominatimAreaException
+    
+    def getFirstPointFromQuery(self,query):
+        '''
+        Get first longitude, latitude of a Nominatim point
+        @param query: Query to execute
+        @type query: str
+        @raise NominatimAreaException: 
+        @return: First relation's osm_id
+        @rtype: str
+        '''
+        data = self.query(query)
+        for result in data:
+            if result['osm_type'] == "node":
+                return result['lon'], result['lat']
+        
+        #If no result has been return
+        raise NominatimAreaException

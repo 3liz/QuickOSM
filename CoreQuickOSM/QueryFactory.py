@@ -30,7 +30,7 @@ class QueryFactory():
     
     OSM_TYPES = ['node','way','relation']
 
-    def __init__(self,key = None,value = None,bbox = None,nominatim = None,osmObjects = OSM_TYPES, output = 'xml', timeout=25, printMode = 'body'):
+    def __init__(self,key = None,value = None,bbox = None,nominatim = None, isAround = None, distance = None, osmObjects = OSM_TYPES, output = 'xml', timeout=25, printMode = 'body'):
         '''
         Constructor with key=value according to OpenStreetMap
         A bbox or nominatim can be provided
@@ -43,6 +43,8 @@ class QueryFactory():
         @type bbox: QgsRectangle or bool or "{{bbox}}"
         @param nominatim: a place
         @type nominatim: str
+        @param isAround: around or in
+        @type isAround: bool
         @param osmObjects: list of osm objects to query on (node/way/relation)
         @type osmObjects: list
         @param output:output of overpass : xml or json
@@ -56,6 +58,8 @@ class QueryFactory():
         self.__value = value
         self.__bbox = bbox
         self.__nominatim = nominatim
+        self.__isAround = isAround
+        self.__distance = distance
         self.__osmObjects = osmObjects
         self.__timeout = timeout
         self.__output = output
@@ -89,7 +93,7 @@ class QueryFactory():
         TAB = '     '
         query = '<osm-script output="%s" timeout="%s"> \n' %(self.__output,self.__timeout)
         
-        if self.__nominatim:
+        if self.__nominatim and not self.__isAround:
             query += TAB + '<id-query {{nominatimArea:'+self.__nominatim+'}} into="area"/> \n'
             
         query += TAB + '<union>\n'
@@ -101,8 +105,10 @@ class QueryFactory():
                 query += 'v="'+self.__value+'"'
             query += '/> \n'
             
-            if self.__nominatim:
+            if self.__nominatim and not self.__isAround:
                 query += TAB + TAB + TAB + '<area-query from="area"/>\n'
+            elif self.__nominatim and self.__isAround:
+                query += TAB + TAB + TAB + '<around {{geocodeCoords:'+self.__nominatim+'}} radius="'+ str(self.__distance) +'" />\n'
             elif self.__bbox:
                 query += TAB + TAB + TAB + '<bbox-query '+self.__bbox+'/>\n'
             query += TAB + TAB + '</query>\n'

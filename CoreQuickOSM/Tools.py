@@ -200,6 +200,26 @@ class Tools:
             else:
                 newString = 'ref="'+str(area)+'" type="area"'
             query = re.sub(r'{{(nominatimArea|geocodeArea):(.*)}}',newString, query)
+
+        #Replace geocodeCenter
+        nominatimQuery = re.search('{{(geocodeCoords):(.*)}}', query)
+        if nominatimQuery:
+            result = nominatimQuery.groups()
+            search = result[1]
+            
+            if nominatimName:
+                search = nominatimName
+            
+            #We perform a nominatim query
+            nominatim = Nominatim()
+            lon, lat = nominatim.getFirstPointFromQuery(search)
+            
+            newString = None
+            if isOQL:
+                newString = str(lat)+','+str(lon)
+            else:
+                newString = 'lat="'+str(lat)+'" lon="'+str(lon)+'"'
+            query = re.sub(r'{{(geocodeCoords):(.*)}}',newString, query)
         
         #Replace {{bbox}}
         bboxQuery = re.search('{{bbox}}',query)

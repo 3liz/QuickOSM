@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'quick_query.ui'
 #
-# Created: Wed Oct  8 19:29:01 2014
+# Created: Tue Feb 24 21:39:32 2015
 #      by: PyQt4 UI code generator 4.10.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -26,14 +26,14 @@ except AttributeError:
 class Ui_ui_quick_query(object):
     def setupUi(self, ui_quick_query):
         ui_quick_query.setObjectName(_fromUtf8("ui_quick_query"))
-        ui_quick_query.resize(604, 866)
+        ui_quick_query.resize(644, 805)
         self.verticalLayout_3 = QtGui.QVBoxLayout(ui_quick_query)
         self.verticalLayout_3.setObjectName(_fromUtf8("verticalLayout_3"))
         self.scrollArea = QtGui.QScrollArea(ui_quick_query)
         self.scrollArea.setWidgetResizable(True)
         self.scrollArea.setObjectName(_fromUtf8("scrollArea"))
         self.scrollAreaWidgetContents = QtGui.QWidget()
-        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 590, 852))
+        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 630, 791))
         self.scrollAreaWidgetContents.setObjectName(_fromUtf8("scrollAreaWidgetContents"))
         self.verticalLayout = QtGui.QVBoxLayout(self.scrollAreaWidgetContents)
         self.verticalLayout.setObjectName(_fromUtf8("verticalLayout"))
@@ -78,18 +78,31 @@ class Ui_ui_quick_query(object):
         self.comboBox_value.setSizeAdjustPolicy(QtGui.QComboBox.AdjustToContents)
         self.comboBox_value.setObjectName(_fromUtf8("comboBox_value"))
         self.formLayout.setWidget(1, QtGui.QFormLayout.FieldRole, self.comboBox_value)
-        self.label_3 = QtGui.QLabel(self.scrollAreaWidgetContents)
-        self.label_3.setObjectName(_fromUtf8("label_3"))
-        self.formLayout.setWidget(2, QtGui.QFormLayout.LabelRole, self.label_3)
         self.radioButton_place = QtGui.QRadioButton(self.scrollAreaWidgetContents)
         self.radioButton_place.setText(_fromUtf8(""))
         self.radioButton_place.setChecked(True)
         self.radioButton_place.setObjectName(_fromUtf8("radioButton_place"))
-        self.formLayout.setWidget(3, QtGui.QFormLayout.LabelRole, self.radioButton_place)
+        self.formLayout.setWidget(2, QtGui.QFormLayout.LabelRole, self.radioButton_place)
+        self.horizontalLayout_8 = QtGui.QHBoxLayout()
+        self.horizontalLayout_8.setObjectName(_fromUtf8("horizontalLayout_8"))
+        self.comboBox_in_around = QtGui.QComboBox(self.scrollAreaWidgetContents)
+        self.comboBox_in_around.setObjectName(_fromUtf8("comboBox_in_around"))
+        self.horizontalLayout_8.addWidget(self.comboBox_in_around)
         self.lineEdit_nominatim = QtGui.QLineEdit(self.scrollAreaWidgetContents)
         self.lineEdit_nominatim.setText(_fromUtf8(""))
         self.lineEdit_nominatim.setObjectName(_fromUtf8("lineEdit_nominatim"))
-        self.formLayout.setWidget(3, QtGui.QFormLayout.FieldRole, self.lineEdit_nominatim)
+        self.horizontalLayout_8.addWidget(self.lineEdit_nominatim)
+        self.spinBox_distance_point = QtGui.QSpinBox(self.scrollAreaWidgetContents)
+        self.spinBox_distance_point.setMinimum(1)
+        self.spinBox_distance_point.setMaximum(999999999)
+        self.spinBox_distance_point.setSingleStep(100)
+        self.spinBox_distance_point.setProperty("value", 1000)
+        self.spinBox_distance_point.setObjectName(_fromUtf8("spinBox_distance_point"))
+        self.horizontalLayout_8.addWidget(self.spinBox_distance_point)
+        self.label_distance_point = QtGui.QLabel(self.scrollAreaWidgetContents)
+        self.label_distance_point.setObjectName(_fromUtf8("label_distance_point"))
+        self.horizontalLayout_8.addWidget(self.label_distance_point)
+        self.formLayout.setLayout(2, QtGui.QFormLayout.FieldRole, self.horizontalLayout_8)
         self.radioButton_extentMapCanvas = QtGui.QRadioButton(self.scrollAreaWidgetContents)
         self.radioButton_extentMapCanvas.setText(_fromUtf8(""))
         self.radioButton_extentMapCanvas.setObjectName(_fromUtf8("radioButton_extentMapCanvas"))
@@ -123,7 +136,7 @@ class Ui_ui_quick_query(object):
         self.horizontalLayout_5.addWidget(self.pushButton_refreshLayers)
         self.formLayout.setLayout(5, QtGui.QFormLayout.FieldRole, self.horizontalLayout_5)
         self.verticalLayout.addLayout(self.formLayout)
-        self.groupBox = QgsCollapsibleGroupBox(self.scrollAreaWidgetContents)
+        self.groupBox = gui.QgsCollapsibleGroupBox(self.scrollAreaWidgetContents)
         self.groupBox.setChecked(False)
         self.groupBox.setObjectName(_fromUtf8("groupBox"))
         self.verticalLayout_2 = QtGui.QVBoxLayout(self.groupBox)
@@ -261,8 +274,8 @@ class Ui_ui_quick_query(object):
         self.pushButton_mapFeatures.setText(_translate("ui_quick_query", "Help with key/value", None))
         self.label.setText(_translate("ui_quick_query", "Key", None))
         self.label_2.setText(_translate("ui_quick_query", "Value", None))
-        self.label_3.setText(_translate("ui_quick_query", "In", None))
         self.lineEdit_nominatim.setPlaceholderText(_translate("ui_quick_query", "A village, a town, ...", None))
+        self.label_distance_point.setText(_translate("ui_quick_query", "m", None))
         self.label_13.setText(_translate("ui_quick_query", "Extent of the map canvas", None))
         self.label_15.setText(_translate("ui_quick_query", "Extent of a layer", None))
         self.groupBox.setTitle(_translate("ui_quick_query", "Advanced", None))
@@ -282,5 +295,5 @@ class Ui_ui_quick_query(object):
         self.pushButton_runQuery.setText(_translate("ui_quick_query", "Run query", None))
         self.label_progress.setText(_translate("ui_quick_query", "progress text", None))
 
-from qgis.gui import QgsCollapsibleGroupBox
+from qgis import gui
 from QuickOSM import resources_rc

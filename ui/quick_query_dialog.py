@@ -48,8 +48,15 @@ class QuickQueryWidget(QuickOSMWidget, Ui_ui_quick_query):
         self.groupBox.setCollapsed(True)
         self.fillLayerCombobox()
         self.groupBox.setCollapsed(True)
+        self.comboBox_in_around.setDisabled(True)
         self.lineEdit_nominatim.setDisabled(True)
         self.radioButton_extentMapCanvas.setChecked(True)
+        self.spinBox_distance_point.setDisabled(True)
+        self.label_distance_point.setDisabled(True)
+        
+        #Setup in/around combobox
+        self.comboBox_in_around.insertItem(0, self.tr('In'))
+        self.comboBox_in_around.insertItem(1, self.tr('Around'))
                
         #connect
         self.pushButton_runQuery.clicked.connect(self.runQuery)
@@ -63,6 +70,7 @@ class QuickQueryWidget(QuickOSMWidget, Ui_ui_quick_query):
         self.pushButton_refreshLayers.clicked.connect(self.fillLayerCombobox)
         self.pushButton_mapFeatures.clicked.connect(self.openMapFeatures)
         self.buttonBox.button(QDialogButtonBox.Reset).clicked.connect(self.resetForm)
+        self.comboBox_in_around.currentIndexChanged.connect(self.inOrAround)
         
         #Setup autocompletation
         mapFeaturesJsonFilePath = join(dirname(dirname(abspath(__file__))),'mapFeatures.json')
@@ -80,6 +88,7 @@ class QuickQueryWidget(QuickOSMWidget, Ui_ui_quick_query):
         self.comboBox_key.setCurrentIndex(0)
         self.lineEdit_nominatim.setText("")
         self.radioButton_place.setChecked(True)
+        self.radioButton_nominatim_point.setChecked(False)
         self.checkBox_points.setChecked(True)
         self.checkBox_lines.setChecked(True)
         self.checkBox_multilinestrings.setChecked(True)
@@ -128,13 +137,29 @@ class QuickQueryWidget(QuickOSMWidget, Ui_ui_quick_query):
         
         if self.radioButton_extentMapCanvas.isChecked() or self.radioButton_extentLayer.isChecked():
             self.lineEdit_nominatim.setDisabled(True)
+            self.comboBox_in_around.setDisabled(True)
         else:
             self.lineEdit_nominatim.setDisabled(False)
+            self.comboBox_in_around.setDisabled(False)
         
         if self.radioButton_extentLayer.isChecked():
             self.comboBox_extentLayer.setDisabled(False)
         else:
             self.comboBox_extentLayer.setDisabled(True)
+
+    def inOrAround(self):
+        '''
+        Disable the spinbox distance if 'in' or 'around'
+        '''
+        
+        index = self.comboBox_in_around.currentIndex()
+        
+        if index == 1:
+            self.spinBox_distance_point.setEnabled(True)
+            self.label_distance_point.setEnabled(True)
+        else:
+            self.spinBox_distance_point.setEnabled(False)
+            self.label_distance_point.setEnabled(False)
 
     def __getOsmObjects(self):
         '''
@@ -170,6 +195,8 @@ class QuickQueryWidget(QuickOSMWidget, Ui_ui_quick_query):
         timeout = self.spinBox_timeout.value()
         outputDir = self.lineEdit_browseDir.text()
         prefixFile = self.lineEdit_filePrefix.text()
+        isAround = True if self.comboBox_in_around.currentIndex() == 1 else False
+        distance = self.spinBox_distance_point.value()
         
         #Which geometry at the end ?
         outputGeomTypes = self.getOutputGeomTypes()
@@ -197,7 +224,7 @@ class QuickQueryWidget(QuickOSMWidget, Ui_ui_quick_query):
             if outputDir and not os.path.isdir(outputDir):
                 raise DirectoryOutPutException
 
-            numLayers = Process.ProcessQuickQuery(dialog = self, key=key, value=value, nominatim=nominatim, bbox=bbox, osmObjects=osmObjects, timeout=timeout, outputDir=outputDir, prefixFile=prefixFile,outputGeomTypes=outputGeomTypes)
+            numLayers = Process.ProcessQuickQuery(dialog = self, key=key, value=value, nominatim=nominatim, isAround=isAround, distance=distance, bbox=bbox, osmObjects=osmObjects, timeout=timeout, outputDir=outputDir, prefixFile=prefixFile,outputGeomTypes=outputGeomTypes)
             #We can test numLayers to see if there are some results
             if numLayers:
                 self.label_progress.setText(QApplication.translate("QuickOSM",u"Successful query !"))
@@ -240,6 +267,8 @@ class QuickQueryWidget(QuickOSMWidget, Ui_ui_quick_query):
         timeout = self.spinBox_timeout.value()
         outputDir = self.lineEdit_browseDir.text()
         prefixFile = self.lineEdit_filePrefix.text()
+        isAround = True if self.comboBox_in_around.currentIndex() == 1 else False
+        distance = self.spinBox_distance_point.value()
         
         #If bbox, we must set None to nominatim, we can't have both
         bbox = None
@@ -274,7 +303,7 @@ class QuickQueryWidget(QuickOSMWidget, Ui_ui_quick_query):
             queryWidget.lineEdit_filePrefix.setEnabled(True)
 
         #Make the query
-        queryFactory = QueryFactory(timeout=timeout,key=key,value=value,bbox=bbox,nominatim=nominatim,osmObjects=osmObjects)
+        queryFactory = QueryFactory(timeout=timeout,key=key,value=value,bbox=bbox,nominatim=nominatim, isAround=isAround, distance=distance, osmObjects=osmObjects)
         query = queryFactory.make()
         queryWidget.textEdit_query.setPlainText(query)
         iface.QuickOSM_mainWindowDialog.listWidget.setCurrentRow(indexQuickQueryWidget)
