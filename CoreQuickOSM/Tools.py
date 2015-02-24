@@ -210,6 +210,17 @@ class Tools:
             else:
                 newString = 'e="'+str(extent.xMaximum())+'" n="'+str(extent.yMaximum())+'" s="'+str(extent.yMinimum())+'" w="'+str(extent.xMinimum())+'"'
             query = re.sub(r'{{bbox}}',newString, query)
+
+        #Replace {{center}}
+        bboxQuery = re.search('{{center}}',query)
+        if bboxQuery:
+            newString = None
+            point = extent.center()
+            if isOQL:
+                newString = str(point.y())+','+str(point.x())
+            else:
+                newString = 'lat="'+str(point.y())+'" lon="'+str(point.x())+'"'
+            query = re.sub(r'{{center}}',newString, query)
         
         return query
     
