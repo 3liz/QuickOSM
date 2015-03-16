@@ -68,6 +68,9 @@ class MainWindowDialog(QDialog, Ui_ui_main_window):
         else:
             Tools.setSetting('outputFormat', 'shape')
             self.radioButton_outputShape.setChecked(True)
+            
+        #Set minimum width for the menu
+        self.listWidget.setMinimumWidth(self.listWidget.sizeHintForColumn(0) + 10)
 
     def setHelpWebView(self):
         '''
