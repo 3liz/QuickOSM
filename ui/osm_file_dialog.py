@@ -38,8 +38,7 @@ class OsmFileWidget(QuickOSMWidget, Ui_ui_osm_file):
         self.setupUi(self)
         
         #Set UI
-        self.radioButton_osmConf.setChecked(True)
-        self.groupBox_file.setEnabled(False)
+        self.radioButton_osmConf.setChecked(False)
         self.label_progress.setText("")
         self.lineEdit_filePrefix.setDisabled(True)
         

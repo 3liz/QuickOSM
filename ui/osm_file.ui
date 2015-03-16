@@ -123,45 +123,13 @@
            </property>
           </widget>
          </item>
-         <item row="5" column="0">
-          <widget class="QRadioButton" name="radioButton_osmConf">
-           <property name="text">
-            <string>OSMConf</string>
-           </property>
-           <property name="checked">
-            <bool>true</bool>
-           </property>
-          </widget>
-         </item>
-         <item row="5" column="1">
-          <layout class="QHBoxLayout" name="horizontalLayout_osmConf">
-           <item>
-            <widget class="QLineEdit" name="lineEdit_osmConf"/>
-           </item>
-           <item>
-            <widget class="QPushButton" name="pushButton_browseOsmConf">
-             <property name="text">
-              <string>Browse</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QPushButton" name="pushButton_resetIni">
-             <property name="text">
-              <string/>
-             </property>
-             <property name="icon">
-              <iconset resource="../../../../../plugins/QuickOSM/resources.qrc">
-               <normaloff>:/plugins/QuickOSM/resources/refresh.png</normaloff>:/plugins/QuickOSM/resources/refresh.png</iconset>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </item>
          <item row="6" column="0">
           <widget class="QRadioButton" name="radioButton_allTags">
            <property name="text">
             <string>All tags</string>
+           </property>
+           <property name="checked">
+            <bool>true</bool>
            </property>
           </widget>
          </item>
@@ -212,6 +180,41 @@
             </item>
            </layout>
           </widget>
+         </item>
+         <item row="7" column="0">
+          <widget class="QRadioButton" name="radioButton_osmConf">
+           <property name="text">
+            <string>OSMConf</string>
+           </property>
+           <property name="checked">
+            <bool>false</bool>
+           </property>
+          </widget>
+         </item>
+         <item row="7" column="1">
+          <layout class="QHBoxLayout" name="horizontalLayout_osmConf">
+           <item>
+            <widget class="QLineEdit" name="lineEdit_osmConf"/>
+           </item>
+           <item>
+            <widget class="QPushButton" name="pushButton_browseOsmConf">
+             <property name="text">
+              <string>Browse</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="pushButton_resetIni">
+             <property name="text">
+              <string/>
+             </property>
+             <property name="icon">
+              <iconset resource="../../../../../plugins/QuickOSM/resources.qrc">
+               <normaloff>:/plugins/QuickOSM/resources/refresh.png</normaloff>:/plugins/QuickOSM/resources/refresh.png</iconset>
+             </property>
+            </widget>
+           </item>
+          </layout>
          </item>
         </layout>
        </item>
