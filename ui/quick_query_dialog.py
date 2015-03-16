@@ -137,10 +137,13 @@ class QuickQueryWidget(QuickOSMWidget, Ui_ui_quick_query):
         
         if self.radioButton_extentMapCanvas.isChecked() or self.radioButton_extentLayer.isChecked():
             self.lineEdit_nominatim.setDisabled(True)
+            self.spinBox_distance_point.setDisabled(True)
+            self.label_distance_point.setDisabled(True)
             self.comboBox_in_around.setDisabled(True)
         else:
             self.lineEdit_nominatim.setDisabled(False)
             self.comboBox_in_around.setDisabled(False)
+            self.inOrAround()
         
         if self.radioButton_extentLayer.isChecked():
             self.comboBox_extentLayer.setDisabled(False)
