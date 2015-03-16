@@ -69,6 +69,13 @@ class QuickOSM:
 
     def initGui(self):
 
+        #Setup menu
+        self.quickosm_menu = QMenu("Quick OSM")
+        self.quickosm_menu.setIcon(QIcon(":/plugins/QuickOSM/icon.png"))
+        self.dock_menu = QMenu(QApplication.translate("QuickOSM", u"Dock"))
+        self.web_menu = self.iface.webMenu()
+        self.web_menu.addMenu(self.quickosm_menu)
+
         #Main window        
         self.mainWindowAction = QAction(
             QIcon(":/plugins/QuickOSM/icon.png"),
@@ -76,16 +83,14 @@ class QuickOSM:
             self.iface.mainWindow())
         self.mainWindowAction.triggered.connect(self.openMainWindow)
         self.iface.addToolBarIcon(self.mainWindowAction)
-        self.iface.addPluginToWebMenu(u"&Quick OSM",self.mainWindowAction)
         self.iface.QuickOSM_mainWindowDialog = MainWindowDialog()
 
         #OSM File
         self.osmFileAction = QAction(
-            QIcon(":/plugins/QuickOSM/icon.png"),
+            QIcon(":/plugins/QuickOSM/resources/open.png"),
             QApplication.translate("ui_osm_file", "OSM File"),
             self.iface.mainWindow())
         self.osmFileAction.triggered.connect(self.openOsmFileDockWidget)
-        self.iface.addPluginToWebMenu(u"&Quick OSM",self.osmFileAction)
         self.osmFileDockWidget = OsmFileDockWidget()
         self.iface.addDockWidget(Qt.RightDockWidgetArea, self.osmFileDockWidget)
         self.osmFileDockWidget.hide()
@@ -93,11 +98,10 @@ class QuickOSM:
 
         #My queries
         self.myQueriesAction = QAction(
-            QIcon(":/plugins/QuickOSM/icon.png"),
+            QIcon(":/plugins/QuickOSM/resources/favorites.png"),
             QApplication.translate("ui_my_queries", "My queries"),
             self.iface.mainWindow())
         self.myQueriesAction.triggered.connect(self.openMyQueriesDockWidget)
-        self.iface.addPluginToWebMenu(u"&Quick OSM",self.myQueriesAction)
         self.myQueriesDockWidget = MyQueriesDockWidget()
         self.iface.addDockWidget(Qt.RightDockWidgetArea, self.myQueriesDockWidget)
         self.myQueriesDockWidget.hide()
@@ -105,11 +109,10 @@ class QuickOSM:
         
         #Query
         self.queryAction = QAction(
-            QIcon(":/plugins/QuickOSM/icon.png"),
+            QIcon(":/plugins/QuickOSM/resources/edit.png"),
             QApplication.translate("ui_query", "Query"),
             self.iface.mainWindow())
         self.queryAction.triggered.connect(self.openQueryDockWidget)
-        self.iface.addPluginToWebMenu(u"&Quick OSM",self.queryAction)
         self.queryDockWidget = QueryDockWidget()
         self.iface.addDockWidget(Qt.RightDockWidgetArea, self.queryDockWidget)
         self.queryDockWidget.hide()
@@ -117,15 +120,22 @@ class QuickOSM:
         
         #Quick query
         self.quickQueryAction = QAction(
-            QIcon(":/plugins/QuickOSM/icon.png"),
+            QIcon(":/plugins/QuickOSM/resources/quick.png"),
             QApplication.translate("ui_quick_query", "Quick query"),
             self.iface.mainWindow())
         self.quickQueryAction.triggered.connect(self.openQuickQueryDockWidget)
-        self.iface.addPluginToWebMenu(u"&Quick OSM",self.quickQueryAction)
         self.quickQueryDockWidget = QuickQueryDockWidget()
         self.iface.addDockWidget(Qt.RightDockWidgetArea, self.quickQueryDockWidget)
         self.quickQueryDockWidget.hide()
         self.quickQueryDockWidget.setObjectName("quickQueryWidget");
+        
+        #Insert in the good order
+        self.quickosm_menu.addAction(self.mainWindowAction)
+        self.quickosm_menu.addMenu(self.dock_menu)
+        self.dock_menu.addAction(self.quickQueryAction)
+        self.dock_menu.addAction(self.queryAction)
+        self.dock_menu.addAction(self.myQueriesAction)
+        self.dock_menu.addAction(self.osmFileAction)
         
         #Connect signals and slots from dock
         self.queryDockWidget.signalNewQuerySuccessful.connect(self.iface.QuickOSM_mainWindowDialog.refreshMyQueriesTree)
