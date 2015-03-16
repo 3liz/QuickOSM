@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS>
-<TS version="2.0" language="de" sourcelanguage="en">
+<!DOCTYPE TS><TS version="2.0" language="de" sourcelanguage="en">
 <context>
     <name>Exception</name>
     <message>
@@ -97,27 +96,27 @@
         <translation>Starte Abfrage...</translation>
     </message>
     <message>
-        <location filename="ui/quick_query_dialog.py" line="203"/>
+        <location filename="ui/quick_query_dialog.py" line="232"/>
         <source>Successful query !</source>
         <translation>Abfrage erfolgreich!</translation>
     </message>
     <message>
-        <location filename="ui/quick_query_dialog.py" line="206"/>
+        <location filename="ui/quick_query_dialog.py" line="235"/>
         <source>Successful query, but no result.</source>
         <translation>Abfrage erfolgreich, jedoch kein Ergebnis.</translation>
     </message>
     <message>
-        <location filename="Controller/Process.py" line="51"/>
+        <location filename="Controller/Process.py" line="166"/>
         <source>Prepare outputs</source>
         <translation>Bereite Ausgabe vor</translation>
     </message>
     <message>
-        <location filename="Controller/Process.py" line="80"/>
+        <location filename="Controller/Process.py" line="175"/>
         <source>Downloading data from Overpass</source>
         <translation>Herunterladen der Daten von Overpass</translation>
     </message>
     <message>
-        <location filename="Controller/Process.py" line="94"/>
+        <location filename="Controller/Process.py" line="86"/>
         <source>From GeoJSON to Shapefile</source>
         <translation>Von GeoJSON zu Shapefile</translation>
     </message>
@@ -147,12 +146,12 @@
         <translation>Zeige Abfrage</translation>
     </message>
     <message>
-        <location filename="ui/osm_file_dialog.py" line="59"/>
+        <location filename="ui/osm_file_dialog.py" line="68"/>
         <source>Select *.osm or *.pbf</source>
         <translation>Wähle *.osm oder *.pbf</translation>
     </message>
     <message>
-        <location filename="ui/osm_file_dialog.py" line="67"/>
+        <location filename="ui/osm_file_dialog.py" line="76"/>
         <source>Select osm conf</source>
         <translation>Wähle  osm.conf</translation>
     </message>
@@ -167,7 +166,7 @@
         <translation>Speicher als Vorlage</translation>
     </message>
     <message>
-        <location filename="ui/quick_query_dialog.py" line="205"/>
+        <location filename="ui/quick_query_dialog.py" line="234"/>
         <source>No result</source>
         <translation>Kein Ergebnis</translation>
     </message>
@@ -182,12 +181,12 @@
         <translation>Sicher diese Abfrage löschen?</translation>
     </message>
     <message>
-        <location filename="ui/main_window_dialog.py" line="115"/>
+        <location filename="ui/main_window_dialog.py" line="118"/>
         <source>Fetching the timestamp ...</source>
         <translation>Hole den Zeitstempel...</translation>
     </message>
     <message>
-        <location filename="ui/main_window_dialog.py" line="134"/>
+        <location filename="ui/main_window_dialog.py" line="137"/>
         <source>Copy ...</source>
         <translation>Kopiere...</translation>
     </message>
@@ -207,17 +206,17 @@
         <translation>Eine Stadt, ein Ort...</translation>
     </message>
     <message>
-        <location filename="CoreQuickOSM/QueryFactory.py" line="73"/>
+        <location filename="CoreQuickOSM/QueryFactory.py" line="77"/>
         <source>nominatim OR bbox, not both</source>
         <translation>Nominatim oder umschließendes Rechteck, nicht beides</translation>
     </message>
     <message>
-        <location filename="CoreQuickOSM/QueryFactory.py" line="82"/>
+        <location filename="CoreQuickOSM/QueryFactory.py" line="86"/>
         <source>key required</source>
         <translation>Schlüssel erforderlich</translation>
     </message>
     <message>
-        <location filename="CoreQuickOSM/QueryFactory.py" line="86"/>
+        <location filename="CoreQuickOSM/QueryFactory.py" line="90"/>
         <source>wrong OSM object</source>
         <translation>Falsches OSM-Objekt</translation>
     </message>
@@ -226,169 +225,212 @@
         <source>can be overridden</source>
         <translation>kann nicht überschrieben werden</translation>
     </message>
+    <message>
+        <location filename="quick_osm.py" line="75"/>
+        <source>Dock</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>QuickQueryWidget</name>
+    <message>
+        <location filename="ui/quick_query_dialog.py" line="58"/>
+        <source>In</source>
+        <translation type="unfinished">In</translation>
+    </message>
+    <message>
+        <location filename="ui/quick_query_dialog.py" line="59"/>
+        <source>Around</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ui_main_window</name>
     <message>
-        <location filename="ui/main_window.py" line="303"/>
+        <location filename="ui/main_window.py" line="329"/>
         <source>Quick OSM</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="ui/main_window.py" line="309"/>
+        <location filename="ui/main_window.py" line="335"/>
         <source>My queries</source>
         <translation>Meine Abfragen</translation>
     </message>
     <message>
-        <location filename="ui/main_window.py" line="307"/>
+        <location filename="ui/main_window.py" line="333"/>
         <source>Quick query</source>
         <translation>Schnelle Abfrage</translation>
     </message>
     <message>
-        <location filename="ui/main_window.py" line="315"/>
+        <location filename="ui/main_window.py" line="341"/>
         <source>Parameters</source>
         <translation>Parameter</translation>
     </message>
     <message>
-        <location filename="ui/main_window.py" line="321"/>
+        <location filename="ui/main_window.py" line="347"/>
         <source>Overpass API</source>
         <translation>Overpass API</translation>
     </message>
     <message>
-        <location filename="ui/main_window.py" line="322"/>
+        <location filename="ui/main_window.py" line="348"/>
         <source>Get timestamp</source>
         <translation>Hole Zeitstempel</translation>
     </message>
     <message>
-        <location filename="ui/main_window.py" line="323"/>
+        <location filename="ui/main_window.py" line="349"/>
         <source>unknow</source>
         <translation>unbekannt</translation>
     </message>
     <message>
-        <location filename="ui/main_window.py" line="311"/>
+        <location filename="ui/main_window.py" line="337"/>
         <source>Query</source>
         <translation>Abfrage</translation>
     </message>
     <message>
-        <location filename="ui/main_window.py" line="313"/>
+        <location filename="ui/main_window.py" line="339"/>
         <source>OSM File</source>
         <translation>OSM-Datei</translation>
     </message>
     <message>
-        <location filename="ui/main_window.py" line="317"/>
+        <location filename="ui/main_window.py" line="343"/>
         <source>Help</source>
         <translation>Hilfe</translation>
     </message>
     <message>
-        <location filename="ui/main_window.py" line="319"/>
+        <location filename="ui/main_window.py" line="345"/>
         <source>About</source>
         <translation>Über</translation>
     </message>
     <message>
-        <location filename="ui/main_window.py" line="329"/>
+        <location filename="ui/main_window.py" line="355"/>
         <source>Home</source>
         <translation>Anfang</translation>
     </message>
     <message>
-        <location filename="ui/main_window.py" line="330"/>
+        <location filename="ui/main_window.py" line="356"/>
         <source>Realization</source>
         <translation>Realisierung</translation>
     </message>
     <message>
-        <location filename="ui/main_window.py" line="331"/>
+        <location filename="ui/main_window.py" line="357"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Etienne Trimaille&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Etienne Trimaille&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="ui/main_window.py" line="332"/>
+        <location filename="ui/main_window.py" line="358"/>
         <source>&lt;a href=&quot;mailto:etienne@trimaille.eu?subject=Plugin QuickOSM - About&quot; style=&quot;color:#7BA11A;text-decoration:none;&quot;&gt;etienne@trimaille.eu&lt;/a&gt;</source>
         <translation>&lt;a href=&quot;mailto:etienne@trimaille.eu?subject=Plugin QuickOSM - About&quot; style=&quot;color:#7BA11A;text-decoration:none;&quot;&gt;etienne@trimaille.eu&lt;/a&gt;</translation>
     </message>
     <message>
-        <location filename="ui/main_window.py" line="333"/>
+        <location filename="ui/main_window.py" line="359"/>
         <source>Supervision</source>
         <translation>Betreuung</translation>
     </message>
     <message>
-        <location filename="ui/main_window.py" line="334"/>
+        <location filename="ui/main_window.py" line="360"/>
         <source>This intership was supervised by 3Liz</source>
         <translation>Das Praktikum wurde betreut durch 3Liz</translation>
     </message>
     <message>
-        <location filename="ui/main_window.py" line="335"/>
+        <location filename="ui/main_window.py" line="361"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;http://www.3liz.com/&quot;&gt;&lt;img src=&quot;:/plugins/QuickOSM/resources/3liz.png&quot;/&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;
 </source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;http://www.3liz.com/&quot;&gt;&lt;img src=&quot;:/plugins/QuickOSM/resources/3liz.png&quot;/&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html</translation>
     </message>
     <message>
-        <location filename="ui/main_window.py" line="337"/>
-        <source>&lt;a href=&quot;http://www.3liz.com&quot; style=&quot;color:#7BA11A;text-decoration:none;&quot;&gt;LibÃ©rez vos SIG !&lt;/a&gt;</source>
+        <location filename="ui/main_window.py" line="363"/>
+        <source>&lt;a href=&quot;http://www.3liz.com&quot; style=&quot;color:#7BA11A;text-decoration:none;&quot;&gt;Lib&#xc3;&#xa9;rez vos SIG !&lt;/a&gt;</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="ui/main_window.py" line="338"/>
+        <location filename="ui/main_window.py" line="369"/>
         <source>Sources</source>
         <translation>Quellen</translation>
     </message>
     <message>
-        <location filename="ui/main_window.py" line="339"/>
+        <location filename="ui/main_window.py" line="370"/>
         <source>Github&apos;s repository</source>
         <translation>Github-Repositorium</translation>
     </message>
     <message>
-        <location filename="ui/main_window.py" line="341"/>
+        <location filename="ui/main_window.py" line="372"/>
         <source>Licence</source>
         <translation>Lizenz</translation>
     </message>
     <message>
-        <location filename="ui/main_window.py" line="342"/>
+        <location filename="ui/main_window.py" line="373"/>
         <source>OpenStreetMap</source>
         <translation>OpenStreetMap</translation>
     </message>
     <message>
-        <location filename="ui/main_window.py" line="343"/>
+        <location filename="ui/main_window.py" line="374"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;https://www.gnu.org/licenses/gpl-2.0.html&quot;&gt;&lt;img src=&quot;:/plugins/QuickOSM/resources/gnu.png&quot;/&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;https://www.gnu.org/licenses/gpl-2.0.html&quot;&gt;&lt;img src=&quot;:/plugins/QuickOSM/resources/gnu.png&quot;/&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="ui/main_window.py" line="344"/>
+        <location filename="ui/main_window.py" line="375"/>
         <source>Plugin : Licence GPL Version 2</source>
         <translation>Erweiterung: GPL-Lizen  Version 2</translation>
     </message>
     <message>
-        <location filename="ui/main_window.py" line="345"/>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;ODBL : Â© OpenStreetMap&apos;s contributors &lt;/p&gt;&lt;p&gt;&lt;a href=&quot;http://www.openstreetmap.org/copyright&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0057ae;&quot;&gt;http://www.openstreetmap.org/copyright&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <location filename="ui/main_window.py" line="376"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;ODBL : &#xc2;&#xa9; OpenStreetMap&apos;s contributors &lt;/p&gt;&lt;p&gt;&lt;a href=&quot;http://www.openstreetmap.org/copyright&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0057ae;&quot;&gt;http://www.openstreetmap.org/copyright&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;ODBL : © Les contributeurs OpenStreetMap &lt;/p&gt;&lt;p&gt;&lt;a href=&quot;http://www.openstreetmap.org/copyright&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0057ae;&quot;&gt;http://www.openstreetmap.org/copyright&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="ui/main_window.py" line="324"/>
+        <location filename="ui/main_window.py" line="350"/>
         <source>Queries</source>
         <translation>Abfragen</translation>
     </message>
     <message>
-        <location filename="ui/main_window.py" line="325"/>
+        <location filename="ui/main_window.py" line="351"/>
         <source>Restore queries</source>
         <translation>Abfrage wieder herstellen</translation>
     </message>
     <message>
-        <location filename="ui/main_window.py" line="340"/>
+        <location filename="ui/main_window.py" line="371"/>
         <source>&lt;a href=&quot;https://github.com/3liz/QgisQuickOSMPlugin&quot; style=&quot;color:#7BA11A;text-decoration:none;&quot;&gt;https://github.com/3liz/QgisQuickOSMPlugin&lt;/a&gt;</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="ui/main_window.py" line="326"/>
+        <location filename="ui/main_window.py" line="352"/>
         <source>Outputs</source>
         <translation>Ausgaben</translation>
     </message>
     <message>
-        <location filename="ui/main_window.py" line="327"/>
+        <location filename="ui/main_window.py" line="353"/>
         <source>GeoJSON (not editable, colmun&apos;s name longer)</source>
         <translation>GeoJSON (nicht bearbeitbar, lange Spaltennamen)</translation>
     </message>
     <message>
-        <location filename="ui/main_window.py" line="328"/>
+        <location filename="ui/main_window.py" line="354"/>
         <source>Shapefile (editable, colmun&apos;s name shorter)</source>
         <translation>Shapefile (bearbeitbar, kurze Spaltennamen)</translation>
+    </message>
+    <message>
+        <location filename="ui/main_window.py" line="364"/>
+        <source>Translators</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ui/main_window.py" line="365"/>
+        <source>Russian :</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ui/main_window.py" line="366"/>
+        <source>&lt;a href=&quot;https://github.com/freeExec&quot; style=&quot;color:#7BA11A;text-decoration:none;&quot;&gt;freeExec&lt;/a&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ui/main_window.py" line="367"/>
+        <source>German</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ui/main_window.py" line="368"/>
+        <source>Thomas Moenkemeier</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -404,7 +446,7 @@
         <translation>Durchsuchen</translation>
     </message>
     <message>
-        <location filename="quick_osm.py" line="95"/>
+        <location filename="quick_osm.py" line="100"/>
         <source>My queries</source>
         <translation>Meine Abfragen</translation>
     </message>
@@ -512,55 +554,80 @@
 <context>
     <name>ui_osm_file</name>
     <message>
-        <location filename="ui/osm_file.py" line="120"/>
+        <location filename="ui/osm_file.py" line="162"/>
         <source>OSM File</source>
         <translation>OSM-Datei</translation>
     </message>
     <message>
-        <location filename="ui/osm_file.py" line="119"/>
+        <location filename="ui/osm_file.py" line="161"/>
         <source>QuickOSM - OSM File</source>
         <translation>QuickOSM - OSM-Datei</translation>
     </message>
     <message>
-        <location filename="ui/osm_file.py" line="123"/>
+        <location filename="ui/osm_file.py" line="173"/>
         <source>Browse</source>
         <translation>Durchsuchen</translation>
     </message>
     <message>
-        <location filename="ui/osm_file.py" line="122"/>
+        <location filename="ui/osm_file.py" line="168"/>
         <source>OSMConf</source>
         <translation>OSMConf</translation>
     </message>
     <message>
-        <location filename="ui/osm_file.py" line="124"/>
+        <location filename="ui/osm_file.py" line="164"/>
         <source>Points</source>
         <translation>Punkte</translation>
     </message>
     <message>
-        <location filename="ui/osm_file.py" line="125"/>
+        <location filename="ui/osm_file.py" line="165"/>
         <source>Lines</source>
         <translation>Linien</translation>
     </message>
     <message>
-        <location filename="ui/osm_file.py" line="126"/>
+        <location filename="ui/osm_file.py" line="166"/>
         <source>Multilinestrings</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="ui/osm_file.py" line="127"/>
+        <location filename="ui/osm_file.py" line="167"/>
         <source>Multipolygons</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="ui/osm_file.py" line="128"/>
+        <location filename="ui/osm_file.py" line="175"/>
         <source>Open</source>
         <translation>Öffnen</translation>
+    </message>
+    <message>
+        <location filename="ui/osm_file.py" line="170"/>
+        <source>All tags</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ui/osm_file.py" line="171"/>
+        <source>Directory</source>
+        <translation type="unfinished">Verzeichnis</translation>
+    </message>
+    <message>
+        <location filename="ui/osm_file.py" line="172"/>
+        <source>Save to temporary file</source>
+        <translation type="unfinished">Speichern als temporäre Datei</translation>
+    </message>
+    <message>
+        <location filename="ui/osm_file.py" line="174"/>
+        <source>File prefix</source>
+        <translation type="unfinished">Datei-Präfix</translation>
+    </message>
+    <message>
+        <location filename="ui/osm_file.py" line="176"/>
+        <source>text progress</source>
+        <translation type="unfinished">Fortschritt</translation>
     </message>
 </context>
 <context>
     <name>ui_query</name>
     <message>
-        <location filename="quick_osm.py" line="107"/>
+        <location filename="quick_osm.py" line="111"/>
         <source>Query</source>
         <translation>Abfrage</translation>
     </message>
@@ -583,11 +650,6 @@
         <location filename="ui/query.py" line="238"/>
         <source>Can be overridden</source>
         <translation>Kann nicht überschrieben werden</translation>
-    </message>
-    <message>
-        <location filename="ui/query.py" line="239"/>
-        <source>{{bbox}}</source>
-        <translation>{{bbox}}</translation>
     </message>
     <message>
         <location filename="ui/query.py" line="240"/>
@@ -689,133 +751,143 @@
         <source>Documentation</source>
         <translation>Dokumentation</translation>
     </message>
+    <message>
+        <location filename="ui/query.py" line="239"/>
+        <source>{{bbox}} or {{center}}</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ui_quick_query</name>
     <message>
-        <location filename="quick_osm.py" line="119"/>
+        <location filename="quick_osm.py" line="122"/>
         <source>Quick query</source>
         <translation>Schnellabfrage</translation>
     </message>
     <message>
-        <location filename="ui/quick_query.py" line="260"/>
+        <location filename="ui/quick_query.py" line="273"/>
         <source>QuickOSM - Quick query</source>
         <translation>QuickOSM - Schnellabfrage</translation>
     </message>
     <message>
-        <location filename="ui/quick_query.py" line="262"/>
+        <location filename="ui/quick_query.py" line="275"/>
         <source>Key</source>
         <translation>Schlüssel</translation>
     </message>
     <message>
-        <location filename="ui/quick_query.py" line="263"/>
+        <location filename="ui/quick_query.py" line="276"/>
         <source>Value</source>
         <translation>Wert</translation>
     </message>
     <message>
-        <location filename="ui/quick_query.py" line="264"/>
-        <source>In</source>
-        <translation>In</translation>
-    </message>
-    <message>
-        <location filename="ui/quick_query.py" line="266"/>
+        <location filename="ui/quick_query.py" line="280"/>
         <source>Extent of the map canvas</source>
         <translation>Ausdehnung der Karten-Ebene</translation>
     </message>
     <message>
-        <location filename="ui/quick_query.py" line="267"/>
+        <location filename="ui/quick_query.py" line="281"/>
         <source>Extent of a layer</source>
         <translation>Ausdehnung der Ebene</translation>
     </message>
     <message>
-        <location filename="ui/quick_query.py" line="268"/>
+        <location filename="ui/quick_query.py" line="282"/>
         <source>Advanced</source>
         <translation>Weiteres</translation>
     </message>
     <message>
-        <location filename="ui/quick_query.py" line="269"/>
+        <location filename="ui/quick_query.py" line="283"/>
         <source>Node</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="ui/quick_query.py" line="270"/>
+        <location filename="ui/quick_query.py" line="284"/>
         <source>Way</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="ui/quick_query.py" line="271"/>
+        <location filename="ui/quick_query.py" line="285"/>
         <source>Relation</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="ui/quick_query.py" line="272"/>
+        <location filename="ui/quick_query.py" line="286"/>
         <source>Points</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="ui/quick_query.py" line="273"/>
+        <location filename="ui/quick_query.py" line="287"/>
         <source>Lines</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="ui/quick_query.py" line="274"/>
+        <location filename="ui/quick_query.py" line="288"/>
         <source>Multipolygons</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="ui/quick_query.py" line="275"/>
+        <location filename="ui/quick_query.py" line="289"/>
         <source>Multilinestrings</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="ui/quick_query.py" line="276"/>
+        <location filename="ui/quick_query.py" line="290"/>
         <source>Timeout</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="ui/quick_query.py" line="277"/>
+        <location filename="ui/quick_query.py" line="291"/>
         <source>Directory</source>
         <translation>Verzeichnis</translation>
     </message>
     <message>
-        <location filename="ui/quick_query.py" line="278"/>
+        <location filename="ui/quick_query.py" line="292"/>
         <source>Save to temporary file</source>
         <translation>Speichern als temporäre Datei</translation>
     </message>
     <message>
-        <location filename="ui/quick_query.py" line="279"/>
+        <location filename="ui/quick_query.py" line="293"/>
         <source>Browse</source>
         <translation>Durchsuchen</translation>
     </message>
     <message>
-        <location filename="ui/quick_query.py" line="280"/>
+        <location filename="ui/quick_query.py" line="294"/>
         <source>File prefix</source>
         <translation>Datei-Präfix</translation>
     </message>
     <message>
-        <location filename="ui/quick_query.py" line="281"/>
+        <location filename="ui/quick_query.py" line="295"/>
         <source>Show query</source>
         <translation>Zeige Abfrage</translation>
     </message>
     <message>
-        <location filename="ui/quick_query.py" line="282"/>
+        <location filename="ui/quick_query.py" line="296"/>
         <source>Run query</source>
         <translation>Ausführen</translation>
     </message>
     <message>
-        <location filename="ui/quick_query.py" line="283"/>
+        <location filename="ui/quick_query.py" line="297"/>
         <source>progress text</source>
         <translation>Fortschritt</translation>
     </message>
     <message>
-        <location filename="ui/quick_query.py" line="265"/>
+        <location filename="ui/quick_query.py" line="278"/>
         <source>A village, a town, ...</source>
         <translation>Eine Stadt, ein Ort...</translation>
     </message>
     <message>
-        <location filename="ui/quick_query.py" line="261"/>
+        <location filename="ui/quick_query.py" line="274"/>
         <source>Help with key/value</source>
         <translation>Hilfe zu Schlüsseln/Werte</translation>
+    </message>
+    <message>
+        <location filename="ui/quick_query.py" line="277"/>
+        <source>&quot;In&quot; will search the first multipolygon relation, however &quot;Around&quot; will get the first OSM node.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ui/quick_query.py" line="279"/>
+        <source>m</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

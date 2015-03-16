@@ -39,4 +39,5 @@ SOURCES = __init__.py \
 	ui/QuickOSMWidget.py
 
 TRANSLATIONS = i18n/QuickOSM_fr.ts \
-	i18n/QuickOSM_ru.ts
+	i18n/QuickOSM_ru.ts \
+	i18n/QuickOSM_de.ts
