@@ -103,6 +103,9 @@ class Process:
                 writer = None
                 if outputFormat == "shape":
                     writer = QgsVectorFileWriter(outputs[layer], "UTF-8", geojsonlayer.pendingFields(), osmGeom[layer], geojsonlayer.crs(), "ESRI Shapefile")
+                    cpg_file = open(outputs[layer] + ".cpg", "w")
+                    cpg_file.write("UTF-8")
+                    cpg_file.close()                    
                 else:
                     writer = QgsVectorFileWriter(outputs[layer], "UTF-8", geojsonlayer.pendingFields(), osmGeom[layer], geojsonlayer.crs(), "GeoJSON")
                 
