@@ -124,7 +124,11 @@
          <item row="2" column="1">
           <layout class="QHBoxLayout" name="horizontalLayout_8">
            <item>
-            <widget class="QComboBox" name="comboBox_in_around"/>
+            <widget class="QComboBox" name="comboBox_in_around">
+             <property name="toolTip">
+              <string>&quot;In&quot; will search the first multipolygon relation, however &quot;Around&quot; will get the first OSM node.</string>
+             </property>
+            </widget>
            </item>
            <item>
             <widget class="QLineEdit" name="lineEdit_nominatim">

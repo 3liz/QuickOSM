@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'quick_query.ui'
 #
-# Created: Tue Feb 24 21:39:32 2015
+# Created: Wed Mar  4 18:58:19 2015
 #      by: PyQt4 UI code generator 4.10.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -274,6 +274,7 @@ class Ui_ui_quick_query(object):
         self.pushButton_mapFeatures.setText(_translate("ui_quick_query", "Help with key/value", None))
         self.label.setText(_translate("ui_quick_query", "Key", None))
         self.label_2.setText(_translate("ui_quick_query", "Value", None))
+        self.comboBox_in_around.setToolTip(_translate("ui_quick_query", "\"In\" will search the first multipolygon relation, however \"Around\" will get the first OSM node.", None))
         self.lineEdit_nominatim.setPlaceholderText(_translate("ui_quick_query", "A village, a town, ...", None))
         self.label_distance_point.setText(_translate("ui_quick_query", "m", None))
         self.label_13.setText(_translate("ui_quick_query", "Extent of the map canvas", None))

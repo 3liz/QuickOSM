@@ -54,7 +54,15 @@
 			<br />
 			<strong>Be careful</strong> with some queries which come from Overpass Turbo :
 			<ul>
-				<li>some shortcuts are not available today in this plugin. We only support {{geocodeArea:}}, {{nominatimArea:}} and {{bbox}}.</li>
+				<li>some shortcuts are not available today in this plugin. We only support :
+					<ul>
+						<li>{{geocodeArea:}}</li>
+						<li>{{nominatimArea:}}></li>
+						<li>{{center}}</li>
+						<li>{{geocodeCoords:}}</li>
+						<li>{{bbox}}</li>
+					</ul>
+				</li>
 				<li>the order in the result have to be like this : node, then way and finally relation. With the default wizard of Overpass Turbo, you may get the reverse order. Our parser, OGR, can not work with this. You have to modify the print statement at the end.</li>
 			</ul>
 			For instance, this query is good :
