@@ -69,12 +69,12 @@ class Nominatim:
         self.loop.exec_()
         
         if self.networkReply.error() == QNetworkReply.NoError:
-            return json.loads(unicode(self.data))
+            return json.loads(self.data)
         else:
             raise NetWorkErrorException(suffix="Nominatim API")
 
     def __endOfRequest(self,test):
-        self.data = self.networkReply.readAll()
+        self.data = self.networkReply.readAll().data().decode('utf-8')
         self.loop.quit()
     
     def getFirstPolygonFromQuery(self,query):
