@@ -49,12 +49,8 @@ class QueryFactoryGeoAlgorithm(GeoAlgorithm):
         
         self.addParameter(ParameterString(self.FIELD_KEY, 'Key','',optional=False))
         self.addParameter(ParameterString(self.FIELD_VALUE, 'Value','',optional=True))
-        self.addParameter(ParameterExtent(self.FIELD_EXTENT, 'Extent (0,0,0,0 is wrong value)', default="0,0,0,0"))
-        self.addParameter(ParameterString(self.FIELD_NOMINATIM, 'Nominatim',optional=True))
-        
-        #osm_objects = ['node','way','relation','all']
-        #self.addParameter(ParameterSelection(self.FIELD_OSM_OBJECTS, 'OSM objects', osm_objects, default=3))
-        
+        self.addParameter(ParameterBoolean(self.FIELD_EXTENT, 'Use an extent, not compatible with nominatim', default=False))
+        self.addParameter(ParameterString(self.FIELD_NOMINATIM, 'Nominatim, not compatible with an extent',optional=True))
         self.addParameter(ParameterNumber(self.FIELD_TIMEOUT, 'Timeout',minValue=20, default=25))        
         
         self.addOutput(OutputString(self.OUTPUT_QUERY,"Query"))
@@ -92,9 +88,6 @@ class QueryFactoryGeoAlgorithm(GeoAlgorithm):
         
         if value == '':
             value = None
-        
-        if extent == "0,0,0,0":
-            extent = None
         
         #osmObjects = self.getParameterValue(self.FIELD_OSM_OBJECTS)
         timeout = self.getParameterValue(self.FIELD_TIMEOUT)
