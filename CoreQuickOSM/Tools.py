@@ -25,7 +25,7 @@ from QuickOSM import *
 import re
 from API.Nominatim import Nominatim
 from os.path import join,dirname,abspath
-import os
+import os, platform, sys
 from shutil import *
 from PyQt4.QtNetwork import QNetworkProxy
 from qgis.utils import iface
@@ -285,3 +285,14 @@ class Tools:
                 errors.extend((src, dst, str(why)))
         if errors:
             raise Error, errors
+    
+    @staticmethod
+    def isWindowsOS():
+        return True if platform.system() == 'Windows' else False
+    
+    @staticmethod
+    def getDefaultEncoding():
+        if Tools.isWindowsOS():
+            return sys.getdefaultencoding()
+        else:
+            return 'UTF-8'

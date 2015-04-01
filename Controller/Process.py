@@ -101,13 +101,11 @@ class Process:
                 geojsonlayer = QgsVectorLayer(item['geojsonFile'],"temp","ogr")
                 
                 writer = None
+                encoding = Tools.getDefaultEncoding()
                 if outputFormat == "shape":
-                    writer = QgsVectorFileWriter(outputs[layer], "UTF-8", geojsonlayer.pendingFields(), osmGeom[layer], geojsonlayer.crs(), "ESRI Shapefile")
-                    cpg_file = open(outputs[layer] + ".cpg", "w")
-                    cpg_file.write("UTF-8")
-                    cpg_file.close()                    
+                    writer = QgsVectorFileWriter(outputs[layer], encoding, geojsonlayer.pendingFields(), osmGeom[layer], geojsonlayer.crs(), "ESRI Shapefile")                    
                 else:
-                    writer = QgsVectorFileWriter(outputs[layer], "UTF-8", geojsonlayer.pendingFields(), osmGeom[layer], geojsonlayer.crs(), "GeoJSON")
+                    writer = QgsVectorFileWriter(outputs[layer], encoding, geojsonlayer.pendingFields(), osmGeom[layer], geojsonlayer.crs(), "GeoJSON")
                 
                 for f in geojsonlayer.getFeatures():
                     writer.addFeature(f)

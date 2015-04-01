@@ -173,7 +173,9 @@ class OsmParser(QObject):
             fields = QgsFields()
             for key in layers[layer]['tags']:
                 fields.append(QgsField(key, QVariant.String))
-            fileWriter = QgsVectorFileWriter(layers[layer]['geojsonFile'],'UTF-8',fields,layers[layer]['geomType'],layers[layer]['vectorLayer'].crs(),'GeoJSON')
+            
+            encoding = Tools.getDefaultEncoding()
+            fileWriter = QgsVectorFileWriter(layers[layer]['geojsonFile'],encoding,fields,layers[layer]['geomType'],layers[layer]['vectorLayer'].crs(),'GeoJSON')
             
             #Foreach feature in the layer
             for i, feature in enumerate(layers[layer]['vectorLayer'].getFeatures()):
