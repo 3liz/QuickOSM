@@ -94,7 +94,7 @@ class QueryFactory():
         query = '<osm-script output="%s" timeout="%s"> \n' %(self.__output,self.__timeout)
         
         if self.__nominatim and not self.__isAround:
-            query += TAB + '<id-query {{nominatimArea:'+self.__nominatim+'}} into="area"/> \n'
+            query += TAB + '<id-query {{geocodeArea:'+self.__nominatim+'}} into="area"/> \n'
             
         query += TAB + '<union>\n'
         
