@@ -122,6 +122,11 @@ class OsmParser(QObject):
             #Set a featureCount
             layers[layer]['featureCount'] = 0
             
+            #Get the other_tags
+            fields = layers[layer]['vectorLayer'].pendingFields()
+            field_names = [field.name() for field in fields]
+            othertags_index = field_names.index('other_tags')
+            
             for i, feature in enumerate(layers[layer]['vectorLayer'].getFeatures()):
                 layers[layer]['featureCount'] += 1
                 
@@ -130,15 +135,10 @@ class OsmParser(QObject):
                     continue
                 
                 #Get the "others_tags" field
-                attrs = None
-                if layer in ['points','lines','multilinestrings','other_relations']:
-                    attrs = feature.attributes()[1:]
-                else:
-                    #In the multipolygons layer, there is one more column before "other_tags"
-                    attrs = feature.attributes()[2:]
+                attrs = feature.attributes()[othertags_index]
                 
-                if attrs[0]:
-                    hstore = pghstore.loads(attrs[0])
+                if attrs:
+                    hstore = pghstore.loads(attrs)
                     for key in hstore:
                         if key not in layers[layer]['tags']: #If the key in OSM is not already in the table
                             if self.__whiteListColumn[layer]:
