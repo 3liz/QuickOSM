@@ -12,6 +12,7 @@ try:
     from processing.parameters.ParameterVector import ParameterVector
     from processing.parameters.ParameterSelection import ParameterSelection
     from processing.parameters.ParameterNumber import ParameterNumber
+    from processing.parameters.ParameterBoolean import ParameterBoolean
     
     from processing.outputs.OutputNumber import OutputNumber
     from processing.outputs.OutputFile import OutputFile
