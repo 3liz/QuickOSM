@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'main_window.ui'
+# Form implementation generated from reading ui file 'ui/main_window.ui'
 #
-# Created: Tue Feb  3 18:24:16 2015
+# Created: Thu Apr  9 14:39:52 2015
 #      by: PyQt4 UI code generator 4.10.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -27,8 +27,11 @@ class Ui_ui_main_window(object):
     def setupUi(self, ui_main_window):
         ui_main_window.setObjectName(_fromUtf8("ui_main_window"))
         ui_main_window.setWindowModality(QtCore.Qt.WindowModal)
-        ui_main_window.resize(752, 589)
+        ui_main_window.resize(801, 585)
+        ui_main_window.setWindowTitle(_fromUtf8("QuickOSM"))
         self.horizontalLayout = QtGui.QHBoxLayout(ui_main_window)
+        self.horizontalLayout.setSpacing(0)
+        self.horizontalLayout.setMargin(0)
         self.horizontalLayout.setObjectName(_fromUtf8("horizontalLayout"))
         self.listWidget = QtGui.QListWidget(ui_main_window)
         sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Expanding)
@@ -176,7 +179,7 @@ class Ui_ui_main_window(object):
         self.scrollArea.setWidgetResizable(True)
         self.scrollArea.setObjectName(_fromUtf8("scrollArea"))
         self.scrollAreaWidgetContents = QtGui.QWidget()
-        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 82, 54))
+        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 89, 58))
         self.scrollAreaWidgetContents.setObjectName(_fromUtf8("scrollAreaWidgetContents"))
         self.verticalLayout_5 = QtGui.QVBoxLayout(self.scrollAreaWidgetContents)
         self.verticalLayout_5.setObjectName(_fromUtf8("verticalLayout_5"))
@@ -204,7 +207,7 @@ class Ui_ui_main_window(object):
         self.scrollArea_2.setWidgetResizable(True)
         self.scrollArea_2.setObjectName(_fromUtf8("scrollArea_2"))
         self.scrollAreaWidgetContents_2 = QtGui.QWidget()
-        self.scrollAreaWidgetContents_2.setGeometry(QtCore.QRect(0, 0, 556, 642))
+        self.scrollAreaWidgetContents_2.setGeometry(QtCore.QRect(0, 0, 617, 691))
         self.scrollAreaWidgetContents_2.setObjectName(_fromUtf8("scrollAreaWidgetContents_2"))
         self.verticalLayout_9 = QtGui.QVBoxLayout(self.scrollAreaWidgetContents_2)
         self.verticalLayout_9.setObjectName(_fromUtf8("verticalLayout_9"))
@@ -326,7 +329,6 @@ class Ui_ui_main_window(object):
         ui_main_window.setTabOrder(self.pushButton_OAPI_timestamp, self.listWidget)
 
     def retranslateUi(self, ui_main_window):
-        ui_main_window.setWindowTitle(_translate("ui_main_window", "Quick OSM", None))
         __sortingEnabled = self.listWidget.isSortingEnabled()
         self.listWidget.setSortingEnabled(False)
         item = self.listWidget.item(0)
