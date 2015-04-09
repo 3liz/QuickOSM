@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'osm_file.ui'
 #
-# Created: Mon Mar 16 22:11:52 2015
+# Created: Thu Apr  9 22:46:54 2015
 #      by: PyQt4 UI code generator 4.10.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -53,6 +53,7 @@ class Ui_ui_osm_file(object):
         self.horizontalLayout.addWidget(self.pushButton_browseOsmFile)
         self.formLayout.setLayout(0, QtGui.QFormLayout.FieldRole, self.horizontalLayout)
         self.label_3 = QtGui.QLabel(self.scrollAreaWidgetContents)
+        self.label_3.setText(_fromUtf8("Points"))
         self.label_3.setObjectName(_fromUtf8("label_3"))
         self.formLayout.setWidget(1, QtGui.QFormLayout.LabelRole, self.label_3)
         self.checkBox_points = QtGui.QCheckBox(self.scrollAreaWidgetContents)
@@ -61,6 +62,7 @@ class Ui_ui_osm_file(object):
         self.checkBox_points.setObjectName(_fromUtf8("checkBox_points"))
         self.formLayout.setWidget(1, QtGui.QFormLayout.FieldRole, self.checkBox_points)
         self.label_4 = QtGui.QLabel(self.scrollAreaWidgetContents)
+        self.label_4.setText(_fromUtf8("Lines"))
         self.label_4.setObjectName(_fromUtf8("label_4"))
         self.formLayout.setWidget(2, QtGui.QFormLayout.LabelRole, self.label_4)
         self.checkBox_lines = QtGui.QCheckBox(self.scrollAreaWidgetContents)
@@ -68,15 +70,13 @@ class Ui_ui_osm_file(object):
         self.checkBox_lines.setChecked(True)
         self.checkBox_lines.setObjectName(_fromUtf8("checkBox_lines"))
         self.formLayout.setWidget(2, QtGui.QFormLayout.FieldRole, self.checkBox_lines)
-        self.label_5 = QtGui.QLabel(self.scrollAreaWidgetContents)
-        self.label_5.setObjectName(_fromUtf8("label_5"))
-        self.formLayout.setWidget(3, QtGui.QFormLayout.LabelRole, self.label_5)
         self.checkBox_multilinestrings = QtGui.QCheckBox(self.scrollAreaWidgetContents)
         self.checkBox_multilinestrings.setText(_fromUtf8(""))
         self.checkBox_multilinestrings.setChecked(True)
         self.checkBox_multilinestrings.setObjectName(_fromUtf8("checkBox_multilinestrings"))
         self.formLayout.setWidget(3, QtGui.QFormLayout.FieldRole, self.checkBox_multilinestrings)
         self.label_6 = QtGui.QLabel(self.scrollAreaWidgetContents)
+        self.label_6.setText(_fromUtf8("Multipolygons"))
         self.label_6.setObjectName(_fromUtf8("label_6"))
         self.formLayout.setWidget(4, QtGui.QFormLayout.LabelRole, self.label_6)
         self.checkBox_multipolygons = QtGui.QCheckBox(self.scrollAreaWidgetContents)
@@ -135,11 +135,16 @@ class Ui_ui_osm_file(object):
         self.pushButton_resetIni.setObjectName(_fromUtf8("pushButton_resetIni"))
         self.horizontalLayout_osmConf.addWidget(self.pushButton_resetIni)
         self.formLayout.setLayout(7, QtGui.QFormLayout.FieldRole, self.horizontalLayout_osmConf)
+        self.label_5 = QtGui.QLabel(self.scrollAreaWidgetContents)
+        self.label_5.setText(_fromUtf8("Multilinestrings"))
+        self.label_5.setObjectName(_fromUtf8("label_5"))
+        self.formLayout.setWidget(3, QtGui.QFormLayout.LabelRole, self.label_5)
         self.verticalLayout.addLayout(self.formLayout)
         self.pushButton_runQuery = QtGui.QPushButton(self.scrollAreaWidgetContents)
         self.pushButton_runQuery.setObjectName(_fromUtf8("pushButton_runQuery"))
         self.verticalLayout.addWidget(self.pushButton_runQuery)
         self.label_progress = QtGui.QLabel(self.scrollAreaWidgetContents)
+        self.label_progress.setText(_fromUtf8("text progress"))
         self.label_progress.setObjectName(_fromUtf8("label_progress"))
         self.verticalLayout.addWidget(self.label_progress)
         self.progressBar_execution = QtGui.QProgressBar(self.scrollAreaWidgetContents)
@@ -162,10 +167,6 @@ class Ui_ui_osm_file(object):
         ui_osm_file.setWindowTitle(_translate("ui_osm_file", "QuickOSM - OSM File", None))
         self.label.setText(_translate("ui_osm_file", "OSM File", None))
         self.pushButton_browseOsmFile.setText(_translate("ui_osm_file", "Browse", None))
-        self.label_3.setText(_translate("ui_osm_file", "Points", None))
-        self.label_4.setText(_translate("ui_osm_file", "Lines", None))
-        self.label_5.setText(_translate("ui_osm_file", "Multilinestrings", None))
-        self.label_6.setText(_translate("ui_osm_file", "Multipolygons", None))
         self.radioButton_allTags.setText(_translate("ui_osm_file", "All tags", None))
         self.label_2.setText(_translate("ui_osm_file", "Directory", None))
         self.lineEdit_browseDir.setPlaceholderText(_translate("ui_osm_file", "Save to temporary file", None))
@@ -174,6 +175,5 @@ class Ui_ui_osm_file(object):
         self.radioButton_osmConf.setText(_translate("ui_osm_file", "OSMConf", None))
         self.pushButton_browseOsmConf.setText(_translate("ui_osm_file", "Browse", None))
         self.pushButton_runQuery.setText(_translate("ui_osm_file", "Open", None))
-        self.label_progress.setText(_translate("ui_osm_file", "text progress", None))
 
 from QuickOSM import resources_rc

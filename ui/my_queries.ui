@@ -74,7 +74,7 @@
          <item row="0" column="0">
           <widget class="QLabel" name="label_2">
            <property name="text">
-            <string>{{nominatimArea:}}</string>
+            <string notr="true">{{nominatimArea:}}</string>
            </property>
           </widget>
          </item>
@@ -84,7 +84,7 @@
          <item row="1" column="0">
           <widget class="QLabel" name="label_5">
            <property name="text">
-            <string>{{bbox}}</string>
+            <string notr="true">{{bbox}}</string>
            </property>
           </widget>
          </item>
@@ -156,7 +156,7 @@
             <item row="5" column="0">
              <widget class="QLabel" name="label_10">
               <property name="text">
-               <string>Points</string>
+               <string notr="true">Points</string>
               </property>
              </widget>
             </item>
@@ -174,8 +174,14 @@
               </item>
               <item>
                <widget class="QLineEdit" name="lineEdit_csv_points">
+                <property name="inputMask">
+                 <string notr="true"/>
+                </property>
+                <property name="text">
+                 <string notr="true"/>
+                </property>
                 <property name="placeholderText">
-                 <string>col1,col2,col3</string>
+                 <string notr="true">col1,col2,col3</string>
                 </property>
                </widget>
               </item>
@@ -184,7 +190,7 @@
             <item row="6" column="0">
              <widget class="QLabel" name="label_11">
               <property name="text">
-               <string>Lines</string>
+               <string notr="true">Lines</string>
               </property>
              </widget>
             </item>
@@ -212,7 +218,7 @@
             <item row="7" column="0">
              <widget class="QLabel" name="label_14">
               <property name="text">
-               <string>Multilinestrings</string>
+               <string notr="true">Multilinestrings</string>
               </property>
              </widget>
             </item>
@@ -240,7 +246,7 @@
             <item row="8" column="0">
              <widget class="QLabel" name="label_12">
               <property name="text">
-               <string>Multipolygons</string>
+               <string notr="true">Multipolygons</string>
               </property>
              </widget>
             </item>
@@ -339,7 +345,7 @@
        <item>
         <widget class="QLabel" name="label_progress">
          <property name="text">
-          <string>text progress</string>
+          <string notr="true">text progress</string>
          </property>
         </widget>
        </item>
@@ -373,7 +379,7 @@
   <customwidget>
    <class>QgsCollapsibleGroupBox</class>
    <extends>QGroupBox</extends>
-   <header>qgis/gui.h</header>
+   <header>qgscollapsiblegroupbox.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

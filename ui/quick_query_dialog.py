@@ -55,8 +55,8 @@ class QuickQueryWidget(QuickOSMWidget, Ui_ui_quick_query):
         self.label_distance_point.setDisabled(True)
         
         #Setup in/around combobox
-        self.comboBox_in_around.insertItem(0, self.tr('In'))
-        self.comboBox_in_around.insertItem(1, self.tr('Around'))
+        self.comboBox_in_around.insertItem(0, QApplication.translate("ui_quick_query", u"In"))
+        self.comboBox_in_around.insertItem(1, QApplication.translate("ui_quick_query", u"Around"))
                
         #connect
         self.pushButton_runQuery.clicked.connect(self.runQuery)
@@ -319,4 +319,3 @@ class QuickQueryDockWidget(QDockWidget):
         self.setAllowedAreas(Qt.LeftDockWidgetArea | Qt.RightDockWidgetArea)
         self.widget = QuickQueryWidget()
         self.setWidget(self.widget)
-        self.setWindowTitle(QApplication.translate("ui_quick_query", "QuickOSM - Quick query"))

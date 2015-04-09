@@ -87,7 +87,7 @@
             <item row="0" column="0">
              <widget class="QLabel" name="label_2">
               <property name="text">
-               <string>{{nominatimArea:}}</string>
+               <string notr="true">{{nominatimArea:}}</string>
               </property>
              </widget>
             </item>
@@ -132,7 +132,7 @@
             <item row="5" column="0">
              <widget class="QLabel" name="label_10">
               <property name="text">
-               <string>Points</string>
+               <string notr="true">Points</string>
               </property>
              </widget>
             </item>
@@ -150,8 +150,14 @@
               </item>
               <item>
                <widget class="QLineEdit" name="lineEdit_csv_points">
+                <property name="inputMask">
+                 <string notr="true"/>
+                </property>
+                <property name="text">
+                 <string notr="true"/>
+                </property>
                 <property name="placeholderText">
-                 <string>col1,col2,col3</string>
+                 <string notr="true">col1,col2,col3</string>
                 </property>
                </widget>
               </item>
@@ -160,7 +166,7 @@
             <item row="6" column="0">
              <widget class="QLabel" name="label_11">
               <property name="text">
-               <string>Lines</string>
+               <string notr="true">Lines</string>
               </property>
              </widget>
             </item>
@@ -188,7 +194,7 @@
             <item row="7" column="0">
              <widget class="QLabel" name="label_14">
               <property name="text">
-               <string>Multilinestrings</string>
+               <string notr="true">Multilinestrings</string>
               </property>
              </widget>
             </item>
@@ -216,7 +222,7 @@
             <item row="8" column="0">
              <widget class="QLabel" name="label_12">
               <property name="text">
-               <string>Multipolygons</string>
+               <string notr="true">Multipolygons</string>
               </property>
              </widget>
             </item>
@@ -353,7 +359,7 @@
           </sizepolicy>
          </property>
          <property name="text">
-          <string>progress text</string>
+          <string notr="true">progress text</string>
          </property>
         </widget>
        </item>
@@ -369,7 +375,7 @@
          <item>
           <widget class="QPushButton" name="pushButton_overpassTurbo">
            <property name="text">
-            <string>Overpass Turbo</string>
+            <string notr="true">Overpass Turbo</string>
            </property>
            <property name="icon">
             <iconset resource="../resources.qrc">

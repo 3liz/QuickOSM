@@ -159,7 +159,7 @@
            <item>
             <widget class="QLabel" name="label_distance_point">
              <property name="text">
-              <string>m</string>
+              <string notr="true">m</string>
              </property>
             </widget>
            </item>
@@ -236,7 +236,7 @@
               <item row="0" column="0">
                <widget class="QLabel" name="label_7">
                 <property name="text">
-                 <string>Node</string>
+                 <string notr="true">Node</string>
                 </property>
                </widget>
               </item>
@@ -253,7 +253,7 @@
               <item row="1" column="0">
                <widget class="QLabel" name="label_8">
                 <property name="text">
-                 <string>Way</string>
+                 <string notr="true">Way</string>
                 </property>
                </widget>
               </item>
@@ -270,7 +270,7 @@
               <item row="2" column="0">
                <widget class="QLabel" name="label_9">
                 <property name="text">
-                 <string>Relation</string>
+                 <string notr="true">Relation</string>
                 </property>
                </widget>
               </item>
@@ -291,7 +291,7 @@
               <item row="0" column="0">
                <widget class="QLabel" name="label_10">
                 <property name="text">
-                 <string>Points</string>
+                 <string notr="true">Points</string>
                 </property>
                </widget>
               </item>
@@ -318,14 +318,14 @@
               <item row="1" column="0">
                <widget class="QLabel" name="label_11">
                 <property name="text">
-                 <string>Lines</string>
+                 <string notr="true">Lines</string>
                 </property>
                </widget>
               </item>
               <item row="3" column="0">
                <widget class="QLabel" name="label_12">
                 <property name="text">
-                 <string>Multipolygons</string>
+                 <string notr="true">Multipolygons</string>
                 </property>
                </widget>
               </item>
@@ -342,7 +342,7 @@
               <item row="2" column="0">
                <widget class="QLabel" name="label_14">
                 <property name="text">
-                 <string>Multilinestrings</string>
+                 <string notr="true">Multilinestrings</string>
                 </property>
                </widget>
               </item>
@@ -458,7 +458,7 @@
           </sizepolicy>
          </property>
          <property name="text">
-          <string>progress text</string>
+          <string notr="true">progress text</string>
          </property>
         </widget>
        </item>

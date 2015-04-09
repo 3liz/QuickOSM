@@ -286,7 +286,7 @@ QListWidget::item::selected {
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>89</width>
+              <width>94</width>
               <height>58</height>
              </rect>
             </property>
@@ -371,7 +371,7 @@ QListWidget::item::selected {
                      </size>
                     </property>
                     <property name="text">
-                     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Etienne Trimaille&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                     <string notr="true">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Etienne Trimaille&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                     </property>
                     <property name="scaledContents">
                      <bool>false</bool>
@@ -384,7 +384,7 @@ QListWidget::item::selected {
                   <item>
                    <widget class="QLabel" name="label_14">
                     <property name="text">
-                     <string>&lt;a href=&quot;mailto:etienne@trimaille.eu?subject=Plugin QuickOSM - About&quot; style=&quot;color:#7BA11A;text-decoration:none;&quot;&gt;etienne@trimaille.eu&lt;/a&gt;</string>
+                     <string notr="true">&lt;a href=&quot;mailto:etienne@trimaille.eu?subject=Plugin QuickOSM - About&quot; style=&quot;color:#7BA11A;text-decoration:none;&quot;&gt;etienne@trimaille.eu&lt;/a&gt;</string>
                     </property>
                     <property name="openExternalLinks">
                      <bool>true</bool>
@@ -423,7 +423,7 @@ QListWidget::item::selected {
                      </size>
                     </property>
                     <property name="text">
-                     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;http://www.3liz.com/&quot;&gt;&lt;img src=&quot;:/plugins/QuickOSM/resources/3liz.png&quot;/&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;
+                     <string notr="true">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;http://www.3liz.com/&quot;&gt;&lt;img src=&quot;:/plugins/QuickOSM/resources/3liz.png&quot;/&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;
 </string>
                     </property>
                     <property name="scaledContents">
@@ -440,7 +440,7 @@ QListWidget::item::selected {
                   <item>
                    <widget class="QLabel" name="label_11">
                     <property name="text">
-                     <string>&lt;a href=&quot;http://www.3liz.com&quot; style=&quot;color:#7BA11A;text-decoration:none;&quot;&gt;Libérez vos SIG !&lt;/a&gt;</string>
+                     <string notr="true">&lt;a href=&quot;http://www.3liz.com&quot; style=&quot;color:#7BA11A;text-decoration:none;&quot;&gt;Libérez vos SIG !&lt;/a&gt;</string>
                     </property>
                     <property name="openExternalLinks">
                      <bool>true</bool>
@@ -472,7 +472,7 @@ QListWidget::item::selected {
                     <item>
                      <widget class="QLabel" name="label_3">
                       <property name="text">
-                       <string>&lt;a href=&quot;https://github.com/freeExec&quot; style=&quot;color:#7BA11A;text-decoration:none;&quot;&gt;freeExec&lt;/a&gt;</string>
+                       <string notr="true">&lt;a href=&quot;https://github.com/freeExec&quot; style=&quot;color:#7BA11A;text-decoration:none;&quot;&gt;freeExec&lt;/a&gt;</string>
                       </property>
                      </widget>
                     </item>
@@ -490,7 +490,7 @@ QListWidget::item::selected {
                     <item>
                      <widget class="QLabel" name="label_5">
                       <property name="text">
-                       <string>Thomas Moenkemeier</string>
+                       <string notr="true">Thomas Moenkemeier</string>
                       </property>
                      </widget>
                     </item>
@@ -519,7 +519,7 @@ QListWidget::item::selected {
                   <item row="0" column="1">
                    <widget class="QLabel" name="label_20">
                     <property name="text">
-                     <string>&lt;a href=&quot;https://github.com/3liz/QgisQuickOSMPlugin&quot; style=&quot;color:#7BA11A;text-decoration:none;&quot;&gt;https://github.com/3liz/QgisQuickOSMPlugin&lt;/a&gt;</string>
+                     <string notr="true">&lt;a href=&quot;https://github.com/3liz/QgisQuickOSMPlugin&quot; style=&quot;color:#7BA11A;text-decoration:none;&quot;&gt;https://github.com/3liz/QgisQuickOSMPlugin&lt;/a&gt;</string>
                     </property>
                     <property name="openExternalLinks">
                      <bool>true</bool>
@@ -542,14 +542,14 @@ QListWidget::item::selected {
                   <item row="2" column="0">
                    <widget class="QLabel" name="label">
                     <property name="text">
-                     <string>OpenStreetMap</string>
+                     <string notr="true">OpenStreetMap</string>
                     </property>
                    </widget>
                   </item>
                   <item row="1" column="1">
                    <widget class="QLabel" name="label_16">
                     <property name="text">
-                     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;https://www.gnu.org/licenses/gpl-2.0.html&quot;&gt;&lt;img src=&quot;:/plugins/QuickOSM/resources/gnu.png&quot;/&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                     <string notr="true">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;https://www.gnu.org/licenses/gpl-2.0.html&quot;&gt;&lt;img src=&quot;:/plugins/QuickOSM/resources/gnu.png&quot;/&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                     </property>
                     <property name="alignment">
                      <set>Qt::AlignCenter</set>
@@ -562,14 +562,14 @@ QListWidget::item::selected {
                   <item row="1" column="0">
                    <widget class="QLabel" name="label_15">
                     <property name="text">
-                     <string>Plugin : Licence GPL Version 2</string>
+                     <string notr="true">Plugin : Licence GPL Version 2</string>
                     </property>
                    </widget>
                   </item>
                   <item row="2" column="1">
                    <widget class="QLabel" name="label_2">
                     <property name="text">
-                     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;ODBL : © OpenStreetMap's contributors &lt;/p&gt;&lt;p&gt;&lt;a href=&quot;http://www.openstreetmap.org/copyright&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0057ae;&quot;&gt;http://www.openstreetmap.org/copyright&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                     <string notr="true">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;ODBL : © OpenStreetMap's contributors &lt;/p&gt;&lt;p&gt;&lt;a href=&quot;http://www.openstreetmap.org/copyright&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0057ae;&quot;&gt;http://www.openstreetmap.org/copyright&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                     </property>
                    </widget>
                   </item>

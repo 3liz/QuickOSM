@@ -71,10 +71,10 @@ class QueryWidget(QuickOSMWidget, Ui_ui_query):
         
         #Setup menu for documentation
         popupmenu = QMenu()
-        mapFeaturesAction = QAction(QApplication.translate("QuickOSM", 'Map Features'),self.pushButton_documentation)
+        mapFeaturesAction = QAction('Map Features',self.pushButton_documentation)
         mapFeaturesAction.triggered.connect(self.openMapFeatures)
         popupmenu.addAction(mapFeaturesAction)
-        overpassAction = QAction(QApplication.translate("QuickOSM", 'Overpass'),self.pushButton_documentation)
+        overpassAction = QAction('Overpass',self.pushButton_documentation)
         overpassAction.triggered.connect(self.openDocOverpass)
         popupmenu.addAction(overpassAction)
         self.pushButton_documentation.setMenu(popupmenu)
@@ -274,6 +274,5 @@ class QueryDockWidget(QDockWidget):
         QDockWidget.__init__(self)
         self.setAllowedAreas(Qt.LeftDockWidgetArea | Qt.RightDockWidgetArea)
         self.setWidget(QueryWidget())
-        self.setWindowTitle(QApplication.translate("ui_query", "QuickOSM - Query"))
         
         self.widget().signalNewQuerySuccessful.connect(self.signalNewQuerySuccessful.emit)

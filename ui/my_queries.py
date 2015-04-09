@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'my_queries.ui'
+# Form implementation generated from reading ui file 'ui/my_queries.ui'
 #
-# Created: Fri Oct 10 12:12:30 2014
+# Created: Thu Apr  9 23:11:15 2015
 #      by: PyQt4 UI code generator 4.10.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -55,12 +55,14 @@ class Ui_ui_my_queries(object):
         self.formLayout = QtGui.QFormLayout()
         self.formLayout.setObjectName(_fromUtf8("formLayout"))
         self.label_2 = QtGui.QLabel(self.scrollAreaWidgetContents)
+        self.label_2.setText(_fromUtf8("{{nominatimArea:}}"))
         self.label_2.setObjectName(_fromUtf8("label_2"))
         self.formLayout.setWidget(0, QtGui.QFormLayout.LabelRole, self.label_2)
         self.lineEdit_nominatim = QtGui.QLineEdit(self.scrollAreaWidgetContents)
         self.lineEdit_nominatim.setObjectName(_fromUtf8("lineEdit_nominatim"))
         self.formLayout.setWidget(0, QtGui.QFormLayout.FieldRole, self.lineEdit_nominatim)
         self.label_5 = QtGui.QLabel(self.scrollAreaWidgetContents)
+        self.label_5.setText(_fromUtf8("{{bbox}}"))
         self.label_5.setObjectName(_fromUtf8("label_5"))
         self.formLayout.setWidget(1, QtGui.QFormLayout.LabelRole, self.label_5)
         self.radioButton_extentMapCanvas = QtGui.QRadioButton(self.scrollAreaWidgetContents)
@@ -84,7 +86,7 @@ class Ui_ui_my_queries(object):
         self.horizontalLayout_5.addWidget(self.pushButton_refreshLayers)
         self.formLayout.setLayout(2, QtGui.QFormLayout.FieldRole, self.horizontalLayout_5)
         self.verticalLayout.addLayout(self.formLayout)
-        self.groupBox = QgsCollapsibleGroupBox(self.scrollAreaWidgetContents)
+        self.groupBox = gui.QgsCollapsibleGroupBox(self.scrollAreaWidgetContents)
         self.groupBox.setChecked(False)
         self.groupBox.setObjectName(_fromUtf8("groupBox"))
         self.verticalLayout_2 = QtGui.QVBoxLayout(self.groupBox)
@@ -100,6 +102,7 @@ class Ui_ui_my_queries(object):
         self.label_7.setObjectName(_fromUtf8("label_7"))
         self.formLayout_4.setWidget(4, QtGui.QFormLayout.FieldRole, self.label_7)
         self.label_10 = QtGui.QLabel(self.groupBox)
+        self.label_10.setText(_fromUtf8("Points"))
         self.label_10.setObjectName(_fromUtf8("label_10"))
         self.formLayout_4.setWidget(5, QtGui.QFormLayout.LabelRole, self.label_10)
         self.horizontalLayout_4 = QtGui.QHBoxLayout()
@@ -110,10 +113,14 @@ class Ui_ui_my_queries(object):
         self.checkBox_points.setObjectName(_fromUtf8("checkBox_points"))
         self.horizontalLayout_4.addWidget(self.checkBox_points)
         self.lineEdit_csv_points = QtGui.QLineEdit(self.groupBox)
+        self.lineEdit_csv_points.setInputMask(_fromUtf8(""))
+        self.lineEdit_csv_points.setText(_fromUtf8(""))
+        self.lineEdit_csv_points.setPlaceholderText(_fromUtf8("col1,col2,col3"))
         self.lineEdit_csv_points.setObjectName(_fromUtf8("lineEdit_csv_points"))
         self.horizontalLayout_4.addWidget(self.lineEdit_csv_points)
         self.formLayout_4.setLayout(5, QtGui.QFormLayout.FieldRole, self.horizontalLayout_4)
         self.label_11 = QtGui.QLabel(self.groupBox)
+        self.label_11.setText(_fromUtf8("Lines"))
         self.label_11.setObjectName(_fromUtf8("label_11"))
         self.formLayout_4.setWidget(6, QtGui.QFormLayout.LabelRole, self.label_11)
         self.horizontalLayout_6 = QtGui.QHBoxLayout()
@@ -128,6 +135,7 @@ class Ui_ui_my_queries(object):
         self.horizontalLayout_6.addWidget(self.lineEdit_csv_lines)
         self.formLayout_4.setLayout(6, QtGui.QFormLayout.FieldRole, self.horizontalLayout_6)
         self.label_14 = QtGui.QLabel(self.groupBox)
+        self.label_14.setText(_fromUtf8("Multilinestrings"))
         self.label_14.setObjectName(_fromUtf8("label_14"))
         self.formLayout_4.setWidget(7, QtGui.QFormLayout.LabelRole, self.label_14)
         self.horizontalLayout_7 = QtGui.QHBoxLayout()
@@ -143,6 +151,7 @@ class Ui_ui_my_queries(object):
         self.horizontalLayout_7.addWidget(self.lineEdit_csv_multilinestrings)
         self.formLayout_4.setLayout(7, QtGui.QFormLayout.FieldRole, self.horizontalLayout_7)
         self.label_12 = QtGui.QLabel(self.groupBox)
+        self.label_12.setText(_fromUtf8("Multipolygons"))
         self.label_12.setObjectName(_fromUtf8("label_12"))
         self.formLayout_4.setWidget(8, QtGui.QFormLayout.LabelRole, self.label_12)
         self.horizontalLayout_8 = QtGui.QHBoxLayout()
@@ -193,6 +202,7 @@ class Ui_ui_my_queries(object):
         self.horizontalLayout_3.addWidget(self.pushButton_runQuery)
         self.verticalLayout.addLayout(self.horizontalLayout_3)
         self.label_progress = QtGui.QLabel(self.scrollAreaWidgetContents)
+        self.label_progress.setText(_fromUtf8("text progress"))
         self.label_progress.setObjectName(_fromUtf8("label_progress"))
         self.verticalLayout.addWidget(self.label_progress)
         self.progressBar_execution = QtGui.QProgressBar(self.scrollAreaWidgetContents)
@@ -216,25 +226,17 @@ class Ui_ui_my_queries(object):
         self.lineEdit_search.setPlaceholderText(_translate("ui_my_queries", "Search", None))
         self.treeQueries.setSortingEnabled(False)
         self.treeQueries.headerItem().setText(0, _translate("ui_my_queries", "Query", None))
-        self.label_2.setText(_translate("ui_my_queries", "{{nominatimArea:}}", None))
-        self.label_5.setText(_translate("ui_my_queries", "{{bbox}}", None))
         self.radioButton_extentMapCanvas.setText(_translate("ui_my_queries", "Extent of the map canvas", None))
         self.radioButton_extentLayer.setText(_translate("ui_my_queries", "Extent of a layer", None))
         self.groupBox.setTitle(_translate("ui_my_queries", "Advanced", None))
         self.label_3.setText(_translate("ui_my_queries", "Outputs", None))
-        self.label_10.setText(_translate("ui_my_queries", "Points", None))
-        self.lineEdit_csv_points.setPlaceholderText(_translate("ui_my_queries", "col1,col2,col3", None))
-        self.label_11.setText(_translate("ui_my_queries", "Lines", None))
         self.lineEdit_csv_lines.setPlaceholderText(_translate("ui_my_queries", "or let empty", None))
-        self.label_14.setText(_translate("ui_my_queries", "Multilinestrings", None))
-        self.label_12.setText(_translate("ui_my_queries", "Multipolygons", None))
         self.label_4.setText(_translate("ui_my_queries", "Directory", None))
         self.lineEdit_browseDir.setPlaceholderText(_translate("ui_my_queries", "Save to temporary file", None))
         self.pushButton_browse_output_file.setText(_translate("ui_my_queries", "Browse", None))
         self.label_6.setText(_translate("ui_my_queries", "File prefix", None))
         self.pushButton_showQuery.setText(_translate("ui_my_queries", "Show query", None))
         self.pushButton_runQuery.setText(_translate("ui_my_queries", "Run query", None))
-        self.label_progress.setText(_translate("ui_my_queries", "text progress", None))
 
-from qgis.gui import QgsCollapsibleGroupBox
+from qgis import gui
 from QuickOSM import resources_rc

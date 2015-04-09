@@ -156,4 +156,3 @@ class OsmFileDockWidget(QDockWidget):
         QDockWidget.__init__(self)
         self.setAllowedAreas(Qt.LeftDockWidgetArea | Qt.RightDockWidgetArea)
         self.setWidget(OsmFileWidget())
-        self.setWindowTitle(QApplication.translate("ui_osm_file", "QuickOSM - OSM File"))

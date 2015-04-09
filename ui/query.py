@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'query.ui'
+# Form implementation generated from reading ui file 'ui/query.ui'
 #
-# Created: Tue Feb 24 19:15:25 2015
+# Created: Thu Apr  9 23:11:34 2015
 #      by: PyQt4 UI code generator 4.10.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -63,6 +63,7 @@ class Ui_ui_query(object):
         self.formLayout_4.setFieldGrowthPolicy(QtGui.QFormLayout.ExpandingFieldsGrow)
         self.formLayout_4.setObjectName(_fromUtf8("formLayout_4"))
         self.label_2 = QtGui.QLabel(self.groupBox)
+        self.label_2.setText(_fromUtf8("{{nominatimArea:}}"))
         self.label_2.setObjectName(_fromUtf8("label_2"))
         self.formLayout_4.setWidget(0, QtGui.QFormLayout.LabelRole, self.label_2)
         self.lineEdit_nominatim = QtGui.QLineEdit(self.groupBox)
@@ -83,6 +84,7 @@ class Ui_ui_query(object):
         self.label_7.setObjectName(_fromUtf8("label_7"))
         self.formLayout_4.setWidget(4, QtGui.QFormLayout.FieldRole, self.label_7)
         self.label_10 = QtGui.QLabel(self.groupBox)
+        self.label_10.setText(_fromUtf8("Points"))
         self.label_10.setObjectName(_fromUtf8("label_10"))
         self.formLayout_4.setWidget(5, QtGui.QFormLayout.LabelRole, self.label_10)
         self.horizontalLayout_4 = QtGui.QHBoxLayout()
@@ -93,10 +95,14 @@ class Ui_ui_query(object):
         self.checkBox_points.setObjectName(_fromUtf8("checkBox_points"))
         self.horizontalLayout_4.addWidget(self.checkBox_points)
         self.lineEdit_csv_points = QtGui.QLineEdit(self.groupBox)
+        self.lineEdit_csv_points.setInputMask(_fromUtf8(""))
+        self.lineEdit_csv_points.setText(_fromUtf8(""))
+        self.lineEdit_csv_points.setPlaceholderText(_fromUtf8("col1,col2,col3"))
         self.lineEdit_csv_points.setObjectName(_fromUtf8("lineEdit_csv_points"))
         self.horizontalLayout_4.addWidget(self.lineEdit_csv_points)
         self.formLayout_4.setLayout(5, QtGui.QFormLayout.FieldRole, self.horizontalLayout_4)
         self.label_11 = QtGui.QLabel(self.groupBox)
+        self.label_11.setText(_fromUtf8("Lines"))
         self.label_11.setObjectName(_fromUtf8("label_11"))
         self.formLayout_4.setWidget(6, QtGui.QFormLayout.LabelRole, self.label_11)
         self.horizontalLayout_6 = QtGui.QHBoxLayout()
@@ -111,6 +117,7 @@ class Ui_ui_query(object):
         self.horizontalLayout_6.addWidget(self.lineEdit_csv_lines)
         self.formLayout_4.setLayout(6, QtGui.QFormLayout.FieldRole, self.horizontalLayout_6)
         self.label_14 = QtGui.QLabel(self.groupBox)
+        self.label_14.setText(_fromUtf8("Multilinestrings"))
         self.label_14.setObjectName(_fromUtf8("label_14"))
         self.formLayout_4.setWidget(7, QtGui.QFormLayout.LabelRole, self.label_14)
         self.horizontalLayout_7 = QtGui.QHBoxLayout()
@@ -126,6 +133,7 @@ class Ui_ui_query(object):
         self.horizontalLayout_7.addWidget(self.lineEdit_csv_multilinestrings)
         self.formLayout_4.setLayout(7, QtGui.QFormLayout.FieldRole, self.horizontalLayout_7)
         self.label_12 = QtGui.QLabel(self.groupBox)
+        self.label_12.setText(_fromUtf8("Multipolygons"))
         self.label_12.setObjectName(_fromUtf8("label_12"))
         self.formLayout_4.setWidget(8, QtGui.QFormLayout.LabelRole, self.label_12)
         self.horizontalLayout_8 = QtGui.QHBoxLayout()
@@ -200,6 +208,7 @@ class Ui_ui_query(object):
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.label_progress.sizePolicy().hasHeightForWidth())
         self.label_progress.setSizePolicy(sizePolicy)
+        self.label_progress.setText(_fromUtf8("progress text"))
         self.label_progress.setObjectName(_fromUtf8("label_progress"))
         self.verticalLayout.addWidget(self.label_progress)
         self.progressBar_execution = QtGui.QProgressBar(self.scrollAreaWidgetContents)
@@ -209,6 +218,7 @@ class Ui_ui_query(object):
         self.horizontalLayout_5 = QtGui.QHBoxLayout()
         self.horizontalLayout_5.setObjectName(_fromUtf8("horizontalLayout_5"))
         self.pushButton_overpassTurbo = QtGui.QPushButton(self.scrollAreaWidgetContents)
+        self.pushButton_overpassTurbo.setText(_fromUtf8("Overpass Turbo"))
         icon1 = QtGui.QIcon()
         icon1.addPixmap(QtGui.QPixmap(_fromUtf8(":/plugins/QuickOSM/resources/turbo.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.pushButton_overpassTurbo.setIcon(icon1)
@@ -234,17 +244,11 @@ class Ui_ui_query(object):
         ui_query.setWindowTitle(_translate("ui_query", "QuickOSM - Query", None))
         self.label.setText(_translate("ui_query", "Overpass query", None))
         self.groupBox.setTitle(_translate("ui_query", "Advanced", None))
-        self.label_2.setText(_translate("ui_query", "{{nominatimArea:}}", None))
         self.lineEdit_nominatim.setPlaceholderText(_translate("ui_query", "Can be overridden", None))
         self.label_5.setText(_translate("ui_query", "{{bbox}} or {{center}}", None))
         self.radioButton_extentMapCanvas.setText(_translate("ui_query", "Extent of the map canvas", None))
         self.label_3.setText(_translate("ui_query", "Outputs", None))
-        self.label_10.setText(_translate("ui_query", "Points", None))
-        self.lineEdit_csv_points.setPlaceholderText(_translate("ui_query", "col1,col2,col3", None))
-        self.label_11.setText(_translate("ui_query", "Lines", None))
         self.lineEdit_csv_lines.setPlaceholderText(_translate("ui_query", "or let empty", None))
-        self.label_14.setText(_translate("ui_query", "Multilinestrings", None))
-        self.label_12.setText(_translate("ui_query", "Multipolygons", None))
         self.radioButton_extentLayer.setText(_translate("ui_query", "Extent of a layer", None))
         self.label_4.setText(_translate("ui_query", "Directory", None))
         self.lineEdit_browseDir.setPlaceholderText(_translate("ui_query", "Save to temporary file", None))
@@ -253,8 +257,6 @@ class Ui_ui_query(object):
         self.pushButton_generateQuery.setText(_translate("ui_query", "Generate query", None))
         self.pushButton_runQuery.setText(_translate("ui_query", "Run query", None))
         self.pushButton_saveQuery.setText(_translate("ui_query", "Save query", None))
-        self.label_progress.setText(_translate("ui_query", "progress text", None))
-        self.pushButton_overpassTurbo.setText(_translate("ui_query", "Overpass Turbo", None))
         self.pushButton_documentation.setText(_translate("ui_query", "Documentation", None))
 
 from qgis import gui

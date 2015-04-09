@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'quick_query.ui'
 #
-# Created: Wed Mar  4 18:58:19 2015
+# Created: Thu Apr  9 22:47:38 2015
 #      by: PyQt4 UI code generator 4.10.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -100,6 +100,7 @@ class Ui_ui_quick_query(object):
         self.spinBox_distance_point.setObjectName(_fromUtf8("spinBox_distance_point"))
         self.horizontalLayout_8.addWidget(self.spinBox_distance_point)
         self.label_distance_point = QtGui.QLabel(self.scrollAreaWidgetContents)
+        self.label_distance_point.setText(_fromUtf8("m"))
         self.label_distance_point.setObjectName(_fromUtf8("label_distance_point"))
         self.horizontalLayout_8.addWidget(self.label_distance_point)
         self.formLayout.setLayout(2, QtGui.QFormLayout.FieldRole, self.horizontalLayout_8)
@@ -146,6 +147,7 @@ class Ui_ui_quick_query(object):
         self.formLayout_3 = QtGui.QFormLayout()
         self.formLayout_3.setObjectName(_fromUtf8("formLayout_3"))
         self.label_7 = QtGui.QLabel(self.groupBox)
+        self.label_7.setText(_fromUtf8("Node"))
         self.label_7.setObjectName(_fromUtf8("label_7"))
         self.formLayout_3.setWidget(0, QtGui.QFormLayout.LabelRole, self.label_7)
         self.checkBox_node = QtGui.QCheckBox(self.groupBox)
@@ -154,6 +156,7 @@ class Ui_ui_quick_query(object):
         self.checkBox_node.setObjectName(_fromUtf8("checkBox_node"))
         self.formLayout_3.setWidget(0, QtGui.QFormLayout.FieldRole, self.checkBox_node)
         self.label_8 = QtGui.QLabel(self.groupBox)
+        self.label_8.setText(_fromUtf8("Way"))
         self.label_8.setObjectName(_fromUtf8("label_8"))
         self.formLayout_3.setWidget(1, QtGui.QFormLayout.LabelRole, self.label_8)
         self.checkBox_way = QtGui.QCheckBox(self.groupBox)
@@ -162,6 +165,7 @@ class Ui_ui_quick_query(object):
         self.checkBox_way.setObjectName(_fromUtf8("checkBox_way"))
         self.formLayout_3.setWidget(1, QtGui.QFormLayout.FieldRole, self.checkBox_way)
         self.label_9 = QtGui.QLabel(self.groupBox)
+        self.label_9.setText(_fromUtf8("Relation"))
         self.label_9.setObjectName(_fromUtf8("label_9"))
         self.formLayout_3.setWidget(2, QtGui.QFormLayout.LabelRole, self.label_9)
         self.checkBox_relation = QtGui.QCheckBox(self.groupBox)
@@ -173,6 +177,7 @@ class Ui_ui_quick_query(object):
         self.formLayout_4 = QtGui.QFormLayout()
         self.formLayout_4.setObjectName(_fromUtf8("formLayout_4"))
         self.label_10 = QtGui.QLabel(self.groupBox)
+        self.label_10.setText(_fromUtf8("Points"))
         self.label_10.setObjectName(_fromUtf8("label_10"))
         self.formLayout_4.setWidget(0, QtGui.QFormLayout.LabelRole, self.label_10)
         self.checkBox_points = QtGui.QCheckBox(self.groupBox)
@@ -186,9 +191,11 @@ class Ui_ui_quick_query(object):
         self.checkBox_lines.setObjectName(_fromUtf8("checkBox_lines"))
         self.formLayout_4.setWidget(1, QtGui.QFormLayout.FieldRole, self.checkBox_lines)
         self.label_11 = QtGui.QLabel(self.groupBox)
+        self.label_11.setText(_fromUtf8("Lines"))
         self.label_11.setObjectName(_fromUtf8("label_11"))
         self.formLayout_4.setWidget(1, QtGui.QFormLayout.LabelRole, self.label_11)
         self.label_12 = QtGui.QLabel(self.groupBox)
+        self.label_12.setText(_fromUtf8("Multipolygons"))
         self.label_12.setObjectName(_fromUtf8("label_12"))
         self.formLayout_4.setWidget(3, QtGui.QFormLayout.LabelRole, self.label_12)
         self.checkBox_multipolygons = QtGui.QCheckBox(self.groupBox)
@@ -197,6 +204,7 @@ class Ui_ui_quick_query(object):
         self.checkBox_multipolygons.setObjectName(_fromUtf8("checkBox_multipolygons"))
         self.formLayout_4.setWidget(3, QtGui.QFormLayout.FieldRole, self.checkBox_multipolygons)
         self.label_14 = QtGui.QLabel(self.groupBox)
+        self.label_14.setText(_fromUtf8("Multilinestrings"))
         self.label_14.setObjectName(_fromUtf8("label_14"))
         self.formLayout_4.setWidget(2, QtGui.QFormLayout.LabelRole, self.label_14)
         self.checkBox_multilinestrings = QtGui.QCheckBox(self.groupBox)
@@ -255,6 +263,7 @@ class Ui_ui_quick_query(object):
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.label_progress.sizePolicy().hasHeightForWidth())
         self.label_progress.setSizePolicy(sizePolicy)
+        self.label_progress.setText(_fromUtf8("progress text"))
         self.label_progress.setObjectName(_fromUtf8("label_progress"))
         self.verticalLayout.addWidget(self.label_progress)
         self.progressBar_execution = QtGui.QProgressBar(self.scrollAreaWidgetContents)
@@ -276,17 +285,9 @@ class Ui_ui_quick_query(object):
         self.label_2.setText(_translate("ui_quick_query", "Value", None))
         self.comboBox_in_around.setToolTip(_translate("ui_quick_query", "\"In\" will search the first multipolygon relation, however \"Around\" will get the first OSM node.", None))
         self.lineEdit_nominatim.setPlaceholderText(_translate("ui_quick_query", "A village, a town, ...", None))
-        self.label_distance_point.setText(_translate("ui_quick_query", "m", None))
         self.label_13.setText(_translate("ui_quick_query", "Extent of the map canvas", None))
         self.label_15.setText(_translate("ui_quick_query", "Extent of a layer", None))
         self.groupBox.setTitle(_translate("ui_quick_query", "Advanced", None))
-        self.label_7.setText(_translate("ui_quick_query", "Node", None))
-        self.label_8.setText(_translate("ui_quick_query", "Way", None))
-        self.label_9.setText(_translate("ui_quick_query", "Relation", None))
-        self.label_10.setText(_translate("ui_quick_query", "Points", None))
-        self.label_11.setText(_translate("ui_quick_query", "Lines", None))
-        self.label_12.setText(_translate("ui_quick_query", "Multipolygons", None))
-        self.label_14.setText(_translate("ui_quick_query", "Multilinestrings", None))
         self.label_5.setText(_translate("ui_quick_query", "Timeout", None))
         self.label_4.setText(_translate("ui_quick_query", "Directory", None))
         self.lineEdit_browseDir.setPlaceholderText(_translate("ui_quick_query", "Save to temporary file", None))
@@ -294,7 +295,6 @@ class Ui_ui_quick_query(object):
         self.label_6.setText(_translate("ui_quick_query", "File prefix", None))
         self.pushButton_showQuery.setText(_translate("ui_quick_query", "Show query", None))
         self.pushButton_runQuery.setText(_translate("ui_quick_query", "Run query", None))
-        self.label_progress.setText(_translate("ui_quick_query", "progress text", None))
 
 from qgis import gui
 from QuickOSM import resources_rc
