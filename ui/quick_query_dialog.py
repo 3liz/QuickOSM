@@ -319,3 +319,4 @@ class QuickQueryDockWidget(QDockWidget):
         self.setAllowedAreas(Qt.LeftDockWidgetArea | Qt.RightDockWidgetArea)
         self.widget = QuickQueryWidget()
         self.setWidget(self.widget)
+        self.setWindowTitle(QApplication.translate("ui_quick_query", "QuickOSM - Quick query"))
