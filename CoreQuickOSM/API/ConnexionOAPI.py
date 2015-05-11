@@ -78,7 +78,9 @@ class ConnexionOAPI:
         if proxy:
             self.network.setProxy(proxy)
         
-        self.networkReply = self.network.get(QNetworkRequest(urlQuery))
+        request = QNetworkRequest(urlQuery)
+        request.setRawHeader("User-Agent", "QuickOSM");
+        self.networkReply = self.network.get(request)
         self.loop = QEventLoop();
         self.network.finished.connect(self.__endOfRequest)
         self.loop.exec_()
