@@ -66,6 +66,10 @@ class QuickOSM:
         #Add to processing
         self.provider = QuickOSMAlgorithmProvider()
         Processing.addProvider(self.provider, True)
+        
+        #Add the toolbar
+        self.toolbar = self.iface.addToolBar('QuickOSM')
+        self.toolbar.setObjectName('QuickOSM')
 
     def initGui(self):
 
@@ -82,7 +86,7 @@ class QuickOSM:
             u"Quick OSM",
             self.iface.mainWindow())
         self.mainWindowAction.triggered.connect(self.openMainWindow)
-        self.iface.addToolBarIcon(self.mainWindowAction)
+        self.toolbar.addAction(self.mainWindowAction)
         self.iface.QuickOSM_mainWindowDialog = MainWindowDialog()
 
         #OSM File
