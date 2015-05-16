@@ -137,10 +137,10 @@ class FileQuery:
             if re.search('{{nominatim}}', query):
                 self.__nominatimTemplate = True
                 self.__nominatimDefaultValue = False
-            m = re.search('{{nominatimArea:(.*)}}', query)
+            m = re.search('{{(nominatimArea|geocodeArea):(.*)}}', query)
             if m:
                 self.__nominatimTemplate = True
-                self.__nominatimDefaultValue = m.groups(1)[0]
+                self.__nominatimDefaultValue = m.groups(1)[1]
                 
         return {"nominatim" : self.__nominatimTemplate, "nominatimDefaultValue" : self.__nominatimDefaultValue, "bbox":self.__bboxTemplate}
         
