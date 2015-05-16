@@ -159,6 +159,24 @@ class QuickOSM:
             self.config = json.load(open(configJsonFilePath))
             for server in self.config['overpass_servers']:
                 self.iface.QuickOSM_mainWindowDialog.comboBox_default_OAPI.addItem(server)
+
+        #Check previous version and if new queries are available
+        version = Tools.getSetting('version')
+        current_version = Tools.getCurrentVersion()
+        if version != current_version:
+            if Tools.newQueriesAvailable():
+                widget = iface.messageBar().createMessage('QuickOSM', 'New queries are available in the plugin. Would like to install them ? This will overwrite the current default queries.')
+                buttonOK = QPushButton(widget)
+                buttonOK.setText(QApplication.translate("ui_quick_query", "Install"))
+                buttonOK.pressed.connect(self.restoreDefaultQueries)
+                widget.layout().addWidget(buttonOK)
+                iface.messageBar().pushWidget(widget, QgsMessageBar.INFO, 0)
+
+            Tools.setSetting('version', current_version)
+
+    def restoreDefaultQueries(self):
+        self.iface.QuickOSM_mainWindowDialog.restoreDefaultQueries()
+        iface.messageBar().popWidget()
         
     def unload(self):
         self.iface.removePluginWebMenu(u"&Quick OSM",self.mainWindowAction)

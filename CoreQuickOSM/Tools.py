@@ -29,11 +29,32 @@ import os, platform, sys
 from shutil import *
 from PyQt4.QtNetwork import QNetworkProxy
 from qgis.utils import iface
+import ConfigParser
 
 class Tools:
     '''
     Usefull tools
     '''
+
+    @staticmethod
+    def readMetaData(section, item):
+        root = dirname(dirname(__file__))
+        metadata = join(root, 'metadata.txt')
+        parser = ConfigParser.ConfigParser()
+        parser.read(metadata)
+        return parser.get(section, item)
+
+    @staticmethod
+    def getCurrentVersion():
+        return Tools.readMetaData('general', 'version')
+
+    @staticmethod
+    def newQueriesAvailable():
+        status = Tools.readMetaData('general', 'newQueries')
+        if status == u'True':
+            return True
+        else:
+            return False
 
     @staticmethod
     def displayMessageBar(title = None, msg = None,level=QgsMessageBar.INFO,duration=5):
