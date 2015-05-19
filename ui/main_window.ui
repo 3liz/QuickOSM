@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>801</width>
-    <height>585</height>
+    <width>820</width>
+    <height>620</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -349,8 +349,8 @@ QListWidget::item::selected {
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>617</width>
-              <height>691</height>
+              <width>636</width>
+              <height>791</height>
              </rect>
             </property>
             <layout class="QVBoxLayout" name="verticalLayout_9">
@@ -461,11 +461,24 @@ QListWidget::item::selected {
                 <item>
                  <layout class="QVBoxLayout" name="verticalLayout_12">
                   <item>
+                   <widget class="QLabel" name="label_18">
+                    <property name="text">
+                     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The web-based translating platform &lt;a href=&quot;https://www.transifex.com/projects/p/gui/&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0057ae;&quot;&gt;Transifex&lt;/span&gt;&lt;/a&gt; is used. It's easier for translators.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                    </property>
+                    <property name="scaledContents">
+                     <bool>true</bool>
+                    </property>
+                    <property name="wordWrap">
+                     <bool>true</bool>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
                    <layout class="QHBoxLayout" name="horizontalLayout_10">
                     <item>
                      <widget class="QLabel" name="label_4">
                       <property name="text">
-                       <string>Russian :</string>
+                       <string>Russian</string>
                       </property>
                      </widget>
                     </item>
@@ -491,6 +504,42 @@ QListWidget::item::selected {
                      <widget class="QLabel" name="label_5">
                       <property name="text">
                        <string notr="true">Thomas Moenkemeier</string>
+                      </property>
+                     </widget>
+                    </item>
+                   </layout>
+                  </item>
+                  <item>
+                   <layout class="QHBoxLayout" name="horizontalLayout_11">
+                    <item>
+                     <widget class="QLabel" name="label_8">
+                      <property name="text">
+                       <string>Italian</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QLabel" name="label_7">
+                      <property name="text">
+                       <string notr="true">Francesco Bisantis</string>
+                      </property>
+                     </widget>
+                    </item>
+                   </layout>
+                  </item>
+                  <item>
+                   <layout class="QHBoxLayout" name="horizontalLayout_13">
+                    <item>
+                     <widget class="QLabel" name="label_17">
+                      <property name="text">
+                       <string>French</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QLabel" name="label_9">
+                      <property name="text">
+                       <string notr="true">Etienne Trimaille</string>
                       </property>
                      </widget>
                     </item>
