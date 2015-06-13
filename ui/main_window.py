@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'main_window.ui'
+# Form implementation generated from reading ui file 'ui/main_window.ui'
 #
-# Created: Tue May 19 21:24:38 2015
+# Created: Sat Jun 13 17:00:15 2015
 #      by: PyQt4 UI code generator 4.10.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -207,7 +207,7 @@ class Ui_ui_main_window(object):
         self.scrollArea_2.setWidgetResizable(True)
         self.scrollArea_2.setObjectName(_fromUtf8("scrollArea_2"))
         self.scrollAreaWidgetContents_2 = QtGui.QWidget()
-        self.scrollAreaWidgetContents_2.setGeometry(QtCore.QRect(0, 0, 636, 791))
+        self.scrollAreaWidgetContents_2.setGeometry(QtCore.QRect(0, 0, 636, 818))
         self.scrollAreaWidgetContents_2.setObjectName(_fromUtf8("scrollAreaWidgetContents_2"))
         self.verticalLayout_9 = QtGui.QVBoxLayout(self.scrollAreaWidgetContents_2)
         self.verticalLayout_9.setObjectName(_fromUtf8("verticalLayout_9"))
@@ -298,6 +298,16 @@ class Ui_ui_main_window(object):
         self.label_7.setObjectName(_fromUtf8("label_7"))
         self.horizontalLayout_11.addWidget(self.label_7)
         self.verticalLayout_12.addLayout(self.horizontalLayout_11)
+        self.horizontalLayout_14 = QtGui.QHBoxLayout()
+        self.horizontalLayout_14.setObjectName(_fromUtf8("horizontalLayout_14"))
+        self.label_21 = QtGui.QLabel(self.groupBox_8)
+        self.label_21.setObjectName(_fromUtf8("label_21"))
+        self.horizontalLayout_14.addWidget(self.label_21)
+        self.label_22 = QtGui.QLabel(self.groupBox_8)
+        self.label_22.setText(_fromUtf8("Antony Bartolo"))
+        self.label_22.setObjectName(_fromUtf8("label_22"))
+        self.horizontalLayout_14.addWidget(self.label_22)
+        self.verticalLayout_12.addLayout(self.horizontalLayout_14)
         self.horizontalLayout_13 = QtGui.QHBoxLayout()
         self.horizontalLayout_13.setObjectName(_fromUtf8("horizontalLayout_13"))
         self.label_17 = QtGui.QLabel(self.groupBox_8)
@@ -400,6 +410,7 @@ class Ui_ui_main_window(object):
         self.label_4.setText(_translate("ui_main_window", "Russian", None))
         self.label_6.setText(_translate("ui_main_window", "German", None))
         self.label_8.setText(_translate("ui_main_window", "Italian", None))
+        self.label_21.setText(_translate("ui_main_window", "Dutch", None))
         self.label_17.setText(_translate("ui_main_window", "French", None))
         self.groupBox_6.setTitle(_translate("ui_main_window", "Sources", None))
         self.label_19.setText(_translate("ui_main_window", "Github\'s repository", None))

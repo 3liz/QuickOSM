@@ -350,7 +350,7 @@ QListWidget::item::selected {
               <x>0</x>
               <y>0</y>
               <width>636</width>
-              <height>791</height>
+              <height>818</height>
              </rect>
             </property>
             <layout class="QVBoxLayout" name="verticalLayout_9">
@@ -522,6 +522,24 @@ QListWidget::item::selected {
                      <widget class="QLabel" name="label_7">
                       <property name="text">
                        <string notr="true">Francesco Bisantis</string>
+                      </property>
+                     </widget>
+                    </item>
+                   </layout>
+                  </item>
+                  <item>
+                   <layout class="QHBoxLayout" name="horizontalLayout_14">
+                    <item>
+                     <widget class="QLabel" name="label_21">
+                      <property name="text">
+                       <string>Dutch</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QLabel" name="label_22">
+                      <property name="text">
+                       <string notr="true">Antony Bartolo</string>
                       </property>
                      </widget>
                     </item>
