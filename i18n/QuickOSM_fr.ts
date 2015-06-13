@@ -1,4 +1,5 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS language="fr" sourcelanguage="en" version="2.0">
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE TS><TS version="2.0" language="fr" sourcelanguage="en">
 <context>
     <name>Exception</name>
     <message>
@@ -85,7 +86,7 @@
 <context>
     <name>QuickOSM</name>
     <message>
-        <location filename="quick_osm.py" line="75"/>
+        <location filename="quick_osm.py" line="79"/>
         <source>Dock</source>
         <translation>Panneaux</translation>
     </message>
@@ -223,135 +224,155 @@
 <context>
     <name>ui_main_window</name>
     <message>
-        <location filename="ui/main_window.py" line="347"/>
+        <location filename="ui/main_window.py" line="382"/>
         <source>Quick query</source>
         <translation>Requête rapide</translation>
     </message>
     <message>
-        <location filename="ui/main_window.py" line="349"/>
+        <location filename="ui/main_window.py" line="384"/>
         <source>My queries</source>
         <translation>Mes requêtes</translation>
     </message>
     <message>
-        <location filename="ui/main_window.py" line="351"/>
+        <location filename="ui/main_window.py" line="386"/>
         <source>Query</source>
         <translation>Requête</translation>
     </message>
     <message>
-        <location filename="ui/main_window.py" line="353"/>
+        <location filename="ui/main_window.py" line="388"/>
         <source>OSM File</source>
         <translation>Fichier OSM</translation>
     </message>
     <message>
-        <location filename="ui/main_window.py" line="355"/>
+        <location filename="ui/main_window.py" line="390"/>
         <source>Parameters</source>
         <translation>Configuration</translation>
     </message>
     <message>
-        <location filename="ui/main_window.py" line="357"/>
+        <location filename="ui/main_window.py" line="392"/>
         <source>Help</source>
         <translation>Aide</translation>
     </message>
     <message>
-        <location filename="ui/main_window.py" line="359"/>
+        <location filename="ui/main_window.py" line="394"/>
         <source>About</source>
         <translation>À propos</translation>
     </message>
     <message>
-        <location filename="ui/main_window.py" line="361"/>
+        <location filename="ui/main_window.py" line="396"/>
         <source>Overpass API</source>
         <translation>Overpass API</translation>
     </message>
     <message>
-        <location filename="ui/main_window.py" line="362"/>
+        <location filename="ui/main_window.py" line="397"/>
         <source>Get timestamp</source>
         <translation>Obtenir le timestamp</translation>
     </message>
     <message>
-        <location filename="ui/main_window.py" line="363"/>
+        <location filename="ui/main_window.py" line="398"/>
         <source>unknow</source>
         <translation>inconnu</translation>
     </message>
     <message>
-        <location filename="ui/main_window.py" line="364"/>
+        <location filename="ui/main_window.py" line="399"/>
         <source>Queries</source>
         <translation>Requêtes</translation>
     </message>
     <message>
-        <location filename="ui/main_window.py" line="365"/>
+        <location filename="ui/main_window.py" line="400"/>
         <source>Restore queries</source>
         <translation>Restaurer les requêtes</translation>
     </message>
     <message>
-        <location filename="ui/main_window.py" line="366"/>
+        <location filename="ui/main_window.py" line="401"/>
         <source>Outputs</source>
         <translation>Sortie</translation>
     </message>
     <message>
-        <location filename="ui/main_window.py" line="367"/>
+        <location filename="ui/main_window.py" line="402"/>
         <source>GeoJSON (not editable, colmun&apos;s name longer)</source>
         <translation>GeoJSON (non éditable, nom des champs non tronqués)</translation>
     </message>
     <message>
-        <location filename="ui/main_window.py" line="368"/>
+        <location filename="ui/main_window.py" line="403"/>
         <source>Shapefile (editable, colmun&apos;s name shorter)</source>
         <translation>Shapefile (éditable, nom des champs tronqués)</translation>
     </message>
     <message>
-        <location filename="ui/main_window.py" line="369"/>
+        <location filename="ui/main_window.py" line="404"/>
         <source>Home</source>
         <translation>Accueil</translation>
     </message>
     <message>
-        <location filename="ui/main_window.py" line="370"/>
+        <location filename="ui/main_window.py" line="405"/>
         <source>Realization</source>
         <translation>Réalisation</translation>
     </message>
     <message>
-        <location filename="ui/main_window.py" line="371"/>
+        <location filename="ui/main_window.py" line="406"/>
         <source>Supervision</source>
         <translation>Encadrement</translation>
     </message>
     <message>
-        <location filename="ui/main_window.py" line="372"/>
+        <location filename="ui/main_window.py" line="407"/>
         <source>This intership was supervised by 3Liz</source>
         <translation>Ce stage a été encadré par 3Liz</translation>
     </message>
     <message>
-        <location filename="ui/main_window.py" line="373"/>
+        <location filename="ui/main_window.py" line="408"/>
         <source>Translators</source>
         <translation>Traducteurs</translation>
     </message>
     <message>
-        <location filename="ui/main_window.py" line="374"/>
-        <source>Russian :</source>
-        <translation>Russe :</translation>
-    </message>
-    <message>
-        <location filename="ui/main_window.py" line="375"/>
+        <location filename="ui/main_window.py" line="411"/>
         <source>German</source>
         <translation>Allemand</translation>
     </message>
     <message>
-        <location filename="ui/main_window.py" line="376"/>
+        <location filename="ui/main_window.py" line="415"/>
         <source>Sources</source>
         <translation>Sources</translation>
     </message>
     <message>
-        <location filename="ui/main_window.py" line="377"/>
+        <location filename="ui/main_window.py" line="416"/>
         <source>Github&apos;s repository</source>
         <translation>Dépôt Github</translation>
     </message>
     <message>
-        <location filename="ui/main_window.py" line="378"/>
+        <location filename="ui/main_window.py" line="417"/>
         <source>Licence</source>
         <translation>Licence</translation>
+    </message>
+    <message>
+        <location filename="ui/main_window.py" line="409"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The web-based translating platform &lt;a href=&quot;https://www.transifex.com/projects/p/gui/&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0057ae;&quot;&gt;Transifex&lt;/span&gt;&lt;/a&gt; is used. It&apos;s easier for translators.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ui/main_window.py" line="410"/>
+        <source>Russian</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ui/main_window.py" line="412"/>
+        <source>Italian</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ui/main_window.py" line="414"/>
+        <source>French</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ui/main_window.py" line="413"/>
+        <source>Dutch</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>ui_my_queries</name>
     <message>
-        <location filename="quick_osm.py" line="100"/>
+        <location filename="quick_osm.py" line="104"/>
         <source>My queries</source>
         <translation>Mes requêtes</translation>
     </message>
@@ -477,7 +498,7 @@
 <context>
     <name>ui_query</name>
     <message>
-        <location filename="quick_osm.py" line="111"/>
+        <location filename="quick_osm.py" line="115"/>
         <source>Query</source>
         <translation>Requête</translation>
     </message>
@@ -570,7 +591,7 @@
 <context>
     <name>ui_quick_query</name>
     <message>
-        <location filename="quick_osm.py" line="122"/>
+        <location filename="quick_osm.py" line="126"/>
         <source>Quick query</source>
         <translation>Requête rapide</translation>
     </message>
@@ -663,6 +684,11 @@
         <location filename="ui/quick_query.py" line="297"/>
         <source>Run query</source>
         <translation>Exécuter</translation>
+    </message>
+    <message>
+        <location filename="quick_osm.py" line="170"/>
+        <source>Install</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
