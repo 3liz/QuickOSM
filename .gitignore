@@ -1,7 +1,7 @@
 *.pyc
 *.*~
-Makefile
 test/
 scripts/
 plugin_upload.py
 help/
+.idea
