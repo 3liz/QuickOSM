@@ -1,5 +1,9 @@
 # Makefile for QuickOSM
 
+i18n_prepare:
+	@echo Updating strings
+	@pylupdate4 -noobsolete QuickOSM.pro
+
 main_window:
 	@echo pyuic4 main_window.ui > ui/main_window.py
 	@pyuic4 ui/main_window.ui > ui/main_window_temp.py
