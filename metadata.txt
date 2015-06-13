@@ -10,6 +10,7 @@
 name=QuickOSM
 qgisMinimumVersion=2.0
 description=QuickOSM allows you to work quickly with OSM datas in QGIS thanks to Overpass API.
+about=Execute customs overpass queries from QGIS to get OSM data.
 version=1.3.4
 newQueries=False
 author=Etienne Trimaille
