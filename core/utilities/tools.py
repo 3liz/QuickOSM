@@ -35,7 +35,7 @@ def tr(section, text):
 
 
 def read_metadata(section, item):
-    root = dirname(dirname(__file__))
+    root = dirname(dirname(dirname(__file__)))
     metadata = join(root, 'metadata.txt')
     parser = ConfigParser.ConfigParser()
     parser.read(metadata)

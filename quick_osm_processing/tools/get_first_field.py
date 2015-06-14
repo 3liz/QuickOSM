@@ -27,38 +27,37 @@ from PyQt4.QtCore import QSettings
 from PyQt4.QtGui import QIcon
 from processing.core.GeoAlgorithm import GeoAlgorithm
 
-from QuickOSM.core.api.connexion_xapi import ConnexionXAPI
+from QuickOSM.quick_osm_processing import *
 
-
-class XapiQueryGeoAlgorithm(GeoAlgorithm):
+class GetFirstFieldGeoAlgorithm(GeoAlgorithm):
     """
-    Perform an OverPass query and get an OSM file
+    Get first field of a vector layer 
     """
-
-    SERVER = 'SERVER'
-    QUERY_STRING = 'QUERY'
-    OUTPUT_FILE = 'OUTPUT_FILE'
-
+    
+    VECTOR_LAYER = 'VECTOR_LAYER'
+    FIELD = 'FIELD'
+    OUTPUT_VALUE = 'OUTPUT_VALUE'
+        
     def defineCharacteristics(self):
-        self.name = "Query XAPI with a string"
-        self.group = "API"
+        self.name = "Get first field of an attribute"
+        self.group = "Tools"
+        
+        self.addParameter(
+            ParameterVector(
+                self.VECTOR_LAYER,
+                'Vector layer',
+                [ParameterVector.VECTOR_TYPE_ANY],
+                True))
 
         self.addParameter(
             ParameterString(
-                self.SERVER,
-                'XAPI',
-                'http://www.overpass-api.de/api/xapi?',
-                False,
-                False))
-        self.addParameter(
-            ParameterString(
-                self.QUERY_STRING,
-                'Query',
+                self.FIELD,
+                'Field',
                 '',
                 False,
                 False))
         
-        self.addOutput(OutputFile(self.OUTPUT_FILE, 'OSM file'))
+        self.addOutput(OutputString(self.OUTPUT_VALUE, "Value"))
 
     def help(self):
         locale = QSettings().value("locale/userLocale")[0:2]
@@ -83,13 +82,14 @@ class XapiQueryGeoAlgorithm(GeoAlgorithm):
         return QIcon(dirname(__file__) + '/../../icon.png')
 
     def processAlgorithm(self, progress):
-        progress.setInfo("Downloading data from XAPI")
+        field = self.getParameterValue(self.FIELD)
+        layer = self.getParameterValue(self.VECTOR_LAYER)
         
-        server = self.getParameterValue(self.SERVER)
-        query = self.getParameterValue(self.QUERY_STRING)
-        
-        xapi = ConnexionXAPI(url=server)
-        osm_file = xapi.get_file_from_query(query)
-        
-        # Set the output file for Processing
-        self.setOutputValue(self.OUTPUT_FILE, osm_file)
+        vector_layer = dataobjects.getObjectFromUri(layer)
+        features = vector.features(vector_layer)
+        field_index = vector.resolveFieldIndex(vector_layer, field)
+
+        for feature in features:
+            value = unicode(feature.attributes()[field_index])
+            self.setOutputValue(self.OUTPUT_VALUE, value)
+            break

@@ -23,49 +23,36 @@
 
 from os.path import isfile, join, basename, dirname, abspath
 
-from PyQt4.QtCore import QSettings
+from PyQt4.QtCore import QSettings, SLOT
 from PyQt4.QtGui import QIcon
 from processing.core.GeoAlgorithm import GeoAlgorithm
 
-from QuickOSM.core.file_query import FileQuery
-from QuickOSM.core.utilities.qgis import get_user_folder
+from QuickOSM.quick_osm_processing import *
+from QuickOSM.core.parser.osm_member_parser import OsmMemberParser
 
 
-class ListIniFilesGeoAlgorithm(GeoAlgorithm):
+class OsmMemberParserGeoAlgorithm(GeoAlgorithm):
     """
-    List all the INI files 
+    Parse an OSM file with SAX and return a table
     """
     
     def __init__(self):
-        self.NAME_FILE = 'NAME'
-        self.OUTPUT_INI = 'INI'
+        self.slotOsmParser = SLOT("osmParser()")
 
-        self.__queries = {}
-        self.__names = []
-
+        self.progress = None
+        
+        self.FILE = 'FILE'
+        self.TABLE = 'TABLE'
+        
         GeoAlgorithm.__init__(self)
-        
-    def defineCharacteristics(self):
-        self.name = "Queries available"
-        self.group = "Tools"
-        
-        # Get the folder and all files queries
-        folder = get_user_folder()
-        cat_files = FileQuery.get_ini_files_from_folder(folder, force=False)
 
-        for cat in cat_files:
-            for query in cat_files[cat]:
-                self.__queries[cat + " : " + query.getName()] = query
+    def defineCharacteristics(self):
+        self.name = "Relation Member SAX Parser"
+        self.group = "OSM Parser"
+
+        self.addParameter(ParameterFile(self.FILE, 'OSM file', False, False))
         
-        self.__names = self.__queries.keys()
-        
-        self.addParameter(
-            ParameterSelection(
-                self.NAME_FILE,
-                'Queries available',
-                self.__names))
-        
-        self.addOutput(OutputString(self.OUTPUT_INI,"Ini filepath as string"))
+        self.addOutput(OutputTable(self.TABLE, 'Output '))
 
     def help(self):
         locale = QSettings().value("locale/userLocale")[0:2]
@@ -88,11 +75,16 @@ class ListIniFilesGeoAlgorithm(GeoAlgorithm):
     
     def getIcon(self):
         return QIcon(dirname(__file__) + '/../../icon.png')
-        
-    def processAlgorithm(self, progress):
 
-        index = self.getParameterValue(self.NAME_FILE)
-        for query in self.__queries:
-            if query == self.__names[index]:
-                path = self.__queries[query].getFilePath()
-                self.setOutputValue(self.OUTPUT_INI,path)
+    def processAlgorithm(self, progress):
+        file_path = self.getParameterValue(self.FILE)
+
+        parser = OsmMemberParser(file_path)
+        fields = parser.get_fields()
+
+        results = parser.parse()
+
+        table = self.getOutputFromName(self.TABLE)
+        table_writer = table.getTableWriter(fields)
+        for item in results:
+            table_writer.addRecord(item)

@@ -23,39 +23,43 @@
 
 from os.path import isfile, join, basename, dirname, abspath
 
-from PyQt4.QtGui import QIcon
 from PyQt4.QtCore import QSettings
+from PyQt4.QtGui import QIcon
 from processing.core.GeoAlgorithm import GeoAlgorithm
 
-from QuickOSM.core.api.nominatim import Nominatim
-from QuickOSM.core.exceptions import NominatimAreaException
+from QuickOSM.quick_osm_processing import *
+from QuickOSM.core.api.connexion_xapi import ConnexionXAPI
 
 
-class NominatimQueryGeoAlgorithm(GeoAlgorithm):
+class XapiQueryGeoAlgorithm(GeoAlgorithm):
+    """
+    Perform an OverPass query and get an OSM file
+    """
 
     SERVER = 'SERVER'
-    NOMINATIM_STRING = 'NOMINATIM_STRING'
-    OSM_ID = 'OSM_ID'
+    QUERY_STRING = 'QUERY'
+    OUTPUT_FILE = 'OUTPUT_FILE'
 
     def defineCharacteristics(self):
-        self.name = 'Query nominatim API with a string'
-        self.group = 'API'
+        self.name = "Query XAPI with a string"
+        self.group = "API"
 
         self.addParameter(
             ParameterString(
                 self.SERVER,
-                'Nominatim server',
-                'http://nominatim.openstreetmap.org/search?format=json',
+                'XAPI',
+                'http://www.overpass-api.de/api/xapi?',
                 False,
                 False))
         self.addParameter(
             ParameterString(
-                self.NOMINATIM_STRING,
-                'Search',
+                self.QUERY_STRING,
+                'Query',
                 '',
                 False,
                 False))
-        self.addOutput(OutputNumber(self.OSM_ID, 'OSM id'))
+        
+        self.addOutput(OutputFile(self.OUTPUT_FILE, 'OSM file'))
 
     def help(self):
         locale = QSettings().value("locale/userLocale")[0:2]
@@ -65,9 +69,9 @@ class NominatimQueryGeoAlgorithm(GeoAlgorithm):
         if current_file.endswith('pyc'):
             current_file = current_file[:-1]
         current_file = basename(current_file)
-        
+
         helps = [current_file + locale + ".html", current_file + ".html"]
-        
+
         doc_path = join(dirname(dirname(dirname(abspath(__file__)))), 'doc')
         for helpFileName in helps:
             file_help_path = join(doc_path, helpFileName)
@@ -75,21 +79,18 @@ class NominatimQueryGeoAlgorithm(GeoAlgorithm):
                 return False, file_help_path
         
         return False, None
-
+    
     def getIcon(self):
         return QIcon(dirname(__file__) + '/../../icon.png')
 
     def processAlgorithm(self, progress):
+        progress.setInfo("Downloading data from XAPI")
         
         server = self.getParameterValue(self.SERVER)
-        query = self.getParameterValue(self.NOMINATIM_STRING)
+        query = self.getParameterValue(self.QUERY_STRING)
         
-        nominatim = Nominatim(url=server)
-        try:
-            osm_id = nominatim.get_first_polygon_from_query(query)
-            progress.setInfo(
-                "Getting first OSM relation ID from Nominatim :", osm_id)
-        except:
-            raise NominatimAreaException
-
-        self.setOutputValue("OSM_ID", osm_id)
+        xapi = ConnexionXAPI(url=server)
+        osm_file = xapi.get_file_from_query(query)
+        
+        # Set the output file for Processing
+        self.setOutputValue(self.OUTPUT_FILE, osm_file)

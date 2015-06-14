@@ -35,7 +35,7 @@ from ui.my_queries_dialog import MyQueriesDockWidget
 from ui.query_dialog import QueryDockWidget
 from ui.osm_file_dialog import OsmFileDockWidget
 from ui.quick_query_dialog import QuickQueryDockWidget
-from processing.algorithm_provider import QuickOSMAlgorithmProvider
+from quick_osm_processing.algorithm_provider import QuickOSMAlgorithmProvider
 from core.utilities.tools import \
     get_current_version, get_setting, set_setting, new_queries_available
 
@@ -165,13 +165,13 @@ class QuickOSM:
         self.dock_menu.addAction(self.osmFileAction)
 
         # Connect signals and slots from dock
-        self.queryDockWidget.signalNewQuerySuccessful.connect(
+        self.queryDockWidget.signal_new_query_successful.connect(
             self.iface.QuickOSM_mainWindowDialog.refresh_my_queries_tree)
-        self.queryDockWidget.signalNewQuerySuccessful.connect(
+        self.queryDockWidget.signal_new_query_successful.connect(
             self.myQueriesDockWidget.refresh_my_queries_tree)
-        self.myQueriesDockWidget.signalDeleteQuerySuccessful.connect(
+        self.myQueriesDockWidget.signal_delete_query_successful.connect(
             self.myQueriesDockWidget.refresh_my_queries_tree)
-        self.myQueriesDockWidget.signalDeleteQuerySuccessful.connect(
+        self.myQueriesDockWidget.signal_delete_query_successful.connect(
             self.iface.QuickOSM_mainWindowDialog.refresh_my_queries_tree)
 
         # Connect signals and slots from mainWindow

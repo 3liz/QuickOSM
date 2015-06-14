@@ -38,7 +38,8 @@ from QuickOSM.core.exceptions import (
     DirectoryOutPutException,
     MissingParameterException)
 from QuickOSM.core.file_query import FileQuery
-from QuickOSM.core.utilities.qgis import get_user_folder, display_message_bar
+from QuickOSM.core.utilities.utilities_qgis import \
+    get_user_folder, display_message_bar
 from QuickOSM.core.utilities.tools import tr
 
 
@@ -452,16 +453,16 @@ class TreeQueryItem(QTreeWidgetItem):
 
 class MyQueriesDockWidget(QDockWidget):
     
-    signalDeleteQuerySuccessful = pyqtSignal(
-        name='signalDeleteQuerySuccessful')
+    signal_delete_query_successful = pyqtSignal(
+        name='signal_delete_query_successful')
     
     def __init__(self, parent=None):
         QDockWidget.__init__(self, parent)
         self.setAllowedAreas(Qt.LeftDockWidgetArea | Qt.RightDockWidgetArea)
         self.setWidget(MyQueriesWidget())
         self.setWindowTitle(tr("ui_my_queries", "QuickOSM - My queries"))
-        self.widget().signalDeleteQuerySuccessful.connect(
-            self.signalDeleteQuerySuccessful.emit)
+        self.widget().signal_delete_query_successful.connect(
+            self.signal_delete_query_successful.emit)
         
     def refresh_my_queries_tree(self):
         """

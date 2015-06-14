@@ -34,7 +34,7 @@ from QuickOSM.core.exceptions import (
     FileDoesntExistException,
     DirectoryOutPutException,
     OsmDriver)
-from QuickOSM.core.utilities.qgis import is_osm_driver_enabled
+from QuickOSM.core.utilities.utilities_qgis import is_osm_driver_enabled
 from QuickOSM.core.parser.osm_parser import OsmParser
 from QuickOSM.controller.process import open_file
 from QuickOSMWidget import QuickOSMWidget

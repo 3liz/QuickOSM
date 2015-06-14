@@ -23,7 +23,7 @@
 
 import re
 
-from CoreQuickOSM.API.Nominatim import Nominatim
+from api.nominatim import Nominatim
 
 
 def is_oql(query):

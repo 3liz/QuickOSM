@@ -29,6 +29,7 @@ from PyQt4.QtGui import QIcon
 from qgis.core import QgsVectorLayer, QgsVectorFileWriter
 from processing.core.GeoAlgorithm import GeoAlgorithm
 
+from QuickOSM.quick_osm_processing import *
 from QuickOSM.core.parser.osm_parser import OsmParser
 
 

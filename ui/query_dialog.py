@@ -24,8 +24,13 @@
 import re
 from os.path import isdir
 
-from PyQt4.QtGui import \
-    QDockWidget, QDesktopServices, QMenu, QAction, QApplication
+from PyQt4.QtGui import (
+    QDockWidget,
+    QDesktopServices,
+    QMenu,
+    QAction,
+    QApplication,
+    QDialogButtonBox)
 from PyQt4.QtCore import pyqtSignal, Qt, QUrl
 from qgis.gui import QgsMessageBar
 
@@ -35,7 +40,7 @@ from QuickOSM.core.exceptions import (
     DirectoryOutPutException,
     OutPutGeomTypesException,
     MissingParameterException)
-from QuickOSM.core.utilities.qgis import display_message_bar
+from QuickOSM.core.utilities.utilities_qgis import display_message_bar
 from QuickOSM.core.query_parser import prepare_query
 from QuickOSM.controller.process import process_query
 from XMLHighlighter import XMLHighlighter
@@ -323,12 +328,13 @@ class QueryWidget(QuickOSMWidget, Ui_ui_query):
 
 class QueryDockWidget(QDockWidget):
     
-    signalNewQuerySuccessful = pyqtSignal(name='signalNewQuerySuccessful')
+    signal_new_query_successful = pyqtSignal(
+        name='signal_new_query_successful')
     
     def __init__(self, parent=None):
         QDockWidget.__init__(self, parent)
         self.setAllowedAreas(Qt.LeftDockWidgetArea | Qt.RightDockWidgetArea)
         self.setWidget(QueryWidget())
         self.setWindowTitle(tr("ui_query", "QuickOSM - Query"))
-        self.widget().signalNewQuerySuccessful.connect(
-            self.signalNewQuerySuccessful.emit)
+        self.widget().signal_new_query_successful.connect(
+            self.signal_new_query_successful.emit)

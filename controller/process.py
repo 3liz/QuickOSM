@@ -33,7 +33,7 @@ from QuickOSM.core.exceptions import FileOutPutException, OsmDriver
 from QuickOSM.core.api.connexion_oapi import ConnexionOAPI
 from QuickOSM.core.parser.osm_parser import OsmParser
 from QuickOSM.core.utilities.operating_system import get_default_encoding
-from QuickOSM.core.utilities.qgis import is_osm_driver_enabled
+from QuickOSM.core.utilities.utilities_qgis import is_osm_driver_enabled
 from QuickOSM.core.utilities.tools import get_setting
 from QuickOSM.core.query_parser import prepare_query
 

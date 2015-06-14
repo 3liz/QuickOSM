@@ -2,8 +2,8 @@
 """
 /***************************************************************************
  QuickOSM
-                                 A QGIS plugin
- OSM's Overpass API frontend
+ A QGIS plugin
+ OSM Overpass API frontend
                              -------------------
         begin                : 2014-06-11
         copyright            : (C) 2014 by 3Liz
@@ -95,12 +95,12 @@ class FileQuery(object):
             #metadata-name and
             #metadata-category and
             #(layers)-load (bool) are compulsory
-            self.__name = self.__configSectionMap('metadata')['name']
-            self.__category = self.__configSectionMap('metadata')['category']
+            self.__name = self.__config_section_map('metadata')['name']
+            self.__category = self.__config_section_map('metadata')['category']
         
             #Check if layers are presents in the ini file
             for layer in FileQuery.LAYERS:
-                if not isinstance(self.__configSectionMap(layer)['load'], bool):
+                if not isinstance(self.__config_section_map(layer)['load'], bool):
                     return False
             
             #Is there another file with the query ?
@@ -166,7 +166,7 @@ class FileQuery(object):
             for layer in FileQuery.LAYERS:
                 dic['layers'][layer] = {}
                 for item in ['namelayer', 'columns','style','load']:
-                    dic['layers'][layer][item] = self.__configSectionMap(layer)[item]
+                    dic['layers'][layer][item] = self.__config_section_map(layer)[item]
                     
                     if item == 'style':
                         if isfile(join(self.directory,dic['layers'][layer][item])):
@@ -176,7 +176,7 @@ class FileQuery(object):
             self.__dic = dic
             return self.__dic
 
-    def getValue(self,section,item):
+    def getValue(self, section, item):
         try:
             self.__configParser
         except AttributeError:
@@ -197,18 +197,19 @@ class FileQuery(object):
                     return False
         return False
     
-    def __configSectionMap(self,section):
+    def __config_section_map(self, section):
         
-        iniDict = {}
+        ini_dict = {}
         for option in self.__configParser.options(section):
             try:
-                value = unicode(self.__configParser.get(section, option), "utf-8")
+                value = unicode(
+                    self.__configParser.get(section, option), "utf-8")
                 if value == u"True":
-                    iniDict[option] = True
+                    ini_dict[option] = True
                 elif value == u"False":
-                    iniDict[option] = False
+                    ini_dict[option] = False
                 else:
-                    iniDict[option] = value   
+                    ini_dict[option] = value
             except:
-                iniDict[option] = None
-        return iniDict
+                ini_dict[option] = None
+        return ini_dict

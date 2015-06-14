@@ -33,7 +33,7 @@ from qgis.core import (
     QgsRectangle)
 from processing.core.GeoAlgorithm import GeoAlgorithm
 
-from QuickOSM.ProcessingQuickOSM import *
+from QuickOSM.quick_osm_processing import *
 from QuickOSM.core.api.connexion_oapi import ConnexionOAPI
 from QuickOSM.core.query_parser import prepare_query
 

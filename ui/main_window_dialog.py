@@ -57,7 +57,7 @@ class MainWindowDialog(QDialog, Ui_ui_main_window):
         # noinspection PyUnresolvedReferences
         self.comboBox_default_OAPI.currentIndexChanged[int].connect(
             self.set_server_overpass_api)
-        self.query.signalNewQuerySuccessful.connect(
+        self.query.signal_new_query_successful.connect(
             self.signal_new_query_successful.emit)
         self.my_queries.signal_delete_query_successful.connect(
             self.signal_delete_query_successful.emit)

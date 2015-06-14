@@ -21,6 +21,7 @@
  ***************************************************************************/
 """
 
+from PyQt4.QtGui import QIcon
 from processing.core.AlgorithmProvider import AlgorithmProvider
 
 from api.overpass_query import OverpassQueryGeoAlgorithm
@@ -35,12 +36,10 @@ from parser.osm_parser import OsmParserGeoAlgorithm
 from parser.osm_member_parser import OsmMemberParserGeoAlgorithm
 from parser.osm_relation_parser import OsmRelationParserGeoAlgorithm
 
-from PyQt4.QtGui import QIcon
-
 
 class QuickOSMAlgorithmProvider(AlgorithmProvider):
     """
-    QuickOSM provide some GeoAlgorithms
+    QuickOSM provides some GeoAlgorithms
     """
 
     def __init__(self):

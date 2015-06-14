@@ -27,62 +27,43 @@ from PyQt4.QtCore import QSettings
 from PyQt4.QtGui import QIcon
 from processing.core.GeoAlgorithm import GeoAlgorithm
 
-from QuickOSM.core.query_factory import QueryFactory
+from QuickOSM.quick_osm_processing import *
+from QuickOSM.core.file_query import FileQuery
 
 
-class QueryFactoryGeoAlgorithm(GeoAlgorithm):
+class ReadIniFilePathGeoAlgorithm(GeoAlgorithm):
     """
-    Build a query with parameters 
+    Read an INI file 
     """
     
     def __init__(self):
-        self.FIELD_KEY = 'FIELD_KEY'
-        self.FIELD_VALUE = 'FIELD_VALUE'
-        self.FIELD_EXTENT = 'FIELD_EXTENT'
-        self.FIELD_NOMINATIM = 'FIELD_NOMINATIM'
-        self.FIELD_OSM_OBJECTS = 'FIELD_OSM_OBJECTS'
-        self.FIELD_TIMEOUT = 'FIELD_TIMEOUT'
-        self.OUTPUT_QUERY = 'OUTPUT_QUERY'
+        self.INI_FILE_PATH = 'QUERY_FILE'
+        self.LAYERS = ['multipolygons', 'multilinestrings', 'lines', 'points']
+        self.WHITE_LIST = {}
+
+        for layer in self.LAYERS:
+            self.WHITE_LIST[layer] = 'WHITE_LIST_' + layer
+
         GeoAlgorithm.__init__(self)
-        
+
     def defineCharacteristics(self):
-        self.name = "Query factory"
+        self.name = "Read an ini file from string"
         self.group = "Tools"
         
         self.addParameter(
             ParameterString(
-                self.FIELD_KEY,
-                'Key',
+                self.INI_FILE_PATH,
+                'File path (ini)',
                 '',
-                optional=False))
-
-        self.addParameter(
-            ParameterString(
-                self.FIELD_VALUE,
-                'Value',
-                '',
-                optional=True))
-
-        self.addParameter(
-            ParameterBoolean(
-                self.FIELD_EXTENT,
-                'Use an extent, not compatible with nominatim',
-                default=False))
-
-        self.addParameter(
-            ParameterString(
-                self.FIELD_NOMINATIM,
-                'Nominatim, not compatible with an extent',
-                optional=True))
-
-        self.addParameter(
-            ParameterNumber(
-                self.FIELD_TIMEOUT,
-                'Timeout',
-                minValue=20,
-                default=25))
+                False))
         
-        self.addOutput(OutputString(self.OUTPUT_QUERY, "Query"))
+        for layer in self.LAYERS:
+            self.addOutput(
+                OutputString(
+                    self.WHITE_LIST[layer],
+                    'White list ' + layer + ' layer'))
+        
+        self.addOutput(OutputString('QUERY_STRING', "Query string"))
 
     def help(self):
         locale = QSettings().value("locale/userLocale")[0:2]
@@ -107,27 +88,16 @@ class QueryFactoryGeoAlgorithm(GeoAlgorithm):
         return QIcon(dirname(__file__) + '/../../icon.png')
 
     def processAlgorithm(self, progress):
-        key = self.getParameterValue(self.FIELD_KEY)
-        value = self.getParameterValue(self.FIELD_VALUE)
-        extent = self.getParameterValue(self.FIELD_EXTENT)
-        nominatim = self.getParameterValue(self.FIELD_NOMINATIM)
+        progress.setInfo("Reading the ini file")
+                
+        file_path = self.getParameterValue(self.INI_FILE_PATH)
+        ini_file = FileQuery(file_path)
+        ini_dict = None
+        if ini_file.isValid():
+            ini_dict = ini_file.getContent()
         
-        if nominatim == '':
-            nominatim = None
+        self.setOutputValue('QUERY_STRING', ini_dict['metadata']['query'])
         
-        if value == '':
-            value = None
-
-        timeout = self.getParameterValue(self.FIELD_TIMEOUT)
-        
-        # Missing OSMObjects
-        query_factory = QueryFactory(
-            key=key,
-            value=value,
-            nominatim=nominatim,
-            bbox=extent,
-            timeout=timeout)
-
-        query = query_factory.make()
-        
-        self.setOutputValue(self.OUTPUT_QUERY, query)
+        for layer in self.LAYERS:
+            csv = ini_dict['layers'][layer]['columns']
+            self.setOutputValue(self.WHITE_LIST[layer], csv)

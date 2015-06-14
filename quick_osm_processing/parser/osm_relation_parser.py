@@ -21,16 +21,20 @@
  ***************************************************************************/
 """
 
-from QuickOSM import *
-from QuickOSM.ProcessingQuickOSM import *
+from os.path import isfile, join, basename, dirname, abspath
 
-from QuickOSM.CoreQuickOSM.Parser.OsmRelationParser import OsmRelationParser
-from operating_system.path import isfile,join,basename,dirname,abspath
+from PyQt4.QtCore import QSettings, SLOT
+from PyQt4.QtGui import QIcon
+from processing.core.GeoAlgorithm import GeoAlgorithm
+
+from QuickOSM.quick_osm_processing import *
+from QuickOSM.core.parser.osm_relation_parser import OsmRelationParser
+
 
 class OsmRelationParserGeoAlgorithm(GeoAlgorithm):
-    '''
+    """
     Parse an OSM file with SAX and return a table
-    '''
+    """
     
     def __init__(self):
         self.slotOsmParser = SLOT("osmParser()")
@@ -46,7 +50,7 @@ class OsmRelationParserGeoAlgorithm(GeoAlgorithm):
 
         self.addParameter(ParameterFile(self.FILE, 'OSM file', False, False))
         
-        self.addOutput(OutputTable(self.TABLE,'Output '))
+        self.addOutput(OutputTable(self.TABLE, 'Output '))
 
     def help(self):
         locale = QSettings().value("locale/userLocale")[0:2]
@@ -71,23 +75,25 @@ class OsmRelationParserGeoAlgorithm(GeoAlgorithm):
         return QIcon(dirname(__file__) + '/../../icon.png')
 
     def processAlgorithm(self, progress):
-        self.progress = progress
-        self.progress.setPercentage(0)
+        progress.setPercentage(0)
         
-        filePath = self.getParameterValue(self.FILE)
+        file_path = self.getParameterValue(self.FILE)
         
-        parser = OsmRelationParser(filePath)
+        parser = OsmRelationParser(file_path)
         
         results = parser.parse()
-        firstItem = None
-        for item in results :
-            firstItem = item
+        first_item = None
+
+        for item in results:
+            first_item = item
             break
+
         fields = parser.get_fields()
         
         table = self.getOutputFromName(self.TABLE)
-        tableWriter = table.getTableWriter(fields)
+        table_writer = table.getTableWriter(fields)
 
-        tableWriter.addRecord(firstItem)
+        table_writer.addRecord(first_item)
+
         for item in results:
-            tableWriter.addRecord(item)
+            table_writer.addRecord(item)

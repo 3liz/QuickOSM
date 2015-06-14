@@ -23,35 +23,47 @@
 
 from os.path import isfile, join, basename, dirname, abspath
 
-from PyQt4.QtCore import QSettings, SLOT
+from PyQt4.QtCore import QSettings
 from PyQt4.QtGui import QIcon
 from processing.core.GeoAlgorithm import GeoAlgorithm
 
-from QuickOSM.core.parser.osm_member_parser import OsmMemberParser
+from QuickOSM.quick_osm_processing import *
+from QuickOSM.core.file_query import FileQuery
 
 
-class OsmMemberParserGeoAlgorithm(GeoAlgorithm):
+class ReadIniFileGeoAlgorithm(GeoAlgorithm):
     """
-    Parse an OSM file with SAX and return a table
+    Read an INI file 
     """
     
     def __init__(self):
-        self.slotOsmParser = SLOT("osmParser()")
+        self.INI_FILE = 'QUERY_FILE'
+        self.LAYERS = ['multipolygons', 'multilinestrings', 'lines', 'points']
+        self.WHITE_LIST = {}
 
-        self.progress = None
-        
-        self.FILE = 'FILE'
-        self.TABLE = 'TABLE'
-        
+        for layer in self.LAYERS:
+            self.WHITE_LIST[layer] = 'WHITE_LIST_' + layer
+
         GeoAlgorithm.__init__(self)
 
     def defineCharacteristics(self):
-        self.name = "Relation Member SAX Parser"
-        self.group = "OSM Parser"
-
-        self.addParameter(ParameterFile(self.FILE, 'OSM file', False, False))
+        self.name = "Read an ini file"
+        self.group = "Tools"
         
-        self.addOutput(OutputTable(self.TABLE, 'Output '))
+        self.addParameter(
+            ParameterFile(
+                self.INI_FILE,
+                'Query file (ini)',
+                False,
+                False))
+        
+        for layer in self.LAYERS:
+            self.addOutput(
+                OutputString(
+                    self.WHITE_LIST[layer],
+                    'White list ' + layer + ' layer'))
+        
+        self.addOutput(OutputString('QUERY_STRING', "Query string"))
 
     def help(self):
         locale = QSettings().value("locale/userLocale")[0:2]
@@ -74,16 +86,18 @@ class OsmMemberParserGeoAlgorithm(GeoAlgorithm):
     
     def getIcon(self):
         return QIcon(dirname(__file__) + '/../../icon.png')
-
+        
     def processAlgorithm(self, progress):
-        file_path = self.getParameterValue(self.FILE)
+        progress.setInfo("Reading the ini file")
+                
+        file_path = self.getParameterValue(self.INI_FILE)
+        ini_file = FileQuery(file_path)
+        ini_dict = None
+        if ini_file.isValid():
+            ini_dict = ini_file.getContent()
 
-        parser = OsmMemberParser(file_path)
-        fields = parser.get_fields()
-
-        results = parser.parse()
-
-        table = self.getOutputFromName(self.TABLE)
-        table_writer = table.getTableWriter(fields)
-        for item in results:
-            table_writer.addRecord(item)
+        self.setOutputValue('QUERY_STRING', ini_dict['metadata']['query'])
+        
+        for layer in self.LAYERS:
+            csv = ini_dict['layers'][layer]['columns']
+            self.setOutputValue(self.WHITE_LIST[layer], csv)

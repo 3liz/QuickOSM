@@ -24,7 +24,7 @@
 from json import load
 from os.path import dirname, abspath, join, isfile, isdir
 
-from PyQt4.QtGui import QDockWidget, QApplication, QCompleter
+from PyQt4.QtGui import QDockWidget, QApplication, QCompleter, QDialogButtonBox
 from PyQt4.QtCore import Qt
 from qgis.gui import QgsMessageBar
 
@@ -33,7 +33,7 @@ from QuickOSM.core.exceptions import (
     OutPutGeomTypesException,
     DirectoryOutPutException,
     OsmObjectsException)
-from QuickOSM.core.utilities.qgis import display_message_bar
+from QuickOSM.core.utilities.utilities_qgis import display_message_bar
 from QuickOSM.core.utilities.tools import tr
 from QuickOSM.core.query_factory import QueryFactory
 from QuickOSM.controller.process import process_quick_query

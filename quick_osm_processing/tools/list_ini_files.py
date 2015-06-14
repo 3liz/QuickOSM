@@ -27,36 +27,46 @@ from PyQt4.QtCore import QSettings
 from PyQt4.QtGui import QIcon
 from processing.core.GeoAlgorithm import GeoAlgorithm
 
+from QuickOSM.quick_osm_processing import *
+from QuickOSM.core.file_query import FileQuery
+from QuickOSM.core.utilities.utilities_qgis import get_user_folder
 
-class GetFirstFieldGeoAlgorithm(GeoAlgorithm):
+
+class ListIniFilesGeoAlgorithm(GeoAlgorithm):
     """
-    Get first field of a vector layer 
+    List all the INI files 
     """
     
-    VECTOR_LAYER = 'VECTOR_LAYER'
-    FIELD = 'FIELD'
-    OUTPUT_VALUE = 'OUTPUT_VALUE'
+    def __init__(self):
+        self.NAME_FILE = 'NAME'
+        self.OUTPUT_INI = 'INI'
+
+        self.__queries = {}
+        self.__names = []
+
+        GeoAlgorithm.__init__(self)
         
     def defineCharacteristics(self):
-        self.name = "Get first field of an attribute"
+        self.name = "Queries available"
         self.group = "Tools"
         
-        self.addParameter(
-            ParameterVector(
-                self.VECTOR_LAYER,
-                'Vector layer',
-                [ParameterVector.VECTOR_TYPE_ANY],
-                True))
+        # Get the folder and all files queries
+        folder = get_user_folder()
+        cat_files = FileQuery.get_ini_files_from_folder(folder, force=False)
 
-        self.addParameter(
-            ParameterString(
-                self.FIELD,
-                'Field',
-                '',
-                False,
-                False))
+        for cat in cat_files:
+            for query in cat_files[cat]:
+                self.__queries[cat + " : " + query.getName()] = query
         
-        self.addOutput(OutputString(self.OUTPUT_VALUE, "Value"))
+        self.__names = self.__queries.keys()
+        
+        self.addParameter(
+            ParameterSelection(
+                self.NAME_FILE,
+                'Queries available',
+                self.__names))
+        
+        self.addOutput(OutputString(self.OUTPUT_INI,"Ini filepath as string"))
 
     def help(self):
         locale = QSettings().value("locale/userLocale")[0:2]
@@ -79,16 +89,11 @@ class GetFirstFieldGeoAlgorithm(GeoAlgorithm):
     
     def getIcon(self):
         return QIcon(dirname(__file__) + '/../../icon.png')
-
-    def processAlgorithm(self, progress):
-        field = self.getParameterValue(self.FIELD)
-        layer = self.getParameterValue(self.VECTOR_LAYER)
         
-        vector_layer = dataobjects.getObjectFromUri(layer)
-        features = vector.features(vector_layer)
-        field_index = vector.resolveFieldIndex(vector_layer, field)
+    def processAlgorithm(self, progress):
 
-        for feature in features:
-            value = unicode(feature.attributes()[field_index])
-            self.setOutputValue(self.OUTPUT_VALUE, value)
-            break
+        index = self.getParameterValue(self.NAME_FILE)
+        for query in self.__queries:
+            if query == self.__names[index]:
+                path = self.__queries[query].getFilePath()
+                self.setOutputValue(self.OUTPUT_INI,path)

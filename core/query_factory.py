@@ -2,8 +2,8 @@
 """
 /***************************************************************************
  QuickOSM
-                                 A QGIS plugin
- OSM's Overpass API frontend
+ A QGIS plugin
+ OSM Overpass API frontend
                              -------------------
         begin                : 2014-06-11
         copyright            : (C) 2014 by 3Liz
