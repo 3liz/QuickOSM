@@ -66,26 +66,27 @@ def replace_bbox(extent, query):
 
 
 def replace_geocode_coords(nominatim_name, query):
+
+    def replace(catch, default_nominatim):
+
+        if default_nominatim:
+            search = default_nominatim
+        else:
+            search = catch
+
+        nominatim = Nominatim()
+        lon, lat = nominatim.get_first_point_from_query(search)
+
+        if is_oql(query):
+            new_string = '%s,%s' % (lat, lon)
+        else:
+            new_string = 'lat="%s" lon="%s"' % (lat, lon)
+
+        return new_string
+
     template = r'{{(geocodeCoords):(.*)}}'
-    nominatim_query = re.search(template, query)
-    if not nominatim_query:
-        return query
-
-    result = nominatim_query.groups()
-    search = result[1]
-
-    if nominatim_name:
-        search = nominatim_name
-
-    nominatim = Nominatim()
-    lon, lat = nominatim.get_first_point_from_query(search)
-
-    if is_oql(query):
-        new_string = '%s,%s' % (lat, lon)
-    else:
-        new_string = 'lat="%s" lon="%s"' % (lat, lon)
-
-    query = re.sub(template, new_string, query)
+    query = re.sub(template, lambda m: replace(
+        m.groups()[1], nominatim_name), query)
     return query
 
 
