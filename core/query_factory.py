@@ -110,31 +110,41 @@ class QueryFactory(object):
         query = u'<osm-script output="%s" timeout="%s">' % \
                 (self.__output, self.__timeout)
 
-        if self.__nominatim and not self.__is_around:
-            query += u'<id-query area="%s" into="area"/>' % self.__nominatim
+        if self.__nominatim:
+            nominatim = [name.strip() for name in self.__nominatim.split(';')]
+        else:
+            nominatim = None
+
+        if nominatim and not self.__is_around:
+
+            for i, one_nominatim in enumerate(nominatim):
+                query += u'<id-query area="%s" into="area_%s"/>' % \
+                         (one_nominatim, i)
 
         query += u'<union>'
 
+        loop = 1 if not nominatim else len(nominatim)
+
         for osmObject in self.__osm_objects:
+            for i in range(0, loop):
+                query += u'<query type="%s">' % osmObject
+                query += u'<has-kv k="%s" ' % self.__key
+                if self.__value:
+                    query += u'v="%s"' % self.__value
 
-            query += u'<query type="%s">' % osmObject
-            query += u'<has-kv k="%s" ' % self.__key
-            if self.__value:
-                query += u'v="%s"' % self.__value
+                query += u'/>'
 
-            query += u'/>'
+                if self.__nominatim and not self.__is_around:
+                    query += u'<area-query from="area_%s"/>' % i
 
-            if self.__nominatim and not self.__is_around:
-                query += u'<area-query from="area"/>'
+                elif self.__nominatim and self.__is_around:
+                    query += u'<around area="%s" radius="%s" />' % \
+                             self.__nominatim, self.__distance
 
-            elif self.__nominatim and self.__is_around:
-                query += u'<around area="%s" radius="%s" />' % \
-                         self.__nominatim, self.__distance
+                elif self.__bbox:
+                    query = u'%s<bbox-query bbox="custom" />' % query
 
-            elif self.__bbox:
-                query = u'%s<bbox-query bbox="custom" />' % query
-
-            query += u'</query>'
+                query += u'</query>'
 
         query += u'</union>'
         query += u'<union>'
