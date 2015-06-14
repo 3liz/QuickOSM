@@ -2,8 +2,8 @@
 """
 /***************************************************************************
  QuickOSM
-                                 A QGIS plugin
- OSM's Overpass API frontend
+ A QGIS plugin
+ OSM Overpass API frontend
                              -------------------
         begin                : 2014-06-11
         copyright            : (C) 2014 by 3Liz
@@ -21,121 +21,140 @@
  ***************************************************************************/
 """
 
-from QuickOSM import *
+from os.path import dirname, abspath, join, isfile
+from PyQt4.QtGui import QDialog
+from PyQt4.QtCore import pyqtSignal, QSettings, QUrl
+
 from main_window import Ui_ui_main_window
-from QuickOSM.CoreQuickOSM.API.ConnexionOAPI import ConnexionOAPI
-from QuickOSM.CoreQuickOSM.Tools import Tools
-from os.path import dirname,abspath,join,isfile
+from CoreQuickOSM.API.ConnexionOAPI import ConnexionOAPI
+from CoreQuickOSM.utilities.tools import get_setting, set_setting, tr
+from CoreQuickOSM.utilities.qgis import get_user_folder
+
 
 class MainWindowDialog(QDialog, Ui_ui_main_window):
     
-    #Signal new query
-    signalNewQuerySuccessful = pyqtSignal(name='signalNewQuerySuccessful')
-    signalDeleteQuerySuccessful = pyqtSignal(name='signalDeleteQuerySuccessful')
-       
+    # Signal new query
+    signal_new_query_successful = pyqtSignal(
+        name='signal_new_query_successful')
+    signal_delete_query_successful = pyqtSignal(
+        name='signal_delete_query_successful')
+
     def __init__(self, parent=None):
-        '''
+        """
         Constructor
-        '''
-        QDialog.__init__(self)
+        """
+        QDialog.__init__(self, parent)
         self.setupUi(self)
-        self.setHelpWebView()
+        self.set_help_web_view()
+        self.help_file = None
         
-        #Connect
-        self.pushButton_homeHelp.clicked.connect(self.getRootHelp)
-        self.pushButton_OAPI_timestamp.clicked.connect(self.getTimestampOAPI)
-        self.comboBox_default_OAPI.currentIndexChanged[int].connect(self.setServerOAPI)
-        self.query.signalNewQuerySuccessful.connect(self.signalNewQuerySuccessful.emit)
-        self.my_queries.signalDeleteQuerySuccessful.connect(self.signalDeleteQuerySuccessful.emit)
-        self.pushButton_restoreQueries.clicked.connect(self.restoreDefaultQueries)
-        self.radioButton_outputJson.toggled.connect(self.setOutputFormat)
+        # Connect
+        # noinspection PyUnresolvedReferences
+        self.pushButton_homeHelp.clicked.connect(self.get_root_help)
+        # noinspection PyUnresolvedReferences
+        self.pushButton_OAPI_timestamp.clicked.connect(
+            self.get_timestamp_overpass_api)
+        # noinspection PyUnresolvedReferences
+        self.comboBox_default_OAPI.currentIndexChanged[int].connect(
+            self.set_server_overpass_api)
+        self.query.signalNewQuerySuccessful.connect(
+            self.signal_new_query_successful.emit)
+        self.my_queries.signal_delete_query_successful.connect(
+            self.signal_delete_query_successful.emit)
+        # noinspection PyUnresolvedReferences
+        self.pushButton_restoreQueries.clicked.connect(
+            self.restore_default_queries)
+        # noinspection PyUnresolvedReferences
+        self.radioButton_outputJson.toggled.connect(self.set_output_format)
         
-        #Set settings about the OAPI
-        self.defaultServer = Tools.getSetting('defaultOAPI')
+        # Set settings about the overpass API
+        self.defaultServer = get_setting('defaultOAPI')
         if self.defaultServer:
             index = self.comboBox_default_OAPI.findText(self.defaultServer)
             self.comboBox_default_OAPI.setCurrentIndex(index)
         else:
             self.defaultServer = self.comboBox_default_OAPI.currentText()
-            Tools.setSetting('defaultOAPI', self.defaultServer)
+            set_setting('defaultOAPI', self.defaultServer)
         
-        #Set settings about the output    
-        self.outputFormat = Tools.getSetting('outputFormat')
+        # Set settings about the output
+        self.outputFormat = get_setting('outputFormat')
         if self.outputFormat == "geojson":
             self.radioButton_outputJson.setChecked(True)
         elif self.outputFormat == "shape":
             self.radioButton_outputShape.setChecked(True)
         else:
-            Tools.setSetting('outputFormat', 'shape')
+            set_setting('outputFormat', 'shape')
             self.radioButton_outputShape.setChecked(True)
             
-        #Set minimum width for the menu
-        self.listWidget.setMinimumWidth(self.listWidget.sizeHintForColumn(0) + 10)
+        # Set minimum width for the menu
+        self.listWidget.setMinimumWidth(
+            self.listWidget.sizeHintForColumn(0) + 10)
 
-    def setHelpWebView(self):
-        '''
+    def set_help_web_view(self):
+        """
         Set the help
-        '''
+        """
         locale = QSettings().value("locale/userLocale")[0:2]
-        locale = "." + locale
-        helpFileBase = "main"
-        helps = [helpFileBase + locale +".html", helpFileBase + ".html"]
+        locale += "."
+        help_file_base = "main"
+        helps = [help_file_base + locale + ".html", help_file_base + ".html"]
         
-        docPath = join(dirname(dirname(abspath(__file__))),'doc')
+        doc_path = join(dirname(dirname(abspath(__file__))), 'doc')
         for helpFileName in helps:
-            fileHelpPath = join(docPath,helpFileName)
-            if isfile(fileHelpPath):
-                self.helpFile = fileHelpPath
-                self.webBrowser.load(QUrl(self.helpFile))
+            file_help_path = join(doc_path, helpFileName)
+            if isfile(file_help_path):
+                self.help_file = file_help_path
+                self.webBrowser.load(QUrl(self.help_file))
                 break
         else:
             self.webBrowser.setHtml("<h3>Help not available</h3>")
     
-    def getRootHelp(self):
-        '''
-        "home" button set the default help page
-        '''
-        self.webBrowser.load(QUrl(self.helpFile))
+    def get_root_help(self):
+        """
+        home button set the default help page
+        """
+        self.webBrowser.load(QUrl(self.help_file))
 
-    def refreshMyQueriesTree(self):
-        '''
+    def refresh_my_queries_tree(self):
+        """
         Slot which force the tree to refresh
-        '''
-        self.my_queries.fillTree(force=True)
+        """
+        self.my_queries.fill_tree(force=True)
             
-    def setServerOAPI(self,index):
-        '''
+    def set_server_overpass_api(self):
+        """
         Save the new OAPI server
-        '''
+        """
         self.defaultServer = self.comboBox_default_OAPI.currentText()
-        Tools.setSetting('defaultOAPI', self.defaultServer)
+        set_setting('defaultOAPI', self.defaultServer)
         
-    def getTimestampOAPI(self):
-        '''
+    def get_timestamp_overpass_api(self):
+        """
         Get the timestamp of the current server
-        '''
+        """
         text = self.pushButton_OAPI_timestamp.text()
-        self.pushButton_OAPI_timestamp.setText(QApplication.translate("QuickOSM", 'Fetching the timestamp ...'))
-        oapi = ConnexionOAPI(url=self.defaultServer)
-        self.label_timestamp_oapi.setText(oapi.getTimestamp())
+        self.pushButton_OAPI_timestamp.setText(
+            tr('QuickOSM', 'Fetching the timestamp ...'))
+        overpass_api = ConnexionOAPI(url=self.defaultServer)
+        self.label_timestamp_oapi.setText(overpass_api.get_timestamp())
         self.pushButton_OAPI_timestamp.setText(text)
 
-    def setOutputFormat(self):
-        '''
+    def set_output_format(self):
+        """
         Save the new output format
-        '''
+        """
         if self.radioButton_outputJson.isChecked():
-            Tools.setSetting('outputFormat', 'geojson')
+            set_setting('outputFormat', 'geojson')
         else:
-            Tools.setSetting('outputFormat', 'shape')
+            set_setting('outputFormat', 'shape')
         
-    def restoreDefaultQueries(self):
-        '''
+    def restore_default_queries(self):
+        """
         Overwrite all queries
-        '''
+        """
         text = self.pushButton_restoreQueries.text()
-        self.pushButton_restoreQueries.setText(QApplication.translate("QuickOSM", 'Copy ...'))
-        Tools.getUserQueryFolder(overWrite=True)
-        self.signalNewQuerySuccessful.emit()
-        self.my_queries.fillTree(force=True)
+        self.pushButton_restoreQueries.setText(tr('QuickOSM', 'Copy ...'))
+        get_user_folder(overWrite=True)
+        self.signal_new_query_successful.emit()
+        self.my_queries.fill_tree(force=True)
         self.pushButton_restoreQueries.setText(text)

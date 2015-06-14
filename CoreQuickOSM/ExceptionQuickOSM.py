@@ -21,148 +21,178 @@
  ***************************************************************************/
 """
 
-from QuickOSM import *
+from processing.core.GeoAlgorithmExecutionException import \
+    GeoAlgorithmExecutionException
+from qgis.gui import QgsMessageBar
 
-"""
-QApplication.translate doesn't work in contructor's parameters
-"""
+from CoreQuickOSM.utilities.tools import tr
+
 
 class QuickOsmException(GeoAlgorithmExecutionException):
     def __init__(self, msg=None):
-        GeoAlgorithmExecutionException.__init__(self,msg)    
+        GeoAlgorithmExecutionException.__init__(self, msg)
         self.level = QgsMessageBar.CRITICAL
         self.duration = 7
 
 '''
 Overpass or network
 '''
+
+
 class OverpassBadRequestException(QuickOsmException):
     def __init__(self, msg=None):
         if not msg:
-            msg = QApplication.translate("QuickOSM", u"Bad request OverpassAPI")
-        QuickOsmException.__init__(self,msg)
-        
+            msg = tr('Exception', u'Bad request OverpassAPI')
+        QuickOsmException.__init__(self, msg)
+
+
 class OverpassTimeoutException(QuickOsmException):
     def __init__(self, msg=None):
         if not msg:
-            msg = QApplication.translate("Exception", u"OverpassAPI timeout")
-        QuickOsmException.__init__(self,msg)
+            msg = tr('Exception', u'OverpassAPI timeout')
+        QuickOsmException.__init__(self, msg)
+
 
 class NetWorkErrorException(QuickOsmException):
     def __init__(self, msg=None, suffix=None):
         if not msg:
-            msg = QApplication.translate("Exception", u"Network error")
+            msg = tr("Exception", u"Network error")
         if suffix:
             msg = msg + " with " + suffix
-        QuickOsmException.__init__(self,msg)
+        QuickOsmException.__init__(self, msg)
 
 '''
 QueryFactory
 '''
+
+
 class QueryFactoryException(QuickOsmException):
     def __init__(self, msg=None, suffix=None):
         if not msg:
-            msg = QApplication.translate("Exception", u"Error while building the query")
+            msg = tr("Exception", u"Error while building the query")
         if suffix:
             msg = msg + " : " + suffix
-        QuickOsmException.__init__(self,msg)
+        QuickOsmException.__init__(self, msg)
 
 '''
 Nominatim
 '''
+
+
 class NominatimAreaException(QuickOsmException):
     def __init__(self, msg=None):
         if not msg:
-            msg = QApplication.translate("Exception", u"No nominatim area")
-        QuickOsmException.__init__(self,msg)
+            msg = tr("Exception", u"No nominatim area")
+        QuickOsmException.__init__(self, msg)
 
 '''
 Ogr2Ogr
 '''
+
+
 class OsmDriver(QuickOsmException):
-    def __init__(self,msg=None):
+    def __init__(self, msg=None):
         if not msg:
-            msg = QApplication.translate("Exception", u"The OSM's driver is not installed. You must have GDAL/OGR >= 1.10.")
-        QuickOsmException.__init__(self,msg)        
+            msg = tr(
+                'Exception', u"The OSM's driver is not installed. "
+                             u"You must have GDAL/OGR >= 1.10.")
+        QuickOsmException.__init__(self, msg)
+
 
 class Ogr2OgrException(QuickOsmException):
-    def __init__(self,msg=None):
+    def __init__(self, msg=None):
         if not msg:
-            msg = QApplication.translate("Exception", u"Error with ogr2ogr")
-        QuickOsmException.__init__(self,msg)
-        
+            msg = tr("Exception", u"Error with ogr2ogr")
+        QuickOsmException.__init__(self, msg)
+
+
 class NoLayerException(QuickOsmException):
     def __init__(self, msg=None, suffix=None):
         if not msg:
-            msg= QApplication.translate("Exception", u"The layer is missing :")
+            msg = tr("Exception", u"The layer is missing :")
         if suffix:
             msg = msg + " " + suffix
-        QuickOsmException.__init__(self,msg)
+        QuickOsmException.__init__(self, msg)
+
 
 class WrongOrderOSMException(QuickOsmException):
     def __init__(self, msg=None, suffix=None):
         if not msg:
-            msg= QApplication.translate("Exception", u"The order must be node-way-relation. Check the print statement.")
+            msg = tr(
+                'Exception',
+                u'The order must be node-way-relation. '
+                u'Check the print statement.')
         if suffix:
             msg = msg + " " + suffix
-        QuickOsmException.__init__(self,msg)
+        QuickOsmException.__init__(self, msg)
 
 '''
 File and directory
-'''     
+'''
+
+
 class FileDoesntExistException(QuickOsmException):
     def __init__(self, msg=None, suffix=None):
         if not msg:
-            msg= QApplication.translate("Exception", u"The file doesn't exist")
+            msg = tr("Exception", u"The file doesn't exist")
         if suffix:
             msg = msg + " " + suffix
-        QuickOsmException.__init__(self,msg)
+        QuickOsmException.__init__(self, msg)
+
 
 class DirectoryOutPutException(QuickOsmException):
     def __init__(self, msg=None):
         if not msg:
-            msg = QApplication.translate("Exception", u"The output directory does not exist.")
-        QuickOsmException.__init__(self,msg)
-        
+            msg = tr('Exception', u'The output directory does not exist.')
+        QuickOsmException.__init__(self, msg)
+
+
 class FileOutPutException(QuickOsmException):
     def __init__(self, msg=None, suffix=None):
         if not msg:
-            msg= QApplication.translate("Exception", u"The output file already exist, set a prefix")
+            msg = tr(
+                'Exception', u'The output file already exist, set a prefix')
         if suffix:
             msg = msg + " " + suffix
-        QuickOsmException.__init__(self,msg)
-        
+        QuickOsmException.__init__(self, msg)
+
+
 class OutPutFormatException(QuickOsmException):
-    def __init__(self,msg=None):
+    def __init__(self, msg=None):
         if not msg:
-            msg = QApplication.translate("Exception", u"Output not available")
-        QuickOsmException.__init__(self,msg)
-        
+            msg = tr("Exception", u"Output not available")
+        QuickOsmException.__init__(self, msg)
+
+
 class QueryAlreadyExistsException(QuickOsmException):
     def __init__(self, msg=None):
         if not msg:
-            msg= QApplication.translate("Exception", u"This query already exists")
-        QuickOsmException.__init__(self,msg)
+            msg = tr("Exception", u"This query already exists")
+        QuickOsmException.__init__(self, msg)
         
 '''
 Forms
 '''
+
+
 class MissingParameterException(QuickOsmException):
     def __init__(self, msg=None, suffix=None):
         if not msg:
-            msg= QApplication.translate("Exception", u"A parameter is missing :")
+            msg = tr("Exception", u"A parameter is missing :")
         if suffix:
             msg = msg + " " + suffix
-        QuickOsmException.__init__(self,msg)
-        
+        QuickOsmException.__init__(self, msg)
+
+
 class OsmObjectsException(QuickOsmException):
     def __init__(self, msg=None):
         if not msg:
-            msg= QApplication.translate("Exception", u"No osm objects selected")
-        QuickOsmException.__init__(self,msg)
-        
+            msg = tr("Exception", u"No osm objects selected")
+        QuickOsmException.__init__(self, msg)
+
+
 class OutPutGeomTypesException(QuickOsmException):
     def __init__(self, msg=None):
         if not msg:
-            msg= QApplication.translate("Exception", u"No outputs selected")
-        QuickOsmException.__init__(self,msg)
+            msg = tr('Exception', u'No outputs selected')
+        QuickOsmException.__init__(self, msg)

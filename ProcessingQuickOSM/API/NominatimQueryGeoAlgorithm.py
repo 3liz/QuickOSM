@@ -2,8 +2,8 @@
 """
 /***************************************************************************
  QuickOSM
-                                 A QGIS plugin
- OSM's Overpass API frontend
+ A QGIS plugin
+ OSM Overpass API frontend
                              -------------------
         begin                : 2014-06-11
         copyright            : (C) 2014 by 3Liz
@@ -21,11 +21,12 @@
  ***************************************************************************/
 """
 
-from QuickOSM import *
-from QuickOSM.ProcessingQuickOSM import *
-from QuickOSM.CoreQuickOSM.API.Nominatim import Nominatim
-from QuickOSM.CoreQuickOSM.ExceptionQuickOSM import NominatimAreaException
-from os.path import isfile,join,basename,dirname,abspath
+from PyQt4.QtGui import QIcon
+from ProcessingQuickOSM import *
+from CoreQuickOSM.API.Nominatim import Nominatim
+from CoreQuickOSM.ExceptionQuickOSM import NominatimAreaException
+from os.path import isfile, join, basename, dirname, abspath
+
 
 class NominatimQueryGeoAlgorithm(GeoAlgorithm):
 
@@ -34,32 +35,44 @@ class NominatimQueryGeoAlgorithm(GeoAlgorithm):
     OSM_ID = 'OSM_ID'
 
     def defineCharacteristics(self):
-        self.name = "Query nominatim API with a string"
-        self.group = "API"
+        self.name = 'Query nominatim API with a string'
+        self.group = 'API'
 
-        self.addParameter(ParameterString(self.SERVER, 'Nominatim server', 'http://nominatim.openstreetmap.org/search?format=json', False, False))
-        self.addParameter(ParameterString(self.NOMINATIM_STRING, 'Search','', False, False))
-        self.addOutput(OutputNumber(self.OSM_ID,'OSM id'))
+        self.addParameter(
+            ParameterString(
+                self.SERVER,
+                'Nominatim server',
+                'http://nominatim.openstreetmap.org/search?format=json',
+                False,
+                False))
+        self.addParameter(
+            ParameterString(
+                self.NOMINATIM_STRING,
+                'Search',
+                '',
+                False,
+                False))
+        self.addOutput(OutputNumber(self.OSM_ID, 'OSM id'))
 
     def help(self):
         locale = QSettings().value("locale/userLocale")[0:2]
-        locale = "." + locale
+        locale += "."
 
-        currentFile = __file__
-        if currentFile.endswith('pyc'):
-            currentFile = currentFile[:-1]
-        currentFile = basename(currentFile)
+        current_file = __file__
+        if current_file.endswith('pyc'):
+            current_file = current_file[:-1]
+        current_file = basename(current_file)
         
-        helps = [currentFile + locale +".html", currentFile + ".html"]
+        helps = [current_file + locale + ".html", current_file + ".html"]
         
-        docPath = join(dirname(dirname(dirname(abspath(__file__)))),'doc')
-        for helpFileName in helps :
-            fileHelpPath = join(docPath,helpFileName)
-            if isfile(fileHelpPath):
-                return False, fileHelpPath
+        doc_path = join(dirname(dirname(dirname(abspath(__file__)))), 'doc')
+        for helpFileName in helps:
+            file_help_path = join(doc_path, helpFileName)
+            if isfile(file_help_path):
+                return False, file_help_path
         
         return False, None
-    
+
     def getIcon(self):
         return QIcon(dirname(__file__) + '/../../icon.png')
 
@@ -68,10 +81,12 @@ class NominatimQueryGeoAlgorithm(GeoAlgorithm):
         server = self.getParameterValue(self.SERVER)
         query = self.getParameterValue(self.NOMINATIM_STRING)
         
-        nominatim = Nominatim(url = server)
+        nominatim = Nominatim(url=server)
         try:
-            osmID = nominatim.getFirstPolygonFromQuery(query)
-            progress.setInfo("Getting first OSM relation ID from Nominatim :",osmID)
+            osm_id = nominatim.get_first_polygon_from_query(query)
+            progress.setInfo(
+                "Getting first OSM relation ID from Nominatim :", osm_id)
         except:
             raise NominatimAreaException
-        self.setOutputValue("OSM_ID",osmID)
+
+        self.setOutputValue("OSM_ID", osm_id)

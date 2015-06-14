@@ -2,8 +2,8 @@
 """
 /***************************************************************************
  QuickOSM
-                                 A QGIS plugin
- OSM's Overpass API frontend
+ A QGIS plugin
+ OSM Overpass API frontend
                              -------------------
         begin                : 2014-06-11
         copyright            : (C) 2014 by 3Liz
@@ -21,58 +21,63 @@
  ***************************************************************************/
 """
 
-from QuickOSM import *
 import urllib2
 import tempfile
 
-class ConnexionXAPI:
-    '''
-    Manage connexion to the eXtend API (XAPI)
-    '''
+from CoreQuickOSM.ExceptionQuickOSM import NetWorkErrorException
 
-    def __init__(self,url="api.openstreetmap.fr/xapi?"):
-        '''
+
+class ConnexionXAPI(object):
+    """
+    Manage connexion to the eXtend API (XAPI)
+    """
+
+    def __init__(self, url="api.openstreetmap.fr/xapi?"):
+        """
         Constructor
+
         @param url:URL of OverPass
         @type url:str
-        '''
+        """
 
         self.__url = url
         
-    def query(self,req):
-        '''
+    def query(self, query):
+        """
         Make a query to the xapi
-        @param req:Query to execute
-        @type req:str
+
+        @param query:Query to execute
+        @type query:str
+
         @raise Exception : Bad, should be a ExceptionQuickOSM
+
         @return: the result of the query
         @rtype: str
-        '''
-        req = req.encode('utf8')
-        urlQuery = self.__url + req
+        """
+        query = query.encode('utf8')
+        url_query = self.__url + query
         
         try:
-            data = urllib2.urlopen(url=urlQuery).read()
-        except urllib2.HTTPError as e:
-            raise NetWorkErrorException(suffix="XAPI")   
-        except urllib2.URLError as e:
+            data = urllib2.urlopen(url=url_query).read()
+        except urllib2.HTTPError:
             raise NetWorkErrorException(suffix="XAPI")
         
         return data
 
-            
-    def getFileFromQuery(self,req):
-        '''
+    def get_file_from_query(self, query):
+        """
         Make a query to the xapi and put the result in a temp file
-        @param req:Query to execute
-        @type req:str
-        @return: temporary filepath
+
+        @param query:Query to execute
+        @type query: str
+
+        @return: temporary file path
         @rtype: str
-        '''
-        req = self.query(req)
-        tf = tempfile.NamedTemporaryFile(delete=False,suffix=".osm")
-        tf.write(req)
-        namefile = tf.name
+        """
+        query = self.query(query)
+        tf = tempfile.NamedTemporaryFile(delete=False, suffix=".osm")
+        tf.write(query)
+        name_file = tf.name
         tf.flush()
         tf.close()
-        return namefile
+        return name_file

@@ -2,8 +2,8 @@
 """
 /***************************************************************************
  QuickOSM
-                                 A QGIS plugin
- OSM's Overpass API frontend
+ A QGIS plugin
+ OSM Overpass API frontend
                              -------------------
         begin                : 2014-06-11
         copyright            : (C) 2014 by 3Liz
@@ -21,121 +21,149 @@
  ***************************************************************************/
 """
 
-from QuickOSM import *
-from PyQt4.QtNetwork import QNetworkAccessManager,QNetworkRequest,QNetworkReply
 import urllib2
 import re
 import tempfile
+from PyQt4.QtNetwork import \
+    QNetworkAccessManager, QNetworkRequest, QNetworkReply
+from PyQt4.QtCore import QUrl, QEventLoop
 
-class ConnexionOAPI:
-    '''
+from CoreQuickOSM.ExceptionQuickOSM import (
+    OutPutFormatException,
+    OverpassTimeoutException,
+    OverpassBadRequestException,
+    NetWorkErrorException
+)
+
+from CoreQuickOSM.utilities.operating_system import get_proxy
+
+
+class ConnexionOAPI(object):
+    """
     Manage connexion to the overpass API
-    '''
+    """
 
-    def __init__(self,url="http://overpass-api.de/api/", output = None):
-        '''
+    def __init__(self, url="http://overpass-api.de/api/", output=None):
+        """
         Constructor
+
         @param url:URL of OverPass
         @type url:str
+
         @param output:Output desired (XML or JSON)
         @type output:str
-        '''
+        """
         
         if not url:
-            url="http://overpass-api.de/api/"
+            url = "http://overpass-api.de/api/"
             
         self.__url = url
         self.data = None
 
-        if output not in (None, "json","xml"):
+        if output not in (None, "json", "xml"):
             raise OutPutFormatException
+
         self.__output = output
         self.network = QNetworkAccessManager()
+        self.network_reply = None
+        self.loop = None
         
-    def query(self,req):
-        '''
+    def query(self, query):
+        """
         Make a query to the overpass
-        @param req:Query to execute
-        @type req:str
-        @raise OverpassBadRequestException,NetWorkErrorException,OverpassTimeoutException
+
+        @param query:Query to execute
+        @type query:str
+
+        @raise OverpassBadRequestException,NetWorkErrorException,
+        OverpassTimeoutException
+
         @return: the result of the query
         @rtype: str
-        '''
+        """
 
-        urlQuery = QUrl(self.__url + 'interpreter')
+        url_query = QUrl(self.__url + 'interpreter')
 
-        #The output format can be forced (JSON or XML)
+        # The output format can be forced (JSON or XML)
         if self.__output:
-            req = re.sub(r'output="[a-z]*"','output="'+self.__output+'"', req)
-            req = re.sub(r'\[out:[a-z]*','[out:'+self.__output, req)
+            query = re.sub(
+                r'output="[a-z]*"', 'output="'+self.__output + '"', query)
+            query = re.sub(
+                r'\[out:[a-z]*', '[out:' + self.__output, query)
+
+        # noinspection PyCallByClass
+        encoded_query = QUrl.toPercentEncoding(query)
+        url_query.addEncodedQueryItem('data', encoded_query)
+        url_query.addQueryItem('info', 'QgisQuickOSMPlugin')
+        url_query.setPort(80)
         
-        encodedQuery = QUrl.toPercentEncoding(req)
-        urlQuery.addEncodedQueryItem('data',encodedQuery)
-        urlQuery.addQueryItem('info','QgisQuickOSMPlugin')
-        urlQuery.setPort(80)
-        
-        proxy = Tools.getProxy()
+        proxy = get_proxy()
         if proxy:
             self.network.setProxy(proxy)
         
-        request = QNetworkRequest(urlQuery)
-        request.setRawHeader("User-Agent", "QuickOSM");
-        self.networkReply = self.network.get(request)
-        self.loop = QEventLoop();
-        self.network.finished.connect(self.__endOfRequest)
+        request = QNetworkRequest(url_query)
+        request.setRawHeader("User-Agent", "QuickOSM")
+        self.network_reply = self.network.get(request)
+        self.loop = QEventLoop()
+        self.network.finished.connect(self._end_of_request)
         self.loop.exec_()
         
-        if self.networkReply.error() == QNetworkReply.NoError:
-            if re.search('<remark> runtime error: Query timed out in "[a-z]+" at line [\d]+ after ([\d]+) seconds. </remark>', self.data):
+        if self.network_reply.error() == QNetworkReply.NoError:
+            timeout = '<remark> runtime error: Query timed out in "[a-z]+" at ' \
+                      'line [\d]+ after ([\d]+) seconds. </remark>'
+            if re.search(timeout, self.data):
                 raise OverpassTimeoutException
             else:
                 return self.data
         
-        elif self.networkReply.error() == QNetworkReply.UnknownContentError:
+        elif self.network_reply.error() == QNetworkReply.UnknownContentError:
             raise OverpassBadRequestException
         else:
             raise NetWorkErrorException(suffix="Overpass API")
 
-    def __endOfRequest(self,test):
-        self.data = self.networkReply.readAll()
+    def _end_of_request(self):
+        self.data = self.network_reply.readAll()
         self.loop.quit()
             
-    def getFileFromQuery(self,req):
-        '''
+    def get_file_from_query(self, query):
+        """
         Make a query to the overpass and put the result in a temp file
-        @param req:Query to execute
-        @type req:str
-        @return: temporary filepath
+
+        @param query:Query to execute
+        @type query:str
+
+        @return: temporary file path
         @rtype: str
-        '''
-        req = self.query(req)
-        tf = tempfile.NamedTemporaryFile(delete=False,suffix=".osm")
-        tf.write(req)
-        namefile = tf.name
+        """
+        query = self.query(query)
+        tf = tempfile.NamedTemporaryFile(delete=False, suffix=".osm")
+        tf.write(query)
+        name_file = tf.name
         tf.flush()
         tf.close()
-        return namefile
+        return name_file
     
-    def getTimestamp(self):
-        '''
+    def get_timestamp(self):
+        """
         Get the timestamp of the OSM data on the server
+
         @return: Timestamp
         @rtype: str
-        '''
-        urlQuery = self.__url + 'timestamp'
+        """
+        url_query = self.__url + 'timestamp'
         try:
-            return urllib2.urlopen(url=urlQuery).read()
+            return urllib2.urlopen(url=url_query).read()
         except urllib2.HTTPError as e:
             if e.code == 400:
                 raise OverpassBadRequestException
             
-    def isValid(self):
-        '''
+    def is_valid(self):
+        """
         Try if the url is valid, NOT TESTED YET
-        '''
-        urlQuery = self.__url + 'interpreter'
+        """
+        url_query = self.__url + 'interpreter'
         try:
-            urllib2.urlopen(url=urlQuery)
+            urllib2.urlopen(url=url_query)
             return True
         except urllib2.HTTPError:
             return False

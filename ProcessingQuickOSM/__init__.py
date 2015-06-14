@@ -4,7 +4,7 @@ from processing.core.GeoAlgorithmExecutionException import GeoAlgorithmExecution
 
 from processing.tools import dataobjects, vector
 
-#Processing <2.5
+# Processing <2.5
 try:
     from processing.parameters.ParameterString import ParameterString
     from processing.parameters.ParameterExtent import ParameterExtent
@@ -23,9 +23,9 @@ try:
 except ImportError:
     pass
 
-#Processing >=2.5
+# Processing >=2.5
 try:
-    from processing.core.parameters import *    
+    from processing.core.parameters import *
     from processing.core.outputs import *
     
 except ImportError:

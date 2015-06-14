@@ -2,8 +2,8 @@
 """
 /***************************************************************************
  QuickOSM
-                                 A QGIS plugin
- OSM's Overpass API frontend
+ A QGIS plugin
+ OSM Overpass API frontend
                              -------------------
         begin                : 2014-06-11
         copyright            : (C) 2014 by 3Liz
@@ -20,198 +20,289 @@
  *                                                                         *
  ***************************************************************************/
 """
-from QuickOSM import *
 
-from QuickOSM.CoreQuickOSM.QueryFactory import QueryFactory
-from QuickOSM.CoreQuickOSM.Tools import Tools
-from QuickOSM.CoreQuickOSM.API.ConnexionOAPI import ConnexionOAPI
-from QuickOSM.CoreQuickOSM.Parser.OsmParser import OsmParser
-import processing
 import tempfile
-import ntpath
-from os.path import dirname,abspath,join
-from genericpath import isfile
+from os.path import dirname, abspath, join, isfile
+from PyQt4.QtGui import QApplication
+from qgis.core import \
+    QGis, QgsVectorLayer, QgsVectorFileWriter, QgsAction, QgsMapLayerRegistry
 
-class Process:
-    '''
-    This class makes the link between GUI and Core
-    '''
+from CoreQuickOSM.QueryFactory import QueryFactory
+from CoreQuickOSM.utilities.tools import tr
+from CoreQuickOSM.ExceptionQuickOSM import FileOutPutException, OsmDriver
+from CoreQuickOSM.API.ConnexionOAPI import ConnexionOAPI
+from CoreQuickOSM.Parser.OsmParser import OsmParser
+from CoreQuickOSM.utilities.operating_system import get_default_encoding
+from CoreQuickOSM.utilities.qgis import is_osm_driver_enabled
+from CoreQuickOSM.utilities.tools import get_setting
+from CoreQuickOSM.QueryParser import prepare_query
 
-    @staticmethod
-    def getOutputs(outputDir, outputFormat, prefixFile, layerName):
-        outputs = {}
-        for layer in ['points','lines','multilinestrings','multipolygons']:
-            if not outputDir:
-                #if no directory, get a temporary file
-                tf = None
-                if outputFormat == "shape":
-                    tf = tempfile.NamedTemporaryFile(delete=False,suffix="_"+layer+"_quickosm.shp")
-                else:
-                    #We should avoid this copy of geojson in the temp folder
-                    tf = tempfile.NamedTemporaryFile(delete=False,suffix="_"+layer+"_quickosm.geojson")
-                    
-                outputs[layer] = tf.name
-                tf.flush()
-                tf.close()
+
+"""
+This class makes the link between GUI and Core
+"""
+
+
+def get_outputs(output_dir, output_format, prefix_file, layer_name):
+    outputs = {}
+    for layer in ['points', 'lines', 'multilinestrings', 'multipolygons']:
+        if not output_dir:
+            # if no directory, get a temporary file
+
+            if output_format == "shape":
+                temp_file = tempfile.NamedTemporaryFile(
+                    delete=False, suffix="_" + layer + "_quickosm.shp")
             else:
-                if not prefixFile:
-                    prefixFile = layerName
-                
-                if outputFormat == "shape":    
-                    outputs[layer] = os.path.join(outputDir,prefixFile + "_" + layer + ".shp")
-                else:
-                    outputs[layer] = os.path.join(outputDir,prefixFile + "_" + layer + ".geojson")
-                
-                if os.path.isfile(outputs[layer]):
-                    raise FileOutPutException(suffix="("+outputs[layer]+")")
-        return outputs
+                # We should avoid this copy of geojson in the temp folder
+                temp_file = tempfile.NamedTemporaryFile(
+                    delete=False, suffix="_" + layer + "_quickosm.geojson")
 
-    '''
+            outputs[layer] = temp_file.name
+            temp_file.flush()
+            temp_file.close()
+
+        else:
+            if not prefix_file:
+                prefix_file = layer_name
+
+            if output_format == "shape":
+                outputs[layer] = join(
+                    output_dir, prefix_file + "_" + layer + ".shp")
+            else:
+                outputs[layer] = join(
+                    output_dir, prefix_file + "_" + layer + ".geojson")
+
+            if isfile(outputs[layer]):
+                raise FileOutPutException(suffix="("+outputs[layer]+")")
+
+    return outputs
+
+
+def open_file(
+        dialog=None,
+        osm_file=None,
+        output_geom_types=None,
+        white_list_column=None,
+        output_format=None,
+        layer_name="OsmFile",
+        config_outputs=None,
+        output_dir=None,
+        prefix_file=None):
+    """
     open an osm file
-    '''
-    @staticmethod
-    def openFile(dialog = None, osmFile = None, outputGeomTypes = None, whiteListColumn = None, outputFormat = None, layerName = "OsmFile", configOutputs = None, outputDir = None, prefixFile = None):
-        
-        outputs = Process.getOutputs(outputDir, outputFormat, prefixFile, layerName)
-        
-        #Parsing the file
-        osmParser = OsmParser(osmFile, layers=outputGeomTypes, whiteListColumn=whiteListColumn)
-        osmParser.signalText.connect(dialog.setProgressText)
-        osmParser.signalPercentage.connect(dialog.setProgressPercentage)
-        layers = osmParser.parse()
-        
-        #Finishing the process with geojson or shapefile
-        numLayers = 0
-        if outputFormat == "shape":
-            dialog.setProgressText(QApplication.translate("QuickOSM",u"From GeoJSON to Shapefile"))
-        
-        for i, (layer,item) in enumerate(layers.iteritems()):
-            dialog.setProgressPercentage(i/len(layers)*100)  
-            QApplication.processEvents()
-            if item['featureCount'] and layer in outputGeomTypes:
-                
-                finalLayerName = layerName
-                #If configOutputs is not None (from My Queries)
-                if configOutputs:
-                    if configOutputs[layer]['namelayer']:
-                        finalLayerName = configOutputs[layer]['namelayer']
+    """
+    outputs = get_outputs(output_dir, output_format, prefix_file, layer_name)
 
-                #Transforming the vector file
-                osmGeom = {'points':QGis.WKBPoint,'lines':QGis.WKBLineString,'multilinestrings':QGis.WKBMultiLineString,'multipolygons':QGis.WKBMultiPolygon}
-                geojsonlayer = QgsVectorLayer(item['geojsonFile'],"temp","ogr")
-                
-                writer = None
-                encoding = Tools.getDefaultEncoding()
-                if outputFormat == "shape":
-                    writer = QgsVectorFileWriter(outputs[layer], encoding, geojsonlayer.pendingFields(), osmGeom[layer], geojsonlayer.crs(), "ESRI Shapefile")                    
-                else:
-                    writer = QgsVectorFileWriter(outputs[layer], encoding, geojsonlayer.pendingFields(), osmGeom[layer], geojsonlayer.crs(), "GeoJSON")
-                
-                for f in geojsonlayer.getFeatures():
-                    writer.addFeature(f)
-                del writer
-                
-                #Loading the final vector file
-                newlayer = QgsVectorLayer(outputs[layer],finalLayerName,"ogr")
-                
-                #Try to set styling if defined
-                if configOutputs and configOutputs[layer]['style']:
-                    newlayer.loadNamedStyle(configOutputs[layer]['style'])
-                else:
-                    #Loading default styles
-                    if layer == "multilinestrings" or layer == "lines":
-                        if "colour" in item['tags']:
-                            newlayer.loadNamedStyle(join(dirname(dirname(abspath(__file__))),"styles",layer+"_colour.qml"))
-                
-                #Add action about OpenStreetMap
-                actions = newlayer.actions()
-                actions.addAction(QgsAction.OpenUrl,"OpenStreetMap Browser",'http://www.openstreetmap.org/browse/[% "osm_type" %]/[% "osm_id" %]',False)
-                actions.addAction(QgsAction.GenericPython,'JOSM','from QuickOSM.CoreQuickOSM.Actions import Actions;Actions.run("josm","[% "full_id" %]")',False)
-                actions.addAction(QgsAction.OpenUrl,"User default editor",'http://www.openstreetmap.org/edit?[% "osm_type" %]=[% "osm_id" %]',False)
-                #actions.addAction(QgsAction.GenericPython,"Edit directly",'from QuickOSM.CoreQuickOSM.Actions import Actions;Actions.run("rawedit","[% "osm_type" %]/[% "osm_id" %]")',False)
-                
-                for link in ['url','website','wikipedia','ref:UAI']:
-                    if link in item['tags']:
-                        link = link.replace(":","_")
-                        actions.addAction(QgsAction.GenericPython,link,'from QuickOSM.CoreQuickOSM.Actions import Actions;Actions.run("'+link+'","[% "'+link+'" %]")',False)
-                
-                if 'network' in item['tags'] and 'ref' in item['tags']:
-                    actions.addAction(QgsAction.GenericPython,"Sketchline",'from QuickOSM.CoreQuickOSM.Actions import Actions;Actions.runSketchLine("[% "network" %]","[% "ref" %]")',False)
-                 
-                #Add index if possible
-                if outputFormat == "shape": 
-                    newlayer.dataProvider().createSpatialIndex()
-                                
-                QgsMapLayerRegistry.instance().addMapLayer(newlayer)
-                numLayers += 1
-                
-        return numLayers
+    # Parsing the file
+    osm_parser = OsmParser(
+        osm_file, layers=output_geom_types, whiteListColumn=white_list_column)
+    osm_parser.signalText.connect(dialog.set_progress_text)
+    osm_parser.signalPercentage.connect(dialog.set_progress_percentage)
+    layers = osm_parser.parse()
 
-    '''
-    execute a query and send the resultfile to "openFile"
-    '''    
-    @staticmethod
-    def ProcessQuery(dialog = None, query=None, nominatim=None, bbox=None, outputDir=None, prefixFile=None,outputGeomTypes=None, layerName = "OsmQuery", whiteListValues = None, configOutputs = None):
-        
-        #Check OGR
-        if not Tools.osmDriverIsEnabled():
-            raise OsmDriver
-        
-        #Get output's format
-        outputFormat = Tools.getSetting('outputFormat')
-        
-        #Prepare outputs
-        dialog.setProgressText(QApplication.translate("QuickOSM",u"Prepare outputs"))
-        #If a file already exist, we avoid downloading data for nothing
-        outputs = Process.getOutputs(outputDir, outputFormat, prefixFile, layerName)
+    # Finishing the process with geojson or shapefile
+    num_layers = 0
+    if output_format == "shape":
+        dialog.set_progress_text(tr("QuickOSM", u"From GeoJSON to Shapefile"))
 
-        #Replace Nominatim or BBOX
-        query = Tools.PrepareQueryOqlXml(query=query, nominatimName = nominatim, extent=bbox)
-        
-        #Getting the default OAPI and running the query
-        server = Tools.getSetting('defaultOAPI')
-        dialog.setProgressText(QApplication.translate("QuickOSM",u"Downloading data from Overpass"))
+    for i, (layer, item) in enumerate(layers.iteritems()):
+        dialog.set_progress_percentage(i/len(layers)*100)
         QApplication.processEvents()
-        connexionOAPI = ConnexionOAPI(url=server,output = "xml")
-        osmFile = connexionOAPI.getFileFromQuery(query)
-        
-        return Process.openFile(dialog=dialog,
-                                osmFile = osmFile,
-                                outputGeomTypes = outputGeomTypes,
-                                whiteListColumn = whiteListValues,
-                                layerName = layerName,
-                                outputFormat = outputFormat,
-                                configOutputs = configOutputs)
+        if item['featureCount'] and layer in output_geom_types:
 
-    '''
-    generate a query and send it to "processQuery"
-    '''    
-    @staticmethod
-    def ProcessQuickQuery(dialog = None, key = None,value = None,bbox = None,nominatim = None, isAround = None, distance = None, osmObjects = None, timeout=25, outputDir=None, prefixFile=None, outputGeomTypes=None):
-        
-        #Set the layername
-        layerName = ''
-        for i in [key,value,nominatim]:
-            if i:
-                layerName += i + "_"
-        
-        if isAround:
-            layerName += str(distance) + "_"
-        
-        #Delete last "_"
-        layerName = layerName[:-1]
-        
-        #Building the query
-        queryFactory = QueryFactory(timeout=timeout, key=key, value=value, bbox=bbox, isAround=isAround, distance=distance, nominatim=nominatim, osmObjects=osmObjects)
-        query = queryFactory.make()
-        
-        #Call ProcessQuery with the new query
-        return Process.ProcessQuery(dialog=dialog,
-                                    query=query,
-                                    nominatim=nominatim,
-                                    bbox=bbox,
-                                    outputDir=outputDir,
-                                    prefixFile=prefixFile,
-                                    outputGeomTypes=outputGeomTypes,
-                                    layerName=layerName)
-        
+            final_layer_name = layer_name
+            # If configOutputs is not None (from My Queries)
+            if config_outputs:
+                if config_outputs[layer]['namelayer']:
+                    final_layer_name = config_outputs[layer]['namelayer']
+
+            # Transforming the vector file
+            osm_geometries = {
+                'points': QGis.WKBPoint,
+                'lines': QGis.WKBLineString,
+                'multilinestrings': QGis.WKBMultiLineString,
+                'multipolygons': QGis.WKBMultiPolygon}
+            geojson_layer = QgsVectorLayer(item['geojsonFile'], "temp", "ogr")
+
+            encoding = get_default_encoding()
+            if output_format == "shape":
+                writer = QgsVectorFileWriter(
+                    outputs[layer],
+                    encoding,
+                    geojson_layer.pendingFields(),
+                    osm_geometries[layer],
+                    geojson_layer.crs(),
+                    "ESRI Shapefile")
+            else:
+                writer = QgsVectorFileWriter(
+                    outputs[layer],
+                    encoding,
+                    geojson_layer.pendingFields(),
+                    osm_geometries[layer],
+                    geojson_layer.crs(),
+                    "GeoJSON")
+
+            for f in geojson_layer.getFeatures():
+                writer.addFeature(f)
+
+            del writer
+
+            # Loading the final vector file
+            new_layer = QgsVectorLayer(outputs[layer], final_layer_name, "ogr")
+
+            # Try to set styling if defined
+            if config_outputs and config_outputs[layer]['style']:
+                new_layer.loadNamedStyle(config_outputs[layer]['style'])
+            else:
+                # Loading default styles
+                if layer == "multilinestrings" or layer == "lines":
+                    if "colour" in item['tags']:
+                        new_layer.loadNamedStyle(
+                            join(dirname(dirname(abspath(__file__))),
+                                 "styles",
+                                 layer + "_colour.qml"))
+
+            # Add action about OpenStreetMap
+            actions = new_layer.actions()
+            actions.addAction(
+                QgsAction.OpenUrl,
+                "OpenStreetMap Browser",
+                'http://www.openstreetmap.org/browse/'
+                '[% "osm_type" %]/[% "osm_id" %]',
+                False)
+            actions.addAction(
+                QgsAction.GenericPython,
+                'JOSM',
+                'from QuickOSM.CoreQuickOSM.Actions import Actions;'
+                'Actions.run("josm","[% "full_id" %]")',
+                False)
+            actions.addAction(
+                QgsAction.OpenUrl,
+                "User default editor",
+                'http://www.openstreetmap.org/edit?'
+                '[% "osm_type" %]=[% "osm_id" %]',
+                False)
+
+            for link in ['url', 'website', 'wikipedia', 'ref:UAI']:
+                if link in item['tags']:
+                    link = link.replace(":", "_")
+                    actions.addAction(
+                        QgsAction.GenericPython,
+                        link,
+                        'from QuickOSM.CoreQuickOSM.Actions import Actions;'
+                        'Actions.run("'+link+'","[% "'+link+'" %]")',
+                        False)
+
+            if 'network' in item['tags'] and 'ref' in item['tags']:
+                actions.addAction(
+                    QgsAction.GenericPython,
+                    "Sketchline",
+                    'from QuickOSM.CoreQuickOSM.Actions import Actions;'
+                    'Actions.runSketchLine("[% "network" %]","[% "ref" %]")',
+                    False)
+
+            # Add index if possible
+            if output_format == "shape":
+                new_layer.dataProvider().createSpatialIndex()
+
+            QgsMapLayerRegistry.instance().addMapLayer(new_layer)
+            num_layers += 1
+
+    return num_layers
+
+
+def process_query(
+        dialog=None,
+        query=None,
+        nominatim=None,
+        bbox=None,
+        output_dir=None,
+        prefix_file=None,
+        output_geometry_types=None,
+        layer_name="OsmQuery",
+        white_list_values=None,
+        config_outputs=None):
+    """execute a query and send the result file to open_file."""
+
+    # Check OGR
+    if not is_osm_driver_enabled():
+        raise OsmDriver
+
+    # Get output's format
+    output_format = get_setting('outputFormat')
+
+    # Prepare outputs
+    dialog.set_progress_text(tr("QuickOSM", u"Prepare outputs"))
+    # If a file already exist, we avoid downloading data for nothing
+    outputs = get_outputs(output_dir, output_format, prefix_file, layer_name)
+
+    # Replace Nominatim or BBOX
+    query = prepare_query(query, nominatim, bbox)
+
+    # Getting the default overpass api and running the query
+    server = get_setting('defaultOAPI')
+    dialog.set_progress_text(tr("QuickOSM", u"Downloading data from Overpass"))
+    QApplication.processEvents()
+    connexion_overpass_api = ConnexionOAPI(url=server, output="xml")
+    osm_file = connexion_overpass_api.get_file_from_query(query)
+
+    return open_file(
+        dialog=dialog,
+        osm_file=osm_file,
+        output_geom_types=output_geometry_types,
+        white_list_column=white_list_values,
+        layer_name=layer_name,
+        output_format=output_format,
+        config_outputs=config_outputs)
+
+
+def process_quick_query(
+        dialog=None,
+        key=None,
+        value=None,
+        bbox=None,
+        nominatim=None,
+        is_around=None,
+        distance=None,
+        osm_objects=None,
+        timeout=25,
+        output_directory=None,
+        prefix_file=None,
+        output_geometry_types=None):
+    """
+    generate a query and send it to process_query
+    """
+    # Set the layer name
+    layer_name = ''
+    for i in [key, value, nominatim]:
+        if i:
+            layer_name += i + "_"
+
+    if is_around:
+        layer_name += str(distance) + "_"
+
+    # Delete last "_"
+    layer_name = layer_name[:-1]
+
+    # Building the query
+    query_factory = QueryFactory(
+        timeout=timeout,
+        key=key,
+        value=value,
+        bbox=bbox,
+        isAround=is_around,
+        distance=distance,
+        nominatim=nominatim,
+        osmObjects=osm_objects)
+    query = query_factory.make()
+
+    # Call process_query with the new query
+    return process_query(
+        dialog=dialog,
+        query=query,
+        nominatim=nominatim,
+        bbox=bbox,
+        output_dir=output_directory,
+        prefix_file=prefix_file,
+        output_geometry_types=output_geometry_types,
+        layer_name=layer_name)

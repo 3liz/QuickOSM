@@ -2,8 +2,8 @@
 """
 /***************************************************************************
  QuickOSM
-                                 A QGIS plugin
- OSM's Overpass API frontend
+ A QGIS plugin
+ OSM Overpass API frontend
                              -------------------
         begin                : 2014-06-11
         copyright            : (C) 2014 by 3Liz
@@ -24,46 +24,66 @@
 from xml.sax import make_parser
 from xml.sax.handler import ContentHandler
 
-class OsmMemberParser:
 
-    def __init__(self,osmFile):
-        '''
+class OsmMemberParser(object):
+
+    def __init__(self, osm_file):
+        """
         Constructor
-        '''
-        self.osmFile = osmFile
-        
-    def getFields(self):
-        fields = ["r_full_id","relation","m_full_id","ref","type","role","sequence"]
+        """
+        self.osm_file = osm_file
+
+    @staticmethod
+    def get_fields():
+        fields = [
+            "r_full_id",
+            "relation",
+            "m_full_id",
+            "ref",
+            "type",
+            "role",
+            "sequence"]
         return fields
-        
+
     def parse(self):
-        saxparser = make_parser()
-        relations = osmHandler()
-        saxparser.setContentHandler( relations )
-        f = open(self.osmFile)
-        saxparser.parse(f)
-        
-        for m in relations.members :
+        sax_parser = make_parser()
+        relations = OsmHandler()
+        sax_parser.setContentHandler(relations)
+        f = open(self.osm_file)
+        sax_parser.parse(f)
+
+        for m in relations.members:
             yield m
 
-class osmHandler(ContentHandler):
-    
-    DIC_OSM_TYPE = {'node':'n', 'way':'w', 'relation':'r'}
-    
+
+class OsmHandler(ContentHandler):
+
+    DIC_OSM_TYPE = {'node': 'n', 'way': 'w', 'relation': 'r'}
+
     def __init__(self):
+        ContentHandler.__init__(self)
         self.type = ""
         self.id = ""
         self.sequence = 0
         self.members = []
-        
-    def startElement(self, name, attrs):
+
+    def startElement(self, name, attributes):
         if name == "relation":
             self.type = "relation"
-            self.id = attrs.get("id")
+            self.id = attributes.get("id")
         elif name == "member":
             self.sequence += 1
-            self.members.append( ['r'+self.id, self.id,self.DIC_OSM_TYPE[attrs.get("type")]+attrs.get("ref"),attrs.get("ref"),attrs.get("type"),attrs.get("role"),self.sequence] )
-    
+            osm_type = self.DIC_OSM_TYPE[attributes.get("type")]
+            tab = [
+                'r%s' % self.id,
+                self.id,
+                '%s%s' % (osm_type, attributes.get("ref")),
+                attributes.get("ref"),
+                attributes.get("type"),
+                attributes.get("role"),
+                self.sequence]
+            self.members.append(tab)
+
     def endElement(self, name):
         if name == "relation":
             self.type = ""

@@ -23,8 +23,8 @@
 
 import ntpath
 import ConfigParser
-from os.path import dirname, join,isfile
-from os import listdir
+from operating_system.path import dirname, join,isfile
+from operating_system import listdir
 import re
 
 class FileQuery:

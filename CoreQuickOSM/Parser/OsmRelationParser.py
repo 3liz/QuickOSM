@@ -2,8 +2,8 @@
 """
 /***************************************************************************
  QuickOSM
-                                 A QGIS plugin
- OSM's Overpass API frontend
+ A QGIS plugin
+ OSM Overpass API frontend
                              -------------------
         begin                : 2014-06-11
         copyright            : (C) 2014 by 3Liz
@@ -24,65 +24,66 @@
 from xml.sax import make_parser
 from xml.sax.handler import ContentHandler
 
-class OsmRelationParser:
 
-    def __init__(self,osmFile):
-        '''
+class OsmRelationParser(object):
+
+    def __init__(self, osm_file):
+        """
         Constructor
-        '''
-        self.osmFile = osmFile
-        self.fields = ['full_id','osm_id','osm_type']
+        """
+        self.osm_file = osm_file
+        self.fields = ['full_id', 'osm_id', 'osm_type']
         
-    def getFields(self):
+    def get_fields(self):
         return self.fields
         
     def parse(self):
-        saxparser = make_parser()
-        relations = osmHandler()
-        saxparser.setContentHandler( relations )
-        f = open(self.osmFile)
-        saxparser.parse(f)
+        sax_parser = make_parser()
+        relations = OsmHandler()
+        sax_parser.setContentHandler(relations)
+        f = open(self.osm_file)
+        sax_parser.parse(f)
         
         self.fields = relations.fields
-        for elem in relations.elements :
+        for elem in relations.elements:
             e = []
-            for f in self.fields :
-                if f in elem :
-                    e.append( elem[f] )
-                else :
-                    e.append( '' )
+            for f in self.fields:
+                if f in elem:
+                    e.append(elem[f])
+                else:
+                    e.append('')
             yield e
 
-class osmHandler(ContentHandler):
+
+class OsmHandler(ContentHandler):
     
-    DIC_OSM_TYPE = {'node':'n', 'way':'w', 'relation':'r'}
-    
+    DIC_OSM_TYPE = {'node': 'n', 'way': 'w', 'relation': 'r'}
+
     def __init__(self):
+        ContentHandler.__init__(self)
         self.type = ""
         self.id = ""
         self.tags = {}
-
-        self.fields = ['full_id','osm_id','osm_type']
-        self.elements=[]
+        self.fields = ['full_id', 'osm_id', 'osm_type']
+        self.elements = []
         
-    def startElement(self, name, attrs):
+    def startElement(self, name, attributes):
         if name == "relation":
             self.type = "relation"
-            self.id = attrs.get("id")
+            self.id = attributes.get("id")
         elif name == "tag" and self.type == "relation":
-            k = attrs.get("k").replace( ":", "_" )
-            if k not in self.fields :
-                self.fields.append( k )
-            self.tags[k] = attrs.get("v")
+            k = attributes.get("k").replace(":", "_")
+            if k not in self.fields:
+                self.fields.append(k)
+            self.tags[k] = attributes.get("v")
     
     def endElement(self, name):
         if name == "relation":
             self.tags['full_id'] = 'r'+self.id
             self.tags['osm_id'] = self.id
             self.tags['osm_type'] = 'relation'
-            self.elements.append( self.tags )
+            self.elements.append(self.tags)
 
             self.type = ""
             self.id = ""
             self.tags = {}
-

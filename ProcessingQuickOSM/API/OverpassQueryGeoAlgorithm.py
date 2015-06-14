@@ -21,14 +21,13 @@
  ***************************************************************************/
 """
 
-from QuickOSM import *
 from qgis.utils import iface
 
 from QuickOSM.ProcessingQuickOSM import *
 
 from QuickOSM.CoreQuickOSM.API.ConnexionOAPI import ConnexionOAPI
 from QuickOSM.CoreQuickOSM.Tools import Tools
-from os.path import isfile,join,basename,dirname,abspath
+from operating_system.path import isfile,join,basename,dirname,abspath
 
 
 class OverpassQueryGeoAlgorithm(GeoAlgorithm):
@@ -55,20 +54,20 @@ class OverpassQueryGeoAlgorithm(GeoAlgorithm):
 
     def help(self):
         locale = QSettings().value("locale/userLocale")[0:2]
-        locale = "." + locale
+        locale += "."
 
-        currentFile = __file__
-        if currentFile.endswith('pyc'):
-            currentFile = currentFile[:-1]
-        currentFile = basename(currentFile)
-        
-        helps = [currentFile + locale +".html", currentFile + ".html"]
-        
-        docPath = join(dirname(dirname(dirname(abspath(__file__)))),'doc')
-        for helpFileName in helps :
-            fileHelpPath = join(docPath,helpFileName)
-            if isfile(fileHelpPath):
-                return False, fileHelpPath
+        current_file = __file__
+        if current_file.endswith('pyc'):
+            current_file = current_file[:-1]
+        current_file = basename(current_file)
+
+        helps = [current_file + locale + ".html", current_file + ".html"]
+
+        doc_path = join(dirname(dirname(dirname(abspath(__file__)))), 'doc')
+        for helpFileName in helps:
+            file_help_path = join(doc_path, helpFileName)
+            if isfile(file_help_path):
+                return False, file_help_path
         
         return False, None
     
@@ -106,7 +105,7 @@ class OverpassQueryGeoAlgorithm(GeoAlgorithm):
         oapi = ConnexionOAPI(url=server,output="xml")
         self.progress.setInfo("Downloading data from Overpass")
         self.progress.setPercentage(5)
-        osmFile = oapi.getFileFromQuery(query)
+        osmFile = oapi.get_file_from_query(query)
         
         #Set the output file for Processing
         self.progress.setPercentage(100)

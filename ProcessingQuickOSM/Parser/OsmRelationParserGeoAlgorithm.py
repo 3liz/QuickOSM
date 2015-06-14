@@ -25,7 +25,7 @@ from QuickOSM import *
 from QuickOSM.ProcessingQuickOSM import *
 
 from QuickOSM.CoreQuickOSM.Parser.OsmRelationParser import OsmRelationParser
-from os.path import isfile,join,basename,dirname,abspath
+from operating_system.path import isfile,join,basename,dirname,abspath
 
 class OsmRelationParserGeoAlgorithm(GeoAlgorithm):
     '''
@@ -50,20 +50,20 @@ class OsmRelationParserGeoAlgorithm(GeoAlgorithm):
 
     def help(self):
         locale = QSettings().value("locale/userLocale")[0:2]
-        locale = "." + locale
+        locale += "."
 
-        currentFile = __file__
-        if currentFile.endswith('pyc'):
-            currentFile = currentFile[:-1]
-        currentFile = basename(currentFile)
-        
-        helps = [currentFile + locale +".html", currentFile + ".html"]
-        
-        docPath = join(dirname(dirname(dirname(abspath(__file__)))),'doc')
-        for helpFileName in helps :
-            fileHelpPath = join(docPath,helpFileName)
-            if isfile(fileHelpPath):
-                return False, fileHelpPath
+        current_file = __file__
+        if current_file.endswith('pyc'):
+            current_file = current_file[:-1]
+        current_file = basename(current_file)
+
+        helps = [current_file + locale + ".html", current_file + ".html"]
+
+        doc_path = join(dirname(dirname(dirname(abspath(__file__)))), 'doc')
+        for helpFileName in helps:
+            file_help_path = join(doc_path, helpFileName)
+            if isfile(file_help_path):
+                return False, file_help_path
         
         return False, None
     
@@ -83,7 +83,7 @@ class OsmRelationParserGeoAlgorithm(GeoAlgorithm):
         for item in results :
             firstItem = item
             break
-        fields = parser.getFields()
+        fields = parser.get_fields()
         
         table = self.getOutputFromName(self.TABLE)
         tableWriter = table.getTableWriter(fields)

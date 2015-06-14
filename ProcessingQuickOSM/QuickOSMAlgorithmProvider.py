@@ -2,8 +2,8 @@
 """
 /***************************************************************************
  QuickOSM
-                                 A QGIS plugin
- OSM's Overpass API frontend
+ A QGIS plugin
+ OSM Overpass API frontend
                              -------------------
         begin                : 2014-06-11
         copyright            : (C) 2014 by 3Liz
@@ -21,9 +21,7 @@
  ***************************************************************************/
 """
 
-from QuickOSM import *
 from processing.core.AlgorithmProvider import AlgorithmProvider
-from processing.core.ProcessingConfig import ProcessingConfig
 from API.OverpassQueryGeoAlgorithm import OverpassQueryGeoAlgorithm
 from API.XapiQueryGeoAlgorithm import XapiQueryGeoAlgorithm
 from API.NominatimQueryGeoAlgorithm import NominatimQueryGeoAlgorithm
@@ -36,10 +34,13 @@ from Parser.OsmMemberParserGeoAlgorithm import OsmMemberParserGeoAlgorithm
 from Parser.OsmRelationParserGeoAlgorithm import OsmRelationParserGeoAlgorithm
 from Tools.GetFirstFieldGeoAlgorithm import GetFirstFieldGeoAlgorithm
 
+from PyQt4.QtGui import QIcon
+
+
 class QuickOSMAlgorithmProvider(AlgorithmProvider):
-    '''
+    """
     QuickOSM provide some GeoAlgorithms
-    '''
+    """
 
     def __init__(self):
         AlgorithmProvider.__init__(self)

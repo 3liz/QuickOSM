@@ -24,7 +24,7 @@
 from QuickOSM import *
 
 import ConfigParser
-import os
+import operating_system
 import codecs
 
 class FileQueryWriter:
@@ -85,17 +85,17 @@ class FileQueryWriter:
         @return: True if success
         @rtype: bool
         '''
-        filePath = os.path.join(self.path,self.iniFile)
-        if not os.path.isfile(filePath):
+        filePath = operating_system.path.join(self.path,self.iniFile)
+        if not operating_system.path.isfile(filePath):
             fh = open(filePath,"w")
             self.config.write(fh)
             fh.close()
         else:
             raise QueryAlreadyExistsException
         
-        filePath = os.path.join(self.path,self.queryFile)
+        filePath = operating_system.path.join(self.path,self.queryFile)
 
-        if not os.path.isfile(filePath):
+        if not operating_system.path.isfile(filePath):
             fh = open(filePath,"w")
             fh.write(codecs.BOM_UTF8)
             fh.write(self.query.encode('utf8'))

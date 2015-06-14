@@ -2,8 +2,8 @@
 """
 /***************************************************************************
  QuickOSM
-                                 A QGIS plugin
- OSM's Overpass API frontend
+ A QGIS plugin
+ OSM Overpass API frontend
                              -------------------
         begin                : 2014-06-11
         copyright            : (C) 2014 by 3Liz
@@ -21,61 +21,73 @@
  ***************************************************************************/
 """
 
-from QuickOSM import *
+from PyQt4.QtGui import QDialog, QSizePolicy
+from PyQt4.QtCore import pyqtSignal
+from qgis.gui import QgsMessageBar
+
+from CoreQuickOSM.FileQueryWriter import FileQueryWriter
+from CoreQuickOSM.utilities.tools import get_user_query_folder
+from CoreQuickOSM.ExceptionQuickOSM import QuickOsmException
 from save_query import Ui_ui_save_query
-from os.path import dirname,abspath,isfile, join
-from QuickOSM.CoreQuickOSM.FileQueryWriter import FileQueryWriter
-from QuickOSM.CoreQuickOSM.Tools import Tools
+
 
 class SaveQueryDialog(QDialog, Ui_ui_save_query):
     
-    #Signal new query
-    signalNewQuerySuccessful = pyqtSignal(name='signalNewQuerySuccessful')
+    # Signal new query
+    signal_new_query_successful = pyqtSignal(
+        name='signal_new_query_successful')
     
-    def __init__(self, parent=None, query=None,whiteListValues=None,outputGeomTypes=None):
-        '''
+    def __init__(
+            self,
+            parent=None,
+            query=None,
+            white_list_values=None,
+            output_geometry_types=None):
+        """
         SaveQueryDialog constructor
+
         @param query:query to save
         @type query: str
-        @param whiteListValues: doc of layers with columns
-        @type whiteListValues: dic
-        @param outputGeomTypes: list of layers
-        @type outputGeomTypes: list
-        '''
+
+        @param white_list_values: doc of layers with columns
+        @type white_list_values: dic
+
+        @param output_geometry_types: list of layers
+        @type output_geometry_types: list
+        """
         super(SaveQueryDialog, self).__init__(parent)
         QDialog.__init__(self)
         self.setupUi(self)
         self.bar = QgsMessageBar()
-        self.bar.setSizePolicy( QSizePolicy.Minimum, QSizePolicy.Fixed )
+        self.bar.setSizePolicy(QSizePolicy.Minimum, QSizePolicy.Fixed)
         self.layout().addWidget(self.bar)
         
-        self.whiteListValues = whiteListValues
-        self.outputGeomTypes = outputGeomTypes
+        self.whiteListValues = white_list_values
+        self.outputGeomTypes = output_geometry_types
         self.query = query
         
     def accept(self):
-        '''
+        """
         On accept, we call the FileQueryWriter
-        '''
+        """
         category = self.lineEdit_category.text()
         name = self.lineEdit_name.text()
         
-        #Get folder .qgis2/QuickOSM/queries on linux for instance
-        folder = Tools.getUserQueryFolder()
+        # Get folder .qgis2/QuickOSM/queries on linux for instance
+        folder = get_user_query_folder()
         
-        iniFile = FileQueryWriter(path=folder,name=name,category=category,query=self.query,whiteListValues=self.whiteListValues,outputGeomTypes=self.outputGeomTypes)
+        ini_file = FileQueryWriter(
+            path=folder,
+            name=name,
+            category=category,
+            query=self.query,
+            whiteListValues=self.whiteListValues,
+            outputGeomTypes=self.outputGeomTypes)
         try:
-            iniFile.save()
-            self.signalNewQuerySuccessful.emit()
+            ini_file.save()
+            self.signal_new_query_successful.emit()
             self.hide()
-        except GeoAlgorithmExecutionException,e:
-            self.bar.pushMessage(e.msg, level=e.level , duration=e.duration)
-        except Exception,e:
-            import sys,os
-            exc_type, exc_obj, exc_tb = sys.exc_info()
-            fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
-            print(exc_type, fname, exc_tb.tb_lineno)
-            ex_type, ex, tb = sys.exc_info()
-            import traceback
-            traceback.print_tb(tb)
-            self.bar.pushMessage("Error in the python console, please report it", level=QgsMessageBar.CRITICAL , duration=5)
+        except QuickOsmException, e:
+            self.bar.pushMessage(e.msg, level=e.level, duration=e.duration)
+        except Exception, e:
+            self.display_exception(e)

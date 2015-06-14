@@ -2,8 +2,8 @@
 """
 /***************************************************************************
  QuickOSM
-                                 A QGIS plugin
- OSM's Overpass API frontend
+ A QGIS plugin
+ OSM Overpass API frontend
                              -------------------
         begin                : 2014-06-11
         copyright            : (C) 2014 by 3Liz
@@ -21,21 +21,33 @@
  ***************************************************************************/
 """
 
-from QuickOSM import *
+from os.path import split
+from sys import exc_info
+
+from PyQt4.QtGui import QWidget, QFileDialog, QApplication, QDesktopServices
+from PyQt4.QtCore import QUrl
 from qgis.utils import iface
+from qgis.gui import QgsMessageBar
+from qgis.core import \
+    QgsGeometry, QgsCoordinateTransform, QgsCoordinateReferenceSystem
+
+from CoreQuickOSM.utilities.qgis import display_message_bar
+from CoreQuickOSM.utilities.tools import tr
+from CoreQuickOSM.ExceptionQuickOSM import NoLayerException
+
 
 class QuickOSMWidget(QWidget):
-    def __init__(self):
-        QWidget.__init__(self)
+    def __init__(self, parent=None):
+        QWidget.__init__(self, parent)
 
-    def fillLayerCombobox(self):
-        '''
+    def fill_layer_combobox(self):
+        """
         Fill the combobox with layers which are in the legend
-        '''
+        """
         layers = iface.legendInterface().layers()
         self.comboBox_extentLayer.clear()
         for layer in layers:
-            self.comboBox_extentLayer.addItem(layer.name(),layer.id())
+            self.comboBox_extentLayer.addItem(layer.name(), layer.id())
             
         if self.comboBox_extentLayer.count() < 1:
             self.radioButton_extentLayer.setCheckable(False)
@@ -43,117 +55,125 @@ class QuickOSMWidget(QWidget):
         else:
             self.radioButton_extentLayer.setCheckable(True)
             
-    def disablePrefixFile(self):
-        '''
+    def disable_prefix_file(self):
+        """
         If the directory is empty, we disable the file prefix
-        '''
+        """
         if self.lineEdit_browseDir.text():
             self.lineEdit_filePrefix.setDisabled(False)
         else:
             self.lineEdit_filePrefix.setText("")
             self.lineEdit_filePrefix.setDisabled(True)
             
-    def setOutDirPath(self):
-        '''
+    def set_output_directory_path(self):
+        """
         Fill the output directory path
-        '''
-        outputFile = QFileDialog.getExistingDirectory(None, caption=QApplication.translate("QuickOSM", 'Select directory'))
-        self.lineEdit_browseDir.setText(outputFile)
-        self.disablePrefixFile()
+        """
+        # noinspection PyTypeChecker
+        output_file = QFileDialog.getExistingDirectory(
+            None, caption=tr("QuickOSM", 'Select directory'))
+        self.lineEdit_browseDir.setText(output_file)
+        self.disable_prefix_file()
         
-    def extentRadio(self):
-        '''
-        Disable or enable the comboxbox
-        '''
+    def extent_radio(self):
+        """
+        Disable or enable the combox box
+        """
         if self.radioButton_extentLayer.isChecked():
             self.comboBox_extentLayer.setDisabled(False)
         else:
             self.comboBox_extentLayer.setDisabled(True)
 
-    def getOutputGeomTypes(self):
-        '''
+    def get_output_geometry_types(self):
+        """
         Get all checkbox about outputs and return a list
+
         @rtype: list
         @return: list of layers
-        '''
-        outputGeomTypes = []
+        """
+        output_geom_types = []
         if self.checkBox_points.isChecked():
-            outputGeomTypes.append('points')
+            output_geom_types.append('points')
         if self.checkBox_lines.isChecked():
-            outputGeomTypes.append('lines')
+            output_geom_types.append('lines')
         if self.checkBox_multilinestrings.isChecked():
-            outputGeomTypes.append('multilinestrings')
+            output_geom_types.append('multilinestrings')
         if self.checkBox_multipolygons.isChecked():
-            outputGeomTypes.append('multipolygons')
-        return outputGeomTypes
+            output_geom_types.append('multipolygons')
+        return output_geom_types
     
-    def getWhiteListValues(self):
-        '''
-        Get all lineedits about columns for each layers and return a dic
+    def get_white_list_values(self):
+        """
+        Get all line edits about columns for each layers and return a dic
+
         @rtype: dic
         @return: doc of layers with columns
-        '''
-        whiteListValues = {}
+        """
+        white_list_values = {}
         if self.checkBox_points.isChecked():
-            whiteListValues['points'] = self.lineEdit_csv_points.text()
+            white_list_values['points'] = self.lineEdit_csv_points.text()
         if self.checkBox_lines.isChecked():
-            whiteListValues['lines'] = self.lineEdit_csv_lines.text()
+            white_list_values['lines'] = self.lineEdit_csv_lines.text()
         if self.checkBox_multilinestrings.isChecked():
-            whiteListValues['multilinestrings'] = self.lineEdit_csv_multilinestrings.text()
+            white_list_values['multilinestrings'] = \
+                self.lineEdit_csv_multilinestrings.text()
         if self.checkBox_multipolygons.isChecked():
-            whiteListValues['multipolygons'] = self.lineEdit_csv_multipolygons.text()
-        return whiteListValues
+            white_list_values['multipolygons'] = \
+                self.lineEdit_csv_multipolygons.text()
+        return white_list_values
     
-    def getBBox(self):
-        '''
+    def get_bounding_box(self):
+        """
         Get the geometry of the bbox in WGS84
+
         @rtype: QGsRectangle in WGS84
         @return: the extent of the map canvas
-        '''
-        geomExtent = None
-        sourceCrs = None
+        """
         
-        #If mapCanvas is checked
+        # If mapCanvas is checked
         if self.radioButton_extentMapCanvas.isChecked():
-            geomExtent = iface.mapCanvas().extent()
-            sourceCrs = iface.mapCanvas().mapSettings().destinationCrs() if hasattr(iface.mapCanvas(),"mapSettings") else iface.mapCanvas().mapRenderer().destinationCrs()
+            geom_extent = iface.mapCanvas().extent()
+            if hasattr(iface.mapCanvas(), "mapSettings"):
+                source_crs = iface.mapCanvas().mapSettings().destinationCrs()
+            else:
+                source_crs = iface.mapCanvas().mapRenderer().destinationCrs()
         else:
-            #Else if a layer is checked
+            # Else if a layer is checked
             index = self.comboBox_extentLayer.currentIndex()
-            layerID = self.comboBox_extentLayer.itemData(index)
+            layer_id = self.comboBox_extentLayer.itemData(index)
             layers = iface.legendInterface().layers()
             for layer in layers:
-                if layer.id() == layerID:
-                    geomExtent = layer.extent()
-                    sourceCrs = layer.crs()
+                if layer.id() == layer_id:
+                    geom_extent = layer.extent()
+                    source_crs = layer.crs()
                     break
             else:
-                #the layer could be deleted before
-                layerName = self.comboBox_extentLayer.itemText(index)
-                raise NoLayerException(suffix=layerName)
+                # the layer could be deleted before
+                layer_name = self.comboBox_extentLayer.itemText(index)
+                raise NoLayerException(suffix=layer_name)
         
-        geomExtent = QgsGeometry.fromRect(geomExtent)
-        crsTransform = QgsCoordinateTransform(sourceCrs, QgsCoordinateReferenceSystem("EPSG:4326"))
-        geomExtent.transform(crsTransform)
-        return geomExtent.boundingBox()
+        geom_extent = QgsGeometry.fromRect(geom_extent)
+        epsg_4326 = QgsCoordinateReferenceSystem('EPSG:4326')
+        crs_transform = QgsCoordinateTransform(source_crs, epsg_4326)
+        geom_extent.transform(crs_transform)
+        return geom_extent.boundingBox()
 
-    def startProcess(self):
-        '''
+    def start_process(self):
+        """
         Make some stuff before launching the process
-        '''
+        """
         self.pushButton_runQuery.setDisabled(True)
         self.pushButton_runQuery.initialText = self.pushButton_runQuery.text()
-        self.pushButton_runQuery.setText(QApplication.translate("QuickOSM","Running query ..."))
+        self.pushButton_runQuery.setText(tr('QuickOSM', 'Running query ...'))
         self.progressBar_execution.setMinimum(0)
         self.progressBar_execution.setMaximum(0)
         self.progressBar_execution.setValue(0)
-        self.label_progress.setText("")
-        
-        
-    def endProcess(self):
-        '''
+        self.label_progress.setText('')
+
+    def end_process(self):
+        """
         Make some stuff after the process
-        '''
+        """
         self.pushButton_runQuery.setDisabled(False)
         self.pushButton_runQuery.setText(self.pushButton_runQuery.initialText)
         self.progressBar_execution.setMinimum(0)
@@ -161,44 +181,49 @@ class QuickOSMWidget(QWidget):
         self.progressBar_execution.setValue(100)
         QApplication.processEvents()      
     
-    def setProgressPercentage(self,percent):
-        '''
+    def set_progress_percentage(self, percent):
+        """
         Slot to update percentage during process
-        '''
+        """
         self.progressBar_execution.setValue(percent)
         QApplication.processEvents()
         
-    def setProgressText(self,text):
-        '''
+    def set_progress_text(self, text):
+        """
         Slot to update text during process
-        '''
+        """
         self.label_progress.setText(text)
         QApplication.processEvents()
     
-    def displayGeoAlgorithmException(self,e):
-        '''
-        Display quickosm's exceptions 
-        '''
+    def display_geo_algorithm_exception(self, e):
+        """
+        Display quickosm exceptions
+        """
         self.label_progress.setText("")
-        Tools.displayMessageBar(e.msg, level=e.level , duration=e.duration)
+        display_message_bar(e.msg, level=e.level, duration=e.duration)
 
-    def displayException(self,e):
-        '''
+    @staticmethod
+    def display_exception(e):
+        """
         Display others exceptions 
-        '''
-        import sys,os
-        exc_type, exc_obj, exc_tb = sys.exc_info()
-        fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
-        print(exc_type, fname, exc_tb.tb_lineno)
-        ex_type, ex, tb = sys.exc_info()
+        """
+        exc_type, exc_obj, exc_tb = exc_info()
+        f_name = split(exc_tb.tb_frame.f_code.co_filename)[1]
+        print(exc_type, f_name, exc_tb.tb_lineno)
+        ex_type, ex, tb = exc_info()
         import traceback
         traceback.print_tb(tb)
         print e
-        Tools.displayMessageBar("Error in the python console, please report it", level=QgsMessageBar.CRITICAL , duration=5)
-        
-    def openMapFeatures(self):
-        '''
+        display_message_bar(
+            tr("Error in the python console, please report it"),
+            level=QgsMessageBar.CRITICAL,
+            duration=5)
+
+    @staticmethod
+    def open_map_features():
+        """
         Open MapFeatures
-        '''
-        desktopService = QDesktopServices()
-        desktopService.openUrl(QUrl("http://wiki.openstreetmap.org/wiki/Mapfeatures"))
+        """
+        desktop_service = QDesktopServices()
+        desktop_service.openUrl(
+            QUrl("http://wiki.openstreetmap.org/wiki/Mapfeatures"))

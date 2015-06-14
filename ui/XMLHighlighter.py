@@ -2,8 +2,8 @@
 """
 /***************************************************************************
  QuickOSM
-                                 A QGIS plugin
- OSM's Overpass API frontend
+ A QGIS plugin
+ OSM Overpass API frontend
                              -------------------
         begin                : 2014-06-11
         copyright            : (C) 2014 by 3Liz
@@ -21,86 +21,92 @@
  ***************************************************************************/
 """
 
-from PyQt4 import QtGui
-from PyQt4 import QtCore
+from PyQt4.QtGui import QTextCharFormat, QSyntaxHighlighter, QColor, QFont
+from PyQt4.QtCore import Qt, QRegExp
 
-class XMLHighlighter(QtGui.QSyntaxHighlighter):
- 
-    #INIT THE STUFF
+
+class XMLHighlighter(QSyntaxHighlighter):
+
     def __init__(self, parent=None):
         super(XMLHighlighter, self).__init__(parent)
  
-        keywordFormat = QtGui.QTextCharFormat()
-        keywordFormat.setForeground(QtCore.Qt.darkMagenta)
+        keyword_format = QTextCharFormat()
+        keyword_format.setForeground(Qt.darkMagenta)
  
-        keywordPatterns = ["\\b?xml\\b", "/>", ">", "<"]
+        keyword_patterns = ["\\b?xml\\b", "/>", ">", "<"]
  
-        self.highlightingRules = [(QtCore.QRegExp(pattern), keywordFormat)
-                for pattern in keywordPatterns]
+        self.highlightingRules = [(QRegExp(pattern), keyword_format)
+                                  for pattern in keyword_patterns]
  
-        xmlElementFormat = QtGui.QTextCharFormat()
-        xmlElementFormat.setForeground(QtGui.QColor("#117700"))
-        self.highlightingRules.append((QtCore.QRegExp("\\b[A-Za-z0-9_\-]+(?=[\s/>])"), xmlElementFormat))
+        xml_element_format = QTextCharFormat()
+        xml_element_format.setForeground(QColor("#117700"))
+        self.highlightingRules.append(
+            (QRegExp("\\b[A-Za-z0-9_\-]+(?=[\s/>])"), xml_element_format))
  
-        nominatimAreaFormat = QtGui.QTextCharFormat()
-        nominatimAreaFormat.setFontItalic(True)
-        nominatimAreaFormat.setFontWeight(QtGui.QFont.Bold)
-        nominatimAreaFormat.setForeground(QtGui.QColor("#FF7C00"))
-        self.highlightingRules.append((QtCore.QRegExp("\{\{[A-Za-z0-9:, ]*\}\}"), nominatimAreaFormat))
+        nominatim_area_format = QTextCharFormat()
+        nominatim_area_format.setFontItalic(True)
+        nominatim_area_format.setFontWeight(QFont.Bold)
+        nominatim_area_format.setForeground(QColor("#FF7C00"))
+        self.highlightingRules.append(
+            (QRegExp("\{\{[A-Za-z0-9:, ]*\}\}"), nominatim_area_format))
  
-        xmlAttributeFormat = QtGui.QTextCharFormat()
-        xmlAttributeFormat.setFontItalic(True)
-        xmlAttributeFormat.setForeground(QtGui.QColor("#2020D2"))
-        self.highlightingRules.append((QtCore.QRegExp("\\b[A-Za-z0-9_]+(?=\\=)"), xmlAttributeFormat))
+        xml_attribute_format = QTextCharFormat()
+        xml_attribute_format.setFontItalic(True)
+        xml_attribute_format.setForeground(QColor("#2020D2"))
+        self.highlightingRules.append(
+            (QRegExp("\\b[A-Za-z0-9_]+(?=\\=)"), xml_attribute_format))
  
-        self.valueFormat = QtGui.QTextCharFormat()
-        self.valueFormat.setForeground(QtCore.Qt.red)
+        self.value_format = QTextCharFormat()
+        self.value_format.setForeground(Qt.red)
  
-        self.valueStartExpression = QtCore.QRegExp("\"")
-        self.valueEndExpression = QtCore.QRegExp("\"(?=[\s></])")
+        self.value_start_expression = QRegExp("\"")
+        self.value_end_expression = QRegExp("\"(?=[\s></])")
  
-        singleLineCommentFormat = QtGui.QTextCharFormat()
-        singleLineCommentFormat.setForeground(QtCore.Qt.gray)
-        self.highlightingRules.append((QtCore.QRegExp("<!--[^\n]*-->"), singleLineCommentFormat))
- 
-    #VIRTUAL FUNCTION WE OVERRIDE THAT DOES ALL THE COLLORING
+        single_line_comment_format = QTextCharFormat()
+        single_line_comment_format.setForeground(Qt.gray)
+        self.highlightingRules.append(
+            (QRegExp("<!--[^\n]*-->"), single_line_comment_format))
+
     def highlightBlock(self, text):
+        # for every pattern
+        for pattern, char_format in self.highlightingRules:
  
-        #for every pattern
-        for pattern, format in self.highlightingRules:
+            # Create a regular expression from the retrieved pattern
+            expression = QRegExp(pattern)
  
-            #Create a regular expression from the retrieved pattern
-            expression = QtCore.QRegExp(pattern)
- 
-            #Check what index that expression occurs at with the ENTIRE text
+            # Check what index that expression occurs at with the ENTIRE text
             index = expression.indexIn(text)
  
-            #While the index is greater than 0
+            # While the index is greater than 0
             while index >= 0:
  
-                #Get the length of how long the expression is true, set the format from the start to the length with the text format
+                # Get the length of how long the expression is true,
+                # set the format from the start to the length with
+                # the text format
                 length = expression.matchedLength()
-                self.setFormat(index, length, format)
+                self.setFormat(index, length, char_format)
  
-                #Set index to where the expression ends in the text
+                # Set index to where the expression ends in the text
                 index = expression.indexIn(text, index + length)
  
-        #HANDLE QUOTATION MARKS NOW.. WE WANT TO START WITH " AND END WITH ".. A THIRD " SHOULD NOT CAUSE THE WORDS INBETWEEN SECOND AND THIRD TO BE COLORED
         self.setCurrentBlockState(0)
  
-        startIndex = 0
+        start_index = 0
         if self.previousBlockState() != 1:
-            startIndex = self.valueStartExpression.indexIn(text)
+            start_index = self.value_start_expression.indexIn(text)
  
-        while startIndex >= 0:
-            endIndex = self.valueEndExpression.indexIn(text, startIndex)
+        while start_index >= 0:
+            end_index = self.value_end_expression.indexIn(text, start_index)
  
-            if endIndex == -1:
+            if end_index == -1:
                 self.setCurrentBlockState(1)
-                commentLength = len(text) - startIndex
+                comment_length = len(text) - start_index
             else:
-                commentLength = endIndex - startIndex + self.valueEndExpression.matchedLength()
+                comment_length = \
+                    end_index - start_index + \
+                    self.value_end_expression.matchedLength()
  
-            self.setFormat(startIndex, commentLength, self.valueFormat)
+            self.setFormat(start_index, comment_length, self.value_format)
  
-            startIndex = self.valueStartExpression.indexIn(text, startIndex + commentLength);
+            start_index = self.value_start_expression.indexIn(
+                text, start_index + comment_length)

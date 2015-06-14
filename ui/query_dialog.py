@@ -2,8 +2,8 @@
 """
 /***************************************************************************
  QuickOSM
-                                 A QGIS plugin
- OSM's Overpass API frontend
+ A QGIS plugin
+ OSM Overpass API frontend
                              -------------------
         begin                : 2014-06-11
         copyright            : (C) 2014 by 3Liz
@@ -21,77 +21,98 @@
  ***************************************************************************/
 """
 
-from QuickOSM import *
-from QuickOSMWidget import *
-from QuickOSM.Controller.Process import Process
-from save_query_dialog import SaveQueryDialog
-from QuickOSM.CoreQuickOSM.Tools import Tools
-from XMLHighlighter import XMLHighlighter
-import os
 import re
-from qgis.utils import iface
+from os.path import isdir
+
+from PyQt4.QtGui import \
+    QDockWidget, QDesktopServices, QMenu, QAction, QApplication
+from PyQt4.QtCore import pyqtSignal, Qt, QUrl
+from qgis.gui import QgsMessageBar
+
+from CoreQuickOSM.utilities.tools import tr
+from CoreQuickOSM.ExceptionQuickOSM import (
+    QuickOsmException,
+    DirectoryOutPutException,
+    OutPutGeomTypesException,
+    MissingParameterException)
+from CoreQuickOSM.utilities.qgis import display_message_bar
+from CoreQuickOSM.QueryParser import prepare_query
+from Controller.Process import process_query
+from XMLHighlighter import XMLHighlighter
+from save_query_dialog import SaveQueryDialog
+from QuickOSMWidget import QuickOSMWidget
 from query import Ui_ui_query
+
 
 class QueryWidget(QuickOSMWidget, Ui_ui_query):
     
-    #Signal new query
-    signalNewQuerySuccessful = pyqtSignal(name='signalNewQuerySuccessful')
-    
+    # Signal new query
+    signal_new_query_successful = pyqtSignal(
+        name='signal_new_query_successful')
+
+    # noinspection PyUnresolvedReferences
     def __init__(self, parent=None):
         '''
         QueryWidget constructor
         '''
-        QuickOSMWidget.__init__(self)
+        QuickOSMWidget.__init__(self, parent)
         self.setupUi(self)
         
-        #Highlight XML
+        # Highlight XML
         self.highlighter = XMLHighlighter(self.textEdit_query.document())
                
-        #Setup UI
+        # Setup UI
         self.label_progress.setText("")
         self.lineEdit_filePrefix.setDisabled(True)
         self.groupBox.setCollapsed(True)
         self.bbox = None
-        self.fillLayerCombobox()
+        self.fill_layer_combobox()
         self.groupBox.setCollapsed(True)
-        #Disable buttons
+        # Disable buttons
         self.pushButton_generateQuery.setDisabled(True)
         self.pushButton_saveQuery.setDisabled(True)
         self.pushButton_runQuery.setDisabled(True)
         
-        #Setup menu for saving
-        popupmenu = QMenu()
-        saveFinalQueryAction = QAction(QApplication.translate("QuickOSM", 'Save as final query'),self.pushButton_saveQuery)
-        saveFinalQueryAction.triggered.connect(self.saveFinalQuery)
-        popupmenu.addAction(saveFinalQueryAction)
-        saveTemplateQueryAction = QAction(QApplication.translate("QuickOSM", 'Save as template'),self.pushButton_saveQuery)
-        saveTemplateQueryAction.triggered.connect(self.saveTemplateQuery)
-        popupmenu.addAction(saveTemplateQueryAction)
-        self.pushButton_saveQuery.setMenu(popupmenu)
+        # Setup menu for saving
+        popup_menu = QMenu()
+        save_final_query_action = QAction(
+            tr('QuickOSM', 'Save as final query'), self.pushButton_saveQuery)
+        save_final_query_action.triggered.connect(self.save_final_query)
+        popup_menu.addAction(save_final_query_action)
+        save_template_query_action = QAction(
+            tr('QuickOSM', 'Save as template'), self.pushButton_saveQuery)
+        save_template_query_action.triggered.connect(self.save_template_query)
+        popup_menu.addAction(save_template_query_action)
+        self.pushButton_saveQuery.setMenu(popup_menu)
         
-        #Setup menu for documentation
-        popupmenu = QMenu()
-        mapFeaturesAction = QAction('Map Features',self.pushButton_documentation)
-        mapFeaturesAction.triggered.connect(self.openMapFeatures)
-        popupmenu.addAction(mapFeaturesAction)
-        overpassAction = QAction('Overpass',self.pushButton_documentation)
-        overpassAction.triggered.connect(self.openDocOverpass)
-        popupmenu.addAction(overpassAction)
-        self.pushButton_documentation.setMenu(popupmenu)
+        # Setup menu for documentation
+        popup_menu = QMenu()
+        map_features_action = QAction(
+            'Map Features', self.pushButton_documentation)
+        map_features_action.triggered.connect(self.open_map_features)
+        popup_menu.addAction(map_features_action)
+        overpass_action = QAction('Overpass', self.pushButton_documentation)
+        overpass_action.triggered.connect(self.open_doc_overpass)
+        popup_menu.addAction(overpass_action)
+        self.pushButton_documentation.setMenu(popup_menu)
         
-        #connect
-        self.pushButton_runQuery.clicked.connect(self.runQuery)
-        self.pushButton_generateQuery.clicked.connect(self.generateQuery)
-        self.pushButton_browse_output_file.clicked.connect(self.setOutDirPath)
-        self.lineEdit_browseDir.textEdited.connect(self.disablePrefixFile)
-        self.textEdit_query.cursorPositionChanged.connect(self.highlighter.rehighlight)
-        self.textEdit_query.cursorPositionChanged.connect(self.allowNominatimOrExtent)
-        self.radioButton_extentLayer.toggled.connect(self.extentRadio)
-        self.pushButton_refreshLayers.clicked.connect(self.fillLayerCombobox)
-        self.pushButton_overpassTurbo.clicked.connect(self.openOverpassTurbo)
-        self.buttonBox.button(QDialogButtonBox.Reset).clicked.connect(self.resetForm)
+        # connect
+        self.pushButton_runQuery.clicked.connect(self.run_query)
+        self.pushButton_generateQuery.clicked.connect(self.generate_query)
+        self.pushButton_browse_output_file.clicked.connect(
+            self.set_output_directory_path)
+        self.lineEdit_browseDir.textEdited.connect(self.disable_prefix_file)
+        self.textEdit_query.cursorPositionChanged.connect(
+            self.highlighter.rehighlight)
+        self.textEdit_query.cursorPositionChanged.connect(
+            self.allow_nominatim_or_extent)
+        self.radioButton_extentLayer.toggled.connect(self.extent_radio)
+        self.pushButton_refreshLayers.clicked.connect(self.fill_layer_combobox)
+        self.pushButton_overpassTurbo.clicked.connect(self.open_overpass_turbo)
+        self.buttonBox.button(QDialogButtonBox.Reset).clicked.connect(
+            self.reset_form)
 
-    def resetForm(self):
+    def reset_form(self):
         self.textEdit_query.setText("")
         self.lineEdit_nominatim.setText("")
         self.checkBox_points.setChecked(True)
@@ -105,11 +126,11 @@ class QueryWidget(QuickOSMWidget, Ui_ui_query):
         self.lineEdit_browseDir.setText("")
         self.lineEdit_filePrefix.setText("")
 
-    def allowNominatimOrExtent(self):
-        '''
+    def allow_nominatim_or_extent(self):
+        """
         Disable or enable radiobuttons if nominatim or extent
         Disable buttons if the query is empty
-        '''
+        """
         
         query = unicode(self.textEdit_query.toPlainText())
 
@@ -122,13 +143,15 @@ class QueryWidget(QuickOSMWidget, Ui_ui_query):
             self.pushButton_saveQuery.setDisabled(False)
             self.pushButton_runQuery.setDisabled(False)
 
-        if re.search('{{nominatim}}', query) or re.search('{{nominatimArea:(.*)}}', query) or re.search('{{geocodeArea:(.*)}}', query):
+        if re.search('\{\{nominatim\}\}', query) or \
+                re.search('\{\{nominatimArea:(.*)\}\}', query) or \
+                re.search('\{\{geocodeArea:(.*)\}\}', query):
             self.lineEdit_nominatim.setEnabled(True)
         else:
             self.lineEdit_nominatim.setEnabled(False)
             self.lineEdit_nominatim.setText("")
             
-        if re.search('{{(bbox|center)}}', query):
+        if re.search('\{\{(bbox|center)\}\}', query):
             self.radioButton_extentLayer.setEnabled(True)
             self.radioButton_extentMapCanvas.setEnabled(True)
             if self.radioButton_extentLayer.isChecked():
@@ -140,130 +163,162 @@ class QueryWidget(QuickOSMWidget, Ui_ui_query):
             self.radioButton_extentMapCanvas.setEnabled(False)
             self.comboBox_extentLayer.setEnabled(False)
 
-    def runQuery(self):
-        '''
+    def run_query(self):
+        """
         Process for running the query
-        '''
+        """
         
-        #Block the button and save the initial text
+        # Block the button and save the initial text
         self.pushButton_browse_output_file.setDisabled(True)
         self.pushButton_generateQuery.setDisabled(True)
         QApplication.setOverrideCursor(Qt.WaitCursor)
-        self.startProcess()
+        self.start_process()
         QApplication.processEvents()
         
-        #Get all values
+        # Get all values
         query = unicode(self.textEdit_query.toPlainText())
-        outputDir = self.lineEdit_browseDir.text()
-        prefixFile = self.lineEdit_filePrefix.text()
+        output_directory = self.lineEdit_browseDir.text()
+        prefix_file = self.lineEdit_filePrefix.text()
         nominatim = self.lineEdit_nominatim.text()
         
-        #Set bbox
+        # Set bbox
         bbox = None
-        if self.radioButton_extentLayer.isChecked() or self.radioButton_extentMapCanvas.isChecked():
-            bbox = self.getBBox()
+        if self.radioButton_extentLayer.isChecked() or \
+                self.radioButton_extentMapCanvas.isChecked():
+            bbox = self.get_bounding_box()
         
-        #Check nominatim
+        # Check nominatim
         if nominatim == '':
-            nominatim = None     
+            nominatim = None
         
-        #Which geometry at the end ?
-        outputGeomTypes = self.getOutputGeomTypes()
-        whiteListValues = self.getWhiteListValues()
+        # Which geometry at the end ?
+        output_geometry_types = self.get_output_geometry_types()
+        white_list_values = self.get_white_list_values()
         
         try:
-            #Test values
-            if not outputGeomTypes:
+            # Test values
+            if not output_geometry_types:
                 raise OutPutGeomTypesException
             
-            if outputDir and not os.path.isdir(outputDir):
+            if output_directory and not isdir(output_directory):
                 raise DirectoryOutPutException
 
-            if not nominatim and (re.search('{{nominatim}}', query) or re.search('{{nominatimArea:}}', query)):
+            if not nominatim and \
+                    (re.search('\{\{nominatim\}\}', query) or
+                        re.search('\{\{nominatimArea:\}\}', query) or
+                        re.search('\{\{geocodeArea:\}\}', query)):
                 raise MissingParameterException(suffix="nominatim field")
 
-            numLayers = Process.ProcessQuery(dialog = self, query=query, outputDir=outputDir, prefixFile=prefixFile,outputGeomTypes=outputGeomTypes, whiteListValues=whiteListValues, nominatim=nominatim, bbox=bbox)
-            if numLayers:
-                Tools.displayMessageBar(QApplication.translate("QuickOSM",u"Successful query !"), level=QgsMessageBar.INFO , duration=5)
-                self.label_progress.setText(QApplication.translate("QuickOSM",u"Successful query !"))
+            num_layers = process_query(
+                dialog=self,
+                query=query,
+                outputDir=output_directory,
+                prefixFile=prefix_file,
+                outputGeomTypes=output_geometry_types,
+                whiteListValues=white_list_values,
+                nominatim=nominatim,
+                bbox=bbox)
+
+            if num_layers:
+                display_message_bar(
+                    tr('QuickOSM', u'Successful query !'),
+                    level=QgsMessageBar.INFO,
+                    duration=5)
+                self.label_progress.setText(
+                    tr('QuickOSM', u'Successful query !'))
             else:
-                Tools.displayMessageBar(QApplication.translate("QuickOSM", u"Successful query, but no result."), level=QgsMessageBar.WARNING , duration=7)
+                display_message_bar(
+                    tr('QuickOSM', u'Successful query, but no result.'),
+                    level=QgsMessageBar.WARNING,
+                    duration=7)
         
-        except GeoAlgorithmExecutionException,e:
-            self.displayGeoAlgorithmException(e)
-        except Exception,e:
-            self.displayException(e)
+        except QuickOsmException, e:
+            self.display_geo_algorithm_exception(e)
+        except Exception, e:
+            self.display_exception(e)
         
         finally:
-            #Resetting the button
+            # Resetting the button
             self.pushButton_browse_output_file.setDisabled(False)
             self.pushButton_generateQuery.setDisabled(False)
             QApplication.restoreOverrideCursor()
-            self.endProcess()
+            self.end_process()
             QApplication.processEvents()
             
-    def generateQuery(self):
-        '''
+    def generate_query(self):
+        """
         Transform the template to query "out of the box"
-        '''
+        """
         
         query = unicode(self.textEdit_query.toPlainText())
         nominatim = unicode(self.lineEdit_nominatim.text())
-        bbox = self.getBBox()
-        query = Tools.PrepareQueryOqlXml(query=query, extent=bbox, nominatimName=nominatim)
+        bbox = self.get_bounding_box()
+        query = prepare_query(
+            query=query, extent=bbox, nominatimName=nominatim)
         self.textEdit_query.setPlainText(query)  
 
-    def saveFinalQuery(self):
-        '''
+    def save_final_query(self):
+        """
         Save the query without any templates, usefull for bbox
-        '''
+        """
         
-        #Which geometry at the end ?
-        outputGeomTypes = self.getOutputGeomTypes()
-        whiteListValues = self.getWhiteListValues()
+        # Which geometry at the end ?
+        output_geometry_types = self.get_output_geometry_types()
+        white_list_values = self.get_white_list_values()
         
         query = unicode(self.textEdit_query.toPlainText())
         nominatim = unicode(self.lineEdit_nominatim.text())
-        bbox = self.getBBox()
+        bbox = self.get_bounding_box()
         
-        #Delete any templates
-        query = Tools.PrepareQueryOqlXml(query=query, extent=bbox, nominatimName=nominatim)
+        # Delete any templates
+        query = prepare_query(
+            query=query, extent=bbox, nominatimName=nominatim)
         
-        #Save the query
-        saveQueryDialog = SaveQueryDialog(query=query,outputGeomTypes=outputGeomTypes,whiteListValues=whiteListValues)
-        saveQueryDialog.signalNewQuerySuccessful.connect(self.signalNewQuerySuccessful.emit)
-        saveQueryDialog.exec_()
+        # Save the query
+        save_query_dialog = SaveQueryDialog(
+            query=query,
+            outputGeomTypes=output_geometry_types,
+            whiteListValues=white_list_values)
+        save_query_dialog.signal_new_query_successful.connect(
+            self.signal_new_query_successful.emit)
+        save_query_dialog.exec_()
         
-    def saveTemplateQuery(self):
-        '''
+    def save_template_query(self):
+        """
         Save the query with templates if some are presents
-        '''
+        """
         
-        #Which geometry at the end ?
-        outputGeomTypes = self.getOutputGeomTypes()
-        whiteListValues = self.getWhiteListValues()
+        # Which geometry at the end ?
+        output_geometry_types = self.get_output_geometry_types()
+        white_list_values = self.get_white_list_values()
         
         query = unicode(self.textEdit_query.toPlainText())
         
-        #save the query
-        saveQueryDialog = SaveQueryDialog(query=query,outputGeomTypes=outputGeomTypes,whiteListValues=whiteListValues)
-        saveQueryDialog.signalNewQuerySuccessful.connect(self.signalNewQuerySuccessful.emit)
-        saveQueryDialog.exec_()
+        # save the query
+        save_query_dialog = SaveQueryDialog(
+            query=query,
+            outputGeomTypes=output_geometry_types,
+            whiteListValues=white_list_values)
+        save_query_dialog.signal_new_query_successful.connect(
+            self.signal_new_query_successful.emit)
+        save_query_dialog.exec_()
         
-
-    def openOverpassTurbo(self):
-        '''
+    @staticmethod
+    def open_overpass_turbo():
+        """
         Open Overpass Turbo
-        '''
-        desktopService = QDesktopServices()
-        desktopService.openUrl(QUrl("http://overpass-turbo.eu/"))
-    
-    def openDocOverpass(self):
-        '''
+        """
+        desktop_service = QDesktopServices()
+        desktop_service.openUrl(QUrl("http://overpass-turbo.eu/"))
+
+    @staticmethod
+    def open_doc_overpass():
+        """
         Open Overpass's documentation
-        '''
-        desktopService = QDesktopServices()
-        desktopService.openUrl(QUrl("http://wiki.openstreetmap.org/wiki/Overpass_API/Language_Guide"))
+        """
+        url = "http://wiki.openstreetmap.org/wiki/Overpass_API/Language_Guide"
+        desktop_service = QDesktopServices()
+        desktop_service.openUrl(QUrl(url))
     
 
 class QueryDockWidget(QDockWidget):
@@ -271,8 +326,9 @@ class QueryDockWidget(QDockWidget):
     signalNewQuerySuccessful = pyqtSignal(name='signalNewQuerySuccessful')
     
     def __init__(self, parent=None):
-        QDockWidget.__init__(self)
+        QDockWidget.__init__(self, parent)
         self.setAllowedAreas(Qt.LeftDockWidgetArea | Qt.RightDockWidgetArea)
         self.setWidget(QueryWidget())
-        self.setWindowTitle(QApplication.translate("ui_query", "QuickOSM - Query"))
-        self.widget().signalNewQuerySuccessful.connect(self.signalNewQuerySuccessful.emit)
+        self.setWindowTitle(tr("ui_query", "QuickOSM - Query"))
+        self.widget().signalNewQuerySuccessful.connect(
+            self.signalNewQuerySuccessful.emit)
