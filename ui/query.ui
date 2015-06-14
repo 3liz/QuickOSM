@@ -87,7 +87,7 @@
             <item row="0" column="0">
              <widget class="QLabel" name="label_2">
               <property name="text">
-               <string notr="true">{{nominatimArea:}}</string>
+               <string notr="true">{{geocodeArea:}}</string>
               </property>
              </widget>
             </item>

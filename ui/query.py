@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'ui/query.ui'
 #
-# Created: Thu Apr  9 23:11:34 2015
+# Created: Sun Jun 14 19:47:26 2015
 #      by: PyQt4 UI code generator 4.10.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -63,7 +63,7 @@ class Ui_ui_query(object):
         self.formLayout_4.setFieldGrowthPolicy(QtGui.QFormLayout.ExpandingFieldsGrow)
         self.formLayout_4.setObjectName(_fromUtf8("formLayout_4"))
         self.label_2 = QtGui.QLabel(self.groupBox)
-        self.label_2.setText(_fromUtf8("{{nominatimArea:}}"))
+        self.label_2.setText(_fromUtf8("{{geocodeArea:}}"))
         self.label_2.setObjectName(_fromUtf8("label_2"))
         self.formLayout_4.setWidget(0, QtGui.QFormLayout.LabelRole, self.label_2)
         self.lineEdit_nominatim = QtGui.QLineEdit(self.groupBox)
