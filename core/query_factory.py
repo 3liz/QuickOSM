@@ -139,7 +139,7 @@ class QueryFactory(object):
 
                 elif self.__nominatim and self.__is_around:
                     query += u'<around area="%s" radius="%s" />' % \
-                             self.__nominatim, self.__distance
+                             (nominatim[i], self.__distance)
 
                 elif self.__bbox:
                     query = u'%s<bbox-query bbox="custom" />' % query
