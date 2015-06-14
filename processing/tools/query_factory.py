@@ -2,8 +2,8 @@
 """
 /***************************************************************************
  QuickOSM
-                                 A QGIS plugin
- OSM's Overpass API frontend
+ A QGIS plugin
+ OSM Overpass API frontend
                              -------------------
         begin                : 2014-06-11
         copyright            : (C) 2014 by 3Liz
@@ -21,17 +21,19 @@
  ***************************************************************************/
 """
 
-from QuickOSM import *
-from QuickOSM.ProcessingQuickOSM import *
+from os.path import isfile, join, basename, dirname, abspath
 
-from QuickOSM.CoreQuickOSM.QueryFactory import QueryFactory
-from operating_system.path import isfile,join,basename,dirname,abspath
+from PyQt4.QtCore import QSettings
+from PyQt4.QtGui import QIcon
+from processing.core.GeoAlgorithm import GeoAlgorithm
+
+from QuickOSM.core.query_factory import QueryFactory
 
 
 class QueryFactoryGeoAlgorithm(GeoAlgorithm):
-    '''
+    """
     Build a query with parameters 
-    '''
+    """
     
     def __init__(self):
         self.FIELD_KEY = 'FIELD_KEY'
@@ -47,13 +49,40 @@ class QueryFactoryGeoAlgorithm(GeoAlgorithm):
         self.name = "Query factory"
         self.group = "Tools"
         
-        self.addParameter(ParameterString(self.FIELD_KEY, 'Key','',optional=False))
-        self.addParameter(ParameterString(self.FIELD_VALUE, 'Value','',optional=True))
-        self.addParameter(ParameterBoolean(self.FIELD_EXTENT, 'Use an extent, not compatible with nominatim', default=False))
-        self.addParameter(ParameterString(self.FIELD_NOMINATIM, 'Nominatim, not compatible with an extent',optional=True))
-        self.addParameter(ParameterNumber(self.FIELD_TIMEOUT, 'Timeout',minValue=20, default=25))        
+        self.addParameter(
+            ParameterString(
+                self.FIELD_KEY,
+                'Key',
+                '',
+                optional=False))
+
+        self.addParameter(
+            ParameterString(
+                self.FIELD_VALUE,
+                'Value',
+                '',
+                optional=True))
+
+        self.addParameter(
+            ParameterBoolean(
+                self.FIELD_EXTENT,
+                'Use an extent, not compatible with nominatim',
+                default=False))
+
+        self.addParameter(
+            ParameterString(
+                self.FIELD_NOMINATIM,
+                'Nominatim, not compatible with an extent',
+                optional=True))
+
+        self.addParameter(
+            ParameterNumber(
+                self.FIELD_TIMEOUT,
+                'Timeout',
+                minValue=20,
+                default=25))
         
-        self.addOutput(OutputString(self.OUTPUT_QUERY,"Query"))
+        self.addOutput(OutputString(self.OUTPUT_QUERY, "Query"))
 
     def help(self):
         locale = QSettings().value("locale/userLocale")[0:2]
@@ -88,12 +117,17 @@ class QueryFactoryGeoAlgorithm(GeoAlgorithm):
         
         if value == '':
             value = None
-        
-        #osmObjects = self.getParameterValue(self.FIELD_OSM_OBJECTS)
+
         timeout = self.getParameterValue(self.FIELD_TIMEOUT)
         
-        #Missing OSMObjects
-        queryFactory = QueryFactory(key = key, value = value, nominatim = nominatim, bbox=extent,timeout=timeout)
-        query = queryFactory.make()
+        # Missing OSMObjects
+        query_factory = QueryFactory(
+            key=key,
+            value=value,
+            nominatim=nominatim,
+            bbox=extent,
+            timeout=timeout)
+
+        query = query_factory.make()
         
-        self.setOutputValue(self.OUTPUT_QUERY,query)
+        self.setOutputValue(self.OUTPUT_QUERY, query)

@@ -31,9 +31,9 @@ from qgis.gui import QgsMessageBar
 from qgis.core import \
     QgsGeometry, QgsCoordinateTransform, QgsCoordinateReferenceSystem
 
-from CoreQuickOSM.utilities.qgis import display_message_bar
-from CoreQuickOSM.utilities.tools import tr
-from CoreQuickOSM.ExceptionQuickOSM import NoLayerException
+from QuickOSM.core.utilities.qgis import display_message_bar
+from QuickOSM.core.utilities.tools import tr
+from QuickOSM.core.exceptions import NoLayerException
 
 
 class QuickOSMWidget(QWidget):

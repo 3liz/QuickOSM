@@ -31,15 +31,15 @@ from qgis.gui import QgsMessageBar
 
 from QuickOSMWidget import QuickOSMWidget
 from my_queries import Ui_ui_my_queries
-from Controller.Process import process_query
-from CoreQuickOSM.ExceptionQuickOSM import (
+from QuickOSM.controller.process import process_query
+from QuickOSM.core.exceptions import (
     QuickOsmException,
     OutPutGeomTypesException,
     DirectoryOutPutException,
     MissingParameterException)
-from CoreQuickOSM.FileQuery import FileQuery
-from CoreQuickOSM.utilities.qgis import get_user_folder, display_message_bar
-from CoreQuickOSM.utilities.tools import tr
+from QuickOSM.core.file_query import FileQuery
+from QuickOSM.core.utilities.qgis import get_user_folder, display_message_bar
+from QuickOSM.core.utilities.tools import tr
 
 
 class MyQueriesWidget(QuickOSMWidget, Ui_ui_my_queries):
@@ -96,7 +96,7 @@ class MyQueriesWidget(QuickOSMWidget, Ui_ui_my_queries):
         
         # Get the folder and all file queries
         folder = get_user_folder()
-        categories_files = FileQuery.getIniFilesFromFolder(folder, force=force)
+        categories_files = FileQuery.get_ini_files_from_folder(folder, force=force)
         
         # Fill all categories
         for cat, files in categories_files.iteritems():

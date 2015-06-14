@@ -22,8 +22,8 @@
 """
 
 from PyQt4.QtCore import QFileInfo, QDir
-from qgis.core import QgsApplication
 from osgeo import gdal, ogr
+from qgis.core import QgsApplication
 from qgis.gui import QgsMessageBar
 from qgis.utils import iface
 

@@ -26,9 +26,9 @@ from PyQt4.QtGui import QDialog
 from PyQt4.QtCore import pyqtSignal, QSettings, QUrl
 
 from main_window import Ui_ui_main_window
-from CoreQuickOSM.API.ConnexionOAPI import ConnexionOAPI
-from CoreQuickOSM.utilities.tools import get_setting, set_setting, tr
-from CoreQuickOSM.utilities.qgis import get_user_folder
+from QuickOSM.core.api.connexion_oapi import ConnexionOAPI
+from QuickOSM.core.utilities.tools import get_setting, set_setting, tr
+from QuickOSM.core.utilities.utilities_qgis import get_user_folder
 
 
 class MainWindowDialog(QDialog, Ui_ui_main_window):

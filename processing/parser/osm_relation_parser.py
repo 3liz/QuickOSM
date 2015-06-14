@@ -24,29 +24,29 @@
 from QuickOSM import *
 from QuickOSM.ProcessingQuickOSM import *
 
-from qgis.utils import iface
-
-from QuickOSM.CoreQuickOSM.API.ConnexionXAPI import ConnexionXAPI
+from QuickOSM.CoreQuickOSM.Parser.OsmRelationParser import OsmRelationParser
 from operating_system.path import isfile,join,basename,dirname,abspath
 
-
-class XapiQueryGeoAlgorithm(GeoAlgorithm):
+class OsmRelationParserGeoAlgorithm(GeoAlgorithm):
     '''
-    Perform an OverPass query and get an OSM file
+    Parse an OSM file with SAX and return a table
     '''
-
-    SERVER = 'SERVER'
-    QUERY_STRING = 'QUERY'
-    OUTPUT_FILE = 'OUTPUT_FILE'
+    
+    def __init__(self):
+        self.slotOsmParser = SLOT("osmParser()")
+        
+        self.FILE = 'FILE'
+        self.TABLE = 'TABLE'
+        
+        GeoAlgorithm.__init__(self)
 
     def defineCharacteristics(self):
-        self.name = "Query XAPI with a string"
-        self.group = "API"
+        self.name = "Relation SAX Parser"
+        self.group = "OSM Parser"
 
-        self.addParameter(ParameterString(self.SERVER, 'XAPI','http://www.overpass-api.de/api/xapi?', False, False))
-        self.addParameter(ParameterString(self.QUERY_STRING,'Query', '', False,False))
+        self.addParameter(ParameterFile(self.FILE, 'OSM file', False, False))
         
-        self.addOutput(OutputFile(self.OUTPUT_FILE,'OSM file'))
+        self.addOutput(OutputTable(self.TABLE,'Output '))
 
     def help(self):
         locale = QSettings().value("locale/userLocale")[0:2]
@@ -72,14 +72,22 @@ class XapiQueryGeoAlgorithm(GeoAlgorithm):
 
     def processAlgorithm(self, progress):
         self.progress = progress
-        self.progress.setInfo("Downloading data from XAPI")
+        self.progress.setPercentage(0)
         
-        server = self.getParameterValue(self.SERVER)
-        query = self.getParameterValue(self.QUERY_STRING)
+        filePath = self.getParameterValue(self.FILE)
         
-        xapi = ConnexionXAPI(url=server)
-        osmFile = xapi.get_file_from_query(query)
+        parser = OsmRelationParser(filePath)
         
-        #Set the output file for Processing
-        self.setOutputValue(self.OUTPUT_FILE,osmFile)
+        results = parser.parse()
+        firstItem = None
+        for item in results :
+            firstItem = item
+            break
+        fields = parser.get_fields()
         
+        table = self.getOutputFromName(self.TABLE)
+        tableWriter = table.getTableWriter(fields)
+
+        tableWriter.addRecord(firstItem)
+        for item in results:
+            tableWriter.addRecord(item)

@@ -2,8 +2,8 @@
 """
 /***************************************************************************
  QuickOSM
-                                 A QGIS plugin
- OSM's Overpass API frontend
+ A QGIS plugin
+ OSM Overpass API frontend
                              -------------------
         begin                : 2014-06-11
         copyright            : (C) 2014 by 3Liz
@@ -21,32 +21,48 @@
  ***************************************************************************/
 """
 
-from QuickOSM import *
-from QuickOSM.ProcessingQuickOSM import *
+from os.path import isfile, join, basename, dirname, abspath
 
-from QuickOSM.CoreQuickOSM.Parser.OsmMemberParser import OsmMemberParser
-from operating_system.path import isfile,join,basename,dirname,abspath
+from PyQt4.QtCore import QSettings
+from PyQt4.QtGui import QIcon
+from processing.core.GeoAlgorithm import GeoAlgorithm
 
-class OsmMemberParserGeoAlgorithm(GeoAlgorithm):
-    '''
-    Parse an OSM file with SAX and return a table
-    '''
+from QuickOSM.core.file_query import FileQuery
+
+
+class ReadIniFilePathGeoAlgorithm(GeoAlgorithm):
+    """
+    Read an INI file 
+    """
     
     def __init__(self):
-        self.slotOsmParser = SLOT("osmParser()")
-        
-        self.FILE = 'FILE'
-        self.TABLE = 'TABLE'
-        
+        self.INI_FILE_PATH = 'QUERY_FILE'
+        self.LAYERS = ['multipolygons', 'multilinestrings', 'lines', 'points']
+        self.WHITE_LIST = {}
+
+        for layer in self.LAYERS:
+            self.WHITE_LIST[layer] = 'WHITE_LIST_' + layer
+
         GeoAlgorithm.__init__(self)
 
     def defineCharacteristics(self):
-        self.name = "Relation Member SAX Parser"
-        self.group = "OSM Parser"
-
-        self.addParameter(ParameterFile(self.FILE, 'OSM file', False, False))
+        self.name = "Read an ini file from string"
+        self.group = "Tools"
         
-        self.addOutput(OutputTable(self.TABLE,'Output '))
+        self.addParameter(
+            ParameterString(
+                self.INI_FILE_PATH,
+                'File path (ini)',
+                '',
+                False))
+        
+        for layer in self.LAYERS:
+            self.addOutput(
+                OutputString(
+                    self.WHITE_LIST[layer],
+                    'White list ' + layer + ' layer'))
+        
+        self.addOutput(OutputString('QUERY_STRING', "Query string"))
 
     def help(self):
         locale = QSettings().value("locale/userLocale")[0:2]
@@ -71,23 +87,16 @@ class OsmMemberParserGeoAlgorithm(GeoAlgorithm):
         return QIcon(dirname(__file__) + '/../../icon.png')
 
     def processAlgorithm(self, progress):
-        self.progress = progress
-        self.progress.setPercentage(0)
-        
-        filePath = self.getParameterValue(self.FILE)
-        
-        parser = OsmMemberParser(filePath)
-        fields = parser.get_fields()
-        
-        results = parser.parse()
-        
-        table = self.getOutputFromName(self.TABLE)
-        tableWriter = table.getTableWriter(fields)
-        for item in results:
-            tableWriter.addRecord(item)
+        progress.setInfo("Reading the ini file")
                 
-    def setInfo(self,text):
-        self.progress.setInfo(text)
-    
-    def setPercentage(self,percent):
-        self.progress.setPercentage(percent)
+        file_path = self.getParameterValue(self.INI_FILE_PATH)
+        ini_file = FileQuery(file_path)
+        ini_dict = None
+        if ini_file.isValid():
+            ini_dict = ini_file.getContent()
+        
+        self.setOutputValue('QUERY_STRING', ini_dict['metadata']['query'])
+        
+        for layer in self.LAYERS:
+            csv = ini_dict['layers'][layer]['columns']
+            self.setOutputValue(self.WHITE_LIST[layer], csv)

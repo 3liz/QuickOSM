@@ -24,7 +24,7 @@
 import urllib2
 import tempfile
 
-from CoreQuickOSM.ExceptionQuickOSM import NetWorkErrorException
+from QuickOSM.core.exceptions import NetWorkErrorException
 
 
 class ConnexionXAPI(object):

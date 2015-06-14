@@ -27,16 +27,16 @@ from PyQt4.QtCore import Qt
 from PyQt4.QtGui import QFileDialog, QApplication, QDockWidget
 from qgis.core import QgsMapLayerRegistry
 
-from CoreQuickOSM.utilities.tools import tr
-from CoreQuickOSM.ExceptionQuickOSM import (
+from QuickOSM.core.utilities.tools import tr
+from QuickOSM.core.exceptions import (
     QuickOsmException,
     OutPutGeomTypesException,
     FileDoesntExistException,
     DirectoryOutPutException,
     OsmDriver)
-from CoreQuickOSM.utilities.qgis import is_osm_driver_enabled
-from CoreQuickOSM.Parser.OsmParser import OsmParser
-from Controller.Process import open_file
+from QuickOSM.core.utilities.qgis import is_osm_driver_enabled
+from QuickOSM.core.parser.osm_parser import OsmParser
+from QuickOSM.controller.process import open_file
 from QuickOSMWidget import QuickOSMWidget
 from osm_file import Ui_ui_osm_file
 

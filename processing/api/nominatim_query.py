@@ -2,8 +2,8 @@
 """
 /***************************************************************************
  QuickOSM
-                                 A QGIS plugin
- OSM's Overpass API frontend
+ A QGIS plugin
+ OSM Overpass API frontend
                              -------------------
         begin                : 2014-06-11
         copyright            : (C) 2014 by 3Liz
@@ -21,42 +21,41 @@
  ***************************************************************************/
 """
 
-from QuickOSM import *
-from QuickOSM.ProcessingQuickOSM import *
+from os.path import isfile, join, basename, dirname, abspath
 
-from operating_system.path import isfile,join,basename,dirname,abspath
-from QuickOSM.CoreQuickOSM.FileQuery import FileQuery
-from QuickOSM.CoreQuickOSM.Tools import *
+from PyQt4.QtGui import QIcon
+from PyQt4.QtCore import QSettings
+from processing.core.GeoAlgorithm import GeoAlgorithm
+
+from QuickOSM.core.api.nominatim import Nominatim
+from QuickOSM.core.exceptions import NominatimAreaException
 
 
-class ListIniFilesGeoAlgorithm(GeoAlgorithm):
-    '''
-    List all the INI files 
-    '''
-    
-    def __init__(self):
-        self.NAME_FILE = 'NAME'
-        self.OUTPUT_INI = 'INI'
-        GeoAlgorithm.__init__(self)
-        
+class NominatimQueryGeoAlgorithm(GeoAlgorithm):
+
+    SERVER = 'SERVER'
+    NOMINATIM_STRING = 'NOMINATIM_STRING'
+    OSM_ID = 'OSM_ID'
+
     def defineCharacteristics(self):
-        self.name = "Queries available"
-        self.group = "Tools"
-        
-        #Get the folder and all filequeries
-        folder = Tools.getUserQueryFolder()
-        catfiles = FileQuery.getIniFilesFromFolder(folder,force=False)
-        
-        self.__queries = {}
-        for cat in catfiles:
-            for query in catfiles[cat]:
-                self.__queries[cat + " : " + query.getName()] = query
-        
-        self.__names = self.__queries.keys()
-        
-        self.addParameter(ParameterSelection(self.NAME_FILE, 'Queries available', self.__names))
-        
-        self.addOutput(OutputString(self.OUTPUT_INI,"Ini filepath as string"))
+        self.name = 'Query nominatim API with a string'
+        self.group = 'API'
+
+        self.addParameter(
+            ParameterString(
+                self.SERVER,
+                'Nominatim server',
+                'http://nominatim.openstreetmap.org/search?format=json',
+                False,
+                False))
+        self.addParameter(
+            ParameterString(
+                self.NOMINATIM_STRING,
+                'Search',
+                '',
+                False,
+                False))
+        self.addOutput(OutputNumber(self.OSM_ID, 'OSM id'))
 
     def help(self):
         locale = QSettings().value("locale/userLocale")[0:2]
@@ -66,9 +65,9 @@ class ListIniFilesGeoAlgorithm(GeoAlgorithm):
         if current_file.endswith('pyc'):
             current_file = current_file[:-1]
         current_file = basename(current_file)
-
+        
         helps = [current_file + locale + ".html", current_file + ".html"]
-
+        
         doc_path = join(dirname(dirname(dirname(abspath(__file__)))), 'doc')
         for helpFileName in helps:
             file_help_path = join(doc_path, helpFileName)
@@ -76,13 +75,21 @@ class ListIniFilesGeoAlgorithm(GeoAlgorithm):
                 return False, file_help_path
         
         return False, None
-    
+
     def getIcon(self):
         return QIcon(dirname(__file__) + '/../../icon.png')
-        
+
     def processAlgorithm(self, progress):
-        index = self.getParameterValue(self.NAME_FILE)
-        for query in self.__queries:
-            if query == self.__names[index]:
-                path = self.__queries[query].getFilePath()
-                self.setOutputValue(self.OUTPUT_INI,path)
+        
+        server = self.getParameterValue(self.SERVER)
+        query = self.getParameterValue(self.NOMINATIM_STRING)
+        
+        nominatim = Nominatim(url=server)
+        try:
+            osm_id = nominatim.get_first_polygon_from_query(query)
+            progress.setInfo(
+                "Getting first OSM relation ID from Nominatim :", osm_id)
+        except:
+            raise NominatimAreaException
+
+        self.setOutputValue("OSM_ID", osm_id)

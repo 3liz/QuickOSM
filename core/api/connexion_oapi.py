@@ -28,14 +28,14 @@ from PyQt4.QtNetwork import \
     QNetworkAccessManager, QNetworkRequest, QNetworkReply
 from PyQt4.QtCore import QUrl, QEventLoop
 
-from CoreQuickOSM.ExceptionQuickOSM import (
+from QuickOSM.core.exceptions import (
     OutPutFormatException,
     OverpassTimeoutException,
     OverpassBadRequestException,
     NetWorkErrorException
 )
 
-from CoreQuickOSM.utilities.operating_system import get_proxy
+from QuickOSM.core.utilities.operating_system import get_proxy
 
 
 class ConnexionOAPI(object):

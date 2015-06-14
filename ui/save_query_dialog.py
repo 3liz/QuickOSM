@@ -25,9 +25,9 @@ from PyQt4.QtGui import QDialog, QSizePolicy
 from PyQt4.QtCore import pyqtSignal
 from qgis.gui import QgsMessageBar
 
-from CoreQuickOSM.FileQueryWriter import FileQueryWriter
-from CoreQuickOSM.utilities.tools import get_user_query_folder
-from CoreQuickOSM.ExceptionQuickOSM import QuickOsmException
+from QuickOSM.core.file_query_writer import FileQueryWriter
+from QuickOSM.core.utilities.tools import get_user_query_folder
+from QuickOSM.core.exceptions import QuickOsmException
 from save_query import Ui_ui_save_query
 
 

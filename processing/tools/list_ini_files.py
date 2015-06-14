@@ -21,38 +21,51 @@
  ***************************************************************************/
 """
 
-from PyQt4.QtGui import QIcon
-from ProcessingQuickOSM import *
-from CoreQuickOSM.API.Nominatim import Nominatim
-from CoreQuickOSM.ExceptionQuickOSM import NominatimAreaException
 from os.path import isfile, join, basename, dirname, abspath
 
+from PyQt4.QtCore import QSettings
+from PyQt4.QtGui import QIcon
+from processing.core.GeoAlgorithm import GeoAlgorithm
 
-class NominatimQueryGeoAlgorithm(GeoAlgorithm):
+from QuickOSM.core.file_query import FileQuery
+from QuickOSM.core.utilities.qgis import get_user_folder
 
-    SERVER = 'SERVER'
-    NOMINATIM_STRING = 'NOMINATIM_STRING'
-    OSM_ID = 'OSM_ID'
 
+class ListIniFilesGeoAlgorithm(GeoAlgorithm):
+    """
+    List all the INI files 
+    """
+    
+    def __init__(self):
+        self.NAME_FILE = 'NAME'
+        self.OUTPUT_INI = 'INI'
+
+        self.__queries = {}
+        self.__names = []
+
+        GeoAlgorithm.__init__(self)
+        
     def defineCharacteristics(self):
-        self.name = 'Query nominatim API with a string'
-        self.group = 'API'
+        self.name = "Queries available"
+        self.group = "Tools"
+        
+        # Get the folder and all files queries
+        folder = get_user_folder()
+        cat_files = FileQuery.get_ini_files_from_folder(folder, force=False)
 
+        for cat in cat_files:
+            for query in cat_files[cat]:
+                self.__queries[cat + " : " + query.getName()] = query
+        
+        self.__names = self.__queries.keys()
+        
         self.addParameter(
-            ParameterString(
-                self.SERVER,
-                'Nominatim server',
-                'http://nominatim.openstreetmap.org/search?format=json',
-                False,
-                False))
-        self.addParameter(
-            ParameterString(
-                self.NOMINATIM_STRING,
-                'Search',
-                '',
-                False,
-                False))
-        self.addOutput(OutputNumber(self.OSM_ID, 'OSM id'))
+            ParameterSelection(
+                self.NAME_FILE,
+                'Queries available',
+                self.__names))
+        
+        self.addOutput(OutputString(self.OUTPUT_INI,"Ini filepath as string"))
 
     def help(self):
         locale = QSettings().value("locale/userLocale")[0:2]
@@ -62,9 +75,9 @@ class NominatimQueryGeoAlgorithm(GeoAlgorithm):
         if current_file.endswith('pyc'):
             current_file = current_file[:-1]
         current_file = basename(current_file)
-        
+
         helps = [current_file + locale + ".html", current_file + ".html"]
-        
+
         doc_path = join(dirname(dirname(dirname(abspath(__file__)))), 'doc')
         for helpFileName in helps:
             file_help_path = join(doc_path, helpFileName)
@@ -72,21 +85,14 @@ class NominatimQueryGeoAlgorithm(GeoAlgorithm):
                 return False, file_help_path
         
         return False, None
-
+    
     def getIcon(self):
         return QIcon(dirname(__file__) + '/../../icon.png')
-
+        
     def processAlgorithm(self, progress):
-        
-        server = self.getParameterValue(self.SERVER)
-        query = self.getParameterValue(self.NOMINATIM_STRING)
-        
-        nominatim = Nominatim(url=server)
-        try:
-            osm_id = nominatim.get_first_polygon_from_query(query)
-            progress.setInfo(
-                "Getting first OSM relation ID from Nominatim :", osm_id)
-        except:
-            raise NominatimAreaException
 
-        self.setOutputValue("OSM_ID", osm_id)
+        index = self.getParameterValue(self.NAME_FILE)
+        for query in self.__queries:
+            if query == self.__names[index]:
+                path = self.__queries[query].getFilePath()
+                self.setOutputValue(self.OUTPUT_INI,path)

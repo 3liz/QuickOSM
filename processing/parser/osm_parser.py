@@ -2,8 +2,8 @@
 """
 /***************************************************************************
  QuickOSM
-                                 A QGIS plugin
- OSM's Overpass API frontend
+ A QGIS plugin
+ OSM Overpass API frontend
                              -------------------
         begin                : 2014-06-11
         copyright            : (C) 2014 by 3Liz
@@ -21,18 +21,21 @@
  ***************************************************************************/
 """
 
-from QuickOSM import *
-from QuickOSM.ProcessingQuickOSM import *
-
-from QuickOSM.CoreQuickOSM.Parser.OsmParser import OsmParser
 import re
-from operating_system.path import isfile,join,basename,dirname,abspath
+from os.path import isfile, join, basename, dirname, abspath
+
+from PyQt4.QtCore import QSettings, SLOT
+from PyQt4.QtGui import QIcon
+from qgis.core import QgsVectorLayer, QgsVectorFileWriter
+from processing.core.GeoAlgorithm import GeoAlgorithm
+
+from QuickOSM.core.parser.osm_parser import OsmParser
 
 
 class OsmParserGeoAlgorithm(GeoAlgorithm):
-    '''
+    """
     Parse an OSM file with OGR and return each layer
-    '''
+    """
     
     def __init__(self):
         self.slotOsmParser = SLOT("osmParser()")
@@ -45,7 +48,9 @@ class OsmParserGeoAlgorithm(GeoAlgorithm):
         for layer in self.LAYERS:
             self.WHITE_LIST[layer] = 'WHITE_LIST_'+layer
             self.OUTPUT_LAYERS[layer] = layer + "_LAYER"
-        
+
+        self.progress = None
+
         GeoAlgorithm.__init__(self)
 
     def defineCharacteristics(self):
@@ -55,8 +60,18 @@ class OsmParserGeoAlgorithm(GeoAlgorithm):
         self.addParameter(ParameterFile(self.FILE, 'OSM file', False, False))
         
         for layer in self.LAYERS:
-            self.addParameter(ParameterString(self.WHITE_LIST[layer], layer + '\'s whitelist column (csv)','', False, True))
-            self.addOutput(OutputVector(self.OUTPUT_LAYERS[layer],'Output '+ layer +' layer'))
+            self.addParameter(
+                ParameterString(
+                    self.WHITE_LIST[layer],
+                    layer + '\'s whitelist column (csv)',
+                    '',
+                    False,
+                    True))
+
+            self.addOutput(
+                OutputVector(
+                    self.OUTPUT_LAYERS[layer],
+                    'Output ' + layer + ' layer'))
 
     def help(self):
         locale = QSettings().value("locale/userLocale")[0:2]
@@ -84,45 +99,52 @@ class OsmParserGeoAlgorithm(GeoAlgorithm):
         self.progress = progress
         self.progress.setPercentage(0)
         
-        filePath = self.getParameterValue(self.FILE)
+        file_path = self.getParameterValue(self.FILE)
         
-        #Creating the dict for columns
-        whiteListValues = {}
+        # Creating the dict for columns
+        white_list_values = {}
         for layer in self.LAYERS:
             value = self.getParameterValue(self.WHITE_LIST[layer])
             
-            #Delete space and tabs in OSM's keys
-            #Processing return a 'None' value as unicode
-            value = re.sub ('\s', '', value)
+            # Delete space and tabs in OSM keys
+            # Processing return a 'None' value as unicode
+            value = re.sub('\s', '', value)
             if value == '' or value == 'None':
                 value = None
             
             if value:
                 if value != ',':
-                    whiteListValues[layer] = value.split(',')
+                    white_list_values[layer] = value.split(',')
                 else:
-                    whiteListValues[layer] = ','
+                    white_list_values[layer] = ','
             else:
-                whiteListValues[layer] = None
+                white_list_values[layer] = None
         
-        #Call the OSM Parser and connect signals
-        parser = OsmParser(filePath, self.LAYERS, whiteListValues)
-        parser.signalText.connect(self.setInfo)
-        parser.signalPercentage.connect(self.setPercentage)
+        # Call the OSM Parser and connect signals
+        parser = OsmParser(file_path, self.LAYERS, white_list_values)
+        parser.signalText.connect(self.set_info)
+        parser.signalPercentage.connect(self.set_percentage)
         
-        #Start to parse
+        # Start to parse
         layers = parser.parse()
         
-        layersOutputs = {}
+        layers_outputs = {}
         for key, values in layers.iteritems():
-            layer = QgsVectorLayer(values['geojsonFile'],"test","ogr")
-            outputParameter = self.getOutputValue(self.OUTPUT_LAYERS[key])
-            layersOutputs[key] = QgsVectorFileWriter(outputParameter, 'UTF-8',layer.pendingFields(),values['geomType'], layer.crs())
+            layer = QgsVectorLayer(values['geojsonFile'], "test", "ogr")
+
+            output_parameter = self.getOutputValue(self.OUTPUT_LAYERS[key])
+            layers_outputs[key] = QgsVectorFileWriter(
+                output_parameter,
+                'UTF-8',
+                layer.pendingFields(),
+                values['geomType'],
+                layer.crs())
+
             for feature in layer.getFeatures():
-                layersOutputs[key].addFeature(feature)
+                layers_outputs[key].addFeature(feature)
                 
-    def setInfo(self,text):
+    def set_info(self, text):
         self.progress.setInfo(text)
     
-    def setPercentage(self,percent):
+    def set_percentage(self, percent):
         self.progress.setPercentage(percent)

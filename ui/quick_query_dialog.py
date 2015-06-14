@@ -28,15 +28,15 @@ from PyQt4.QtGui import QDockWidget, QApplication, QCompleter
 from PyQt4.QtCore import Qt
 from qgis.gui import QgsMessageBar
 
-from CoreQuickOSM.ExceptionQuickOSM import (
+from QuickOSM.core.exceptions import (
     QuickOsmException,
     OutPutGeomTypesException,
     DirectoryOutPutException,
     OsmObjectsException)
-from CoreQuickOSM.utilities.qgis import display_message_bar
-from CoreQuickOSM.utilities.tools import tr
-from CoreQuickOSM.QueryFactory import QueryFactory
-from Controller.Process import process_quick_query
+from QuickOSM.core.utilities.qgis import display_message_bar
+from QuickOSM.core.utilities.tools import tr
+from QuickOSM.core.query_factory import QueryFactory
+from QuickOSM.controller.process import process_quick_query
 from QuickOSMWidget import QuickOSMWidget
 from quick_query import Ui_ui_quick_query
 

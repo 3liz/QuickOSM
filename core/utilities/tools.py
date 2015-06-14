@@ -26,7 +26,7 @@ from os.path import join, dirname, abspath
 from PyQt4.QtCore import QDir, QSettings
 from PyQt4.QtGui import QApplication
 
-from qgis import get_user_folder
+from utilities_qgis import get_user_folder
 from operating_system import copy_tree
 
 

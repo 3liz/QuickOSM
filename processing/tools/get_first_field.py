@@ -2,8 +2,8 @@
 """
 /***************************************************************************
  QuickOSM
-                                 A QGIS plugin
- OSM's Overpass API frontend
+ A QGIS plugin
+ OSM Overpass API frontend
                              -------------------
         begin                : 2014-06-11
         copyright            : (C) 2014 by 3Liz
@@ -21,32 +21,42 @@
  ***************************************************************************/
 """
 
-from QuickOSM import *
-from QuickOSM.ProcessingQuickOSM import *
+from os.path import isfile, join, basename, dirname, abspath
 
-from QuickOSM.CoreQuickOSM.Parser.OsmRelationParser import OsmRelationParser
-from operating_system.path import isfile,join,basename,dirname,abspath
+from PyQt4.QtCore import QSettings
+from PyQt4.QtGui import QIcon
+from processing.core.GeoAlgorithm import GeoAlgorithm
 
-class OsmRelationParserGeoAlgorithm(GeoAlgorithm):
-    '''
-    Parse an OSM file with SAX and return a table
-    '''
+
+class GetFirstFieldGeoAlgorithm(GeoAlgorithm):
+    """
+    Get first field of a vector layer 
+    """
     
-    def __init__(self):
-        self.slotOsmParser = SLOT("osmParser()")
+    VECTOR_LAYER = 'VECTOR_LAYER'
+    FIELD = 'FIELD'
+    OUTPUT_VALUE = 'OUTPUT_VALUE'
         
-        self.FILE = 'FILE'
-        self.TABLE = 'TABLE'
-        
-        GeoAlgorithm.__init__(self)
-
     def defineCharacteristics(self):
-        self.name = "Relation SAX Parser"
-        self.group = "OSM Parser"
-
-        self.addParameter(ParameterFile(self.FILE, 'OSM file', False, False))
+        self.name = "Get first field of an attribute"
+        self.group = "Tools"
         
-        self.addOutput(OutputTable(self.TABLE,'Output '))
+        self.addParameter(
+            ParameterVector(
+                self.VECTOR_LAYER,
+                'Vector layer',
+                [ParameterVector.VECTOR_TYPE_ANY],
+                True))
+
+        self.addParameter(
+            ParameterString(
+                self.FIELD,
+                'Field',
+                '',
+                False,
+                False))
+        
+        self.addOutput(OutputString(self.OUTPUT_VALUE, "Value"))
 
     def help(self):
         locale = QSettings().value("locale/userLocale")[0:2]
@@ -71,29 +81,14 @@ class OsmRelationParserGeoAlgorithm(GeoAlgorithm):
         return QIcon(dirname(__file__) + '/../../icon.png')
 
     def processAlgorithm(self, progress):
-        self.progress = progress
-        self.progress.setPercentage(0)
+        field = self.getParameterValue(self.FIELD)
+        layer = self.getParameterValue(self.VECTOR_LAYER)
         
-        filePath = self.getParameterValue(self.FILE)
-        
-        parser = OsmRelationParser(filePath)
-        
-        results = parser.parse()
-        firstItem = None
-        for item in results :
-            firstItem = item
-            break
-        fields = parser.get_fields()
-        
-        table = self.getOutputFromName(self.TABLE)
-        tableWriter = table.getTableWriter(fields)
+        vector_layer = dataobjects.getObjectFromUri(layer)
+        features = vector.features(vector_layer)
+        field_index = vector.resolveFieldIndex(vector_layer, field)
 
-        tableWriter.addRecord(firstItem)
-        for item in results:
-            tableWriter.addRecord(item)
-                
-    def setInfo(self,text):
-        self.progress.setInfo(text)
-    
-    def setPercentage(self,percent):
-        self.progress.setPercentage(percent)
+        for feature in features:
+            value = unicode(feature.attributes()[field_index])
+            self.setOutputValue(self.OUTPUT_VALUE, value)
+            break

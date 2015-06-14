@@ -30,10 +30,10 @@ from PyQt4.QtCore import QObject, pyqtSignal, QVariant
 from qgis.core import \
     QgsVectorLayer, QgsFields, QgsField, QgsVectorFileWriter, QgsFeature
 
-from CoreQuickOSM.ExceptionQuickOSM import \
+from QuickOSM.core.exceptions import \
     GeoAlgorithmExecutionException, WrongOrderOSMException
-from CoreQuickOSM.utilities.tools import tr
-from CoreQuickOSM.utilities.operating_system import get_default_encoding
+from QuickOSM.core.utilities.tools import tr
+from QuickOSM.core.utilities.operating_system import get_default_encoding
 
 
 class OsmParser(QObject):

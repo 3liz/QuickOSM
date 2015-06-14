@@ -2,8 +2,8 @@
 """
 /***************************************************************************
  QuickOSM
-                                 A QGIS plugin
- OSM's Overpass API frontend
+ A QGIS plugin
+ OSM Overpass API frontend
                              -------------------
         begin                : 2014-06-11
         copyright            : (C) 2014 by 3Liz
@@ -21,28 +21,44 @@
  ***************************************************************************/
 """
 
-from QuickOSM import *
-from QuickOSM.ProcessingQuickOSM import *
+from os.path import isfile, join, basename, dirname, abspath
 
-from operating_system.path import isfile,join,basename,dirname,abspath
+from PyQt4.QtCore import QSettings
+from PyQt4.QtGui import QIcon
+from processing.core.GeoAlgorithm import GeoAlgorithm
 
-class GetFirstFieldGeoAlgorithm(GeoAlgorithm):
-    '''
-    Get first field of a vector layer 
-    '''
-    
-    VECTOR_LAYER = 'VECTOR_LAYER'
-    FIELD = 'FIELD'
-    OUTPUT_VALUE = 'OUTPUT_VALUE'
-        
+from QuickOSM.core.api.connexion_xapi import ConnexionXAPI
+
+
+class XapiQueryGeoAlgorithm(GeoAlgorithm):
+    """
+    Perform an OverPass query and get an OSM file
+    """
+
+    SERVER = 'SERVER'
+    QUERY_STRING = 'QUERY'
+    OUTPUT_FILE = 'OUTPUT_FILE'
+
     def defineCharacteristics(self):
-        self.name = "Get first field of an attribute"
-        self.group = "Tools"
+        self.name = "Query XAPI with a string"
+        self.group = "API"
+
+        self.addParameter(
+            ParameterString(
+                self.SERVER,
+                'XAPI',
+                'http://www.overpass-api.de/api/xapi?',
+                False,
+                False))
+        self.addParameter(
+            ParameterString(
+                self.QUERY_STRING,
+                'Query',
+                '',
+                False,
+                False))
         
-        self.addParameter(ParameterVector(self.VECTOR_LAYER, 'Vector layer',[ParameterVector.VECTOR_TYPE_ANY], True))
-        self.addParameter(ParameterString(self.FIELD, 'Field','', False, False))
-        
-        self.addOutput(OutputString(self.OUTPUT_VALUE,"Value"))
+        self.addOutput(OutputFile(self.OUTPUT_FILE, 'OSM file'))
 
     def help(self):
         locale = QSettings().value("locale/userLocale")[0:2]
@@ -67,15 +83,13 @@ class GetFirstFieldGeoAlgorithm(GeoAlgorithm):
         return QIcon(dirname(__file__) + '/../../icon.png')
 
     def processAlgorithm(self, progress):
-        field = self.getParameterValue(self.FIELD)
-        layer = self.getParameterValue(self.VECTOR_LAYER)
+        progress.setInfo("Downloading data from XAPI")
         
-        vectorLayer = dataobjects.getObjectFromUri(layer)
-        features = vector.features(vectorLayer)
-        fieldIndex = vector.resolveFieldIndex(vectorLayer, field)
+        server = self.getParameterValue(self.SERVER)
+        query = self.getParameterValue(self.QUERY_STRING)
         
-        '''HACK, need to be corrected'''
-        for feature in features:
-            value = unicode(feature.attributes()[fieldIndex])
-            self.setOutputValue(self.OUTPUT_VALUE,value)
-            break
+        xapi = ConnexionXAPI(url=server)
+        osm_file = xapi.get_file_from_query(query)
+        
+        # Set the output file for Processing
+        self.setOutputValue(self.OUTPUT_FILE, osm_file)

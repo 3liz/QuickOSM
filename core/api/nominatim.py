@@ -26,8 +26,8 @@ from PyQt4.QtNetwork import \
 from PyQt4.QtCore import QUrl, QEventLoop
 import json
 
-from CoreQuickOSM.utilities.operating_system import get_proxy
-from CoreQuickOSM.ExceptionQuickOSM import \
+from QuickOSM.core.utilities.operating_system import get_proxy
+from QuickOSM.core.exceptions import \
     NominatimAreaException, NetWorkErrorException
 
 

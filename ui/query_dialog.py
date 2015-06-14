@@ -29,15 +29,15 @@ from PyQt4.QtGui import \
 from PyQt4.QtCore import pyqtSignal, Qt, QUrl
 from qgis.gui import QgsMessageBar
 
-from CoreQuickOSM.utilities.tools import tr
-from CoreQuickOSM.ExceptionQuickOSM import (
+from QuickOSM.core.utilities.tools import tr
+from QuickOSM.core.exceptions import (
     QuickOsmException,
     DirectoryOutPutException,
     OutPutGeomTypesException,
     MissingParameterException)
-from CoreQuickOSM.utilities.qgis import display_message_bar
-from CoreQuickOSM.QueryParser import prepare_query
-from Controller.Process import process_query
+from QuickOSM.core.utilities.qgis import display_message_bar
+from QuickOSM.core.query_parser import prepare_query
+from QuickOSM.controller.process import process_query
 from XMLHighlighter import XMLHighlighter
 from save_query_dialog import SaveQueryDialog
 from QuickOSMWidget import QuickOSMWidget
@@ -52,9 +52,9 @@ class QueryWidget(QuickOSMWidget, Ui_ui_query):
 
     # noinspection PyUnresolvedReferences
     def __init__(self, parent=None):
-        '''
+        """
         QueryWidget constructor
-        '''
+        """
         QuickOSMWidget.__init__(self, parent)
         self.setupUi(self)
         

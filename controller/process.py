@@ -27,20 +27,15 @@ from PyQt4.QtGui import QApplication
 from qgis.core import \
     QGis, QgsVectorLayer, QgsVectorFileWriter, QgsAction, QgsMapLayerRegistry
 
-from CoreQuickOSM.QueryFactory import QueryFactory
-from CoreQuickOSM.utilities.tools import tr
-from CoreQuickOSM.ExceptionQuickOSM import FileOutPutException, OsmDriver
-from CoreQuickOSM.API.ConnexionOAPI import ConnexionOAPI
-from CoreQuickOSM.Parser.OsmParser import OsmParser
-from CoreQuickOSM.utilities.operating_system import get_default_encoding
-from CoreQuickOSM.utilities.qgis import is_osm_driver_enabled
-from CoreQuickOSM.utilities.tools import get_setting
-from CoreQuickOSM.QueryParser import prepare_query
-
-
-"""
-This class makes the link between GUI and Core
-"""
+from QuickOSM.core.query_factory import QueryFactory
+from QuickOSM.core.utilities.tools import tr
+from QuickOSM.core.exceptions import FileOutPutException, OsmDriver
+from QuickOSM.core.api.connexion_oapi import ConnexionOAPI
+from QuickOSM.core.parser.osm_parser import OsmParser
+from QuickOSM.core.utilities.operating_system import get_default_encoding
+from QuickOSM.core.utilities.qgis import is_osm_driver_enabled
+from QuickOSM.core.utilities.tools import get_setting
+from QuickOSM.core.query_parser import prepare_query
 
 
 def get_outputs(output_dir, output_format, prefix_file, layer_name):
@@ -198,7 +193,7 @@ def open_file(
                     QgsAction.GenericPython,
                     "Sketchline",
                     'from QuickOSM.CoreQuickOSM.Actions import Actions;'
-                    'Actions.runSketchLine("[% "network" %]","[% "ref" %]")',
+                    'Actions.run_sketch_line("[% "network" %]","[% "ref" %]")',
                     False)
 
             # Add index if possible

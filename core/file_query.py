@@ -23,32 +23,34 @@
 
 import ntpath
 import ConfigParser
-from operating_system.path import dirname, join,isfile
-from operating_system import listdir
 import re
+from os.path import dirname, join, isfile
+from os import listdir
 
-class FileQuery:
-    '''
+
+class FileQuery(object):
+    """
     Read an INI file
-    '''
+    """
 
     LAYERS = ['multipolygons', 'multilinestrings', 'lines', 'points']
-    QUERY_EXTENSIONS = ['oql','xml']
+    QUERY_EXTENSIONS = ['oql', 'xml']
     FILES = {}
 
     @staticmethod
-    def getIniFilesFromFolder(folder,force=False):
+    def get_ini_files_from_folder(folder, force=False):
         if force:
             FileQuery.FILES = {}
         if not FileQuery.FILES:
-            files = [ join(folder,f) for f in listdir(folder) if isfile(join(folder,f))]
+            files = [join(folder, f) for f in listdir(folder) if isfile(join(
+                folder, f))]
             for filePath in files:
                 ini = FileQuery(filePath)
                 ini.isValid()
         return FileQuery.FILES
 
-    def __init__(self,filePath):
-        self.__filePath = filePath
+    def __init__(self, file_path):
+        self.__filePath = file_path
         self.__queryFile = None
         self.__name = None
         self.__category = None

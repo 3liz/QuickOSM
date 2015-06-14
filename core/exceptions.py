@@ -25,7 +25,7 @@ from processing.core.GeoAlgorithmExecutionException import \
     GeoAlgorithmExecutionException
 from qgis.gui import QgsMessageBar
 
-from CoreQuickOSM.utilities.tools import tr
+from QuickOSM.core.utilities.tools import tr
 
 
 class QuickOsmException(GeoAlgorithmExecutionException):

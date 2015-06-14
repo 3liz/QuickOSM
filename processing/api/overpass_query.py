@@ -2,8 +2,8 @@
 """
 /***************************************************************************
  QuickOSM
-                                 A QGIS plugin
- OSM's Overpass API frontend
+ A QGIS plugin
+ OSM Overpass API frontend
                              -------------------
         begin                : 2014-06-11
         copyright            : (C) 2014 by 3Liz
@@ -21,19 +21,27 @@
  ***************************************************************************/
 """
 
+from os.path import isfile, join, basename, dirname, abspath
+
+from PyQt4.QtCore import QSettings
+from PyQt4.QtGui import QIcon
 from qgis.utils import iface
+from qgis.core import (
+    QgsGeometry,
+    QgsCoordinateReferenceSystem,
+    QgsCoordinateTransform,
+    QgsRectangle)
+from processing.core.GeoAlgorithm import GeoAlgorithm
 
 from QuickOSM.ProcessingQuickOSM import *
-
-from QuickOSM.CoreQuickOSM.API.ConnexionOAPI import ConnexionOAPI
-from QuickOSM.CoreQuickOSM.Tools import Tools
-from operating_system.path import isfile,join,basename,dirname,abspath
+from QuickOSM.core.api.connexion_oapi import ConnexionOAPI
+from QuickOSM.core.query_parser import prepare_query
 
 
 class OverpassQueryGeoAlgorithm(GeoAlgorithm):
-    '''
+    """
     Perform an OverPass query and get an OSM file
-    '''
+    """
 
     SERVER = 'SERVER'
     QUERY_STRING = 'QUERY_STRING'
@@ -45,10 +53,32 @@ class OverpassQueryGeoAlgorithm(GeoAlgorithm):
         self.name = "Query overpass API with a string"
         self.group = "API"
 
-        self.addParameter(ParameterString(self.SERVER, 'Overpass API','http://overpass-api.de/api/', False, False))
-        self.addParameter(ParameterString(self.QUERY_STRING,'Query (XML or OQL)', '', True,False))
-        self.addParameter(ParameterExtent(self.EXTENT, 'If {{bbox}} in the query, extent (0,0,0,0 is a wrong value)', default="0,0,0,0"))
-        self.addParameter(ParameterString(self.NOMINATIM, 'If {{nominatim}} in the query, place','', False, True))
+        self.addParameter(
+            ParameterString(
+                self.SERVER,
+                'Overpass API',
+                'http://overpass-api.de/api/',
+                False,
+                False))
+        self.addParameter(
+            ParameterString(
+                self.QUERY_STRING,
+                'Query (XML or OQL)',
+                '',
+                True,
+                False))
+        self.addParameter(
+            ParameterExtent(
+                self.EXTENT,
+                'If {{bbox}} in the query, extent (0,0,0,0 is a wrong value)',
+                default="0,0,0,0"))
+        self.addParameter(
+            ParameterString(
+                self.NOMINATIM,
+                'If {{nominatim}} in the query, place',
+                '',
+                False,
+                True))
         
         self.addOutput(OutputFile(self.OUTPUT_FILE, 'OSM file'))
 
@@ -75,38 +105,40 @@ class OverpassQueryGeoAlgorithm(GeoAlgorithm):
         return QIcon(dirname(__file__) + '/../../icon.png')
 
     def processAlgorithm(self, progress):
-        self.progress = progress
-        self.progress.setInfo("Preparing the Overpass query")
-        self.progress.setPercentage(0)
+        progress.setInfo("Preparing the Overpass query")
+        progress.setPercentage(0)
         
         server = self.getParameterValue(self.SERVER)
         query = self.getParameterValue(self.QUERY_STRING)
         nominatim = self.getParameterValue(self.NOMINATIM)
         
-        #Extent of the layer
+        # Extent of the layer
         extent = self.getParameterValue(self.EXTENT)
         if extent != "0,0,0,0":
-            #xmin,xmax,ymin,ymax
+            # x_min, x_max, y_min, y_max
             extent = [float(i) for i in extent.split(',')]
-            geomExtent = QgsGeometry.fromRect(QgsRectangle(extent[0],extent[2],extent[1],extent[3]))
-            sourceCrs = iface.mapCanvas().mapRenderer().destinationCrs()
-            crsTransform = QgsCoordinateTransform(sourceCrs, QgsCoordinateReferenceSystem("EPSG:4326"))
-            geomExtent.transform(crsTransform)
-            extent = geomExtent.boundingBox()
+            # noinspection PyCallByClass
+            geometry_extent = QgsGeometry.fromRect(
+                QgsRectangle(extent[0], extent[2], extent[1], extent[3]))
+            source_crs = iface.mapCanvas().mapRenderer().destinationCrs()
+            crs_transform = QgsCoordinateTransform(
+                source_crs, QgsCoordinateReferenceSystem("EPSG:4326"))
+            geometry_extent.transform(crs_transform)
+            extent = geometry_extent.boundingBox()
         else:
             extent = None
             
         if nominatim == "":
             nominatim = None
 
-        #Make some transformation on the query ({{box}}, Nominatim, ...
-        query = Tools.PrepareQueryOqlXml(query,extent,nominatim)
+        # Make some transformation on the query ({{box}}, Nominatim, ...
+        query = prepare_query(query, extent, nominatim)
         
-        oapi = ConnexionOAPI(url=server,output="xml")
-        self.progress.setInfo("Downloading data from Overpass")
-        self.progress.setPercentage(5)
-        osmFile = oapi.get_file_from_query(query)
+        overpass_api = ConnexionOAPI(url=server, output="xml")
+        progress.setInfo("Downloading data from Overpass")
+        progress.setPercentage(5)
+        osm_file = overpass_api.get_file_from_query(query)
         
-        #Set the output file for Processing
-        self.progress.setPercentage(100)
-        self.setOutputValue(self.OUTPUT_FILE,osmFile)
+        # Set the output file for Processing
+        progress.setPercentage(100)
+        self.setOutputValue(self.OUTPUT_FILE, osm_file)
