@@ -217,10 +217,10 @@ class QueryWidget(QuickOSMWidget, Ui_ui_query):
             num_layers = process_query(
                 dialog=self,
                 query=query,
-                outputDir=output_directory,
-                prefixFile=prefix_file,
-                outputGeomTypes=output_geometry_types,
-                whiteListValues=white_list_values,
+                output_dir=output_directory,
+                prefix_file=prefix_file,
+                output_geometry_types=output_geometry_types,
+                white_list_values=white_list_values,
                 nominatim=nominatim,
                 bbox=bbox)
 
@@ -259,7 +259,7 @@ class QueryWidget(QuickOSMWidget, Ui_ui_query):
         nominatim = unicode(self.lineEdit_nominatim.text())
         bbox = self.get_bounding_box()
         query = prepare_query(
-            query=query, extent=bbox, nominatimName=nominatim)
+            query=query, extent=bbox, nominatim_name=nominatim)
         self.textEdit_query.setPlainText(query)  
 
     def save_final_query(self):
@@ -277,13 +277,13 @@ class QueryWidget(QuickOSMWidget, Ui_ui_query):
 
         # Delete any templates
         query = prepare_query(
-            query=query, extent=bbox, nominatimName=nominatim)
+            query=query, extent=bbox, nominatim_name=nominatim)
 
         # Save the query
         save_query_dialog = SaveQueryDialog(
             query=query,
-            outputGeomTypes=output_geometry_types,
-            whiteListValues=white_list_values)
+            output_geometry_types=output_geometry_types,
+            white_list_values=white_list_values)
         save_query_dialog.signal_new_query_successful.connect(
             self.signal_new_query_successful.emit)
         save_query_dialog.exec_()
@@ -302,8 +302,8 @@ class QueryWidget(QuickOSMWidget, Ui_ui_query):
         # save the query
         save_query_dialog = SaveQueryDialog(
             query=query,
-            outputGeomTypes=output_geometry_types,
-            whiteListValues=white_list_values)
+            output_geometry_types=output_geometry_types,
+            white_list_values=white_list_values)
         save_query_dialog.signal_new_query_successful.connect(
             self.signal_new_query_successful.emit)
         save_query_dialog.exec_()
