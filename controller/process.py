@@ -90,7 +90,10 @@ def open_file(
 
     # Parsing the file
     osm_parser = OsmParser(
-        osm_file, layers=output_geom_types, whiteListColumn=white_list_column)
+        osm_file=osm_file,
+        layers=output_geom_types,
+        white_list_column=white_list_column)
+
     osm_parser.signalText.connect(dialog.set_progress_text)
     osm_parser.signalPercentage.connect(dialog.set_progress_percentage)
     layers = osm_parser.parse()
@@ -285,10 +288,10 @@ def process_quick_query(
         key=key,
         value=value,
         bbox=bbox,
-        isAround=is_around,
+        is_around=is_around,
         distance=distance,
         nominatim=nominatim,
-        osmObjects=osm_objects)
+        osm_objects=osm_objects)
     query = query_factory.make()
 
     # Call process_query with the new query
