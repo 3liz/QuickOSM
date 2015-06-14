@@ -21,10 +21,11 @@
  ***************************************************************************/
 """
 
+import re
+from xml.dom.minidom import parseString
+
 from QuickOSM.core.exceptions import QueryFactoryException
 from QuickOSM.core.utilities.tools import tr
-
-TAB = '     '
 
 
 class QueryFactory(object):
@@ -93,6 +94,58 @@ class QueryFactory(object):
                 raise QueryFactoryException(
                     suffix=tr('QuickOSM', 'wrong OSM object'))
 
+    @staticmethod
+    def get_pretty_xml(query):
+        xml = parseString(query)
+        return xml.toprettyxml()
+
+    @staticmethod
+    def replace_template(query):
+        query = re.sub(
+            r' area="(.*?)" ', r' {{geocodeArea:\1}} ', query)
+        query = query.replace('bbox="custom"', ' {{bbox}} ')
+        return query
+
+    def generate_xml(self):
+        query = u'<osm-script output="%s" timeout="%s">' % \
+                (self.__output, self.__timeout)
+
+        if self.__nominatim and not self.__is_around:
+            query += u'<id-query area="%s" into="area"/>' % self.__nominatim
+
+        query += u'<union>'
+
+        for osmObject in self.__osm_objects:
+
+            query += u'<query type="%s">' % osmObject
+            query += u'<has-kv k="%s" ' % self.__key
+            if self.__value:
+                query += u'v="%s"' % self.__value
+
+            query += u'/>'
+
+            if self.__nominatim and not self.__is_around:
+                query += u'<area-query from="area"/>'
+
+            elif self.__nominatim and self.__is_around:
+                query += u'<around area="%s" radius="%s" />' % \
+                         self.__nominatim, self.__distance
+
+            elif self.__bbox:
+                query = u'%s<bbox-query bbox="custom" />' % query
+
+            query += u'</query>'
+
+        query += u'</union>'
+        query += u'<union>'
+        query += u'<item />'
+        query += u'<recurse type="down"/>'
+        query += u'</union>'
+        query += u'<print mode="%s" />' % self.__print_mode
+        query += u'</osm-script>'
+
+        return query
+
     def make(self):
         """
         Make the query
@@ -102,45 +155,15 @@ class QueryFactory(object):
         """
 
         self.check_parameters()
+        query = self.generate_xml()
 
-        query = '<osm-script output="%s" timeout="%s">\n' % \
-                (self.__output, self.__timeout)
-        
-        if self.__nominatim and not self.__is_around:
-            template = '{{geocodeArea:%s}}' % self.__nominatim
-            query += TAB + '<id-query %s into="area"/> \n' % template
-            
-        query += TAB + '<union>\n'
-        
-        for osmObject in self.__osm_objects:
+        # get_pretty_xml works only with a valid XML, no template {{}}
+        # So we replace fake XML after
+        query = QueryFactory.get_pretty_xml(query)
 
-            query += TAB + TAB + '<query type="' + osmObject + '">\n'
-            query += TAB + TAB + TAB + '<has-kv k="' + self.__key + '" '
+        # get_pretty_xml add on XML header, let's remove the first line
+        query = '\n'.join(query.split('\n')[1:])
 
-            if self.__value:
-                query += 'v="' + self.__value + '"'
-
-            query += '/> \n'
-            
-            if self.__nominatim and not self.__is_around:
-                query += TAB + TAB + TAB + '<area-query from="area"/>\n'
-
-            elif self.__nominatim and self.__is_around:
-                template = '{{geocodeCoords:%s}}' % self.__nominatim
-                query += TAB + TAB + TAB + '<around %s radius="%s" />\n' % \
-                    (template, self.__distance)
-
-            elif self.__bbox:
-                query += TAB + TAB + TAB + '<bbox-query {{bbox}} />\n'
-
-            query += TAB + TAB + '</query>\n'
-        
-        query += TAB + '</union>\n'
-        query += TAB + '<union>\n'
-        query += TAB + TAB + '<item />\n'
-        query += TAB + TAB + '<recurse type="down"/>\n'
-        query += TAB + '</union>\n'
-        query += TAB + '<print mode="%s" />\n' % self.__print_mode
-        query += '</osm-script>'
-        
+        query = QueryFactory.replace_template(query)
+        query = query.replace('	', '    ')
         return query
