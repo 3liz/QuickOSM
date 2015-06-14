@@ -324,13 +324,13 @@ class MyQueriesWidget(QuickOSMWidget, Ui_ui_my_queries):
             num_layers = process_query(
                 dialog=self,
                 query=query,
-                outputDir=output_directory,
-                prefixFile=prefix_file,
-                outputGeomTypes=output_geometry_types,
-                whiteListValues=white_list_values,
+                output_dir=output_directory,
+                prefix_file=prefix_file,
+                output_geometry_types=output_geometry_types,
+                white_list_values=white_list_values,
                 nominatim=nominatim,
                 bbox=bbox,
-                configOutputs=self.config_layer)
+                config_outputs=self.config_layer)
 
             if num_layers:
                 display_message_bar(

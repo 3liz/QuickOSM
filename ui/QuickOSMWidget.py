@@ -215,7 +215,7 @@ class QuickOSMWidget(QWidget):
         traceback.print_tb(tb)
         print e
         display_message_bar(
-            tr("Error in the python console, please report it"),
+            tr('QuickOSM', 'Error in the python console, please report it'),
             level=QgsMessageBar.CRITICAL,
             duration=5)
 

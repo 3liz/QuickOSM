@@ -37,7 +37,7 @@ from ui.osm_file_dialog import OsmFileDockWidget
 from ui.quick_query_dialog import QuickQueryDockWidget
 from quick_osm_processing.algorithm_provider import QuickOSMAlgorithmProvider
 from core.utilities.tools import \
-    get_current_version, get_setting, set_setting, new_queries_available
+    get_current_version, get_setting, set_setting, new_queries_available, tr
 
 
 class QuickOSM:
@@ -96,7 +96,7 @@ class QuickOSM:
         # Setup menu
         self.quickosm_menu = QMenu('Quick OSM')
         self.quickosm_menu.setIcon(QIcon(':/plugins/QuickOSM/icon.png'))
-        self.dock_menu = QMenu(QApplication.translate('QuickOSM', u'Dock'))
+        self.dock_menu = QMenu(tr('QuickOSM', u'Dock'))
         self.web_menu = self.iface.webMenu()
         self.web_menu.addMenu(self.quickosm_menu)
 
@@ -105,6 +105,7 @@ class QuickOSM:
             QIcon(':/plugins/QuickOSM/icon.png'),
             u'QuickOSM',
             self.iface.mainWindow())
+        # noinspection PyUnresolvedReferences
         self.mainWindowAction.triggered.connect(self.openMainWindow)
         self.toolbar.addAction(self.mainWindowAction)
         self.iface.QuickOSM_mainWindowDialog = MainWindowDialog()
@@ -112,8 +113,9 @@ class QuickOSM:
         # OSM File
         self.osmFileAction = QAction(
             QIcon(':/plugins/QuickOSM/resources/open.png'),
-            QApplication.translate('ui_osm_file', 'OSM File'),
+            tr('ui_osm_file', 'OSM File'),
             self.iface.mainWindow())
+        # noinspection PyUnresolvedReferences
         self.osmFileAction.triggered.connect(self.openOsmFileDockWidget)
         self.osmFileDockWidget = OsmFileDockWidget()
         self.iface.addDockWidget(
@@ -124,8 +126,9 @@ class QuickOSM:
         # My queries
         self.myQueriesAction = QAction(
             QIcon(':/plugins/QuickOSM/resources/favorites.png'),
-            QApplication.translate('ui_my_queries', 'My queries'),
+            tr('ui_my_queries', 'My queries'),
             self.iface.mainWindow())
+        # noinspection PyUnresolvedReferences
         self.myQueriesAction.triggered.connect(self.openMyQueriesDockWidget)
         self.myQueriesDockWidget = MyQueriesDockWidget()
         self.iface.addDockWidget(
@@ -136,8 +139,9 @@ class QuickOSM:
         # Query
         self.queryAction = QAction(
             QIcon(':/plugins/QuickOSM/resources/edit.png'),
-            QApplication.translate('ui_query', 'Query'),
+            tr('ui_query', 'Query'),
             self.iface.mainWindow())
+        # noinspection PyUnresolvedReferences
         self.queryAction.triggered.connect(self.openQueryDockWidget)
         self.queryDockWidget = QueryDockWidget()
         self.iface.addDockWidget(Qt.RightDockWidgetArea, self.queryDockWidget)
@@ -147,8 +151,9 @@ class QuickOSM:
         # Quick query
         self.quickQueryAction = QAction(
             QIcon(':/plugins/QuickOSM/resources/quick.png'),
-            QApplication.translate('ui_quick_query', 'Quick query'),
+            tr('ui_quick_query', 'Quick query'),
             self.iface.mainWindow())
+        # noinspection PyUnresolvedReferences
         self.quickQueryAction.triggered.connect(self.openQuickQueryDockWidget)
         self.quickQueryDockWidget = QuickQueryDockWidget()
         self.iface.addDockWidget(
@@ -203,10 +208,11 @@ class QuickOSM:
                           'like to install them ? This will overwrite the ' \
                           'current default queries.'
                 title = 'QuickOSM'
+                message = tr('QuickOSM', message)
                 widget = self.iface.messageBar().createMessage(title, message)
                 button_ok = QPushButton(widget)
                 button_ok.setText(
-                    QApplication.translate('ui_quick_query', 'Install'))
+                    tr('QuickOSM', 'Install'))
                 button_ok.pressed.connect(self.restoreDefaultQueries)
                 widget.layout().addWidget(button_ok)
                 self.iface.messageBar().pushWidget(

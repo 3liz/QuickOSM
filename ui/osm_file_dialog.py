@@ -157,8 +157,8 @@ class OsmFileWidget(QuickOSMWidget, Ui_ui_osm_file):
             if load_only:
                 osm_parser = OsmParser(
                     osm_file,
-                    loadOnly=True,
-                    osmConf=osm_conf,
+                    load_only=True,
+                    osm_conf=osm_conf,
                     layers=output_geometry_types)
                 layers = osm_parser.parse()
 
@@ -168,10 +168,10 @@ class OsmFileWidget(QuickOSMWidget, Ui_ui_osm_file):
             else:
                 open_file(
                     dialog=self,
-                    osmFile=osm_file,
-                    outputGeomTypes=output_geometry_types,
-                    outputDir=output_directory,
-                    prefixFile=prefix_file)
+                    osm_file=osm_file,
+                    output_geom_types=output_geometry_types,
+                    output_dir=output_directory,
+                    prefix_file=prefix_file)
             
         except QuickOsmException, e:
             self.display_geo_algorithm_exception(e)

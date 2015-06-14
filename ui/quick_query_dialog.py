@@ -257,14 +257,14 @@ class QuickQueryWidget(QuickOSMWidget, Ui_ui_quick_query):
                 key=key,
                 value=value,
                 nominatim=nominatim,
-                isAround=is_around,
+                is_around=is_around,
                 distance=distance,
                 bbox=bbox,
-                osmObjects=osm_objects,
+                osm_objects=osm_objects,
                 timeout=timeout,
-                outputDir=output_directory,
-                prefixFile=prefix_file,
-                outputGeomTypes=output_geometry_types)
+                output_directory=output_directory,
+                prefix_file=prefix_file,
+                output_geometry_types=output_geometry_types)
 
             # We can test numLayers to see if there are some results
             if num_layers:
