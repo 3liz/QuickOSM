@@ -90,34 +90,35 @@ def replace_geocode_coords(nominatim_name, query):
 
 
 def replace_geocode_area(nominatim_name, query):
+
+    def replace(catch, default_nominatim):
+
+        if default_nominatim:
+            search = default_nominatim
+        else:
+            search = catch
+
+        # if the result is already a number, it's a relation ID.
+        # we don't perform a nominatim query
+        if search.isdigit():
+            osm_id = search
+        else:
+            # We perform a nominatim query
+            nominatim = Nominatim()
+            osm_id = nominatim.get_first_polygon_from_query(search)
+
+        area = int(osm_id) + 3600000000
+
+        if is_oql(query):
+            new_string = 'area(%s)' % area
+        else:
+            new_string = 'ref="%s" type="area"' % area
+
+        return new_string
+
     template = r'{{(nominatimArea|geocodeArea):(.*)}}'
-    nominatim_query = re.search(template, query)
-    if not nominatim_query:
-        return query
-
-    result = nominatim_query.groups()
-    search = result[1]
-
-    if nominatim_name:
-        search = nominatim_name
-
-    # if the result is already a number, it's a relation ID.
-    # we don't perform a nominatim query
-    if search.isdigit():
-        osm_id = search
-    else:
-        # We perform a nominatim query
-        nominatim = Nominatim()
-        osm_id = nominatim.get_first_polygon_from_query(search)
-
-    area = int(osm_id) + 3600000000
-
-    if is_oql(query):
-        new_string = 'area(%s)' % area
-    else:
-        new_string = 'ref="%s" type="area"' % area
-
-    query = re.sub(template, new_string, query)
+    query = re.sub(template, lambda m: replace(
+        m.groups()[1], nominatim_name), query)
     return query
 
 
