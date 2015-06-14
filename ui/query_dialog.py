@@ -50,7 +50,7 @@ from query import Ui_ui_query
 
 
 class QueryWidget(QuickOSMWidget, Ui_ui_query):
-    
+
     # Signal new query
     signal_new_query_successful = pyqtSignal(
         name='signal_new_query_successful')
@@ -62,10 +62,10 @@ class QueryWidget(QuickOSMWidget, Ui_ui_query):
         """
         QuickOSMWidget.__init__(self, parent)
         self.setupUi(self)
-        
+
         # Highlight XML
         self.highlighter = XMLHighlighter(self.textEdit_query.document())
-               
+
         # Setup UI
         self.label_progress.setText("")
         self.lineEdit_filePrefix.setDisabled(True)
@@ -77,7 +77,7 @@ class QueryWidget(QuickOSMWidget, Ui_ui_query):
         self.pushButton_generateQuery.setDisabled(True)
         self.pushButton_saveQuery.setDisabled(True)
         self.pushButton_runQuery.setDisabled(True)
-        
+
         # Setup menu for saving
         popup_menu = QMenu()
         save_final_query_action = QAction(
@@ -89,7 +89,7 @@ class QueryWidget(QuickOSMWidget, Ui_ui_query):
         save_template_query_action.triggered.connect(self.save_template_query)
         popup_menu.addAction(save_template_query_action)
         self.pushButton_saveQuery.setMenu(popup_menu)
-        
+
         # Setup menu for documentation
         popup_menu = QMenu()
         map_features_action = QAction(
@@ -100,7 +100,7 @@ class QueryWidget(QuickOSMWidget, Ui_ui_query):
         overpass_action.triggered.connect(self.open_doc_overpass)
         popup_menu.addAction(overpass_action)
         self.pushButton_documentation.setMenu(popup_menu)
-        
+
         # connect
         self.pushButton_runQuery.clicked.connect(self.run_query)
         self.pushButton_generateQuery.clicked.connect(self.generate_query)
@@ -133,10 +133,10 @@ class QueryWidget(QuickOSMWidget, Ui_ui_query):
 
     def allow_nominatim_or_extent(self):
         """
-        Disable or enable radiobuttons if nominatim or extent
+        Disable or enable radio buttons if nominatim or extent
         Disable buttons if the query is empty
         """
-        
+
         query = unicode(self.textEdit_query.toPlainText())
 
         if not query:
@@ -155,7 +155,7 @@ class QueryWidget(QuickOSMWidget, Ui_ui_query):
         else:
             self.lineEdit_nominatim.setEnabled(False)
             self.lineEdit_nominatim.setText("")
-            
+
         if re.search('\{\{(bbox|center)\}\}', query):
             self.radioButton_extentLayer.setEnabled(True)
             self.radioButton_extentMapCanvas.setEnabled(True)
@@ -172,39 +172,39 @@ class QueryWidget(QuickOSMWidget, Ui_ui_query):
         """
         Process for running the query
         """
-        
+
         # Block the button and save the initial text
         self.pushButton_browse_output_file.setDisabled(True)
         self.pushButton_generateQuery.setDisabled(True)
         QApplication.setOverrideCursor(Qt.WaitCursor)
         self.start_process()
         QApplication.processEvents()
-        
+
         # Get all values
         query = unicode(self.textEdit_query.toPlainText())
         output_directory = self.lineEdit_browseDir.text()
         prefix_file = self.lineEdit_filePrefix.text()
         nominatim = self.lineEdit_nominatim.text()
-        
+
         # Set bbox
         bbox = None
         if self.radioButton_extentLayer.isChecked() or \
                 self.radioButton_extentMapCanvas.isChecked():
             bbox = self.get_bounding_box()
-        
+
         # Check nominatim
         if nominatim == '':
             nominatim = None
-        
+
         # Which geometry at the end ?
         output_geometry_types = self.get_output_geometry_types()
         white_list_values = self.get_white_list_values()
-        
+
         try:
             # Test values
             if not output_geometry_types:
                 raise OutPutGeomTypesException
-            
+
             if output_directory and not isdir(output_directory):
                 raise DirectoryOutPutException
 
@@ -236,12 +236,12 @@ class QueryWidget(QuickOSMWidget, Ui_ui_query):
                     tr('QuickOSM', u'Successful query, but no result.'),
                     level=QgsMessageBar.WARNING,
                     duration=7)
-        
+
         except QuickOsmException, e:
             self.display_geo_algorithm_exception(e)
         except Exception, e:
             self.display_exception(e)
-        
+
         finally:
             # Resetting the button
             self.pushButton_browse_output_file.setDisabled(False)
@@ -249,12 +249,12 @@ class QueryWidget(QuickOSMWidget, Ui_ui_query):
             QApplication.restoreOverrideCursor()
             self.end_process()
             QApplication.processEvents()
-            
+
     def generate_query(self):
         """
         Transform the template to query "out of the box"
         """
-        
+
         query = unicode(self.textEdit_query.toPlainText())
         nominatim = unicode(self.lineEdit_nominatim.text())
         bbox = self.get_bounding_box()
@@ -266,19 +266,19 @@ class QueryWidget(QuickOSMWidget, Ui_ui_query):
         """
         Save the query without any templates, usefull for bbox
         """
-        
+
         # Which geometry at the end ?
         output_geometry_types = self.get_output_geometry_types()
         white_list_values = self.get_white_list_values()
-        
+
         query = unicode(self.textEdit_query.toPlainText())
         nominatim = unicode(self.lineEdit_nominatim.text())
         bbox = self.get_bounding_box()
-        
+
         # Delete any templates
         query = prepare_query(
             query=query, extent=bbox, nominatimName=nominatim)
-        
+
         # Save the query
         save_query_dialog = SaveQueryDialog(
             query=query,
@@ -287,18 +287,18 @@ class QueryWidget(QuickOSMWidget, Ui_ui_query):
         save_query_dialog.signal_new_query_successful.connect(
             self.signal_new_query_successful.emit)
         save_query_dialog.exec_()
-        
+
     def save_template_query(self):
         """
         Save the query with templates if some are presents
         """
-        
+
         # Which geometry at the end ?
         output_geometry_types = self.get_output_geometry_types()
         white_list_values = self.get_white_list_values()
-        
+
         query = unicode(self.textEdit_query.toPlainText())
-        
+
         # save the query
         save_query_dialog = SaveQueryDialog(
             query=query,
@@ -307,7 +307,7 @@ class QueryWidget(QuickOSMWidget, Ui_ui_query):
         save_query_dialog.signal_new_query_successful.connect(
             self.signal_new_query_successful.emit)
         save_query_dialog.exec_()
-        
+
     @staticmethod
     def open_overpass_turbo():
         """
@@ -324,13 +324,13 @@ class QueryWidget(QuickOSMWidget, Ui_ui_query):
         url = "http://wiki.openstreetmap.org/wiki/Overpass_API/Language_Guide"
         desktop_service = QDesktopServices()
         desktop_service.openUrl(QUrl(url))
-    
+
 
 class QueryDockWidget(QDockWidget):
-    
+
     signal_new_query_successful = pyqtSignal(
         name='signal_new_query_successful')
-    
+
     def __init__(self, parent=None):
         QDockWidget.__init__(self, parent)
         self.setAllowedAreas(Qt.LeftDockWidgetArea | Qt.RightDockWidgetArea)

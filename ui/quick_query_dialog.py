@@ -372,9 +372,9 @@ class QuickQueryWidget(QuickOSMWidget, Ui_ui_quick_query):
             value=value,
             bbox=bbox,
             nominatim=nominatim,
-            isAround=is_around,
+            is_around=is_around,
             distance=distance,
-            osmObjects=osm_objects)
+            osm_objects=osm_objects)
         query = query_factory.make()
         query_widget.textEdit_query.setPlainText(query)
         iface.QuickOSM_mainWindowDialog.listWidget.setCurrentRow(
