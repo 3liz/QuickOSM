@@ -90,7 +90,10 @@ def open_file(
 
     # Parsing the file
     osm_parser = OsmParser(
-        osm_file, layers=output_geom_types, white_list_column=white_list_column)
+        osm_file=osm_file,
+        layers=output_geom_types,
+        white_list_column=white_list_column)
+
     osm_parser.signalText.connect(dialog.set_progress_text)
     osm_parser.signalPercentage.connect(dialog.set_progress_percentage)
     layers = osm_parser.parse()
@@ -232,7 +235,7 @@ def process_query(
     outputs = get_outputs(output_dir, output_format, prefix_file, layer_name)
 
     # Replace Nominatim or BBOX
-    query = prepare_query(query, nominatim, bbox)
+    query = prepare_query(query=query, nominatim_name=nominatim, extent=bbox)
 
     # Getting the default overpass api and running the query
     server = get_setting('defaultOAPI')
