@@ -235,7 +235,7 @@ def process_query(
     outputs = get_outputs(output_dir, output_format, prefix_file, layer_name)
 
     # Replace Nominatim or BBOX
-    query = prepare_query(query, nominatim, bbox)
+    query = prepare_query(query=query, nominatim_name=nominatim, extent=bbox)
 
     # Getting the default overpass api and running the query
     server = get_setting('defaultOAPI')
