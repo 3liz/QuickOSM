@@ -32,7 +32,7 @@ class QueryFactory(object):
     """
     Build a XML query
     """
-    
+
     OSM_TYPES = ['node', 'way', 'relation']
 
     def __init__(
@@ -50,7 +50,7 @@ class QueryFactory(object):
         """
         Constructor with key=value according to OpenStreetMap
         A bbox or nominatim can be provided
-        
+
         @param key: key
         @type key: str
         @param value: value

@@ -66,25 +66,25 @@ class NominatimQueryGeoAlgorithm(GeoAlgorithm):
         if current_file.endswith('pyc'):
             current_file = current_file[:-1]
         current_file = basename(current_file)
-        
+
         helps = [current_file + locale + ".html", current_file + ".html"]
-        
+
         doc_path = join(dirname(dirname(dirname(abspath(__file__)))), 'doc')
         for helpFileName in helps:
             file_help_path = join(doc_path, helpFileName)
             if isfile(file_help_path):
                 return False, file_help_path
-        
+
         return False, None
 
     def getIcon(self):
         return QIcon(dirname(__file__) + '/../../icon.png')
 
     def processAlgorithm(self, progress):
-        
+
         server = self.getParameterValue(self.SERVER)
         query = self.getParameterValue(self.NOMINATIM_STRING)
-        
+
         nominatim = Nominatim(url=server)
         try:
             osm_id = nominatim.get_first_polygon_from_query(query)

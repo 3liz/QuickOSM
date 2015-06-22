@@ -32,7 +32,7 @@ from QuickOSM.core.utilities.utilities_qgis import get_user_folder
 
 
 class MainWindowDialog(QDialog, Ui_ui_main_window):
-    
+
     # Signal new query
     signal_new_query_successful = pyqtSignal(
         name='signal_new_query_successful')
@@ -47,7 +47,7 @@ class MainWindowDialog(QDialog, Ui_ui_main_window):
         self.setupUi(self)
         self.set_help_web_view()
         self.help_file = None
-        
+
         # Connect
         # noinspection PyUnresolvedReferences
         self.pushButton_homeHelp.clicked.connect(self.get_root_help)
@@ -66,7 +66,7 @@ class MainWindowDialog(QDialog, Ui_ui_main_window):
             self.restore_default_queries)
         # noinspection PyUnresolvedReferences
         self.radioButton_outputJson.toggled.connect(self.set_output_format)
-        
+
         # Set settings about the overpass API
         self.defaultServer = get_setting('defaultOAPI')
         if self.defaultServer:
@@ -75,7 +75,7 @@ class MainWindowDialog(QDialog, Ui_ui_main_window):
         else:
             self.defaultServer = self.comboBox_default_OAPI.currentText()
             set_setting('defaultOAPI', self.defaultServer)
-        
+
         # Set settings about the output
         self.outputFormat = get_setting('outputFormat')
         if self.outputFormat == "geojson":
@@ -85,7 +85,7 @@ class MainWindowDialog(QDialog, Ui_ui_main_window):
         else:
             set_setting('outputFormat', 'shape')
             self.radioButton_outputShape.setChecked(True)
-            
+
         # Set minimum width for the menu
         self.listWidget.setMinimumWidth(
             self.listWidget.sizeHintForColumn(0) + 10)
@@ -98,7 +98,7 @@ class MainWindowDialog(QDialog, Ui_ui_main_window):
         locale += "."
         help_file_base = "main"
         helps = [help_file_base + locale + ".html", help_file_base + ".html"]
-        
+
         doc_path = join(dirname(dirname(abspath(__file__))), 'doc')
         for helpFileName in helps:
             file_help_path = join(doc_path, helpFileName)
@@ -108,7 +108,7 @@ class MainWindowDialog(QDialog, Ui_ui_main_window):
                 break
         else:
             self.webBrowser.setHtml("<h3>Help not available</h3>")
-    
+
     def get_root_help(self):
         """
         home button set the default help page
@@ -120,14 +120,14 @@ class MainWindowDialog(QDialog, Ui_ui_main_window):
         Slot which force the tree to refresh
         """
         self.my_queries.fill_tree(force=True)
-            
+
     def set_server_overpass_api(self):
         """
         Save the new OAPI server
         """
         self.defaultServer = self.comboBox_default_OAPI.currentText()
         set_setting('defaultOAPI', self.defaultServer)
-        
+
     def get_timestamp_overpass_api(self):
         """
         Get the timestamp of the current server
@@ -147,7 +147,7 @@ class MainWindowDialog(QDialog, Ui_ui_main_window):
             set_setting('outputFormat', 'geojson')
         else:
             set_setting('outputFormat', 'shape')
-        
+
     def restore_default_queries(self):
         """
         Overwrite all queries

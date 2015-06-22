@@ -32,11 +32,11 @@ from save_query import Ui_ui_save_query
 
 
 class SaveQueryDialog(QDialog, Ui_ui_save_query):
-    
+
     # Signal new query
     signal_new_query_successful = pyqtSignal(
         name='signal_new_query_successful')
-    
+
     def __init__(
             self,
             parent=None,
@@ -61,21 +61,21 @@ class SaveQueryDialog(QDialog, Ui_ui_save_query):
         self.bar = QgsMessageBar()
         self.bar.setSizePolicy(QSizePolicy.Minimum, QSizePolicy.Fixed)
         self.layout().addWidget(self.bar)
-        
+
         self.whiteListValues = white_list_values
         self.outputGeomTypes = output_geometry_types
         self.query = query
-        
+
     def accept(self):
         """
         On accept, we call the FileQueryWriter
         """
         category = self.lineEdit_category.text()
         name = self.lineEdit_name.text()
-        
+
         # Get folder .qgis2/QuickOSM/queries on linux for instance
         folder = get_user_query_folder()
-        
+
         ini_file = FileQueryWriter(
             path=folder,
             name=name,

@@ -35,13 +35,13 @@ class OsmRelationParserGeoAlgorithm(GeoAlgorithm):
     """
     Parse an OSM file with SAX and return a table
     """
-    
+
     def __init__(self):
         self.slotOsmParser = SLOT("osmParser()")
-        
+
         self.FILE = 'FILE'
         self.TABLE = 'TABLE'
-        
+
         GeoAlgorithm.__init__(self)
 
     def defineCharacteristics(self):
@@ -49,7 +49,7 @@ class OsmRelationParserGeoAlgorithm(GeoAlgorithm):
         self.group = "OSM Parser"
 
         self.addParameter(ParameterFile(self.FILE, 'OSM file', False, False))
-        
+
         self.addOutput(OutputTable(self.TABLE, 'Output '))
 
     def help(self):
@@ -68,19 +68,19 @@ class OsmRelationParserGeoAlgorithm(GeoAlgorithm):
             file_help_path = join(doc_path, helpFileName)
             if isfile(file_help_path):
                 return False, file_help_path
-        
+
         return False, None
-    
+
     def getIcon(self):
         return QIcon(dirname(__file__) + '/../../icon.png')
 
     def processAlgorithm(self, progress):
         progress.setPercentage(0)
-        
+
         file_path = self.getParameterValue(self.FILE)
-        
+
         parser = OsmRelationParser(file_path)
-        
+
         results = parser.parse()
         first_item = None
 
@@ -89,7 +89,7 @@ class OsmRelationParserGeoAlgorithm(GeoAlgorithm):
             break
 
         fields = parser.get_fields()
-        
+
         table = self.getOutputFromName(self.TABLE)
         table_writer = table.getTableWriter(fields)
 

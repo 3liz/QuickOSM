@@ -79,7 +79,7 @@ class QuickOSMAlgorithmProvider(AlgorithmProvider):
 
     def getIcon(self):
         return QIcon(":/plugins/QuickOSM/icon.png")
-    
+
     def _loadAlgorithms(self):
         self.algs = self.alglist
 

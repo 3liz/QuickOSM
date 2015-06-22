@@ -63,60 +63,62 @@ class FileQuery(object):
 
     def getCategory(self):
         return self.__category
-    
+
     def getIcon(self):
         return self.__icon
-    
+
     def getQueryFile(self):
         return self.__queryFile
-    
+
     def getFilePath(self):
         return self.__filePath
 
     def isValid(self):
-        #Is it an ini file ?    
+        # Is it an ini file ?
         tab = (ntpath.basename(self.__filePath)).split('.')
-        if len(tab)<2:
+        if len(tab) < 2:
             return False
-        
+
         filename = tab[0]
         if tab[1] != "ini":
             return False
-        
-        #Get the ini parser
+
+        # Get the ini parser
         try:
             self.__configParser
         except AttributeError:
             self.__configParser = ConfigParser.ConfigParser()
             self.__configParser.read(self.__filePath)
-        
-        #Set the name
+
+        # Set the name
         try:
-            #metadata-name and
-            #metadata-category and
-            #(layers)-load (bool) are compulsory
+            # metadata-name and
+            # metadata-category and
+            # (layers)-load (bool) are compulsory
             self.__name = self.__config_section_map('metadata')['name']
             self.__category = self.__config_section_map('metadata')['category']
-        
-            #Check if layers are presents in the ini file
+
+            # Check if layers are presents in the ini file
             for layer in FileQuery.LAYERS:
-                if not isinstance(self.__config_section_map(layer)['load'], bool):
+                if not isinstance(
+                        self.__config_section_map(layer)['load'], bool):
                     return False
-            
-            #Is there another file with the query ?
+
+            # Is there another file with the query ?
             self.directory = dirname(self.__filePath)
             self.__queryExtension = None
             for ext in FileQuery.QUERY_EXTENSIONS:
                 if isfile(join(self.directory, filename + '.' + ext)):
-                    self.__queryFile = join(self.directory, filename + '.' + ext)
+                    self.__queryFile = join(
+                        self.directory, filename + '.' + ext)
                     self.__queryExtension = ext
             if not self.__queryExtension and not self.__queryFile:
                 return False
-            
-            #Test OK, so add it to the list
+
+            # Test OK, so add it to the list
             if self.__category not in FileQuery.FILES:
                 FileQuery.FILES[self.__category] = []
-            
+
             FileQuery.FILES[self.__category].append(self)
             return True
         except Exception:
@@ -126,16 +128,16 @@ class FileQuery(object):
         self.__bboxTemplate = False
         self.__nominatimTemplate = False
         self.__nominatimDefaultValue = None
-        
-        #If XML, check for templates
+
+        # If XML, check for templates
         if self.__queryExtension == 'xml':
             query = unicode(open(self.__queryFile, 'r').read(), "utf-8")
-            
-            #Check if there is a BBOX template
-            if re.search('<bbox-query {{bbox}}/>',query):
+
+            # Check if there is a BBOX template
+            if re.search('<bbox-query {{bbox}}/>', query):
                 self.__bboxTemplate = True
-            
-            #Check if there is a Nominatim template    
+
+            # Check if there is a Nominatim template
             if re.search('{{nominatim}}', query):
                 self.__nominatimTemplate = True
                 self.__nominatimDefaultValue = False
@@ -143,9 +145,12 @@ class FileQuery(object):
             if m:
                 self.__nominatimTemplate = True
                 self.__nominatimDefaultValue = m.groups(1)[1]
-                
-        return {"nominatim" : self.__nominatimTemplate, "nominatimDefaultValue" : self.__nominatimDefaultValue, "bbox":self.__bboxTemplate}
-        
+
+        return {
+            "nominatim": self.__nominatimTemplate,
+            "nominatimDefaultValue": self.__nominatimDefaultValue,
+            "bbox": self.__bboxTemplate}
+
     def getContent(self):
         try:
             return self.__dic
@@ -155,22 +160,26 @@ class FileQuery(object):
             except AttributeError:
                 self.__configParser = ConfigParser.ConfigParser()
                 self.__configParser.read(self.__filePath)
-            
+
             dic = {}
             dic['metadata'] = {}
-            dic['metadata']['query'] = unicode(open(self.__queryFile, 'r').read(), "utf-8")
-            
+            dic['metadata']['query'] = unicode(
+                open(self.__queryFile, 'r').read(), "utf-8")
+
             dic['metadata']['name'] = self.__name
-            
+
             dic['layers'] = {}
             for layer in FileQuery.LAYERS:
                 dic['layers'][layer] = {}
-                for item in ['namelayer', 'columns','style','load']:
-                    dic['layers'][layer][item] = self.__config_section_map(layer)[item]
-                    
+                for item in ['namelayer', 'columns', 'style', 'load']:
+                    dic['layers'][layer][item] = self.__config_section_map(
+                        layer)[item]
+
                     if item == 'style':
-                        if isfile(join(self.directory,dic['layers'][layer][item])):
-                            dic['layers'][layer][item] = join(self.directory,dic['layers'][layer][item])
+                        item = dic['layers'][layer][item]
+                        if isfile(join(self.directory, item)):
+                            dic['layers'][layer][item] = join(
+                                self.directory, dic['layers'][layer][item])
                         else:
                             dic['layers'][layer][item] = None
             self.__dic = dic
@@ -182,11 +191,12 @@ class FileQuery(object):
         except AttributeError:
             self.__configParser = ConfigParser.ConfigParser()
             self.__configParser.read(self.__filePath)
-        
+
         for var in self.__configParser.options(section):
             if var == item:
                 try:
-                    value = unicode(self.__configParser.get(section, var), "utf-8") 
+                    value = unicode(
+                        self.__configParser.get(section, var), "utf-8")
                     if value == u"True":
                         return True
                     elif value == u"False":
@@ -196,9 +206,9 @@ class FileQuery(object):
                 except:
                     return False
         return False
-    
+
     def __config_section_map(self, section):
-        
+
         ini_dict = {}
         for option in self.__configParser.options(section):
             try:

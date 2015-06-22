@@ -37,12 +37,12 @@ class OsmParserGeoAlgorithm(GeoAlgorithm):
     """
     Parse an OSM file with OGR and return each layer
     """
-    
+
     def __init__(self):
         self.slotOsmParser = SLOT("osmParser()")
-        
+
         self.FILE = 'FILE'
-        
+
         self.LAYERS = ['multipolygons', 'multilinestrings', 'lines', 'points']
         self.WHITE_LIST = {}
         self.OUTPUT_LAYERS = {}
@@ -59,7 +59,7 @@ class OsmParserGeoAlgorithm(GeoAlgorithm):
         self.group = "OSM Parser"
 
         self.addParameter(ParameterFile(self.FILE, 'OSM file', False, False))
-        
+
         for layer in self.LAYERS:
             self.addParameter(
                 ParameterString(
@@ -90,29 +90,29 @@ class OsmParserGeoAlgorithm(GeoAlgorithm):
             file_help_path = join(doc_path, helpFileName)
             if isfile(file_help_path):
                 return False, file_help_path
-        
+
         return False, None
-    
+
     def getIcon(self):
         return QIcon(dirname(__file__) + '/../../icon.png')
 
     def processAlgorithm(self, progress):
         self.progress = progress
         self.progress.setPercentage(0)
-        
+
         file_path = self.getParameterValue(self.FILE)
-        
+
         # Creating the dict for columns
         white_list_values = {}
         for layer in self.LAYERS:
             value = self.getParameterValue(self.WHITE_LIST[layer])
-            
+
             # Delete space and tabs in OSM keys
             # Processing return a 'None' value as unicode
             value = re.sub('\s', '', value)
             if value == '' or value == 'None':
                 value = None
-            
+
             if value:
                 if value != ',':
                     white_list_values[layer] = value.split(',')
@@ -120,15 +120,15 @@ class OsmParserGeoAlgorithm(GeoAlgorithm):
                     white_list_values[layer] = ','
             else:
                 white_list_values[layer] = None
-        
+
         # Call the OSM Parser and connect signals
         parser = OsmParser(file_path, self.LAYERS, white_list_values)
         parser.signalText.connect(self.set_info)
         parser.signalPercentage.connect(self.set_percentage)
-        
+
         # Start to parse
         layers = parser.parse()
-        
+
         layers_outputs = {}
         for key, values in layers.iteritems():
             layer = QgsVectorLayer(values['geojsonFile'], "test", "ogr")
@@ -143,9 +143,9 @@ class OsmParserGeoAlgorithm(GeoAlgorithm):
 
             for feature in layer.getFeatures():
                 layers_outputs[key].addFeature(feature)
-                
+
     def set_info(self, text):
         self.progress.setInfo(text)
-    
+
     def set_percentage(self, percent):
         self.progress.setPercentage(percent)

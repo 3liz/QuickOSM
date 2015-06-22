@@ -52,7 +52,7 @@ class QuickQueryWidget(QuickOSMWidget, Ui_ui_quick_query):
         """
         QuickOSMWidget.__init__(self, parent)
         self.setupUi(self)
-        
+
         # Setup UI
         self.label_progress.setText("")
         self.lineEdit_filePrefix.setDisabled(True)
@@ -64,11 +64,11 @@ class QuickQueryWidget(QuickOSMWidget, Ui_ui_quick_query):
         self.radioButton_extentMapCanvas.setChecked(True)
         self.spinBox_distance_point.setDisabled(True)
         self.label_distance_point.setDisabled(True)
-        
+
         # Setup in/around combobox
         self.comboBox_in_around.insertItem(0, tr('ui_quick_query', u'In'))
         self.comboBox_in_around.insertItem(1, tr('ui_quick_query', u'Around'))
-               
+
         # connect
         self.pushButton_runQuery.clicked.connect(self.run_query)
         self.pushButton_showQuery.clicked.connect(self.show_query)
@@ -86,7 +86,7 @@ class QuickQueryWidget(QuickOSMWidget, Ui_ui_quick_query):
         self.buttonBox.button(QDialogButtonBox.Reset).clicked.connect(
             self.reset_form)
         self.comboBox_in_around.currentIndexChanged.connect(self.in_or_around)
-        
+
         # Setup auto completion
         map_features_json_file = join(
             dirname(dirname(abspath(__file__))), 'mapFeatures.json')
@@ -118,7 +118,7 @@ class QuickQueryWidget(QuickOSMWidget, Ui_ui_quick_query):
         self.spinBox_timeout.setValue(25)
         self.lineEdit_browseDir.setText("")
         self.lineEdit_filePrefix.setText("")
-        
+
     def key_edited(self):
         """
         Disable show and run buttons if the key is empty
@@ -130,10 +130,10 @@ class QuickQueryWidget(QuickOSMWidget, Ui_ui_quick_query):
         else:
             self.pushButton_runQuery.setDisabled(True)
             self.pushButton_showQuery.setDisabled(True)
-        
+
         self.comboBox_value.clear()
         self.comboBox_value.setCompleter(None)
-        
+
         try:
             current_values = self.osmKeys[
                 unicode(self.comboBox_key.currentText())]
@@ -141,19 +141,19 @@ class QuickQueryWidget(QuickOSMWidget, Ui_ui_quick_query):
             return
         except AttributeError:
             return
-        
+
         if current_values[0] != "":
             current_values.insert(0, "")
-        
+
         values_completer = QCompleter(current_values)
         self.comboBox_value.setCompleter(values_completer)
         self.comboBox_value.addItems(current_values)
- 
+
     def allow_nominatim_or_extent(self):
         """
         Disable or enable radiobuttons if nominatim or extent
         """
-        
+
         if self.radioButton_extentMapCanvas.isChecked() or \
                 self.radioButton_extentLayer.isChecked():
             self.lineEdit_nominatim.setDisabled(True)
@@ -164,7 +164,7 @@ class QuickQueryWidget(QuickOSMWidget, Ui_ui_quick_query):
             self.lineEdit_nominatim.setDisabled(False)
             self.comboBox_in_around.setDisabled(False)
             self.in_or_around()
-        
+
         if self.radioButton_extentLayer.isChecked():
             self.comboBox_extentLayer.setDisabled(False)
         else:
@@ -174,9 +174,9 @@ class QuickQueryWidget(QuickOSMWidget, Ui_ui_quick_query):
         """
         Disable the spinbox distance if 'in' or 'around'
         """
-        
+
         index = self.comboBox_in_around.currentIndex()
-        
+
         if index == 1:
             self.spinBox_distance_point.setEnabled(True)
             self.label_distance_point.setEnabled(True)
@@ -204,14 +204,14 @@ class QuickQueryWidget(QuickOSMWidget, Ui_ui_quick_query):
         """
         Process for running the query
         """
-        
+
         # Block the button and save the initial text
         QApplication.setOverrideCursor(Qt.WaitCursor)
         self.pushButton_browse_output_file.setDisabled(True)
         self.pushButton_showQuery.setDisabled(True)
         self.start_process()
         QApplication.processEvents()
-        
+
         # Get all values
         key = unicode(self.comboBox_key.currentText())
         value = unicode(self.comboBox_value.currentText())
@@ -224,31 +224,31 @@ class QuickQueryWidget(QuickOSMWidget, Ui_ui_quick_query):
         else:
             is_around = False
         distance = self.spinBox_distance_point.value()
-        
+
         # Which geometry at the end ?
         output_geometry_types = self.get_output_geometry_types()
-        
+
         # Which osm objects ?
         osm_objects = self._get_osm_objects()
-        
+
         try:
             # Test values
             if not osm_objects:
                 raise OsmObjectsException
-            
+
             if not output_geometry_types:
                 raise OutPutGeomTypesException
-            
+
             # If bbox, we must set None to nominatim, we can't have both
             bbox = None
             if self.radioButton_extentLayer.isChecked() or \
                     self.radioButton_extentMapCanvas.isChecked():
                 nominatim = None
                 bbox = self.get_bounding_box()
-            
+
             if nominatim == '':
                 nominatim = None
-            
+
             if output_directory and not isdir(output_directory):
                 raise DirectoryOutPutException
 
@@ -282,12 +282,12 @@ class QuickQueryWidget(QuickOSMWidget, Ui_ui_quick_query):
                     tr('QuickOSM', u'Successful query, but no result.'),
                     level=QgsMessageBar.WARNING,
                     duration=7)
-        
+
         except QuickOsmException, e:
             self.display_geo_algorithm_exception(e)
         except Exception, e:
             self.display_exception(e)
-        
+
         finally:
             # Resetting the button
             self.pushButton_browse_output_file.setDisabled(False)
@@ -295,12 +295,12 @@ class QuickQueryWidget(QuickOSMWidget, Ui_ui_quick_query):
             QApplication.restoreOverrideCursor()
             self.end_process()
             QApplication.processEvents()
-            
+
     def show_query(self):
         """
         Show the query in the main window
         """
-        
+
         # We have to find the widget in the stacked widget of the main window
         query_widget = None
         index_quick_query_widget = None
@@ -311,7 +311,7 @@ class QuickQueryWidget(QuickOSMWidget, Ui_ui_quick_query):
                     widget(i)
                 index_quick_query_widget = i
                 break
-        
+
         # Get all values
         key = unicode(self.comboBox_key.currentText())
         value = unicode(self.comboBox_value.currentText())
@@ -324,20 +324,20 @@ class QuickQueryWidget(QuickOSMWidget, Ui_ui_quick_query):
         else:
             is_around = False
         distance = self.spinBox_distance_point.value()
-        
+
         # If bbox, we must set None to nominatim, we can't have both
         bbox = None
         if self.radioButton_extentLayer.isChecked() or \
                 self.radioButton_extentMapCanvas.isChecked():
             nominatim = None
             bbox = True
-        
+
         if nominatim == '':
             nominatim = None
-        
+
         # Which osm objects ?
         osm_objects = self._get_osm_objects()
-            
+
         # Which geometry at the end ?
         query_widget.checkBox_points.setChecked(
             self.checkBox_points.isChecked())
@@ -347,18 +347,18 @@ class QuickQueryWidget(QuickOSMWidget, Ui_ui_quick_query):
             self.checkBox_multilinestrings.isChecked())
         query_widget.checkBox_multipolygons.setChecked(
             self.checkBox_multipolygons.isChecked())
-        
+
         query_widget.radioButton_extentLayer.setChecked(
             self.radioButton_extentLayer.isChecked())
         query_widget.radioButton_extentMapCanvas.setChecked(
             self.radioButton_extentMapCanvas.isChecked())
-        
+
         # Transfer the combobox from QuickQuery to Query
         if self.comboBox_extentLayer.count():
             query_widget.radioButton_extentLayer.setCheckable(True)
         query_widget.comboBox_extentLayer.setModel(
             self.comboBox_extentLayer.model())
-        
+
         # Transfer the output
         query_widget.lineEdit_browseDir.setText(output_directory)
         if prefix_file:

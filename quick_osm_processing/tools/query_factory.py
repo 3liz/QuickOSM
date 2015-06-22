@@ -33,9 +33,9 @@ from QuickOSM.core.query_factory import QueryFactory
 
 class QueryFactoryGeoAlgorithm(GeoAlgorithm):
     """
-    Build a query with parameters 
+    Build a query with parameters.
     """
-    
+
     def __init__(self):
         self.FIELD_KEY = 'FIELD_KEY'
         self.FIELD_VALUE = 'FIELD_VALUE'
@@ -45,11 +45,11 @@ class QueryFactoryGeoAlgorithm(GeoAlgorithm):
         self.FIELD_TIMEOUT = 'FIELD_TIMEOUT'
         self.OUTPUT_QUERY = 'OUTPUT_QUERY'
         GeoAlgorithm.__init__(self)
-        
+
     def defineCharacteristics(self):
         self.name = "Query factory"
         self.group = "Tools"
-        
+
         self.addParameter(
             ParameterString(
                 self.FIELD_KEY,
@@ -82,7 +82,7 @@ class QueryFactoryGeoAlgorithm(GeoAlgorithm):
                 'Timeout',
                 minValue=20,
                 default=25))
-        
+
         self.addOutput(OutputString(self.OUTPUT_QUERY, "Query"))
 
     def help(self):
@@ -101,9 +101,9 @@ class QueryFactoryGeoAlgorithm(GeoAlgorithm):
             file_help_path = join(doc_path, helpFileName)
             if isfile(file_help_path):
                 return False, file_help_path
-        
+
         return False, None
-    
+
     def getIcon(self):
         return QIcon(dirname(__file__) + '/../../icon.png')
 
@@ -112,15 +112,15 @@ class QueryFactoryGeoAlgorithm(GeoAlgorithm):
         value = self.getParameterValue(self.FIELD_VALUE)
         extent = self.getParameterValue(self.FIELD_EXTENT)
         nominatim = self.getParameterValue(self.FIELD_NOMINATIM)
-        
+
         if nominatim == '':
             nominatim = None
-        
+
         if value == '':
             value = None
 
         timeout = self.getParameterValue(self.FIELD_TIMEOUT)
-        
+
         # Missing OSMObjects
         query_factory = QueryFactory(
             key=key,
@@ -130,5 +130,5 @@ class QueryFactoryGeoAlgorithm(GeoAlgorithm):
             timeout=timeout)
 
         query = query_factory.make()
-        
+
         self.setOutputValue(self.OUTPUT_QUERY, query)

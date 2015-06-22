@@ -108,7 +108,7 @@ def copy_tree(src, dst, symlinks=False, ignore=None):
         else:
             errors.extend((src, dst, str(why)))
     if errors:
-        raise Error, errors
+        raise Error(errors)
 
 
 def is_windows():

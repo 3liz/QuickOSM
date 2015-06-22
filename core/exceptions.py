@@ -169,7 +169,7 @@ class QueryAlreadyExistsException(QuickOsmException):
         if not msg:
             msg = tr("Exception", u"This query already exists")
         QuickOsmException.__init__(self, msg)
-        
+
 '''
 Forms
 '''

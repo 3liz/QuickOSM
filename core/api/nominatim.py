@@ -33,7 +33,7 @@ from QuickOSM.core.exceptions import \
 
 class Nominatim(object):
     """Manage connexion to Nominatim."""
-        
+
     def __init__(self,
                  url="http://nominatim.openstreetmap.org/search?format=json"):
         """
@@ -47,7 +47,7 @@ class Nominatim(object):
         self.data = None
         self.network_reply = None
         self.loop = None
-        
+
     def query(self, query):
         """
         Perform a nominatim query
@@ -60,9 +60,9 @@ class Nominatim(object):
         @return: the result of the query
         @rtype: str
         """
-        
+
         url_query = QUrl(self.__url)
-        
+
         query = QUrl.toPercentEncoding(query)
         url_query.addEncodedQueryItem('q', query)
         url_query.addQueryItem('info', 'QgisQuickOSMPlugin')
@@ -73,12 +73,12 @@ class Nominatim(object):
             self.network.setProxy(proxy)
 
         request = QNetworkRequest(url_query)
-        request.setRawHeader("User-Agent", "QuickOSM");
+        request.setRawHeader("User-Agent", "QuickOSM")
         self.network_reply = self.network.get(request)
         self.loop = QEventLoop()
         self.network.finished.connect(self._end_of_request)
         self.loop.exec_()
-        
+
         if self.network_reply.error() == QNetworkReply.NoError:
             return json.loads(self.data)
         else:
@@ -87,7 +87,7 @@ class Nominatim(object):
     def _end_of_request(self):
         self.data = self.network_reply.readAll().data().decode('utf-8')
         self.loop.quit()
-    
+
     def get_first_polygon_from_query(self, query):
         """
         Get first OSM_ID of a Nominatim area
@@ -104,10 +104,10 @@ class Nominatim(object):
         for result in data:
             if result['osm_type'] == "relation":
                 return result['osm_id']
-        
+
         # If no result has been return
         raise NominatimAreaException
-    
+
     def get_first_point_from_query(self, query):
         """
         Get first longitude, latitude of a Nominatim point
@@ -124,6 +124,6 @@ class Nominatim(object):
         for result in data:
             if result['osm_type'] == "node":
                 return result['lon'], result['lat']
-        
+
         # If no result has been return
         raise NominatimAreaException

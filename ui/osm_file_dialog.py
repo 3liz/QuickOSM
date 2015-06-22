@@ -49,12 +49,12 @@ class OsmFileWidget(QuickOSMWidget, Ui_ui_osm_file):
         """
         QuickOSMWidget.__init__(self, parent)
         self.setupUi(self)
-        
+
         # Set UI
         self.radioButton_osmConf.setChecked(False)
         self.label_progress.setText("")
         self.lineEdit_filePrefix.setDisabled(True)
-        
+
         # Set default osm conf
         self.defaultOsmConf = join(
             dirname(dirname(abspath(__file__))), 'osmconf.ini')
@@ -62,7 +62,7 @@ class OsmFileWidget(QuickOSMWidget, Ui_ui_osm_file):
             self.defaultOsmConf = ''
         self.lineEdit_osmConf.setText(self.defaultOsmConf)
         self.pushButton_runQuery.setEnabled(False)
-        
+
         # Connect
         self.pushButton_browseOsmFile.clicked.connect(self.set_osm_file_path)
         self.pushButton_browseOsmConf.clicked.connect(self.set_osm_conf_path)
@@ -72,7 +72,7 @@ class OsmFileWidget(QuickOSMWidget, Ui_ui_osm_file):
         self.pushButton_runQuery.clicked.connect(self.open_file)
         self.pushButton_resetIni.clicked.connect(self.reset_ini)
         self.lineEdit_browseDir.textEdited.connect(self.disable_prefix_file)
-        
+
     def set_osm_file_path(self):
         """
         Fill the osm file
@@ -83,7 +83,7 @@ class OsmFileWidget(QuickOSMWidget, Ui_ui_osm_file):
             filter="OSM file (*.osm *.pbf)")
         self.lineEdit_osmFile.setText(osm_file)
         self.disable_run_button()
-            
+
     def set_osm_conf_path(self):
         """
         Fill the osmConf file
@@ -95,20 +95,20 @@ class OsmFileWidget(QuickOSMWidget, Ui_ui_osm_file):
         if osm_conf:
             self.lineEdit_osmConf.setText(osm_conf)
         self.disable_run_button()
-        
+
     def reset_ini(self):
         """
         Reset the default osmConf file
         """
         self.lineEdit_osmConf.setText(self.defaultOsmConf)
-            
+
     def disable_run_button(self):
         """
         If the two fields are empty or allTags
         """
         if self.lineEdit_osmFile.text():
             self.pushButton_runQuery.setEnabled(False)
-        
+
         if self.radioButton_osmConf.isChecked():
             if self.lineEdit_osmConf.text():
                 self.pushButton_runQuery.setEnabled(True)
@@ -116,44 +116,44 @@ class OsmFileWidget(QuickOSMWidget, Ui_ui_osm_file):
                 self.pushButton_runQuery.setEnabled(False)
         else:
             self.pushButton_runQuery.setEnabled(True)
-        
+
     def open_file(self):
         """
         Open the osm file with the osmconf
         """
-        
+
         QApplication.setOverrideCursor(Qt.WaitCursor)
         self.start_process()
         QApplication.processEvents()
-        
+
         # Get fields
         osm_file = self.lineEdit_osmFile.text()
         osm_conf = self.lineEdit_osmConf.text()
         output_directory = self.lineEdit_browseDir.text()
         prefix_file = self.lineEdit_filePrefix.text()
         load_only = self.radioButton_osmConf.isChecked()
-        
+
         # Which geometry at the end ?
         output_geometry_types = self.get_output_geometry_types()
-        
+
         try:
             if not output_geometry_types:
                 raise OutPutGeomTypesException
-            
+
             if not isfile(osm_file):
                 raise FileDoesntExistException(suffix="*.osm or *.pbf")
-            
+
             if load_only:
                 if not isfile(osm_conf):
                     raise FileDoesntExistException(suffix="*.ini")
-            
+
             if output_directory and not isdir(output_directory):
                 raise DirectoryOutPutException
-            
+
             # Check OGR
             if not is_osm_driver_enabled():
                 raise OsmDriver
-        
+
             if load_only:
                 osm_parser = OsmParser(
                     osm_file,
@@ -172,7 +172,7 @@ class OsmFileWidget(QuickOSMWidget, Ui_ui_osm_file):
                     output_geom_types=output_geometry_types,
                     output_dir=output_directory,
                     prefix_file=prefix_file)
-            
+
         except QuickOsmException, e:
             self.display_geo_algorithm_exception(e)
         except Exception, e:

@@ -29,19 +29,20 @@ from processing.core.GeoAlgorithm import GeoAlgorithm
 
 from QuickOSM.quick_osm_processing import *
 
+
 class GetFirstFieldGeoAlgorithm(GeoAlgorithm):
     """
-    Get first field of a vector layer 
+    Get first field of a vector layer.
     """
-    
+
     VECTOR_LAYER = 'VECTOR_LAYER'
     FIELD = 'FIELD'
     OUTPUT_VALUE = 'OUTPUT_VALUE'
-        
+
     def defineCharacteristics(self):
         self.name = "Get first field of an attribute"
         self.group = "Tools"
-        
+
         self.addParameter(
             ParameterVector(
                 self.VECTOR_LAYER,
@@ -56,7 +57,7 @@ class GetFirstFieldGeoAlgorithm(GeoAlgorithm):
                 '',
                 False,
                 False))
-        
+
         self.addOutput(OutputString(self.OUTPUT_VALUE, "Value"))
 
     def help(self):
@@ -75,16 +76,16 @@ class GetFirstFieldGeoAlgorithm(GeoAlgorithm):
             file_help_path = join(doc_path, helpFileName)
             if isfile(file_help_path):
                 return False, file_help_path
-        
+
         return False, None
-    
+
     def getIcon(self):
         return QIcon(dirname(__file__) + '/../../icon.png')
 
     def processAlgorithm(self, progress):
         field = self.getParameterValue(self.FIELD)
         layer = self.getParameterValue(self.VECTOR_LAYER)
-        
+
         vector_layer = dataobjects.getObjectFromUri(layer)
         features = vector.features(vector_layer)
         field_index = vector.resolveFieldIndex(vector_layer, field)

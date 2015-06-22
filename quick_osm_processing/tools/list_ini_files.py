@@ -34,9 +34,9 @@ from QuickOSM.core.utilities.utilities_qgis import get_user_folder
 
 class ListIniFilesGeoAlgorithm(GeoAlgorithm):
     """
-    List all the INI files 
+    List all the INI files.
     """
-    
+
     def __init__(self):
         self.NAME_FILE = 'NAME'
         self.OUTPUT_INI = 'INI'
@@ -45,11 +45,11 @@ class ListIniFilesGeoAlgorithm(GeoAlgorithm):
         self.__names = []
 
         GeoAlgorithm.__init__(self)
-        
+
     def defineCharacteristics(self):
         self.name = "Queries available"
         self.group = "Tools"
-        
+
         # Get the folder and all files queries
         folder = get_user_folder()
         cat_files = FileQuery.get_ini_files_from_folder(folder, force=False)
@@ -57,16 +57,16 @@ class ListIniFilesGeoAlgorithm(GeoAlgorithm):
         for cat in cat_files:
             for query in cat_files[cat]:
                 self.__queries[cat + " : " + query.getName()] = query
-        
+
         self.__names = self.__queries.keys()
-        
+
         self.addParameter(
             ParameterSelection(
                 self.NAME_FILE,
                 'Queries available',
                 self.__names))
-        
-        self.addOutput(OutputString(self.OUTPUT_INI,"Ini filepath as string"))
+
+        self.addOutput(OutputString(self.OUTPUT_INI, "Ini filepath as string"))
 
     def help(self):
         locale = QSettings().value("locale/userLocale")[0:2]
@@ -84,16 +84,16 @@ class ListIniFilesGeoAlgorithm(GeoAlgorithm):
             file_help_path = join(doc_path, helpFileName)
             if isfile(file_help_path):
                 return False, file_help_path
-        
+
         return False, None
-    
+
     def getIcon(self):
         return QIcon(dirname(__file__) + '/../../icon.png')
-        
+
     def processAlgorithm(self, progress):
 
         index = self.getParameterValue(self.NAME_FILE)
         for query in self.__queries:
             if query == self.__names[index]:
                 path = self.__queries[query].getFilePath()
-                self.setOutputValue(self.OUTPUT_INI,path)
+                self.setOutputValue(self.OUTPUT_INI, path)

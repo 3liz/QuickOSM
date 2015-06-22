@@ -44,7 +44,7 @@ from QuickOSM.core.utilities.tools import tr
 
 
 class MyQueriesWidget(QuickOSMWidget, Ui_ui_my_queries):
-    
+
     signal_delete_query_successful = pyqtSignal(
         name='signal_delete_query_successful')
 
@@ -57,7 +57,7 @@ class MyQueriesWidget(QuickOSMWidget, Ui_ui_my_queries):
         self.setupUi(self)
         self.current_query = None
         self.config_layer = None
-        
+
         # Setup UI
         self.label_progress.setText("")
         self.pushButton_runQuery.setDisabled(True)
@@ -66,11 +66,11 @@ class MyQueriesWidget(QuickOSMWidget, Ui_ui_my_queries):
         self.lineEdit_nominatim.setEnabled(False)
         self.radioButton_extentLayer.setEnabled(False)
         self.radioButton_extentMapCanvas.setEnabled(False)
-        
+
         self.fill_layer_combobox()
         self.fill_tree()
         self.groupBox.setCollapsed(True)
-        
+
         # Connect
         self.pushButton_runQuery.clicked.connect(self.run_query)
         self.pushButton_showQuery.clicked.connect(self.show_query)
@@ -92,13 +92,14 @@ class MyQueriesWidget(QuickOSMWidget, Ui_ui_my_queries):
         @param force:To force the tree to refresh.
         @type force: bool
         """
-        
+
         self.treeQueries.clear()
-        
+
         # Get the folder and all file queries
         folder = get_user_folder()
-        categories_files = FileQuery.get_ini_files_from_folder(folder, force=force)
-        
+        categories_files = FileQuery.get_ini_files_from_folder(
+            folder, force=force)
+
         # Fill all categories
         for cat, files in categories_files.iteritems():
             category_item = QTreeWidgetItem([cat], 0)
@@ -106,9 +107,9 @@ class MyQueriesWidget(QuickOSMWidget, Ui_ui_my_queries):
             for one_file in files:
                 query_item = TreeQueryItem(category_item, one_file)
                 self.treeQueries.addTopLevelItem(query_item)
-            
+
         self.treeQueries.resizeColumnToContents(0)
-        
+
     def text_changed(self):
         """
         Update the tree according to the search box
@@ -131,7 +132,7 @@ class MyQueriesWidget(QuickOSMWidget, Ui_ui_my_queries):
         @type text: str
 
         @return: show or hide the item
-        @rtype: bool 
+        @rtype: bool
         """
         if item.childCount() > 0:
             show = False
@@ -159,10 +160,10 @@ class MyQueriesWidget(QuickOSMWidget, Ui_ui_my_queries):
         item = self.treeQueries.itemAt(point)
         if isinstance(item, TreeQueryItem):
             config = item.query.getContent()
-            
+
             # We set the query
             self.current_query = config['metadata']['query']
-            
+
             # We create the menu
             popup_menu = QMenu()
             execute_action = QAction(
@@ -190,7 +191,7 @@ class MyQueriesWidget(QuickOSMWidget, Ui_ui_my_queries):
         if isinstance(item, TreeQueryItem):
             self.open_query()
             self.run_query()
-    
+
     def open_query(self):
         """
         simple click on the tree
@@ -209,10 +210,10 @@ class MyQueriesWidget(QuickOSMWidget, Ui_ui_my_queries):
             else:
                 self.radioButton_extentLayer.setEnabled(False)
                 self.radioButton_extentMapCanvas.setEnabled(False)
-        
+
             if template['nominatim']:
                 self.lineEdit_nominatim.setEnabled(True)
-                
+
                 if template['nominatimDefaultValue']:
                     self.lineEdit_nominatim.setPlaceholderText(
                         template['nominatimDefaultValue'] + " " +
@@ -220,12 +221,12 @@ class MyQueriesWidget(QuickOSMWidget, Ui_ui_my_queries):
                 else:
                     self.lineEdit_nominatim.setPlaceholderText(
                         tr("QuickOSM", "A village, a town, ..."))
-                
+
             else:
                 self.lineEdit_nominatim.setEnabled(False)
                 self.lineEdit_nominatim.setText("")
                 self.lineEdit_nominatim.setPlaceholderText("")
-                
+
             config = item.query.getContent()
             self.config_layer = config['layers']
 
@@ -278,7 +279,7 @@ class MyQueriesWidget(QuickOSMWidget, Ui_ui_my_queries):
                     if layers[layer]['style']:
                         QFile.remove(layers[layer]['style'])
                 self.signal_delete_query_successful.emit()
-        
+
     def run_query(self):
         """
         Process for running the query
@@ -289,28 +290,28 @@ class MyQueriesWidget(QuickOSMWidget, Ui_ui_my_queries):
         QApplication.setOverrideCursor(Qt.WaitCursor)
         self.start_process()
         QApplication.processEvents()
-        
+
         # Get all values
         query = self.current_query
         output_directory = self.lineEdit_browseDir.text()
         prefix_file = self.lineEdit_filePrefix.text()
         nominatim = self.lineEdit_nominatim.text()
-        
+
         # Set the bbox
         bbox = None
         if self.radioButton_extentLayer.isChecked() or \
                 self.radioButton_extentMapCanvas.isChecked():
             bbox = self.get_bounding_box()
-        
+
         # Which geometry at the end ?
         output_geometry_types = self.get_output_geometry_types()
         white_list_values = self.get_white_list_values()
-        
+
         try:
             # Test values
             if not output_geometry_types:
                 raise OutPutGeomTypesException
-            
+
             if output_directory and not isdir(output_directory):
                 raise DirectoryOutPutException
 
@@ -344,12 +345,12 @@ class MyQueriesWidget(QuickOSMWidget, Ui_ui_my_queries):
                     tr('QuickOSM', u'Successful query, but no result.'),
                     level=QgsMessageBar.WARNING,
                     duration=7)
-        
+
         except QuickOsmException, e:
             self.display_geo_algorithm_exception(e)
         except Exception, e:
             self.display_exception(e)
-                    
+
         finally:
             # Resetting the button
             self.pushButton_browse_output_file.setDisabled(False)
@@ -371,47 +372,47 @@ class MyQueriesWidget(QuickOSMWidget, Ui_ui_my_queries):
                     widget(i)
                 index_quick_query_widget = i
                 break
-        
+
         # Get all values
         query = self.current_query
         output_directory = self.lineEdit_browseDir.text()
         prefix_file = self.lineEdit_filePrefix.text()
         nominatim = self.lineEdit_nominatim.text()
-        
+
         # If bbox, we must set None to nominatim, we can't have both
         if self.radioButton_extentLayer.isChecked() or \
                 self.radioButton_extentMapCanvas.isChecked():
             nominatim = None
-        
+
         if nominatim == '':
             nominatim = None
-            
+
         # Which geometry at the end ?
         query_widget.checkBox_points.setChecked(
             self.checkBox_points.isChecked())
         query_widget.lineEdit_csv_points.setText(
             self.lineEdit_csv_points.text())
-        
+
         query_widget.checkBox_lines.setChecked(
             self.checkBox_lines.isChecked())
         query_widget.lineEdit_csv_lines.setText(
             self.lineEdit_csv_lines.text())
-        
+
         query_widget.checkBox_multilinestrings.setChecked(
             self.checkBox_multilinestrings.isChecked())
         query_widget.lineEdit_csv_multilinestrings.setText(
             self.lineEdit_csv_multilinestrings.text())
-        
+
         query_widget.checkBox_multipolygons.setChecked(
             self.checkBox_multipolygons.isChecked())
         query_widget.lineEdit_csv_multipolygons.setText(
             self.lineEdit_csv_multipolygons.text())
-        
+
         query_widget.radioButton_extentLayer.setChecked(
             self.radioButton_extentLayer.isChecked())
         query_widget.radioButton_extentMapCanvas.setChecked(
             self.radioButton_extentMapCanvas.isChecked())
-        
+
         # Transfer the combobox from my queries to query
         if self.comboBox_extentLayer.count():
             query_widget.radioButton_extentLayer.setCheckable(True)
@@ -452,10 +453,10 @@ class TreeQueryItem(QTreeWidgetItem):
 
 
 class MyQueriesDockWidget(QDockWidget):
-    
+
     signal_delete_query_successful = pyqtSignal(
         name='signal_delete_query_successful')
-    
+
     def __init__(self, parent=None):
         QDockWidget.__init__(self, parent)
         self.setAllowedAreas(Qt.LeftDockWidgetArea | Qt.RightDockWidgetArea)
@@ -463,7 +464,7 @@ class MyQueriesDockWidget(QDockWidget):
         self.setWindowTitle(tr("ui_my_queries", "QuickOSM - My queries"))
         self.widget().signal_delete_query_successful.connect(
             self.signal_delete_query_successful.emit)
-        
+
     def refresh_my_queries_tree(self):
         """
         Slots which refresh the tree

@@ -43,3 +43,13 @@ save_query:
 clean_pyc:
 	@echo "Cleaning python files"
 	@find . -name "*.pyc" -type f -delete
+
+# Run pep8 style checking
+#http://pypi.python.org/pypi/pep8
+pep8:
+	@echo
+	@echo "-----------"
+	@echo "PEP8 issues"
+	@echo "-----------"
+	@pep8 --version
+	@pep8 --repeat --exclude resources_rc.py,./ui/main_window.py,./ui/my_queries.py,./ui/osm_file.py,./ui/save_query.py,./ui/query.py,./ui/quick_query.py,./ui/query_dialog.py . || true

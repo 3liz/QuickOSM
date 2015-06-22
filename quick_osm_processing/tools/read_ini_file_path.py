@@ -33,9 +33,9 @@ from QuickOSM.core.file_query import FileQuery
 
 class ReadIniFilePathGeoAlgorithm(GeoAlgorithm):
     """
-    Read an INI file 
+    Read an INI file.
     """
-    
+
     def __init__(self):
         self.INI_FILE_PATH = 'QUERY_FILE'
         self.LAYERS = ['multipolygons', 'multilinestrings', 'lines', 'points']
@@ -49,20 +49,20 @@ class ReadIniFilePathGeoAlgorithm(GeoAlgorithm):
     def defineCharacteristics(self):
         self.name = "Read an ini file from string"
         self.group = "Tools"
-        
+
         self.addParameter(
             ParameterString(
                 self.INI_FILE_PATH,
                 'File path (ini)',
                 '',
                 False))
-        
+
         for layer in self.LAYERS:
             self.addOutput(
                 OutputString(
                     self.WHITE_LIST[layer],
                     'White list ' + layer + ' layer'))
-        
+
         self.addOutput(OutputString('QUERY_STRING', "Query string"))
 
     def help(self):
@@ -81,23 +81,23 @@ class ReadIniFilePathGeoAlgorithm(GeoAlgorithm):
             file_help_path = join(doc_path, helpFileName)
             if isfile(file_help_path):
                 return False, file_help_path
-        
+
         return False, None
-    
+
     def getIcon(self):
         return QIcon(dirname(__file__) + '/../../icon.png')
 
     def processAlgorithm(self, progress):
         progress.setInfo("Reading the ini file")
-                
+
         file_path = self.getParameterValue(self.INI_FILE_PATH)
         ini_file = FileQuery(file_path)
         ini_dict = None
         if ini_file.isValid():
             ini_dict = ini_file.getContent()
-        
+
         self.setOutputValue('QUERY_STRING', ini_dict['metadata']['query'])
-        
+
         for layer in self.LAYERS:
             csv = ini_dict['layers'][layer]['columns']
             self.setOutputValue(self.WHITE_LIST[layer], csv)

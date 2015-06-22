@@ -39,13 +39,13 @@ class Actions(object):
     def run(field, value):
         """
         Run an action with only one value as parameter
-        
+
         @param field:Type of the action
         @type field:str
         @param value:Value of the field for one entity
         @type value:str
         """
-        
+
         if value == '':
             iface.messageBar().pushMessage(
                 tr("QuickOSM",
@@ -54,23 +54,23 @@ class Actions(object):
         else:
             field = unicode(field, "UTF-8")
             value = unicode(value, "UTF-8")
-            
+
             if field in ["url", "website", "wikipedia"]:
                 var = QDesktopServices()
                 url = None
-                
+
                 if field == "url" or field == "website":
                     url = value
-                    
+
                 if field == "ref_UAI":
                     url = "http://www.education.gouv.fr/pid24302/annuaire-" \
                           "resultat-recherche.html?lycee_name=" + value
-                    
+
                 if field == "wikipedia":
                     url = "http://en.wikipedia.org/wiki/" + value
-                    
+
                 var.openUrl(QUrl(url))
-            
+
             elif field == "josm":
                 import urllib2
                 try:
@@ -89,21 +89,21 @@ class Actions(object):
                 web_browser = QWebView(None)
                 web_browser.load(url)
                 web_browser.show()
-                
+
     @staticmethod
     def run_sketch_line(network, ref):
         """
         Run an action with two values for sketchline
-        
+
         @param network:network of the bus
         @type network:str
         @param ref:ref of the bus
         @type ref:str
         """
-        
+
         network = unicode(network, "UTF-8")
         ref = unicode(ref, "UTF-8")
-        
+
         if network == '' or ref == '':
             iface.messageBar().pushMessage(
                 tr("QuickOSM",

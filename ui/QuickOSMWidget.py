@@ -48,13 +48,13 @@ class QuickOSMWidget(QWidget):
         self.comboBox_extentLayer.clear()
         for layer in layers:
             self.comboBox_extentLayer.addItem(layer.name(), layer.id())
-            
+
         if self.comboBox_extentLayer.count() < 1:
             self.radioButton_extentLayer.setCheckable(False)
             self.radioButton_extentMapCanvas.setChecked(True)
         else:
             self.radioButton_extentLayer.setCheckable(True)
-            
+
     def disable_prefix_file(self):
         """
         If the directory is empty, we disable the file prefix
@@ -64,7 +64,7 @@ class QuickOSMWidget(QWidget):
         else:
             self.lineEdit_filePrefix.setText("")
             self.lineEdit_filePrefix.setDisabled(True)
-            
+
     def set_output_directory_path(self):
         """
         Fill the output directory path
@@ -74,7 +74,7 @@ class QuickOSMWidget(QWidget):
             None, caption=tr("QuickOSM", 'Select directory'))
         self.lineEdit_browseDir.setText(output_file)
         self.disable_prefix_file()
-        
+
     def extent_radio(self):
         """
         Disable or enable the combox box
@@ -101,7 +101,7 @@ class QuickOSMWidget(QWidget):
         if self.checkBox_multipolygons.isChecked():
             output_geom_types.append('multipolygons')
         return output_geom_types
-    
+
     def get_white_list_values(self):
         """
         Get all line edits about columns for each layers and return a dic
@@ -121,7 +121,7 @@ class QuickOSMWidget(QWidget):
             white_list_values['multipolygons'] = \
                 self.lineEdit_csv_multipolygons.text()
         return white_list_values
-    
+
     def get_bounding_box(self):
         """
         Get the geometry of the bbox in WGS84
@@ -129,7 +129,7 @@ class QuickOSMWidget(QWidget):
         @rtype: QGsRectangle in WGS84
         @return: the extent of the map canvas
         """
-        
+
         # If mapCanvas is checked
         if self.radioButton_extentMapCanvas.isChecked():
             geom_extent = iface.mapCanvas().extent()
@@ -151,7 +151,7 @@ class QuickOSMWidget(QWidget):
                 # the layer could be deleted before
                 layer_name = self.comboBox_extentLayer.itemText(index)
                 raise NoLayerException(suffix=layer_name)
-        
+
         geom_extent = QgsGeometry.fromRect(geom_extent)
         epsg_4326 = QgsCoordinateReferenceSystem('EPSG:4326')
         crs_transform = QgsCoordinateTransform(source_crs, epsg_4326)
@@ -179,22 +179,22 @@ class QuickOSMWidget(QWidget):
         self.progressBar_execution.setMinimum(0)
         self.progressBar_execution.setMaximum(100)
         self.progressBar_execution.setValue(100)
-        QApplication.processEvents()      
-    
+        QApplication.processEvents()
+
     def set_progress_percentage(self, percent):
         """
         Slot to update percentage during process
         """
         self.progressBar_execution.setValue(percent)
         QApplication.processEvents()
-        
+
     def set_progress_text(self, text):
         """
         Slot to update text during process
         """
         self.label_progress.setText(text)
         QApplication.processEvents()
-    
+
     def display_geo_algorithm_exception(self, e):
         """
         Display quickosm exceptions
@@ -205,7 +205,7 @@ class QuickOSMWidget(QWidget):
     @staticmethod
     def display_exception(e):
         """
-        Display others exceptions 
+        Display others exceptions
         """
         exc_type, exc_obj, exc_tb = exc_info()
         f_name = split(exc_tb.tb_frame.f_code.co_filename)[1]

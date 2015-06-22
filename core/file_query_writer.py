@@ -33,7 +33,7 @@ class FileQueryWriter:
     Write a query and metadata into files
     """
     LAYERS = ['multipolygons', 'multilinestrings', 'lines', 'points']
-    
+
     def __init__(
             self,
             path,
@@ -66,10 +66,10 @@ class FileQueryWriter:
         self.whiteListValues = white_list_values
         self.iniFile = self.category + "-" + self.name + ".ini"
         self.queryFile = self.category + "-" + self.name + ".xml"
-        
+
         # Set the INI writer
         self.config = ConfigParser.ConfigParser()
-        
+
         # Write metadata
         info = {
             "name": self.name,
@@ -98,11 +98,11 @@ class FileQueryWriter:
 
             for key in info_layer.keys():
                 self.config.set(layer, key, info_layer[key])
-    
+
     def save(self):
         """
         Write the 2 files on disk
-        
+
         @raise QueryAlreadyExistsException
         @return: True if success
         @rtype: bool
@@ -125,4 +125,4 @@ class FileQueryWriter:
             fh.close()
             return True
         else:
-            raise QueryAlreadyExistsException        
+            raise QueryAlreadyExistsException

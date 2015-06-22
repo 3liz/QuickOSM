@@ -40,18 +40,18 @@ class OsmParser(QObject):
     """
     Parse an OSM file with OGR
     """
-    
+
     # Signal percentage
     signalPercentage = pyqtSignal(int, name='signalPercentage')
     # Signal text
     signalText = pyqtSignal(str, name='signalText')
-    
+
     # Layers available in the OGR, other_relations is useless.
     OSM_LAYERS = ['points', 'lines', 'multilinestrings', 'multipolygons']
-    
+
     # Dict to build the full ID of an object
     DIC_OSM_TYPE = {'node': 'n', 'way': 'w', 'relation': 'r'}
-    
+
     # White list for the attribute table
     # if set to None all the keys will be keep
     WHITE_LIST = {
@@ -59,7 +59,7 @@ class OsmParser(QObject):
         'points': None,
         'lines': None,
         'multipolygons': None}
-    
+
     def __init__(
             self,
             osm_file,
@@ -81,31 +81,31 @@ class OsmParser(QObject):
         self.__whiteListColumn = white_list_column
         self.__deleteEmptyLayers = delete_empty_layers
         self.__loadOnly = load_only
-        
+
         # If an osm_conf is provided ?
         if not osm_conf:
             current_dir = dirname(realpath(__file__))
             self._osm_conf = join(current_dir, 'QuickOSMconf.ini')
         else:
             self._osm_conf = str(osm_conf.encode("utf-8"))
-        
+
         QObject.__init__(self)
-        
+
     def parse(self):
         """
         Start parsing the osm file
         """
-        
+
         # Configuration for OGR
         gdal.SetConfigOption('OSM_CONFIG_FILE', self._osm_conf)
         gdal.SetConfigOption('OSM_USE_CUSTOM_INDEXING', 'NO')
-        
+
         if not isfile(self.__osmFile):
             raise GeoAlgorithmExecutionException("File doesn't exist")
-        
+
         uri = self.__osmFile + "|layername="
         layers = {}
-        
+
         # If loadOnly, no parsing required:
         # It's used only when we ask to open an osm file
         if self.__loadOnly:
@@ -113,12 +113,12 @@ class OsmParser(QObject):
             for layer in self.__layers:
                 layers[layer] = QgsVectorLayer(
                     uri + layer, file_name + " " + layer, "ogr")
-            
+
                 if not layers[layer].isValid():
                     print "Error on the layer", layers[layer].lastError()
-                
-            return layers              
-        
+
+            return layers
+
         # Check if the order is node before way,relation
         # We don't check way before relation,
         # because we can have only nodes and relations
@@ -128,30 +128,30 @@ class OsmParser(QObject):
                     break
                 if re.search(r'(way|relation)', line):
                     raise WrongOrderOSMException
-        
+
         # Foreach layers
         for layer in self.__layers:
             self.signalText.emit(tr("QuickOSM", u"Parsing layer : " + layer))
             layers[layer] = {}
-            
+
             # Reading it with a QgsVectorLayer
             layers[layer]['vectorLayer'] = QgsVectorLayer(
                 uri + layer, "test_" + layer, "ogr")
-            
+
             if not layers[layer]['vectorLayer'].isValid():
                 msg = "Error on the layer : " + \
                       layers[layer]['vectorLayer'].lastError()
                 raise GeoAlgorithmExecutionException(msg)
-            
+
             # Set some default tags
             layers[layer]['tags'] = ['full_id', 'osm_id', 'osm_type']
-            
+
             # Save the geometry type of the layer
             layers[layer]['geomType'] = layers[layer]['vectorLayer'].wkbType()
-            
+
             # Set a featureCount
             layers[layer]['featureCount'] = 0
-            
+
             # Get the other_tags
             fields = layers[layer]['vectorLayer'].pendingFields()
             field_names = [field.name() for field in fields]
@@ -160,15 +160,15 @@ class OsmParser(QObject):
             features = layers[layer]['vectorLayer'].getFeatures()
             for i, feature in enumerate(features):
                 layers[layer]['featureCount'] += 1
-                
+
                 # Improve the parsing if comma in whitelist,
                 # we skip the parsing of tags, but featureCount is needed
                 if self.__whiteListColumn[layer] == ',':
                     continue
-                
+
                 # Get the "others_tags" field
                 attributes = feature.attributes()[other_tags_index]
-                
+
                 if attributes:
                     h_store = pghstore.loads(attributes)
                     for key in h_store:
@@ -182,7 +182,7 @@ class OsmParser(QObject):
 
                 percent = int(100 / len(self.__layers) * (i+1))
                 self.signalPercentage.emit(percent)
-        
+
         # Delete empty layers if this option is set to True
         if self.__deleteEmptyLayers:
             delete_layers = []
@@ -197,19 +197,19 @@ class OsmParser(QObject):
             msg = tr("QuickOSM", u"Creating GeoJSON file : " + layer)
             self.signalText.emit(msg)
             self.signalPercentage.emit(0)
-            
+
             # Creating the temp file
             tf = tempfile.NamedTemporaryFile(
                 delete=False, suffix="_" + layer + ".geojson")
             layers[layer]['geojsonFile'] = tf.name
             tf.flush()
             tf.close()
-            
+
             # Adding the attribute table
             fields = QgsFields()
             for key in layers[layer]['tags']:
                 fields.append(QgsField(key, QVariant.String))
-            
+
             encoding = get_default_encoding()
             file_writer = QgsVectorFileWriter(
                 layers[layer]['geojsonFile'],
@@ -218,16 +218,16 @@ class OsmParser(QObject):
                 layers[layer]['geomType'],
                 layers[layer]['vectorLayer'].crs(),
                 'GeoJSON')
-            
+
             # Foreach feature in the layer
             features = layers[layer]['vectorLayer'].getFeatures()
             for i, feature in enumerate(features):
                 fet = QgsFeature()
                 fet.setGeometry(feature.geometry())
-                
+
                 new_attributes = []
                 attributes = feature.attributes()
-                
+
                 if layer in ['points', 'lines', 'multilinestrings']:
                     if layer == 'points':
                         osm_type = "node"
@@ -235,12 +235,12 @@ class OsmParser(QObject):
                         osm_type = "way"
                     elif layer == 'multilinestrings':
                         osm_type = 'relation'
-                    
+
                     new_attributes.append(
                         self.DIC_OSM_TYPE[osm_type]+str(attributes[0]))
                     new_attributes.append(attributes[0])
                     new_attributes.append(osm_type)
-                    
+
                     if attributes[1]:
                         h_store = pghstore.loads(attributes[1])
                         for tag in layers[layer]['tags'][3:]:
@@ -250,7 +250,7 @@ class OsmParser(QObject):
                                 new_attributes.append("")
                         fet.setAttributes(new_attributes)
                         file_writer.addFeature(fet)
-                    
+
                 elif layer == 'multipolygons':
                     if attributes[0]:
                         osm_type = "relation"
@@ -263,7 +263,7 @@ class OsmParser(QObject):
                             self.DIC_OSM_TYPE[osm_type]+str(attributes[1]))
                         new_attributes.append(attributes[1])
                     new_attributes.append(osm_type)
-                    
+
                     h_store = pghstore.loads(attributes[2])
                     for tag in layers[layer]['tags'][3:]:
                         if unicode(tag) in h_store:
@@ -276,7 +276,7 @@ class OsmParser(QObject):
                     percentage = int(
                         100 / layers[layer]['featureCount'] * (i + 1))
                     self.signalPercentage.emit(percentage)
-                  
+
             del file_writer
-            
+
         return layers

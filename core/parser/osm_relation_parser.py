@@ -33,17 +33,17 @@ class OsmRelationParser(object):
         """
         self.osm_file = osm_file
         self.fields = ['full_id', 'osm_id', 'osm_type']
-        
+
     def get_fields(self):
         return self.fields
-        
+
     def parse(self):
         sax_parser = make_parser()
         relations = OsmHandler()
         sax_parser.setContentHandler(relations)
         f = open(self.osm_file)
         sax_parser.parse(f)
-        
+
         self.fields = relations.fields
         for elem in relations.elements:
             e = []
@@ -56,7 +56,7 @@ class OsmRelationParser(object):
 
 
 class OsmHandler(ContentHandler):
-    
+
     DIC_OSM_TYPE = {'node': 'n', 'way': 'w', 'relation': 'r'}
 
     def __init__(self):
@@ -66,7 +66,7 @@ class OsmHandler(ContentHandler):
         self.tags = {}
         self.fields = ['full_id', 'osm_id', 'osm_type']
         self.elements = []
-        
+
     def startElement(self, name, attributes):
         if name == "relation":
             self.type = "relation"
@@ -76,7 +76,7 @@ class OsmHandler(ContentHandler):
             if k not in self.fields:
                 self.fields.append(k)
             self.tags[k] = attributes.get("v")
-    
+
     def endElement(self, name):
         if name == "relation":
             self.tags['full_id'] = 'r'+self.id

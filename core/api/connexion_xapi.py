@@ -41,7 +41,7 @@ class ConnexionXAPI(object):
         """
 
         self.__url = url
-        
+
     def query(self, query):
         """
         Make a query to the xapi
@@ -56,12 +56,12 @@ class ConnexionXAPI(object):
         """
         query = query.encode('utf8')
         url_query = self.__url + query
-        
+
         try:
             data = urllib2.urlopen(url=url_query).read()
         except urllib2.HTTPError:
             raise NetWorkErrorException(suffix="XAPI")
-        
+
         return data
 
     def get_file_from_query(self, query):

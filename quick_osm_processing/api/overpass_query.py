@@ -40,7 +40,7 @@ from QuickOSM.core.query_parser import prepare_query
 
 class OverpassQueryGeoAlgorithm(GeoAlgorithm):
     """
-    Perform an OverPass query and get an OSM file
+    Perform an OverPass query and get an OSM file.
     """
 
     SERVER = 'SERVER'
@@ -79,7 +79,7 @@ class OverpassQueryGeoAlgorithm(GeoAlgorithm):
                 '',
                 False,
                 True))
-        
+
         self.addOutput(OutputFile(self.OUTPUT_FILE, 'OSM file'))
 
     def help(self):
@@ -98,20 +98,20 @@ class OverpassQueryGeoAlgorithm(GeoAlgorithm):
             file_help_path = join(doc_path, helpFileName)
             if isfile(file_help_path):
                 return False, file_help_path
-        
+
         return False, None
-    
+
     def getIcon(self):
         return QIcon(dirname(__file__) + '/../../icon.png')
 
     def processAlgorithm(self, progress):
         progress.setInfo("Preparing the Overpass query")
         progress.setPercentage(0)
-        
+
         server = self.getParameterValue(self.SERVER)
         query = self.getParameterValue(self.QUERY_STRING)
         nominatim = self.getParameterValue(self.NOMINATIM)
-        
+
         # Extent of the layer
         extent = self.getParameterValue(self.EXTENT)
         if extent != "0,0,0,0":
@@ -127,18 +127,18 @@ class OverpassQueryGeoAlgorithm(GeoAlgorithm):
             extent = geometry_extent.boundingBox()
         else:
             extent = None
-            
+
         if nominatim == "":
             nominatim = None
 
         # Make some transformation on the query ({{box}}, Nominatim, ...
         query = prepare_query(query, extent, nominatim)
-        
+
         overpass_api = ConnexionOAPI(url=server, output="xml")
         progress.setInfo("Downloading data from Overpass")
         progress.setPercentage(5)
         osm_file = overpass_api.get_file_from_query(query)
-        
+
         # Set the output file for Processing
         progress.setPercentage(100)
         self.setOutputValue(self.OUTPUT_FILE, osm_file)

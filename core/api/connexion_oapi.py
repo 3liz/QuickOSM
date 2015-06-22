@@ -53,10 +53,10 @@ class ConnexionOAPI(object):
         @param output:Output desired (XML or JSON)
         @type output:str
         """
-        
+
         if not url:
             url = "http://overpass-api.de/api/"
-            
+
         self.__url = url
         self.data = None
 
@@ -67,7 +67,7 @@ class ConnexionOAPI(object):
         self.network = QNetworkAccessManager()
         self.network_reply = None
         self.loop = None
-        
+
     def query(self, query):
         """
         Make a query to the overpass
@@ -96,26 +96,26 @@ class ConnexionOAPI(object):
         url_query.addEncodedQueryItem('data', encoded_query)
         url_query.addQueryItem('info', 'QgisQuickOSMPlugin')
         url_query.setPort(80)
-        
+
         proxy = get_proxy()
         if proxy:
             self.network.setProxy(proxy)
-        
+
         request = QNetworkRequest(url_query)
         request.setRawHeader("User-Agent", "QuickOSM")
         self.network_reply = self.network.get(request)
         self.loop = QEventLoop()
         self.network.finished.connect(self._end_of_request)
         self.loop.exec_()
-        
+
         if self.network_reply.error() == QNetworkReply.NoError:
-            timeout = '<remark> runtime error: Query timed out in "[a-z]+" at ' \
-                      'line [\d]+ after ([\d]+) seconds. </remark>'
+            timeout = '<remark> runtime error: Query timed out in "[a-z]+" ' \
+                      'at line [\d]+ after ([\d]+) seconds. </remark>'
             if re.search(timeout, self.data):
                 raise OverpassTimeoutException
             else:
                 return self.data
-        
+
         elif self.network_reply.error() == QNetworkReply.UnknownContentError:
             raise OverpassBadRequestException
         else:
@@ -124,7 +124,7 @@ class ConnexionOAPI(object):
     def _end_of_request(self):
         self.data = self.network_reply.readAll()
         self.loop.quit()
-            
+
     def get_file_from_query(self, query):
         """
         Make a query to the overpass and put the result in a temp file
@@ -142,7 +142,7 @@ class ConnexionOAPI(object):
         tf.flush()
         tf.close()
         return name_file
-    
+
     def get_timestamp(self):
         """
         Get the timestamp of the OSM data on the server
@@ -156,7 +156,7 @@ class ConnexionOAPI(object):
         except urllib2.HTTPError as e:
             if e.code == 400:
                 raise OverpassBadRequestException
-            
+
     def is_valid(self):
         """
         Try if the url is valid, NOT TESTED YET
