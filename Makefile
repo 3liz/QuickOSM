@@ -53,3 +53,11 @@ pep8:
 	@echo "-----------"
 	@pep8 --version
 	@pep8 --repeat --exclude resources_rc.py,./ui/main_window.py,./ui/my_queries.py,./ui/osm_file.py,./ui/save_query.py,./ui/query.py,./ui/quick_query.py,./ui/query_dialog.py . || true
+
+pylint:
+	@echo
+	@echo "-----------------"
+	@echo "Pylint violations"
+	@echo "-----------------"
+	@pylint --version
+	@pylint --reports=n . || true
