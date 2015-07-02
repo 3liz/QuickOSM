@@ -1,6 +1,5 @@
 *.pyc
 *.*~
-test/
 scripts/
 plugin_upload.py
 help/
