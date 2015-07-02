@@ -89,10 +89,22 @@ class QueryFactory(object):
         if not self.__key:
             raise QueryFactoryException(suffix=tr('QuickOSM', 'key required'))
 
+        if len(self.__osm_objects) < 1:
+            raise QueryFactoryException(
+                suffix=tr('QuickOSM', 'osm object required'))
+
         for osmObject in self.__osm_objects:
             if osmObject not in QueryFactory.OSM_TYPES:
                 raise QueryFactoryException(
                     suffix=tr('QuickOSM', 'wrong OSM object'))
+
+        if self.__is_around and not self.__distance:
+            raise QueryFactoryException(
+                suffix=tr('QuickOSM', 'No distance provided with "around".'))
+
+        if self.__is_around and not self.__nominatim:
+            raise QueryFactoryException(
+                suffix=tr('QuickOSM', 'No nominatim provided with "around".'))
 
     @staticmethod
     def get_pretty_xml(query):
@@ -102,8 +114,8 @@ class QueryFactory(object):
     @staticmethod
     def replace_template(query):
         query = re.sub(
-            r' area="(.*?)" ', r' {{geocodeArea:\1}} ', query)
-        query = query.replace('bbox="custom"', ' {{bbox}} ')
+            r' area="(.*?)"', r' {{geocodeArea:\1}}', query)
+        query = query.replace(' bbox="custom"', ' {{bbox}}')
         return query
 
     def generate_xml(self):
@@ -135,7 +147,7 @@ class QueryFactory(object):
                 query += u'/>'
 
                 if self.__nominatim and not self.__is_around:
-                    query += u'<area-query from="area_%s"/>' % i
+                    query += u'<area-query from="area_%s" />' % i
 
                 elif self.__nominatim and self.__is_around:
                     query += u'<around area="%s" radius="%s" />' % \
