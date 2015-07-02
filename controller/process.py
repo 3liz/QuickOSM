@@ -187,7 +187,7 @@ def open_file(
                     actions.addAction(
                         QgsAction.GenericPython,
                         link,
-                        'from QuickOSM.CoreQuickOSM.Actions import Actions;'
+                        'from QuickOSM.core.actions import Actions;'
                         'Actions.run("'+link+'","[% "'+link+'" %]")',
                         False)
 
@@ -195,7 +195,7 @@ def open_file(
                 actions.addAction(
                     QgsAction.GenericPython,
                     "Sketchline",
-                    'from QuickOSM.CoreQuickOSM.Actions import Actions;'
+                    'from QuickOSM.core.actions import Actions;'
                     'Actions.run_sketch_line("[% "network" %]","[% "ref" %]")',
                     False)
 
