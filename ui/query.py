@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'ui/query.ui'
 #
-# Created: Sun Jun 14 19:47:26 2015
+# Created: Wed Jul  8 21:09:15 2015
 #      by: PyQt4 UI code generator 4.10.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -30,10 +30,12 @@ class Ui_ui_query(object):
         self.verticalLayout_3 = QtGui.QVBoxLayout(ui_query)
         self.verticalLayout_3.setObjectName(_fromUtf8("verticalLayout_3"))
         self.scrollArea = QtGui.QScrollArea(ui_query)
+        self.scrollArea.setFrameShape(QtGui.QFrame.NoFrame)
+        self.scrollArea.setFrameShadow(QtGui.QFrame.Plain)
         self.scrollArea.setWidgetResizable(True)
         self.scrollArea.setObjectName(_fromUtf8("scrollArea"))
         self.scrollAreaWidgetContents = QtGui.QWidget()
-        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 589, 857))
+        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 595, 863))
         self.scrollAreaWidgetContents.setObjectName(_fromUtf8("scrollAreaWidgetContents"))
         self.verticalLayout = QtGui.QVBoxLayout(self.scrollAreaWidgetContents)
         self.verticalLayout.setObjectName(_fromUtf8("verticalLayout"))

@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'quick_query.ui'
+# Form implementation generated from reading ui file 'ui/quick_query.ui'
 #
-# Created: Thu Apr  9 22:47:38 2015
+# Created: Wed Jul  8 21:09:19 2015
 #      by: PyQt4 UI code generator 4.10.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -30,10 +30,12 @@ class Ui_ui_quick_query(object):
         self.verticalLayout_3 = QtGui.QVBoxLayout(ui_quick_query)
         self.verticalLayout_3.setObjectName(_fromUtf8("verticalLayout_3"))
         self.scrollArea = QtGui.QScrollArea(ui_quick_query)
+        self.scrollArea.setFrameShape(QtGui.QFrame.NoFrame)
+        self.scrollArea.setFrameShadow(QtGui.QFrame.Plain)
         self.scrollArea.setWidgetResizable(True)
         self.scrollArea.setObjectName(_fromUtf8("scrollArea"))
         self.scrollAreaWidgetContents = QtGui.QWidget()
-        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 630, 791))
+        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 636, 797))
         self.scrollAreaWidgetContents.setObjectName(_fromUtf8("scrollAreaWidgetContents"))
         self.verticalLayout = QtGui.QVBoxLayout(self.scrollAreaWidgetContents)
         self.verticalLayout.setObjectName(_fromUtf8("verticalLayout"))

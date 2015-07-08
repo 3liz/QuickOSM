@@ -28,6 +28,12 @@
   <layout class="QVBoxLayout" name="verticalLayout_3">
    <item>
     <widget class="QScrollArea" name="scrollArea">
+     <property name="frameShape">
+      <enum>QFrame::NoFrame</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Plain</enum>
+     </property>
      <property name="widgetResizable">
       <bool>true</bool>
      </property>
@@ -36,8 +42,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>713</width>
-        <height>780</height>
+        <width>719</width>
+        <height>786</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout">
@@ -74,7 +80,7 @@
          <item row="0" column="0">
           <widget class="QLabel" name="label_2">
            <property name="text">
-            <string notr="true">{{nominatimArea:}}</string>
+            <string notr="true">{{geocodeArea:}}</string>
            </property>
           </widget>
          </item>
@@ -139,28 +145,28 @@
             <property name="fieldGrowthPolicy">
              <enum>QFormLayout::ExpandingFieldsGrow</enum>
             </property>
-            <item row="4" column="0">
-             <widget class="QLabel" name="label_3">
-              <property name="text">
-               <string>Outputs</string>
-              </property>
-             </widget>
-            </item>
-            <item row="4" column="1">
+            <item row="6" column="1">
              <widget class="QLabel" name="label_7">
               <property name="text">
                <string/>
               </property>
              </widget>
             </item>
-            <item row="5" column="0">
+            <item row="1" column="0">
+             <widget class="QLabel" name="label_3">
+              <property name="text">
+               <string>Outputs</string>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="0">
              <widget class="QLabel" name="label_10">
               <property name="text">
                <string notr="true">Points</string>
               </property>
              </widget>
             </item>
-            <item row="5" column="1">
+            <item row="2" column="1">
              <layout class="QHBoxLayout" name="horizontalLayout_4">
               <item>
                <widget class="QCheckBox" name="checkBox_points">
@@ -187,14 +193,7 @@
               </item>
              </layout>
             </item>
-            <item row="6" column="0">
-             <widget class="QLabel" name="label_11">
-              <property name="text">
-               <string notr="true">Lines</string>
-              </property>
-             </widget>
-            </item>
-            <item row="6" column="1">
+            <item row="3" column="1">
              <layout class="QHBoxLayout" name="horizontalLayout_6">
               <item>
                <widget class="QCheckBox" name="checkBox_lines">
@@ -215,14 +214,14 @@
               </item>
              </layout>
             </item>
-            <item row="7" column="0">
-             <widget class="QLabel" name="label_14">
+            <item row="3" column="0">
+             <widget class="QLabel" name="label_11">
               <property name="text">
-               <string notr="true">Multilinestrings</string>
+               <string notr="true">Lines</string>
               </property>
              </widget>
             </item>
-            <item row="7" column="1">
+            <item row="4" column="1">
              <layout class="QHBoxLayout" name="horizontalLayout_7">
               <item>
                <widget class="QCheckBox" name="checkBox_multilinestrings">
@@ -243,14 +242,14 @@
               </item>
              </layout>
             </item>
-            <item row="8" column="0">
-             <widget class="QLabel" name="label_12">
+            <item row="4" column="0">
+             <widget class="QLabel" name="label_14">
               <property name="text">
-               <string notr="true">Multipolygons</string>
+               <string notr="true">Multilinestrings</string>
               </property>
              </widget>
             </item>
-            <item row="8" column="1">
+            <item row="5" column="1">
              <layout class="QHBoxLayout" name="horizontalLayout_8">
               <item>
                <widget class="QCheckBox" name="checkBox_multipolygons">
@@ -270,6 +269,13 @@
                </widget>
               </item>
              </layout>
+            </item>
+            <item row="5" column="0">
+             <widget class="QLabel" name="label_12">
+              <property name="text">
+               <string notr="true">Multipolygons</string>
+              </property>
+             </widget>
             </item>
            </layout>
           </item>
