@@ -54,7 +54,7 @@ def new_queries_available():
         return False
 
 
-def get_user_query_folder(overwrite=False):
+def get_user_query_folder(over_write=False):
     """
     Get the user folder for queries.
     For instance on linux : ~/.qgis2/QuickOSM/queries
@@ -64,8 +64,8 @@ def get_user_query_folder(overwrite=False):
     """
     folder = get_user_folder()
     queries_folder = join(folder, 'queries')
-    if not QDir(queries_folder).exists() or overwrite:
-        folder = join(dirname(dirname(abspath(__file__))), 'queries')
+    if not QDir(queries_folder).exists() or over_write:
+        folder = join(dirname(dirname(dirname(abspath(__file__)))), 'queries')
         copy_tree(folder, QDir.toNativeSeparators(queries_folder))
     return unicode(QDir.toNativeSeparators(queries_folder))
 

@@ -28,7 +28,7 @@ from PyQt4.QtCore import pyqtSignal, QSettings, QUrl
 from main_window import Ui_ui_main_window
 from QuickOSM.core.api.connexion_oapi import ConnexionOAPI
 from QuickOSM.core.utilities.tools import get_setting, set_setting, tr
-from QuickOSM.core.utilities.utilities_qgis import get_user_folder
+from QuickOSM.core.utilities.tools import get_user_query_folder
 
 
 class MainWindowDialog(QDialog, Ui_ui_main_window):
@@ -154,7 +154,7 @@ class MainWindowDialog(QDialog, Ui_ui_main_window):
         """
         text = self.pushButton_restoreQueries.text()
         self.pushButton_restoreQueries.setText(tr('QuickOSM', 'Copy ...'))
-        get_user_folder(overWrite=True)
+        get_user_query_folder(over_write=True)
         self.signal_new_query_successful.emit()
         self.my_queries.fill_tree(force=True)
         self.pushButton_restoreQueries.setText(text)
