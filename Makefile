@@ -1,5 +1,14 @@
 # Makefile for QuickOSM
 
+test: clean_pyc pep8 test_suite
+
+test_suite:
+	@echo
+	@echo "---------------------"
+	@echo "Regression Test Suite"
+	@echo "---------------------"
+	@-export PYTHONPATH=`pwd`:$(PYTHONPATH);export QGIS_DEBUG=0;export QGIS_LOG_FILE=/dev/null;export QGIS_DEBUG_FILE=/dev/null;nosetests -v --with-id --with-coverage --cover-package=core 3>&1 1>&2 2>&3 3>&- || true
+
 i18n_prepare:
 	@echo Updating strings
 	@pylupdate4 -noobsolete QuickOSM.pro
