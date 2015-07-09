@@ -315,9 +315,9 @@ class MyQueriesWidget(QuickOSMWidget, Ui_ui_my_queries):
             if output_directory and not isdir(output_directory):
                 raise DirectoryOutPutException
 
-            geocode_area = re.search('\{\{nominatim\}\}', query) or \
-                re.search('\{\{nominatimArea:\}\}', query) or \
-                re.search('\{\{geocodeArea:\}\}', query)
+            geocode_area = re.search(r'\{\{nominatim\}\}', query) or \
+                re.search(r'\{\{nominatimArea:\}\}', query) or \
+                re.search(r'\{\{geocodeArea:\}\}', query)
 
             if not nominatim and geocode_area:
                 raise MissingParameterException(suffix="nominatim field")

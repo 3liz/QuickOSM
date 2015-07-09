@@ -25,7 +25,7 @@ from os.path import dirname, join, exists, abspath, isfile
 from json import load
 from PyQt4.QtCore import \
     QSettings, QTranslator, qVersion, QCoreApplication, Qt
-from PyQt4.QtGui import QMenu, QIcon, QApplication, QAction, QPushButton
+from PyQt4.QtGui import QMenu, QIcon, QAction, QPushButton
 
 from qgis.gui import QgsMessageBar
 from processing.core.Processing import Processing

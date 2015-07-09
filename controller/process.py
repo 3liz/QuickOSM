@@ -231,8 +231,6 @@ def process_query(
 
     # Prepare outputs
     dialog.set_progress_text(tr("QuickOSM", u"Prepare outputs"))
-    # If a file already exist, we avoid downloading data for nothing
-    outputs = get_outputs(output_dir, output_format, prefix_file, layer_name)
 
     # Replace Nominatim or BBOX
     query = prepare_query(query=query, nominatim_name=nominatim, extent=bbox)
@@ -251,6 +249,8 @@ def process_query(
         white_list_column=white_list_values,
         layer_name=layer_name,
         output_format=output_format,
+        output_dir=output_dir,
+        prefix_file=prefix_file,
         config_outputs=config_outputs)
 
 

@@ -52,7 +52,7 @@ pep8:
 	@echo "PEP8 issues"
 	@echo "-----------"
 	@pep8 --version
-	@pep8 --repeat --exclude resources_rc.py,./ui/main_window.py,./ui/my_queries.py,./ui/osm_file.py,./ui/save_query.py,./ui/query.py,./ui/quick_query.py,./ui/query_dialog.py . || true
+	@pep8 --repeat --exclude resources_rc.py,./ui/main_window.py,./ui/my_queries.py,./ui/osm_file.py,./ui/save_query.py,./ui/query.py,./ui/quick_query.py . || true
 
 pylint:
 	@echo
@@ -60,4 +60,4 @@ pylint:
 	@echo "Pylint violations"
 	@echo "-----------------"
 	@pylint --version
-	@pylint --reports=n . || true
+	@pylint --reports=n --rcfile=pylintrc controller ui __init__.py quick_osm.py || true
