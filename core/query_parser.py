@@ -84,7 +84,7 @@ def replace_geocode_coords(nominatim_name, query):
 
         return new_string
 
-    template = r'{{(geocodeCoords):(.*)}}'
+    template = r'{{(geocodeCoords):([^}]*)}}'
     query = re.sub(template, lambda m: replace(
         m.groups()[1], nominatim_name), query)
     return query
@@ -117,7 +117,7 @@ def replace_geocode_area(nominatim_name, query):
 
         return new_string
 
-    template = r'{{(nominatimArea|geocodeArea):(.*)}}'
+    template = r'{{(nominatimArea|geocodeArea):([^}]*)}}'
     query = re.sub(template, lambda m: replace(
         m.groups()[1], nominatim_name), query)
     return query

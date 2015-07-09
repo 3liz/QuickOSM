@@ -44,6 +44,7 @@ class TestQueryFactory(unittest.TestCase):
         pass
 
     def test_check_parameters(self):
+        """Test check parameters query."""
         # Nominatim and BBOX.
         query = QueryFactory(nominatim='foo', bbox=True)
         self.assertRaises(QueryFactoryException, query.check_parameters)
@@ -95,6 +96,7 @@ class TestQueryFactory(unittest.TestCase):
             self.fail(e.msg)
 
     def test_replace_template(self):
+        """Test replace template."""
         query = ' area="paris"'
         expected = ' {{geocodeArea:paris}}'
         self.assertEqual(QueryFactory.replace_template(query), expected)
@@ -104,6 +106,7 @@ class TestQueryFactory(unittest.TestCase):
         self.assertEqual(QueryFactory.replace_template(query), expected)
 
     def test_generate_xml(self):
+        """Test generate XML."""
         query = QueryFactory(key='foo', value='bar', nominatim='paris')
         expected = u'<osm-script output="xml" timeout="25">' \
                    u'<id-query area="paris" into="area_0"/><union>' \
@@ -157,6 +160,7 @@ class TestQueryFactory(unittest.TestCase):
         self.assertEqual(query.generate_xml(), expected)
 
     def test_make(self):
+        """Test make query."""
         query = QueryFactory('foo', 'bar', True)
         expected = u'<osm-script output="xml" timeout="25">\n    ' \
                    u'<union>\n        <query type="node">\n            ' \
@@ -172,3 +176,8 @@ class TestQueryFactory(unittest.TestCase):
                    u'<recurse type="down"/>\n    </union>\n    ' \
                    u'<print mode="body"/>\n</osm-script>\n'
         self.assertEqual(query.make(), expected)
+
+if __name__ == '__main__':
+    suite = unittest.makeSuite(TestQueryFactory)
+    runner = unittest.TextTestRunner(verbosity=2)
+    runner.run(suite)
