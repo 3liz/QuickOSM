@@ -10,14 +10,14 @@ branches:
   only:
     - master
 
--before_install:
+before_install:
   - sudo apt-get -qq -y update
 
 install:
   - sudo apt-get install -y python-software-properties
   - sudo add-apt-repository -y ppa:ubuntugis/ubuntugis-unstable
   - sudo apt-get update
-  - sudo apt-get install -y git qgis python-qgis xvfb python-nose python-coverage pyflakes python-nosexcover python-scientific python-beautifulsoup
+  - sudo apt-get install -y git qgis python-qgis xvfb python-nose python-coverage pyflakes python-nosexcover
   - pip install --upgrade pip
   - pip install --upgrade pep8
   - pip install --upgrade pylint
@@ -31,7 +31,9 @@ before_script:
 
 script:
   - make pep8
-  - xvfb-run --server-args="-screen 0, 1024x768x24" nosetests -A 'not slow' -v --with-id --with-xcoverage --with-xunit --verbose --cover-package=core
+  - xvfb-run --server-args="-screen 0, 1024x768x24" nosetests -A 'not slow' -v --with-id --with-xcoverage --with-xunit --verbose --cover-package=core core
 
+
+notifications:
   email:
     - etienne.trimaille@gmail.com
