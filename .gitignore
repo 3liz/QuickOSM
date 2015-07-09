@@ -4,3 +4,5 @@ scripts/
 plugin_upload.py
 help/
 .idea
+.coverage
+.noseids
