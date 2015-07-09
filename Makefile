@@ -61,7 +61,7 @@ pep8:
 	@echo "PEP8 issues"
 	@echo "-----------"
 	@pep8 --version
-	@pep8 --repeat --exclude resources_rc.py,./ui/main_window.py,./ui/my_queries.py,./ui/osm_file.py,./ui/save_query.py,./ui/query.py,./ui/quick_query.py . || true
+	@pep8 --repeat --exclude test/qgis_interface.py,test/utilities.py,resources_rc.py,./ui/main_window.py,./ui/my_queries.py,./ui/osm_file.py,./ui/save_query.py,./ui/query.py,./ui/quick_query.py . || true
 
 pylint:
 	@echo

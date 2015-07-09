@@ -260,7 +260,7 @@ class QueryWidget(QuickOSMWidget, Ui_ui_query):
         bbox = self.get_bounding_box()
         query = prepare_query(
             query=query, extent=bbox, nominatim_name=nominatim)
-        self.textEdit_query.setPlainText(query)  
+        self.textEdit_query.setPlainText(query)
 
     def save_final_query(self):
         """
