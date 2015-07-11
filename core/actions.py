@@ -74,7 +74,7 @@ class Actions(object):
             elif field == "josm":
                 import urllib2
                 try:
-                    url = "http://localhost:8111/load_object?objects="+value
+                    url = "http://localhost:8111/load_object?objects=" + value
                     urllib2.urlopen(url).read()
                 except urllib2.URLError:
                     iface.messageBar().pushMessage(
@@ -85,7 +85,7 @@ class Actions(object):
 
             # NOT USED
             elif field == "rawedit":
-                url = QUrl("http://rawedit.openstreetmap.fr/edit/"+value)
+                url = QUrl("http://rawedit.openstreetmap.fr/edit/" + value)
                 web_browser = QWebView(None)
                 web_browser.load(url)
                 web_browser.show()

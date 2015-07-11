@@ -47,7 +47,7 @@ class OsmParserGeoAlgorithm(GeoAlgorithm):
         self.WHITE_LIST = {}
         self.OUTPUT_LAYERS = {}
         for layer in self.LAYERS:
-            self.WHITE_LIST[layer] = 'WHITE_LIST_'+layer
+            self.WHITE_LIST[layer] = 'WHITE_LIST_' + layer
             self.OUTPUT_LAYERS[layer] = layer + "_LAYER"
 
         self.progress = None

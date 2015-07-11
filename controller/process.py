@@ -68,7 +68,7 @@ def get_outputs(output_dir, output_format, prefix_file, layer_name):
                     output_dir, prefix_file + "_" + layer + ".geojson")
 
             if isfile(outputs[layer]):
-                raise FileOutPutException(suffix="("+outputs[layer]+")")
+                raise FileOutPutException(suffix='(' + outputs[layer] + ')')
 
     return outputs
 
@@ -104,7 +104,7 @@ def open_file(
         dialog.set_progress_text(tr("QuickOSM", u"From GeoJSON to Shapefile"))
 
     for i, (layer, item) in enumerate(layers.iteritems()):
-        dialog.set_progress_percentage(i/len(layers)*100)
+        dialog.set_progress_percentage(i / len(layers) * 100)
         QApplication.processEvents()
         if item['featureCount'] and layer in output_geom_types:
 
@@ -188,7 +188,7 @@ def open_file(
                         QgsAction.GenericPython,
                         link,
                         'from QuickOSM.core.actions import Actions;'
-                        'Actions.run("'+link+'","[% "'+link+'" %]")',
+                        'Actions.run("' + link + '","[% "' + link + '" %]")',
                         False)
 
             if 'network' in item['tags'] and 'ref' in item['tags']:

@@ -79,7 +79,7 @@ class OsmHandler(ContentHandler):
 
     def endElement(self, name):
         if name == "relation":
-            self.tags['full_id'] = 'r'+self.id
+            self.tags['full_id'] = 'r' + self.id
             self.tags['osm_id'] = self.id
             self.tags['osm_type'] = 'relation'
             self.elements.append(self.tags)

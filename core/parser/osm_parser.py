@@ -180,7 +180,7 @@ class OsmParser(QObject):
                             else:
                                 layers[layer]['tags'].append(key)
 
-                percent = int(100 / len(self.__layers) * (i+1))
+                percent = int(100 / len(self.__layers) * (i + 1))
                 self.signalPercentage.emit(percent)
 
         # Delete empty layers if this option is set to True
@@ -237,7 +237,7 @@ class OsmParser(QObject):
                         osm_type = 'relation'
 
                     new_attributes.append(
-                        self.DIC_OSM_TYPE[osm_type]+str(attributes[0]))
+                        self.DIC_OSM_TYPE[osm_type] + str(attributes[0]))
                     new_attributes.append(attributes[0])
                     new_attributes.append(osm_type)
 
@@ -255,12 +255,12 @@ class OsmParser(QObject):
                     if attributes[0]:
                         osm_type = "relation"
                         new_attributes.append(
-                            self.DIC_OSM_TYPE[osm_type]+str(attributes[0]))
+                            self.DIC_OSM_TYPE[osm_type] + str(attributes[0]))
                         new_attributes.append(str(attributes[0]))
                     else:
                         osm_type = "way"
                         new_attributes.append(
-                            self.DIC_OSM_TYPE[osm_type]+str(attributes[1]))
+                            self.DIC_OSM_TYPE[osm_type] + str(attributes[1]))
                         new_attributes.append(attributes[1])
                     new_attributes.append(osm_type)
 

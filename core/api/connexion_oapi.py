@@ -87,7 +87,7 @@ class ConnexionOAPI(object):
         # The output format can be forced (JSON or XML)
         if self.__output:
             query = re.sub(
-                r'output="[a-z]*"', 'output="'+self.__output + '"', query)
+                r'output="[a-z]*"', 'output="' + self.__output + '"', query)
             query = re.sub(
                 r'\[out:[a-z]*', '[out:' + self.__output, query)
 
