@@ -1,8 +1,6 @@
 QuickOSM
 ============================================================
-* Current test status master : [![Build Status](https://travis-ci.org/Gustry/QuickOSM.svg?branch=master)](https://travis-ci.org/Gustry/QuickOSM)
-
-To test QgisQuickOSMPlugin, you'll need to clone this repository in a directory called "QuickOSM" in your .qgis2/python/plugins directory.
+* Current test status master : [![Build Status](https://travis-ci.org/3liz/QuickOSM.svg)](https://travis-ci.org/3liz/QuickOSM)
 
 Generalities
 =
