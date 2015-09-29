@@ -117,7 +117,7 @@ class QuickOSM:
             self.iface.mainWindow())
         # noinspection PyUnresolvedReferences
         self.osmFileAction.triggered.connect(self.openOsmFileDockWidget)
-        self.iface.addPluginToWebMenu(u"&Quick OSM",self.osmFileAction)
+        self.iface.addPluginToWebMenu(u"&Quick OSM", self.osmFileAction)
         self.osmFileDockWidget = OsmFileDockWidget()
         self.iface.addDockWidget(
             Qt.RightDockWidgetArea, self.osmFileDockWidget)
@@ -131,7 +131,7 @@ class QuickOSM:
             self.iface.mainWindow())
         # noinspection PyUnresolvedReferences
         self.myQueriesAction.triggered.connect(self.openMyQueriesDockWidget)
-        self.iface.addPluginToWebMenu(u"&Quick OSM",self.myQueriesAction)
+        self.iface.addPluginToWebMenu(u"&Quick OSM", self.myQueriesAction)
         self.myQueriesDockWidget = MyQueriesDockWidget()
         self.iface.addDockWidget(
             Qt.RightDockWidgetArea, self.myQueriesDockWidget)
@@ -145,7 +145,7 @@ class QuickOSM:
             self.iface.mainWindow())
         # noinspection PyUnresolvedReferences
         self.queryAction.triggered.connect(self.openQueryDockWidget)
-        self.iface.addPluginToWebMenu(u"&Quick OSM",self.queryAction)
+        self.iface.addPluginToWebMenu(u"&Quick OSM", self.queryAction)
         self.queryDockWidget = QueryDockWidget()
         self.iface.addDockWidget(Qt.RightDockWidgetArea, self.queryDockWidget)
         self.queryDockWidget.hide()
@@ -158,7 +158,7 @@ class QuickOSM:
             self.iface.mainWindow())
         # noinspection PyUnresolvedReferences
         self.quickQueryAction.triggered.connect(self.openQuickQueryDockWidget)
-        self.iface.addPluginToWebMenu(u"&Quick OSM",self.quickQueryAction)
+        self.iface.addPluginToWebMenu(u"&Quick OSM", self.quickQueryAction)
         self.quickQueryDockWidget = QuickQueryDockWidget()
         self.iface.addDockWidget(
             Qt.RightDockWidgetArea, self.quickQueryDockWidget)
