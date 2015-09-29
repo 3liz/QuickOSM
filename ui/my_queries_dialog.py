@@ -38,9 +38,8 @@ from QuickOSM.core.exceptions import (
     DirectoryOutPutException,
     MissingParameterException)
 from QuickOSM.core.file_query import FileQuery
-from QuickOSM.core.utilities.utilities_qgis import \
-    get_user_folder, display_message_bar
-from QuickOSM.core.utilities.tools import tr
+from QuickOSM.core.utilities.utilities_qgis import display_message_bar
+from QuickOSM.core.utilities.tools import tr, get_user_query_folder
 
 
 class MyQueriesWidget(QuickOSMWidget, Ui_ui_my_queries):
@@ -96,7 +95,7 @@ class MyQueriesWidget(QuickOSMWidget, Ui_ui_my_queries):
         self.treeQueries.clear()
 
         # Get the folder and all file queries
-        folder = get_user_folder()
+        folder = get_user_query_folder()
         categories_files = FileQuery.get_ini_files_from_folder(
             folder, force=force)
 
