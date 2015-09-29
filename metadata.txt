@@ -1,17 +1,9 @@
-# This file contains metadata for your plugin. Since 
-# version 2.0 of QGIS this is the proper way to supply 
-# information about a plugin. The old method of 
-# embedding metadata in __init__.py will 
-# is no longer supported since version 2.0.
-
-# This file should be included when you package your plugin.# Mandatory items:
-
 [general]
 name=QuickOSM
 qgisMinimumVersion=2.0
 description=QuickOSM allows you to work quickly with OSM datas in QGIS thanks to Overpass API.
 about=Execute customs overpass queries from QGIS to get OSM data.
-version=1.3.4
+version=1.4.0
 newQueries=False
 author=Etienne Trimaille
 email=etienne@trimaille.eu
@@ -22,6 +14,8 @@ email=etienne@trimaille.eu
 
 # Uncomment the following line and add your changelog:
 # changelog=
+  Version 1.4.0
+  * Refactoring
   Version 1.3.4
   * Add admin_level to the preset
   * Dutch translation
@@ -37,14 +31,14 @@ email=etienne@trimaille.eu
   * Fix some minor bugs
 
 # Tags are comma separated with spaces allowed
-tags=osm,openstreetmap,overpass
+tags=osm,openstreetmap,overpass,download
 
 homepage=https://github.com/3liz/QgisQuickOSMPlugin
 tracker=https://github.com/3liz/QgisQuickOSMPlugin/issues
 repository=https://github.com/3liz/QgisQuickOSMPlugin
 icon=icon.png
 # experimental flag
-experimental=False
+experimental=True
 
 # deprecated flag (applies to the whole plugin, not just a single version)
 deprecated=False
