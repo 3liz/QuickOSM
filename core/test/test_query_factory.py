@@ -100,6 +100,10 @@ class TestQueryFactory(unittest.TestCase):
         expected = ' {{geocodeArea:paris}}'
         self.assertEqual(QueryFactory.replace_template(query), expected)
 
+        query = ' area_coords="paris,france"'
+        expected = ' {{geocodeCoords:paris,france}}'
+        self.assertEqual(QueryFactory.replace_template(query), expected)
+
         query = ' bbox="custom"'
         expected = ' {{bbox}}'
         self.assertEqual(QueryFactory.replace_template(query), expected)
@@ -149,11 +153,11 @@ class TestQueryFactory(unittest.TestCase):
             nominatim='a')
         expected = u'<osm-script output="xml" timeout="25"><union>' \
                    u'<query type="node"><has-kv k="foo" />' \
-                   u'<around area="a" radius="1000" /></query>' \
+                   u'<around area_coords="a" radius="1000" /></query>' \
                    u'<query type="way"><has-kv k="foo" />' \
-                   u'<around area="a" radius="1000" /></query>' \
+                   u'<around area_coords="a" radius="1000" /></query>' \
                    u'<query type="relation"><has-kv k="foo" />' \
-                   u'<around area="a" radius="1000" /></query></union>' \
+                   u'<around area_coords="a" radius="1000" /></query></union>' \
                    u'<union><item /><recurse type="down"/></union>' \
                    u'<print mode="meta" /></osm-script>'
         self.assertEqual(query.generate_xml(), expected)

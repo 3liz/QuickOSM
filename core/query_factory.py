@@ -114,6 +114,8 @@ class QueryFactory(object):
     @staticmethod
     def replace_template(query):
         query = re.sub(
+            r' area_coords="(.*?)"', r' {{geocodeCoords:\1}}', query)
+        query = re.sub(
             r' area="(.*?)"', r' {{geocodeArea:\1}}', query)
         query = query.replace(' bbox="custom"', ' {{bbox}}')
         return query
@@ -150,7 +152,7 @@ class QueryFactory(object):
                     query += u'<area-query from="area_%s" />' % i
 
                 elif self.__nominatim and self.__is_around:
-                    query += u'<around area="%s" radius="%s" />' % \
+                    query += u'<around area_coords="%s" radius="%s" />' % \
                              (nominatim[i], self.__distance)
 
                 elif self.__bbox:
