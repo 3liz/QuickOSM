@@ -4,22 +4,24 @@ echo "Make a zip"
 cp -R QuickOSM/ QuickOSM_back/
 rm QuickOSM.zip
 cd QuickOSM/
-git clean
-git reset --HARD HEAD
+git clean -f
+git reset --hard HEAD
 make clean_pyc
 find . -name "*.ui" -type f -delete
 find . -name "*.qrc" -type f -delete
 find . -name "*.ts" -type f -delete
-find . -name "test" -type f -delete
+find . -depth -name 'test' -type d -exec rm -rf '{}' \;
 rm -rf .git
 rm -rf .idea
-rm .gitignore
-rm Makefile
-rm QuickOSM.pro
-rm README.md
-rm release.sh
-rm .travis.yml
-rm .coverage
+rm -f .gitignore
+rm -f Makefile
+rm -f QuickOSM.pro
+rm -f README.md
+rm -f release.sh
+rm -f .travis.yml
+rm -f .coverage
+rm pylintrc
+rm run-env-linux.sh
 
 cd ..
 zip -r QuickOSM QuickOSM/
