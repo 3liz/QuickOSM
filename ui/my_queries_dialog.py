@@ -347,7 +347,7 @@ class MyQueriesWidget(QuickOSMWidget, Ui_ui_my_queries):
 
         except QuickOsmException, e:
             self.display_geo_algorithm_exception(e)
-        except Exception, e:
+        except Exception, e:  # pylint: disable=broad-except
             self.display_exception(e)
 
         finally:

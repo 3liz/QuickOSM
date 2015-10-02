@@ -50,7 +50,6 @@ from query import Ui_ui_query
 
 
 class QueryWidget(QuickOSMWidget, Ui_ui_query):
-
     # Signal new query
     signal_new_query_successful = pyqtSignal(
         name='signal_new_query_successful')
@@ -148,15 +147,15 @@ class QueryWidget(QuickOSMWidget, Ui_ui_query):
             self.pushButton_saveQuery.setDisabled(False)
             self.pushButton_runQuery.setDisabled(False)
 
-        if re.search('\{\{nominatim\}\}', query) or \
-                re.search('\{\{nominatimArea:(.*)\}\}', query) or \
-                re.search('\{\{geocodeArea:(.*)\}\}', query):
+        if re.search(r'\{\{nominatim\}\}', query) or \
+                re.search(r'\{\{nominatimArea:(.*)\}\}', query) or \
+                re.search(r'\{\{geocodeArea:(.*)\}\}', query):
             self.lineEdit_nominatim.setEnabled(True)
         else:
             self.lineEdit_nominatim.setEnabled(False)
             self.lineEdit_nominatim.setText("")
 
-        if re.search('\{\{(bbox|center)\}\}', query):
+        if re.search(r'\{\{(bbox|center)\}\}', query):
             self.radioButton_extentLayer.setEnabled(True)
             self.radioButton_extentMapCanvas.setEnabled(True)
             if self.radioButton_extentLayer.isChecked():
@@ -209,9 +208,10 @@ class QueryWidget(QuickOSMWidget, Ui_ui_query):
                 raise DirectoryOutPutException
 
             if not nominatim and \
-                    (re.search('\{\{nominatim\}\}', query) or
-                        re.search('\{\{nominatimArea:\}\}', query) or
-                        re.search('\{\{geocodeArea:\}\}', query)):
+                    re.search(r'\{\{nominatim\}\}', query) or \
+                    re.search(r'\{\{nominatimArea:\}\}', query) or \
+                    re.search(r'\{\{geocodeArea:\}\}', query):
+
                 raise MissingParameterException(suffix="nominatim field")
 
             num_layers = process_query(
@@ -239,7 +239,7 @@ class QueryWidget(QuickOSMWidget, Ui_ui_query):
 
         except QuickOsmException, e:
             self.display_geo_algorithm_exception(e)
-        except Exception, e:
+        except Exception, e:  # pylint: disable=broad-except
             self.display_exception(e)
 
         finally:
@@ -327,7 +327,6 @@ class QueryWidget(QuickOSMWidget, Ui_ui_query):
 
 
 class QueryDockWidget(QDockWidget):
-
     signal_new_query_successful = pyqtSignal(
         name='signal_new_query_successful')
 

@@ -41,31 +41,31 @@ class XMLHighlighter(QSyntaxHighlighter):
         xml_element_format = QTextCharFormat()
         xml_element_format.setForeground(QColor("#117700"))
         self.highlightingRules.append(
-            (QRegExp("\\b[A-Za-z0-9_\-]+(?=[\s/>])"), xml_element_format))
+            (QRegExp(r"\\b[A-Za-z0-9_\-]+(?=[\s/>])"), xml_element_format))
 
         nominatim_area_format = QTextCharFormat()
         nominatim_area_format.setFontItalic(True)
         nominatim_area_format.setFontWeight(QFont.Bold)
         nominatim_area_format.setForeground(QColor("#FF7C00"))
         self.highlightingRules.append(
-            (QRegExp("\{\{[A-Za-z0-9:, ]*\}\}"), nominatim_area_format))
+            (QRegExp(r"\{\{[A-Za-z0-9:, ]*\}\}"), nominatim_area_format))
 
         xml_attribute_format = QTextCharFormat()
         xml_attribute_format.setFontItalic(True)
         xml_attribute_format.setForeground(QColor("#2020D2"))
         self.highlightingRules.append(
-            (QRegExp("\\b[A-Za-z0-9_]+(?=\\=)"), xml_attribute_format))
+            (QRegExp(r"\\b[A-Za-z0-9_]+(?=\\=)"), xml_attribute_format))
 
         self.value_format = QTextCharFormat()
         self.value_format.setForeground(Qt.red)
 
         self.value_start_expression = QRegExp("\"")
-        self.value_end_expression = QRegExp("\"(?=[\s></])")
+        self.value_end_expression = QRegExp(r"\"(?=[\s></])")
 
         single_line_comment_format = QTextCharFormat()
         single_line_comment_format.setForeground(Qt.gray)
         self.highlightingRules.append(
-            (QRegExp("<!--[^\n]*-->"), single_line_comment_format))
+            (QRegExp(r"<!--[^\n]*-->"), single_line_comment_format))
 
     def highlightBlock(self, text):
         # for every pattern

@@ -58,12 +58,12 @@ class SaveQueryDialog(QDialog, Ui_ui_save_query):
         super(SaveQueryDialog, self).__init__(parent)
         QDialog.__init__(self)
         self.setupUi(self)
-        self.bar = QgsMessageBar()
-        self.bar.setSizePolicy(QSizePolicy.Minimum, QSizePolicy.Fixed)
-        self.layout().addWidget(self.bar)
+        self.message_bar = QgsMessageBar()
+        self.message_bar.setSizePolicy(QSizePolicy.Minimum, QSizePolicy.Fixed)
+        self.layout().addWidget(self.message_bar)
 
-        self.whiteListValues = white_list_values
-        self.outputGeomTypes = output_geometry_types
+        self.white_list_values = white_list_values
+        self.output_geometry_types = output_geometry_types
         self.query = query
 
     def accept(self):
@@ -81,13 +81,14 @@ class SaveQueryDialog(QDialog, Ui_ui_save_query):
             name=name,
             category=category,
             query=self.query,
-            whiteListValues=self.whiteListValues,
-            outputGeomTypes=self.outputGeomTypes)
+            white_list_values=self.white_list_values,
+            output_geometry_types=self.output_geometry_types)
         try:
             ini_file.save()
             self.signal_new_query_successful.emit()
             self.hide()
         except QuickOsmException, e:
-            self.bar.pushMessage(e.msg, level=e.level, duration=e.duration)
-        except Exception, e:
+            self.message_bar.pushMessage(
+                e.msg, level=e.level, duration=e.duration)
+        except Exception, e:  # pylint: disable=broad-except
             self.display_exception(e)

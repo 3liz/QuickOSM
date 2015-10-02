@@ -157,7 +157,8 @@ class TestQueryFactory(unittest.TestCase):
                    u'<query type="way"><has-kv k="foo" />' \
                    u'<around area_coords="a" radius="1000" /></query>' \
                    u'<query type="relation"><has-kv k="foo" />' \
-                   u'<around area_coords="a" radius="1000" /></query></union>' \
+                   u'<around area_coords="a" radius="1000" /></query>' \
+                   u'</union>' \
                    u'<union><item /><recurse type="down"/></union>' \
                    u'<print mode="meta" /></osm-script>'
         self.assertEqual(query.generate_xml(), expected)

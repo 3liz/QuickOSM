@@ -207,10 +207,10 @@ class QuickOSMWidget(QWidget):
         """
         Display others exceptions
         """
-        exc_type, exc_obj, exc_tb = exc_info()
+        exc_type, _, exc_tb = exc_info()
         f_name = split(exc_tb.tb_frame.f_code.co_filename)[1]
         print(exc_type, f_name, exc_tb.tb_lineno)
-        ex_type, ex, tb = exc_info()
+        _, _, tb = exc_info()
         import traceback
         traceback.print_tb(tb)
         print e

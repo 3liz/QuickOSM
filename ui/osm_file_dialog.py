@@ -162,7 +162,7 @@ class OsmFileWidget(QuickOSMWidget, Ui_ui_osm_file):
                     layers=output_geometry_types)
                 layers = osm_parser.parse()
 
-                for layer, item in layers.iteritems():
+                for item in layers.values():
                     QgsMapLayerRegistry.instance().addMapLayer(item)
 
             else:
@@ -175,7 +175,7 @@ class OsmFileWidget(QuickOSMWidget, Ui_ui_osm_file):
 
         except QuickOsmException, e:
             self.display_geo_algorithm_exception(e)
-        except Exception, e:
+        except Exception, e:  # pylint: disable=broad-except
             self.display_exception(e)
         finally:
             QApplication.restoreOverrideCursor()
