@@ -23,10 +23,9 @@
 
 import platform
 import sys
-from shutil import copy2, copystat, Error, WindowsError
-from exceptions import OSError
-from os import listdir, makedirs, readlink, symlink
-from os.path import join, isdir, islink
+from shutil import copytree, copy2
+from os import listdir, makedirs, stat
+from os.path import join, isdir, exists
 
 from PyQt4.QtCore import QSettings
 from PyQt4.QtNetwork import QNetworkProxy
@@ -70,45 +69,16 @@ def get_proxy():
 
 
 def copy_tree(src, dst, symlinks=False, ignore=None):
-    names = listdir(src)
-    if ignore is not None:
-        ignored_names = ignore(src, names)
-    else:
-        ignored_names = set()
-
-    if not isdir(dst):  # This one line does the trick
+    if not exists(dst):
         makedirs(dst)
-    errors = []
-    for name in names:
-        if name in ignored_names:
-            continue
-        source_name = join(src, name)
-        destination_name = join(dst, name)
-        try:
-            if symlinks and islink(source_name):
-                link_to = readlink(source_name)
-                symlink(link_to, destination_name)
-            elif isdir(source_name):
-                copy_tree(source_name, destination_name, symlinks, ignore)
-            else:
-                # Will raise a SpecialFileError for unsupported file types
-                copy2(source_name, destination_name)
-        # catch the Error from the recursive copytree so that we can
-        # continue with other files
-        except Error, err:
-            errors.extend(err.args[0])
-        except EnvironmentError, why:
-            errors.append((source_name, destination_name, str(why)))
-    try:
-        copystat(src, dst)
-    except OSError, why:
-        if WindowsError is not None and isinstance(why, WindowsError):
-            # Copying file access times may fail on Windows
-            pass
+    for item in listdir(src):
+        s = join(src, item)
+        d = join(dst, item)
+        if isdir(s):
+            copytree(s, d, symlinks, ignore)
         else:
-            errors.extend((src, dst, str(why)))
-    if errors:
-        raise Error(errors)
+            if not exists(d) or stat(s).st_mtime - stat(d).st_mtime > 1:
+                copy2(s, d)
 
 
 def is_windows():
