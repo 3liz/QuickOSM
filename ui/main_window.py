@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'ui/main_window.ui'
 #
-# Created: Sat Jun 13 17:00:15 2015
+# Created: Wed Oct  7 09:41:43 2015
 #      by: PyQt4 UI code generator 4.10.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -399,8 +399,8 @@ class Ui_ui_main_window(object):
         self.groupBox_3.setTitle(_translate("ui_main_window", "Queries", None))
         self.pushButton_restoreQueries.setText(_translate("ui_main_window", "Restore queries", None))
         self.groupBox_7.setTitle(_translate("ui_main_window", "Outputs", None))
-        self.radioButton_outputJson.setText(_translate("ui_main_window", "GeoJSON (not editable, colmun\'s name longer)", None))
-        self.radioButton_outputShape.setText(_translate("ui_main_window", "Shapefile (editable, colmun\'s name shorter)", None))
+        self.radioButton_outputJson.setText(_translate("ui_main_window", "GeoJSON (not editable, column\'s name longer)", None))
+        self.radioButton_outputShape.setText(_translate("ui_main_window", "Shapefile (editable, column\'s name shorter)", None))
         self.pushButton_homeHelp.setText(_translate("ui_main_window", "Home", None))
         self.groupBox_2.setTitle(_translate("ui_main_window", "Realization", None))
         self.groupBox_5.setTitle(_translate("ui_main_window", "Supervision", None))
