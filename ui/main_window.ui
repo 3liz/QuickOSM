@@ -245,14 +245,14 @@ QListWidget::item::selected {
             <item>
              <widget class="QRadioButton" name="radioButton_outputJson">
               <property name="text">
-               <string>GeoJSON (not editable, colmun's name longer)</string>
+               <string>GeoJSON (not editable, column's name longer)</string>
               </property>
              </widget>
             </item>
             <item>
              <widget class="QRadioButton" name="radioButton_outputShape">
               <property name="text">
-               <string>Shapefile (editable, colmun's name shorter)</string>
+               <string>Shapefile (editable, column's name shorter)</string>
               </property>
              </widget>
             </item>
