@@ -21,9 +21,7 @@
  ***************************************************************************/
 """
 
-from PyQt4.QtCore import QFileInfo, QDir
 from osgeo import gdal, ogr
-from qgis.core import QgsApplication
 from qgis.gui import QgsMessageBar
 from qgis.utils import iface
 
@@ -52,14 +50,3 @@ def is_osm_driver_enabled():
         return False
 
     return True
-
-
-def get_user_folder():
-    """
-    Get the user folder, ~/.qgis2/QuickOSM on linux for instance
-
-    @rtype: str
-    @return: path
-    """
-    folder = QFileInfo(QgsApplication.qgisUserDbFilePath()).path() + 'QuickOSM'
-    return unicode(QDir.toNativeSeparators(folder))

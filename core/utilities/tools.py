@@ -22,11 +22,11 @@
 """
 
 import ConfigParser
+from qgis.core import QgsApplication
 from os.path import join, dirname, abspath
-from PyQt4.QtCore import QDir, QSettings
+from PyQt4.QtCore import QDir, QSettings, QFileInfo
 from PyQt4.QtGui import QApplication
 
-from utilities_qgis import get_user_folder
 from operating_system import copy_tree
 
 
@@ -54,6 +54,17 @@ def new_queries_available():
         return False
 
 
+def get_QuickOSM_folder():
+    """
+    Get the user folder, ~/.qgis2/QuickOSM on linux for instance
+
+    @rtype: str
+    @return: path
+    """
+    folder = QFileInfo(QgsApplication.qgisUserDbFilePath()).path() + 'QuickOSM'
+    return unicode(QDir.toNativeSeparators(folder))
+
+
 def get_user_query_folder(over_write=False):
     """
     Get the user folder for queries.
@@ -62,7 +73,7 @@ def get_user_query_folder(over_write=False):
     @rtype: str
     @return: path
     """
-    folder = get_user_folder()
+    folder = get_QuickOSM_folder()
     queries_folder = join(folder, 'queries')
     if not QDir(queries_folder).exists() or over_write:
         folder = join(dirname(dirname(dirname(abspath(__file__)))), 'queries')

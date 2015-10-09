@@ -36,8 +36,14 @@ from ui.query_dialog import QueryDockWidget
 from ui.osm_file_dialog import OsmFileDockWidget
 from ui.quick_query_dialog import QuickQueryDockWidget
 from quick_osm_processing.algorithm_provider import QuickOSMAlgorithmProvider
-from core.utilities.tools import \
-    get_current_version, get_setting, set_setting, new_queries_available, tr
+from core.utilities.tools import (
+    get_current_version,
+    get_setting,
+    set_setting,
+    new_queries_available,
+    tr,
+    get_user_query_folder
+)
 
 
 class QuickOSM:
@@ -69,6 +75,9 @@ class QuickOSM:
             if qVersion() > '4.3.3':
                 # noinspection PyTypeChecker
                 QCoreApplication.installTranslator(self.translator)
+
+        # Create the folder if it does not exist.
+        get_user_query_folder(over_write=True)
 
         # Add to processing
         self.provider = QuickOSMAlgorithmProvider()

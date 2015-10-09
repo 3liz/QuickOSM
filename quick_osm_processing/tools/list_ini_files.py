@@ -29,7 +29,7 @@ from processing.core.GeoAlgorithm import GeoAlgorithm
 
 from QuickOSM.quick_osm_processing import *
 from QuickOSM.core.file_query import FileQuery
-from QuickOSM.core.utilities.utilities_qgis import get_user_folder
+from QuickOSM.core.utilities.tools import get_user_query_folder
 
 
 class ListIniFilesGeoAlgorithm(GeoAlgorithm):
@@ -51,7 +51,7 @@ class ListIniFilesGeoAlgorithm(GeoAlgorithm):
         self.group = "Tools"
 
         # Get the folder and all files queries
-        folder = get_user_folder()
+        folder = get_user_query_folder()
         cat_files = FileQuery.get_ini_files_from_folder(folder, force=False)
 
         for cat in cat_files:
