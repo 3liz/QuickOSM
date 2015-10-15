@@ -102,6 +102,8 @@ class QuickQueryWidget(QuickOSMWidget, Ui_ui_quick_query):
                 QCompleter.PopupCompletion)
         self.key_edited()
 
+        self.init_nominatim_autofill()
+
     def reset_form(self):
         self.comboBox_key.setCurrentIndex(0)
         self.lineEdit_nominatim.setText("")
@@ -215,7 +217,7 @@ class QuickQueryWidget(QuickOSMWidget, Ui_ui_quick_query):
         # Get all values
         key = unicode(self.comboBox_key.currentText())
         value = unicode(self.comboBox_value.currentText())
-        nominatim = unicode(self.lineEdit_nominatim.text())
+        nominatim = self.nominatim_value()
         timeout = self.spinBox_timeout.value()
         output_directory = self.lineEdit_browseDir.text()
         prefix_file = self.lineEdit_filePrefix.text()

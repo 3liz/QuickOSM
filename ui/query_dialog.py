@@ -100,6 +100,9 @@ class QueryWidget(QuickOSMWidget, Ui_ui_query):
         popup_menu.addAction(overpass_action)
         self.pushButton_documentation.setMenu(popup_menu)
 
+        # Enable autofill on nominatim
+        self.init_nominatim_autofill()
+
         # connect
         self.pushButton_runQuery.clicked.connect(self.run_query)
         self.pushButton_generateQuery.clicked.connect(self.generate_query)
@@ -183,7 +186,7 @@ class QueryWidget(QuickOSMWidget, Ui_ui_query):
         query = unicode(self.textEdit_query.toPlainText())
         output_directory = self.lineEdit_browseDir.text()
         prefix_file = self.lineEdit_filePrefix.text()
-        nominatim = self.lineEdit_nominatim.text()
+        nominatim = self.nominatim_value()
 
         # Set bbox
         bbox = None

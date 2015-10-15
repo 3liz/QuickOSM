@@ -21,10 +21,11 @@
  ***************************************************************************/
 """
 
-from os.path import split
+from os.path import split, join, isfile
 from sys import exc_info
 
-from PyQt4.QtGui import QWidget, QFileDialog, QApplication, QDesktopServices
+from PyQt4.QtGui import \
+    QWidget, QFileDialog, QApplication, QDesktopServices, QCompleter
 from PyQt4.QtCore import QUrl
 from qgis.utils import iface
 from qgis.gui import QgsMessageBar
@@ -32,13 +33,54 @@ from qgis.core import \
     QgsGeometry, QgsCoordinateTransform, QgsCoordinateReferenceSystem
 
 from QuickOSM.core.utilities.utilities_qgis import display_message_bar
-from QuickOSM.core.utilities.tools import tr
+from QuickOSM.core.utilities.tools import tr, get_QuickOSM_folder
 from QuickOSM.core.exceptions import NoLayerException
 
 
 class QuickOSMWidget(QWidget):
     def __init__(self, parent=None):
+        self.last_places = []
+        self.last_nominatim_places_filepath = join(
+            get_QuickOSM_folder(),
+            'nominatim.txt')
         QWidget.__init__(self, parent)
+
+    def init_nominatim_autofill(self):
+
+        # Usefull to avoid duplicate if we add a new completer.
+        self.lineEdit_nominatim.setCompleter(None)
+        self.last_places = []
+
+        if isfile(self.last_nominatim_places_filepath):
+            for line in open(self.last_nominatim_places_filepath, 'r'):
+                self.last_places.append(line.rstrip('\n'))
+
+            nominatim_completer = QCompleter(self.last_places)
+            self.lineEdit_nominatim.setCompleter(nominatim_completer)
+            self.lineEdit_nominatim.completer().setCompletionMode(
+                QCompleter.PopupCompletion)
+        else:
+            open(self.last_nominatim_places_filepath, 'a').close()
+
+    @staticmethod
+    def sort_nominatim_places(existing_places, place):
+        if place in existing_places:
+            existing_places.pop(existing_places.index(place))
+        existing_places.insert(0, place)
+        return existing_places[:10]
+
+    def nominatim_value(self):
+        value = unicode(self.lineEdit_nominatim.text())
+        new_list = self.sort_nominatim_places(self.last_places, value)
+
+        f = open(self.last_nominatim_places_filepath, 'w')
+        for item in new_list:
+            f.write("%s\n" % item)
+        f.close()
+
+        self.init_nominatim_autofill()
+
+        return value
 
     def fill_layer_combobox(self):
         """

@@ -70,6 +70,9 @@ class MyQueriesWidget(QuickOSMWidget, Ui_ui_my_queries):
         self.fill_tree()
         self.groupBox.setCollapsed(True)
 
+        # Enable autofill on nominatim
+        self.init_nominatim_autofill()
+
         # Connect
         self.pushButton_runQuery.clicked.connect(self.run_query)
         self.pushButton_showQuery.clicked.connect(self.show_query)
@@ -294,7 +297,7 @@ class MyQueriesWidget(QuickOSMWidget, Ui_ui_my_queries):
         query = self.current_query
         output_directory = self.lineEdit_browseDir.text()
         prefix_file = self.lineEdit_filePrefix.text()
-        nominatim = self.lineEdit_nominatim.text()
+        nominatim = self.nominatim_value()
 
         # Set the bbox
         bbox = None
