@@ -43,4 +43,5 @@ TRANSLATIONS = i18n/QuickOSM_fr.ts \
 	i18n/QuickOSM_de.ts \
 	i18n/QuickOSM_it.ts \
 	i18n/QuickOSM_nl.ts \
+	i18n/QuickOSM_fi.ts \
 	i18n/QuickOSM_en.ts

@@ -286,7 +286,7 @@ QListWidget::item::selected {
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>94</width>
+              <width>89</width>
               <height>58</height>
              </rect>
             </property>
@@ -348,9 +348,9 @@ QListWidget::item::selected {
             <property name="geometry">
              <rect>
               <x>0</x>
-              <y>0</y>
+              <y>-39</y>
               <width>636</width>
-              <height>818</height>
+              <height>845</height>
              </rect>
             </property>
             <layout class="QVBoxLayout" name="verticalLayout_9">
@@ -474,18 +474,54 @@ QListWidget::item::selected {
                    </widget>
                   </item>
                   <item>
-                   <layout class="QHBoxLayout" name="horizontalLayout_10">
+                   <layout class="QHBoxLayout" name="horizontalLayout_14">
                     <item>
-                     <widget class="QLabel" name="label_4">
+                     <widget class="QLabel" name="label_21">
                       <property name="text">
-                       <string>Russian</string>
+                       <string>Dutch</string>
                       </property>
                      </widget>
                     </item>
                     <item>
-                     <widget class="QLabel" name="label_3">
+                     <widget class="QLabel" name="label_22">
                       <property name="text">
-                       <string notr="true">&lt;a href=&quot;https://github.com/freeExec&quot; style=&quot;color:#7BA11A;text-decoration:none;&quot;&gt;freeExec&lt;/a&gt;</string>
+                       <string notr="true">Antony Bartolo</string>
+                      </property>
+                     </widget>
+                    </item>
+                   </layout>
+                  </item>
+                  <item>
+                   <layout class="QHBoxLayout" name="horizontalLayout_15">
+                    <item>
+                     <widget class="QLabel" name="label_23">
+                      <property name="text">
+                       <string>Finnish</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QLabel" name="label_24">
+                      <property name="text">
+                       <string notr="true">Kari Salovaara</string>
+                      </property>
+                     </widget>
+                    </item>
+                   </layout>
+                  </item>
+                  <item>
+                   <layout class="QHBoxLayout" name="horizontalLayout_13">
+                    <item>
+                     <widget class="QLabel" name="label_17">
+                      <property name="text">
+                       <string>French</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QLabel" name="label_9">
+                      <property name="text">
+                       <string notr="true">Etienne Trimaille</string>
                       </property>
                      </widget>
                     </item>
@@ -528,36 +564,18 @@ QListWidget::item::selected {
                    </layout>
                   </item>
                   <item>
-                   <layout class="QHBoxLayout" name="horizontalLayout_14">
+                   <layout class="QHBoxLayout" name="horizontalLayout_10">
                     <item>
-                     <widget class="QLabel" name="label_21">
+                     <widget class="QLabel" name="label_4">
                       <property name="text">
-                       <string>Dutch</string>
+                       <string>Russian</string>
                       </property>
                      </widget>
                     </item>
                     <item>
-                     <widget class="QLabel" name="label_22">
+                     <widget class="QLabel" name="label_3">
                       <property name="text">
-                       <string notr="true">Antony Bartolo</string>
-                      </property>
-                     </widget>
-                    </item>
-                   </layout>
-                  </item>
-                  <item>
-                   <layout class="QHBoxLayout" name="horizontalLayout_13">
-                    <item>
-                     <widget class="QLabel" name="label_17">
-                      <property name="text">
-                       <string>French</string>
-                      </property>
-                     </widget>
-                    </item>
-                    <item>
-                     <widget class="QLabel" name="label_9">
-                      <property name="text">
-                       <string notr="true">Etienne Trimaille</string>
+                       <string notr="true">&lt;a href=&quot;https://github.com/freeExec&quot; style=&quot;color:#7BA11A;text-decoration:none;&quot;&gt;freeExec&lt;/a&gt;</string>
                       </property>
                      </widget>
                     </item>
