@@ -108,7 +108,7 @@ class QueryFactory(object):
 
     @staticmethod
     def get_pretty_xml(query):
-        xml = parseString(query)
+        xml = parseString(query.encode('utf-8'))
         return xml.toprettyxml()
 
     @staticmethod

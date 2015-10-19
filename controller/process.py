@@ -271,13 +271,13 @@ def process_quick_query(
     generate a query and send it to process_query
     """
     # Set the layer name
-    layer_name = ''
+    layer_name = u''
     for i in [key, value, nominatim]:
         if i:
-            layer_name += i + "_"
+            layer_name += i + u'_'
 
     if is_around:
-        layer_name += str(distance) + "_"
+        layer_name += '%s_' % distance
 
     # Delete last "_"
     layer_name = layer_name[:-1]

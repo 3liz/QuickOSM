@@ -27,7 +27,8 @@ from qgis.gui import QgsMessageBar
 
 from QuickOSM.core.file_query_writer import FileQueryWriter
 from QuickOSM.core.utilities.tools import get_user_query_folder
-from QuickOSM.core.exceptions import QuickOsmException
+from QuickOSM.core.exceptions import \
+    QuickOsmException, MissingParameterException
 from save_query import Ui_ui_save_query
 
 
@@ -84,6 +85,12 @@ class SaveQueryDialog(QDialog, Ui_ui_save_query):
             white_list_values=self.white_list_values,
             output_geometry_types=self.output_geometry_types)
         try:
+
+            if not category:
+                raise MissingParameterException(suffix='category')
+            if not name:
+                raise MissingParameterException(suffix='name')
+
             ini_file.save()
             self.signal_new_query_successful.emit()
             self.hide()
