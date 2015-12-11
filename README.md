@@ -17,4 +17,27 @@ There are some usefull tips, like automatic colours on lines (if the tag is pres
 Authors
 =
 Etienne Trimaille : https://twitter.com/etrimaille
-This intership was supervised by 3Liz : https://www.3liz.com
+
+This internship was supervised by 3Liz : http://www.3liz.com
+
+Getting started
+=
+
+#### Watch the [Video tutorial](https://vimeo.com/108737868)
+
+**Install the QuickOSM plugin**
+* QGIS 'Plugins' menu -> 'Manage and Install Plugins...'
+* Search for 'QuickOSM' and select it
+* 'Install Plugin'
+
+**Try a quick query**
+* 'Web' menu -> 'Quick OSM' -> 'Quick Query'
+
+a new panel appears on the right
+* In the 'key' field enter 'amenity'
+* In the 'value' field enter 'toilets'
+* Set the name of the town/village to 'London'
+* 'Run Query'
+
+The Overpass API takes a few seconds to respond, and after that you should get new point and polygon layers for the toilets of London! (nodes and ways in OpenStreetMap with the amenity=toilet tag on them) 
+
