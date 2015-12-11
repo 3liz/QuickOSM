@@ -172,6 +172,9 @@
 	"siren",
 	"water_tank"
   ],
+  "evacuation_center": [
+	"yes"
+  ],
   "highway": [
 	"motorway",
 	"trunk",
