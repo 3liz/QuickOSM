@@ -263,16 +263,12 @@
                </widget>
               </item>
               <item>
-               <widget class="QComboBox" name="comboBox_extentLayer"/>
-              </item>
-              <item>
-               <widget class="QPushButton" name="pushButton_refreshLayers">
-                <property name="text">
-                 <string/>
-                </property>
-                <property name="icon">
-                 <iconset resource="../resources.qrc">
-                  <normaloff>:/plugins/QuickOSM/resources/refresh.png</normaloff>:/plugins/QuickOSM/resources/refresh.png</iconset>
+               <widget class="QgsMapLayerComboBox" name="comboBox_extentLayer">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
                 </property>
                </widget>
               </item>
@@ -423,6 +419,11 @@
    <extends>QGroupBox</extends>
    <header>qgscollapsiblegroupbox.h</header>
    <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>QgsMapLayerComboBox</class>
+   <extends>QComboBox</extends>
+   <header>qgsmaplayercombobox.h</header>
   </customwidget>
  </customwidgets>
  <resources>

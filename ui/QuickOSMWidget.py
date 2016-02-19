@@ -29,8 +29,12 @@ from PyQt4.QtGui import \
 from PyQt4.QtCore import QUrl
 from qgis.utils import iface
 from qgis.gui import QgsMessageBar
-from qgis.core import \
-    QgsGeometry, QgsCoordinateTransform, QgsCoordinateReferenceSystem
+from qgis.core import (
+    QgsGeometry,
+    QgsCoordinateTransform,
+    QgsCoordinateReferenceSystem,
+    QgsMapLayerRegistry
+)
 
 from QuickOSM.core.utilities.utilities_qgis import display_message_bar
 from QuickOSM.core.utilities.tools import tr, get_QuickOSM_folder
@@ -44,6 +48,10 @@ class QuickOSMWidget(QWidget):
             get_QuickOSM_folder(),
             'nominatim.txt')
         QWidget.__init__(self, parent)
+
+        registry = QgsMapLayerRegistry.instance()
+        registry.layersAdded.connect(self.activate_extent_layer)
+        registry.layersRemoved.connect(self.activate_extent_layer)
 
     def init_nominatim_autofill(self):
 
@@ -82,20 +90,16 @@ class QuickOSMWidget(QWidget):
 
         return value
 
-    def fill_layer_combobox(self):
-        """
-        Fill the combobox with layers which are in the legend
-        """
-        layers = iface.legendInterface().layers()
-        self.comboBox_extentLayer.clear()
-        for layer in layers:
-            self.comboBox_extentLayer.addItem(layer.name(), layer.id())
-
-        if self.comboBox_extentLayer.count() < 1:
-            self.radioButton_extentLayer.setCheckable(False)
-            self.radioButton_extentMapCanvas.setChecked(True)
-        else:
-            self.radioButton_extentLayer.setCheckable(True)
+    def activate_extent_layer(self):
+        """Activate or deactivate the radio button about the extent layer."""
+        try:
+            if self.comboBox_extentLayer.count() < 1:
+                self.radioButton_extentLayer.setCheckable(False)
+                self.radioButton_extentMapCanvas.setChecked(True)
+            else:
+                self.radioButton_extentLayer.setCheckable(True)
+        except AttributeError:
+            pass
 
     def disable_prefix_file(self):
         """
@@ -181,18 +185,9 @@ class QuickOSMWidget(QWidget):
                 source_crs = iface.mapCanvas().mapRenderer().destinationCrs()
         else:
             # Else if a layer is checked
-            index = self.comboBox_extentLayer.currentIndex()
-            layer_id = self.comboBox_extentLayer.itemData(index)
-            layers = iface.legendInterface().layers()
-            for layer in layers:
-                if layer.id() == layer_id:
-                    geom_extent = layer.extent()
-                    source_crs = layer.crs()
-                    break
-            else:
-                # the layer could be deleted before
-                layer_name = self.comboBox_extentLayer.itemText(index)
-                raise NoLayerException(suffix=layer_name)
+            layer = self.comboBox_extentLayer.currentLayer()
+            geom_extent = layer.extent()
+            source_crs = layer.crs()
 
         geom_extent = QgsGeometry.fromRect(geom_extent)
         epsg_4326 = QgsCoordinateReferenceSystem('EPSG:4326')

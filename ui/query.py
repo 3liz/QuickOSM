@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'ui/query.ui'
 #
-# Created: Wed Jul  8 21:09:15 2015
+# Created: Fri Feb 19 21:52:34 2016
 #      by: PyQt4 UI code generator 4.10.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -56,7 +56,7 @@ class Ui_ui_query(object):
         self.textEdit_query.setAcceptRichText(False)
         self.textEdit_query.setObjectName(_fromUtf8("textEdit_query"))
         self.verticalLayout.addWidget(self.textEdit_query)
-        self.groupBox = gui.QgsCollapsibleGroupBox(self.scrollAreaWidgetContents)
+        self.groupBox = QgsCollapsibleGroupBox(self.scrollAreaWidgetContents)
         self.groupBox.setChecked(False)
         self.groupBox.setObjectName(_fromUtf8("groupBox"))
         self.verticalLayout_2 = QtGui.QVBoxLayout(self.groupBox)
@@ -155,16 +155,14 @@ class Ui_ui_query(object):
         self.radioButton_extentLayer = QtGui.QRadioButton(self.groupBox)
         self.radioButton_extentLayer.setObjectName(_fromUtf8("radioButton_extentLayer"))
         self.horizontalLayout_3.addWidget(self.radioButton_extentLayer)
-        self.comboBox_extentLayer = QtGui.QComboBox(self.groupBox)
+        self.comboBox_extentLayer = QgsMapLayerComboBox(self.groupBox)
+        sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Fixed)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.comboBox_extentLayer.sizePolicy().hasHeightForWidth())
+        self.comboBox_extentLayer.setSizePolicy(sizePolicy)
         self.comboBox_extentLayer.setObjectName(_fromUtf8("comboBox_extentLayer"))
         self.horizontalLayout_3.addWidget(self.comboBox_extentLayer)
-        self.pushButton_refreshLayers = QtGui.QPushButton(self.groupBox)
-        self.pushButton_refreshLayers.setText(_fromUtf8(""))
-        icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap(_fromUtf8(":/plugins/QuickOSM/resources/refresh.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.pushButton_refreshLayers.setIcon(icon)
-        self.pushButton_refreshLayers.setObjectName(_fromUtf8("pushButton_refreshLayers"))
-        self.horizontalLayout_3.addWidget(self.pushButton_refreshLayers)
         self.formLayout_4.setLayout(3, QtGui.QFormLayout.FieldRole, self.horizontalLayout_3)
         self.verticalLayout_2.addLayout(self.formLayout_4)
         self.formLayout_2 = QtGui.QFormLayout()
@@ -221,9 +219,9 @@ class Ui_ui_query(object):
         self.horizontalLayout_5.setObjectName(_fromUtf8("horizontalLayout_5"))
         self.pushButton_overpassTurbo = QtGui.QPushButton(self.scrollAreaWidgetContents)
         self.pushButton_overpassTurbo.setText(_fromUtf8("Overpass Turbo"))
-        icon1 = QtGui.QIcon()
-        icon1.addPixmap(QtGui.QPixmap(_fromUtf8(":/plugins/QuickOSM/resources/turbo.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.pushButton_overpassTurbo.setIcon(icon1)
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap(_fromUtf8(":/plugins/QuickOSM/resources/turbo.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.pushButton_overpassTurbo.setIcon(icon)
         self.pushButton_overpassTurbo.setObjectName(_fromUtf8("pushButton_overpassTurbo"))
         self.horizontalLayout_5.addWidget(self.pushButton_overpassTurbo)
         self.pushButton_documentation = QtGui.QPushButton(self.scrollAreaWidgetContents)
@@ -261,5 +259,5 @@ class Ui_ui_query(object):
         self.pushButton_saveQuery.setText(_translate("ui_query", "Save query", None))
         self.pushButton_documentation.setText(_translate("ui_query", "Documentation", None))
 
-from qgis import gui
+from qgis.gui import QgsMapLayerComboBox, QgsCollapsibleGroupBox
 from QuickOSM import resources_rc

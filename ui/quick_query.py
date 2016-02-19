@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'ui/quick_query.ui'
 #
-# Created: Wed Jul  8 21:09:19 2015
+# Created: Fri Feb 19 20:36:02 2016
 #      by: PyQt4 UI code generator 4.10.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -122,24 +122,17 @@ class Ui_ui_quick_query(object):
         self.label_15 = QtGui.QLabel(self.scrollAreaWidgetContents)
         self.label_15.setObjectName(_fromUtf8("label_15"))
         self.horizontalLayout_5.addWidget(self.label_15)
-        self.comboBox_extentLayer = QtGui.QComboBox(self.scrollAreaWidgetContents)
-        sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Fixed)
+        self.comboBox_extentLayer = QgsMapLayerComboBox(self.scrollAreaWidgetContents)
+        sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Expanding)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.comboBox_extentLayer.sizePolicy().hasHeightForWidth())
         self.comboBox_extentLayer.setSizePolicy(sizePolicy)
         self.comboBox_extentLayer.setObjectName(_fromUtf8("comboBox_extentLayer"))
         self.horizontalLayout_5.addWidget(self.comboBox_extentLayer)
-        self.pushButton_refreshLayers = QtGui.QPushButton(self.scrollAreaWidgetContents)
-        self.pushButton_refreshLayers.setText(_fromUtf8(""))
-        icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap(_fromUtf8(":/plugins/QuickOSM/resources/refresh.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.pushButton_refreshLayers.setIcon(icon)
-        self.pushButton_refreshLayers.setObjectName(_fromUtf8("pushButton_refreshLayers"))
-        self.horizontalLayout_5.addWidget(self.pushButton_refreshLayers)
         self.formLayout.setLayout(5, QtGui.QFormLayout.FieldRole, self.horizontalLayout_5)
         self.verticalLayout.addLayout(self.formLayout)
-        self.groupBox = gui.QgsCollapsibleGroupBox(self.scrollAreaWidgetContents)
+        self.groupBox = QgsCollapsibleGroupBox(self.scrollAreaWidgetContents)
         self.groupBox.setChecked(False)
         self.groupBox.setObjectName(_fromUtf8("groupBox"))
         self.verticalLayout_2 = QtGui.QVBoxLayout(self.groupBox)
@@ -298,5 +291,5 @@ class Ui_ui_quick_query(object):
         self.pushButton_showQuery.setText(_translate("ui_quick_query", "Show query", None))
         self.pushButton_runQuery.setText(_translate("ui_quick_query", "Run query", None))
 
-from qgis import gui
+from qgis.gui import QgsCollapsibleGroupBox, QgsMapLayerComboBox
 from QuickOSM import resources_rc

@@ -57,7 +57,7 @@ class QuickQueryWidget(QuickOSMWidget, Ui_ui_quick_query):
         self.label_progress.setText("")
         self.lineEdit_filePrefix.setDisabled(True)
         self.groupBox.setCollapsed(True)
-        self.fill_layer_combobox()
+        self.activate_extent_layer()
         self.groupBox.setCollapsed(True)
         self.comboBox_in_around.setDisabled(True)
         self.lineEdit_nominatim.setDisabled(True)
@@ -81,7 +81,6 @@ class QuickQueryWidget(QuickOSMWidget, Ui_ui_quick_query):
         self.radioButton_extentMapCanvas.toggled.connect(
             self.allow_nominatim_or_extent)
         self.radioButton_place.toggled.connect(self.allow_nominatim_or_extent)
-        self.pushButton_refreshLayers.clicked.connect(self.fill_layer_combobox)
         self.pushButton_mapFeatures.clicked.connect(self.open_map_features)
         self.buttonBox.button(QDialogButtonBox.Reset).clicked.connect(
             self.reset_form)

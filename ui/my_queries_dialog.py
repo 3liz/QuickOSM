@@ -66,7 +66,7 @@ class MyQueriesWidget(QuickOSMWidget, Ui_ui_my_queries):
         self.radioButton_extentLayer.setEnabled(False)
         self.radioButton_extentMapCanvas.setEnabled(False)
 
-        self.fill_layer_combobox()
+        self.activate_extent_layer()
         self.fill_tree()
         self.groupBox.setCollapsed(True)
 
@@ -85,7 +85,6 @@ class MyQueriesWidget(QuickOSMWidget, Ui_ui_my_queries):
         self.treeQueries.clicked.connect(self.open_query)
         self.lineEdit_search.textChanged.connect(self.text_changed)
         self.radioButton_extentLayer.toggled.connect(self.extent_radio)
-        self.pushButton_refreshLayers.clicked.connect(self.fill_layer_combobox)
 
     def fill_tree(self, force=False):
         """

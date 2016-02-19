@@ -70,7 +70,7 @@ class QueryWidget(QuickOSMWidget, Ui_ui_query):
         self.lineEdit_filePrefix.setDisabled(True)
         self.groupBox.setCollapsed(True)
         self.bbox = None
-        self.fill_layer_combobox()
+        self.activate_extent_layer()
         self.groupBox.setCollapsed(True)
         # Disable buttons
         self.pushButton_generateQuery.setDisabled(True)
@@ -114,7 +114,6 @@ class QueryWidget(QuickOSMWidget, Ui_ui_query):
         self.textEdit_query.cursorPositionChanged.connect(
             self.allow_nominatim_or_extent)
         self.radioButton_extentLayer.toggled.connect(self.extent_radio)
-        self.pushButton_refreshLayers.clicked.connect(self.fill_layer_combobox)
         self.pushButton_overpassTurbo.clicked.connect(self.open_overpass_turbo)
         self.buttonBox.button(QDialogButtonBox.Reset).clicked.connect(
             self.reset_form)
