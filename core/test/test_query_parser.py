@@ -116,32 +116,34 @@ class TestQueryParser(unittest.TestCase):
 
         New-York or Paris may change their position. You should check that
         coordinates are nearly the same or implement a fake access manager.
+
+        19/02/16 : New-York and Paris updated, need to change these tests.
         """
         nominatim = 'new york'
 
         # Test with New-York.
         fake_query = 'foobar{{geocodeCoords:Paris,France}}foobar'
-        expected = 'foobarlat="40.7647714" lon="-73.980764"foobar'
+        expected = 'foobarlat="40.7647714" lon="-73.9807639"foobar'
         result = replace_geocode_coords(nominatim, fake_query)
         self.assertEqual(result, expected)
 
         # Test with Paris, as point (not the capital) in XML.
         fake_query = 'foobar{{geocodeCoords:Paris,France}}foobar'
-        expected = 'foobarlat="48.0534959" lon="-1.3028085"foobar'
+        expected = 'foobarlat="48.0534959" lon="-1.3028084"foobar'
         result = replace_geocode_coords(None, fake_query)
         self.assertEqual(result, expected)
 
         # Test with Paris, as point (not the capital) in OQL.
         fake_query = 'foobar{{geocodeCoords:Paris,France}}foobar;'
-        expected = 'foobar48.0534959,-1.3028085foobar;'
+        expected = 'foobar48.0534959,-1.3028084foobar;'
         result = replace_geocode_coords(None, fake_query)
         self.assertEqual(result, expected)
 
         # Test with Paris and Montpellier.
         fake_query = 'foo{{geocodeCoords:Paris,France}}bar' \
                      'foo{{geocodeCoords:Montpellier}}bar'
-        expected = 'foolat="48.0534959" lon="-1.3028085"bar' \
-                   'foolat="47.3746883" lon="-0.8451945"bar'
+        expected = 'foolat="48.0534959" lon="-1.3028084"bar' \
+                   'foolat="47.3746883" lon="-0.8451944"bar'
         result = replace_geocode_coords(None, fake_query)
         self.assertEqual(result, expected)
 
