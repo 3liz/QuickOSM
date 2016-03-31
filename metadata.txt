@@ -3,7 +3,7 @@ name=QuickOSM
 qgisMinimumVersion=2.0
 description=QuickOSM allows you to work quickly with OSM datas in QGIS thanks to Overpass API.
 about=Execute customs overpass queries from QGIS to get OSM data.
-version=1.4.3
+version=1.4.4
 newQueries=False
 author=Etienne Trimaille
 email=etienne@trimaille.eu
@@ -14,6 +14,9 @@ email=etienne@trimaille.eu
 
 # Uncomment the following line and add your changelog:
 # changelog=
+  Version 1.4.4
+  * Move the plugin the vector menu
+  * Fix various issues
   Version 1.4.3
   * Finnish translation
   * Fix issues with OQL
@@ -35,9 +38,9 @@ email=etienne@trimaille.eu
 # Tags are comma separated with spaces allowed
 tags=osm,openstreetmap,overpass,download,osmdownloader
 
-homepage=https://github.com/3liz/QgisQuickOSMPlugin
-tracker=https://github.com/3liz/QgisQuickOSMPlugin/issues
-repository=https://github.com/3liz/QgisQuickOSMPlugin
+homepage=https://github.com/3liz/QuickOSM
+tracker=https://github.com/3liz/QuickOSM/issues
+repository=https://github.com/3liz/QuickOSM
 icon=icon.png
 # experimental flag
 experimental=False
