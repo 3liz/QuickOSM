@@ -136,7 +136,7 @@ class FileQuery(object):
             query = unicode(open(self._queryFile, 'r').read(), "utf-8")
 
             # Check if there is a BBOX template
-            if re.search('<bbox-query {{bbox}}/>', query):
+            if re.search('{{bbox}}', query):
                 self._bboxTemplate = True
 
             # Check if there is a Nominatim template
@@ -178,10 +178,10 @@ class FileQuery(object):
                         layer)[item]
 
                     if item == 'style':
-                        item = dic['layers'][layer][item]
-                        if isfile(join(self._directory, item)):
+                        qml_file = dic['layers'][layer][item]
+                        if isfile(join(self._directory, qml_file)):
                             dic['layers'][layer][item] = join(
-                                self._directory, dic['layers'][layer][item])
+                                self._directory, qml_file)
                         else:
                             dic['layers'][layer][item] = None
             self.__dic = dic
