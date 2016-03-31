@@ -90,12 +90,21 @@ Ogr2Ogr
 '''
 
 
-class OsmDriver(QuickOsmException):
+class OsmDriverNotFound(QuickOsmException):
     def __init__(self, msg=None):
         if not msg:
             msg = tr(
                 'Exception', u"The OSM's driver is not installed. "
-                             u"You must have GDAL/OGR >= 1.10.")
+                             u"Please install the OSM driver for GDAL "
+                             u": http://www.gdal.org/drv_osm.html")
+        QuickOsmException.__init__(self, msg)
+
+
+class GDALVersion(QuickOsmException):
+    def __init__(self, msg=None):
+        if not msg:
+            msg = tr(
+                'Exception', u"You must upgrade GDAL/OGR >= 1.10.0.")
         QuickOsmException.__init__(self, msg)
 
 

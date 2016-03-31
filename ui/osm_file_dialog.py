@@ -33,8 +33,10 @@ from QuickOSM.core.exceptions import (
     OutPutGeomTypesException,
     FileDoesntExistException,
     DirectoryOutPutException,
-    OsmDriver)
-from QuickOSM.core.utilities.utilities_qgis import is_osm_driver_enabled
+    GDALVersion,
+    OsmDriverNotFound)
+from QuickOSM.core.utilities.utilities_qgis import \
+    is_osm_driver_enabled, is_ogr_version_ok
 from QuickOSM.core.parser.osm_parser import OsmParser
 from QuickOSM.controller.process import open_file
 from QuickOSMWidget import QuickOSMWidget
@@ -151,8 +153,11 @@ class OsmFileWidget(QuickOSMWidget, Ui_ui_osm_file):
                 raise DirectoryOutPutException
 
             # Check OGR
+            if not is_ogr_version_ok():
+                raise GDALVersion
+
             if not is_osm_driver_enabled():
-                raise OsmDriver
+                raise OsmDriverNotFound
 
             if load_only:
                 osm_parser = OsmParser(
