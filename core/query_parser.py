@@ -24,6 +24,7 @@
 import re
 
 from api.nominatim import Nominatim
+from exceptions import QueryNotSupported
 
 
 def is_oql(query):
@@ -131,6 +132,38 @@ def clean_query(query):
     return query
 
 
+def is_compatible(query):
+    template = r'geometry="center"'
+    if re.search(template, query):
+        return False, 'center'
+
+    template = r'out center;'
+    if re.search(template, query):
+        return False, 'center'
+
+    template = r'{{style'
+    if re.search(template, query):
+        return False, '{{style}}'
+
+    template = r'{{data'
+    if re.search(template, query):
+        return False, '{{data}}'
+
+    template = r'{{date'
+    if re.search(template, query):
+        return False, '{{date}}'
+
+    template = r'{{geocodeId:'
+    if re.search(template, query):
+        return False, '{{geocodeId:}}'
+
+    template = r'{{geocodeBbox:'
+    if re.search(template, query):
+        return False, '{{geocodeBbox:}}'
+
+    return True, None
+
+
 def prepare_query(query, extent=None, nominatim_name=None):
     """Prepare the query before sending it to Overpass.
 
@@ -148,6 +181,10 @@ def prepare_query(query, extent=None, nominatim_name=None):
     """
 
     query = clean_query(query)
+    result = is_compatible(query)
+    if result[0] is not True:
+        raise QueryNotSupported(result[1])
+
     query = replace_geocode_area(nominatim_name, query)
     query = replace_geocode_coords(nominatim_name, query)
     query = replace_bbox(extent, query)

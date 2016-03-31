@@ -74,6 +74,14 @@ class QueryFactoryException(QuickOsmException):
             msg = msg + " : " + suffix
         QuickOsmException.__init__(self, msg)
 
+
+class QueryNotSupported(QuickOsmException):
+    def __init__(self, key):
+        msg = tr("Exception",
+                 u"The query is not supported by the plugin because of"
+                 u" : %s" % key)
+        QuickOsmException.__init__(self, msg)
+
 '''
 Nominatim
 '''
