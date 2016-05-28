@@ -26,3 +26,9 @@ This script initializes the plugin, making it known to QGIS.
 def classFactory(iface):
     from quick_osm import QuickOSM
     return QuickOSM(iface)
+
+
+# noinspection PyDocstring,PyPep8Naming
+def serverClassFactory(serverIface):
+    from quick_osm_processing.algorithm_provider import (
+        QuickOSMAlgorithmProvider)

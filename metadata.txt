@@ -7,6 +7,8 @@ version=1.4.4
 newQueries=False
 author=Etienne Trimaille
 email=etienne@trimaille.eu
+# For QGIS WPS
+server=True
 
 # End of mandatory metadata
 
