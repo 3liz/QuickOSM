@@ -83,7 +83,7 @@ class QuickOSMWidget(QWidget):
 
         f = open(self.last_nominatim_places_filepath, 'w')
         for item in new_list:
-            f.write("%s\n" % item)
+            f.write("%s\n" % item.encode("UTF-8"))
         f.close()
 
         self.init_nominatim_autofill()
