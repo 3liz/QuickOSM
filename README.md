@@ -31,7 +31,7 @@ Getting started
 * 'Install Plugin'
 
 **Try a quick query**
-* 'Web' menu -> 'Quick OSM' -> 'Quick Query'
+* 'Vector' menu -> 'Quick OSM' -> 'Dock -> 'Quick Query'
 
 a new panel appears on the right
 * In the 'key' field enter 'amenity'
