@@ -98,47 +98,47 @@
     <message>
         <location filename="Controller/Process.py" line="164"/>
         <source>Prepare outputs</source>
-        <translation type="unfinished">準備輸出</translation>
+        <translation>準備輸出</translation>
     </message>
     <message>
         <location filename="Controller/Process.py" line="173"/>
         <source>Downloading data from Overpass</source>
-        <translation type="unfinished">從 Overpass 下載資料</translation>
+        <translation>從 Overpass 下載資料</translation>
     </message>
     <message>
         <location filename="CoreQuickOSM/Actions.py" line="97"/>
         <source>Sorry man, this field is empty for this entity.</source>
-        <translation type="unfinished">對不起，檢索的欄位是空白的</translation>
+        <translation>對不起，檢索的欄位是空白的</translation>
     </message>
     <message>
         <location filename="CoreQuickOSM/Actions.py" line="73"/>
         <source>The JOSM remote seems to be disabled.</source>
-        <translation type="unfinished">JOSM 遠端控制似乎關閉了</translation>
+        <translation>JOSM 遠端控制似乎關閉了</translation>
     </message>
     <message>
         <location filename="CoreQuickOSM/ExceptionQuickOSM.py" line="42"/>
         <source>Bad request OverpassAPI</source>
-        <translation type="unfinished">OverpassAPI 錯誤請求</translation>
+        <translation>OverpassAPI 錯誤請求</translation>
     </message>
     <message>
         <location filename="CoreQuickOSM/QueryFactory.py" line="77"/>
         <source>nominatim OR bbox, not both</source>
-        <translation type="unfinished">nominatim 或 bbox，不能都選</translation>
+        <translation>nominatim 或 bbox，不能都選</translation>
     </message>
     <message>
         <location filename="CoreQuickOSM/QueryFactory.py" line="86"/>
         <source>key required</source>
-        <translation type="unfinished">缺少鍵</translation>
+        <translation>缺少鍵</translation>
     </message>
     <message>
         <location filename="CoreQuickOSM/QueryFactory.py" line="90"/>
         <source>wrong OSM object</source>
-        <translation type="unfinished">錯誤 OSM 物件</translation>
+        <translation>錯誤 OSM 物件</translation>
     </message>
     <message>
         <location filename="ui/main_window_dialog.py" line="118"/>
         <source>Fetching the timestamp ...</source>
-        <translation type="unfinished">取得時間戳記...</translation>
+        <translation>取得時間戳記...</translation>
     </message>
     <message>
         <location filename="ui/main_window_dialog.py" line="137"/>
@@ -148,62 +148,62 @@
     <message>
         <location filename="ui/my_queries_dialog.py" line="146"/>
         <source>Execute</source>
-        <translation type="unfinished">執行</translation>
+        <translation>執行</translation>
     </message>
     <message>
         <location filename="ui/my_queries_dialog.py" line="149"/>
         <source>Show query</source>
-        <translation type="unfinished">顯示檢索</translation>
+        <translation>顯示檢索</translation>
     </message>
     <message>
         <location filename="ui/my_queries_dialog.py" line="152"/>
         <source>Delete</source>
-        <translation type="unfinished">刪除</translation>
+        <translation>刪除</translation>
     </message>
     <message>
         <location filename="ui/my_queries_dialog.py" line="189"/>
         <source>can be overridden</source>
-        <translation type="unfinished">能被覆寫</translation>
+        <translation>能被覆寫</translation>
     </message>
     <message>
         <location filename="ui/my_queries_dialog.py" line="191"/>
         <source>A village, a town, ...</source>
-        <translation type="unfinished">村莊、城鎮...</translation>
+        <translation>村莊、城鎮...</translation>
     </message>
     <message>
         <location filename="ui/my_queries_dialog.py" line="224"/>
         <source>Are you sure you want to delete the query ?</source>
-        <translation type="unfinished">你確定你要刪除檢索？</translation>
+        <translation>你確定你要刪除檢索？</translation>
     </message>
     <message>
         <location filename="ui/quick_query_dialog.py" line="236"/>
         <source>Successful query !</source>
-        <translation type="unfinished">成功執行檢索！</translation>
+        <translation>成功執行檢索！</translation>
     </message>
     <message>
         <location filename="ui/quick_query_dialog.py" line="239"/>
         <source>Successful query, but no result.</source>
-        <translation type="unfinished">成功執行檢索，但沒有查詢結果。</translation>
+        <translation>成功執行檢索，但沒有查詢結果。</translation>
     </message>
     <message>
         <location filename="ui/osm_file_dialog.py" line="67"/>
         <source>Select *.osm or *.pbf</source>
-        <translation type="unfinished">選擇 *.osm or *.pbf</translation>
+        <translation>選擇 *.osm or *.pbf</translation>
     </message>
     <message>
         <location filename="ui/osm_file_dialog.py" line="75"/>
         <source>Select osm conf</source>
-        <translation type="unfinished">選擇 osm 設定</translation>
+        <translation>選擇 osm 設定</translation>
     </message>
     <message>
         <location filename="ui/query_dialog.py" line="64"/>
         <source>Save as final query</source>
-        <translation type="unfinished">儲存為最終檢索</translation>
+        <translation>儲存為最終檢索</translation>
     </message>
     <message>
         <location filename="ui/query_dialog.py" line="67"/>
         <source>Save as template</source>
-        <translation type="unfinished">儲存為範例</translation>
+        <translation>儲存為範例</translation>
     </message>
     <message>
         <location filename="ui/quick_query_dialog.py" line="238"/>
@@ -231,142 +231,142 @@
     <message>
         <location filename="ui/main_window.py" line="384"/>
         <source>My queries</source>
-        <translation type="unfinished">我的檢索</translation>
+        <translation>我的檢索</translation>
     </message>
     <message>
         <location filename="ui/main_window.py" line="386"/>
         <source>Query</source>
-        <translation type="unfinished">檢索</translation>
+        <translation>檢索</translation>
     </message>
     <message>
         <location filename="ui/main_window.py" line="388"/>
         <source>OSM File</source>
-        <translation type="unfinished">OSM 檔案</translation>
+        <translation>OSM 檔案</translation>
     </message>
     <message>
         <location filename="ui/main_window.py" line="390"/>
         <source>Parameters</source>
-        <translation type="unfinished">參數</translation>
+        <translation>參數</translation>
     </message>
     <message>
         <location filename="ui/main_window.py" line="392"/>
         <source>Help</source>
-        <translation type="unfinished">說明</translation>
+        <translation>說明</translation>
     </message>
     <message>
         <location filename="ui/main_window.py" line="394"/>
         <source>About</source>
-        <translation type="unfinished">關於</translation>
+        <translation>關於</translation>
     </message>
     <message>
         <location filename="ui/main_window.py" line="396"/>
         <source>Overpass API</source>
-        <translation type="unfinished">Overpass API</translation>
+        <translation>Overpass API</translation>
     </message>
     <message>
         <location filename="ui/main_window.py" line="397"/>
         <source>Get timestamp</source>
-        <translation type="unfinished">取得時間戳記</translation>
+        <translation>取得時間戳記</translation>
     </message>
     <message>
         <location filename="ui/main_window.py" line="398"/>
         <source>unknow</source>
-        <translation type="unfinished">未知</translation>
+        <translation>未知</translation>
     </message>
     <message>
         <location filename="ui/main_window.py" line="399"/>
         <source>Queries</source>
-        <translation type="unfinished">檢索</translation>
+        <translation>檢索</translation>
     </message>
     <message>
         <location filename="ui/main_window.py" line="400"/>
         <source>Restore queries</source>
-        <translation type="unfinished">重置檢索</translation>
+        <translation>重置檢索</translation>
     </message>
     <message>
         <location filename="ui/main_window.py" line="401"/>
         <source>Outputs</source>
-        <translation type="unfinished">輸出</translation>
+        <translation>輸出</translation>
     </message>
     <message>
         <location filename="ui/main_window.py" line="402"/>
         <source>GeoJSON (not editable, colmun&apos;s name longer)</source>
-        <translation type="unfinished">GeoJSON (無法編輯，欄位名稱較長)</translation>
+        <translation>GeoJSON (無法編輯，欄位名稱較長)</translation>
     </message>
     <message>
         <location filename="ui/main_window.py" line="403"/>
         <source>Shapefile (editable, colmun&apos;s name shorter)</source>
-        <translation type="unfinished">Shapefile (可編輯，欄位名稱較短)</translation>
+        <translation>Shapefile (可編輯，欄位名稱較短)</translation>
     </message>
     <message>
         <location filename="ui/main_window.py" line="404"/>
         <source>Home</source>
-        <translation type="unfinished">首頁</translation>
+        <translation>首頁</translation>
     </message>
     <message>
         <location filename="ui/main_window.py" line="405"/>
         <source>Realization</source>
-        <translation type="unfinished">實現</translation>
+        <translation>實現</translation>
     </message>
     <message>
         <location filename="ui/main_window.py" line="406"/>
         <source>Supervision</source>
-        <translation type="unfinished">監督</translation>
+        <translation>監督</translation>
     </message>
     <message>
         <location filename="ui/main_window.py" line="407"/>
         <source>This intership was supervised by 3Liz</source>
-        <translation type="unfinished">這次實習由 3Liz 負責監督</translation>
+        <translation>這次實習由 3Liz 負責監督</translation>
     </message>
     <message>
         <location filename="ui/main_window.py" line="408"/>
         <source>Translators</source>
-        <translation type="unfinished">翻譯者</translation>
+        <translation>翻譯者</translation>
     </message>
     <message>
         <location filename="ui/main_window.py" line="411"/>
         <source>German</source>
-        <translation type="unfinished">德文</translation>
+        <translation>德文</translation>
     </message>
     <message>
         <location filename="ui/main_window.py" line="415"/>
         <source>Sources</source>
-        <translation type="unfinished">來源</translation>
+        <translation>來源</translation>
     </message>
     <message>
         <location filename="ui/main_window.py" line="416"/>
         <source>Github&apos;s repository</source>
-        <translation type="unfinished">Github 軟體庫</translation>
+        <translation>Github 軟體庫</translation>
     </message>
     <message>
         <location filename="ui/main_window.py" line="417"/>
         <source>Licence</source>
-        <translation type="unfinished">授權條款</translation>
+        <translation>授權條款</translation>
     </message>
     <message>
         <location filename="ui/main_window.py" line="409"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The web-based translating platform &lt;a href=&quot;https://www.transifex.com/projects/p/gui/&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0057ae;&quot;&gt;Transifex&lt;/span&gt;&lt;/a&gt; is used. It&apos;s easier for translators.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;網路翻譯平臺 &lt;a href=&quot;https://www.transifex.com/projects/p/gui/&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0057ae;&quot;&gt;Transifex&lt;/span&gt;&lt;/a&gt; is used. It&apos;s easier for translators.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;網路翻譯平臺 &lt;a href=&quot;https://www.transifex.com/projects/p/gui/&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0057ae;&quot;&gt;Transifex&lt;/span&gt;&lt;/a&gt; is used. It&apos;s easier for translators.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="ui/main_window.py" line="410"/>
         <source>Russian</source>
-        <translation type="unfinished">俄語</translation>
+        <translation>俄語</translation>
     </message>
     <message>
         <location filename="ui/main_window.py" line="412"/>
         <source>Italian</source>
-        <translation type="unfinished">義大利語</translation>
+        <translation>義大利語</translation>
     </message>
     <message>
         <location filename="ui/main_window.py" line="414"/>
         <source>French</source>
-        <translation type="unfinished">法語</translation>
+        <translation>法語</translation>
     </message>
     <message>
         <location filename="ui/main_window.py" line="413"/>
         <source>Dutch</source>
-        <translation type="unfinished">荷蘭文</translation>
+        <translation>荷蘭文</translation>
     </message>
 </context>
 <context>
@@ -374,77 +374,77 @@
     <message>
         <location filename="quick_osm.py" line="104"/>
         <source>My queries</source>
-        <translation type="unfinished">我的檢索</translation>
+        <translation>我的檢索</translation>
     </message>
     <message>
         <location filename="ui/my_queries.py" line="225"/>
         <source>QuickOSM - My queries</source>
-        <translation type="unfinished">QuickOSM - 我的檢索</translation>
+        <translation>QuickOSM - 我的檢索</translation>
     </message>
     <message>
         <location filename="ui/my_queries.py" line="226"/>
         <source>Search</source>
-        <translation type="unfinished">搜尋</translation>
+        <translation>搜尋</translation>
     </message>
     <message>
         <location filename="ui/my_queries.py" line="228"/>
         <source>Query</source>
-        <translation type="unfinished">檢索</translation>
+        <translation>檢索</translation>
     </message>
     <message>
         <location filename="ui/my_queries.py" line="229"/>
         <source>Extent of the map canvas</source>
-        <translation type="unfinished">地圖畫面範圍</translation>
+        <translation>地圖畫面範圍</translation>
     </message>
     <message>
         <location filename="ui/my_queries.py" line="230"/>
         <source>Extent of a layer</source>
-        <translation type="unfinished">圖層範圍</translation>
+        <translation>圖層範圍</translation>
     </message>
     <message>
         <location filename="ui/my_queries.py" line="231"/>
         <source>Advanced</source>
-        <translation type="unfinished">進階</translation>
+        <translation>進階</translation>
     </message>
     <message>
         <location filename="ui/my_queries.py" line="232"/>
         <source>Outputs</source>
-        <translation type="unfinished">輸出</translation>
+        <translation>輸出</translation>
     </message>
     <message>
         <location filename="ui/my_queries.py" line="233"/>
         <source>or let empty</source>
-        <translation type="unfinished">或是保留空白</translation>
+        <translation>或是保留空白</translation>
     </message>
     <message>
         <location filename="ui/my_queries.py" line="234"/>
         <source>Directory</source>
-        <translation type="unfinished">目錄</translation>
+        <translation>目錄</translation>
     </message>
     <message>
         <location filename="ui/my_queries.py" line="235"/>
         <source>Save to temporary file</source>
-        <translation type="unfinished">儲存至暫時檔案</translation>
+        <translation>儲存至暫時檔案</translation>
     </message>
     <message>
         <location filename="ui/my_queries.py" line="236"/>
         <source>Browse</source>
-        <translation type="unfinished">瀏覽</translation>
+        <translation>瀏覽</translation>
     </message>
     <message>
         <location filename="ui/my_queries.py" line="237"/>
         <source>File prefix</source>
-        <translation type="unfinished">檔案前綴</translation>
+        <translation>檔案前綴</translation>
     </message>
     <message>
         <location filename="ui/my_queries.py" line="238"/>
         <source>Show query</source>
-        <translation type="unfinished">顯示檢索</translation>
+        <translation>顯示檢索</translation>
     </message>
     <message>
         <location filename="ui/my_queries.py" line="239"/>
         <source>Run query</source>
-        <translation type="unfinished">執行檢索</translation>
+        <translation>執行檢索</translation>
     </message>
 </context>
 <context>
@@ -452,47 +452,47 @@
     <message>
         <location filename="ui/osm_file.py" line="168"/>
         <source>OSM File</source>
-        <translation type="unfinished">OSM 檔案</translation>
+        <translation>OSM 檔案</translation>
     </message>
     <message>
         <location filename="ui/osm_file.py" line="167"/>
         <source>QuickOSM - OSM File</source>
-        <translation type="unfinished">QuickOSM - OSM 檔案</translation>
+        <translation>QuickOSM - OSM 檔案</translation>
     </message>
     <message>
         <location filename="ui/osm_file.py" line="176"/>
         <source>Browse</source>
-        <translation type="unfinished">瀏覽</translation>
+        <translation>瀏覽</translation>
     </message>
     <message>
         <location filename="ui/osm_file.py" line="170"/>
         <source>All tags</source>
-        <translation type="unfinished">所有標籤</translation>
+        <translation>所有標籤</translation>
     </message>
     <message>
         <location filename="ui/osm_file.py" line="171"/>
         <source>Directory</source>
-        <translation type="unfinished">目錄</translation>
+        <translation>目錄</translation>
     </message>
     <message>
         <location filename="ui/osm_file.py" line="172"/>
         <source>Save to temporary file</source>
-        <translation type="unfinished">儲存到暫存檔案</translation>
+        <translation>儲存到暫存檔案</translation>
     </message>
     <message>
         <location filename="ui/osm_file.py" line="174"/>
         <source>File prefix</source>
-        <translation type="unfinished">檔案前綴</translation>
+        <translation>檔案前綴</translation>
     </message>
     <message>
         <location filename="ui/osm_file.py" line="175"/>
         <source>OSMConf</source>
-        <translation type="unfinished">OSM 設定</translation>
+        <translation>OSM 設定</translation>
     </message>
     <message>
         <location filename="ui/osm_file.py" line="177"/>
         <source>Open</source>
-        <translation type="unfinished">開啟</translation>
+        <translation>開啟</translation>
     </message>
 </context>
 <context>
@@ -500,92 +500,92 @@
     <message>
         <location filename="quick_osm.py" line="115"/>
         <source>Query</source>
-        <translation type="unfinished">檢索</translation>
+        <translation>檢索</translation>
     </message>
     <message>
         <location filename="ui/query.py" line="244"/>
         <source>QuickOSM - Query</source>
-        <translation type="unfinished">QuickOSM - 檢索</translation>
+        <translation>QuickOSM - 檢索</translation>
     </message>
     <message>
         <location filename="ui/query.py" line="245"/>
         <source>Overpass query</source>
-        <translation type="unfinished">Overpass 檢索</translation>
+        <translation>Overpass 檢索</translation>
     </message>
     <message>
         <location filename="ui/query.py" line="246"/>
         <source>Advanced</source>
-        <translation type="unfinished">進階</translation>
+        <translation>進階</translation>
     </message>
     <message>
         <location filename="ui/query.py" line="247"/>
         <source>Can be overridden</source>
-        <translation type="unfinished">可以被覆寫</translation>
+        <translation>可以被覆寫</translation>
     </message>
     <message>
         <location filename="ui/query.py" line="248"/>
         <source>{{bbox}} or {{center}}</source>
-        <translation type="unfinished">{{bbox}} 或 {{center}}</translation>
+        <translation>{{bbox}} 或 {{center}}</translation>
     </message>
     <message>
         <location filename="ui/query.py" line="249"/>
         <source>Extent of the map canvas</source>
-        <translation type="unfinished">地圖畫面範圍</translation>
+        <translation>地圖畫面範圍</translation>
     </message>
     <message>
         <location filename="ui/query.py" line="250"/>
         <source>Outputs</source>
-        <translation type="unfinished">輸出</translation>
+        <translation>輸出</translation>
     </message>
     <message>
         <location filename="ui/query.py" line="251"/>
         <source>or let empty</source>
-        <translation type="unfinished">或是保留空白</translation>
+        <translation>或是保留空白</translation>
     </message>
     <message>
         <location filename="ui/query.py" line="252"/>
         <source>Extent of a layer</source>
-        <translation type="unfinished">圖層範圍</translation>
+        <translation>圖層範圍</translation>
     </message>
     <message>
         <location filename="ui/query.py" line="253"/>
         <source>Directory</source>
-        <translation type="unfinished">目錄</translation>
+        <translation>目錄</translation>
     </message>
     <message>
         <location filename="ui/query.py" line="254"/>
         <source>Save to temporary file</source>
-        <translation type="unfinished">儲存至暫存檔案</translation>
+        <translation>儲存至暫存檔案</translation>
     </message>
     <message>
         <location filename="ui/query.py" line="255"/>
         <source>Browse</source>
-        <translation type="unfinished">瀏覽</translation>
+        <translation>瀏覽</translation>
     </message>
     <message>
         <location filename="ui/query.py" line="256"/>
         <source>File prefix</source>
-        <translation type="unfinished">檔案前綴</translation>
+        <translation>檔案前綴</translation>
     </message>
     <message>
         <location filename="ui/query.py" line="257"/>
         <source>Generate query</source>
-        <translation type="unfinished">產生檢索</translation>
+        <translation>產生檢索</translation>
     </message>
     <message>
         <location filename="ui/query.py" line="258"/>
         <source>Run query</source>
-        <translation type="unfinished"></translation>
+        <translation>執行檢索</translation>
     </message>
     <message>
         <location filename="ui/query.py" line="259"/>
         <source>Save query</source>
-        <translation type="unfinished">儲存檢索</translation>
+        <translation>儲存檢索</translation>
     </message>
     <message>
         <location filename="ui/query.py" line="260"/>
         <source>Documentation</source>
-        <translation type="unfinished">說明文件</translation>
+        <translation>說明文件</translation>
     </message>
 </context>
 <context>
@@ -593,102 +593,102 @@
     <message>
         <location filename="quick_osm.py" line="126"/>
         <source>Quick query</source>
-        <translation type="unfinished">快速檢索</translation>
+        <translation>快速檢索</translation>
     </message>
     <message>
         <location filename="ui/quick_query_dialog.py" line="58"/>
         <source>In</source>
-        <translation type="unfinished">位於</translation>
+        <translation>位於</translation>
     </message>
     <message>
         <location filename="ui/quick_query_dialog.py" line="59"/>
         <source>Around</source>
-        <translation type="unfinished">附近</translation>
+        <translation>附近</translation>
     </message>
     <message>
         <location filename="ui/quick_query.py" line="282"/>
         <source>QuickOSM - Quick query</source>
-        <translation type="unfinished">QuickOSM - 快速檢索</translation>
+        <translation>QuickOSM - 快速檢索</translation>
     </message>
     <message>
         <location filename="ui/quick_query.py" line="283"/>
         <source>Help with key/value</source>
-        <translation type="unfinished">鍵/值說明</translation>
+        <translation>鍵/值說明</translation>
     </message>
     <message>
         <location filename="ui/quick_query.py" line="284"/>
         <source>Key</source>
-        <translation type="unfinished">鍵</translation>
+        <translation>鍵</translation>
     </message>
     <message>
         <location filename="ui/quick_query.py" line="285"/>
         <source>Value</source>
-        <translation type="unfinished">值</translation>
+        <translation>值</translation>
     </message>
     <message>
         <location filename="ui/quick_query.py" line="286"/>
         <source>&quot;In&quot; will search the first multipolygon relation, however &quot;Around&quot; will get the first OSM node.</source>
-        <translation type="unfinished"></translation>
+        <translation>&quot;In&quot; 將先搜尋由關鍵構成的多邊形，然而 &quot;Around&quot; 將先得到 OSM 節點。</translation>
     </message>
     <message>
         <location filename="ui/quick_query.py" line="287"/>
         <source>A village, a town, ...</source>
-        <translation type="unfinished"></translation>
+        <translation>一座村莊、一座城鎮,...</translation>
     </message>
     <message>
         <location filename="ui/quick_query.py" line="288"/>
         <source>Extent of the map canvas</source>
-        <translation type="unfinished"></translation>
+        <translation>地圖畫面範圍</translation>
     </message>
     <message>
         <location filename="ui/quick_query.py" line="289"/>
         <source>Extent of a layer</source>
-        <translation type="unfinished"></translation>
+        <translation>圖層範圍</translation>
     </message>
     <message>
         <location filename="ui/quick_query.py" line="290"/>
         <source>Advanced</source>
-        <translation type="unfinished"></translation>
+        <translation>進階</translation>
     </message>
     <message>
         <location filename="ui/quick_query.py" line="291"/>
         <source>Timeout</source>
-        <translation type="unfinished"></translation>
+        <translation>時間終止</translation>
     </message>
     <message>
         <location filename="ui/quick_query.py" line="292"/>
         <source>Directory</source>
-        <translation type="unfinished"></translation>
+        <translation>目錄</translation>
     </message>
     <message>
         <location filename="ui/quick_query.py" line="293"/>
         <source>Save to temporary file</source>
-        <translation type="unfinished"></translation>
+        <translation>儲存至暫存檔案</translation>
     </message>
     <message>
         <location filename="ui/quick_query.py" line="294"/>
         <source>Browse</source>
-        <translation type="unfinished"></translation>
+        <translation>瀏覽</translation>
     </message>
     <message>
         <location filename="ui/quick_query.py" line="295"/>
         <source>File prefix</source>
-        <translation type="unfinished"></translation>
+        <translation>檔案前綴</translation>
     </message>
     <message>
         <location filename="ui/quick_query.py" line="296"/>
         <source>Show query</source>
-        <translation type="unfinished"></translation>
+        <translation>顯示檢索</translation>
     </message>
     <message>
         <location filename="ui/quick_query.py" line="297"/>
         <source>Run query</source>
-        <translation type="unfinished"></translation>
+        <translation>執行檢索</translation>
     </message>
     <message>
         <location filename="quick_osm.py" line="170"/>
         <source>Install</source>
-        <translation type="unfinished"></translation>
+        <translation>安裝</translation>
     </message>
 </context>
 <context>
@@ -696,22 +696,22 @@
     <message>
         <location filename="ui/save_query.py" line="62"/>
         <source>QuickOSM - Save query</source>
-        <translation type="unfinished"></translation>
+        <translation>QuickOSM - 儲存檢索</translation>
     </message>
     <message>
         <location filename="ui/save_query.py" line="63"/>
         <source>The styles and names of these layers won&apos;t be saved.</source>
-        <translation type="unfinished"></translation>
+        <translation>樣式和圖層名稱並不會被儲存。</translation>
     </message>
     <message>
         <location filename="ui/save_query.py" line="64"/>
         <source>Category</source>
-        <translation type="unfinished"></translation>
+        <translation>分類</translation>
     </message>
     <message>
         <location filename="ui/save_query.py" line="65"/>
         <source>Name</source>
-        <translation type="unfinished"></translation>
+        <translation>名稱</translation>
     </message>
 </context>
 </TS>
