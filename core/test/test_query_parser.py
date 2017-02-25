@@ -129,20 +129,20 @@ class TestQueryParser(unittest.TestCase):
 
         # Test with Paris, as point (not the capital) in XML.
         fake_query = 'foobar{{geocodeCoords:Paris,France}}foobar'
-        expected = 'foobarlat="48.0534959" lon="-1.3028084"foobar'
+        expected = 'foobarlat="44.491379" lon="0.3940874"foobar'
         result = replace_geocode_coords(None, fake_query)
         self.assertEqual(result, expected)
 
         # Test with Paris, as point (not the capital) in OQL.
         fake_query = 'foobar{{geocodeCoords:Paris,France}}foobar;'
-        expected = 'foobar48.0534959,-1.3028084foobar;'
+        expected = 'foobar44.491379,0.3940874foobar;'
         result = replace_geocode_coords(None, fake_query)
         self.assertEqual(result, expected)
 
         # Test with Paris and Montpellier.
         fake_query = 'foo{{geocodeCoords:Paris,France}}bar' \
                      'foo{{geocodeCoords:Montpellier}}bar'
-        expected = 'foolat="48.0534959" lon="-1.3028084"bar' \
+        expected = 'foolat="44.491379" lon="0.3940874"bar' \
                    'foolat="47.3746883" lon="-0.8451944"bar'
         result = replace_geocode_coords(None, fake_query)
         self.assertEqual(result, expected)

@@ -24,9 +24,9 @@
 import urllib2
 import re
 import tempfile
-from PyQt4.QtNetwork import \
-    QNetworkAccessManager, QNetworkRequest, QNetworkReply
+from PyQt4.QtNetwork import QNetworkRequest, QNetworkReply
 from PyQt4.QtCore import QUrl, QEventLoop
+from qgis.core import QgsNetworkAccessManager
 
 from QuickOSM.core.exceptions import (
     OutPutFormatException,
@@ -34,8 +34,6 @@ from QuickOSM.core.exceptions import (
     OverpassBadRequestException,
     NetWorkErrorException
 )
-
-from QuickOSM.core.utilities.operating_system import get_proxy
 
 
 class ConnexionOAPI(object):
@@ -64,7 +62,7 @@ class ConnexionOAPI(object):
             raise OutPutFormatException
 
         self.__output = output
-        self.network = QNetworkAccessManager()
+        self.network = QgsNetworkAccessManager.instance()
         self.network_reply = None
         self.loop = None
 
@@ -96,10 +94,6 @@ class ConnexionOAPI(object):
         url_query.addEncodedQueryItem('data', encoded_query)
         url_query.addQueryItem('info', 'QgisQuickOSMPlugin')
         url_query.setPort(80)
-
-        proxy = get_proxy()
-        if proxy:
-            self.network.setProxy(proxy)
 
         request = QNetworkRequest(url_query)
         request.setRawHeader("User-Agent", "QuickOSM")

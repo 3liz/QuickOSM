@@ -21,12 +21,11 @@
  ***************************************************************************/
 """
 
-from PyQt4.QtNetwork import \
-    QNetworkAccessManager, QNetworkRequest, QNetworkReply
-from PyQt4.QtCore import QUrl, QEventLoop
 import json
+from PyQt4.QtNetwork import QNetworkRequest, QNetworkReply
+from PyQt4.QtCore import QUrl, QEventLoop
+from qgis.core import QgsNetworkAccessManager
 
-from QuickOSM.core.utilities.operating_system import get_proxy
 from QuickOSM.core.exceptions import \
     NominatimAreaException, NetWorkErrorException
 
@@ -43,7 +42,7 @@ class Nominatim(object):
         """
 
         self.__url = url
-        self.network = QNetworkAccessManager()
+        self.network = QgsNetworkAccessManager.instance()
         self.data = None
         self.network_reply = None
         self.loop = None
@@ -67,10 +66,6 @@ class Nominatim(object):
         url_query.addEncodedQueryItem('q', query)
         url_query.addQueryItem('info', 'QgisQuickOSMPlugin')
         url_query.setPort(80)
-
-        proxy = get_proxy()
-        if proxy:
-            self.network.setProxy(proxy)
 
         request = QNetworkRequest(url_query)
         request.setRawHeader("User-Agent", "QuickOSM")
