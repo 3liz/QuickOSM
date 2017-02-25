@@ -21,6 +21,7 @@
  ***************************************************************************/
 """
 
+import logging
 from os.path import split, join, isfile
 from sys import exc_info
 
@@ -39,6 +40,8 @@ from qgis.core import (
 from QuickOSM.core.utilities.utilities_qgis import display_message_bar
 from QuickOSM.core.utilities.tools import tr, get_QuickOSM_folder
 from QuickOSM.core.exceptions import NoLayerException
+
+LOGGER = logging.getLogger('QuickOSM')
 
 
 class QuickOSMWidget(QWidget):
@@ -251,6 +254,11 @@ class QuickOSMWidget(QWidget):
         import traceback
         traceback.print_tb(tb)
         print e
+        LOGGER.debug(exc_type)
+        LOGGER.debug(f_name)
+        LOGGER.debug(str(e))
+        LOGGER.debug(traceback.format_tb(tb))
+
         display_message_bar(
             tr('QuickOSM', 'Error in the python console, please report it'),
             level=QgsMessageBar.CRITICAL,
