@@ -142,7 +142,7 @@ class OsmParser(QObject):
                 msg = "Error on the layer : " + \
                       layers[layer]['vectorLayer'].lastError()
                 raise GeoAlgorithmExecutionException(msg)
-                
+
             layers[layer]['vectorLayer'].setProviderEncoding('UTF-8')
 
             # Set some default tags
