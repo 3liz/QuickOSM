@@ -30,13 +30,14 @@ from PyQt4.QtGui import QMenu, QIcon, QAction, QPushButton
 from qgis.gui import QgsMessageBar
 from processing.core.Processing import Processing
 
-from ui.main_window_dialog import MainWindowDialog
-from ui.my_queries_dialog import MyQueriesDockWidget
-from ui.query_dialog import QueryDockWidget
-from ui.osm_file_dialog import OsmFileDockWidget
-from ui.quick_query_dialog import QuickQueryDockWidget
-from quick_osm_processing.algorithm_provider import QuickOSMAlgorithmProvider
-from core.utilities.tools import (
+from QuickOSM.core.custom_logging import setup_logger
+from QuickOSM.ui.main_window_dialog import MainWindowDialog
+from QuickOSM.ui.my_queries_dialog import MyQueriesDockWidget
+from QuickOSM.ui.query_dialog import QueryDockWidget
+from QuickOSM.ui.osm_file_dialog import OsmFileDockWidget
+from QuickOSM.ui.quick_query_dialog import QuickQueryDockWidget
+from QuickOSM.quick_osm_processing.algorithm_provider import QuickOSMAlgorithmProvider
+from QuickOSM.core.utilities.tools import (
     get_current_version,
     get_setting,
     set_setting,
@@ -58,6 +59,8 @@ class QuickOSM:
         """
         # Save reference to the QGIS interface
         self.iface = iface
+
+        setup_logger('QuickOSM')
 
         # initialize plugin directory
         self.plugin_dir = dirname(__file__)
