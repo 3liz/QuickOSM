@@ -31,6 +31,7 @@ QGIS_APP, CANVAS, IFACE, PARENT = get_qgis_app()
 
 from QuickOSM.ui.QuickOSMWidget import QuickOSMWidget
 
+
 class TestQuickOSMWidget(unittest.TestCase):
 
     def setUp(self):

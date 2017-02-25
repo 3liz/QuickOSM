@@ -36,7 +36,8 @@ from QuickOSM.ui.my_queries_dialog import MyQueriesDockWidget
 from QuickOSM.ui.query_dialog import QueryDockWidget
 from QuickOSM.ui.osm_file_dialog import OsmFileDockWidget
 from QuickOSM.ui.quick_query_dialog import QuickQueryDockWidget
-from QuickOSM.quick_osm_processing.algorithm_provider import QuickOSMAlgorithmProvider
+from QuickOSM.quick_osm_processing.algorithm_provider import (
+    QuickOSMAlgorithmProvider)
 from QuickOSM.core.utilities.tools import (
     get_current_version,
     get_setting,
