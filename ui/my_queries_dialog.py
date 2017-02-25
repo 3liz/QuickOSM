@@ -417,8 +417,6 @@ class MyQueriesWidget(QuickOSMWidget, Ui_ui_my_queries):
         # Transfer the combobox from my queries to query
         if self.comboBox_extentLayer.count():
             query_widget.radioButton_extentLayer.setCheckable(True)
-        query_widget.comboBox_extentLayer.setModel(
-            self.comboBox_extentLayer.model())
 
         # Transfer parameters
         query_widget.lineEdit_nominatim.setText(nominatim)

@@ -357,8 +357,6 @@ class QuickQueryWidget(QuickOSMWidget, Ui_ui_quick_query):
         # Transfer the combobox from QuickQuery to Query
         if self.comboBox_extentLayer.count():
             query_widget.radioButton_extentLayer.setCheckable(True)
-        query_widget.comboBox_extentLayer.setModel(
-            self.comboBox_extentLayer.model())
 
         # Transfer the output
         query_widget.lineEdit_browseDir.setText(output_directory)
