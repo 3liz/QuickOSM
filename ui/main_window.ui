@@ -286,8 +286,8 @@ QListWidget::item::selected {
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>89</width>
-              <height>58</height>
+              <width>110</width>
+              <height>86</height>
              </rect>
             </property>
             <layout class="QVBoxLayout" name="verticalLayout_5">
@@ -316,7 +316,7 @@ QListWidget::item::selected {
               </layout>
              </item>
              <item>
-              <widget class="QWebView" name="webBrowser" native="true"/>
+              <widget class="QWebView" name="webBrowser"/>
              </item>
              <item>
               <spacer name="verticalSpacer_2">
@@ -348,9 +348,9 @@ QListWidget::item::selected {
             <property name="geometry">
              <rect>
               <x>0</x>
-              <y>-39</y>
-              <width>636</width>
-              <height>845</height>
+              <y>0</y>
+              <width>624</width>
+              <height>824</height>
              </rect>
             </property>
             <layout class="QVBoxLayout" name="verticalLayout_9">
@@ -415,29 +415,6 @@ QListWidget::item::selected {
                 <item>
                  <layout class="QHBoxLayout" name="horizontalLayout_4">
                   <item>
-                   <widget class="QLabel" name="label_12">
-                    <property name="maximumSize">
-                     <size>
-                      <width>16777215</width>
-                      <height>16777215</height>
-                     </size>
-                    </property>
-                    <property name="text">
-                     <string notr="true">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;http://www.3liz.com/&quot;&gt;&lt;img src=&quot;:/plugins/QuickOSM/resources/3liz.png&quot;/&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;
-</string>
-                    </property>
-                    <property name="scaledContents">
-                     <bool>false</bool>
-                    </property>
-                    <property name="alignment">
-                     <set>Qt::AlignCenter</set>
-                    </property>
-                    <property name="openExternalLinks">
-                     <bool>true</bool>
-                    </property>
-                   </widget>
-                  </item>
-                  <item>
                    <widget class="QLabel" name="label_11">
                     <property name="text">
                      <string notr="true">&lt;a href=&quot;http://www.3liz.com&quot; style=&quot;color:#7BA11A;text-decoration:none;&quot;&gt;Libérez vos SIG !&lt;/a&gt;</string>
@@ -448,6 +425,29 @@ QListWidget::item::selected {
                    </widget>
                   </item>
                  </layout>
+                </item>
+                <item>
+                 <widget class="QLabel" name="label_12">
+                  <property name="maximumSize">
+                   <size>
+                    <width>16777215</width>
+                    <height>16777215</height>
+                   </size>
+                  </property>
+                  <property name="text">
+                   <string notr="true">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;http://www.3liz.com/&quot;&gt;&lt;img src=&quot;:/plugins/QuickOSM/resources/3liz.png&quot;/&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;
+</string>
+                  </property>
+                  <property name="scaledContents">
+                   <bool>false</bool>
+                  </property>
+                  <property name="alignment">
+                   <set>Qt::AlignCenter</set>
+                  </property>
+                  <property name="openExternalLinks">
+                   <bool>true</bool>
+                  </property>
+                 </widget>
                 </item>
                </layout>
               </widget>
@@ -581,6 +581,24 @@ QListWidget::item::selected {
                     </item>
                    </layout>
                   </item>
+                  <item>
+                   <layout class="QHBoxLayout" name="horizontalLayout_16">
+                    <item>
+                     <widget class="QLabel" name="label_26">
+                      <property name="text">
+                       <string>Taiwanese Mandarin</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QLabel" name="label_25">
+                      <property name="text">
+                       <string notr="true">Supaplextw</string>
+                      </property>
+                     </widget>
+                    </item>
+                   </layout>
+                  </item>
                  </layout>
                 </item>
                </layout>
@@ -677,6 +695,12 @@ QListWidget::item::selected {
  </widget>
  <customwidgets>
   <customwidget>
+   <class>QWebView</class>
+   <extends>QWidget</extends>
+   <header>QtWebKit/QWebView</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
    <class>MyQueriesWidget</class>
    <extends>QWidget</extends>
    <header>my_queries_dialog.h</header>
@@ -698,12 +722,6 @@ QListWidget::item::selected {
    <class>OsmFileWidget</class>
    <extends>QWidget</extends>
    <header>osm_file_dialog.h</header>
-   <container>1</container>
-  </customwidget>
-  <customwidget>
-   <class>QWebView</class>
-   <extends>QWidget</extends>
-   <header>qwebview.h</header>
    <container>1</container>
   </customwidget>
   <customwidget>
