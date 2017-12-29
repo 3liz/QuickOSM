@@ -93,7 +93,6 @@ class ConnexionOAPI(object):
         encoded_query = QUrl.toPercentEncoding(query)
         url_query.addEncodedQueryItem('data', encoded_query)
         url_query.addQueryItem('info', 'QgisQuickOSMPlugin')
-        url_query.setPort(80)
 
         request = QNetworkRequest(url_query)
         request.setRawHeader("User-Agent", "QuickOSM")
