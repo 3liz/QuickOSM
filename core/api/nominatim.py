@@ -65,7 +65,6 @@ class Nominatim(object):
         query = QUrl.toPercentEncoding(query)
         url_query.addEncodedQueryItem('q', query)
         url_query.addQueryItem('info', 'QgisQuickOSMPlugin')
-        url_query.setPort(80)
 
         request = QNetworkRequest(url_query)
         request.setRawHeader("User-Agent", "QuickOSM")
