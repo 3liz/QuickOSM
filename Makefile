@@ -59,7 +59,7 @@ clean_ui:
 
 clean_test:
 	@echo "Cleaning tests files"
-	@find . -name "test" -delete
+	@find . -name test -exec rm -rf {} \;
 
 # Run pep8 style checking
 #http://pypi.python.org/pypi/pep8
