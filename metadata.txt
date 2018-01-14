@@ -1,9 +1,10 @@
 [general]
 name=QuickOSM
 qgisMinimumVersion=2.0
-description=QuickOSM allows you to work quickly with OSM datas in QGIS thanks to Overpass API.
+qgisMaximumVersion=2.22
+description=QuickOSM allows you to work quickly with OSM data in QGIS thanks to Overpass API.
 about=Execute customs overpass queries from QGIS to get OSM data.
-version=1.4.6
+version=1.4.7
 newQueries=False
 author=Etienne Trimaille
 email=etienne@trimaille.eu
@@ -16,6 +17,8 @@ server=True
 
 # Uncomment the following line and add your changelog:
 # changelog=
+  Version 1.4.7
+  * Fix port number for HTTPS
   Version 1.4.4
   * Move the plugin the vector menu
   * Fix various issues
