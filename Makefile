@@ -53,6 +53,14 @@ clean_pyc:
 	@echo "Cleaning python files"
 	@find . -name "*.pyc" -type f -delete
 
+clean_ui:
+	@echo "Cleaning UI files"
+	@find . -name "*.ui" -type f -delete
+
+clean_test:
+	@echo "Cleaning tests files"
+	@find . -name "test" -delete
+
 # Run pep8 style checking
 #http://pypi.python.org/pypi/pep8
 pep8:
