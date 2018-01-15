@@ -1,3 +1,6 @@
+# QuickOSM 2, QGIS 3
+For the port/rewrite, see the `master_q3` branch: https://github.com/3liz/QuickOSM/tree/master_q3
+
 QuickOSM
 ============================================================
 * Current test status master : [![Build Status](https://travis-ci.org/3liz/QuickOSM.svg)](https://travis-ci.org/3liz/QuickOSM)
