@@ -26,7 +26,7 @@ from os.path import isfile, join, basename, dirname, abspath
 
 from PyQt4.QtCore import QSettings, SLOT
 from PyQt4.QtGui import QIcon
-from qgis.core import QgsVectorLayer, QgsVectorFileWriter
+from qgis.core import QgsVectorLayer
 from processing.core.GeoAlgorithm import GeoAlgorithm
 
 from QuickOSM.quick_osm_processing import *
@@ -133,10 +133,8 @@ class OsmParserGeoAlgorithm(GeoAlgorithm):
         for key, values in layers.iteritems():
             layer = QgsVectorLayer(values['geojsonFile'], "test", "ogr")
 
-            output_parameter = self.getOutputValue(self.OUTPUT_LAYERS[key])
-            layers_outputs[key] = QgsVectorFileWriter(
-                output_parameter,
-                'UTF-8',
+            output_parameter = self.getOutputFromName(self.OUTPUT_LAYERS[key])
+            layers_outputs[key] = output_parameter.getVectorWriter(
                 layer.pendingFields(),
                 values['geomType'],
                 layer.crs())
