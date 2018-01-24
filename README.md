@@ -7,7 +7,7 @@ QuickOSM
 
 Generalities
 =
-QuickOSM allows you to work quickly with OSM datas in QGIS thanks to Overpass API.
+QuickOSM allows you to work quickly with OSM data in QGIS thanks to [Overpass API][Overpass].
 * Write some queries for you by providing a key/value
 * Choose to run the query on an area or an extent
 * Configure the query : which layers, which columns ...
@@ -15,7 +15,9 @@ QuickOSM allows you to work quickly with OSM datas in QGIS thanks to Overpass AP
 * Open a local OSM (.osm or .pbf) with a specific osmconf in QGIS
 * Build some models with QGIS Processing
 
-There are some usefull tips, like automatic colours on lines (if the tag is present) or some actions (right-click in the attribute table) for each entities (edit in JOSM for instance).
+There are some useful tips, like automatic colours on lines (if the tag is present) or some actions (right-click in the attribute table) for each entities (edit in JOSM for instance).
+
+[Overpass]: https://wiki.openstreetmap.org/wiki/Overpass_API
 
 Authors
 =
