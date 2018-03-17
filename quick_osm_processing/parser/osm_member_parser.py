@@ -23,8 +23,8 @@
 
 from os.path import isfile, join, basename, dirname, abspath
 
-from PyQt4.QtCore import QSettings, SLOT
-from PyQt4.QtGui import QIcon
+from qgis.PyQt.QtCore import QSettings
+from qgis.PyQt.QtGui import QIcon
 from processing.core.GeoAlgorithm import GeoAlgorithm
 
 from QuickOSM.quick_osm_processing import *

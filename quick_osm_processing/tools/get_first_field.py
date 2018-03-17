@@ -21,10 +21,11 @@
  ***************************************************************************/
 """
 
+from builtins import str
 from os.path import isfile, join, basename, dirname, abspath
 
-from PyQt4.QtCore import QSettings
-from PyQt4.QtGui import QIcon
+from qgis.PyQt.QtCore import QSettings
+from qgis.PyQt.QtGui import QIcon
 from processing.core.GeoAlgorithm import GeoAlgorithm
 
 from QuickOSM.quick_osm_processing import *
@@ -91,6 +92,6 @@ class GetFirstFieldGeoAlgorithm(GeoAlgorithm):
         field_index = vector.resolveFieldIndex(vector_layer, field)
 
         for feature in features:
-            value = unicode(feature.attributes()[field_index])
+            value = str(feature.attributes()[field_index])
             self.setOutputValue(self.OUTPUT_VALUE, value)
             break

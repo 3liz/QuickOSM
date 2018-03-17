@@ -20,11 +20,12 @@
  *                                                                         *
  ***************************************************************************/
 """
+from __future__ import absolute_import
 
 import re
 
-from api.nominatim import Nominatim
-from exceptions import QueryNotSupported
+from .api.nominatim import Nominatim
+from .exceptions import QueryNotSupported
 
 
 def is_oql(query):

@@ -47,11 +47,13 @@ You can easily install the package from PyPI_ by using :program:`pip` or
 .. _PyPI: http://pypi.python.org/pypi/pghstore
 
 """
+from future import standard_library
+standard_library.install_aliases()
 import re
 try:
-    import cStringIO as StringIO
+    import io as StringIO
 except ImportError:
-    import StringIO
+    import io
 
 
 __all__ = 'dumps', 'loads', 'dump', 'load'
@@ -135,7 +137,7 @@ def dumps(obj, key_map=None, value_map=None, encoding='utf-8',
     :rtype: :class:`basestring`
 
     """
-    b = StringIO.StringIO()
+    b = io.StringIO()
     dump(obj, b, key_map=key_map, value_map=value_map, encoding=encoding)
     result = b.getvalue()
     if return_unicode:
@@ -196,9 +198,9 @@ def dump(obj, file, key_map=None, value_map=None, encoding='utf-8'):
 
     """
     if callable(getattr(obj, 'iteritems', None)):
-        items = obj.iteritems()
+        items = iter(obj.items())
     elif callable(getattr(obj, 'items', None)):
-        items = obj.items()
+        items = list(obj.items())
     elif callable(getattr(obj, '__iter__', None)):
         items = iter(obj)
     else:
@@ -216,13 +218,13 @@ def dump(obj, file, key_map=None, value_map=None, encoding='utf-8'):
                         'write() method')
     first = True
     for key, value in items:
-        if not isinstance(key, basestring):
+        if not isinstance(key, str):
             key = key_map(key)
         elif not isinstance(key, str):
             key = key.encode(encoding)
         if value is None:
             value = None
-        elif not isinstance(value, basestring):
+        elif not isinstance(value, str):
             if value_map is None:
                 raise TypeError('value %r of key %r is not a string' %
                                 (value, key))

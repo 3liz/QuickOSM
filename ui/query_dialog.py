@@ -20,18 +20,15 @@
  *                                                                         *
  ***************************************************************************/
 """
+from __future__ import absolute_import
 
+from builtins import str
 import re
 from os.path import isdir
 
-from PyQt4.QtGui import (
-    QDockWidget,
-    QDesktopServices,
-    QMenu,
-    QAction,
-    QApplication,
-    QDialogButtonBox)
-from PyQt4.QtCore import pyqtSignal, Qt, QUrl
+from qgis.PyQt.QtWidgets import QDockWidget, QMenu, QAction, QApplication, QDialogButtonBox
+from qgis.PyQt.QtGui import QDesktopServices
+from qgis.PyQt.QtCore import pyqtSignal, Qt, QUrl
 from qgis.gui import QgsMessageBar
 
 from QuickOSM.core.utilities.tools import tr
@@ -43,10 +40,10 @@ from QuickOSM.core.exceptions import (
 from QuickOSM.core.utilities.utilities_qgis import display_message_bar
 from QuickOSM.core.query_parser import prepare_query
 from QuickOSM.controller.process import process_query
-from XMLHighlighter import XMLHighlighter
-from save_query_dialog import SaveQueryDialog
-from QuickOSMWidget import QuickOSMWidget
-from query import Ui_ui_query
+from .XMLHighlighter import XMLHighlighter
+from .save_query_dialog import SaveQueryDialog
+from .QuickOSMWidget import QuickOSMWidget
+from .query import Ui_ui_query
 
 
 class QueryWidget(QuickOSMWidget, Ui_ui_query):
@@ -138,7 +135,7 @@ class QueryWidget(QuickOSMWidget, Ui_ui_query):
         Disable buttons if the query is empty
         """
 
-        query = unicode(self.textEdit_query.toPlainText())
+        query = str(self.textEdit_query.toPlainText())
 
         if not query:
             self.pushButton_generateQuery.setDisabled(True)
@@ -182,7 +179,7 @@ class QueryWidget(QuickOSMWidget, Ui_ui_query):
         QApplication.processEvents()
 
         # Get all values
-        query = unicode(self.textEdit_query.toPlainText())
+        query = str(self.textEdit_query.toPlainText())
         output_directory = self.lineEdit_browseDir.text()
         prefix_file = self.lineEdit_filePrefix.text()
         nominatim = self.nominatim_value()
@@ -239,9 +236,9 @@ class QueryWidget(QuickOSMWidget, Ui_ui_query):
                     level=QgsMessageBar.WARNING,
                     duration=7)
 
-        except QuickOsmException, e:
+        except QuickOsmException as e:
             self.display_geo_algorithm_exception(e)
-        except Exception, e:  # pylint: disable=broad-except
+        except Exception as e:  # pylint: disable=broad-except
             self.display_exception(e)
 
         finally:
@@ -257,8 +254,8 @@ class QueryWidget(QuickOSMWidget, Ui_ui_query):
         Transform the template to query "out of the box"
         """
 
-        query = unicode(self.textEdit_query.toPlainText())
-        nominatim = unicode(self.lineEdit_nominatim.text())
+        query = str(self.textEdit_query.toPlainText())
+        nominatim = str(self.lineEdit_nominatim.text())
         bbox = self.get_bounding_box()
         query = prepare_query(
             query=query, extent=bbox, nominatim_name=nominatim)
@@ -273,8 +270,8 @@ class QueryWidget(QuickOSMWidget, Ui_ui_query):
         output_geometry_types = self.get_output_geometry_types()
         white_list_values = self.get_white_list_values()
 
-        query = unicode(self.textEdit_query.toPlainText())
-        nominatim = unicode(self.lineEdit_nominatim.text())
+        query = str(self.textEdit_query.toPlainText())
+        nominatim = str(self.lineEdit_nominatim.text())
         bbox = self.get_bounding_box()
 
         # Delete any templates
@@ -299,7 +296,7 @@ class QueryWidget(QuickOSMWidget, Ui_ui_query):
         output_geometry_types = self.get_output_geometry_types()
         white_list_values = self.get_white_list_values()
 
-        query = unicode(self.textEdit_query.toPlainText())
+        query = str(self.textEdit_query.toPlainText())
 
         # save the query
         save_query_dialog = SaveQueryDialog(

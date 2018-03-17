@@ -30,7 +30,7 @@ import logging
 
 from qgis.core import QgsMapLayerRegistry, QGis, QgsMapLayer
 from qgis.gui import QgsMapCanvasLayer  # pylint: disable=no-name-in-module
-from PyQt4.QtCore import QObject, pyqtSlot, pyqtSignal
+from qgis.PyQt.QtCore import QObject, pyqtSlot, pyqtSignal
 
 
 # noinspection PyMethodMayBeStatic,PyPep8Naming
@@ -96,7 +96,7 @@ class QgisInterface(QObject):
             :rtype: QgsAlgorithm  ?
             """
             Processing.initialize()
-            for provider in Processing.algs.values():
+            for provider in list(Processing.algs.values()):
                 if name in provider:
                     return provider[name]
             return None
@@ -126,7 +126,7 @@ class QgisInterface(QObject):
     def layers(self):
         # It's for processing module
         # simulate iface.legendInterface().layers()
-        return QgsMapLayerRegistry.instance().mapLayers().values()
+        return list(QgsMapLayerRegistry.instance().mapLayers().values())
 
     @pyqtSlot('QStringList')
     def addLayers(self, layers):

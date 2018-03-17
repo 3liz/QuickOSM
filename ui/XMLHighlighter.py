@@ -20,8 +20,8 @@
  ***************************************************************************/
 """
 
-from PyQt4.QtGui import QTextCharFormat, QSyntaxHighlighter, QColor, QFont
-from PyQt4.QtCore import Qt, QRegExp
+from qgis.PyQt.QtGui import QColor, QFont
+from qgis.PyQt.QtCore import Qt, QRegExp
 
 
 class XMLHighlighter(QSyntaxHighlighter):

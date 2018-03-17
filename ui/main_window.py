@@ -7,7 +7,9 @@
 #
 # WARNING! All changes made in this file will be lost!
 
-from PyQt4 import QtCore, QtGui
+from __future__ import absolute_import
+from builtins import object
+from qgis.PyQt import QtCore, QtGui
 
 try:
     _fromUtf8 = QtCore.QString.fromUtf8
@@ -429,8 +431,8 @@ class Ui_ui_main_window(object):
 
 from qgis import gui
 from PyQt4 import QtWebKit
-from query_dialog import QueryWidget
-from osm_file_dialog import OsmFileWidget
-from quick_query_dialog import QuickQueryWidget
-from my_queries_dialog import MyQueriesWidget
+from .query_dialog import QueryWidget
+from .osm_file_dialog import OsmFileWidget
+from .quick_query_dialog import QuickQueryWidget
+from .my_queries_dialog import MyQueriesWidget
 from QuickOSM import resources_rc

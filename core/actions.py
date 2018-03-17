@@ -21,9 +21,13 @@
  ***************************************************************************/
 """
 
-from PyQt4.QtWebKit import QWebView
-from PyQt4.QtGui import QDesktopServices
-from PyQt4.QtCore import QUrl
+from future import standard_library
+standard_library.install_aliases()
+from builtins import str
+from builtins import object
+from qgis.PyQt.QtWebKitWidgets import QWebView
+from qgis.PyQt.QtGui import QDesktopServices
+from qgis.PyQt.QtCore import QUrl
 from qgis.utils import iface
 from qgis.gui import QgsMessageBar
 
@@ -52,8 +56,8 @@ class Actions(object):
                    u"Sorry man, this field is empty for this entity."),
                 level=QgsMessageBar.WARNING, duration=7)
         else:
-            field = unicode(field, "UTF-8")
-            value = unicode(value, "UTF-8")
+            field = str(field, "UTF-8")
+            value = str(value, "UTF-8")
 
             if field in ["url", "website", "wikipedia"]:
                 var = QDesktopServices()
@@ -72,11 +76,11 @@ class Actions(object):
                 var.openUrl(QUrl(url))
 
             elif field == "josm":
-                import urllib2
+                import urllib.request, urllib.error, urllib.parse
                 try:
                     url = "http://localhost:8111/load_object?objects=" + value
-                    urllib2.urlopen(url).read()
-                except urllib2.URLError:
+                    urllib.request.urlopen(url).read()
+                except urllib.error.URLError:
                     iface.messageBar().pushMessage(
                         tr("QuickOSM",
                            u"The JOSM remote seems to be disabled."),
@@ -101,8 +105,8 @@ class Actions(object):
         @type ref:str
         """
 
-        network = unicode(network, "UTF-8")
-        ref = unicode(ref, "UTF-8")
+        network = str(network, "UTF-8")
+        ref = str(ref, "UTF-8")
 
         if network == '' or ref == '':
             iface.messageBar().pushMessage(

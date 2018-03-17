@@ -21,7 +21,10 @@
  ***************************************************************************/
 """
 
-import urllib2
+from future import standard_library
+standard_library.install_aliases()
+from builtins import object
+import urllib.request, urllib.error, urllib.parse
 import tempfile
 
 from QuickOSM.core.exceptions import NetWorkErrorException
@@ -58,8 +61,8 @@ class ConnexionXAPI(object):
         url_query = self.__url + query
 
         try:
-            data = urllib2.urlopen(url=url_query).read()
-        except urllib2.HTTPError:
+            data = urllib.request.urlopen(url=url_query).read()
+        except urllib.error.HTTPError:
             raise NetWorkErrorException(suffix="XAPI")
 
         return data

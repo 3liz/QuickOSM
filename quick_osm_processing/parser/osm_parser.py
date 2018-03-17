@@ -24,8 +24,8 @@
 import re
 from os.path import isfile, join, basename, dirname, abspath
 
-from PyQt4.QtCore import QSettings, SLOT
-from PyQt4.QtGui import QIcon
+from qgis.PyQt.QtCore import QSettings
+from qgis.PyQt.QtGui import QIcon
 from qgis.core import QgsVectorLayer
 from processing.core.GeoAlgorithm import GeoAlgorithm
 
@@ -130,7 +130,7 @@ class OsmParserGeoAlgorithm(GeoAlgorithm):
         layers = parser.parse()
 
         layers_outputs = {}
-        for key, values in layers.iteritems():
+        for key, values in layers.items():
             layer = QgsVectorLayer(values['geojsonFile'], "test", "ogr")
 
             output_parameter = self.getOutputFromName(self.OUTPUT_LAYERS[key])

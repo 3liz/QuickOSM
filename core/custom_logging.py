@@ -20,6 +20,7 @@
  *                                                                         *
  ***************************************************************************/
 """
+from __future__ import print_function
 
 import logging
 
@@ -54,7 +55,8 @@ class QgsLogHandler(logging.Handler):
             message = tr(
                 'Due to memory limitations on this machine, QuickOSM can not '
                 'handle the full log')
-            print message
+            # fix_print_with_import
+            print(message)
             QgsMessageLog.logMessage(message, 'QuickOSM', 0)
 
 

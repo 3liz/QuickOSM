@@ -20,14 +20,18 @@
  *                                                                         *
  ***************************************************************************/
 """
+from __future__ import absolute_import
 
-import ConfigParser
+from future import standard_library
+standard_library.install_aliases()
+from builtins import str
+import configparser
 from qgis.core import QgsApplication
 from os.path import join, dirname, abspath
-from PyQt4.QtCore import QDir, QSettings, QFileInfo
-from PyQt4.QtGui import QApplication
+from qgis.PyQt.QtCore import QDir, QSettings, QFileInfo
+from qgis.PyQt.QtWidgets import QApplication
 
-from operating_system import copy_tree
+from .operating_system import copy_tree
 
 
 def tr(section, text):
@@ -37,7 +41,7 @@ def tr(section, text):
 def read_metadata(section, item):
     root = dirname(dirname(dirname(__file__)))
     metadata = join(root, 'metadata.txt')
-    parser = ConfigParser.ConfigParser()
+    parser = configparser.ConfigParser()
     parser.read(metadata)
     return parser.get(section, item)
 
@@ -62,7 +66,7 @@ def get_QuickOSM_folder():
     @return: path
     """
     folder = QFileInfo(QgsApplication.qgisUserDbFilePath()).path() + 'QuickOSM'
-    return unicode(QDir.toNativeSeparators(folder))
+    return str(QDir.toNativeSeparators(folder))
 
 
 def get_user_query_folder(over_write=False):
@@ -78,7 +82,7 @@ def get_user_query_folder(over_write=False):
     if not QDir(queries_folder).exists() or over_write:
         folder = join(dirname(dirname(dirname(abspath(__file__)))), 'queries')
         copy_tree(folder, QDir.toNativeSeparators(queries_folder))
-    return unicode(QDir.toNativeSeparators(queries_folder))
+    return str(QDir.toNativeSeparators(queries_folder))
 
 
 def get_setting(key):

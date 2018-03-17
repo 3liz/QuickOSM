@@ -21,8 +21,12 @@
  ***************************************************************************/
 """
 
+from future import standard_library
+standard_library.install_aliases()
+from builtins import str
+from builtins import object
 import ntpath
-import ConfigParser
+import configparser
 import re
 from os.path import dirname, join, isfile
 from os import listdir
@@ -89,7 +93,7 @@ class FileQuery(object):
         try:
             self.__configParser
         except AttributeError:
-            self.__configParser = ConfigParser.ConfigParser()
+            self.__configParser = configparser.ConfigParser()
             self.__configParser.read(self._filePath)
 
         # Set the name
@@ -133,7 +137,7 @@ class FileQuery(object):
 
         # If XML, check for templates
         if self._queryExtension == 'xml':
-            query = unicode(open(self._queryFile, 'r').read(), "utf-8")
+            query = str(open(self._queryFile, 'r').read(), "utf-8")
 
             # Check if there is a BBOX template
             if re.search('{{bbox}}', query):
@@ -160,12 +164,12 @@ class FileQuery(object):
             try:
                 self.__configParser
             except AttributeError:
-                self.__configParser = ConfigParser.ConfigParser()
+                self.__configParser = configparser.ConfigParser()
                 self.__configParser.read(self._filePath)
 
             dic = {}
             dic['metadata'] = {}
-            dic['metadata']['query'] = unicode(
+            dic['metadata']['query'] = str(
                 open(self._queryFile, 'r').read(), "utf-8")
 
             dic['metadata']['name'] = self._name
@@ -191,13 +195,13 @@ class FileQuery(object):
         try:
             self.__configParser
         except AttributeError:
-            self.__configParser = ConfigParser.ConfigParser()
+            self.__configParser = configparser.ConfigParser()
             self.__configParser.read(self._filePath)
 
         for var in self.__configParser.options(section):
             if var == item:
                 try:
-                    value = unicode(
+                    value = str(
                         self.__configParser.get(section, var), "utf-8")
                     if value == u"True":
                         return True
@@ -214,7 +218,7 @@ class FileQuery(object):
         ini_dict = {}
         for option in self.__configParser.options(section):
             try:
-                value = unicode(
+                value = str(
                     self.__configParser.get(section, option), "utf-8")
                 if value == u"True":
                     ini_dict[option] = True
