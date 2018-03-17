@@ -24,14 +24,16 @@
 from os.path import dirname, abspath, join, isfile
 from PyQt4.QtGui import QDialog
 from PyQt4.QtCore import pyqtSignal, QSettings, QUrl
-
-from main_window import Ui_ui_main_window
 from QuickOSM.core.api.connexion_oapi import ConnexionOAPI
 from QuickOSM.core.utilities.tools import get_setting, set_setting, tr
 from QuickOSM.core.utilities.tools import get_user_query_folder
+from QuickOSM.core.utilities.tools import get_ui_class
 
 
-class MainWindowDialog(QDialog, Ui_ui_main_window):
+FORM_CLASS = get_ui_class('main_window.ui')
+
+
+class MainWindowDialog(QDialog, FORM_CLASS):
 
     # Signal new query
     signal_new_query_successful = pyqtSignal(
