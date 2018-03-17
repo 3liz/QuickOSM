@@ -46,10 +46,13 @@ from QuickOSM.controller.process import process_query
 from XMLHighlighter import XMLHighlighter
 from save_query_dialog import SaveQueryDialog
 from QuickOSMWidget import QuickOSMWidget
-from query import Ui_ui_query
+from QuickOSM.core.utilities.tools import get_ui_class
 
 
-class QueryWidget(QuickOSMWidget, Ui_ui_query):
+FORM_CLASS = get_ui_class('query.ui')
+
+
+class QueryWidget(QuickOSMWidget, FORM_CLASS):
     # Signal new query
     signal_new_query_successful = pyqtSignal(
         name='signal_new_query_successful')

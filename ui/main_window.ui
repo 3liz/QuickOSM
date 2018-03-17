@@ -81,8 +81,8 @@ QListWidget::item::selected {
        <string>Quick query</string>
       </property>
       <property name="icon">
-       <iconset resource="../resources.qrc">
-        <normaloff>:/plugins/QuickOSM/resources/quick.png</normaloff>:/plugins/QuickOSM/resources/quick.png</iconset>
+       <iconset>
+        <normaloff>../resources/quick.png</normaloff>../resources/quick.png</iconset>
       </property>
      </item>
      <item>
@@ -90,8 +90,8 @@ QListWidget::item::selected {
        <string>My queries</string>
       </property>
       <property name="icon">
-       <iconset resource="../resources.qrc">
-        <normaloff>:/plugins/QuickOSM/resources/favorites.png</normaloff>:/plugins/QuickOSM/resources/favorites.png</iconset>
+       <iconset>
+        <normaloff>../resources/favorites.png</normaloff>../resources/favorites.png</iconset>
       </property>
      </item>
      <item>
@@ -99,8 +99,8 @@ QListWidget::item::selected {
        <string>Query</string>
       </property>
       <property name="icon">
-       <iconset resource="../resources.qrc">
-        <normaloff>:/plugins/QuickOSM/resources/edit.png</normaloff>:/plugins/QuickOSM/resources/edit.png</iconset>
+       <iconset>
+        <normaloff>../resources/edit.png</normaloff>../resources/edit.png</iconset>
       </property>
      </item>
      <item>
@@ -108,8 +108,8 @@ QListWidget::item::selected {
        <string>OSM File</string>
       </property>
       <property name="icon">
-       <iconset resource="../resources.qrc">
-        <normaloff>:/plugins/QuickOSM/resources/open.png</normaloff>:/plugins/QuickOSM/resources/open.png</iconset>
+       <iconset>
+        <normaloff>../resources/open.png</normaloff>../resources/open.png</iconset>
       </property>
      </item>
      <item>
@@ -117,8 +117,8 @@ QListWidget::item::selected {
        <string>Parameters</string>
       </property>
       <property name="icon">
-       <iconset resource="../resources.qrc">
-        <normaloff>:/plugins/QuickOSM/resources/general.svg</normaloff>:/plugins/QuickOSM/resources/general.svg</iconset>
+       <iconset>
+        <normaloff>../resources/general.svg</normaloff>../resources/general.svg</iconset>
       </property>
      </item>
      <item>
@@ -126,8 +126,8 @@ QListWidget::item::selected {
        <string>Help</string>
       </property>
       <property name="icon">
-       <iconset resource="../resources.qrc">
-        <normaloff>:/plugins/QuickOSM/resources/about.png</normaloff>:/plugins/QuickOSM/resources/about.png</iconset>
+       <iconset>
+        <normaloff>../resources/help.png</normaloff>../resources/help.png</iconset>
       </property>
      </item>
      <item>
@@ -135,8 +135,8 @@ QListWidget::item::selected {
        <string>About</string>
       </property>
       <property name="icon">
-       <iconset resource="../resources.qrc">
-        <normaloff>:/plugins/QuickOSM/resources/info.png</normaloff>:/plugins/QuickOSM/resources/info.png</iconset>
+       <iconset>
+        <normaloff>../resources/info.png</normaloff>../resources/info.png</iconset>
       </property>
      </item>
     </widget>
@@ -435,7 +435,7 @@ QListWidget::item::selected {
                    </size>
                   </property>
                   <property name="text">
-                   <string notr="true">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;http://www.3liz.com/&quot;&gt;&lt;img src=&quot;:/plugins/QuickOSM/resources/3liz.png&quot;/&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;
+                   <string notr="true">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;http://www.3liz.com/&quot;&gt;&lt;img src=&quot;resources/3liz.png&quot;/&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;
 </string>
                   </property>
                   <property name="scaledContents">
@@ -652,7 +652,7 @@ QListWidget::item::selected {
                   <item row="1" column="1">
                    <widget class="QLabel" name="label_16">
                     <property name="text">
-                     <string notr="true">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;https://www.gnu.org/licenses/gpl-2.0.html&quot;&gt;&lt;img src=&quot;:/plugins/QuickOSM/resources/gnu.png&quot;/&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                     <string notr="true">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;https://www.gnu.org/licenses/gpl-2.0.html&quot;&gt;&lt;img src=&quot;resources/gnu.png&quot;/&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                     </property>
                     <property name="alignment">
                      <set>Qt::AlignCenter</set>
@@ -697,7 +697,7 @@ QListWidget::item::selected {
   <customwidget>
    <class>QWebView</class>
    <extends>QWidget</extends>
-   <header>QtWebKit/QWebView</header>
+   <header>QtWebKitWidgets/QWebView</header>
    <container>1</container>
   </customwidget>
   <customwidget>

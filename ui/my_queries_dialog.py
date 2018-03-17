@@ -30,7 +30,6 @@ from qgis.utils import iface
 from qgis.gui import QgsMessageBar
 
 from QuickOSMWidget import QuickOSMWidget
-from my_queries import Ui_ui_my_queries
 from QuickOSM.controller.process import process_query
 from QuickOSM.core.exceptions import (
     QuickOsmException,
@@ -39,10 +38,12 @@ from QuickOSM.core.exceptions import (
     MissingParameterException)
 from QuickOSM.core.file_query import FileQuery
 from QuickOSM.core.utilities.utilities_qgis import display_message_bar
-from QuickOSM.core.utilities.tools import tr, get_user_query_folder
+from QuickOSM.core.utilities.tools import tr, get_user_query_folder, get_ui_class
+
+FORM_CLASS = get_ui_class('my_queries.ui')
 
 
-class MyQueriesWidget(QuickOSMWidget, Ui_ui_my_queries):
+class MyQueriesWidget(QuickOSMWidget, FORM_CLASS):
 
     signal_delete_query_successful = pyqtSignal(
         name='signal_delete_query_successful')

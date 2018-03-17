@@ -40,10 +40,13 @@ from QuickOSM.core.utilities.utilities_qgis import \
 from QuickOSM.core.parser.osm_parser import OsmParser
 from QuickOSM.controller.process import open_file
 from QuickOSMWidget import QuickOSMWidget
-from osm_file import Ui_ui_osm_file
+from QuickOSM.core.utilities.tools import get_ui_class
 
 
-class OsmFileWidget(QuickOSMWidget, Ui_ui_osm_file):
+FORM_CLASS = get_ui_class('osm_file.ui')
+
+
+class OsmFileWidget(QuickOSMWidget, FORM_CLASS):
     # noinspection PyUnresolvedReferences
     def __init__(self, parent=None):
         """

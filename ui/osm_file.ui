@@ -208,8 +208,8 @@
               <string/>
              </property>
              <property name="icon">
-              <iconset resource="../../../../../plugins/QuickOSM/resources.qrc">
-               <normaloff>:/plugins/QuickOSM/resources/refresh.png</normaloff>:/plugins/QuickOSM/resources/refresh.png</iconset>
+              <iconset>
+               <normaloff>../resources/refresh.png</normaloff>../resources/refresh.png</iconset>
              </property>
             </widget>
            </item>
@@ -264,9 +264,7 @@
    </item>
   </layout>
  </widget>
- <resources>
-  <include location="../../../../../plugins/QuickOSM/resources.qrc"/>
- </resources>
+ <resources/>
  <connections>
   <connection>
    <sender>radioButton_allTags</sender>

@@ -380,8 +380,8 @@
             <string notr="true">Overpass Turbo</string>
            </property>
            <property name="icon">
-            <iconset resource="../resources.qrc">
-             <normaloff>:/plugins/QuickOSM/resources/turbo.png</normaloff>:/plugins/QuickOSM/resources/turbo.png</iconset>
+            <iconset>
+             <normaloff>../resources/turbo.png</normaloff>../resources/turbo.png</iconset>
            </property>
           </widget>
          </item>
@@ -426,9 +426,7 @@
    <header>qgsmaplayercombobox.h</header>
   </customwidget>
  </customwidgets>
- <resources>
-  <include location="../resources.qrc"/>
- </resources>
+
  <connections>
   <connection>
    <sender>checkBox_points</sender>
