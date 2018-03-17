@@ -23,8 +23,8 @@
 
 from os.path import isfile, join, basename, dirname, abspath
 
-from PyQt4.QtCore import QSettings
-from PyQt4.QtGui import QIcon
+from qgis.PyQt.QtCore import QSettings
+from qgis.PyQt.QtGui import QIcon
 from processing.core.GeoAlgorithm import GeoAlgorithm
 
 from QuickOSM.quick_osm_processing import *
@@ -58,7 +58,7 @@ class ListIniFilesGeoAlgorithm(GeoAlgorithm):
             for query in cat_files[cat]:
                 self.__queries[cat + " : " + query.getName()] = query
 
-        self.__names = self.__queries.keys()
+        self.__names = list(self.__queries.keys())
 
         self.addParameter(
             ParameterSelection(

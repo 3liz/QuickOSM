@@ -20,12 +20,13 @@
  *                                                                         *
  ***************************************************************************/
 """
+from __future__ import absolute_import
 
 from os.path import dirname, abspath, join, isfile
-from PyQt4.QtGui import QDialog
-from PyQt4.QtCore import pyqtSignal, QSettings, QUrl
+from qgis.PyQt.QtWidgets import QDialog
+from qgis.PyQt.QtCore import pyqtSignal, QSettings, QUrl
 
-from main_window import Ui_ui_main_window
+from .main_window import Ui_ui_main_window
 from QuickOSM.core.api.connexion_oapi import ConnexionOAPI
 from QuickOSM.core.utilities.tools import get_setting, set_setting, tr
 from QuickOSM.core.utilities.tools import get_user_query_folder

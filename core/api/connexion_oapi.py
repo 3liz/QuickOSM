@@ -21,11 +21,14 @@
  ***************************************************************************/
 """
 
-import urllib2
+from future import standard_library
+standard_library.install_aliases()
+from builtins import object
+import urllib.request, urllib.error, urllib.parse
 import re
 import tempfile
-from PyQt4.QtNetwork import QNetworkRequest, QNetworkReply
-from PyQt4.QtCore import QUrl, QEventLoop
+from qgis.PyQt.QtNetwork import QNetworkRequest, QNetworkReply
+from qgis.PyQt.QtCore import QUrl, QEventLoop
 from qgis.core import QgsNetworkAccessManager
 
 from QuickOSM.core.exceptions import (
@@ -145,8 +148,8 @@ class ConnexionOAPI(object):
         """
         url_query = self.__url + 'timestamp'
         try:
-            return urllib2.urlopen(url=url_query).read()
-        except urllib2.HTTPError as e:
+            return urllib.request.urlopen(url=url_query).read()
+        except urllib.error.HTTPError as e:
             if e.code == 400:
                 raise OverpassBadRequestException
 
@@ -156,7 +159,7 @@ class ConnexionOAPI(object):
         """
         url_query = self.__url + 'interpreter'
         try:
-            urllib2.urlopen(url=url_query)
+            urllib.request.urlopen(url=url_query)
             return True
-        except urllib2.HTTPError:
+        except urllib.error.HTTPError:
             return False

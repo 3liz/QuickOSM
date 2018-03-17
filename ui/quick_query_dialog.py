@@ -20,12 +20,15 @@
  *                                                                         *
  ***************************************************************************/
 """
+from __future__ import absolute_import
 
+from builtins import str
+from builtins import range
 from json import load
 from os.path import dirname, abspath, join, isfile, isdir
 
-from PyQt4.QtGui import QDockWidget, QApplication, QCompleter, QDialogButtonBox
-from PyQt4.QtCore import Qt
+from qgis.PyQt.QtWidgets import QDockWidget, QApplication, QCompleter, QDialogButtonBox
+from qgis.PyQt.QtCore import Qt
 from qgis.gui import QgsMessageBar
 
 from QuickOSM.core.exceptions import (
@@ -37,8 +40,8 @@ from QuickOSM.core.utilities.utilities_qgis import display_message_bar
 from QuickOSM.core.utilities.tools import tr
 from QuickOSM.core.query_factory import QueryFactory
 from QuickOSM.controller.process import process_quick_query
-from QuickOSMWidget import QuickOSMWidget
-from quick_query import Ui_ui_quick_query
+from .QuickOSMWidget import QuickOSMWidget
+from .quick_query import Ui_ui_quick_query
 
 
 from qgis.utils import iface
@@ -92,7 +95,7 @@ class QuickQueryWidget(QuickOSMWidget, Ui_ui_quick_query):
 
         if isfile(map_features_json_file):
             self.osmKeys = load(open(map_features_json_file))
-            keys = self.osmKeys.keys()
+            keys = list(self.osmKeys.keys())
             keys.sort()
             keys_completer = QCompleter(keys)
             self.comboBox_key.addItems(keys)
@@ -137,7 +140,7 @@ class QuickQueryWidget(QuickOSMWidget, Ui_ui_quick_query):
 
         try:
             current_values = self.osmKeys[
-                unicode(self.comboBox_key.currentText())]
+                str(self.comboBox_key.currentText())]
         except KeyError:
             return
         except AttributeError:
@@ -214,8 +217,8 @@ class QuickQueryWidget(QuickOSMWidget, Ui_ui_quick_query):
         QApplication.processEvents()
 
         # Get all values
-        key = unicode(self.comboBox_key.currentText())
-        value = unicode(self.comboBox_value.currentText())
+        key = str(self.comboBox_key.currentText())
+        value = str(self.comboBox_value.currentText())
         nominatim = self.nominatim_value()
         timeout = self.spinBox_timeout.value()
         output_directory = self.lineEdit_browseDir.text()
@@ -284,9 +287,9 @@ class QuickQueryWidget(QuickOSMWidget, Ui_ui_quick_query):
                     level=QgsMessageBar.WARNING,
                     duration=7)
 
-        except QuickOsmException, e:
+        except QuickOsmException as e:
             self.display_geo_algorithm_exception(e)
-        except Exception, e:  # pylint: disable=broad-except
+        except Exception as e:  # pylint: disable=broad-except
             self.display_exception(e)
 
         finally:
@@ -305,7 +308,7 @@ class QuickQueryWidget(QuickOSMWidget, Ui_ui_quick_query):
         # We have to find the widget in the stacked widget of the main window
         query_widget = None
         index_quick_query_widget = None
-        for i in xrange(iface.QuickOSM_mainWindowDialog.stackedWidget.count()):
+        for i in range(iface.QuickOSM_mainWindowDialog.stackedWidget.count()):
             widget = iface.QuickOSM_mainWindowDialog.stackedWidget.widget(i)
             if widget.__class__.__name__ == "QueryWidget":
                 query_widget = iface.QuickOSM_mainWindowDialog.stackedWidget.\
@@ -314,9 +317,9 @@ class QuickQueryWidget(QuickOSMWidget, Ui_ui_quick_query):
                 break
 
         # Get all values
-        key = unicode(self.comboBox_key.currentText())
-        value = unicode(self.comboBox_value.currentText())
-        nominatim = unicode(self.lineEdit_nominatim.text())
+        key = str(self.comboBox_key.currentText())
+        value = str(self.comboBox_value.currentText())
+        nominatim = str(self.lineEdit_nominatim.text())
         timeout = self.spinBox_timeout.value()
         output_directory = self.lineEdit_browseDir.text()
         prefix_file = self.lineEdit_filePrefix.text()

@@ -73,25 +73,25 @@ class TestQueryFactory(unittest.TestCase):
         query = QueryFactory('foo', 'bar')
         try:
             query.check_parameters()
-        except QueryFactoryException, e:
+        except QueryFactoryException as e:
             self.fail(e.msg)
 
         query = QueryFactory('foo', nominatim='bar')
         try:
             query.check_parameters()
-        except QueryFactoryException, e:
+        except QueryFactoryException as e:
             self.fail(e.msg)
 
         query = QueryFactory('foo', bbox=True)
         try:
             query.check_parameters()
-        except QueryFactoryException, e:
+        except QueryFactoryException as e:
             self.fail(e.msg)
 
         query = QueryFactory('foo', is_around=True, distance=50, nominatim='a')
         try:
             query.check_parameters()
-        except QueryFactoryException, e:
+        except QueryFactoryException as e:
             self.fail(e.msg)
 
     def test_replace_template(self):

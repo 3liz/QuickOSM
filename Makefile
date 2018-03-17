@@ -49,6 +49,8 @@ save_query:
 	@sed -re 's/import resources_rc/from QuickOSM import resources_rc/g' ui/save_query_temp.py > ui/save_query.py
 	@rm ui/save_query_temp.py
 
+generate_ui: main_window quick_query my_queries osm_files query save_query
+
 clean_pyc:
 	@echo "Cleaning python files"
 	@find . -name "*.pyc" -type f -delete

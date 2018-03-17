@@ -21,14 +21,17 @@
  ***************************************************************************/
 """
 
-import ConfigParser
+from future import standard_library
+standard_library.install_aliases()
+from builtins import object
+import configparser
 import codecs
 from os.path import join, isfile
 
 from QuickOSM.core.exceptions import QueryAlreadyExistsException
 
 
-class FileQueryWriter:
+class FileQueryWriter(object):
     """
     Write a query and metadata into files
     """
@@ -68,7 +71,7 @@ class FileQueryWriter:
         self.queryFile = self.category + "-" + self.name + ".xml"
 
         # Set the INI writer
-        self.config = ConfigParser.ConfigParser()
+        self.config = configparser.ConfigParser()
 
         # Write metadata
         info = {
@@ -76,7 +79,7 @@ class FileQueryWriter:
             "category": self.category}
 
         self.config.add_section('metadata')
-        for key in info.keys():
+        for key in list(info.keys()):
             self.config.set('metadata', key, info[key])
 
         # Write every config for each layers
@@ -96,7 +99,7 @@ class FileQueryWriter:
                 "columns": csv,
                 "style": ""}
 
-            for key in info_layer.keys():
+            for key in list(info_layer.keys()):
                 self.config.set(layer, key, info_layer[key])
 
     def save(self):

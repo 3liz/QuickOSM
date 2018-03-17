@@ -20,13 +20,16 @@
  *                                                                         *
  ***************************************************************************/
 """
+from __future__ import print_function
+from __future__ import absolute_import
 
-import pghstore
+from builtins import str
+from . import pghstore
 import tempfile
 import re
 from os.path import dirname, realpath, join, isfile, basename
 from osgeo import gdal
-from PyQt4.QtCore import QObject, pyqtSignal, QVariant
+from qgis.PyQt.QtCore import QObject, pyqtSignal, QVariant
 from qgis.core import \
     QgsVectorLayer, QgsFields, QgsField, QgsVectorFileWriter, QgsFeature
 
@@ -115,7 +118,8 @@ class OsmParser(QObject):
                     uri + layer, file_name + " " + layer, "ogr")
 
                 if not layers[layer].isValid():
-                    print "Error on the layer", layers[layer].lastError()
+                    # fix_print_with_import
+                    print("Error on the layer", layers[layer].lastError())
 
             return layers
 
@@ -188,7 +192,7 @@ class OsmParser(QObject):
         # Delete empty layers if this option is set to True
         if self.__deleteEmptyLayers:
             delete_layers = []
-            for keys, values in layers.iteritems():
+            for keys, values in layers.items():
                 if values['featureCount'] < 1:
                     delete_layers.append(keys)
             for layer in delete_layers:
@@ -246,7 +250,7 @@ class OsmParser(QObject):
                     if attributes[1]:
                         h_store = pghstore.loads(attributes[1])
                         for tag in layers[layer]['tags'][3:]:
-                            if unicode(tag) in h_store:
+                            if str(tag) in h_store:
                                 new_attributes.append(h_store[tag])
                             else:
                                 new_attributes.append("")
@@ -268,7 +272,7 @@ class OsmParser(QObject):
 
                     h_store = pghstore.loads(attributes[2])
                     for tag in layers[layer]['tags'][3:]:
-                        if unicode(tag) in h_store:
+                        if str(tag) in h_store:
                             new_attributes.append(h_store[tag])
                         else:
                             new_attributes.append("")

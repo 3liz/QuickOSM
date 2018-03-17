@@ -21,9 +21,10 @@
  ***************************************************************************/
 """
 
+from builtins import object
 import json
-from PyQt4.QtNetwork import QNetworkRequest, QNetworkReply
-from PyQt4.QtCore import QUrl, QEventLoop
+from qgis.PyQt.QtNetwork import QNetworkRequest, QNetworkReply
+from qgis.PyQt.QtCore import QUrl, QEventLoop
 from qgis.core import QgsNetworkAccessManager
 
 from QuickOSM.core.exceptions import \

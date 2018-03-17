@@ -20,15 +20,17 @@ email : info@3liz.com
 ***************************************************************************/
 This script initializes the plugin, making it known to QGIS.
 """
+from __future__ import absolute_import
 
 
 # noinspection PyDocstring,PyPep8Naming
 def classFactory(iface):
-    from quick_osm import QuickOSM
+    from .quick_osm import QuickOSM
     return QuickOSM(iface)
 
 
 # noinspection PyDocstring,PyPep8Naming
 def serverClassFactory(serverIface):
-    from quick_osm_processing.algorithm_provider import (
-        QuickOSMAlgorithmProvider)
+    # from .quick_osm_processing.algorithm_provider import (
+    #     QuickOSMAlgorithmProvider)
+    pass

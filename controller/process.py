@@ -23,7 +23,7 @@
 
 import tempfile
 from os.path import dirname, abspath, join, isfile
-from PyQt4.QtGui import QApplication
+from qgis.PyQt.QtWidgets import QApplication
 from qgis.core import \
     QGis, QgsVectorLayer, QgsVectorFileWriter, QgsAction, QgsMapLayerRegistry
 
@@ -105,7 +105,7 @@ def open_file(
     if output_format == "shape":
         dialog.set_progress_text(tr("QuickOSM", u"From GeoJSON to Shapefile"))
 
-    for i, (layer, item) in enumerate(layers.iteritems()):
+    for i, (layer, item) in enumerate(layers.items()):
         dialog.set_progress_percentage(i / len(layers) * 100)
         QApplication.processEvents()
         if item['featureCount'] and layer in output_geom_types:

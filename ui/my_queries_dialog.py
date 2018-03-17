@@ -20,17 +20,18 @@
  *                                                                         *
  ***************************************************************************/
 """
+from __future__ import absolute_import
 
+from builtins import range
 import re
 from os.path import isdir
-from PyQt4.QtCore import pyqtSignal, QFile, Qt
-from PyQt4.QtGui import \
-    QTreeWidgetItem, QMenu, QAction, QMessageBox, QApplication, QDockWidget
+from qgis.PyQt.QtCore import pyqtSignal, QFile, Qt
+from qgis.PyQt.QtWidgets import QTreeWidgetItem, QMenu, QAction, QMessageBox, QApplication, QDockWidget
 from qgis.utils import iface
 from qgis.gui import QgsMessageBar
 
-from QuickOSMWidget import QuickOSMWidget
-from my_queries import Ui_ui_my_queries
+from .QuickOSMWidget import QuickOSMWidget
+from .my_queries import Ui_ui_my_queries
 from QuickOSM.controller.process import process_query
 from QuickOSM.core.exceptions import (
     QuickOsmException,
@@ -102,7 +103,7 @@ class MyQueriesWidget(QuickOSMWidget, Ui_ui_my_queries):
             folder, force=force)
 
         # Fill all categories
-        for cat, files in categories_files.iteritems():
+        for cat, files in categories_files.items():
             category_item = QTreeWidgetItem([cat], 0)
             self.treeQueries.addTopLevelItem(category_item)
             for one_file in files:
@@ -137,7 +138,7 @@ class MyQueriesWidget(QuickOSMWidget, Ui_ui_my_queries):
         """
         if item.childCount() > 0:
             show = False
-            for i in xrange(item.childCount()):
+            for i in range(item.childCount()):
                 child = item.child(i)
                 show_child = self._filter_item(child, text)
                 show = show_child or show
@@ -347,9 +348,9 @@ class MyQueriesWidget(QuickOSMWidget, Ui_ui_my_queries):
                     level=QgsMessageBar.WARNING,
                     duration=7)
 
-        except QuickOsmException, e:
+        except QuickOsmException as e:
             self.display_geo_algorithm_exception(e)
-        except Exception, e:  # pylint: disable=broad-except
+        except Exception as e:  # pylint: disable=broad-except
             self.display_exception(e)
 
         finally:
@@ -366,7 +367,7 @@ class MyQueriesWidget(QuickOSMWidget, Ui_ui_my_queries):
         # We have to find the widget in the stacked widget of the main window
         query_widget = None
         index_quick_query_widget = None
-        for i in xrange(iface.QuickOSM_mainWindowDialog.stackedWidget.count()):
+        for i in range(iface.QuickOSM_mainWindowDialog.stackedWidget.count()):
             widget = iface.QuickOSM_mainWindowDialog.stackedWidget.widget(i)
             if widget.__class__.__name__ == "QueryWidget":
                 query_widget = iface.QuickOSM_mainWindowDialog.stackedWidget.\

@@ -21,14 +21,15 @@
  ***************************************************************************/
 """
 
+from builtins import object
 from os.path import dirname, join, exists, abspath, isfile
 from json import load
-from PyQt4.QtCore import \
-    QSettings, QTranslator, qVersion, QCoreApplication, Qt
-from PyQt4.QtGui import QMenu, QIcon, QAction, QPushButton
+from qgis.PyQt.QtCore import QSettings, QTranslator, qVersion, QCoreApplication, Qt
+from qgis.PyQt.QtWidgets import QMenu, QAction, QPushButton
+from qgis.PyQt.QtGui import QIcon
 
 from qgis.gui import QgsMessageBar
-from processing.core.Processing import Processing
+# from processing.core.Processing import Processing
 
 from QuickOSM.core.custom_logging import setup_logger
 from QuickOSM.ui.main_window_dialog import MainWindowDialog
@@ -36,8 +37,8 @@ from QuickOSM.ui.my_queries_dialog import MyQueriesDockWidget
 from QuickOSM.ui.query_dialog import QueryDockWidget
 from QuickOSM.ui.osm_file_dialog import OsmFileDockWidget
 from QuickOSM.ui.quick_query_dialog import QuickQueryDockWidget
-from QuickOSM.quick_osm_processing.algorithm_provider import (
-    QuickOSMAlgorithmProvider)
+# from QuickOSM.quick_osm_processing.algorithm_provider import (
+#     QuickOSMAlgorithmProvider)
 from QuickOSM.core.utilities.tools import (
     get_current_version,
     get_setting,
@@ -48,7 +49,7 @@ from QuickOSM.core.utilities.tools import (
 )
 
 
-class QuickOSM:
+class QuickOSM(object):
 
     def __init__(self, iface):
         """Constructor.
@@ -84,8 +85,8 @@ class QuickOSM:
         get_user_query_folder(over_write=True)
 
         # Add to processing
-        self.provider = QuickOSMAlgorithmProvider()
-        Processing.addProvider(self.provider, True)
+        # self.provider = QuickOSMAlgorithmProvider()
+        # Processing.addProvider(self.provider, True)
 
         # Add the toolbar
         self.toolbar = self.iface.addToolBar('QuickOSM')
@@ -244,7 +245,7 @@ class QuickOSM:
         self.iface.removePluginVectorMenu(u'&QuickOSM', self.quickQueryAction)
         self.iface.removePluginVectorMenu(u'&QuickOSM', self.osmFileAction)
         self.iface.removeToolBarIcon(self.mainWindowAction)
-        Processing.removeProvider(self.provider)
+        # Processing.removeProvider(self.provider)
 
     def openMainWindow(self):
         self.iface.QuickOSM_mainWindowDialog.listWidget.setCurrentRow(0)

@@ -20,16 +20,17 @@
  *                                                                         *
  ***************************************************************************/
 """
+from __future__ import absolute_import
 
-from PyQt4.QtGui import QDialog, QSizePolicy
-from PyQt4.QtCore import pyqtSignal
+from qgis.PyQt.QtWidgets import QDialog, QSizePolicy
+from qgis.PyQt.QtCore import pyqtSignal
 from qgis.gui import QgsMessageBar
 
 from QuickOSM.core.file_query_writer import FileQueryWriter
 from QuickOSM.core.utilities.tools import get_user_query_folder
 from QuickOSM.core.exceptions import \
     QuickOsmException, MissingParameterException
-from save_query import Ui_ui_save_query
+from .save_query import Ui_ui_save_query
 
 
 class SaveQueryDialog(QDialog, Ui_ui_save_query):
@@ -94,8 +95,8 @@ class SaveQueryDialog(QDialog, Ui_ui_save_query):
             ini_file.save()
             self.signal_new_query_successful.emit()
             self.hide()
-        except QuickOsmException, e:
+        except QuickOsmException as e:
             self.message_bar.pushMessage(
                 e.msg, level=e.level, duration=e.duration)
-        except Exception, e:  # pylint: disable=broad-except
+        except Exception as e:  # pylint: disable=broad-except
             self.display_exception(e)
