@@ -21,6 +21,7 @@
  ***************************************************************************/
 """
 
+import urllib.request
 from builtins import object
 from os.path import dirname, join, exists, abspath, isfile
 from json import load
@@ -29,7 +30,7 @@ from qgis.PyQt.QtWidgets import QMenu, QAction, QPushButton
 from qgis.PyQt.QtGui import QIcon
 
 from qgis.gui import QgsMessageBar
-from qgis.core import Qgis
+from qgis.core import Qgis, QgsCoordinateTransform, QgsCoordinateReferenceSystem, QgsProject
 # from processing.core.Processing import Processing
 
 from QuickOSM.core.custom_logging import setup_logger
@@ -105,6 +106,7 @@ class QuickOSMPlugin(object):
         self.queryDockWidget = None
         self.quickQueryAction = None
         self.quickQueryDockWidget = None
+        self.josmAction = None
 
     def initGui(self):
 
@@ -124,6 +126,13 @@ class QuickOSMPlugin(object):
         self.mainWindowAction.triggered.connect(self.openMainWindow)
         self.toolbar.addAction(self.mainWindowAction)
         self.iface.QuickOSM_mainWindowDialog = MainWindowDialog()
+
+        self.josmAction = QAction(
+            QIcon(join(dirname(__file__), 'resources', 'josm_icon.svg')),
+            'JOSM Remote',
+            self.iface.mainWindow())
+        self.josmAction.triggered.connect(self.josm_remote)
+        self.toolbar.addAction(self.josmAction)
 
         # OSM File
         # self.osmFileAction = QAction(
@@ -247,6 +256,35 @@ class QuickOSMPlugin(object):
         # self.iface.removePluginVectorMenu(u'&QuickOSM', self.osmFileAction)
         self.iface.removeToolBarIcon(self.mainWindowAction)
         # Processing.removeProvider(self.provider)
+
+    def josm_remote(self):
+        map_settings = self.iface.mapCanvas().mapSettings()
+        extent = map_settings.extent()
+        crs_map = map_settings.destinationCrs()
+        if crs_map.authid() != u'EPSG:4326':
+            crs_4326 = QgsCoordinateReferenceSystem(4326)
+            transform = QgsCoordinateTransform(crs_map, crs_4326, QgsProject.instance())
+            extent = transform.transform(extent)
+
+        url = 'http://localhost:8111/load_and_zoom?'
+        query_string = 'left=%f&right=%f&top=%f&bottom=%f' % (
+            extent.xMinimum(), extent.xMaximum(), extent.yMaximum(),
+            extent.yMinimum())
+        url += query_string
+        try:
+            request = urllib.request.Request(url)
+            result_request = urllib.request.urlopen(request)
+            result = result_request.read()
+            result = result.decode('utf8')
+            if result.strip().upper() != 'OK':
+                self.iface.messageBar().pushCritical(
+                    'JOSM Remote', result)
+            else:
+                self.iface.messageBar().pushSuccess(
+                    'JOSM Remote', 'Import done, check JOSM')
+        except IOError:
+            self.iface.messageBar().pushCritical(
+                'JOSM Remote', 'Is the remote enabled?')
 
     def openMainWindow(self):
         self.iface.QuickOSM_mainWindowDialog.listWidget.setCurrentRow(0)
