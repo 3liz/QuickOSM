@@ -21,14 +21,16 @@
  ***************************************************************************/
 """
 
+import os
+import codecs
 from future import standard_library
 standard_library.install_aliases()
 from builtins import object
 import urllib.request, urllib.error, urllib.parse
 import re
-import tempfile
 from qgis.PyQt.QtNetwork import QNetworkRequest, QNetworkReply
-from qgis.PyQt.QtCore import QUrl, QEventLoop
+from qgis.PyQt.QtCore import (
+    QUrl, QUrlQuery, QEventLoop, QTemporaryFile, QDir, QIODevice)
 from qgis.core import QgsNetworkAccessManager
 
 from QuickOSM.core.exceptions import (
@@ -59,7 +61,7 @@ class ConnexionOAPI(object):
             url = "http://overpass-api.de/api/"
 
         self.__url = url
-        self.data = None
+        self.result_path = None
 
         if output not in (None, "json", "xml"):
             raise OutPutFormatException
@@ -93,51 +95,48 @@ class ConnexionOAPI(object):
                 r'\[out:[a-z]*', '[out:' + self.__output, query)
 
         # noinspection PyCallByClass
-        encoded_query = QUrl.toPercentEncoding(query)
-        url_query.addEncodedQueryItem('data', encoded_query)
-        url_query.addQueryItem('info', 'QgisQuickOSMPlugin')
+        # encoded_query = QUrl.toPercentEncoding(query)
+        query_string = QUrlQuery()
+        query_string.addQueryItem('data', query)
+        query_string.addQueryItem('info', 'QgisQuickOSMPlugin')
+        url_query.setQuery(query_string)
 
         request = QNetworkRequest(url_query)
-        request.setRawHeader("User-Agent", "QuickOSM")
+        # request.setRawHeader("User-Agent", "QuickOSM")
         self.network_reply = self.network.get(request)
         self.loop = QEventLoop()
         self.network.finished.connect(self._end_of_request)
         self.loop.exec_()
 
         if self.network_reply.error() == QNetworkReply.NoError:
+            file_obj = codecs.open(self.result_path, 'r', 'utf-8')
+            file_obj.seek(0, 2)
+            fsize = file_obj.tell()
+            file_obj.seek(max(fsize - 1024, 0), 0)
+            lines = file_obj.readlines()
+
+            lines = lines[-10:]  # Get last 10 lines
             timeout = '<remark> runtime error: Query timed out in "[a-z]+" ' \
                       'at line [\d]+ after ([\d]+) seconds. </remark>'
-            if re.search(timeout, self.data):
+            if re.search(timeout, ''.join(lines)):
                 raise OverpassTimeoutException
             else:
-                return self.data
+                return self.result_path
 
         elif self.network_reply.error() == QNetworkReply.UnknownContentError:
             raise OverpassBadRequestException
         else:
-            raise NetWorkErrorException(suffix="Overpass API")
+            raise NetWorkErrorException(suffix="Overpass OSM API")
 
     def _end_of_request(self):
-        self.data = self.network_reply.readAll()
-        self.loop.quit()
-
-    def get_file_from_query(self, query):
-        """
-        Make a query to the overpass and put the result in a temp file
-
-        @param query:Query to execute
-        @type query:str
-
-        @return: temporary file path
-        @rtype: str
-        """
-        query = self.query(query)
-        tf = tempfile.NamedTemporaryFile(delete=False, suffix=".osm")
-        tf.write(query)
-        name_file = tf.name
-        tf.flush()
+        tf = QTemporaryFile(
+            os.path.join(QDir.tempPath(), 'request-XXXXXX.osm'))
+        tf.setAutoRemove(False)
+        tf.open(QIODevice.WriteOnly | QIODevice.Text)
+        tf.write(self.network_reply.readAll().simplified())
         tf.close()
-        return name_file
+        self.result_path = tf.fileName()
+        self.loop.quit()
 
     def get_timestamp(self):
         """

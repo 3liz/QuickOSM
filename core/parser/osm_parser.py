@@ -25,6 +25,8 @@ from __future__ import absolute_import
 
 from builtins import str
 from . import pghstore
+from QuickOSM.core.parser.pghstore._native import loads
+import codecs
 import tempfile
 import re
 from os.path import dirname, realpath, join, isfile, basename
@@ -34,7 +36,7 @@ from qgis.core import \
     QgsVectorLayer, QgsFields, QgsField, QgsVectorFileWriter, QgsFeature
 
 from QuickOSM.core.exceptions import \
-    GeoAlgorithmExecutionException, WrongOrderOSMException
+    GeoAlgorithmException, WrongOrderOSMException
 from QuickOSM.core.utilities.tools import tr
 from QuickOSM.core.utilities.operating_system import get_default_encoding
 
@@ -104,7 +106,7 @@ class OsmParser(QObject):
         gdal.SetConfigOption('OSM_USE_CUSTOM_INDEXING', 'NO')
 
         if not isfile(self.__osmFile):
-            raise GeoAlgorithmExecutionException("File doesn't exist")
+            raise GeoAlgorithmException("File doesn't exist")
 
         uri = self.__osmFile + "|layername="
         layers = {}
@@ -126,12 +128,12 @@ class OsmParser(QObject):
         # Check if the order is node before way,relation
         # We don't check way before relation,
         # because we can have only nodes and relations
-        with open(self.__osmFile) as f:
-            for line in f:
-                if re.search(r'node', line):
-                    break
-                if re.search(r'(way|relation)', line):
-                    raise WrongOrderOSMException
+        file_obj = codecs.open(self.__osmFile, 'r', 'utf-8')
+        for line in file_obj:
+            if re.search(r'node', line):
+                break
+            if re.search(r'(way|relation)', line):
+                raise WrongOrderOSMException
 
         # Foreach layers
         for layer in self.__layers:
@@ -145,7 +147,7 @@ class OsmParser(QObject):
             if not layers[layer]['vectorLayer'].isValid():
                 msg = "Error on the layer : " + \
                       layers[layer]['vectorLayer'].lastError()
-                raise GeoAlgorithmExecutionException(msg)
+                raise GeoAlgorithmException(msg)
 
             layers[layer]['vectorLayer'].setProviderEncoding('UTF-8')
 
@@ -159,7 +161,7 @@ class OsmParser(QObject):
             layers[layer]['featureCount'] = 0
 
             # Get the other_tags
-            fields = layers[layer]['vectorLayer'].pendingFields()
+            fields = layers[layer]['vectorLayer'].fields()
             field_names = [field.name() for field in fields]
             other_tags_index = field_names.index('other_tags')
 
@@ -176,7 +178,7 @@ class OsmParser(QObject):
                 attributes = feature.attributes()[other_tags_index]
 
                 if attributes:
-                    h_store = pghstore.loads(attributes)
+                    h_store = loads(attributes)
                     for key in h_store:
                         if key not in layers[layer]['tags']:
                             # If the key in OSM is not already in the table

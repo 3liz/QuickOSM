@@ -30,6 +30,7 @@ from qgis.PyQt.QtWidgets import QDockWidget, QMenu, QAction, QApplication, QDial
 from qgis.PyQt.QtGui import QDesktopServices
 from qgis.PyQt.QtCore import pyqtSignal, Qt, QUrl
 from qgis.gui import QgsMessageBar
+from qgis.core import Qgis
 
 from QuickOSM.core.utilities.tools import tr
 from QuickOSM.core.exceptions import (
@@ -226,14 +227,14 @@ class QueryWidget(QuickOSMWidget, Ui_ui_query):
             if num_layers:
                 display_message_bar(
                     tr('QuickOSM', u'Successful query !'),
-                    level=QgsMessageBar.INFO,
+                    level=Qgis.Info,
                     duration=5)
                 self.label_progress.setText(
                     tr('QuickOSM', u'Successful query !'))
             else:
                 display_message_bar(
                     tr('QuickOSM', u'Successful query, but no result.'),
-                    level=QgsMessageBar.WARNING,
+                    level=Qgis.Warning,
                     duration=7)
 
         except QuickOsmException as e:

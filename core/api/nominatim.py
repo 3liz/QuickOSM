@@ -24,7 +24,7 @@
 from builtins import object
 import json
 from qgis.PyQt.QtNetwork import QNetworkRequest, QNetworkReply
-from qgis.PyQt.QtCore import QUrl, QEventLoop
+from qgis.PyQt.QtCore import QUrl, QUrlQuery, QEventLoop
 from qgis.core import QgsNetworkAccessManager
 
 from QuickOSM.core.exceptions import \
@@ -63,12 +63,15 @@ class Nominatim(object):
 
         url_query = QUrl(self.__url)
 
-        query = QUrl.toPercentEncoding(query)
-        url_query.addEncodedQueryItem('q', query)
-        url_query.addQueryItem('info', 'QgisQuickOSMPlugin')
+        # query = QUrl.toPercentEncoding(query)
+        query_string = QUrlQuery()
+        query_string.addQueryItem('q', query)
+        query_string.addQueryItem('format', 'json')
+        query_string.addQueryItem('info', 'QgisQuickOSMPlugin')
+        url_query.setQuery(query_string)
 
         request = QNetworkRequest(url_query)
-        request.setRawHeader("User-Agent", "QuickOSM")
+        # request.setRawHeader("User-Agent", "QuickOSM")
         self.network_reply = self.network.get(request)
         self.loop = QEventLoop()
         self.network.finished.connect(self._end_of_request)

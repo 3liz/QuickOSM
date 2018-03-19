@@ -23,12 +23,13 @@
 
 from osgeo import gdal, ogr
 from qgis.gui import QgsMessageBar
+from qgis.core import Qgis
 from qgis.utils import iface
 from QuickOSM.core.exceptions import GDALVersion, OsmDriverNotFound
 
 
 def display_message_bar(
-        title=None, msg=None, level=QgsMessageBar.INFO, duration=5):
+        title=None, msg=None, level=Qgis.Info, duration=5):
     """
     Display the message at the good place
     """

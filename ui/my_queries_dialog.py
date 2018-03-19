@@ -28,6 +28,7 @@ from os.path import isdir
 from qgis.PyQt.QtCore import pyqtSignal, QFile, Qt
 from qgis.PyQt.QtWidgets import QTreeWidgetItem, QMenu, QAction, QMessageBox, QApplication, QDockWidget
 from qgis.utils import iface
+from qgis.core import Qgis
 from qgis.gui import QgsMessageBar
 
 from .QuickOSMWidget import QuickOSMWidget
@@ -338,14 +339,14 @@ class MyQueriesWidget(QuickOSMWidget, Ui_ui_my_queries):
             if num_layers:
                 display_message_bar(
                     tr('QuickOSM', u'Successful query !'),
-                    level=QgsMessageBar.INFO,
+                    level=Qgis.Info,
                     duration=5)
                 self.label_progress.setText(
                     tr('QuickOSM', u'Successful query !'))
             else:
                 display_message_bar(
                     tr('QuickOSM', u'Successful query, but no result.'),
-                    level=QgsMessageBar.WARNING,
+                    level=Qgis.Warning,
                     duration=7)
 
         except QuickOsmException as e:

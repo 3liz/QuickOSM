@@ -30,6 +30,7 @@ from qgis.PyQt.QtGui import QDesktopServices
 from qgis.PyQt.QtCore import QUrl
 from qgis.utils import iface
 from qgis.gui import QgsMessageBar
+from qgis.core import Qgis
 
 from QuickOSM.core.utilities.tools import tr
 
@@ -54,7 +55,7 @@ class Actions(object):
             iface.messageBar().pushMessage(
                 tr("QuickOSM",
                    u"Sorry man, this field is empty for this entity."),
-                level=QgsMessageBar.WARNING, duration=7)
+                level=Qgis.Warning, duration=7)
         else:
             field = str(field, "UTF-8")
             value = str(value, "UTF-8")
@@ -84,7 +85,7 @@ class Actions(object):
                     iface.messageBar().pushMessage(
                         tr("QuickOSM",
                            u"The JOSM remote seems to be disabled."),
-                        level=QgsMessageBar.CRITICAL,
+                        level=Qgis.Critical,
                         duration=7)
 
             # NOT USED
@@ -112,7 +113,7 @@ class Actions(object):
             iface.messageBar().pushMessage(
                 tr("QuickOSM",
                    u"Sorry man, this field is empty for this entity."),
-                level=QgsMessageBar.WARNING,
+                level=Qgis.Warning,
                 duration=7)
         else:
             var = QDesktopServices()

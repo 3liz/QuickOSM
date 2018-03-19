@@ -26,7 +26,7 @@ from os.path import isdir, dirname, abspath, join, isfile
 
 from qgis.PyQt.QtCore import Qt
 from qgis.PyQt.QtWidgets import QFileDialog, QApplication, QDockWidget
-from qgis.core import QgsMapLayerRegistry
+from qgis.core import QgsProject
 
 from QuickOSM.core.utilities.tools import tr
 from QuickOSM.core.exceptions import (
@@ -169,7 +169,7 @@ class OsmFileWidget(QuickOSMWidget, Ui_ui_osm_file):
                 layers = osm_parser.parse()
 
                 for item in list(layers.values()):
-                    QgsMapLayerRegistry.instance().addMapLayer(item)
+                    QgsProject.instance().addMapLayer(item)
 
             else:
                 open_file(

@@ -135,7 +135,7 @@ class OsmParserGeoAlgorithm(GeoAlgorithm):
 
             output_parameter = self.getOutputFromName(self.OUTPUT_LAYERS[key])
             layers_outputs[key] = output_parameter.getVectorWriter(
-                layer.pendingFields(),
+                layer.fields(),
                 values['geomType'],
                 layer.crs())
 

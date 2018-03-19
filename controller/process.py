@@ -25,7 +25,7 @@ import tempfile
 from os.path import dirname, abspath, join, isfile
 from qgis.PyQt.QtWidgets import QApplication
 from qgis.core import \
-    QGis, QgsVectorLayer, QgsVectorFileWriter, QgsAction, QgsMapLayerRegistry
+    Qgis, QgsVectorLayer, QgsVectorFileWriter, QgsAction, QgsProject, QgsWkbTypes
 
 from QuickOSM.core.query_factory import QueryFactory
 from QuickOSM.core.utilities.tools import tr
@@ -118,10 +118,10 @@ def open_file(
 
             # Transforming the vector file
             osm_geometries = {
-                'points': QGis.WKBPoint,
-                'lines': QGis.WKBLineString,
-                'multilinestrings': QGis.WKBMultiLineString,
-                'multipolygons': QGis.WKBMultiPolygon}
+                'points': QgsWkbTypes.Point,
+                'lines': QgsWkbTypes.LineString,
+                'multilinestrings': QgsWkbTypes.MultiLineString,
+                'multipolygons': QgsWkbTypes.MultiPolygon}
             geojson_layer = QgsVectorLayer(item['geojsonFile'], "temp", "ogr")
 
             encoding = get_default_encoding()
@@ -129,7 +129,7 @@ def open_file(
                 writer = QgsVectorFileWriter(
                     outputs[layer],
                     encoding,
-                    geojson_layer.pendingFields(),
+                    geojson_layer.fields(),
                     osm_geometries[layer],
                     geojson_layer.crs(),
                     "ESRI Shapefile")
@@ -137,7 +137,7 @@ def open_file(
                 writer = QgsVectorFileWriter(
                     outputs[layer],
                     encoding,
-                    geojson_layer.pendingFields(),
+                    geojson_layer.fields(),
                     osm_geometries[layer],
                     geojson_layer.crs(),
                     "GeoJSON")
@@ -205,7 +205,7 @@ def open_file(
             if output_format == "shape":
                 new_layer.dataProvider().createSpatialIndex()
 
-            QgsMapLayerRegistry.instance().addMapLayer(new_layer)
+            QgsProject.instance().addMapLayer(new_layer)
             num_layers += 1
 
     return num_layers
@@ -245,7 +245,7 @@ def process_query(
     dialog.set_progress_text(tr("QuickOSM", u"Downloading data from Overpass"))
     QApplication.processEvents()
     connexion_overpass_api = ConnexionOAPI(url=server, output="xml")
-    osm_file = connexion_overpass_api.get_file_from_query(query)
+    osm_file = connexion_overpass_api.query(query)
 
     return open_file(
         dialog=dialog,
