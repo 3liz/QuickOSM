@@ -126,85 +126,85 @@ class QuickOSMPlugin(object):
         self.iface.QuickOSM_mainWindowDialog = MainWindowDialog()
 
         # OSM File
-        self.osmFileAction = QAction(
-            QIcon(':/plugins/QuickOSM/resources/open.png'),
-            tr('ui_osm_file', 'OSM File'),
-            self.iface.mainWindow())
-        # noinspection PyUnresolvedReferences
-        self.osmFileAction.triggered.connect(self.openOsmFileDockWidget)
-        self.osmFileDockWidget = OsmFileDockWidget()
-        self.iface.addDockWidget(
-            Qt.RightDockWidgetArea, self.osmFileDockWidget)
-        self.osmFileDockWidget.hide()
-        self.osmFileDockWidget.setObjectName('osmFileWidget')
+        # self.osmFileAction = QAction(
+        #     QIcon(':/plugins/QuickOSM/resources/open.png'),
+        #     tr('ui_osm_file', 'OSM File'),
+        #     self.iface.mainWindow())
+        # # noinspection PyUnresolvedReferences
+        # self.osmFileAction.triggered.connect(self.openOsmFileDockWidget)
+        # self.osmFileDockWidget = OsmFileDockWidget()
+        # self.iface.addDockWidget(
+        #     Qt.RightDockWidgetArea, self.osmFileDockWidget)
+        # self.osmFileDockWidget.hide()
+        # self.osmFileDockWidget.setObjectName('osmFileWidget')
 
         # My queries
-        self.myQueriesAction = QAction(
-            QIcon(':/plugins/QuickOSM/resources/favorites.png'),
-            tr('ui_my_queries', 'My queries'),
-            self.iface.mainWindow())
-        # noinspection PyUnresolvedReferences
-        self.myQueriesAction.triggered.connect(self.openMyQueriesDockWidget)
-        self.myQueriesDockWidget = MyQueriesDockWidget()
-        self.iface.addDockWidget(
-            Qt.RightDockWidgetArea, self.myQueriesDockWidget)
-        self.myQueriesDockWidget.hide()
-        self.myQueriesDockWidget.setObjectName('myQueriesWidget')
+        # self.myQueriesAction = QAction(
+        #     QIcon(':/plugins/QuickOSM/resources/favorites.png'),
+        #     tr('ui_my_queries', 'My queries'),
+        #     self.iface.mainWindow())
+        # # noinspection PyUnresolvedReferences
+        # self.myQueriesAction.triggered.connect(self.openMyQueriesDockWidget)
+        # self.myQueriesDockWidget = MyQueriesDockWidget()
+        # self.iface.addDockWidget(
+        #     Qt.RightDockWidgetArea, self.myQueriesDockWidget)
+        # self.myQueriesDockWidget.hide()
+        # self.myQueriesDockWidget.setObjectName('myQueriesWidget')
 
         # Query
-        self.queryAction = QAction(
-            QIcon(':/plugins/QuickOSM/resources/edit.png'),
-            tr('ui_query', 'Query'),
-            self.iface.mainWindow())
-        # noinspection PyUnresolvedReferences
-        self.queryAction.triggered.connect(self.openQueryDockWidget)
-        self.queryDockWidget = QueryDockWidget()
-        self.iface.addDockWidget(Qt.RightDockWidgetArea, self.queryDockWidget)
-        self.queryDockWidget.hide()
-        self.queryDockWidget.setObjectName('queryWidget')
+        # self.queryAction = QAction(
+        #     QIcon(':/plugins/QuickOSM/resources/edit.png'),
+        #     tr('ui_query', 'Query'),
+        #     self.iface.mainWindow())
+        # # noinspection PyUnresolvedReferences
+        # self.queryAction.triggered.connect(self.openQueryDockWidget)
+        # self.queryDockWidget = QueryDockWidget()
+        # self.iface.addDockWidget(Qt.RightDockWidgetArea, self.queryDockWidget)
+        # self.queryDockWidget.hide()
+        # self.queryDockWidget.setObjectName('queryWidget')
 
         # Quick query
-        self.quickQueryAction = QAction(
-            QIcon(':/plugins/QuickOSM/resources/quick.png'),
-            tr('ui_quick_query', 'Quick query'),
-            self.iface.mainWindow())
-        # noinspection PyUnresolvedReferences
-        self.quickQueryAction.triggered.connect(self.openQuickQueryDockWidget)
-        self.quickQueryDockWidget = QuickQueryDockWidget()
-        self.iface.addDockWidget(
-            Qt.RightDockWidgetArea, self.quickQueryDockWidget)
-        self.quickQueryDockWidget.hide()
-        self.quickQueryDockWidget.setObjectName('quickQueryWidget')
+        # self.quickQueryAction = QAction(
+        #     QIcon(':/plugins/QuickOSM/resources/quick.png'),
+        #     tr('ui_quick_query', 'Quick query'),
+        #     self.iface.mainWindow())
+        # # noinspection PyUnresolvedReferences
+        # self.quickQueryAction.triggered.connect(self.openQuickQueryDockWidget)
+        # self.quickQueryDockWidget = QuickQueryDockWidget()
+        # self.iface.addDockWidget(
+        #     Qt.RightDockWidgetArea, self.quickQueryDockWidget)
+        # self.quickQueryDockWidget.hide()
+        # self.quickQueryDockWidget.setObjectName('quickQueryWidget')
 
         # Insert in the good order
         self.quickosm_menu.addAction(self.mainWindowAction)
-        self.quickosm_menu.addMenu(self.dock_menu)
-        self.dock_menu.addAction(self.quickQueryAction)
-        self.dock_menu.addAction(self.queryAction)
-        self.dock_menu.addAction(self.myQueriesAction)
-        self.dock_menu.addAction(self.osmFileAction)
+        # self.quickosm_menu.addMenu(self.dock_menu)
+        # self.dock_menu.addAction(self.quickQueryAction)
+        # self.dock_menu.addAction(self.queryAction)
+        # self.dock_menu.addAction(self.myQueriesAction)
+        # self.dock_menu.addAction(self.osmFileAction)
 
         # Connect signals and slots from dock
-        self.queryDockWidget.signal_new_query_successful.connect(
-            self.iface.QuickOSM_mainWindowDialog.refresh_my_queries_tree)
-        self.queryDockWidget.signal_new_query_successful.connect(
-            self.myQueriesDockWidget.refresh_my_queries_tree)
-        self.myQueriesDockWidget.signal_delete_query_successful.connect(
-            self.myQueriesDockWidget.refresh_my_queries_tree)
-        self.myQueriesDockWidget.signal_delete_query_successful.connect(
-            self.iface.QuickOSM_mainWindowDialog.refresh_my_queries_tree)
+        # self.queryDockWidget.signal_new_query_successful.connect(
+        #     self.iface.QuickOSM_mainWindowDialog.refresh_my_queries_tree)
+        # self.queryDockWidget.signal_new_query_successful.connect(
+        #     self.myQueriesDockWidget.refresh_my_queries_tree)
+        # self.myQueriesDockWidget.signal_delete_query_successful.connect(
+        #     self.myQueriesDockWidget.refresh_my_queries_tree)
+        # self.myQueriesDockWidget.signal_delete_query_successful.connect(
+        #     self.iface.QuickOSM_mainWindowDialog.refresh_my_queries_tree)
 
         # Connect signals and slots from mainWindow
-        self.iface.QuickOSM_mainWindowDialog.signal_new_query_successful.\
-            connect(self.myQueriesDockWidget.refresh_my_queries_tree)
-        self.iface.QuickOSM_mainWindowDialog.signal_new_query_successful.\
-            connect(
-                self.iface.QuickOSM_mainWindowDialog.refresh_my_queries_tree)
-        self.iface.QuickOSM_mainWindowDialog.signal_delete_query_successful.\
-            connect(self.myQueriesDockWidget.refresh_my_queries_tree)
-        self.iface.QuickOSM_mainWindowDialog.signal_delete_query_successful.\
-            connect(
-                self.iface.QuickOSM_mainWindowDialog.refresh_my_queries_tree)
+        # self.iface.QuickOSM_mainWindowDialog.signal_new_query_successful.\
+        #     connect(self.myQueriesDockWidget.refresh_my_queries_tree)
+        # self.iface.QuickOSM_mainWindowDialog.signal_new_query_successful.\
+        #     connect(
+        #         self.iface.QuickOSM_mainWindowDialog.refresh_my_queries_tree)
+        # self.iface.QuickOSM_mainWindowDialog.signal_delete_query_successful.\
+        #     connect(self.myQueriesDockWidget.refresh_my_queries_tree)
+        # self.iface.QuickOSM_mainWindowDialog.signal_delete_query_successful.\
+        #     connect(
+        #         self.iface.QuickOSM_mainWindowDialog.refresh_my_queries_tree)
 
         # Read the config file
         json_file_config = join(dirname(abspath(__file__)), 'config.json')
@@ -241,10 +241,10 @@ class QuickOSMPlugin(object):
 
     def unload(self):
         self.iface.removePluginVectorMenu(u'&QuickOSM', self.mainWindowAction)
-        self.iface.removePluginVectorMenu(u'&QuickOSM', self.myQueriesAction)
-        self.iface.removePluginVectorMenu(u'&QuickOSM', self.queryAction)
-        self.iface.removePluginVectorMenu(u'&QuickOSM', self.quickQueryAction)
-        self.iface.removePluginVectorMenu(u'&QuickOSM', self.osmFileAction)
+        # self.iface.removePluginVectorMenu(u'&QuickOSM', self.myQueriesAction)
+        # self.iface.removePluginVectorMenu(u'&QuickOSM', self.queryAction)
+        # self.iface.removePluginVectorMenu(u'&QuickOSM', self.quickQueryAction)
+        # self.iface.removePluginVectorMenu(u'&QuickOSM', self.osmFileAction)
         self.iface.removeToolBarIcon(self.mainWindowAction)
         # Processing.removeProvider(self.provider)
 
@@ -252,26 +252,26 @@ class QuickOSMPlugin(object):
         self.iface.QuickOSM_mainWindowDialog.listWidget.setCurrentRow(0)
         self.iface.QuickOSM_mainWindowDialog.exec_()
 
-    def openMyQueriesDockWidget(self):
-        if self.myQueriesDockWidget.isVisible():
-            self.myQueriesDockWidget.hide()
-        else:
-            self.myQueriesDockWidget.show()
-
-    def openQueryDockWidget(self):
-        if self.queryDockWidget.isVisible():
-            self.queryDockWidget.hide()
-        else:
-            self.queryDockWidget.show()
-
-    def openOsmFileDockWidget(self):
-        if self.osmFileDockWidget.isVisible():
-            self.osmFileDockWidget.hide()
-        else:
-            self.osmFileDockWidget.show()
-
-    def openQuickQueryDockWidget(self):
-        if self.quickQueryDockWidget.isVisible():
-            self.quickQueryDockWidget.hide()
-        else:
-            self.quickQueryDockWidget.show()
+    # def openMyQueriesDockWidget(self):
+    #     if self.myQueriesDockWidget.isVisible():
+    #         self.myQueriesDockWidget.hide()
+    #     else:
+    #         self.myQueriesDockWidget.show()
+    #
+    # def openQueryDockWidget(self):
+    #     if self.queryDockWidget.isVisible():
+    #         self.queryDockWidget.hide()
+    #     else:
+    #         self.queryDockWidget.show()
+    #
+    # def openOsmFileDockWidget(self):
+    #     if self.osmFileDockWidget.isVisible():
+    #         self.osmFileDockWidget.hide()
+    #     else:
+    #         self.osmFileDockWidget.show()
+    #
+    # def openQuickQueryDockWidget(self):
+    #     if self.quickQueryDockWidget.isVisible():
+    #         self.quickQueryDockWidget.hide()
+    #     else:
+    #         self.quickQueryDockWidget.show()
