@@ -87,15 +87,6 @@ QListWidget::item::selected {
      </item>
      <item>
       <property name="text">
-       <string>My queries</string>
-      </property>
-      <property name="icon">
-       <iconset resource="../resources.qrc">
-        <normaloff>:/plugins/QuickOSM/resources/favorites.png</normaloff>:/plugins/QuickOSM/resources/favorites.png</iconset>
-      </property>
-     </item>
-     <item>
-      <property name="text">
        <string>Query</string>
       </property>
       <property name="icon">
@@ -161,10 +152,14 @@ QListWidget::item::selected {
         </size>
        </property>
        <property name="currentIndex">
-        <number>6</number>
+        <number>2</number>
        </property>
        <widget class="QuickQueryWidget" name="quick_query"/>
-       <widget class="MyQueriesWidget" name="my_queries"/>
+       <widget class="MyQueriesWidget" name="my_queries">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
+       </widget>
        <widget class="QueryWidget" name="query"/>
        <widget class="OsmFileWidget" name="osm_file"/>
        <widget class="QWidget" name="parameters">
