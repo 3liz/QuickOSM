@@ -36,7 +36,8 @@ from qgis.core import (
     QgsGeometry,
     QgsCoordinateTransform,
     QgsCoordinateReferenceSystem,
-    QgsMapLayerRegistry
+    QgsProject,
+    Qgis,
 )
 
 from QuickOSM.core.utilities.utilities_qgis import display_message_bar
@@ -54,9 +55,9 @@ class QuickOSMWidget(QWidget):
             'nominatim.txt')
         QWidget.__init__(self, parent)
 
-        registry = QgsMapLayerRegistry.instance()
-        registry.layersAdded.connect(self.activate_extent_layer)
-        registry.layersRemoved.connect(self.activate_extent_layer)
+        project = QgsProject.instance()
+        project.layersAdded.connect(self.activate_extent_layer)
+        project.layersRemoved.connect(self.activate_extent_layer)
 
     def init_nominatim_autofill(self):
 
@@ -65,13 +66,15 @@ class QuickOSMWidget(QWidget):
         self.last_places = []
 
         if isfile(self.last_nominatim_places_filepath):
-            for line in open(self.last_nominatim_places_filepath, 'r'):
+            last = open(self.last_nominatim_places_filepath, 'r')
+            for line in last:
                 self.last_places.append(line.rstrip('\n'))
 
             nominatim_completer = QCompleter(self.last_places)
             self.lineEdit_nominatim.setCompleter(nominatim_completer)
             self.lineEdit_nominatim.completer().setCompletionMode(
                 QCompleter.PopupCompletion)
+            last.close()
         else:
             open(self.last_nominatim_places_filepath, 'a').close()
 
@@ -88,7 +91,7 @@ class QuickOSMWidget(QWidget):
 
         f = open(self.last_nominatim_places_filepath, 'w')
         for item in new_list:
-            f.write("%s\n" % item.encode("UTF-8"))
+            f.write('%s\n' % item)
         f.close()
 
         self.init_nominatim_autofill()
@@ -196,7 +199,8 @@ class QuickOSMWidget(QWidget):
 
         geom_extent = QgsGeometry.fromRect(geom_extent)
         epsg_4326 = QgsCoordinateReferenceSystem('EPSG:4326')
-        crs_transform = QgsCoordinateTransform(source_crs, epsg_4326)
+        crs_transform = QgsCoordinateTransform(
+            source_crs, epsg_4326, QgsProject.instance())
         geom_extent.transform(crs_transform)
         return geom_extent.boundingBox()
 
@@ -265,7 +269,7 @@ class QuickOSMWidget(QWidget):
 
         display_message_bar(
             tr('QuickOSM', 'Error in the python console, please report it'),
-            level=QgsMessageBar.CRITICAL,
+            level=Qgis.Critical,
             duration=5)
 
     @staticmethod

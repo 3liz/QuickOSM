@@ -65,7 +65,7 @@ def get_QuickOSM_folder():
     @rtype: str
     @return: path
     """
-    folder = QFileInfo(QgsApplication.qgisUserDbFilePath()).path() + 'QuickOSM'
+    folder = QFileInfo(QgsApplication.qgisSettingsDirPath()).path() + 'QuickOSM'
     return str(QDir.toNativeSeparators(folder))
 
 

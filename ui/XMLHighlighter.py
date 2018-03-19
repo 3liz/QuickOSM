@@ -20,7 +20,7 @@
  ***************************************************************************/
 """
 
-from qgis.PyQt.QtGui import QColor, QFont
+from qgis.PyQt.QtGui import QColor, QFont, QSyntaxHighlighter, QTextCharFormat
 from qgis.PyQt.QtCore import Qt, QRegExp
 
 

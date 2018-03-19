@@ -21,18 +21,30 @@
  ***************************************************************************/
 """
 
-from processing.core.GeoAlgorithmExecutionException import \
-    GeoAlgorithmExecutionException
+# from processing.core.GeoAlgorithmExecutionException import \
+#     GeoAlgorithmExecutionException
 from qgis.gui import QgsMessageBar
+from qgis.core import Qgis
 
 from QuickOSM.core.utilities.tools import tr
 
 
-class QuickOsmException(GeoAlgorithmExecutionException):
+class QuickOsmException(BaseException):
     def __init__(self, msg=None):
-        GeoAlgorithmExecutionException.__init__(self, msg)
-        self.level = QgsMessageBar.CRITICAL
+        if not msg:
+            msg = tr('Exception', u'QuickOSM')
+        self.msg = msg
+        BaseException.__init__(self, msg)
+        self.level = Qgis.Critical
         self.duration = 7
+
+
+class GeoAlgorithmException(QuickOsmException):
+    def __init__(self, msg=None):
+        if not msg:
+            msg = tr('Exception', u'GeoAlgorithm exception')
+        QuickOsmException.__init__(self, msg)
+
 
 '''
 Overpass or network

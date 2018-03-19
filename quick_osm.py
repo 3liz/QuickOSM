@@ -29,6 +29,7 @@ from qgis.PyQt.QtWidgets import QMenu, QAction, QPushButton
 from qgis.PyQt.QtGui import QIcon
 
 from qgis.gui import QgsMessageBar
+from qgis.core import Qgis
 # from processing.core.Processing import Processing
 
 from QuickOSM.core.custom_logging import setup_logger
@@ -49,7 +50,7 @@ from QuickOSM.core.utilities.tools import (
 )
 
 
-class QuickOSM(object):
+class QuickOSMPlugin(object):
 
     def __init__(self, iface):
         """Constructor.
@@ -230,7 +231,7 @@ class QuickOSM(object):
                 button_ok.pressed.connect(self.restoreDefaultQueries)
                 widget.layout().addWidget(button_ok)
                 self.iface.messageBar().pushWidget(
-                    widget, QgsMessageBar.INFO, 0)
+                    widget, Qgis.Info, 0)
 
             set_setting('version', current_version)
 

@@ -30,6 +30,7 @@ from os.path import dirname, abspath, join, isfile, isdir
 from qgis.PyQt.QtWidgets import QDockWidget, QApplication, QCompleter, QDialogButtonBox
 from qgis.PyQt.QtCore import Qt
 from qgis.gui import QgsMessageBar
+from qgis.core import Qgis
 
 from QuickOSM.core.exceptions import (
     QuickOsmException,
@@ -277,14 +278,14 @@ class QuickQueryWidget(QuickOSMWidget, Ui_ui_quick_query):
 
                 display_message_bar(
                     tr('QuickOSM', u'Successful query !'),
-                    level=QgsMessageBar.INFO,
+                    level=Qgis.Info,
                     duration=5)
             else:
                 self.label_progress.setText(tr("QuickOSM", u'No result'))
 
                 display_message_bar(
                     tr('QuickOSM', u'Successful query, but no result.'),
-                    level=QgsMessageBar.WARNING,
+                    level=Qgis.Warning,
                     duration=7)
 
         except QuickOsmException as e:
