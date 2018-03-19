@@ -9,7 +9,7 @@ newQueries=False
 author=Etienne Trimaille
 email=etienne@trimaille.eu
 # For QGIS WPS
-server=True
+server=False
 
 # End of mandatory metadata
 
@@ -53,7 +53,7 @@ tracker=https://github.com/3liz/QuickOSM/issues
 repository=https://github.com/3liz/QuickOSM
 icon=icon.png
 # experimental flag
-experimental=False
+experimental=True
 
 # deprecated flag (applies to the whole plugin, not just a single version)
 deprecated=False
