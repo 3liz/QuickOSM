@@ -17,6 +17,9 @@ server=True
 
 # Uncomment the following line and add your changelog:
 # changelog=
+  Version 1.5.0
+  * Port to QGIS 3, Python 3 and Qt5.
+  * New JOSM remote
   Version 1.4.8
   * Allow more output format in Processing framework
   Version 1.4.7
@@ -43,7 +46,7 @@ server=True
   * Fix some minor bugs
 
 # Tags are comma separated with spaces allowed
-tags=osm,openstreetmap,overpass,download,osmdownloader
+tags=osm,openstreetmap,overpass,download,osmdownloader,josm,remote
 
 homepage=https://github.com/3liz/QuickOSM
 tracker=https://github.com/3liz/QuickOSM/issues
