@@ -23,13 +23,12 @@
 
 from os.path import isfile, join, basename, dirname, abspath
 
-from qgis.PyQt.QtGui import QIcon
-from qgis.PyQt.QtCore import QSettings
-from processing.core.GeoAlgorithm import GeoAlgorithm
-
-from QuickOSM.quick_osm_processing import *
 from QuickOSM.core.api.nominatim import Nominatim
 from QuickOSM.core.exceptions import NominatimAreaException
+from QuickOSM.quick_osm_processing import *
+from processing.core.GeoAlgorithm import GeoAlgorithm
+from qgis.PyQt.QtCore import QSettings
+from qgis.PyQt.QtGui import QIcon
 
 
 class NominatimQueryGeoAlgorithm(GeoAlgorithm):

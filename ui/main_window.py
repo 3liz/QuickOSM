@@ -389,4 +389,3 @@ from .osm_file_dialog import OsmFileWidget
 from qgis.gui import QgsMessageBar
 from .query_dialog import QueryWidget
 from .quick_query_dialog import QuickQueryWidget
-from QuickOSM import resources_rc

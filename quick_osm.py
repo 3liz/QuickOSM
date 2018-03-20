@@ -23,18 +23,10 @@
 
 import urllib.request
 from builtins import object
-from os.path import dirname, join, exists, abspath, isfile
 from json import load
-from qgis.PyQt.QtCore import QSettings, QTranslator, qVersion, QCoreApplication, Qt
-from qgis.PyQt.QtWidgets import QMenu, QAction, QPushButton
-from qgis.PyQt.QtGui import QIcon
-
-from qgis.gui import QgsMessageBar
-from qgis.core import Qgis, QgsCoordinateTransform, QgsCoordinateReferenceSystem, QgsProject
-# from processing.core.Processing import Processing
+from os.path import dirname, join, exists, abspath, isfile
 
 from QuickOSM.core.custom_logging import setup_logger
-from QuickOSM.ui.main_window_dialog import MainWindowDialog
 # from QuickOSM.ui.my_queries_dialog import MyQueriesDockWidget
 # from QuickOSM.ui.query_dialog import QueryDockWidget
 # from QuickOSM.ui.osm_file_dialog import OsmFileDockWidget
@@ -49,6 +41,15 @@ from QuickOSM.core.utilities.tools import (
     tr,
     get_user_query_folder
 )
+from QuickOSM.ui.main_window_dialog import MainWindowDialog
+from qgis.PyQt.QtCore import QSettings, QTranslator, qVersion, QCoreApplication
+from qgis.PyQt.QtGui import QIcon
+from qgis.PyQt.QtWidgets import QMenu, QAction, QPushButton
+from qgis.core import Qgis, QgsCoordinateTransform, \
+    QgsCoordinateReferenceSystem, QgsProject
+
+
+# from processing.core.Processing import Processing
 
 
 class QuickOSMPlugin(object):

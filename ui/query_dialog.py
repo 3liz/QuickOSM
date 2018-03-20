@@ -20,31 +20,27 @@
  *                                                                         *
  ***************************************************************************/
 """
-from __future__ import absolute_import
-
-from builtins import str
 import re
 from os.path import isdir
 
-from qgis.PyQt.QtWidgets import QDockWidget, QMenu, QAction, QApplication, QDialogButtonBox
-from qgis.PyQt.QtGui import QDesktopServices
-from qgis.PyQt.QtCore import pyqtSignal, Qt, QUrl
-from qgis.gui import QgsMessageBar
-from qgis.core import Qgis
-
-from QuickOSM.core.utilities.tools import tr
+from QuickOSM.controller.process import process_query
 from QuickOSM.core.exceptions import (
     QuickOsmException,
     DirectoryOutPutException,
     OutPutGeomTypesException,
     MissingParameterException)
-from QuickOSM.core.utilities.utilities_qgis import display_message_bar
 from QuickOSM.core.query_parser import prepare_query
-from QuickOSM.controller.process import process_query
-from .XMLHighlighter import XMLHighlighter
-from .save_query_dialog import SaveQueryDialog
-from .QuickOSMWidget import QuickOSMWidget
-from .query import Ui_ui_query
+from QuickOSM.core.utilities.tools import tr
+from QuickOSM.core.utilities.utilities_qgis import display_message_bar
+from QuickOSM.ui.QuickOSMWidget import QuickOSMWidget
+from QuickOSM.ui.XMLHighlighter import XMLHighlighter
+from QuickOSM.ui.query import Ui_ui_query
+from QuickOSM.ui.save_query_dialog import SaveQueryDialog
+from qgis.PyQt.QtCore import pyqtSignal, Qt, QUrl
+from qgis.PyQt.QtGui import QDesktopServices
+from qgis.PyQt.QtWidgets import QDockWidget, QMenu, QAction, QApplication, \
+    QDialogButtonBox
+from qgis.core import Qgis
 
 
 class QueryWidget(QuickOSMWidget, Ui_ui_query):

@@ -20,25 +20,21 @@
  *                                                                         *
  ***************************************************************************/
 """
-from __future__ import print_function
-from __future__ import absolute_import
 
-from builtins import str
-from . import pghstore
-from QuickOSM.core.parser.pghstore._native import loads
 import codecs
-import tempfile
 import re
+import tempfile
 from os.path import dirname, realpath, join, isfile, basename
+
+from QuickOSM.core.exceptions import \
+    GeoAlgorithmException, WrongOrderOSMException
+from QuickOSM.core.parser.pghstore._native import loads
+from QuickOSM.core.utilities.operating_system import get_default_encoding
+from QuickOSM.core.utilities.tools import tr
 from osgeo import gdal
 from qgis.PyQt.QtCore import QObject, pyqtSignal, QVariant
 from qgis.core import \
     QgsVectorLayer, QgsFields, QgsField, QgsVectorFileWriter, QgsFeature
-
-from QuickOSM.core.exceptions import \
-    GeoAlgorithmException, WrongOrderOSMException
-from QuickOSM.core.utilities.tools import tr
-from QuickOSM.core.utilities.operating_system import get_default_encoding
 
 
 class OsmParser(QObject):
@@ -121,7 +117,8 @@ class OsmParser(QObject):
 
                 if not layers[layer].isValid():
                     # fix_print_with_import
-                    print("Error on the layer", layers[layer].lastError())
+                    # print("Error on the layer", layers[layer].lastError())
+                    pass
 
             return layers
 
@@ -250,7 +247,7 @@ class OsmParser(QObject):
                     new_attributes.append(osm_type)
 
                     if attributes[1]:
-                        h_store = pghstore.loads(attributes[1])
+                        h_store = loads(attributes[1])
                         for tag in layers[layer]['tags'][3:]:
                             if str(tag) in h_store:
                                 new_attributes.append(h_store[tag])
@@ -272,7 +269,7 @@ class OsmParser(QObject):
                         new_attributes.append(attributes[1])
                     new_attributes.append(osm_type)
 
-                    h_store = pghstore.loads(attributes[2])
+                    h_store = loads(attributes[2])
                     for tag in layers[layer]['tags'][3:]:
                         if str(tag) in h_store:
                             new_attributes.append(h_store[tag])

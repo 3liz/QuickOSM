@@ -1,5 +1,6 @@
-import re
 import collections
+import re
+
 try:
     import io as StringIO
 except ImportError:

@@ -20,12 +20,8 @@
  *                                                                         *
  ***************************************************************************/
 """
-
-from future import standard_library
-standard_library.install_aliases()
-from builtins import object
-import configparser
 import codecs
+import configparser
 from os.path import join, isfile
 
 from QuickOSM.core.exceptions import QueryAlreadyExistsException

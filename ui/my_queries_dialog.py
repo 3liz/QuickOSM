@@ -22,17 +22,9 @@
 """
 from __future__ import absolute_import
 
-from builtins import range
 import re
 from os.path import isdir
-from qgis.PyQt.QtCore import pyqtSignal, QFile, Qt
-from qgis.PyQt.QtWidgets import QTreeWidgetItem, QMenu, QAction, QMessageBox, QApplication, QDockWidget
-from qgis.utils import iface
-from qgis.core import Qgis
-from qgis.gui import QgsMessageBar
 
-from .QuickOSMWidget import QuickOSMWidget
-from .my_queries import Ui_ui_my_queries
 from QuickOSM.controller.process import process_query
 from QuickOSM.core.exceptions import (
     QuickOsmException,
@@ -40,8 +32,15 @@ from QuickOSM.core.exceptions import (
     DirectoryOutPutException,
     MissingParameterException)
 from QuickOSM.core.file_query import FileQuery
-from QuickOSM.core.utilities.utilities_qgis import display_message_bar
 from QuickOSM.core.utilities.tools import tr, get_user_query_folder
+from QuickOSM.core.utilities.utilities_qgis import display_message_bar
+from QuickOSM.ui.QuickOSMWidget import QuickOSMWidget
+from QuickOSM.ui.my_queries import Ui_ui_my_queries
+from qgis.PyQt.QtCore import pyqtSignal, QFile, Qt
+from qgis.PyQt.QtWidgets import QTreeWidgetItem, QMenu, QAction, QMessageBox, \
+    QApplication, QDockWidget
+from qgis.core import Qgis
+from qgis.utils import iface
 
 
 class MyQueriesWidget(QuickOSMWidget, Ui_ui_my_queries):

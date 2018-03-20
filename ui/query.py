@@ -247,4 +247,3 @@ class Ui_ui_query(object):
 
 from qgis.gui import QgsCollapsibleGroupBox
 from qgis.gui import QgsMapLayerComboBox
-from QuickOSM import resources_rc

@@ -164,4 +164,3 @@ class Ui_ui_osm_file(object):
         self.pushButton_browseOsmConf.setText(_translate("ui_osm_file", "Browse"))
         self.pushButton_runQuery.setText(_translate("ui_osm_file", "Open"))
 
-from QuickOSM import resources_rc

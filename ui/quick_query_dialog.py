@@ -20,31 +20,24 @@
  *                                                                         *
  ***************************************************************************/
 """
-from __future__ import absolute_import
-
-from builtins import str
-from builtins import range
 from json import load
 from os.path import dirname, abspath, join, isfile, isdir
 
-from qgis.PyQt.QtWidgets import QDockWidget, QApplication, QCompleter, QDialogButtonBox
-from qgis.PyQt.QtCore import Qt
-from qgis.gui import QgsMessageBar
-from qgis.core import Qgis
-
+from QuickOSM.controller.process import process_quick_query
 from QuickOSM.core.exceptions import (
     QuickOsmException,
     OutPutGeomTypesException,
     DirectoryOutPutException,
     OsmObjectsException)
-from QuickOSM.core.utilities.utilities_qgis import display_message_bar
-from QuickOSM.core.utilities.tools import tr
 from QuickOSM.core.query_factory import QueryFactory
-from QuickOSM.controller.process import process_quick_query
-from .QuickOSMWidget import QuickOSMWidget
-from .quick_query import Ui_ui_quick_query
-
-
+from QuickOSM.core.utilities.tools import tr
+from QuickOSM.core.utilities.utilities_qgis import display_message_bar
+from QuickOSM.ui.QuickOSMWidget import QuickOSMWidget
+from QuickOSM.ui.quick_query import Ui_ui_quick_query
+from qgis.PyQt.QtCore import Qt
+from qgis.PyQt.QtWidgets import QDockWidget, QApplication, QCompleter, \
+    QDialogButtonBox
+from qgis.core import Qgis
 from qgis.utils import iface
 
 

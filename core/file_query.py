@@ -20,16 +20,11 @@
  *                                                                         *
  ***************************************************************************/
 """
-
-from future import standard_library
-standard_library.install_aliases()
-from builtins import str
-from builtins import object
-import ntpath
 import configparser
+import ntpath
 import re
-from os.path import dirname, join, isfile
 from os import listdir
+from os.path import dirname, join, isfile
 
 
 class FileQuery(object):

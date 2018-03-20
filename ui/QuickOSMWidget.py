@@ -20,18 +20,15 @@
  *                                                                         *
  ***************************************************************************/
 """
-from __future__ import print_function
-
-from builtins import str
 import logging
 from os.path import split, join, isfile
 from sys import exc_info
 
-from qgis.PyQt.QtWidgets import QWidget, QFileDialog, QApplication, QCompleter
-from qgis.PyQt.QtGui import QDesktopServices
+from QuickOSM.core.utilities.tools import tr, get_QuickOSM_folder
+from QuickOSM.core.utilities.utilities_qgis import display_message_bar
 from qgis.PyQt.QtCore import QUrl
-from qgis.utils import iface
-from qgis.gui import QgsMessageBar
+from qgis.PyQt.QtGui import QDesktopServices
+from qgis.PyQt.QtWidgets import QWidget, QFileDialog, QApplication, QCompleter
 from qgis.core import (
     QgsGeometry,
     QgsCoordinateTransform,
@@ -39,10 +36,7 @@ from qgis.core import (
     QgsProject,
     Qgis,
 )
-
-from QuickOSM.core.utilities.utilities_qgis import display_message_bar
-from QuickOSM.core.utilities.tools import tr, get_QuickOSM_folder
-from QuickOSM.core.exceptions import NoLayerException
+from qgis.utils import iface
 
 LOGGER = logging.getLogger('QuickOSM')
 

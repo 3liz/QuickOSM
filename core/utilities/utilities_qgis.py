@@ -22,10 +22,8 @@
 """
 
 from osgeo import gdal, ogr
-from qgis.gui import QgsMessageBar
 from qgis.core import Qgis
 from qgis.utils import iface
-from QuickOSM.core.exceptions import GDALVersion, OsmDriverNotFound
 
 
 def display_message_bar(

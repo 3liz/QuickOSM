@@ -23,13 +23,12 @@
 
 from os.path import isfile, join, basename, dirname, abspath
 
-from qgis.PyQt.QtCore import QSettings
-from qgis.PyQt.QtGui import QIcon
-from processing.core.GeoAlgorithm import GeoAlgorithm
-
-from QuickOSM.quick_osm_processing import *
 from QuickOSM.core.file_query import FileQuery
 from QuickOSM.core.utilities.tools import get_user_query_folder
+from QuickOSM.quick_osm_processing import *
+from processing.core.GeoAlgorithm import GeoAlgorithm
+from qgis.PyQt.QtCore import QSettings
+from qgis.PyQt.QtGui import QIcon
 
 
 class ListIniFilesGeoAlgorithm(GeoAlgorithm):

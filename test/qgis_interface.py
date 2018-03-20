@@ -26,11 +26,9 @@ __copyright__ = (
     'Copyright (c) 2014 Tim Sutton, tim@kartoza.com'
 )
 
-import logging
-
+from qgis.PyQt.QtCore import QObject, pyqtSlot, pyqtSignal
 from qgis.core import QgsMapLayerRegistry, QGis, QgsMapLayer
 from qgis.gui import QgsMapCanvasLayer  # pylint: disable=no-name-in-module
-from qgis.PyQt.QtCore import QObject, pyqtSlot, pyqtSignal
 
 
 # noinspection PyMethodMayBeStatic,PyPep8Naming

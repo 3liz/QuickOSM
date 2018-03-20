@@ -20,18 +20,13 @@
  *                                                                         *
  ***************************************************************************/
 """
-from __future__ import absolute_import
-
-from future import standard_library
-standard_library.install_aliases()
-from builtins import str
 import configparser
-from qgis.core import QgsApplication
 from os.path import join, dirname, abspath
+
+from QuickOSM.core.operating_system import copy_tree
 from qgis.PyQt.QtCore import QDir, QSettings, QFileInfo
 from qgis.PyQt.QtWidgets import QApplication
-
-from .operating_system import copy_tree
+from qgis.core import QgsApplication
 
 
 def tr(section, text):

@@ -6,7 +6,7 @@
 #
 # WARNING! All changes made in this file will be lost!
 
-from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5 import QtCore, QtWidgets
 
 class Ui_ui_my_queries(object):
     def setupUi(self, ui_my_queries):
@@ -226,4 +226,3 @@ class Ui_ui_my_queries(object):
 
 from qgis.gui import QgsCollapsibleGroupBox
 from qgis.gui import QgsMapLayerComboBox
-from QuickOSM import resources_rc

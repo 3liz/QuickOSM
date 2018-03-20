@@ -23,9 +23,9 @@
 
 import platform
 import sys
-from shutil import copytree, copy2
 from os import listdir, makedirs, stat
 from os.path import join, isdir, exists
+from shutil import copytree, copy2
 
 
 def copy_tree(src, dst, symlinks=False, ignore=None):

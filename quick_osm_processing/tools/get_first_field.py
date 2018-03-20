@@ -24,11 +24,10 @@
 from builtins import str
 from os.path import isfile, join, basename, dirname, abspath
 
+from QuickOSM.quick_osm_processing import *
+from processing.core.GeoAlgorithm import GeoAlgorithm
 from qgis.PyQt.QtCore import QSettings
 from qgis.PyQt.QtGui import QIcon
-from processing.core.GeoAlgorithm import GeoAlgorithm
-
-from QuickOSM.quick_osm_processing import *
 
 
 class GetFirstFieldGeoAlgorithm(GeoAlgorithm):

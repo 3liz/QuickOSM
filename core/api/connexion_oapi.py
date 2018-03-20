@@ -21,17 +21,12 @@
  ***************************************************************************/
 """
 
-import os
 import codecs
-from future import standard_library
-standard_library.install_aliases()
-from builtins import object
-import urllib.request, urllib.error, urllib.parse
+import os
 import re
-from qgis.PyQt.QtNetwork import QNetworkRequest, QNetworkReply
-from qgis.PyQt.QtCore import (
-    QUrl, QUrlQuery, QEventLoop, QTemporaryFile, QDir, QIODevice)
-from qgis.core import QgsNetworkAccessManager
+import urllib.error
+import urllib.parse
+import urllib.request
 
 from QuickOSM.core.exceptions import (
     OutPutFormatException,
@@ -39,6 +34,10 @@ from QuickOSM.core.exceptions import (
     OverpassBadRequestException,
     NetWorkErrorException
 )
+from qgis.PyQt.QtCore import (
+    QUrl, QUrlQuery, QEventLoop, QTemporaryFile, QDir, QIODevice)
+from qgis.PyQt.QtNetwork import QNetworkRequest, QNetworkReply
+from qgis.core import QgsNetworkAccessManager
 
 
 class ConnexionOAPI(object):
