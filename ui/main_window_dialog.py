@@ -46,12 +46,17 @@ class MainWindowDialog(QDialog, Ui_ui_main_window):
         """
         QDialog.__init__(self, parent)
         self.setupUi(self)
-        self.set_help_web_view()
+
+        # Disabled in QGIS3
+        # self.set_help_web_view()
+        self.restore_queries_group.setVisible(False)
+        self.timestamp_group.setVisible(False)
+
         self.help_file = None
 
         # Connect
         # noinspection PyUnresolvedReferences
-        self.pushButton_homeHelp.clicked.connect(self.get_root_help)
+        # self.pushButton_homeHelp.clicked.connect(self.get_root_help) QGIS 3
         # noinspection PyUnresolvedReferences
         self.pushButton_OAPI_timestamp.clicked.connect(
             self.get_timestamp_overpass_api)
@@ -60,8 +65,8 @@ class MainWindowDialog(QDialog, Ui_ui_main_window):
             self.set_server_overpass_api)
         self.query.signal_new_query_successful.connect(
             self.signal_new_query_successful.emit)
-        self.my_queries.signal_delete_query_successful.connect(
-            self.signal_delete_query_successful.emit)
+        # self.my_queries.signal_delete_query_successful.connect(
+        #     self.signal_delete_query_successful.emit)
         # noinspection PyUnresolvedReferences
         self.pushButton_restoreQueries.clicked.connect(
             self.restore_default_queries)
@@ -91,24 +96,24 @@ class MainWindowDialog(QDialog, Ui_ui_main_window):
         self.listWidget.setMinimumWidth(
             self.listWidget.sizeHintForColumn(0) + 10)
 
-    def set_help_web_view(self):
-        """
-        Set the help
-        """
-        locale = QSettings().value("locale/userLocale")[0:2]
-        locale += "."
-        help_file_base = "main"
-        helps = [help_file_base + locale + ".html", help_file_base + ".html"]
-
-        doc_path = join(dirname(dirname(abspath(__file__))), 'doc')
-        for helpFileName in helps:
-            file_help_path = join(doc_path, helpFileName)
-            if isfile(file_help_path):
-                self.help_file = file_help_path
-                self.webBrowser.load(QUrl(self.help_file))
-                break
-        else:
-            self.webBrowser.setHtml("<h3>Help not available</h3>")
+    # def set_help_web_view(self):
+    #     """
+    #     Set the help
+    #     """
+    #     locale = QSettings().value("locale/userLocale")[0:2]
+    #     locale += "."
+    #     help_file_base = "main"
+    #     helps = [help_file_base + locale + ".html", help_file_base + ".html"]
+    #
+    #     doc_path = join(dirname(dirname(abspath(__file__))), 'doc')
+    #     for helpFileName in helps:
+    #         file_help_path = join(doc_path, helpFileName)
+    #         if isfile(file_help_path):
+    #             self.help_file = file_help_path
+    #             self.webBrowser.load(QUrl(self.help_file))
+    #             break
+    #     else:
+    #         self.webBrowser.setHtml("<h3>Help not available</h3>")
 
     def get_root_help(self):
         """
@@ -116,11 +121,11 @@ class MainWindowDialog(QDialog, Ui_ui_main_window):
         """
         self.webBrowser.load(QUrl(self.help_file))
 
-    def refresh_my_queries_tree(self):
-        """
-        Slot which force the tree to refresh
-        """
-        self.my_queries.fill_tree(force=True)
+    # def refresh_my_queries_tree(self):
+    #     """
+    #     Slot which force the tree to refresh
+    #     """
+    #     self.my_queries.fill_tree(force=True)
 
     def set_server_overpass_api(self):
         """
@@ -157,5 +162,5 @@ class MainWindowDialog(QDialog, Ui_ui_main_window):
         self.pushButton_restoreQueries.setText(tr('QuickOSM', 'Copy ...'))
         get_user_query_folder(over_write=True)
         self.signal_new_query_successful.emit()
-        self.my_queries.fill_tree(force=True)
+        # self.my_queries.fill_tree(force=True)
         self.pushButton_restoreQueries.setText(text)

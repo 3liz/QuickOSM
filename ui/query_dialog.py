@@ -63,6 +63,9 @@ class QueryWidget(QuickOSMWidget, Ui_ui_query):
         # Highlight XML
         self.highlighter = XMLHighlighter(self.textEdit_query.document())
 
+        # QGIS 3
+        self.pushButton_saveQuery.setVisible(False)
+
         # Setup UI
         self.label_progress.setText("")
         self.lineEdit_filePrefix.setDisabled(True)

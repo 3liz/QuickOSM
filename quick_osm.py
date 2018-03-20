@@ -35,10 +35,10 @@ from qgis.core import Qgis, QgsCoordinateTransform, QgsCoordinateReferenceSystem
 
 from QuickOSM.core.custom_logging import setup_logger
 from QuickOSM.ui.main_window_dialog import MainWindowDialog
-from QuickOSM.ui.my_queries_dialog import MyQueriesDockWidget
-from QuickOSM.ui.query_dialog import QueryDockWidget
-from QuickOSM.ui.osm_file_dialog import OsmFileDockWidget
-from QuickOSM.ui.quick_query_dialog import QuickQueryDockWidget
+# from QuickOSM.ui.my_queries_dialog import MyQueriesDockWidget
+# from QuickOSM.ui.query_dialog import QueryDockWidget
+# from QuickOSM.ui.osm_file_dialog import OsmFileDockWidget
+# from QuickOSM.ui.quick_query_dialog import QuickQueryDockWidget
 # from QuickOSM.quick_osm_processing.algorithm_provider import (
 #     QuickOSMAlgorithmProvider)
 from QuickOSM.core.utilities.tools import (
@@ -100,8 +100,8 @@ class QuickOSMPlugin(object):
         self.mainWindowAction = None
         self.osmFileAction = None
         self.osmFileDockWidget = None
-        self.myQueriesAction = None
-        self.myQueriesDockWidget = None
+        # self.myQueriesAction = None
+        # self.myQueriesDockWidget = None
         self.queryAction = None
         self.queryDockWidget = None
         self.quickQueryAction = None
