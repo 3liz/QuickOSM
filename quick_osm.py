@@ -22,7 +22,6 @@
 """
 
 import urllib.request
-from builtins import object
 from json import load
 from os.path import dirname, join, exists, abspath, isfile
 
@@ -113,14 +112,15 @@ class QuickOSMPlugin(object):
 
         # Setup menu
         self.quickosm_menu = QMenu('Quick OSM')
-        self.quickosm_menu.setIcon(QIcon(':/plugins/QuickOSM/icon.png'))
+        self.quickosm_menu.setIcon(
+            QIcon(join(dirname(__file__), 'resources', 'QuickOSM.svg')))
         self.dock_menu = QMenu(tr('QuickOSM', u'Dock'))
         self.vector_menu = self.iface.vectorMenu()
         self.vector_menu.addMenu(self.quickosm_menu)
 
         # Main window
         self.mainWindowAction = QAction(
-            QIcon(':/plugins/QuickOSM/icon.png'),
+            QIcon(join(dirname(__file__), 'resources', 'QuickOSM.svg')),
             u'QuickOSM',
             self.iface.mainWindow())
         # noinspection PyUnresolvedReferences

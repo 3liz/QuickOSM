@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'query.ui'
+# Form implementation generated from reading ui file 'ui/query.ui'
 #
 # Created by: PyQt5 UI code generator 5.10
 #
@@ -20,7 +20,7 @@ class Ui_ui_query(object):
         self.scrollArea.setWidgetResizable(True)
         self.scrollArea.setObjectName("scrollArea")
         self.scrollAreaWidgetContents = QtWidgets.QWidget()
-        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 595, 863))
+        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 579, 847))
         self.scrollAreaWidgetContents.setObjectName("scrollAreaWidgetContents")
         self.verticalLayout = QtWidgets.QVBoxLayout(self.scrollAreaWidgetContents)
         self.verticalLayout.setObjectName("verticalLayout")
@@ -205,7 +205,7 @@ class Ui_ui_query(object):
         self.pushButton_overpassTurbo = QtWidgets.QPushButton(self.scrollAreaWidgetContents)
         self.pushButton_overpassTurbo.setText("Overpass Turbo")
         icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap(":/plugins/QuickOSM/resources/turbo.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon.addPixmap(QtGui.QPixmap("../resources/turbo.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.pushButton_overpassTurbo.setIcon(icon)
         self.pushButton_overpassTurbo.setObjectName("pushButton_overpassTurbo")
         self.horizontalLayout_5.addWidget(self.pushButton_overpassTurbo)

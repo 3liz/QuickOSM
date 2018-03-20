@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'my_queries.ui'
+# Form implementation generated from reading ui file 'ui/my_queries.ui'
 #
 # Created by: PyQt5 UI code generator 5.10
 #
 # WARNING! All changes made in this file will be lost!
 
-from PyQt5 import QtCore, QtWidgets
+from PyQt5 import QtCore, QtGui, QtWidgets
 
 class Ui_ui_my_queries(object):
     def setupUi(self, ui_my_queries):

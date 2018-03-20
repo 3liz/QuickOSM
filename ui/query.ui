@@ -30,8 +30,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>595</width>
-        <height>863</height>
+        <width>579</width>
+        <height>847</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout">
@@ -380,8 +380,8 @@
             <string notr="true">Overpass Turbo</string>
            </property>
            <property name="icon">
-            <iconset resource="../resources.qrc">
-             <normaloff>:/plugins/QuickOSM/resources/turbo.png</normaloff>:/plugins/QuickOSM/resources/turbo.png</iconset>
+            <iconset>
+             <normaloff>../resources/turbo.png</normaloff>../resources/turbo.png</iconset>
            </property>
           </widget>
          </item>
@@ -426,9 +426,7 @@
    <header>qgsmaplayercombobox.h</header>
   </customwidget>
  </customwidgets>
- <resources>
-  <include location="../resources.qrc"/>
- </resources>
+ <resources/>
  <connections>
   <connection>
    <sender>checkBox_points</sender>

@@ -15,41 +15,29 @@ i18n_prepare:
 
 main_window:
 	@echo pyuic5 main_window.ui > ui/main_window.py
-	@pyuic5 ui/main_window.ui > ui/main_window_temp.py
-	@sed -re 's/import resources_rc/from QuickOSM import resources_rc/g' ui/main_window_temp.py > ui/main_window.py
-	@rm ui/main_window_temp.py
-	
+	@pyuic5 ui/main_window.ui > ui/main_window.py
+
 quick_query:
 	@echo pyuic5 ui/quick_query.ui > ui/quick_query.py
-	@pyuic5 ui/quick_query.ui > ui/quick_query_temp.py
-	@sed -re 's/import resources_rc/from QuickOSM import resources_rc/g' ui/quick_query_temp.py > ui/quick_query.py
-	@rm ui/quick_query_temp.py
-	
+	@pyuic5 ui/quick_query.ui > ui/quick_query.py
+
 my_queries:
 	@echo pyuic5 ui/my_queries.ui > ui/my_queries.py
-	@pyuic5 ui/my_queries.ui > ui/my_queries_temp.py
-	@sed -re 's/import resources_rc/from QuickOSM import resources_rc/g' ui/my_queries_temp.py > ui/my_queries.py
-	@rm ui/my_queries_temp.py
-	
+	@pyuic5 ui/my_queries.ui > ui/my_queries.py
+
 osm_file:
 	@echo pyuic5 ui/osm_file.ui > ui/osm_file.py
-	@pyuic5 ui/osm_file.ui > ui/osm_file_temp.py
-	@sed -re 's/import resources_rc/from QuickOSM import resources_rc/g' ui/osm_file_temp.py > ui/osm_file.py
-	@rm ui/osm_file_temp.py
-	
+	@pyuic5 ui/osm_file.ui > ui/osm_file.py
+
 query:
-	@echo pyuic5 ui/query.ui > ui/query_temp.py
-	@pyuic5 ui/query.ui > ui/query_temp.py
-	@sed -re 's/import resources_rc/from QuickOSM import resources_rc/g' ui/query_temp.py > ui/query.py
-	@rm ui/query_temp.py
-	
+	@echo pyuic5 ui/query.ui > ui/query.py
+	@pyuic5 ui/query.ui > ui/query.py
+
 save_query:
 	@echo pyuic5 ui/save_query.ui > ui/save_query.py
-	@pyuic5 ui/save_query.ui > ui/save_query_temp.py
-	@sed -re 's/import resources_rc/from QuickOSM import resources_rc/g' ui/save_query_temp.py > ui/save_query.py
-	@rm ui/save_query_temp.py
+	@pyuic5 ui/save_query.ui > ui/save_query.py
 
-generate_ui: main_window quick_query my_queries osm_files query save_query
+generate_ui: main_window quick_query my_queries osm_file query save_query
 
 clean_pyc:
 	@echo "Cleaning python files"

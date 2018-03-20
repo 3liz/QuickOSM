@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'quick_query.ui'
+# Form implementation generated from reading ui file 'ui/quick_query.ui'
 #
 # Created by: PyQt5 UI code generator 5.10
 #
 # WARNING! All changes made in this file will be lost!
 
-from PyQt5 import QtCore, QtWidgets
+from PyQt5 import QtCore, QtGui, QtWidgets
 
 class Ui_ui_quick_query(object):
     def setupUi(self, ui_quick_query):
