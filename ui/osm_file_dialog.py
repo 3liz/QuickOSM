@@ -24,11 +24,7 @@ from __future__ import absolute_import
 
 from os.path import isdir, dirname, abspath, join, isfile
 
-from qgis.PyQt.QtCore import Qt
-from qgis.PyQt.QtWidgets import QFileDialog, QApplication, QDockWidget
-from qgis.core import QgsProject
-
-from QuickOSM.core.utilities.tools import tr
+from QuickOSM.controller.process import open_file
 from QuickOSM.core.exceptions import (
     QuickOsmException,
     OutPutGeomTypesException,
@@ -36,12 +32,15 @@ from QuickOSM.core.exceptions import (
     DirectoryOutPutException,
     GDALVersion,
     OsmDriverNotFound)
+from QuickOSM.core.parser.osm_parser import OsmParser
+from QuickOSM.core.utilities.tools import tr
 from QuickOSM.core.utilities.utilities_qgis import \
     is_osm_driver_enabled, is_ogr_version_ok
-from QuickOSM.core.parser.osm_parser import OsmParser
-from QuickOSM.controller.process import open_file
-from .QuickOSMWidget import QuickOSMWidget
-from .osm_file import Ui_ui_osm_file
+from QuickOSM.ui.QuickOSMWidget import QuickOSMWidget
+from QuickOSM.ui.osm_file import Ui_ui_osm_file
+from qgis.PyQt.QtCore import Qt
+from qgis.PyQt.QtWidgets import QFileDialog, QApplication, QDockWidget
+from qgis.core import QgsProject
 
 
 class OsmFileWidget(QuickOSMWidget, Ui_ui_osm_file):

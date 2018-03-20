@@ -24,13 +24,12 @@
 import re
 from os.path import isfile, join, basename, dirname, abspath
 
+from QuickOSM.core.parser.osm_parser import OsmParser
+from QuickOSM.quick_osm_processing import *
+from processing.core.GeoAlgorithm import GeoAlgorithm
 from qgis.PyQt.QtCore import QSettings
 from qgis.PyQt.QtGui import QIcon
 from qgis.core import QgsVectorLayer
-from processing.core.GeoAlgorithm import GeoAlgorithm
-
-from QuickOSM.quick_osm_processing import *
-from QuickOSM.core.parser.osm_parser import OsmParser
 
 
 class OsmParserGeoAlgorithm(GeoAlgorithm):

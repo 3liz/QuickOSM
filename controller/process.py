@@ -23,21 +23,21 @@
 
 import tempfile
 from os.path import dirname, abspath, join, isfile
-from qgis.PyQt.QtWidgets import QApplication
-from qgis.core import \
-    Qgis, QgsVectorLayer, QgsVectorFileWriter, QgsAction, QgsProject, QgsWkbTypes
 
-from QuickOSM.core.query_factory import QueryFactory
-from QuickOSM.core.utilities.tools import tr
+from QuickOSM.core.api.connexion_oapi import ConnexionOAPI
 from QuickOSM.core.exceptions import \
     FileOutPutException, OsmDriverNotFound, GDALVersion
-from QuickOSM.core.api.connexion_oapi import ConnexionOAPI
 from QuickOSM.core.parser.osm_parser import OsmParser
+from QuickOSM.core.query_factory import QueryFactory
+from QuickOSM.core.query_parser import prepare_query
 from QuickOSM.core.utilities.operating_system import get_default_encoding
+from QuickOSM.core.utilities.tools import get_setting
+from QuickOSM.core.utilities.tools import tr
 from QuickOSM.core.utilities.utilities_qgis import \
     is_osm_driver_enabled, is_ogr_version_ok
-from QuickOSM.core.utilities.tools import get_setting
-from QuickOSM.core.query_parser import prepare_query
+from qgis.PyQt.QtWidgets import QApplication
+from qgis.core import \
+    QgsVectorLayer, QgsVectorFileWriter, QgsAction, QgsProject, QgsWkbTypes
 
 
 def get_outputs(output_dir, output_format, prefix_file, layer_name):

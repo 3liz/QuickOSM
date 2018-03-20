@@ -21,18 +21,11 @@
  ***************************************************************************/
 """
 
-from future import standard_library
-standard_library.install_aliases()
-from builtins import str
-from builtins import object
-from qgis.PyQt.QtWebKitWidgets import QWebView
-from qgis.PyQt.QtGui import QDesktopServices
-from qgis.PyQt.QtCore import QUrl
-from qgis.utils import iface
-from qgis.gui import QgsMessageBar
-from qgis.core import Qgis
-
 from QuickOSM.core.utilities.tools import tr
+from qgis.PyQt.QtCore import QUrl
+from qgis.PyQt.QtGui import QDesktopServices
+from qgis.core import Qgis
+from qgis.utils import iface
 
 
 class Actions(object):
@@ -90,10 +83,11 @@ class Actions(object):
 
             # NOT USED
             elif field == "rawedit":
-                url = QUrl("http://rawedit.openstreetmap.fr/edit/" + value)
-                web_browser = QWebView(None)
-                web_browser.load(url)
-                web_browser.show()
+                # url = QUrl("http://rawedit.openstreetmap.fr/edit/" + value)
+                # web_browser = QWebView(None)
+                # web_browser.load(url)
+                # web_browser.show()
+                pass
 
     @staticmethod
     def run_sketch_line(network, ref):

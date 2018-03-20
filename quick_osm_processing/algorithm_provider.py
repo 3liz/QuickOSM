@@ -22,20 +22,19 @@
 """
 from __future__ import absolute_import
 
-from qgis.PyQt.QtGui import QIcon
 from processing.core.AlgorithmProvider import AlgorithmProvider
+from qgis.PyQt.QtGui import QIcon
 
-from .api.overpass_query import OverpassQueryGeoAlgorithm
-from .api.xapi_query import XapiQueryGeoAlgorithm
 from .api.nominatim_query import NominatimQueryGeoAlgorithm
+from .api.overpass_query import OverpassQueryGeoAlgorithm
+from .parser.osm_member_parser import OsmMemberParserGeoAlgorithm
+from .parser.osm_parser import OsmParserGeoAlgorithm
+from .parser.osm_relation_parser import OsmRelationParserGeoAlgorithm
+from .tools.get_first_field import GetFirstFieldGeoAlgorithm
 from .tools.list_ini_files import ListIniFilesGeoAlgorithm
+from .tools.query_factory import QueryFactoryGeoAlgorithm
 from .tools.read_ini_file import ReadIniFileGeoAlgorithm
 from .tools.read_ini_file_path import ReadIniFilePathGeoAlgorithm
-from .tools.query_factory import QueryFactoryGeoAlgorithm
-from .tools.get_first_field import GetFirstFieldGeoAlgorithm
-from .parser.osm_parser import OsmParserGeoAlgorithm
-from .parser.osm_member_parser import OsmMemberParserGeoAlgorithm
-from .parser.osm_relation_parser import OsmRelationParserGeoAlgorithm
 
 
 class QuickOSMAlgorithmProvider(AlgorithmProvider):
@@ -53,7 +52,6 @@ class QuickOSMAlgorithmProvider(AlgorithmProvider):
             OverpassQueryGeoAlgorithm(),
             NominatimQueryGeoAlgorithm(),
             OsmParserGeoAlgorithm(),
-            XapiQueryGeoAlgorithm(),
             ReadIniFileGeoAlgorithm(),
             ReadIniFilePathGeoAlgorithm(),
             ListIniFilesGeoAlgorithm(),

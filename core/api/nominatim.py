@@ -21,14 +21,13 @@
  ***************************************************************************/
 """
 
-from builtins import object
 import json
-from qgis.PyQt.QtNetwork import QNetworkRequest, QNetworkReply
-from qgis.PyQt.QtCore import QUrl, QUrlQuery, QEventLoop
-from qgis.core import QgsNetworkAccessManager
 
 from QuickOSM.core.exceptions import \
     NominatimAreaException, NetWorkErrorException
+from qgis.PyQt.QtCore import QUrl, QUrlQuery, QEventLoop
+from qgis.PyQt.QtNetwork import QNetworkRequest, QNetworkReply
+from qgis.core import QgsNetworkAccessManager
 
 
 class Nominatim(object):

@@ -20,12 +20,10 @@
  *                                                                         *
  ***************************************************************************/
 """
-from __future__ import print_function
-
 import logging
 
-from qgis.core import QgsMessageLog
 from QuickOSM.core.utilities.tools import tr
+from qgis.core import QgsMessageLog
 
 __author__ = 'tim@kartoza.com'
 __revision__ = '$Format:%H$'
@@ -55,7 +53,6 @@ class QgsLogHandler(logging.Handler):
             message = tr(
                 'Due to memory limitations on this machine, QuickOSM can not '
                 'handle the full log')
-            # fix_print_with_import
             print(message)
             QgsMessageLog.logMessage(message, 'QuickOSM', 0)
 

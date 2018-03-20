@@ -22,15 +22,14 @@
 """
 from __future__ import absolute_import
 
-from qgis.PyQt.QtWidgets import QDialog, QSizePolicy
-from qgis.PyQt.QtCore import pyqtSignal
-from qgis.gui import QgsMessageBar
-
-from QuickOSM.core.file_query_writer import FileQueryWriter
-from QuickOSM.core.utilities.tools import get_user_query_folder
 from QuickOSM.core.exceptions import \
     QuickOsmException, MissingParameterException
-from .save_query import Ui_ui_save_query
+from QuickOSM.core.file_query_writer import FileQueryWriter
+from QuickOSM.core.utilities.tools import get_user_query_folder
+from QuickOSM.ui.save_query import Ui_ui_save_query
+from qgis.PyQt.QtCore import pyqtSignal
+from qgis.PyQt.QtWidgets import QDialog, QSizePolicy
+from qgis.gui import QgsMessageBar
 
 
 class SaveQueryDialog(QDialog, Ui_ui_save_query):

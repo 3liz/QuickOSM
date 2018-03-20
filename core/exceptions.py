@@ -21,12 +21,10 @@
  ***************************************************************************/
 """
 
+from QuickOSM.core.utilities.tools import tr
 # from processing.core.GeoAlgorithmExecutionException import \
 #     GeoAlgorithmExecutionException
-from qgis.gui import QgsMessageBar
 from qgis.core import Qgis
-
-from QuickOSM.core.utilities.tools import tr
 
 
 class QuickOsmException(BaseException):

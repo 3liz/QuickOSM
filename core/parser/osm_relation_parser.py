@@ -21,7 +21,6 @@
  ***************************************************************************/
 """
 
-from builtins import object
 from xml.sax import make_parser
 from xml.sax.handler import ContentHandler
 

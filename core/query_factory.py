@@ -21,8 +21,6 @@
  ***************************************************************************/
 """
 
-from builtins import range
-from builtins import object
 import re
 from xml.dom.minidom import parseString
 
