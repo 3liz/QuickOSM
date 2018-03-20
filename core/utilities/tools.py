@@ -23,7 +23,7 @@
 import configparser
 from os.path import join, dirname, abspath
 
-from QuickOSM.core.operating_system import copy_tree
+from QuickOSM.core.utilities.operating_system import copy_tree
 from qgis.PyQt.QtCore import QDir, QSettings, QFileInfo
 from qgis.PyQt.QtWidgets import QApplication
 from qgis.core import QgsApplication

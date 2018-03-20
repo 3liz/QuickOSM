@@ -81,8 +81,8 @@ QListWidget::item::selected {
        <string>Quick query</string>
       </property>
       <property name="icon">
-       <iconset resource="../resources.qrc">
-        <normaloff>:/plugins/QuickOSM/resources/quick.png</normaloff>:/plugins/QuickOSM/resources/quick.png</iconset>
+       <iconset>
+        <normaloff>../resources/quick.png</normaloff>../resources/quick.png</iconset>
       </property>
      </item>
      <item>
@@ -90,8 +90,8 @@ QListWidget::item::selected {
        <string>Query</string>
       </property>
       <property name="icon">
-       <iconset resource="../resources.qrc">
-        <normaloff>:/plugins/QuickOSM/resources/edit.png</normaloff>:/plugins/QuickOSM/resources/edit.png</iconset>
+       <iconset>
+        <normaloff>../resources/edit.png</normaloff>../resources/edit.png</iconset>
       </property>
      </item>
      <item>
@@ -99,8 +99,8 @@ QListWidget::item::selected {
        <string>OSM File</string>
       </property>
       <property name="icon">
-       <iconset resource="../resources.qrc">
-        <normaloff>:/plugins/QuickOSM/resources/open.png</normaloff>:/plugins/QuickOSM/resources/open.png</iconset>
+       <iconset>
+        <normaloff>../resources/open.png</normaloff>../resources/open.png</iconset>
       </property>
      </item>
      <item>
@@ -108,8 +108,8 @@ QListWidget::item::selected {
        <string>Parameters</string>
       </property>
       <property name="icon">
-       <iconset resource="../resources.qrc">
-        <normaloff>:/plugins/QuickOSM/resources/general.svg</normaloff>:/plugins/QuickOSM/resources/general.svg</iconset>
+       <iconset>
+        <normaloff>../resources/general.svg</normaloff>../resources/general.svg</iconset>
       </property>
      </item>
      <item>
@@ -117,8 +117,8 @@ QListWidget::item::selected {
        <string>About</string>
       </property>
       <property name="icon">
-       <iconset resource="../resources.qrc">
-        <normaloff>:/plugins/QuickOSM/resources/info.png</normaloff>:/plugins/QuickOSM/resources/info.png</iconset>
+       <iconset>
+        <normaloff>../resources/info.png</normaloff>../resources/info.png</iconset>
       </property>
      </item>
     </widget>
@@ -143,7 +143,7 @@ QListWidget::item::selected {
         </size>
        </property>
        <property name="currentIndex">
-        <number>3</number>
+        <number>4</number>
        </property>
        <widget class="QuickQueryWidget" name="quick_query"/>
        <widget class="QueryWidget" name="query"/>
@@ -279,8 +279,8 @@ QListWidget::item::selected {
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>480</width>
-              <height>605</height>
+              <width>624</width>
+              <height>590</height>
              </rect>
             </property>
             <layout class="QVBoxLayout" name="verticalLayout_9">
@@ -322,62 +322,6 @@ QListWidget::item::selected {
                    </widget>
                   </item>
                  </layout>
-                </item>
-               </layout>
-              </widget>
-             </item>
-             <item>
-              <widget class="QGroupBox" name="groupBox_5">
-               <property name="title">
-                <string>Supervision</string>
-               </property>
-               <layout class="QVBoxLayout" name="verticalLayout_7">
-                <item>
-                 <widget class="QLabel" name="label_10">
-                  <property name="text">
-                   <string>This intership was supervised by 3Liz</string>
-                  </property>
-                  <property name="wordWrap">
-                   <bool>true</bool>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <layout class="QHBoxLayout" name="horizontalLayout_4">
-                  <item>
-                   <widget class="QLabel" name="label_11">
-                    <property name="text">
-                     <string notr="true">&lt;a href=&quot;http://www.3liz.com&quot; style=&quot;color:#7BA11A;text-decoration:none;&quot;&gt;Libérez vos SIG !&lt;/a&gt;</string>
-                    </property>
-                    <property name="openExternalLinks">
-                     <bool>true</bool>
-                    </property>
-                   </widget>
-                  </item>
-                 </layout>
-                </item>
-                <item>
-                 <widget class="QLabel" name="label_12">
-                  <property name="maximumSize">
-                   <size>
-                    <width>16777215</width>
-                    <height>16777215</height>
-                   </size>
-                  </property>
-                  <property name="text">
-                   <string notr="true">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;http://www.3liz.com/&quot;&gt;&lt;img src=&quot;:/plugins/QuickOSM/resources/3liz.png&quot;/&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;
-</string>
-                  </property>
-                  <property name="scaledContents">
-                   <bool>false</bool>
-                  </property>
-                  <property name="alignment">
-                   <set>Qt::AlignCenter</set>
-                  </property>
-                  <property name="openExternalLinks">
-                   <bool>true</bool>
-                  </property>
-                 </widget>
                 </item>
                </layout>
               </widget>
@@ -582,7 +526,10 @@ QListWidget::item::selected {
                   <item row="1" column="1">
                    <widget class="QLabel" name="label_16">
                     <property name="text">
-                     <string notr="true">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;https://www.gnu.org/licenses/gpl-2.0.html&quot;&gt;&lt;img src=&quot;:/plugins/QuickOSM/resources/gnu.png&quot;/&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                     <string notr="true"/>
+                    </property>
+                    <property name="pixmap">
+                     <pixmap>../resources/gnu.png</pixmap>
                     </property>
                     <property name="alignment">
                      <set>Qt::AlignCenter</set>
@@ -653,9 +600,7 @@ QListWidget::item::selected {
   <tabstop>pushButton_OAPI_timestamp</tabstop>
   <tabstop>listWidget</tabstop>
  </tabstops>
- <resources>
-  <include location="../resources.qrc"/>
- </resources>
+ <resources/>
  <connections>
   <connection>
    <sender>listWidget</sender>

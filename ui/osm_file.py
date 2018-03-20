@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'osm_file.ui'
+# Form implementation generated from reading ui file 'ui/osm_file.ui'
 #
 # Created by: PyQt5 UI code generator 5.10
 #
@@ -20,7 +20,7 @@ class Ui_ui_osm_file(object):
         self.scrollArea.setWidgetResizable(True)
         self.scrollArea.setObjectName("scrollArea")
         self.scrollAreaWidgetContents = QtWidgets.QWidget()
-        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 581, 400))
+        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 550, 411))
         self.scrollAreaWidgetContents.setObjectName("scrollAreaWidgetContents")
         self.verticalLayout = QtWidgets.QVBoxLayout(self.scrollAreaWidgetContents)
         self.verticalLayout.setObjectName("verticalLayout")
@@ -117,7 +117,7 @@ class Ui_ui_osm_file(object):
         self.pushButton_resetIni = QtWidgets.QPushButton(self.scrollAreaWidgetContents)
         self.pushButton_resetIni.setText("")
         icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap(":/plugins/QuickOSM/resources/refresh.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon.addPixmap(QtGui.QPixmap("../resources/refresh.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.pushButton_resetIni.setIcon(icon)
         self.pushButton_resetIni.setObjectName("pushButton_resetIni")
         self.horizontalLayout_osmConf.addWidget(self.pushButton_resetIni)
