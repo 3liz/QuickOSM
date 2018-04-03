@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'ui/my_queries.ui'
 #
-# Created by: PyQt5 UI code generator 5.10
+# Created by: PyQt5 UI code generator 5.9.2
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -26,7 +26,7 @@ class Ui_ui_my_queries(object):
         self.scrollArea.setWidgetResizable(True)
         self.scrollArea.setObjectName("scrollArea")
         self.scrollAreaWidgetContents = QtWidgets.QWidget()
-        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 719, 786))
+        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 709, 776))
         self.scrollAreaWidgetContents.setObjectName("scrollAreaWidgetContents")
         self.verticalLayout = QtWidgets.QVBoxLayout(self.scrollAreaWidgetContents)
         self.verticalLayout.setObjectName("verticalLayout")
@@ -224,5 +224,4 @@ class Ui_ui_my_queries(object):
         self.pushButton_showQuery.setText(_translate("ui_my_queries", "Show query"))
         self.pushButton_runQuery.setText(_translate("ui_my_queries", "Run query"))
 
-from qgis.gui import QgsCollapsibleGroupBox
-from qgis.gui import QgsMapLayerComboBox
+from qgis.gui import QgsCollapsibleGroupBox, QgsMapLayerComboBox

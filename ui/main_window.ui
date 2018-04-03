@@ -132,7 +132,7 @@ QListWidget::item::selected {
         </size>
        </property>
        <property name="currentIndex">
-        <number>4</number>
+        <number>0</number>
        </property>
        <widget class="QuickQueryWidget" name="quick_query"/>
        <widget class="QueryWidget" name="query"/>
@@ -268,8 +268,8 @@ QListWidget::item::selected {
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>645</width>
-              <height>592</height>
+              <width>538</width>
+              <height>532</height>
              </rect>
             </property>
             <layout class="QVBoxLayout" name="verticalLayout_9">
@@ -560,25 +560,25 @@ QListWidget::item::selected {
   <customwidget>
    <class>QuickQueryWidget</class>
    <extends>QWidget</extends>
-   <header>quick_query_dialog.h</header>
+   <header>.quick_query_dialog</header>
    <container>1</container>
   </customwidget>
   <customwidget>
    <class>QueryWidget</class>
    <extends>QWidget</extends>
-   <header>query_dialog.h</header>
+   <header>.query_dialog</header>
    <container>1</container>
   </customwidget>
   <customwidget>
    <class>OsmFileWidget</class>
    <extends>QWidget</extends>
-   <header>osm_file_dialog.h</header>
+   <header>.osm_file_dialog.h</header>
    <container>1</container>
   </customwidget>
   <customwidget>
    <class>QgsMessageBar</class>
    <extends>QWidget</extends>
-   <header>qgis/gui.h</header>
+   <header>qgis.gui</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

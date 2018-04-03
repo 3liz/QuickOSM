@@ -20,7 +20,7 @@ class Ui_ui_query(object):
         self.scrollArea.setWidgetResizable(True)
         self.scrollArea.setObjectName("scrollArea")
         self.scrollAreaWidgetContents = QtWidgets.QWidget()
-        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 579, 847))
+        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 585, 853))
         self.scrollAreaWidgetContents.setObjectName("scrollAreaWidgetContents")
         self.verticalLayout = QtWidgets.QVBoxLayout(self.scrollAreaWidgetContents)
         self.verticalLayout.setObjectName("verticalLayout")
@@ -242,5 +242,4 @@ class Ui_ui_query(object):
         self.pushButton_saveQuery.setText(_translate("ui_query", "Save query"))
         self.pushButton_documentation.setText(_translate("ui_query", "Documentation"))
 
-from qgis.gui import QgsCollapsibleGroupBox
-from qgis.gui import QgsMapLayerComboBox
+from qgis.gui import QgsCollapsibleGroupBox, QgsMapLayerComboBox

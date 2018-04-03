@@ -142,7 +142,7 @@ class Ui_ui_main_window(object):
         self.scrollArea_2.setWidgetResizable(True)
         self.scrollArea_2.setObjectName("scrollArea_2")
         self.scrollAreaWidgetContents_2 = QtWidgets.QWidget()
-        self.scrollAreaWidgetContents_2.setGeometry(QtCore.QRect(0, 0, 624, 590))
+        self.scrollAreaWidgetContents_2.setGeometry(QtCore.QRect(0, 0, 538, 532))
         self.scrollAreaWidgetContents_2.setObjectName("scrollAreaWidgetContents_2")
         self.verticalLayout_9 = QtWidgets.QVBoxLayout(self.scrollAreaWidgetContents_2)
         self.verticalLayout_9.setObjectName("verticalLayout_9")
@@ -299,7 +299,7 @@ class Ui_ui_main_window(object):
 
         self.retranslateUi(ui_main_window)
         self.listWidget.setCurrentRow(-1)
-        self.stackedWidget.setCurrentIndex(4)
+        self.stackedWidget.setCurrentIndex(0)
         self.listWidget.currentRowChanged['int'].connect(self.stackedWidget.setCurrentIndex)
         QtCore.QMetaObject.connectSlotsByName(ui_main_window)
         ui_main_window.setTabOrder(self.pushButton_OAPI_timestamp, self.listWidget)
@@ -343,6 +343,6 @@ class Ui_ui_main_window(object):
         self.groupBox_4.setTitle(_translate("ui_main_window", "Licence"))
 
 from .osm_file_dialog import OsmFileWidget
-from qgis.gui import QgsMessageBar
 from .query_dialog import QueryWidget
 from .quick_query_dialog import QuickQueryWidget
+from qgis.gui import QgsMessageBar
