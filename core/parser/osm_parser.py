@@ -88,7 +88,7 @@ class OsmParser(QObject):
             current_dir = dirname(realpath(__file__))
             self._osm_conf = join(current_dir, 'QuickOSMconf.ini')
         else:
-            self._osm_conf = osm_conf.encode("utf-8")
+            self._osm_conf = osm_conf
 
         QObject.__init__(self)
 
@@ -125,12 +125,13 @@ class OsmParser(QObject):
         # Check if the order is node before way,relation
         # We don't check way before relation,
         # because we can have only nodes and relations
-        file_obj = codecs.open(self.__osmFile, 'r', 'utf-8')
-        for line in file_obj:
-            if re.search(r'node', line):
-                break
-            if re.search(r'(way|relation)', line):
-                raise WrongOrderOSMException
+        if not self.__osmFile.endswith('pbf'):
+            file_obj = codecs.open(self.__osmFile, 'r', 'utf-8')
+            for line in file_obj:
+                if re.search(r'node', line):
+                    break
+                if re.search(r'(way|relation)', line):
+                    raise WrongOrderOSMException
 
         # Foreach layers
         for layer in self.__layers:
