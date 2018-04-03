@@ -124,17 +124,6 @@ class NoLayerException(QuickOsmException):
         QuickOsmException.__init__(self, msg)
 
 
-class WrongOrderOSMException(QuickOsmException):
-    def __init__(self, msg=None, suffix=None):
-        if not msg:
-            msg = tr(
-                'Exception',
-                u'The order must be node-way-relation. '
-                u'Check the print statement.')
-        if suffix:
-            msg = msg + " " + suffix
-        QuickOsmException.__init__(self, msg)
-
 '''
 File and directory
 '''
