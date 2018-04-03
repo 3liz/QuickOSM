@@ -20,8 +20,6 @@
  *                                                                         *
  ***************************************************************************/
 """
-
-import tempfile
 from os.path import dirname, abspath, join, isfile
 
 from QuickOSM.core.api.connexion_oapi import ConnexionOAPI
@@ -33,43 +31,8 @@ from QuickOSM.core.utilities.operating_system import get_default_encoding
 from QuickOSM.core.utilities.tools import get_setting
 from QuickOSM.core.utilities.tools import tr
 from qgis.PyQt.QtWidgets import QApplication
-from qgis.core import \
-    QgsVectorLayer, QgsVectorFileWriter, QgsAction, QgsProject, QgsWkbTypes
-
-
-def get_outputs(output_dir, output_format, prefix_file, layer_name):
-    outputs = {}
-    for layer in ['points', 'lines', 'multilinestrings', 'multipolygons']:
-        if not output_dir:
-            # if no directory, get a temporary file
-
-            if output_format == "shape":
-                temp_file = tempfile.NamedTemporaryFile(
-                    delete=False, suffix="_" + layer + "_quickosm.shp")
-            else:
-                # We should avoid this copy of geojson in the temp folder
-                temp_file = tempfile.NamedTemporaryFile(
-                    delete=False, suffix="_" + layer + "_quickosm.geojson")
-
-            outputs[layer] = temp_file.name
-            temp_file.flush()
-            temp_file.close()
-
-        else:
-            if not prefix_file:
-                prefix_file = layer_name
-
-            if output_format == "shape":
-                outputs[layer] = join(
-                    output_dir, prefix_file + "_" + layer + ".shp")
-            else:
-                outputs[layer] = join(
-                    output_dir, prefix_file + "_" + layer + ".geojson")
-
-            if isfile(outputs[layer]):
-                raise FileOutPutException(suffix='(' + outputs[layer] + ')')
-
-    return outputs
+from qgis.core import (
+    QgsVectorLayer, QgsVectorFileWriter, QgsAction, QgsProject, QgsWkbTypes)
 
 
 def open_file(
@@ -77,15 +40,26 @@ def open_file(
         osm_file=None,
         output_geom_types=None,
         white_list_column=None,
-        output_format=None,
         layer_name="OsmFile",
         config_outputs=None,
         output_dir=None,
         prefix_file=None):
     """
-    open an osm file
+    Open an osm file.
+
+    Memory layer if no output directory is set, or Geojson in the output directory.
     """
-    outputs = get_outputs(output_dir, output_format, prefix_file, layer_name)
+    outputs = {}
+    if output_dir:
+        for layer in ['points', 'lines', 'multilinestrings', 'multipolygons']:
+            if not prefix_file:
+                prefix_file = layer_name
+
+            outputs[layer] = join(
+                output_dir, prefix_file + "_" + layer + ".geojson")
+
+            if isfile(outputs[layer]):
+                raise FileOutPutException(suffix='(' + outputs[layer] + ')')
 
     # Parsing the file
     osm_parser = OsmParser(
@@ -97,10 +71,8 @@ def open_file(
     osm_parser.signalPercentage.connect(dialog.set_progress_percentage)
     layers = osm_parser.parse()
 
-    # Finishing the process with geojson or shapefile
+    # Finishing the process with geojson or memory layer
     num_layers = 0
-    if output_format == "shape":
-        dialog.set_progress_text(tr("QuickOSM", u"From GeoJSON to Shapefile"))
 
     for i, (layer, item) in enumerate(layers.items()):
         dialog.set_progress_percentage(i / len(layers) * 100)
@@ -113,39 +85,35 @@ def open_file(
                 if config_outputs[layer]['namelayer']:
                     final_layer_name = config_outputs[layer]['namelayer']
 
-            # Transforming the vector file
-            osm_geometries = {
-                'points': QgsWkbTypes.Point,
-                'lines': QgsWkbTypes.LineString,
-                'multilinestrings': QgsWkbTypes.MultiLineString,
-                'multipolygons': QgsWkbTypes.MultiPolygon}
-            geojson_layer = QgsVectorLayer(item['geojsonFile'], "temp", "ogr")
+            if output_dir:
+                dialog.set_progress_text(tr("QuickOSM", u"From memory to GeoJSON: " + layer))
+                # Transforming the vector file
+                osm_geometries = {
+                    'points': QgsWkbTypes.Point,
+                    'lines': QgsWkbTypes.LineString,
+                    'multilinestrings': QgsWkbTypes.MultiLineString,
+                    'multipolygons': QgsWkbTypes.MultiPolygon}
+                memory_layer = item['vector_layer']
 
-            encoding = get_default_encoding()
-            if output_format == "shape":
+                encoding = get_default_encoding()
                 writer = QgsVectorFileWriter(
                     outputs[layer],
                     encoding,
-                    geojson_layer.fields(),
+                    memory_layer.fields(),
                     osm_geometries[layer],
-                    geojson_layer.crs(),
-                    "ESRI Shapefile")
-            else:
-                writer = QgsVectorFileWriter(
-                    outputs[layer],
-                    encoding,
-                    geojson_layer.fields(),
-                    osm_geometries[layer],
-                    geojson_layer.crs(),
+                    memory_layer.crs(),
                     "GeoJSON")
 
-            for f in geojson_layer.getFeatures():
-                writer.addFeature(f)
+                for f in memory_layer.getFeatures():
+                    writer.addFeature(f)
 
-            del writer
+                del writer
 
-            # Loading the final vector file
-            new_layer = QgsVectorLayer(outputs[layer], final_layer_name, "ogr")
+                # Loading the final vector file
+                new_layer = QgsVectorLayer(outputs[layer], final_layer_name, "ogr")
+            else:
+                new_layer = item['vector_layer']
+                new_layer.setName(final_layer_name)
 
             # Try to set styling if defined
             if config_outputs and config_outputs[layer]['style']:
@@ -198,10 +166,6 @@ def open_file(
                     'Actions.run_sketch_line("[% "network" %]","[% "ref" %]")',
                     False)
 
-            # Add index if possible
-            if output_format == "shape":
-                new_layer.dataProvider().createSpatialIndex()
-
             QgsProject.instance().addMapLayer(new_layer)
             num_layers += 1
 
@@ -220,9 +184,6 @@ def process_query(
         white_list_values=None,
         config_outputs=None):
     """execute a query and send the result file to open_file."""
-
-    # Get output's format
-    output_format = get_setting('outputFormat')
 
     # Prepare outputs
     dialog.set_progress_text(tr("QuickOSM", u"Prepare outputs"))
@@ -243,7 +204,6 @@ def process_query(
         output_geom_types=output_geometry_types,
         white_list_column=white_list_values,
         layer_name=layer_name,
-        output_format=output_format,
         output_dir=output_dir,
         prefix_file=prefix_file,
         config_outputs=config_outputs)

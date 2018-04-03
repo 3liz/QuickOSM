@@ -132,7 +132,7 @@ QListWidget::item::selected {
         </size>
        </property>
        <property name="currentIndex">
-        <number>0</number>
+        <number>3</number>
        </property>
        <widget class="QuickQueryWidget" name="quick_query"/>
        <widget class="QueryWidget" name="query"/>
@@ -219,7 +219,7 @@ QListWidget::item::selected {
           </widget>
          </item>
          <item>
-          <widget class="QGroupBox" name="groupBox_7">
+          <widget class="QGroupBox" name="output_format_option">
            <property name="title">
             <string>Outputs</string>
            </property>
@@ -268,8 +268,8 @@ QListWidget::item::selected {
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>538</width>
-              <height>532</height>
+              <width>645</width>
+              <height>592</height>
              </rect>
             </property>
             <layout class="QVBoxLayout" name="verticalLayout_9">

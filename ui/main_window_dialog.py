@@ -59,6 +59,7 @@ class MainWindowDialog(QDialog, Ui_ui_main_window):
         # self.set_help_web_view()
         self.restore_queries_group.setVisible(False)
         self.timestamp_group.setVisible(False)
+        self.output_format_option.setVisible(False)
 
         self.help_file = None
 

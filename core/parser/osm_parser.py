@@ -21,8 +21,6 @@
  ***************************************************************************/
 """
 
-import codecs
-import re
 import tempfile
 from os.path import dirname, realpath, join, isfile, basename
 
@@ -34,7 +32,7 @@ from QuickOSM.core.utilities.tools import tr
 from osgeo import gdal
 from qgis.PyQt.QtCore import QObject, pyqtSignal, QVariant
 from qgis.core import \
-    QgsVectorLayer, QgsFields, QgsField, QgsVectorFileWriter, QgsFeature
+    QgsVectorLayer, QgsFields, QgsField, QgsVectorFileWriter, QgsFeature, QgsMemoryProviderUtils
 
 
 class OsmParser(QObject):
@@ -189,30 +187,21 @@ class OsmParser(QObject):
 
         # Creating GeoJSON files for each layers
         for layer in self.__layers:
-            msg = tr("QuickOSM", u"Creating GeoJSON file : " + layer)
+            msg = tr("QuickOSM", u"Creating memory layer : " + layer)
             self.signalText.emit(msg)
             self.signalPercentage.emit(0)
-
-            # Creating the temp file
-            tf = tempfile.NamedTemporaryFile(
-                delete=False, suffix="_" + layer + ".geojson")
-            layers[layer]['geojsonFile'] = tf.name
-            tf.flush()
-            tf.close()
 
             # Adding the attribute table
             fields = QgsFields()
             for key in layers[layer]['tags']:
                 fields.append(QgsField(key, QVariant.String))
 
-            encoding = get_default_encoding()
-            file_writer = QgsVectorFileWriter(
-                layers[layer]['geojsonFile'],
-                encoding,
+            layers[layer]['vector_layer'] = QgsMemoryProviderUtils.createMemoryLayer(
+                layer,
                 fields,
                 layers[layer]['geomType'],
-                layers[layer]['vectorLayer'].crs(),
-                'GeoJSON')
+                layers[layer]['vectorLayer'].crs())
+            layers[layer]['vector_layer'].startEditing()
 
             # Foreach feature in the layer
             features = layers[layer]['vectorLayer'].getFeatures()
@@ -244,7 +233,7 @@ class OsmParser(QObject):
                             else:
                                 new_attributes.append("")
                         fet.setAttributes(new_attributes)
-                        file_writer.addFeature(fet)
+                        layers[layer]['vector_layer'].addFeature(fet)
 
                 elif layer == 'multipolygons':
                     if attributes[0]:
@@ -266,12 +255,12 @@ class OsmParser(QObject):
                         else:
                             new_attributes.append("")
                     fet.setAttributes(new_attributes)
-                    file_writer.addFeature(fet)
+                    layers[layer]['vector_layer'].addFeature(fet)
 
                     percentage = int(
                         100 / layers[layer]['featureCount'] * (i + 1))
                     self.signalPercentage.emit(percentage)
 
-            del file_writer
+            layers[layer]['vector_layer'].commitChanges()
 
         return layers
