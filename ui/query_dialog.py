@@ -55,6 +55,7 @@ class QueryWidget(QuickOSMWidget, Ui_ui_query):
         """
         QuickOSMWidget.__init__(self, parent)
         self.setupUi(self)
+        self.init()
 
         # Highlight XML
         self.highlighter = XMLHighlighter(self.textEdit_query.document())
@@ -104,9 +105,6 @@ class QueryWidget(QuickOSMWidget, Ui_ui_query):
         # connect
         self.pushButton_runQuery.clicked.connect(self.run_query)
         self.pushButton_generateQuery.clicked.connect(self.generate_query)
-        self.pushButton_browse_output_file.clicked.connect(
-            self.set_output_directory_path)
-        self.lineEdit_browseDir.textEdited.connect(self.disable_prefix_file)
         self.textEdit_query.cursorPositionChanged.connect(
             self.highlighter.rehighlight)
         self.textEdit_query.cursorPositionChanged.connect(
@@ -173,7 +171,7 @@ class QueryWidget(QuickOSMWidget, Ui_ui_query):
         """
 
         # Block the button and save the initial text
-        self.pushButton_browse_output_file.setDisabled(True)
+        self.output_directory.setDisabled(True)
         self.pushButton_generateQuery.setDisabled(True)
         QApplication.setOverrideCursor(Qt.WaitCursor)
         self.start_process()
@@ -181,7 +179,7 @@ class QueryWidget(QuickOSMWidget, Ui_ui_query):
 
         # Get all values
         query = str(self.textEdit_query.toPlainText())
-        output_directory = self.lineEdit_browseDir.text()
+        output_directory = self.output_directory.filePath()
         prefix_file = self.lineEdit_filePrefix.text()
         nominatim = self.nominatim_value()
 
@@ -244,7 +242,7 @@ class QueryWidget(QuickOSMWidget, Ui_ui_query):
 
         finally:
             # Resetting the button
-            self.pushButton_browse_output_file.setDisabled(False)
+            self.output_directory.setDisabled(False)
             self.pushButton_generateQuery.setDisabled(False)
             QApplication.restoreOverrideCursor()
             self.end_process()

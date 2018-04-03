@@ -30,8 +30,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>550</width>
-        <height>411</height>
+        <width>571</width>
+        <height>390</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout">
@@ -48,18 +48,7 @@
           </widget>
          </item>
          <item row="0" column="1">
-          <layout class="QHBoxLayout" name="horizontalLayout">
-           <item>
-            <widget class="QLineEdit" name="lineEdit_osmFile"/>
-           </item>
-           <item>
-            <widget class="QPushButton" name="pushButton_browseOsmFile">
-             <property name="text">
-              <string>Browse</string>
-             </property>
-            </widget>
-           </item>
-          </layout>
+          <widget class="QgsFileWidget" name="osm_file" native="true"/>
          </item>
          <item row="1" column="0">
           <widget class="QLabel" name="label_3">
@@ -95,6 +84,13 @@
            </property>
           </widget>
          </item>
+         <item row="3" column="0">
+          <widget class="QLabel" name="label_5">
+           <property name="text">
+            <string notr="true">Multilinestrings</string>
+           </property>
+          </widget>
+         </item>
          <item row="3" column="1">
           <widget class="QCheckBox" name="checkBox_multilinestrings">
            <property name="text">
@@ -122,7 +118,7 @@
            </property>
           </widget>
          </item>
-         <item row="6" column="0">
+         <item row="5" column="0">
           <widget class="QRadioButton" name="radioButton_allTags">
            <property name="text">
             <string>All tags</string>
@@ -132,7 +128,7 @@
            </property>
           </widget>
          </item>
-         <item row="6" column="1">
+         <item row="5" column="1">
           <widget class="QGroupBox" name="groupBox_file">
            <property name="title">
             <string/>
@@ -148,22 +144,7 @@
                </widget>
               </item>
               <item row="0" column="1">
-               <layout class="QHBoxLayout" name="horizontalLayout_3">
-                <item>
-                 <widget class="QLineEdit" name="lineEdit_browseDir">
-                  <property name="placeholderText">
-                   <string>Save to temporary file</string>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="QPushButton" name="pushButton_browse_output_file">
-                  <property name="text">
-                   <string>Browse</string>
-                  </property>
-                 </widget>
-                </item>
-               </layout>
+               <widget class="QgsFileWidget" name="output_directory" native="true"/>
               </item>
               <item row="1" column="0">
                <widget class="QLabel" name="label_7">
@@ -180,7 +161,7 @@
            </layout>
           </widget>
          </item>
-         <item row="7" column="0">
+         <item row="6" column="0">
           <widget class="QRadioButton" name="radioButton_osmConf">
            <property name="text">
             <string>OSMConf</string>
@@ -190,37 +171,8 @@
            </property>
           </widget>
          </item>
-         <item row="7" column="1">
-          <layout class="QHBoxLayout" name="horizontalLayout_osmConf">
-           <item>
-            <widget class="QLineEdit" name="lineEdit_osmConf"/>
-           </item>
-           <item>
-            <widget class="QPushButton" name="pushButton_browseOsmConf">
-             <property name="text">
-              <string>Browse</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QPushButton" name="pushButton_resetIni">
-             <property name="text">
-              <string/>
-             </property>
-             <property name="icon">
-              <iconset>
-               <normaloff>../resources/refresh.png</normaloff>../resources/refresh.png</iconset>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </item>
-         <item row="3" column="0">
-          <widget class="QLabel" name="label_5">
-           <property name="text">
-            <string notr="true">Multilinestrings</string>
-           </property>
-          </widget>
+         <item row="6" column="1">
+          <widget class="QgsFileWidget" name="osm_conf" native="true"/>
          </item>
         </layout>
        </item>
@@ -264,6 +216,13 @@
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>QgsFileWidget</class>
+   <extends>QWidget</extends>
+   <header>qgis.gui</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections>
   <connection>
@@ -273,8 +232,8 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>81</x>
-     <y>186</y>
+     <x>90</x>
+     <y>156</y>
     </hint>
     <hint type="destinationlabel">
      <x>411</x>
@@ -285,48 +244,16 @@
   <connection>
    <sender>radioButton_osmConf</sender>
    <signal>toggled(bool)</signal>
-   <receiver>lineEdit_osmConf</receiver>
+   <receiver>osm_conf</receiver>
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>72</x>
-     <y>154</y>
+     <x>63</x>
+     <y>245</y>
     </hint>
     <hint type="destinationlabel">
-     <x>344</x>
-     <y>157</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>radioButton_osmConf</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>pushButton_browseOsmConf</receiver>
-   <slot>setEnabled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>72</x>
-     <y>154</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>485</x>
-     <y>157</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>radioButton_osmConf</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>pushButton_resetIni</receiver>
-   <slot>setEnabled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>72</x>
-     <y>154</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>676</x>
-     <y>157</y>
+     <x>131</x>
+     <y>245</y>
     </hint>
    </hints>
   </connection>

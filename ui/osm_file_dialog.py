@@ -48,68 +48,46 @@ class OsmFileWidget(QuickOSMWidget, Ui_ui_osm_file):
         """
         QuickOSMWidget.__init__(self, parent)
         self.setupUi(self)
+        self.init()
 
         # Set UI
         self.radioButton_osmConf.setChecked(False)
+        self.osm_conf.setEnabled(False)
         self.label_progress.setText("")
         self.lineEdit_filePrefix.setDisabled(True)
+
+        # OSM File
+        self.osm_file.setDialogTitle(tr('QuickOSM', 'Select an OSM file'))
+        self.osm_file.setFilter('OSM file (*.osm *.pbf)')
 
         # Set default osm conf
         self.defaultOsmConf = join(
             dirname(dirname(abspath(__file__))), 'osmconf.ini')
         if not isfile(self.defaultOsmConf):
             self.defaultOsmConf = ''
-        self.lineEdit_osmConf.setText(self.defaultOsmConf)
+        self.osm_conf.lineEdit().setPlaceholderText(self.defaultOsmConf)
+        self.osm_conf.setDialogTitle(tr('QuickOSM', 'Select OSM conf file'))
+        self.osm_conf.setFilter('OSM conf (*.ini)')
+        self.osm_conf.fileChanged.connect(self.disable_run_button)
         self.pushButton_runQuery.setEnabled(False)
 
         # Connect
-        self.pushButton_browseOsmFile.clicked.connect(self.set_osm_file_path)
-        self.pushButton_browseOsmConf.clicked.connect(self.set_osm_conf_path)
-        self.lineEdit_osmConf.textEdited.connect(self.disable_run_button)
-        self.lineEdit_osmFile.textEdited.connect(self.disable_run_button)
+        self.osm_file.fileChanged.connect(self.disable_run_button)
+        self.output_directory.fileChanged.connect(self.disable_prefix_file)
         self.radioButton_osmConf.toggled.connect(self.disable_run_button)
         self.pushButton_runQuery.clicked.connect(self.open_file)
-        self.pushButton_resetIni.clicked.connect(self.reset_ini)
-        self.lineEdit_browseDir.textEdited.connect(self.disable_prefix_file)
 
-    def set_osm_file_path(self):
-        """
-        Fill the osm file
-        """
-        osm_file, __ = QFileDialog.getOpenFileName(
-            parent=None,
-            caption=tr("QuickOSM", 'Select *.osm or *.pbf'),
-            filter="OSM file (*.osm *.pbf)")
-        self.lineEdit_osmFile.setText(osm_file)
         self.disable_run_button()
-
-    def set_osm_conf_path(self):
-        """
-        Fill the osmConf file
-        """
-        osm_conf, __ = QFileDialog.getOpenFileName(
-            parent=None,
-            caption=tr("QuickOSM", 'Select osm conf'),
-            filter="OsmConf file (*.ini)")
-        if osm_conf:
-            self.lineEdit_osmConf.setText(osm_conf)
-        self.disable_run_button()
-
-    def reset_ini(self):
-        """
-        Reset the default osmConf file
-        """
-        self.lineEdit_osmConf.setText(self.defaultOsmConf)
 
     def disable_run_button(self):
         """
         If the two fields are empty or allTags
         """
-        if self.lineEdit_osmFile.text():
+        if self.osm_file.filePath():
             self.pushButton_runQuery.setEnabled(False)
 
         if self.radioButton_osmConf.isChecked():
-            if self.lineEdit_osmConf.text():
+            if self.osm_conf.filePath():
                 self.pushButton_runQuery.setEnabled(True)
             else:
                 self.pushButton_runQuery.setEnabled(False)
@@ -126,9 +104,9 @@ class OsmFileWidget(QuickOSMWidget, Ui_ui_osm_file):
         QApplication.processEvents()
 
         # Get fields
-        osm_file = self.lineEdit_osmFile.text()
-        osm_conf = self.lineEdit_osmConf.text()
-        output_directory = self.lineEdit_browseDir.text()
+        osm_file = self.osm_file.filePath()
+        osm_conf = self.osm_conf.filePath()
+        output_directory = self.output_directory.filePath()
         prefix_file = self.lineEdit_filePrefix.text()
         load_only = self.radioButton_osmConf.isChecked()
 
