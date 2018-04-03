@@ -20,11 +20,11 @@
  *                                                                         *
  ***************************************************************************/
 """
-from QuickOSM.core.utilities.tools import get_setting, set_setting, tr
-from QuickOSM.core.utilities.tools import get_user_query_folder
+from QuickOSM.core.utilities.tools import get_setting, set_setting, tr, get_user_query_folder, resources_path
 from QuickOSM.ui.main_window import Ui_ui_main_window
 from qgis.PyQt.QtCore import pyqtSignal, QUrl
 from qgis.PyQt.QtWidgets import QDialog
+from qgis.PyQt.QtGui import QPixmap, QIcon
 
 
 class MainWindowDialog(QDialog, Ui_ui_main_window):
@@ -42,6 +42,19 @@ class MainWindowDialog(QDialog, Ui_ui_main_window):
         QDialog.__init__(self, parent)
         self.setupUi(self)
 
+        # Set icons
+        item = self.listWidget.item(0)
+        item.setIcon(QIcon(resources_path('quick.png')))
+        item = self.listWidget.item(1)
+        item.setIcon(QIcon(resources_path('edit.png')))
+        item = self.listWidget.item(2)
+        item.setIcon(QIcon(resources_path('open.png')))
+        item = self.listWidget.item(3)
+        item.setIcon(QIcon(resources_path('general.svg')))
+        item = self.listWidget.item(4)
+        item.setIcon(QIcon(resources_path('info.png')))
+        self.label_gnu.setPixmap(QPixmap(resources_path('gnu.png')))
+
         # Disabled in QGIS3
         # self.set_help_web_view()
         self.restore_queries_group.setVisible(False)
@@ -53,8 +66,8 @@ class MainWindowDialog(QDialog, Ui_ui_main_window):
         # noinspection PyUnresolvedReferences
         # self.pushButton_homeHelp.clicked.connect(self.get_root_help) QGIS 3
         # noinspection PyUnresolvedReferences
-        self.pushButton_OAPI_timestamp.clicked.connect(
-            self.get_timestamp_overpass_api)
+        # self.pushButton_OAPI_timestamp.clicked.connect(
+        #     self.get_timestamp_overpass_api)
         # noinspection PyUnresolvedReferences
         self.comboBox_default_OAPI.currentIndexChanged[int].connect(
             self.set_server_overpass_api)

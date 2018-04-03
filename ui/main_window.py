@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'ui/main_window.ui'
 #
-# Created by: PyQt5 UI code generator 5.10
+# Created by: PyQt5 UI code generator 5.9.2
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -45,29 +45,14 @@ class Ui_ui_main_window(object):
         self.listWidget.setUniformItemSizes(True)
         self.listWidget.setObjectName("listWidget")
         item = QtWidgets.QListWidgetItem()
-        icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap("../resources/quick.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        item.setIcon(icon)
         self.listWidget.addItem(item)
         item = QtWidgets.QListWidgetItem()
-        icon1 = QtGui.QIcon()
-        icon1.addPixmap(QtGui.QPixmap("../resources/edit.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        item.setIcon(icon1)
         self.listWidget.addItem(item)
         item = QtWidgets.QListWidgetItem()
-        icon2 = QtGui.QIcon()
-        icon2.addPixmap(QtGui.QPixmap("../resources/open.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        item.setIcon(icon2)
         self.listWidget.addItem(item)
         item = QtWidgets.QListWidgetItem()
-        icon3 = QtGui.QIcon()
-        icon3.addPixmap(QtGui.QPixmap("../resources/general.svg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        item.setIcon(icon3)
         self.listWidget.addItem(item)
         item = QtWidgets.QListWidgetItem()
-        icon4 = QtGui.QIcon()
-        icon4.addPixmap(QtGui.QPixmap("../resources/info.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        item.setIcon(icon4)
         self.listWidget.addItem(item)
         self.horizontalLayout.addWidget(self.listWidget)
         self.verticalLayout_13 = QtWidgets.QVBoxLayout()
@@ -290,13 +275,12 @@ class Ui_ui_main_window(object):
         self.label.setText("OpenStreetMap")
         self.label.setObjectName("label")
         self.gridLayout_3.addWidget(self.label, 2, 0, 1, 1)
-        self.label_16 = QtWidgets.QLabel(self.groupBox_4)
-        self.label_16.setText("")
-        self.label_16.setPixmap(QtGui.QPixmap("../resources/gnu.png"))
-        self.label_16.setAlignment(QtCore.Qt.AlignCenter)
-        self.label_16.setOpenExternalLinks(True)
-        self.label_16.setObjectName("label_16")
-        self.gridLayout_3.addWidget(self.label_16, 1, 1, 1, 1)
+        self.label_gnu = QtWidgets.QLabel(self.groupBox_4)
+        self.label_gnu.setText("")
+        self.label_gnu.setAlignment(QtCore.Qt.AlignCenter)
+        self.label_gnu.setOpenExternalLinks(True)
+        self.label_gnu.setObjectName("label_gnu")
+        self.gridLayout_3.addWidget(self.label_gnu, 1, 1, 1, 1)
         self.label_15 = QtWidgets.QLabel(self.groupBox_4)
         self.label_15.setText("Plugin : Licence GPL Version 2")
         self.label_15.setObjectName("label_15")

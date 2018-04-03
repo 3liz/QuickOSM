@@ -30,14 +30,14 @@ from QuickOSM.core.exceptions import (
     OutPutGeomTypesException,
     MissingParameterException)
 from QuickOSM.core.query_parser import prepare_query
-from QuickOSM.core.utilities.tools import tr
+from QuickOSM.core.utilities.tools import tr, resources_path
 from QuickOSM.core.utilities.utilities_qgis import display_message_bar
 from QuickOSM.ui.QuickOSMWidget import QuickOSMWidget
 from QuickOSM.ui.XMLHighlighter import XMLHighlighter
 from QuickOSM.ui.query import Ui_ui_query
 from QuickOSM.ui.save_query_dialog import SaveQueryDialog
 from qgis.PyQt.QtCore import pyqtSignal, Qt, QUrl
-from qgis.PyQt.QtGui import QDesktopServices
+from qgis.PyQt.QtGui import QDesktopServices, QIcon
 from qgis.PyQt.QtWidgets import QDockWidget, QMenu, QAction, QApplication, \
     QDialogButtonBox
 from qgis.core import Qgis
@@ -69,6 +69,7 @@ class QueryWidget(QuickOSMWidget, Ui_ui_query):
         self.bbox = None
         self.activate_extent_layer()
         self.groupBox.setCollapsed(True)
+        self.pushButton_overpassTurbo.setIcon(QIcon(resources_path('turbo.png')))
         # Disable buttons
         self.pushButton_generateQuery.setDisabled(True)
         self.pushButton_saveQuery.setDisabled(True)

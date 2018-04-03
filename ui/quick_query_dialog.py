@@ -88,14 +88,15 @@ class QuickQueryWidget(QuickOSMWidget, Ui_ui_quick_query):
             dirname(dirname(abspath(__file__))), 'mapFeatures.json')
 
         if isfile(map_features_json_file):
-            self.osmKeys = load(open(map_features_json_file))
-            keys = list(self.osmKeys.keys())
-            keys.sort()
-            keys_completer = QCompleter(keys)
-            self.comboBox_key.addItems(keys)
-            self.comboBox_key.setCompleter(keys_completer)
-            self.comboBox_key.completer().setCompletionMode(
-                QCompleter.PopupCompletion)
+            with open(map_features_json_file) as f:
+                self.osmKeys = load(f)
+                keys = list(self.osmKeys.keys())
+                keys.sort()
+                keys_completer = QCompleter(keys)
+                self.comboBox_key.addItems(keys)
+                self.comboBox_key.setCompleter(keys_completer)
+                self.comboBox_key.completer().setCompletionMode(
+                    QCompleter.PopupCompletion)
         self.key_edited()
 
         self.init_nominatim_autofill()

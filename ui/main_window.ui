@@ -20,7 +20,16 @@
    <property name="spacing">
     <number>0</number>
    </property>
-   <property name="margin">
+   <property name="leftMargin">
+    <number>0</number>
+   </property>
+   <property name="topMargin">
+    <number>0</number>
+   </property>
+   <property name="rightMargin">
+    <number>0</number>
+   </property>
+   <property name="bottomMargin">
     <number>0</number>
    </property>
    <item>
@@ -80,45 +89,25 @@ QListWidget::item::selected {
       <property name="text">
        <string>Quick query</string>
       </property>
-      <property name="icon">
-       <iconset>
-        <normaloff>../resources/quick.png</normaloff>../resources/quick.png</iconset>
-      </property>
      </item>
      <item>
       <property name="text">
        <string>Query</string>
-      </property>
-      <property name="icon">
-       <iconset>
-        <normaloff>../resources/edit.png</normaloff>../resources/edit.png</iconset>
       </property>
      </item>
      <item>
       <property name="text">
        <string>OSM File</string>
       </property>
-      <property name="icon">
-       <iconset>
-        <normaloff>../resources/open.png</normaloff>../resources/open.png</iconset>
-      </property>
      </item>
      <item>
       <property name="text">
        <string>Parameters</string>
       </property>
-      <property name="icon">
-       <iconset>
-        <normaloff>../resources/general.svg</normaloff>../resources/general.svg</iconset>
-      </property>
      </item>
      <item>
       <property name="text">
        <string>About</string>
-      </property>
-      <property name="icon">
-       <iconset>
-        <normaloff>../resources/info.png</normaloff>../resources/info.png</iconset>
       </property>
      </item>
     </widget>
@@ -279,8 +268,8 @@ QListWidget::item::selected {
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>624</width>
-              <height>590</height>
+              <width>645</width>
+              <height>592</height>
              </rect>
             </property>
             <layout class="QVBoxLayout" name="verticalLayout_9">
@@ -524,12 +513,9 @@ QListWidget::item::selected {
                    </widget>
                   </item>
                   <item row="1" column="1">
-                   <widget class="QLabel" name="label_16">
+                   <widget class="QLabel" name="label_gnu">
                     <property name="text">
                      <string notr="true"/>
-                    </property>
-                    <property name="pixmap">
-                     <pixmap>../resources/gnu.png</pixmap>
                     </property>
                     <property name="alignment">
                      <set>Qt::AlignCenter</set>

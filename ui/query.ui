@@ -30,8 +30,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>579</width>
-        <height>847</height>
+        <width>585</width>
+        <height>853</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout">
@@ -378,10 +378,6 @@
           <widget class="QPushButton" name="pushButton_overpassTurbo">
            <property name="text">
             <string notr="true">Overpass Turbo</string>
-           </property>
-           <property name="icon">
-            <iconset>
-             <normaloff>../resources/turbo.png</normaloff>../resources/turbo.png</iconset>
            </property>
           </widget>
          </item>

@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'ui/query.ui'
 #
-# Created by: PyQt5 UI code generator 5.10
+# Created by: PyQt5 UI code generator 5.9.2
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -204,9 +204,6 @@ class Ui_ui_query(object):
         self.horizontalLayout_5.setObjectName("horizontalLayout_5")
         self.pushButton_overpassTurbo = QtWidgets.QPushButton(self.scrollAreaWidgetContents)
         self.pushButton_overpassTurbo.setText("Overpass Turbo")
-        icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap("../resources/turbo.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.pushButton_overpassTurbo.setIcon(icon)
         self.pushButton_overpassTurbo.setObjectName("pushButton_overpassTurbo")
         self.horizontalLayout_5.addWidget(self.pushButton_overpassTurbo)
         self.pushButton_documentation = QtWidgets.QPushButton(self.scrollAreaWidgetContents)

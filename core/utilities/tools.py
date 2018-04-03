@@ -21,7 +21,7 @@
  ***************************************************************************/
 """
 import configparser
-from os.path import join, dirname, abspath
+from os.path import join, dirname, abspath, pardir
 
 from QuickOSM.core.utilities.operating_system import copy_tree
 from qgis.PyQt.QtCore import QDir, QSettings, QFileInfo
@@ -62,6 +62,28 @@ def get_QuickOSM_folder():
     """
     folder = QFileInfo(QgsApplication.qgisSettingsDirPath()).path() + 'QuickOSM'
     return str(QDir.toNativeSeparators(folder))
+
+
+def resources_path(*args):
+    """Get the path to our resources folder.
+
+    .. versionadded:: 1.5.3
+
+    Note that in version 1.5.3 we removed the use of Qt Resource files in
+    favour of directly accessing on-disk resources.
+
+    :param args List of path elements e.g. ['img', 'logos', 'image.png']
+    :type args: str
+
+    :return: Absolute path to the resources folder.
+    :rtype: str
+    """
+    path = dirname(dirname(__file__))
+    path = abspath(join(path, pardir, 'resources'))
+    for item in args:
+        path = abspath(join(path, item))
+
+    return path
 
 
 def get_user_query_folder(over_write=False):
