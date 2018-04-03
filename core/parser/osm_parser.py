@@ -27,7 +27,7 @@ import tempfile
 from os.path import dirname, realpath, join, isfile, basename
 
 from QuickOSM.core.exceptions import \
-    GeoAlgorithmException, WrongOrderOSMException
+    GeoAlgorithmException
 from QuickOSM.core.parser.pghstore._native import loads
 from QuickOSM.core.utilities.operating_system import get_default_encoding
 from QuickOSM.core.utilities.tools import tr
@@ -121,17 +121,6 @@ class OsmParser(QObject):
                     pass
 
             return layers
-
-        # Check if the order is node before way,relation
-        # We don't check way before relation,
-        # because we can have only nodes and relations
-        if not self.__osmFile.endswith('pbf'):
-            file_obj = codecs.open(self.__osmFile, 'r', 'utf-8')
-            for line in file_obj:
-                if re.search(r'node', line):
-                    break
-                if re.search(r'(way|relation)', line):
-                    raise WrongOrderOSMException
 
         # Foreach layers
         for layer in self.__layers:
