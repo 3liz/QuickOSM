@@ -23,7 +23,7 @@
 import re
 from os.path import isdir
 
-from QuickOSM.controller.process import process_query
+from QuickOSM.core.process import process_query
 from QuickOSM.core.exceptions import (
     QuickOsmException,
     DirectoryOutPutException,
