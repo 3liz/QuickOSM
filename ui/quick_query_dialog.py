@@ -23,7 +23,7 @@
 from json import load
 from os.path import dirname, abspath, join, isfile, isdir
 
-from QuickOSM.controller.process import process_quick_query
+from QuickOSM.core.process import process_quick_query
 from QuickOSM.core.exceptions import (
     QuickOsmException,
     OutPutGeomTypesException,

@@ -24,7 +24,7 @@ from __future__ import absolute_import
 
 from os.path import isdir, dirname, abspath, join, isfile
 
-from QuickOSM.controller.process import open_file
+from QuickOSM.core.process import open_file
 from QuickOSM.core.exceptions import (
     QuickOsmException,
     OutPutGeomTypesException,
@@ -36,7 +36,7 @@ from QuickOSM.core.utilities.tools import tr
 from QuickOSM.ui.QuickOSMWidget import QuickOSMWidget
 from QuickOSM.ui.osm_file import Ui_ui_osm_file
 from qgis.PyQt.QtCore import Qt
-from qgis.PyQt.QtWidgets import QFileDialog, QApplication, QDockWidget
+from qgis.PyQt.QtWidgets import QApplication, QDockWidget
 from qgis.core import QgsProject
 
 
