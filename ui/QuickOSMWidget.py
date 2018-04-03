@@ -61,6 +61,13 @@ class QuickOSMWidget(QWidget):
         self.output_directory.setDialogTitle(tr('QuickOSM', 'Select a directory'))
         self.output_directory.fileChanged.connect(self.disable_prefix_file)
 
+        try:
+            self.advanced.setSaveCollapsedState(False)
+            self.advanced.setCollapsed(True)
+        except AttributeError:
+            # OSM File widget does not have this QgsGroupBox
+            pass
+
     def init_nominatim_autofill(self):
 
         # Usefull to avoid duplicate if we add a new completer.

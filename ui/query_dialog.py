@@ -66,10 +66,8 @@ class QueryWidget(QuickOSMWidget, Ui_ui_query):
         # Setup UI
         self.label_progress.setText("")
         self.lineEdit_filePrefix.setDisabled(True)
-        self.groupBox.setCollapsed(True)
         self.bbox = None
         self.activate_extent_layer()
-        self.groupBox.setCollapsed(True)
         self.pushButton_overpassTurbo.setIcon(QIcon(resources_path('turbo.png')))
         # Disable buttons
         self.pushButton_generateQuery.setDisabled(True)
