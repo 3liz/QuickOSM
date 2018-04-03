@@ -41,7 +41,7 @@ from QuickOSM.core.utilities.tools import (
     get_user_query_folder
 )
 from QuickOSM.ui.main_window_dialog import MainWindowDialog
-from qgis.PyQt.QtCore import QSettings, QTranslator, qVersion, QCoreApplication
+from qgis.PyQt.QtCore import QSettings, QTranslator, QCoreApplication
 from qgis.PyQt.QtGui import QIcon
 from qgis.PyQt.QtWidgets import QMenu, QAction, QPushButton
 from qgis.core import Qgis, QgsCoordinateTransform, \
@@ -78,10 +78,7 @@ class QuickOSMPlugin(object):
         if exists(locale_path):
             self.translator = QTranslator()
             self.translator.load(locale_path)
-
-            if qVersion() > '4.3.3':
-                # noinspection PyTypeChecker
-                QCoreApplication.installTranslator(self.translator)
+            QCoreApplication.installTranslator(self.translator)
 
         # Create the folder if it does not exist.
         get_user_query_folder(over_write=True)
