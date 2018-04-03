@@ -33,11 +33,12 @@ from QuickOSM.core.exceptions import (
 )
 from QuickOSM.core.parser.osm_parser import OsmParser
 from QuickOSM.core.utilities.tools import tr
+from QuickOSM.core.utilities.utilities_qgis import display_message_bar
 from QuickOSM.ui.QuickOSMWidget import QuickOSMWidget
 from QuickOSM.ui.osm_file import Ui_ui_osm_file
 from qgis.PyQt.QtCore import Qt
 from qgis.PyQt.QtWidgets import QApplication, QDockWidget
-from qgis.core import QgsProject
+from qgis.core import QgsProject, Qgis
 
 
 class OsmFileWidget(QuickOSMWidget, Ui_ui_osm_file):
@@ -145,6 +146,10 @@ class OsmFileWidget(QuickOSMWidget, Ui_ui_osm_file):
                     output_geom_types=output_geometry_types,
                     output_dir=output_directory,
                     prefix_file=prefix_file)
+                display_message_bar(
+                    tr('QuickOSM', u'Successful query !'),
+                    level=Qgis.Success,
+                    duration=5)
 
         except QuickOsmException as e:
             self.display_geo_algorithm_exception(e)
