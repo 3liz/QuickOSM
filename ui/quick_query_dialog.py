@@ -54,9 +54,7 @@ class QuickQueryWidget(QuickOSMWidget, Ui_ui_quick_query):
         # Setup UI
         self.label_progress.setText("")
         self.lineEdit_filePrefix.setDisabled(True)
-        self.groupBox.setCollapsed(True)
         self.activate_extent_layer()
-        self.groupBox.setCollapsed(True)
         self.comboBox_in_around.setDisabled(True)
         self.lineEdit_nominatim.setDisabled(True)
         self.radioButton_extentMapCanvas.setChecked(True)

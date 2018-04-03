@@ -77,7 +77,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QgsCollapsibleGroupBox" name="groupBox">
+        <widget class="QgsCollapsibleGroupBox" name="advanced">
          <property name="title">
           <string>Advanced</string>
          </property>
