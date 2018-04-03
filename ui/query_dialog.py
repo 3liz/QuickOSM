@@ -223,7 +223,7 @@ class QueryWidget(QuickOSMWidget, Ui_ui_query):
             if num_layers:
                 display_message_bar(
                     tr('QuickOSM', u'Successful query !'),
-                    level=Qgis.Info,
+                    level=Qgis.Success,
                     duration=5)
                 self.label_progress.setText(
                     tr('QuickOSM', u'Successful query !'))

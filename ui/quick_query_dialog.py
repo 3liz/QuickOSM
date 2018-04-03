@@ -268,7 +268,7 @@ class QuickQueryWidget(QuickOSMWidget, Ui_ui_quick_query):
 
                 display_message_bar(
                     tr('QuickOSM', u'Successful query !'),
-                    level=Qgis.Info,
+                    level=Qgis.Success,
                     duration=5)
             else:
                 self.label_progress.setText(tr("QuickOSM", u'No result'))
