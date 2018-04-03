@@ -219,10 +219,11 @@ class QuickOSMPlugin(object):
         # Read the config file
         json_file_config = join(dirname(abspath(__file__)), 'config.json')
         if isfile(json_file_config):
-            config_json = load(open(json_file_config))
-            for server in config_json['overpass_servers']:
-                self.iface.QuickOSM_mainWindowDialog.comboBox_default_OAPI.\
-                    addItem(server)
+            with open(json_file_config) as f:
+                config_json = load(f)
+                for server in config_json['overpass_servers']:
+                    self.iface.QuickOSM_mainWindowDialog.comboBox_default_OAPI.\
+                        addItem(server)
 
         # Check previous version and if new queries are available
         version = get_setting('version')
