@@ -49,6 +49,7 @@ class QuickQueryWidget(QuickOSMWidget, Ui_ui_quick_query):
         """
         QuickOSMWidget.__init__(self, parent)
         self.setupUi(self)
+        self.init()
 
         # Setup UI
         self.label_progress.setText("")
@@ -69,10 +70,7 @@ class QuickQueryWidget(QuickOSMWidget, Ui_ui_quick_query):
         # connect
         self.pushButton_runQuery.clicked.connect(self.run_query)
         self.pushButton_showQuery.clicked.connect(self.show_query)
-        self.pushButton_browse_output_file.clicked.connect(
-            self.set_output_directory_path)
         self.comboBox_key.editTextChanged.connect(self.key_edited)
-        self.lineEdit_browseDir.textEdited.connect(self.disable_prefix_file)
         self.radioButton_extentLayer.toggled.connect(
             self.allow_nominatim_or_extent)
         self.radioButton_extentMapCanvas.toggled.connect(
@@ -206,7 +204,7 @@ class QuickQueryWidget(QuickOSMWidget, Ui_ui_quick_query):
 
         # Block the button and save the initial text
         QApplication.setOverrideCursor(Qt.WaitCursor)
-        self.pushButton_browse_output_file.setDisabled(True)
+        self.output_directory.setDisabled(True)
         self.pushButton_showQuery.setDisabled(True)
         self.start_process()
         QApplication.processEvents()
@@ -216,7 +214,7 @@ class QuickQueryWidget(QuickOSMWidget, Ui_ui_quick_query):
         value = str(self.comboBox_value.currentText())
         nominatim = self.nominatim_value()
         timeout = self.spinBox_timeout.value()
-        output_directory = self.lineEdit_browseDir.text()
+        output_directory = self.output_directory.filePath()
         prefix_file = self.lineEdit_filePrefix.text()
         if self.comboBox_in_around.currentIndex() == 1:
             is_around = True
@@ -289,7 +287,7 @@ class QuickQueryWidget(QuickOSMWidget, Ui_ui_quick_query):
 
         finally:
             # Resetting the button
-            self.pushButton_browse_output_file.setDisabled(False)
+            self.output_directory.setDisabled(False)
             self.pushButton_showQuery.setDisabled(False)
             QApplication.restoreOverrideCursor()
             self.end_process()
@@ -316,7 +314,7 @@ class QuickQueryWidget(QuickOSMWidget, Ui_ui_quick_query):
         value = str(self.comboBox_value.currentText())
         nominatim = str(self.lineEdit_nominatim.text())
         timeout = self.spinBox_timeout.value()
-        output_directory = self.lineEdit_browseDir.text()
+        output_directory = self.output_directory.filePath()
         prefix_file = self.lineEdit_filePrefix.text()
         if self.comboBox_in_around.currentIndex() == 1:
             is_around = True
@@ -357,7 +355,7 @@ class QuickQueryWidget(QuickOSMWidget, Ui_ui_quick_query):
             query_widget.radioButton_extentLayer.setCheckable(True)
 
         # Transfer the output
-        query_widget.lineEdit_browseDir.setText(output_directory)
+        query_widget.output_directory.setFilePath(output_directory)
         if prefix_file:
             query_widget.lineEdit_filePrefix.setText(prefix_file)
             query_widget.lineEdit_filePrefix.setEnabled(True)

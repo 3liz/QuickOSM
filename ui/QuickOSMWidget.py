@@ -36,6 +36,7 @@ from qgis.core import (
     QgsProject,
     Qgis,
 )
+from qgis.gui import QgsFileWidget
 from qgis.utils import iface
 
 LOGGER = logging.getLogger('QuickOSM')
@@ -52,6 +53,13 @@ class QuickOSMWidget(QWidget):
         project = QgsProject.instance()
         project.layersAdded.connect(self.activate_extent_layer)
         project.layersRemoved.connect(self.activate_extent_layer)
+
+    def init(self):
+        """Init after the UI is loaded."""
+        self.output_directory.lineEdit().setPlaceholderText(tr('QuickOSM', 'Save to temporary file'))
+        self.output_directory.setStorageMode(QgsFileWidget.GetDirectory)
+        self.output_directory.setDialogTitle(tr('QuickOSM', 'Select a directory'))
+        self.output_directory.fileChanged.connect(self.disable_prefix_file)
 
     def init_nominatim_autofill(self):
 
@@ -107,21 +115,11 @@ class QuickOSMWidget(QWidget):
         """
         If the directory is empty, we disable the file prefix
         """
-        if self.lineEdit_browseDir.text():
+        if self.output_directory.filePath():
             self.lineEdit_filePrefix.setDisabled(False)
         else:
             self.lineEdit_filePrefix.setText("")
             self.lineEdit_filePrefix.setDisabled(True)
-
-    def set_output_directory_path(self):
-        """
-        Fill the output directory path
-        """
-        # noinspection PyTypeChecker
-        output_file = QFileDialog.getExistingDirectory(
-            None, caption=tr("QuickOSM", 'Select directory'))
-        self.lineEdit_browseDir.setText(output_file)
-        self.disable_prefix_file()
 
     def extent_radio(self):
         """
