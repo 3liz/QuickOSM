@@ -41,12 +41,8 @@ def copy_tree(src, dst, symlinks=False, ignore=None):
                 copy2(s, d)
 
 
-def is_windows():
-    return True if platform.system() == 'Windows' else False
-
-
 def get_default_encoding():
-    if is_windows():
+    if platform.system() == 'Windows':
         return sys.getdefaultencoding()
     else:
         return 'UTF-8'

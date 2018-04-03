@@ -25,16 +25,13 @@ import tempfile
 from os.path import dirname, abspath, join, isfile
 
 from QuickOSM.core.api.connexion_oapi import ConnexionOAPI
-from QuickOSM.core.exceptions import \
-    FileOutPutException, OsmDriverNotFound, GDALVersion
+from QuickOSM.core.exceptions import FileOutPutException
 from QuickOSM.core.parser.osm_parser import OsmParser
 from QuickOSM.core.query_factory import QueryFactory
 from QuickOSM.core.query_parser import prepare_query
 from QuickOSM.core.utilities.operating_system import get_default_encoding
 from QuickOSM.core.utilities.tools import get_setting
 from QuickOSM.core.utilities.tools import tr
-from QuickOSM.core.utilities.utilities_qgis import \
-    is_osm_driver_enabled, is_ogr_version_ok
 from qgis.PyQt.QtWidgets import QApplication
 from qgis.core import \
     QgsVectorLayer, QgsVectorFileWriter, QgsAction, QgsProject, QgsWkbTypes
@@ -223,13 +220,6 @@ def process_query(
         white_list_values=None,
         config_outputs=None):
     """execute a query and send the result file to open_file."""
-
-    # Check OGR
-    if not is_ogr_version_ok():
-        raise GDALVersion
-
-    if not is_osm_driver_enabled():
-        raise OsmDriverNotFound
 
     # Get output's format
     output_format = get_setting('outputFormat')

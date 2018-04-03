@@ -36,19 +36,3 @@ def display_message_bar(
             title, msg, level, duration)
     else:
         iface.messageBar().pushMessage(title, msg, level, duration)
-
-
-def get_ogr_version():
-    return int(gdal.VersionInfo('VERSION_NUM'))
-
-
-def is_ogr_version_ok():
-    if get_ogr_version() < 1100000:
-        return False
-    return True
-
-
-def is_osm_driver_enabled():
-    if not ogr.GetDriverByName('OSM'):
-        return False
-    return True

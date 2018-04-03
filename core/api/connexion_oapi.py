@@ -136,28 +136,3 @@ class ConnexionOAPI(object):
         tf.close()
         self.result_path = tf.fileName()
         self.loop.quit()
-
-    def get_timestamp(self):
-        """
-        Get the timestamp of the OSM data on the server
-
-        @return: Timestamp
-        @rtype: str
-        """
-        url_query = self.__url + 'timestamp'
-        try:
-            return urllib.request.urlopen(url=url_query).read()
-        except urllib.error.HTTPError as e:
-            if e.code == 400:
-                raise OverpassBadRequestException
-
-    def is_valid(self):
-        """
-        Try if the url is valid, NOT TESTED YET
-        """
-        url_query = self.__url + 'interpreter'
-        try:
-            urllib.request.urlopen(url=url_query)
-            return True
-        except urllib.error.HTTPError:
-            return False

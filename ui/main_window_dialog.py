@@ -20,7 +20,6 @@
  *                                                                         *
  ***************************************************************************/
 """
-from QuickOSM.core.api.connexion_oapi import ConnexionOAPI
 from QuickOSM.core.utilities.tools import get_setting, set_setting, tr
 from QuickOSM.core.utilities.tools import get_user_query_folder
 from QuickOSM.ui.main_window import Ui_ui_main_window
@@ -129,17 +128,6 @@ class MainWindowDialog(QDialog, Ui_ui_main_window):
         """
         self.defaultServer = self.comboBox_default_OAPI.currentText()
         set_setting('defaultOAPI', self.defaultServer)
-
-    def get_timestamp_overpass_api(self):
-        """
-        Get the timestamp of the current server
-        """
-        text = self.pushButton_OAPI_timestamp.text()
-        self.pushButton_OAPI_timestamp.setText(
-            tr('QuickOSM', 'Fetching the timestamp ...'))
-        overpass_api = ConnexionOAPI(url=self.defaultServer)
-        self.label_timestamp_oapi.setText(overpass_api.get_timestamp())
-        self.pushButton_OAPI_timestamp.setText(text)
 
     def set_output_format(self):
         """

@@ -7,3 +7,4 @@ help/
 .idea
 .coverage
 .noseids
+venv

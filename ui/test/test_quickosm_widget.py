@@ -74,6 +74,7 @@ class TestQuickOSMWidget(unittest.TestCase):
         expected = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10']
         self.assertListEqual(expected, new_list)
 
+
 if __name__ == '__main__':
     suite = unittest.makeSuite(TestQuickOSMWidget)
     runner = unittest.TextTestRunner(verbosity=2)
