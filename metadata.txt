@@ -4,7 +4,7 @@ qgisMinimumVersion=3.0
 qgisMaximumVersion=3.99
 description=QuickOSM allows you to work quickly with OSM data in QGIS thanks to Overpass API.
 about=Execute customs overpass queries from QGIS to get OSM data.
-version=1.5.2
+version=1.5.3
 newQueries=False
 author=Etienne Trimaille
 email=etienne@trimaille.eu
@@ -17,6 +17,10 @@ server=False
 
 # Uncomment the following line and add your changelog:
 # changelog=
+  Version 1.5.3
+  * Fix OGR config
+  * Icons
+  * Read PBF
   Version 1.5.2
   * Bugfix
   Version 1.5.1
@@ -24,40 +28,16 @@ server=False
   Version 1.5.0
   * Port to QGIS 3, Python 3 and Qt5.
   * New JOSM remote
-  Version 1.4.8
-  * Allow more output format in Processing framework
-  Version 1.4.7
-  * Fix port number for HTTPS
-  Version 1.4.4
-  * Move the plugin the vector menu
-  * Fix various issues
-  Version 1.4.3
-  * Finnish translation
-  * Fix issues with OQL
-  * Refactoring
-  Version 1.3.4
-  * Add admin_level to the preset
-  * Dutch translation
-  Version 1.3.3
-  * Add closed waterway to the polygon layer
-  * Italian translation
-  Version 1.3.2
-  * bug fix
-  Version 1.3
-  * {{geoCoords}} and {{center}} are now implemented
-  * German translation
-  * Fix encoding on windows
-  * Fix some minor bugs
 
 # Tags are comma separated with spaces allowed
-tags=osm,openstreetmap,overpass,download,osmdownloader,josm,remote
+tags=osm,openstreetmap,overpass,download,osmdownloader,josm,remote,pbf
 
 homepage=https://github.com/3liz/QuickOSM
 tracker=https://github.com/3liz/QuickOSM/issues
 repository=https://github.com/3liz/QuickOSM
 icon=resources/icon.png
 # experimental flag
-experimental=True
+experimental=False
 
 # deprecated flag (applies to the whole plugin, not just a single version)
 deprecated=False
