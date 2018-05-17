@@ -1,5 +1,5 @@
-# QuickOSM 2, QGIS 3
-For the port/rewrite, see the `master_q3` branch: https://github.com/3liz/QuickOSM/tree/master_q3
+# QuickOSM on QGIS 2
+Check the `master_qgis2` branch: https://github.com/3liz/QuickOSM/tree/master_qgis2
 
 QuickOSM
 ============================================================
