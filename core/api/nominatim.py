@@ -34,7 +34,7 @@ class Nominatim(object):
     """Manage connexion to Nominatim."""
 
     def __init__(self,
-                 url="http://nominatim.openstreetmap.org/search?format=json"):
+                 url="https://nominatim.openstreetmap.org/search?format=json"):
         """
         Constructor
         @param url:URL of Nominatim
