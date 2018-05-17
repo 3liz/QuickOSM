@@ -14,6 +14,7 @@ find . -depth -name 'test' -type d -exec rm -rf '{}' \;
 rm -rf .git
 rm -rf .idea
 rm -f .gitignore
+rm -rf venv/
 rm -f Makefile
 rm -f QuickOSM.pro
 rm -f README.md
