@@ -86,9 +86,6 @@ class QueryFactory(object):
             raise QueryFactoryException(
                 suffix=tr('QuickOSM', 'nominatim OR bbox, not both'))
 
-        if not self.__key:
-            raise QueryFactoryException(suffix=tr('QuickOSM', 'key required'))
-
         if len(self.__osm_objects) < 1:
             raise QueryFactoryException(
                 suffix=tr('QuickOSM', 'osm object required'))
@@ -142,11 +139,13 @@ class QueryFactory(object):
         for osmObject in self.__osm_objects:
             for i in range(0, loop):
                 query += u'<query type="%s">' % osmObject
-                query += u'<has-kv k="%s" ' % self.__key
-                if self.__value:
-                    query += u'v="%s"' % self.__value
 
-                query += u'/>'
+                if self.__key:
+                    query += u'<has-kv k="%s" ' % self.__key
+                    if self.__value:
+                        query += u'v="%s"' % self.__value
+
+                    query += u'/>'
 
                 if self.__nominatim and not self.__is_around:
                     query += u'<area-query from="area_%s" />' % i

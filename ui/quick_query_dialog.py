@@ -122,9 +122,9 @@ class QuickQueryWidget(QuickOSMWidget, Ui_ui_quick_query):
         if self.comboBox_key.currentText():
             self.pushButton_runQuery.setDisabled(False)
             self.pushButton_showQuery.setDisabled(False)
-        else:
-            self.pushButton_runQuery.setDisabled(True)
-            self.pushButton_showQuery.setDisabled(True)
+        # else:
+        #     self.pushButton_runQuery.setDisabled(True)
+        #     self.pushButton_showQuery.setDisabled(True)
 
         self.comboBox_value.clear()
         self.comboBox_value.setCompleter(None)
