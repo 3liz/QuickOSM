@@ -21,7 +21,6 @@
  ***************************************************************************/
 """
 
-from PyQt4.QtWebKit import QWebView
 from PyQt4.QtGui import QDesktopServices
 from PyQt4.QtCore import QUrl
 from qgis.utils import iface
@@ -83,12 +82,13 @@ class Actions(object):
                         level=QgsMessageBar.CRITICAL,
                         duration=7)
 
-            # NOT USED
-            elif field == "rawedit":
-                url = QUrl("http://rawedit.openstreetmap.fr/edit/" + value)
-                web_browser = QWebView(None)
-                web_browser.load(url)
-                web_browser.show()
+            # # NOT USED
+            # QWebView removed 1.4.14 in QGIS 2
+            # elif field == "rawedit":
+            #     url = QUrl("http://rawedit.openstreetmap.fr/edit/" + value)
+            #     web_browser = QWebView(None)
+            #     web_browser.load(url)
+            #     web_browser.show()
 
     @staticmethod
     def run_sketch_line(network, ref):
