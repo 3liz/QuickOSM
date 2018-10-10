@@ -316,7 +316,7 @@ QListWidget::item::selected {
               </layout>
              </item>
              <item>
-              <widget class="QWebView" name="webBrowser"/>
+              <widget class="QTextEdit" name="webBrowser"/>
              </item>
              <item>
               <spacer name="verticalSpacer_2">

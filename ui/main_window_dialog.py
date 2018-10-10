@@ -104,7 +104,7 @@ class MainWindowDialog(QDialog, Ui_ui_main_window):
             file_help_path = join(doc_path, helpFileName)
             if isfile(file_help_path):
                 self.help_file = file_help_path
-                self.webBrowser.load(QUrl(self.help_file))
+                self.get_root_help()
                 break
         else:
             self.webBrowser.setHtml("<h3>Help not available</h3>")
@@ -113,7 +113,8 @@ class MainWindowDialog(QDialog, Ui_ui_main_window):
         """
         home button set the default help page
         """
-        self.webBrowser.load(QUrl(self.help_file))
+        with open(self.help_file) as f:
+            self.webBrowser.setHtml(f.read())
 
     def refresh_my_queries_tree(self):
         """
