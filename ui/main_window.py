@@ -426,7 +426,6 @@ class Ui_ui_main_window(object):
         self.groupBox_4.setTitle(_translate("ui_main_window", "Licence", None))
 
 from qgis import gui
-from PyQt4 import QtWebKit
 from query_dialog import QueryWidget
 from osm_file_dialog import OsmFileWidget
 from quick_query_dialog import QuickQueryWidget
