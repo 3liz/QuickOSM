@@ -21,18 +21,14 @@
  ***************************************************************************/
 """
 
-import tempfile
 from os.path import dirname, realpath, join, isfile, basename
 
-from QuickOSM.core.exceptions import \
-    GeoAlgorithmException
-from QuickOSM.core.parser.pghstore._native import loads
-from QuickOSM.core.utilities.operating_system import get_default_encoding
+from QuickOSM.core.exceptions import GeoAlgorithmException
 from QuickOSM.core.utilities.tools import tr
 from osgeo import gdal
 from qgis.PyQt.QtCore import QObject, pyqtSignal, QVariant
 from qgis.core import \
-    QgsVectorLayer, QgsFields, QgsField, QgsVectorFileWriter, QgsFeature, QgsMemoryProviderUtils
+    QgsVectorLayer, QgsFields, QgsField, QgsVectorFileWriter, QgsFeature, QgsMemoryProviderUtils, QgsExpression
 
 
 class OsmParser(QObject):
@@ -160,10 +156,10 @@ class OsmParser(QObject):
                     continue
 
                 # Get the "others_tags" field
-                attributes = feature.attributes()[other_tags_index]
+                attributes = str(feature.attributes()[other_tags_index])
 
                 if attributes:
-                    h_store = loads(attributes)
+                    h_store = QgsExpression("map_akeys(hstore_to_map('{}'))".format(attributes.replace("'", "\\'"))).evaluate()
                     for key in h_store:
                         if key not in layers[layer]['tags']:
                             # If the key in OSM is not already in the table
@@ -226,7 +222,7 @@ class OsmParser(QObject):
                     new_attributes.append(osm_type)
 
                     if attributes[1]:
-                        h_store = loads(attributes[1])
+                        h_store = QgsExpression("hstore_to_map('{}')".format(str(attributes[1]).replace("'", "\\'"))).evaluate()
                         for tag in layers[layer]['tags'][3:]:
                             if str(tag) in h_store:
                                 new_attributes.append(h_store[tag])
@@ -248,7 +244,7 @@ class OsmParser(QObject):
                         new_attributes.append(attributes[1])
                     new_attributes.append(osm_type)
 
-                    h_store = loads(str(attributes[2]))
+                    h_store = QgsExpression("hstore_to_map('{}')".format(str(attributes[2]).replace("'", "\\'"))).evaluate()
                     for tag in layers[layer]['tags'][3:]:
                         if str(tag) in h_store:
                             new_attributes.append(h_store[tag])
