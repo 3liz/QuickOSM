@@ -248,7 +248,7 @@ class OsmParser(QObject):
                         new_attributes.append(attributes[1])
                     new_attributes.append(osm_type)
 
-                    h_store = loads(attributes[2])
+                    h_store = loads(str(attributes[2]))
                     for tag in layers[layer]['tags'][3:]:
                         if str(tag) in h_store:
                             new_attributes.append(h_store[tag])
