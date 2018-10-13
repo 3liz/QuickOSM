@@ -37,6 +37,8 @@ from qgis.core import (
     QgsVectorLayer, QgsVectorFileWriter, QgsAction, QgsProject, QgsWkbTypes)
 
 LOGGER = logging.getLogger('QuickOSM')
+ACTIONS_PATH = 'from QuickOSM.core.actions import Actions;'
+ACTIONS_VISIBILITY = ['Canvas', 'Feature', 'Field']
 
 
 def open_file(
@@ -138,42 +140,70 @@ def open_file(
 
             # Add action about OpenStreetMap
             actions = new_layer.actions()
-            actions.addAction(
+
+            osm_browser = QgsAction(
                 QgsAction.OpenUrl,
-                "OpenStreetMap Browser",
-                'http://www.openstreetmap.org/browse/'
-                '[% "osm_type" %]/[% "osm_id" %]',
-                False)
-            actions.addAction(
+                'OpenStreetMap Browser',
+                'http://www.openstreetmap.org/browse/[% "osm_type" %]/[% "osm_id" %]',
+                '',
+                False,
+                '',
+                ACTIONS_VISIBILITY,
+                ''
+            )
+            actions.addAction(osm_browser)
+
+            josm = QgsAction(
                 QgsAction.GenericPython,
                 'JOSM',
-                'from QuickOSM.CoreQuickOSM.Actions import Actions;'
-                'Actions.run("josm","[% "full_id" %]")',
-                False)
-            actions.addAction(
+                ACTIONS_PATH + 'Actions.run("josm","[% "full_id" %]")',
+                '',
+                False,
+                '',
+                ACTIONS_VISIBILITY,
+                ''
+            )
+            actions.addAction(josm)
+
+            default_editor = QgsAction(
                 QgsAction.OpenUrl,
-                "User default editor",
-                'http://www.openstreetmap.org/edit?'
-                '[% "osm_type" %]=[% "osm_id" %]',
-                False)
+                'User default editor',
+                'http://www.openstreetmap.org/edit?[% "osm_type" %]=[% "osm_id" %]',
+                '',
+                False,
+                '',
+                ACTIONS_VISIBILITY,
+                ''
+            )
+            actions.addAction(default_editor)
 
             for link in ['url', 'website', 'wikipedia', 'ref:UAI']:
                 if link in item['tags']:
                     link = link.replace(":", "_")
-                    actions.addAction(
+                    generic = QgsAction(
                         QgsAction.GenericPython,
                         link,
-                        'from QuickOSM.core.actions import Actions;'
-                        'Actions.run("' + link + '","[% "' + link + '" %]")',
-                        False)
+                        ACTIONS_PATH + 'Actions.run("' + link + '","[% "' + link + '" %]")',
+                        '',
+                        False,
+                        '',
+                        ACTIONS_VISIBILITY,
+                        ''
+                    )
+                    actions.addAction(generic)
 
             if 'network' in item['tags'] and 'ref' in item['tags']:
-                actions.addAction(
+                sketch_line = QgsAction(
                     QgsAction.GenericPython,
-                    "Sketchline",
-                    'from QuickOSM.core.actions import Actions;'
-                    'Actions.run_sketch_line("[% "network" %]","[% "ref" %]")',
-                    False)
+                    'Sketchline',
+                    ACTIONS_PATH + 'Actions.run_sketch_line("[% "network" %]","[% "ref" %]")',
+                    '',
+                    False,
+                    '',
+                    ACTIONS_VISIBILITY,
+                    ''
+                )
+                actions.addAction(sketch_line)
 
             QgsProject.instance().addMapLayer(new_layer)
             num_layers += 1

@@ -50,8 +50,6 @@ class Actions(object):
                    u"Sorry man, this field is empty for this entity."),
                 level=Qgis.Warning, duration=7)
         else:
-            field = str(field, "UTF-8")
-            value = str(value, "UTF-8")
 
             if field in ["url", "website", "wikipedia"]:
                 var = QDesktopServices()
