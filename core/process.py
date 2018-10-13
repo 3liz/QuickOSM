@@ -20,6 +20,8 @@
  *                                                                         *
  ***************************************************************************/
 """
+import logging
+import time
 from os.path import dirname, abspath, join, isfile
 
 from QuickOSM.core.api.connexion_oapi import ConnexionOAPI
@@ -33,6 +35,8 @@ from QuickOSM.core.utilities.tools import tr
 from qgis.PyQt.QtWidgets import QApplication
 from qgis.core import (
     QgsVectorLayer, QgsVectorFileWriter, QgsAction, QgsProject, QgsWkbTypes)
+
+LOGGER = logging.getLogger('QuickOSM')
 
 
 def open_file(
@@ -69,7 +73,12 @@ def open_file(
 
     osm_parser.signalText.connect(dialog.set_progress_text)
     osm_parser.signalPercentage.connect(dialog.set_progress_percentage)
+
+    start_time = time.time()
     layers = osm_parser.parse()
+    elapsed_time = time.time() - start_time
+    parser_time = time.strftime("%Hh %Mm %Ss", time.gmtime(elapsed_time))
+    LOGGER.info('The OSM parser took: {}'.format(parser_time))
 
     # Finishing the process with geojson or memory layer
     num_layers = 0
