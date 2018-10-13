@@ -39,6 +39,8 @@ from QuickOSM.core.utilities.utilities_qgis import \
 from QuickOSM.core.utilities.tools import get_setting
 from QuickOSM.core.query_parser import prepare_query
 
+ACTIONS = 'from QuickOSM.core.actions import Actions;'
+
 
 def get_outputs(output_dir, output_format, prefix_file, layer_name):
     outputs = {}
@@ -173,8 +175,7 @@ def open_file(
             actions.addAction(
                 QgsAction.GenericPython,
                 'JOSM',
-                'from QuickOSM.CoreQuickOSM.Actions import Actions;'
-                'Actions.run("josm","[% "full_id" %]")',
+                ACTIONS + 'Actions.run("josm","[% "full_id" %]")',
                 False)
             actions.addAction(
                 QgsAction.OpenUrl,
@@ -189,16 +190,14 @@ def open_file(
                     actions.addAction(
                         QgsAction.GenericPython,
                         link,
-                        'from QuickOSM.core.actions import Actions;'
-                        'Actions.run("' + link + '","[% "' + link + '" %]")',
+                        ACTIONS + 'Actions.run("' + link + '","[% "' + link + '" %]")',
                         False)
 
             if 'network' in item['tags'] and 'ref' in item['tags']:
                 actions.addAction(
                     QgsAction.GenericPython,
                     "Sketchline",
-                    'from QuickOSM.core.actions import Actions;'
-                    'Actions.run_sketch_line("[% "network" %]","[% "ref" %]")',
+                    ACTIONS + 'Actions.run_sketch_line("[% "network" %]","[% "ref" %]")',
                     False)
 
             # Add index if possible
