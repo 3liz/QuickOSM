@@ -24,8 +24,89 @@
 from QuickOSM.core.utilities.tools import tr
 from qgis.PyQt.QtCore import QUrl
 from qgis.PyQt.QtGui import QDesktopServices
-from qgis.core import Qgis
+from qgis.core import Qgis, QgsAction
 from qgis.utils import iface
+
+ACTIONS_PATH = 'from QuickOSM.core.actions import Actions;'
+ACTIONS_VISIBILITY = ['Canvas', 'Feature', 'Field']
+
+
+def add_actions(layer, keys):
+    """Add actions on layer.
+
+    :param layer: The layer.
+    :type layer: QgsVectorLayer
+
+    :param keys: The list of keys in the layer.
+    :type keys: list
+    """
+    actions = layer.actions()
+
+    osm_browser = QgsAction(
+        QgsAction.OpenUrl,
+        'OpenStreetMap Browser',
+        'http://www.openstreetmap.org/browse/[% "osm_type" %]/[% "osm_id" %]',
+        '',
+        False,
+        '',
+        ACTIONS_VISIBILITY,
+        ''
+    )
+    actions.addAction(osm_browser)
+
+    josm = QgsAction(
+        QgsAction.GenericPython,
+        'JOSM',
+        ACTIONS_PATH + 'Actions.run("josm","[% "full_id" %]")',
+        '',
+        False,
+        '',
+        ACTIONS_VISIBILITY,
+        ''
+    )
+    actions.addAction(josm)
+
+    default_editor = QgsAction(
+        QgsAction.OpenUrl,
+        'User default editor',
+        'http://www.openstreetmap.org/edit?[% "osm_type" %]=[% "osm_id" %]',
+        '',
+        False,
+        '',
+        ACTIONS_VISIBILITY,
+        ''
+    )
+    actions.addAction(default_editor)
+
+    for link in ['url', 'website', 'wikipedia', 'ref:UAI']:
+        if link in keys:
+            link = link.replace(":", "_")
+            generic = QgsAction(
+                QgsAction.GenericPython,
+                link,
+                (ACTIONS_PATH +
+                    'Actions.run("' + link + '","[% "' + link + '" %]")'),
+                '',
+                False,
+                '',
+                ACTIONS_VISIBILITY,
+                ''
+            )
+            actions.addAction(generic)
+
+    if 'network' in keys and 'ref' in keys:
+        sketch_line = QgsAction(
+            QgsAction.GenericPython,
+            'Sketchline',
+            (ACTIONS_PATH +
+             'Actions.run_sketch_line("[% "network" %]","[% "ref" %]")'),
+            '',
+            False,
+            '',
+            ACTIONS_VISIBILITY,
+            ''
+        )
+        actions.addAction(sketch_line)
 
 
 class Actions(object):
