@@ -11,6 +11,10 @@
 		"10",
 		"11"
 	],
+	"addr:housenumber": [],
+	"addr:street": [],
+	"addr:postcode": [],
+	"addr:city": [],
 	"amenity": [
 		"animal_boarding",
 		"animal_shelter",
