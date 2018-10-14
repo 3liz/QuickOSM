@@ -18,6 +18,10 @@ server=False
 # Uncomment the following line and add your changelog:
 # changelog=
   Version 1.8.0
+  * Add actions on features: OSM, Wikipedia, Wikidata, links
+  * Use custom Overpass list
+  * Make it more readable that you can query on all keys
+  * Refactoring the query factory engine
   * Use QGIS Expression for parsing HStore field instead of library
   Version 1.7.0
   * Allow empty key in the Quick Query
