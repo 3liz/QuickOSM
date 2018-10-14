@@ -88,12 +88,16 @@ class QuickQueryWidget(QuickOSMWidget, Ui_ui_quick_query):
             with open(map_features_json_file) as f:
                 self.osmKeys = load(f)
                 keys = list(self.osmKeys.keys())
+                keys.append('')  # All keys request #118
                 keys.sort()
                 keys_completer = QCompleter(keys)
                 self.comboBox_key.addItems(keys)
                 self.comboBox_key.setCompleter(keys_completer)
                 self.comboBox_key.completer().setCompletionMode(
                     QCompleter.PopupCompletion)
+                self.comboBox_key.lineEdit().setPlaceholderText('Query on all keys')
+
+        self.comboBox_value.lineEdit().setPlaceholderText('Query on all values')
         self.key_edited()
 
         self.init_nominatim_autofill()
@@ -120,19 +124,12 @@ class QuickQueryWidget(QuickOSMWidget, Ui_ui_quick_query):
         Disable show and run buttons if the key is empty
         and add values to the combobox
         """
-        if self.comboBox_key.currentText():
-            self.pushButton_runQuery.setDisabled(False)
-            self.pushButton_showQuery.setDisabled(False)
-        # else:
-        #     self.pushButton_runQuery.setDisabled(True)
-        #     self.pushButton_showQuery.setDisabled(True)
-
         self.comboBox_value.clear()
         self.comboBox_value.setCompleter(None)
 
         try:
-            current_values = self.osmKeys[
-                str(self.comboBox_key.currentText())]
+            current_values = (
+                self.osmKeys[self.comboBox_key.currentText()])
         except KeyError:
             return
         except AttributeError:
@@ -212,8 +209,8 @@ class QuickQueryWidget(QuickOSMWidget, Ui_ui_quick_query):
         QApplication.processEvents()
 
         # Get all values
-        key = str(self.comboBox_key.currentText())
-        value = str(self.comboBox_value.currentText())
+        key = self.comboBox_key.currentText()
+        value = self.comboBox_value.currentText()
         nominatim = self.nominatim_value()
         timeout = self.spinBox_timeout.value()
         output_directory = self.output_directory.filePath()
@@ -312,9 +309,9 @@ class QuickQueryWidget(QuickOSMWidget, Ui_ui_quick_query):
                 break
 
         # Get all values
-        key = str(self.comboBox_key.currentText())
-        value = str(self.comboBox_value.currentText())
-        nominatim = str(self.lineEdit_nominatim.text())
+        key = self.comboBox_key.currentText()
+        value = self.comboBox_value.currentText()
+        nominatim = self.lineEdit_nominatim.text()
         timeout = self.spinBox_timeout.value()
         output_directory = self.output_directory.filePath()
         prefix_file = self.lineEdit_filePrefix.text()
