@@ -113,7 +113,7 @@ class QuickOSMPlugin(object):
     def initGui(self):
 
         # Setup menu
-        self.quickosm_menu = QMenu('Quick OSM')
+        self.quickosm_menu = QMenu('QuickOSM')
         self.quickosm_menu.setIcon(
             QIcon(join(dirname(__file__), 'resources', 'QuickOSM.svg')))
         self.dock_menu = QMenu(tr('QuickOSM', u'Dock'))
@@ -190,6 +190,7 @@ class QuickOSMPlugin(object):
 
         # Insert in the good order
         self.quickosm_menu.addAction(self.mainWindowAction)
+        self.quickosm_menu.addAction(self.josmAction)
         # self.quickosm_menu.addMenu(self.dock_menu)
         # self.dock_menu.addAction(self.quickQueryAction)
         # self.dock_menu.addAction(self.queryAction)
