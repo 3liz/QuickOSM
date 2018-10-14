@@ -1,9 +1,0 @@
-{
-	"overpass_servers": [
-		"http://www.overpass-api.de/api/",
-		"http://overpass.osm.rambler.ru/cgi/",
-		"http://api.openstreetmap.fr/oapi/",
-		"http://overpass.osm.ch/api/",
-		"https://overpass.kumi.systems/api/"
-	]
-}

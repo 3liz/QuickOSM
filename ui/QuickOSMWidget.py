@@ -24,7 +24,7 @@ import logging
 from os.path import split, join, isfile
 from sys import exc_info
 
-from QuickOSM.core.utilities.tools import tr, get_QuickOSM_folder
+from QuickOSM.core.utilities.tools import tr, quickosm_user_folder
 from QuickOSM.core.utilities.utilities_qgis import display_message_bar
 from qgis.PyQt.QtCore import QUrl
 from qgis.PyQt.QtGui import QDesktopServices
@@ -46,7 +46,7 @@ class QuickOSMWidget(QWidget):
     def __init__(self, parent=None):
         self.last_places = []
         self.last_nominatim_places_filepath = join(
-            get_QuickOSM_folder(),
+            quickosm_user_folder(),
             'nominatim.txt')
         QWidget.__init__(self, parent)
 

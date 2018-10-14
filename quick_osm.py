@@ -21,10 +21,12 @@
  ***************************************************************************/
 """
 
+import logging
 import urllib.request
 from json import load
-from os.path import dirname, join, exists, abspath, isfile
+from os.path import dirname, join, exists, isfile
 
+from QuickOSM.definitions.overpass import OVERPASS_SERVERS
 from QuickOSM.core.custom_logging import setup_logger
 # from QuickOSM.ui.my_queries_dialog import MyQueriesDockWidget
 # from QuickOSM.ui.query_dialog import QueryDockWidget
@@ -38,6 +40,7 @@ from QuickOSM.core.utilities.tools import (
     set_setting,
     new_queries_available,
     tr,
+    quickosm_user_folder,
     get_user_query_folder
 )
 from QuickOSM.ui.main_window_dialog import MainWindowDialog
@@ -49,6 +52,8 @@ from qgis.core import Qgis, QgsCoordinateTransform, \
 
 
 # from processing.core.Processing import Processing
+
+LOGGER = logging.getLogger('QuickOSM')
 
 
 class QuickOSMPlugin(object):
@@ -213,14 +218,22 @@ class QuickOSMPlugin(object):
         #     connect(
         #         self.iface.QuickOSM_mainWindowDialog.refresh_my_queries_tree)
 
+        for server in OVERPASS_SERVERS:
+            self.iface.QuickOSM_mainWindowDialog.comboBox_default_OAPI. \
+                addItem(server)
+
         # Read the config file
-        json_file_config = join(dirname(abspath(__file__)), 'config.json')
-        if isfile(json_file_config):
-            with open(json_file_config) as f:
+        custom_config = join(quickosm_user_folder(), 'custom_config.json')
+        if isfile(custom_config):
+            with open(custom_config) as f:
                 config_json = load(f)
-                for server in config_json['overpass_servers']:
-                    self.iface.QuickOSM_mainWindowDialog.comboBox_default_OAPI.\
-                        addItem(server)
+                for server in config_json.get('overpass_servers'):
+                    if server not in OVERPASS_SERVERS:
+                        LOGGER.info(
+                            'Custom overpass server list added: {}'.format(
+                                server))
+                        self.iface.QuickOSM_mainWindowDialog.\
+                            comboBox_default_OAPI.addItem(server)
 
         # Check previous version and if new queries are available
         version = get_setting('version')

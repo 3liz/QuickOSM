@@ -53,15 +53,14 @@ def new_queries_available():
         return False
 
 
-def get_QuickOSM_folder():
+def quickosm_user_folder():
     """
     Get the user folder, ~/.qgis2/QuickOSM on linux for instance
 
     @rtype: str
     @return: path
     """
-    folder = QFileInfo(QgsApplication.qgisSettingsDirPath()).path() + 'QuickOSM'
-    return str(QDir.toNativeSeparators(folder))
+    return abspath(join(QgsApplication.qgisSettingsDirPath(), 'QuickOSM'))
 
 
 def resources_path(*args):
@@ -94,7 +93,7 @@ def get_user_query_folder(over_write=False):
     @rtype: str
     @return: path
     """
-    folder = get_QuickOSM_folder()
+    folder = quickosm_user_folder()
     queries_folder = join(folder, 'queries')
     if not QDir(queries_folder).exists() or over_write:
         folder = join(dirname(dirname(dirname(abspath(__file__)))), 'queries')
