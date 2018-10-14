@@ -110,9 +110,8 @@ class OsmParser(QObject):
                     uri + layer, file_name + " " + layer, "ogr")
 
                 if not layers[layer].isValid():
-                    # fix_print_with_import
-                    # print("Error on the layer", layers[layer].lastError())
-                    pass
+                    msg = "Error on the layer : {}".format(layer)
+                    raise GeoAlgorithmException(msg)
 
             return layers
 
@@ -126,8 +125,7 @@ class OsmParser(QObject):
                 uri + layer, "test_" + layer, "ogr")
 
             if not layers[layer]['vectorLayer'].isValid():
-                msg = "Error on the layer : " + \
-                      layers[layer]['vectorLayer'].lastError()
+                msg = "Error on the layer : {}".format(layer)
                 raise GeoAlgorithmException(msg)
 
             layers[layer]['vectorLayer'].setProviderEncoding('UTF-8')
