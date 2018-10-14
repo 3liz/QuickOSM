@@ -15,15 +15,14 @@ QuickOSM allows you to work quickly with OSM data in QGIS thanks to [Overpass AP
 * Open a local OSM (.osm or .pbf) with a specific osmconf in QGIS
 * Build some models with QGIS Processing
 
-There are some useful tips, like automatic colours on lines (if the tag is present) or some actions (right-click in the attribute table) for each entities (edit in JOSM for instance).
+There are some useful tips, like automatic colours on lines (if the tag is present)
+ or some actions (right-click in the attribute table) for each entities (edit in JOSM for instance).
 
 [Overpass]: https://wiki.openstreetmap.org/wiki/Overpass_API
 
 Authors
 =
 Etienne Trimaille : https://twitter.com/etrimaille
-
-This internship was supervised by 3Liz : http://www.3liz.com
 
 Getting started
 =
@@ -36,13 +35,12 @@ Getting started
 * 'Install Plugin'
 
 **Try a quick query**
-* 'Vector' menu -> 'Quick OSM' -> 'Dock -> 'Quick Query'
-
-a new panel appears on the right
+* 'Vector' menu -> 'QuickOSM' -> 'QuickOSM'
 * In the 'key' field enter 'amenity'
 * In the 'value' field enter 'toilets'
 * Set the name of the town/village to 'London'
 * 'Run Query'
 
-The Overpass API takes a few seconds to respond, and after that you should get new point and polygon layers for the toilets of London! (nodes and ways in OpenStreetMap with the amenity=toilet tag on them) 
-
+The Overpass API takes a few seconds to respond, and after that you should get new 
+point and polygon layers for the toilets of London! (nodes and ways in OpenStreetMap 
+with the amenity=toilet tag on them) 
