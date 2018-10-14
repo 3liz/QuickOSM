@@ -33,6 +33,7 @@ from QuickOSM.core.query_parser import prepare_query
 from QuickOSM.core.utilities.operating_system import get_default_encoding
 from QuickOSM.core.utilities.tools import get_setting
 from QuickOSM.core.utilities.tools import tr
+from QuickOSM.definitions.osm import QueryType
 from qgis.PyQt.QtWidgets import QApplication
 from qgis.core import (
     QgsVectorLayer, QgsVectorFileWriter, QgsProject, QgsWkbTypes)
@@ -197,31 +198,38 @@ def process_quick_query(
         prefix_file=None,
         output_geometry_types=None):
     """
-    generate a query and send it to process_query
+    Generate a query and send it to process_query.
     """
-    # Set the layer name
-    layer_name = u''
-    for i in [key, value, nominatim]:
-        if i:
-            layer_name += i + u'_'
-
-    if is_around:
-        layer_name += '%s_' % distance
-
-    # Delete last "_"
-    layer_name = layer_name[:-1]
+    # TODO
+    # Move this logic UP
+    # Copy/paste in quick_query_dialog.py
+    distance_string = None
+    if is_around and nominatim:
+        query_type = QueryType.AroundNominatimPlace
+        distance_string = str(distance)
+    elif not is_around and nominatim:
+        query_type = QueryType.InNominatimPlace
+    elif bbox:
+        query_type = QueryType.BBox
+    else:
+        query_type = QueryType.NotSpatial
+    # End todo
 
     # Building the query
     query_factory = QueryFactory(
-        timeout=timeout,
+        query_type=query_type,
         key=key,
         value=value,
-        bbox=bbox,
-        is_around=is_around,
-        distance=distance,
-        nominatim=nominatim,
-        osm_objects=osm_objects)
+        nominatim_place=nominatim,
+        around_distance=distance,
+        osm_objects=osm_objects,
+        timeout=timeout
+    )
     query = query_factory.make()
+
+    # Generate layer name as following (if defined)
+    expected_name = [key, value, nominatim, distance_string]
+    layer_name = '_'.join([f for f in expected_name if f])
 
     # Call process_query with the new query
     return process_query(

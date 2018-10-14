@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """
 /***************************************************************************
  QuickOSM
@@ -24,92 +23,95 @@
 import re
 from xml.dom.minidom import parseString
 
+from QuickOSM.definitions.osm import ALL_OSM_TYPES, QueryType
 from QuickOSM.core.exceptions import QueryFactoryException
-from QuickOSM.core.utilities.tools import tr
 
 
-class QueryFactory(object):
-    """
-    Build a XML query
-    """
+class QueryFactory:
 
-    OSM_TYPES = ['node', 'way', 'relation']
+    """Build a XML or OQL query."""
 
     def __init__(
             self,
+            query_type=None,
             key=None,
             value=None,
-            bbox=None,
-            nominatim=None,
-            is_around=None,
-            distance=None,
-            osm_objects=OSM_TYPES,
+            nominatim_place=None,
+            around_distance=None,
+            osm_objects=ALL_OSM_TYPES,
             output='xml',
             timeout=25,
-            print_mode='body'):
+            print_mode='body',
+    ):
         """
-        Constructor with key=value according to OpenStreetMap
-        A bbox or nominatim can be provided
+        Query Factory constructor according to Overpass API.
 
-        @param key: key
-        @type key: str
-        @param value: value
-        @type value: str
-        @param bbox: if we want a {{bbox}}
-        @type bbox: QgsRectangle or bool or "{{bbox}}"
-        @param nominatim: a place
-        @type nominatim: str
-        @param is_around: around or in
-        @type is_around: bool
-        @param osm_objects: list of osm objects to query on (node/way/relation)
-        @type osm_objects: list
-        @param output:output of overpass : xml or json
-        @type output: str
-        @param timeout: timeout of the query
-        @type timeout: int
-        @param print_mode: print type of the overpass query (read overpass doc)
-        @type print_mode: str
+        :param query_type: The type of query to build.
+        :type query_type: QueryType
+
+        :param key: OSM key or None.
+        :type key: str,None
+
+        :param value: OSM value or None.
+        :type value: str,None
+
+        :param nominatim_place: A place name if needed or None
+        :type nominatim_place: str,None
+
+        :param around_distance: Distance to use if it's an around query or None
+        :type around_distance: int,None
+
+        :param osm_objects: List of osm objects to query on (node/way/relation)
+        :type osm_objects: list
+
+        :param output:output of overpass : XML or JSON
+        :type output: str
+
+        :param timeout: Timeout of the query
+        :type timeout: int
+
+        :param print_mode: Print type of the overpass query (read overpass doc)
+        :type print_mode: str
         """
-        self.__key = key
-        self.__value = value
-        self.__bbox = bbox
-        self.__nominatim = nominatim
-        self.__is_around = is_around
-        self.__distance = distance
-        self.__osm_objects = osm_objects
-        self.__timeout = timeout
-        self.__output = output
-        self.__print_mode = print_mode
+        self._query_type = query_type
+        self._key = key
+        self._value = value
+        self._nominatim_place = nominatim_place
+        self._distance_around = around_distance
+        self._osm_objects = osm_objects
+        self._timeout = timeout
+        self._output = output
+        self._print_mode = print_mode
 
-    def check_parameters(self):
-        if self.__nominatim and self.__bbox:
-            raise QueryFactoryException(
-                suffix=tr('QuickOSM', 'nominatim OR bbox, not both'))
+    def _check_parameters(self):
+        """Internal function to check that the query can be built."""
+        if self._query_type not in QueryType:
+            raise QueryFactoryException('Wrong query type')
 
-        if len(self.__osm_objects) < 1:
-            raise QueryFactoryException(
-                suffix=tr('QuickOSM', 'osm object required'))
+        if len(self._osm_objects) < 1:
+            raise QueryFactoryException('OSM object required')
 
-        for osmObject in self.__osm_objects:
-            if osmObject not in QueryFactory.OSM_TYPES:
-                raise QueryFactoryException(
-                    suffix=tr('QuickOSM', 'wrong OSM object'))
+        for osmObject in self._osm_objects:
+            if osmObject not in ALL_OSM_TYPES:
+                raise QueryFactoryException('Wrong OSM object')
 
-        if self.__is_around and not self.__distance:
-            raise QueryFactoryException(
-                suffix=tr('QuickOSM', 'No distance provided with "around".'))
+        if self._query_type == QueryType.AroundNominatimPlace and not self._distance_around:
+            raise QueryFactoryException('No distance provided with "around".')
 
-        if self.__is_around and not self.__nominatim:
-            raise QueryFactoryException(
-                suffix=tr('QuickOSM', 'No nominatim provided with "around".'))
+        nominatim = [
+            QueryType.InNominatimPlace, QueryType.AroundNominatimPlace]
+        if self._query_type in nominatim and not self._nominatim_place:
+            raise QueryFactoryException('Nominatim place required.')
 
     @staticmethod
     def get_pretty_xml(query):
-        xml = parseString(query.encode('utf-8'))
+        """Helper to get a good indentation of the query."""
+        xml = parseString(query)
         return xml.toprettyxml()
 
     @staticmethod
     def replace_template(query):
+        """Add some templates tags to the query {{ }}."""
         query = re.sub(
             r' area_coords="(.*?)"', r' {{geocodeCoords:\1}}', query)
         query = re.sub(
@@ -118,66 +120,65 @@ class QueryFactory(object):
         return query
 
     def generate_xml(self):
-        query = u'<osm-script output="%s" timeout="%s">' % \
-                (self.__output, self.__timeout)
+        """Generate the XML."""
+        query = '<osm-script output="%s" timeout="%s">' % \
+                (self._output, self._timeout)
 
-        if self.__nominatim:
-            nominatim = [name.strip() for name in self.__nominatim.split(';')]
+        # Nominatim might be a list of places or a single place, or not defined
+        if self._nominatim_place:
+            nominatim = [
+                name.strip() for name in self._nominatim_place.split(';')]
         else:
             nominatim = None
 
-        if nominatim and not self.__is_around:
+        if nominatim and self._query_type != QueryType.AroundNominatimPlace:
 
-            for i, one_nominatim in enumerate(nominatim):
-                query += u'<id-query area="%s" into="area_%s"/>' % \
-                         (one_nominatim, i)
+            for i, one_place in enumerate(nominatim):
+                query += '<id-query area="%s" into="area_%s"/>' % (one_place, i)
 
-        query += u'<union>'
+        query += '<union>'
 
         loop = 1 if not nominatim else len(nominatim)
 
-        for osmObject in self.__osm_objects:
+        for osm_object in self._osm_objects:
             for i in range(0, loop):
-                query += u'<query type="%s">' % osmObject
+                query += '<query type="%s">' % osm_object.value
+                if self._key:
+                    query += '<has-kv k="%s" ' % self._key
+                    if self._value:
+                        query += 'v="%s"' % self._value
 
-                if self.__key:
-                    query += u'<has-kv k="%s" ' % self.__key
-                    if self.__value:
-                        query += u'v="%s"' % self.__value
+                    query += '/>'
 
-                    query += u'/>'
+                if self._nominatim_place and self._query_type != QueryType.AroundNominatimPlace:
+                    query += '<area-query from="area_%s" />' % i
 
-                if self.__nominatim and not self.__is_around:
-                    query += u'<area-query from="area_%s" />' % i
+                elif self._nominatim_place and self._query_type == QueryType.AroundNominatimPlace:
+                    query += '<around area_coords="%s" radius="%s" />' % \
+                             (nominatim[i], self._distance_around)
 
-                elif self.__nominatim and self.__is_around:
-                    query += u'<around area_coords="%s" radius="%s" />' % \
-                             (nominatim[i], self.__distance)
+                elif self._query_type == QueryType.BBox:
+                    query = '%s<bbox-query bbox="custom" />' % query
 
-                elif self.__bbox:
-                    query = u'%s<bbox-query bbox="custom" />' % query
+                query += '</query>'
 
-                query += u'</query>'
-
-        query += u'</union>'
-        query += u'<union>'
-        query += u'<item />'
-        query += u'<recurse type="down"/>'
-        query += u'</union>'
-        query += u'<print mode="%s" />' % self.__print_mode
-        query += u'</osm-script>'
+        query += '</union>'
+        query += '<union>'
+        query += '<item />'
+        query += '<recurse type="down"/>'
+        query += '</union>'
+        query += '<print mode="%s" />' % self._print_mode
+        query += '</osm-script>'
 
         return query
 
     def make(self):
-        """
-        Make the query
+        """Make the query.
 
         @return: query
         @rtype: str
         """
-
-        self.check_parameters()
+        self._check_parameters()
         query = self.generate_xml()
 
         # get_pretty_xml works only with a valid XML, no template {{}}
@@ -189,4 +190,5 @@ class QueryFactory(object):
 
         query = QueryFactory.replace_template(query)
         query = query.replace('	', '    ')
+
         return query

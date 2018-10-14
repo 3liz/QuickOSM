@@ -32,6 +32,7 @@ from QuickOSM.core.exceptions import (
 from QuickOSM.core.query_factory import QueryFactory
 from QuickOSM.core.utilities.tools import tr
 from QuickOSM.core.utilities.utilities_qgis import display_message_bar
+from QuickOSM.definitions.osm import OsmType, QueryType
 from QuickOSM.ui.QuickOSMWidget import QuickOSMWidget
 from QuickOSM.ui.quick_query import Ui_ui_quick_query
 from qgis.PyQt.QtCore import Qt
@@ -191,11 +192,11 @@ class QuickQueryWidget(QuickOSMWidget, Ui_ui_quick_query):
         """
         osm_objects = []
         if self.checkBox_node.isChecked():
-            osm_objects.append('node')
+            osm_objects.append(OsmType.Node)
         if self.checkBox_way.isChecked():
-            osm_objects.append('way')
+            osm_objects.append(OsmType.Way)
         if self.checkBox_relation.isChecked():
-            osm_objects.append('relation')
+            osm_objects.append(OsmType.Relation)
         return osm_objects
 
     def run_query(self):
@@ -361,16 +362,29 @@ class QuickQueryWidget(QuickOSMWidget, Ui_ui_quick_query):
             query_widget.lineEdit_filePrefix.setText(prefix_file)
             query_widget.lineEdit_filePrefix.setEnabled(True)
 
+        # TODO
+        # Move this logic UP
+        # Copy/paste in quick_query_dialog.py
+        if is_around and nominatim:
+            query_type = QueryType.AroundNominatimPlace
+        elif not is_around and nominatim:
+            query_type = QueryType.InNominatimPlace
+        elif bbox:
+            query_type = QueryType.BBox
+        else:
+            query_type = QueryType.NotSpatial
+        # End todo
+
         # Make the query
         query_factory = QueryFactory(
-            timeout=timeout,
+            query_type=query_type,
             key=key,
             value=value,
-            bbox=bbox,
-            nominatim=nominatim,
-            is_around=is_around,
-            distance=distance,
-            osm_objects=osm_objects)
+            nominatim_place=nominatim,
+            around_distance=distance,
+            osm_objects=osm_objects,
+            timeout=timeout
+        )
         query = query_factory.make()
         query_widget.textEdit_query.setPlainText(query)
         iface.QuickOSM_mainWindowDialog.listWidget.setCurrentRow(

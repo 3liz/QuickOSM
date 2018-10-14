@@ -48,51 +48,51 @@ class TestQueryFactory(unittest.TestCase):
         """Test check parameters query."""
         # Nominatim and BBOX.
         query = QueryFactory(nominatim='foo', bbox=True)
-        self.assertRaises(QueryFactoryException, query.check_parameters)
+        self.assertRaises(QueryFactoryException, query._check_parameters)
 
         # Missing key.
         query = QueryFactory(nominatim='foo')
-        self.assertRaises(QueryFactoryException, query.check_parameters)
+        self.assertRaises(QueryFactoryException, query._check_parameters)
 
         # Missing osm object
         query = QueryFactory(key='foo', osm_objects=[])
-        self.assertRaises(QueryFactoryException, query.check_parameters)
+        self.assertRaises(QueryFactoryException, query._check_parameters)
 
         # Wrong osm object.
         query = QueryFactory(key='foo', osm_objects=['bar'])
-        self.assertRaises(QueryFactoryException, query.check_parameters)
+        self.assertRaises(QueryFactoryException, query._check_parameters)
 
         # Missing distance if "around".
         query = QueryFactory(key='foo', osm_objects=['node'], is_around=True)
-        self.assertRaises(QueryFactoryException, query.check_parameters)
+        self.assertRaises(QueryFactoryException, query._check_parameters)
 
         # Missing nominatim if "around".
         query = QueryFactory(
             key='foo', osm_objects=['node'], is_around=True, distance=10)
-        self.assertRaises(QueryFactoryException, query.check_parameters)
+        self.assertRaises(QueryFactoryException, query._check_parameters)
 
         # Good query.
         query = QueryFactory('foo', 'bar')
         try:
-            query.check_parameters()
+            query._check_parameters()
         except QueryFactoryException as e:
             self.fail(e.msg)
 
         query = QueryFactory('foo', nominatim='bar')
         try:
-            query.check_parameters()
+            query._check_parameters()
         except QueryFactoryException as e:
             self.fail(e.msg)
 
         query = QueryFactory('foo', bbox=True)
         try:
-            query.check_parameters()
+            query._check_parameters()
         except QueryFactoryException as e:
             self.fail(e.msg)
 
         query = QueryFactory('foo', is_around=True, distance=50, nominatim='a')
         try:
-            query.check_parameters()
+            query._check_parameters()
         except QueryFactoryException as e:
             self.fail(e.msg)
 
