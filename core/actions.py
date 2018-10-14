@@ -25,7 +25,7 @@ from QuickOSM.core.utilities.tools import tr, resources_path
 from qgis.PyQt.QtCore import QUrl
 from qgis.PyQt.QtGui import QDesktopServices
 from qgis.core import Qgis, QgsAction
-from qgis.utils import iface
+from qgis.utils import iface, plugins
 
 ACTIONS_PATH = 'from QuickOSM.core.actions import Actions;'
 ACTIONS_VISIBILITY = ['Canvas', 'Feature', 'Field']
@@ -54,6 +54,19 @@ def add_actions(layer, keys):
         ''
     )
     actions.addAction(osm_browser)
+
+    title = 'Mapillary'
+    mapillary = QgsAction(
+        QgsAction.GenericPython,
+        title,
+        ACTIONS_PATH + 'Actions.run("mapillary","[% "mapillary" %]")',
+        resources_path('mapillary_logo.svg'),
+        False,
+        title,
+        ACTIONS_VISIBILITY,
+        ''
+    )
+    actions.addAction(mapillary)
 
     title = 'JOSM'
     josm = QgsAction(
@@ -164,6 +177,15 @@ class Actions(object):
                     url = "http://www.wikidata.org/wiki/" + value
 
                 var.openUrl(QUrl(url))
+
+            elif field == 'mapillary':
+                if 'go2mapillary' in plugins:
+                    plugins['go2mapillary'].dockwidget.show()
+                    plugins['go2mapillary'].viewer.openLocation(value)
+                else:
+                    var = QDesktopServices()
+                    url = 'https://www.mapillary.com/map/im/' + value
+                    var.openUrl(QUrl(url))
 
             elif field == 'josm':
                 import urllib.request, urllib.error, urllib.parse
