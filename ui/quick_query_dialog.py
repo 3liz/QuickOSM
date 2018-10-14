@@ -104,6 +104,7 @@ class QuickQueryWidget(QuickOSMWidget, Ui_ui_quick_query):
 
     def reset_form(self):
         self.comboBox_key.setCurrentIndex(0)
+        self.comboBox_value.setCurrentIndex(0)
         self.lineEdit_nominatim.setText("")
         self.radioButton_place.setChecked(True)
         self.spinBox_distance_point.setValue(1000)
@@ -116,7 +117,7 @@ class QuickQueryWidget(QuickOSMWidget, Ui_ui_quick_query):
         self.checkBox_way.setChecked(True)
         self.checkBox_relation.setChecked(True)
         self.spinBox_timeout.setValue(25)
-        self.lineEdit_browseDir.setText("")
+        self.output_directory.lineEdit().setText('')
         self.lineEdit_filePrefix.setText("")
 
     def key_edited(self):
