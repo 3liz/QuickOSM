@@ -21,7 +21,7 @@
  ***************************************************************************/
 """
 
-from QuickOSM.core.utilities.tools import tr
+from QuickOSM.core.utilities.tools import tr, resources_path
 from qgis.PyQt.QtCore import QUrl
 from qgis.PyQt.QtGui import QDesktopServices
 from qgis.core import Qgis, QgsAction
@@ -42,53 +42,66 @@ def add_actions(layer, keys):
     """
     actions = layer.actions()
 
+    title = 'OpenStreetMap Browser'
     osm_browser = QgsAction(
         QgsAction.OpenUrl,
-        'OpenStreetMap Browser',
+        title,
         'http://www.openstreetmap.org/browse/[% "osm_type" %]/[% "osm_id" %]',
         '',
         False,
-        '',
+        title,
         ACTIONS_VISIBILITY,
         ''
     )
     actions.addAction(osm_browser)
 
+    title = 'JOSM'
     josm = QgsAction(
         QgsAction.GenericPython,
-        'JOSM',
+        title,
         ACTIONS_PATH + 'Actions.run("josm","[% "full_id" %]")',
-        '',
+        resources_path('josm_icon.svg'),
         False,
-        '',
+        title,
         ACTIONS_VISIBILITY,
         ''
     )
     actions.addAction(josm)
 
+    title = 'User default editor'
     default_editor = QgsAction(
         QgsAction.OpenUrl,
-        'User default editor',
+        title,
         'http://www.openstreetmap.org/edit?[% "osm_type" %]=[% "osm_id" %]',
         '',
         False,
-        '',
+        title,
         ACTIONS_VISIBILITY,
         ''
     )
     actions.addAction(default_editor)
 
-    for link in ['url', 'website', 'wikipedia', 'ref:UAI']:
+    for link in ['url', 'website', 'wikipedia', 'wikidata', 'ref:UAI']:
         if link in keys:
+
+            # Add an image to the action if available
+            image = ''
+            if link == 'wikipedia':
+                image = resources_path('wikipedia.png')
+            elif link == 'wikidata':
+                image = resources_path('wikidata.png')
+            elif link in ['url', 'website']:
+                image = resources_path('external_link.png')
+
             link = link.replace(":", "_")
             generic = QgsAction(
                 QgsAction.GenericPython,
                 link,
                 (ACTIONS_PATH +
                     'Actions.run("' + link + '","[% "' + link + '" %]")'),
-                '',
+                image,
                 False,
-                '',
+                link,
                 ACTIONS_VISIBILITY,
                 ''
             )
@@ -127,41 +140,45 @@ class Actions(object):
 
         if value == '':
             iface.messageBar().pushMessage(
-                tr("QuickOSM",
-                   u"Sorry man, this field is empty for this entity."),
+                tr('QuickOSM',
+                   'Sorry man, this field \'{}\' is empty for this entity.'
+                   .format(field)),
                 level=Qgis.Warning, duration=7)
         else:
 
-            if field in ["url", "website", "wikipedia"]:
+            if field in ['url', 'website', 'wikipedia', 'wikidata']:
                 var = QDesktopServices()
                 url = None
 
-                if field == "url" or field == "website":
+                if field == 'url' or field == 'website':
                     url = value
 
-                if field == "ref_UAI":
+                if field == 'ref_UAI':
                     url = "http://www.education.gouv.fr/pid24302/annuaire-" \
                           "resultat-recherche.html?lycee_name=" + value
 
-                if field == "wikipedia":
+                if field == 'wikipedia':
                     url = "http://en.wikipedia.org/wiki/" + value
+
+                if field == 'wikidata':
+                    url = "http://www.wikidata.org/wiki/" + value
 
                 var.openUrl(QUrl(url))
 
-            elif field == "josm":
+            elif field == 'josm':
                 import urllib.request, urllib.error, urllib.parse
                 try:
-                    url = "http://localhost:8111/load_object?objects=" + value
+                    url = 'http://localhost:8111/load_object?objects=' + value
                     urllib.request.urlopen(url).read()
                 except urllib.error.URLError:
                     iface.messageBar().pushMessage(
-                        tr("QuickOSM",
-                           u"The JOSM remote seems to be disabled."),
+                        tr('QuickOSM',
+                           'The JOSM remote seems to be disabled.'),
                         level=Qgis.Critical,
                         duration=7)
 
             # NOT USED
-            elif field == "rawedit":
+            elif field == 'rawedit':
                 # url = QUrl("http://rawedit.openstreetmap.fr/edit/" + value)
                 # web_browser = QWebView(None)
                 # web_browser.load(url)
@@ -178,18 +195,14 @@ class Actions(object):
         @param ref:ref of the bus
         @type ref:str
         """
-
-        network = str(network, "UTF-8")
-        ref = str(ref, "UTF-8")
-
         if network == '' or ref == '':
             iface.messageBar().pushMessage(
-                tr("QuickOSM",
-                   u"Sorry man, this field is empty for this entity."),
+                tr('QuickOSM',
+                   'Sorry man, this field is empty for this entity.'),
                 level=Qgis.Warning,
                 duration=7)
         else:
             var = QDesktopServices()
-            url = "http://www.overpass-api.de/api/sketch-line?" \
-                  "network=" + network + "&ref=" + ref
+            url = 'http://www.overpass-api.de/api/sketch-line?' \
+                  'network=' + network + '&ref=' + ref
             var.openUrl(QUrl(url))
