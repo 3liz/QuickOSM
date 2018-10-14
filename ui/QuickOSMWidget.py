@@ -254,22 +254,21 @@ class QuickOSMWidget(QWidget):
         """
         exc_type, _, exc_tb = exc_info()
         f_name = split(exc_tb.tb_frame.f_code.co_filename)[1]
-        # fix_print_with_import
-        print((exc_type, f_name, exc_tb.tb_lineno))
         _, _, tb = exc_info()
         import traceback
         traceback.print_tb(tb)
-        # fix_print_with_import
-        print(e)
-        LOGGER.debug(exc_type)
-        LOGGER.debug(f_name)
-        LOGGER.debug(str(e))
-        LOGGER.debug(traceback.format_tb(tb))
+        LOGGER.critical(exc_type)
+        LOGGER.critical(f_name)
+        LOGGER.critical(str(e))
+        LOGGER.critical(traceback.format_tb(tb))
 
         display_message_bar(
-            tr('QuickOSM', 'Error in the python console, please report it'),
+            tr('QuickOSM',
+               'Error in the QGIS Logs, QuickOSM panel, please report it to '
+               '<a href="https://github.com/3liz/QuickOSM/issues/new?'
+               'template=1_BUG_REPORT.md">GitHub</a>'),
             level=Qgis.Critical,
-            duration=5)
+            duration=10)
 
     @staticmethod
     def open_map_features():
