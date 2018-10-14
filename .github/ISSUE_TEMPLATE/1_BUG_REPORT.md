@@ -17,3 +17,4 @@ Include some logs if you can here, in QGIS Logs panel, bottom right icon.
 
  - QuickOSM version: 
  - QGIS version:
+ - OS: 
