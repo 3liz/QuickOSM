@@ -12,6 +12,8 @@ find . -name "*.qrc" -type f -delete
 find . -name "*.ts" -type f -delete
 find . -depth -name 'test' -type d -exec rm -rf '{}' \;
 rm -rf .git
+rm -rf .github
+rm -rf __pycache__  
 rm -rf .idea
 rm -f .gitignore
 rm -rf venv/
