@@ -28,7 +28,7 @@ from QuickOSM.core.utilities.tools import tr
 from osgeo import gdal
 from qgis.PyQt.QtCore import QObject, pyqtSignal, QVariant
 from qgis.core import \
-    QgsVectorLayer, QgsFields, QgsField, QgsVectorFileWriter, QgsFeature, QgsMemoryProviderUtils, QgsExpression
+    QgsVectorLayer, QgsFields, QgsField, QgsVectorFileWriter, QgsFeature, QgsMemoryProviderUtils, QgsHstoreUtils
 
 
 class OsmParser(QObject):
@@ -157,8 +157,8 @@ class OsmParser(QObject):
                 attributes = str(feature.attributes()[other_tags_index])
 
                 if attributes:
-                    h_store = QgsExpression("map_akeys(hstore_to_map('{}'))".format(attributes.replace("'", "\\'"))).evaluate()
-                    for key in h_store:
+                    h_store = QgsHstoreUtils.parse(attributes)
+                    for key in h_store.keys():
                         if key not in layers[layer]['tags']:
                             # If the key in OSM is not already in the table
                             if self.__whiteListColumn[layer]:
@@ -220,7 +220,7 @@ class OsmParser(QObject):
                     new_attributes.append(osm_type)
 
                     if attributes[1]:
-                        h_store = QgsExpression("hstore_to_map('{}')".format(str(attributes[1]).replace("'", "\\'"))).evaluate()
+                        h_store = QgsHstoreUtils.parse(str(attributes[1]))
                         for tag in layers[layer]['tags'][3:]:
                             if str(tag) in h_store:
                                 new_attributes.append(h_store[tag])
@@ -242,7 +242,7 @@ class OsmParser(QObject):
                         new_attributes.append(attributes[1])
                     new_attributes.append(osm_type)
 
-                    h_store = QgsExpression("hstore_to_map('{}')".format(str(attributes[2]).replace("'", "\\'"))).evaluate()
+                    h_store = QgsHstoreUtils.parse(str(attributes[2]))
                     for tag in layers[layer]['tags'][3:]:
                         if str(tag) in h_store:
                             new_attributes.append(h_store[tag])
