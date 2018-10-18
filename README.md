@@ -44,3 +44,13 @@ Getting started
 The Overpass API takes a few seconds to respond, and after that you should get new 
 point and polygon layers for the toilets of London! (nodes and ways in OpenStreetMap 
 with the amenity=toilet tag on them) 
+
+Versions
+=
+
+| QuickOSM   | QGIS Min | QGIS Max | Branch       |
+|------------|----------|----------|--------------|
+| 1.0 -> 1.4 | 2.0      | 2.18     | master_qgis2 |
+| 1.5 -> 1.7 | 3.0      | 3.2      |              |
+| 1.8 ->     | 3.4      | 3.4      | master       |
+|            | 3.6      |          |              |
