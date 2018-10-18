@@ -6,3 +6,5 @@ help/
 .idea
 .coverage
 .noseids
+QuickOSM.zip
+venv/
