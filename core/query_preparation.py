@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """
 /***************************************************************************
  QuickOSM
@@ -20,173 +19,265 @@
  *                                                                         *
  ***************************************************************************/
 """
+
 import re
 
+from qgis.PyQt.QtCore import QUrl, QUrlQuery
+
 from QuickOSM.core.api.nominatim import Nominatim
-from QuickOSM.core.exceptions import QueryNotSupported
+from QuickOSM.definitions.overpass import OVERPASS_SERVERS
+from QuickOSM.core.exceptions import (
+    QueryNotSupported, QueryFactoryException)
 
 
-def is_oql(query):
-    return True if query[-1] == ";" else False
+class QueryPreparation:
 
+    """Prepare the query before sending it to Overpass."""
 
-def replace_center(extent, query):
-    template = r'{{center}}'
-    if not re.search(template, query):
-        return query
+    def __init__(
+            self, query, extent=None, nominatim_place=None,
+            overpass=None, output_format='xml'):
+        """Constructor.
 
-    y = extent.center().y()
-    x = extent.center().x()
-    if is_oql(query):
-        new_string = '%s,%s' % (y, x)
-    else:
-        new_string = 'lat="%s" lon="%s"' % (y, x)
+        :param query: The query to prepare.
+        :type query: str
 
-    query = re.sub(template, new_string, query)
-    return query
+        :param extent: The extent to use in 4326, if needed. It can be None.
+        :type extent: QgsRectangle
 
-
-def replace_bbox(extent, query):
-    template = r'{{bbox}}'
-    if not re.search(template, query):
-        return query
-
-    y_min = extent.yMinimum()
-    y_max = extent.yMaximum()
-    x_min = extent.xMinimum()
-    x_max = extent.xMaximum()
-
-    if is_oql(query):
-        new_string = '%s,%s,%s,%s' % (y_min, x_min, y_max, x_max)
-    else:
-        new_string = 'e="%s" n="%s" s="%s" w="%s"' % \
-                     (x_max, y_max, y_min, x_min)
-    query = re.sub(template, new_string, query)
-    return query
-
-
-def replace_geocode_coords(nominatim_name, query):
-
-    def replace(catch, default_nominatim):
-
-        if default_nominatim:
-            search = default_nominatim
+        :param nominatim_place: A name or a list of place names.
+        :type nominatim_place: str, list(str)
+        """
+        if overpass is None:
+            self._overpass = OVERPASS_SERVERS[0]
         else:
-            search = catch
+            self._overpass = overpass
 
-        nominatim = Nominatim()
-        lon, lat = nominatim.get_first_point_from_query(search)
+        self._query = query
+        self._query_prepared = query
+        self._extent = extent
+        self._nominatim_places = nominatim_place
+        self._output_format = output_format
 
-        if is_oql(query):
-            new_string = '%s,%s' % (lat, lon)
+        self._query_is_ready = False
+
+    @property
+    def query(self):
+        """The original query.
+
+        :return: The original query.
+        :rtype: str
+        """
+        return self._query
+
+    @property
+    def final_query(self):
+        """The generated query or None if it's not yet generated.
+
+        :return: The final query.
+        :rtype: str
+        """
+        if self._query_is_ready:
+            return self._query_prepared
         else:
-            new_string = 'lat="%s" lon="%s"' % (lat, lon)
+            return None
 
-        return new_string
+    def is_oql_query(self):
+        """Return if the query is written in OQL or not.
 
-    template = r'{{(geocodeCoords):([^}]*)}}'
-    query = re.sub(template, lambda m: replace(
-        m.groups()[1], nominatim_name), query)
-    return query
+        :return: If the it's OQL query.
+        :rtype: bool
+        """
+        return self._query[-1] == ';'
 
+    def is_compatible(self):
+        """The plugin doesn't support all special tags like Overpass Turbo.
 
-def replace_geocode_area(nominatim_name, query):
+        :return: A tuple (bool, reason).
+        :rtype: tuple
+        """
+        # token to look for, error returned to the user
+        incompatible_queries = {
+            'geometry="center"': 'center',
+            'out center;': 'center',
+            '{{style': '{{style}}',
+            '{{data': '{{data}}',
+            '{{date': '{{date}}',
+            '{{geocodeId:': '{{geocodeId:}}',
+            '{{geocodeBbox:': '{{geocodeBbox:}}',
+        }
 
-    def replace(catch, default_nominatim):
+        for expression, error in incompatible_queries.items():
+            if re.search(expression, self._query):
+                return False, error
 
-        if default_nominatim:
-            search = default_nominatim
+        return True, None
+
+    def _replace_center(self):
+        """Replace {{center}} by the centroid of the extent if needed.
+
+        The temporary query will be updated.
+        """
+        template = r'{{center}}'
+        if not re.search(template, self._query_prepared):
+            return
         else:
-            search = catch
+            if self._extent is None:
+                raise QueryFactoryException('Missing extent parameter')
 
-        # if the result is already a number, it's a relation ID.
-        # we don't perform a nominatim query
-        if search.isdigit():
-            osm_id = search
+        y = self._extent.center().y()
+        x = self._extent.center().x()
+        if self.is_oql_query():
+            new_string = '{},{}'.format(y, x)
         else:
-            # We perform a nominatim query
+            new_string = 'lat="{}" lon="{}"'.format(y, x)
+
+        self._query_prepared = (
+            re.sub(template, new_string, self._query_prepared))
+
+    def replace_bbox(self):
+        """Replace {{bbox}} by the extent BBOX if needed.
+
+        The temporary query will be updated.
+        """
+        template = r'{{bbox}}'
+        if not re.search(template, self._query_prepared):
+            return
+        else:
+            if self._extent is None:
+                raise QueryFactoryException('Missing extent parameter')
+
+        y_min = self._extent.yMinimum()
+        y_max = self._extent.yMaximum()
+        x_min = self._extent.xMinimum()
+        x_max = self._extent.xMaximum()
+
+        if self.is_oql_query():
+            new_string = '{},{},{},{}'.format(y_min, x_min, y_max, x_max)
+        else:
+            new_string = 'e="{}" n="{}" s="{}" w="{}"'.format(
+                x_max, y_max, y_min, x_min)
+        self._query_prepared = (
+            re.sub(template, new_string, self._query_prepared))
+
+    def _replace_geocode_coords(self):
+        """Replace {{geocodeCoords}} by the centroid of the extent.
+
+        The temporary query will be updated.
+        """
+        def replace(catch, default_nominatim):
+
+            if default_nominatim:
+                search = default_nominatim
+            else:
+                search = catch
+
             nominatim = Nominatim()
-            osm_id = nominatim.get_first_polygon_from_query(search)
+            lon, lat = nominatim.get_first_point_from_query(search)
 
-        area = int(osm_id) + 3600000000
+            if self.is_oql_query():
+                new_string = '{},{}'.format(lat, lon)
+            else:
+                new_string = 'lat="{}" lon="{}"'.format(lat, lon)
 
-        if is_oql(query):
-            new_string = 'area(%s)' % area
+            return new_string
+
+        template = r'{{(geocodeCoords):([^}]*)}}'
+        self._query_prepared = re.sub(
+            template, lambda m: replace(
+                m.groups()[1], self._nominatim_places), self._query_prepared)
+
+    def _replace_geocode_area(self):
+        """Replace {{geocodeCoords}} by the centroid of the extent.
+
+        The temporary query will be updated.
+        """
+        def replace(catch, default_nominatim):
+
+            if default_nominatim:
+                search = default_nominatim
+            else:
+                search = catch
+
+            # if the result is already a number, it's a relation ID.
+            # we don't perform a nominatim query
+            if search.isdigit():
+                osm_id = search
+            else:
+                # We perform a nominatim query
+                nominatim = Nominatim()
+                osm_id = nominatim.get_first_polygon_from_query(search)
+
+            area = int(osm_id) + 3600000000
+
+            if self.is_oql_query():
+                new_string = 'area({})'.format(area)
+            else:
+                new_string = 'ref="{}" type="area"'.format(area)
+
+            return new_string
+
+        template = r'{{(nominatimArea|geocodeArea):([^}]*)}}'
+        self._query_prepared = re.sub(template, lambda m: replace(
+            m.groups()[1], self._nominatim_places), self._query_prepared)
+
+        return self._query_prepared
+
+    def clean_query(self):
+        """Remove extra characters that might be present in the query.
+
+        The temporary query will be updated.
+        """
+        query = self._query_prepared.strip()
+
+        # Correction of ; in the OQL at the end
+        self._query_prepared = re.sub(r';;$', ';', query)
+
+    def prepare_query(self):
+        """Prepare the query before sending it to Overpass.
+
+        The temporary query will be updated.
+
+        :return: The final query.
+        :rtype: basestring
+        """
+        result, error = self.is_compatible()
+        if not result:
+            raise QueryNotSupported(error)
+
+        self.clean_query()
+        self.replace_bbox()
+        self._replace_center()
+        self._replace_geocode_area()
+        self._replace_geocode_coords()
+
+        self._query_is_ready = True
+        return self._query_prepared
+
+    def prepare_url(self):
+        """Prepare a query to be as an URL.
+
+        :return: The URL encoded with the query.
+        :rtype: basestring
+        """
+        if not self._query_prepared:
+            return ''
+
+        if self._output_format:
+            query = re.sub(
+                r'output="[a-z]*"',
+                'output="%s"' % self._output_format,
+                self._query_prepared)
+            query = re.sub(
+                r'\[out:[a-z]*',
+                '[out:%s' % self._output_format,
+                query)
         else:
-            new_string = 'ref="%s" type="area"' % area
+            query = self._query_prepared
 
-        return new_string
-
-    template = r'{{(nominatimArea|geocodeArea):([^}]*)}}'
-    query = re.sub(template, lambda m: replace(
-        m.groups()[1], nominatim_name), query)
-    return query
-
-
-def clean_query(query):
-    query = query.strip()
-
-    # Correction of ; in the OQL at the end
-    query = re.sub(r';;$', ';', query)
-    return query
-
-
-def is_compatible(query):
-    template = r'geometry="center"'
-    if re.search(template, query):
-        return False, 'center'
-
-    template = r'out center;'
-    if re.search(template, query):
-        return False, 'center'
-
-    template = r'{{style'
-    if re.search(template, query):
-        return False, '{{style}}'
-
-    template = r'{{data'
-    if re.search(template, query):
-        return False, '{{data}}'
-
-    template = r'{{date'
-    if re.search(template, query):
-        return False, '{{date}}'
-
-    template = r'{{geocodeId:'
-    if re.search(template, query):
-        return False, '{{geocodeId:}}'
-
-    template = r'{{geocodeBbox:'
-    if re.search(template, query):
-        return False, '{{geocodeBbox:}}'
-
-    return True, None
-
-
-def prepare_query(query, extent=None, nominatim_name=None):
-    """Prepare the query before sending it to Overpass.
-
-    @param query: the query, in XML or OQL
-    @type query: str
-
-    @param extent: the extent
-    @type extent: QgsRectangle
-
-    @param nominatim_name: the city, town ...
-    @type nominatim_name: str
-
-    @return: the final query
-    @rtype: str
-    """
-
-    query = clean_query(query)
-    result = is_compatible(query)
-    if result[0] is not True:
-        raise QueryNotSupported(result[1])
-
-    query = replace_geocode_area(nominatim_name, query)
-    query = replace_geocode_coords(nominatim_name, query)
-    query = replace_bbox(extent, query)
-    query = replace_center(extent, query)
-
-    return query
+        url_query = QUrl(self._overpass)
+        query_string = QUrlQuery()
+        query_string.addQueryItem('data', query)
+        query_string.addQueryItem('info', 'QgisQuickOSMPlugin')
+        url_query.setQuery(query_string)
+        return url_query.toString()

@@ -33,15 +33,7 @@ QGIS_APP, CANVAS, IFACE, PARENT = get_qgis_app()
 
 from qgis.core import QgsRectangle
 
-from QuickOSM.core.query_preparation import (
-    is_oql,
-    replace_center,
-    replace_bbox,
-    replace_geocode_area,
-    replace_geocode_coords,
-    clean_query,
-    prepare_query
-)
+from QuickOSM.core.query_preparation import QueryPreparation
 
 
 class TestQueryParser(unittest.TestCase):

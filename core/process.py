@@ -29,7 +29,7 @@ from QuickOSM.core.api.connexion_oapi import ConnexionOAPI
 from QuickOSM.core.exceptions import FileOutPutException
 from QuickOSM.core.parser.osm_parser import OsmParser
 from QuickOSM.core.query_factory import QueryFactory
-from QuickOSM.core.query_preparation import prepare_query
+from QuickOSM.core.query_preparation import QueryPreparation
 from QuickOSM.core.utilities.operating_system import get_default_encoding
 from QuickOSM.core.utilities.tools import get_setting
 from QuickOSM.core.utilities.tools import tr
@@ -164,14 +164,14 @@ def process_query(
     dialog.set_progress_text(tr('Prepare outputs'))
 
     # Replace Nominatim or BBOX
-    query = prepare_query(query=query, nominatim_name=nominatim, extent=bbox)
+    query = QueryPreparation(query, bbox, nominatim)
 
     # Getting the default overpass api and running the query
     server = get_setting('defaultOAPI')
     dialog.set_progress_text(tr('Downloading data from Overpass'))
     QApplication.processEvents()
     connexion_overpass_api = ConnexionOAPI(url=server, output="xml")
-    osm_file = connexion_overpass_api.query(query)
+    osm_file = connexion_overpass_api.query(query.prepare_query())
 
     return open_file(
         dialog=dialog,

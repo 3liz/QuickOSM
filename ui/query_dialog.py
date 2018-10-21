@@ -29,7 +29,7 @@ from QuickOSM.core.exceptions import (
     DirectoryOutPutException,
     OutPutGeomTypesException,
     MissingParameterException)
-from QuickOSM.core.query_preparation import prepare_query
+from QuickOSM.core.query_preparation import QueryPreparation
 from QuickOSM.core.utilities.tools import tr, resources_path
 from QuickOSM.core.utilities.utilities_qgis import display_message_bar
 from QuickOSM.ui.QuickOSMWidget import QuickOSMWidget
@@ -254,9 +254,9 @@ class QueryWidget(QuickOSMWidget, Ui_ui_query):
         query = str(self.textEdit_query.toPlainText())
         nominatim = str(self.lineEdit_nominatim.text())
         bbox = self.get_bounding_box()
-        query = prepare_query(
-            query=query, extent=bbox, nominatim_name=nominatim)
-        self.textEdit_query.setPlainText(query)
+        query = QueryPreparation(query, bbox, nominatim)
+        query_string = query.prepare_query()
+        self.textEdit_query.setPlainText(query_string)
 
     def save_final_query(self):
         """

@@ -24,7 +24,7 @@
 from os.path import isfile, join, basename, dirname, abspath
 
 from QuickOSM.core.api.connexion_oapi import ConnexionOAPI
-from QuickOSM.core.query_preparation import prepare_query
+from QuickOSM.core.query_preparation import QueryPreparation
 from QuickOSM.quick_osm_processing import *
 from processing.core.GeoAlgorithm import GeoAlgorithm
 from qgis.PyQt.QtCore import QSettings
@@ -131,12 +131,12 @@ class OverpassQueryGeoAlgorithm(GeoAlgorithm):
             nominatim = None
 
         # Make some transformation on the query ({{box}}, Nominatim, ...
-        query = prepare_query(query, extent, nominatim)
+        query = QueryPreparation(query, extent, nominatim)
 
         overpass_api = ConnexionOAPI(url=server, output="xml")
         progress.setInfo("Downloading data from Overpass")
         progress.setPercentage(5)
-        osm_file = overpass_api.get_file_from_query(query)
+        osm_file = overpass_api.get_file_from_query(query.prepare_query())
 
         # Set the output file for Processing
         progress.setPercentage(100)
