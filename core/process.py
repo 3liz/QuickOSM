@@ -228,6 +228,8 @@ def process_quick_query(
     query = query_factory.make()
 
     # Generate layer name as following (if defined)
+    if not key:
+        key = tr('allKeys')
     expected_name = [key, value, nominatim, distance_string]
     layer_name = '_'.join([f for f in expected_name if f])
 
