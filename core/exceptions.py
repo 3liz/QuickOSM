@@ -30,7 +30,7 @@ from qgis.core import Qgis
 class QuickOsmException(BaseException):
     def __init__(self, msg=None):
         if not msg:
-            msg = tr('Exception', u'QuickOSM')
+            msg = tr('QuickOSM')
         self.msg = msg
         BaseException.__init__(self, msg)
         self.level = Qgis.Critical
@@ -40,7 +40,7 @@ class QuickOsmException(BaseException):
 class GeoAlgorithmException(QuickOsmException):
     def __init__(self, msg=None):
         if not msg:
-            msg = tr('Exception', u'GeoAlgorithm exception')
+            msg = tr('GeoAlgorithm exception')
         QuickOsmException.__init__(self, msg)
 
 
@@ -52,23 +52,23 @@ Overpass or network
 class OverpassBadRequestException(QuickOsmException):
     def __init__(self, msg=None):
         if not msg:
-            msg = tr('Exception', u'Bad request OverpassAPI')
+            msg = tr('Bad request OverpassAPI')
         QuickOsmException.__init__(self, msg)
 
 
 class OverpassTimeoutException(QuickOsmException):
     def __init__(self, msg=None):
         if not msg:
-            msg = tr('Exception', u'OverpassAPI timeout')
+            msg = tr('OverpassAPI timeout')
         QuickOsmException.__init__(self, msg)
 
 
 class NetWorkErrorException(QuickOsmException):
     def __init__(self, msg=None, suffix=None):
         if not msg:
-            msg = tr("Exception", u"Network error")
+            msg = tr('Network error')
         if suffix:
-            msg = msg + " with " + suffix
+            msg = msg + ' with ' + suffix
         QuickOsmException.__init__(self, msg)
 
 '''
@@ -79,7 +79,7 @@ QueryFactory
 class QueryFactoryException(QuickOsmException):
     def __init__(self, msg=None, suffix=None):
         if not msg:
-            msg = tr("Exception", u"Error while building the query")
+            msg = tr('Error while building the query')
         if suffix:
             msg = msg + " : " + suffix
         QuickOsmException.__init__(self, msg)
@@ -87,9 +87,8 @@ class QueryFactoryException(QuickOsmException):
 
 class QueryNotSupported(QuickOsmException):
     def __init__(self, key):
-        msg = tr("Exception",
-                 u"The query is not supported by the plugin because of"
-                 u" : %s" % key)
+        msg = tr('The query is not supported by the plugin because of '
+                 ': %s' % key)
         QuickOsmException.__init__(self, msg)
 
 '''
@@ -100,7 +99,7 @@ Nominatim
 class NominatimAreaException(QuickOsmException):
     def __init__(self, msg=None):
         if not msg:
-            msg = tr("Exception", u"No nominatim area")
+            msg = tr('No nominatim area')
         QuickOsmException.__init__(self, msg)
 
 '''
@@ -111,14 +110,14 @@ Ogr2Ogr
 class Ogr2OgrException(QuickOsmException):
     def __init__(self, msg=None):
         if not msg:
-            msg = tr("Exception", u"Error with ogr2ogr")
+            msg = tr('Error with ogr2ogr')
         QuickOsmException.__init__(self, msg)
 
 
 class NoLayerException(QuickOsmException):
     def __init__(self, msg=None, suffix=None):
         if not msg:
-            msg = tr("Exception", u"The layer is missing :")
+            msg = tr('The layer is missing :')
         if suffix:
             msg = msg + " " + suffix
         QuickOsmException.__init__(self, msg)
@@ -132,7 +131,7 @@ File and directory
 class FileDoesntExistException(QuickOsmException):
     def __init__(self, msg=None, suffix=None):
         if not msg:
-            msg = tr("Exception", u"The file doesn't exist")
+            msg = tr('The file does not exist')
         if suffix:
             msg = msg + " " + suffix
         QuickOsmException.__init__(self, msg)
@@ -141,15 +140,14 @@ class FileDoesntExistException(QuickOsmException):
 class DirectoryOutPutException(QuickOsmException):
     def __init__(self, msg=None):
         if not msg:
-            msg = tr('Exception', u'The output directory does not exist.')
+            msg = tr('The output directory does not exist.')
         QuickOsmException.__init__(self, msg)
 
 
 class FileOutPutException(QuickOsmException):
     def __init__(self, msg=None, suffix=None):
         if not msg:
-            msg = tr(
-                'Exception', u'The output file already exist, set a prefix')
+            msg = tr('The output file already exist, set a prefix')
         if suffix:
             msg = msg + " " + suffix
         QuickOsmException.__init__(self, msg)
@@ -158,14 +156,14 @@ class FileOutPutException(QuickOsmException):
 class OutPutFormatException(QuickOsmException):
     def __init__(self, msg=None):
         if not msg:
-            msg = tr("Exception", u"Output not available")
+            msg = tr('Output not available')
         QuickOsmException.__init__(self, msg)
 
 
 class QueryAlreadyExistsException(QuickOsmException):
     def __init__(self, msg=None):
         if not msg:
-            msg = tr("Exception", u"This query already exists")
+            msg = tr('This query already exists')
         QuickOsmException.__init__(self, msg)
 
 '''
@@ -176,7 +174,7 @@ Forms
 class MissingParameterException(QuickOsmException):
     def __init__(self, msg=None, suffix=None):
         if not msg:
-            msg = tr("Exception", u"A parameter is missing :")
+            msg = tr('A parameter is missing :')
         if suffix:
             msg = msg + " " + suffix
         QuickOsmException.__init__(self, msg)
@@ -185,12 +183,12 @@ class MissingParameterException(QuickOsmException):
 class OsmObjectsException(QuickOsmException):
     def __init__(self, msg=None):
         if not msg:
-            msg = tr("Exception", u"No osm objects selected")
+            msg = tr('No osm objects selected')
         QuickOsmException.__init__(self, msg)
 
 
 class OutPutGeomTypesException(QuickOsmException):
     def __init__(self, msg=None):
         if not msg:
-            msg = tr('Exception', u'No outputs selected')
+            msg = tr('No outputs selected')
         QuickOsmException.__init__(self, msg)

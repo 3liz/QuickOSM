@@ -63,8 +63,8 @@ class QuickQueryWidget(QuickOSMWidget, Ui_ui_quick_query):
         self.label_distance_point.setDisabled(True)
 
         # Setup in/around combobox
-        self.comboBox_in_around.insertItem(0, tr('ui_quick_query', u'In'))
-        self.comboBox_in_around.insertItem(1, tr('ui_quick_query', u'Around'))
+        self.comboBox_in_around.insertItem(0, tr('In'))
+        self.comboBox_in_around.insertItem(1, tr('Around'))
 
         # connect
         self.pushButton_runQuery.clicked.connect(self.run_query)
@@ -266,17 +266,17 @@ class QuickQueryWidget(QuickOSMWidget, Ui_ui_quick_query):
             # We can test numLayers to see if there are some results
             if num_layers:
                 self.label_progress.setText(
-                    tr('QuickOSM', u'Successful query !'))
+                    tr('Successful query'))
 
                 display_message_bar(
-                    tr('QuickOSM', u'Successful query !'),
+                    tr('Successful query'),
                     level=Qgis.Success,
                     duration=5)
             else:
-                self.label_progress.setText(tr("QuickOSM", u'No result'))
+                self.label_progress.setText(tr('No result'))
 
                 display_message_bar(
-                    tr('QuickOSM', u'Successful query, but no result.'),
+                    tr('Successful query, but no result.'),
                     level=Qgis.Warning,
                     duration=7)
 
@@ -396,4 +396,4 @@ class QuickQueryDockWidget(QDockWidget):
         self.setAllowedAreas(Qt.LeftDockWidgetArea | Qt.RightDockWidgetArea)
         self.widget = QuickQueryWidget()
         self.setWidget(self.widget)
-        self.setWindowTitle(tr("ui_quick_query", "QuickOSM - Quick query"))
+        self.setWindowTitle(tr('QuickOSM - Quick query'))

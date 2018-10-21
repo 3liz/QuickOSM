@@ -169,17 +169,17 @@ class MyQueriesWidget(QuickOSMWidget, Ui_ui_my_queries):
             # We create the menu
             popup_menu = QMenu()
             execute_action = QAction(
-                tr('QuickOSM', 'Execute'), self.treeQueries)
+                tr('Execute'), self.treeQueries)
             # noinspection PyUnresolvedReferences
             execute_action.triggered.connect(self.open_and_run_query)
             popup_menu.addAction(execute_action)
             show_action = QAction(
-                tr('QuickOSM', 'Show query'), self.treeQueries)
+                tr('Show query'), self.treeQueries)
             # noinspection PyUnresolvedReferences
             show_action.triggered.connect(self.show_query)
             popup_menu.addAction(show_action)
             delete_action = QAction(
-                tr('QuickOSM', 'Delete'), self.treeQueries)
+                tr('Delete'), self.treeQueries)
             # noinspection PyUnresolvedReferences
             delete_action.triggered.connect(self.delete_query)
             popup_menu.addAction(delete_action)
@@ -219,10 +219,10 @@ class MyQueriesWidget(QuickOSMWidget, Ui_ui_my_queries):
                 if template['nominatimDefaultValue']:
                     self.lineEdit_nominatim.setPlaceholderText(
                         template['nominatimDefaultValue'] + " " +
-                        tr('QuickOSM', 'can be overridden'))
+                        tr('can be overridden'))
                 else:
                     self.lineEdit_nominatim.setPlaceholderText(
-                        tr("QuickOSM", "A village, a town, ..."))
+                        tr('A village, a town, ...'))
 
             else:
                 self.lineEdit_nominatim.setEnabled(False)
@@ -268,7 +268,7 @@ class MyQueriesWidget(QuickOSMWidget, Ui_ui_my_queries):
             ret = QMessageBox.warning(
                 self,
                 "QuickOSM",
-                tr("QuickOSM", "Are you sure you want to delete the query ?"),
+                tr('Are you sure you want to delete the query ?'),
                 QMessageBox.Yes,
                 QMessageBox.Cancel)
 
@@ -337,14 +337,14 @@ class MyQueriesWidget(QuickOSMWidget, Ui_ui_my_queries):
 
             if num_layers:
                 display_message_bar(
-                    tr('QuickOSM', u'Successful query !'),
+                    tr('Successful query !'),
                     level=Qgis.Info,
                     duration=5)
                 self.label_progress.setText(
-                    tr('QuickOSM', u'Successful query !'))
+                    tr('Successful query !'))
             else:
                 display_message_bar(
-                    tr('QuickOSM', u'Successful query, but no result.'),
+                    tr('Successful query, but no result.'),
                     level=Qgis.Warning,
                     duration=7)
 
@@ -461,7 +461,7 @@ class MyQueriesDockWidget(QDockWidget):
         QDockWidget.__init__(self, parent)
         self.setAllowedAreas(Qt.LeftDockWidgetArea | Qt.RightDockWidgetArea)
         self.setWidget(MyQueriesWidget())
-        self.setWindowTitle(tr("ui_my_queries", "QuickOSM - My queries"))
+        self.setWindowTitle(tr('QuickOSM - My queries'))
         self.widget().signal_delete_query_successful.connect(
             self.signal_delete_query_successful.emit)
 

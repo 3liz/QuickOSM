@@ -77,11 +77,11 @@ class QueryWidget(QuickOSMWidget, Ui_ui_query):
         # Setup menu for saving
         popup_menu = QMenu()
         save_final_query_action = QAction(
-            tr('QuickOSM', 'Save as final query'), self.pushButton_saveQuery)
+            tr('Save as final query'), self.pushButton_saveQuery)
         save_final_query_action.triggered.connect(self.save_final_query)
         popup_menu.addAction(save_final_query_action)
         save_template_query_action = QAction(
-            tr('QuickOSM', 'Save as template'), self.pushButton_saveQuery)
+            tr('Save as template'), self.pushButton_saveQuery)
         save_template_query_action.triggered.connect(self.save_template_query)
         popup_menu.addAction(save_template_query_action)
         self.pushButton_saveQuery.setMenu(popup_menu)
@@ -222,14 +222,14 @@ class QueryWidget(QuickOSMWidget, Ui_ui_query):
 
             if num_layers:
                 display_message_bar(
-                    tr('QuickOSM', u'Successful query !'),
+                    tr('Successful query'),
                     level=Qgis.Success,
                     duration=5)
                 self.label_progress.setText(
-                    tr('QuickOSM', u'Successful query !'))
+                    tr('Successful query'))
             else:
                 display_message_bar(
-                    tr('QuickOSM', u'Successful query, but no result.'),
+                    tr('Successful query, but no result.'),
                     level=Qgis.Warning,
                     duration=7)
 
@@ -330,6 +330,6 @@ class QueryDockWidget(QDockWidget):
         QDockWidget.__init__(self, parent)
         self.setAllowedAreas(Qt.LeftDockWidgetArea | Qt.RightDockWidgetArea)
         self.setWidget(QueryWidget())
-        self.setWindowTitle(tr("ui_query", "QuickOSM - Query"))
+        self.setWindowTitle(tr('QuickOSM - Query'))
         self.widget().signal_new_query_successful.connect(
             self.signal_new_query_successful.emit)

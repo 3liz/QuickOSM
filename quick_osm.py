@@ -116,7 +116,7 @@ class QuickOSMPlugin(object):
         self.quickosm_menu = QMenu('QuickOSM')
         self.quickosm_menu.setIcon(
             QIcon(join(dirname(__file__), 'resources', 'QuickOSM.svg')))
-        self.dock_menu = QMenu(tr('QuickOSM', u'Dock'))
+        self.dock_menu = QMenu(tr('Dock'))
         self.vector_menu = self.iface.vectorMenu()
         self.vector_menu.addMenu(self.quickosm_menu)
 
@@ -241,15 +241,13 @@ class QuickOSMPlugin(object):
         current_version = get_current_version()
         if version != current_version:
             if new_queries_available():
-                message = 'New queries are available in the plugin. Would ' \
-                          'like to install them ? This will overwrite the ' \
-                          'current default queries.'
-                title = 'QuickOSM'
-                message = tr('QuickOSM', message)
-                widget = self.iface.messageBar().createMessage(title, message)
+                widget = self.iface.messageBar().createMessage(
+                    'QuickOSM',
+                    tr('New queries are available in the plugin. Would like '
+                       'to install them ? This will overwrite the current '
+                       'default queries.'))
                 button_ok = QPushButton(widget)
-                button_ok.setText(
-                    tr('QuickOSM', 'Install'))
+                button_ok.setText(tr('Install'))
                 button_ok.pressed.connect(self.restoreDefaultQueries)
                 widget.layout().addWidget(button_ok)
                 self.iface.messageBar().pushWidget(

@@ -97,7 +97,7 @@ def open_file(
                     final_layer_name = config_outputs[layer]['namelayer']
 
             if output_dir:
-                dialog.set_progress_text(tr("QuickOSM", u"From memory to GeoJSON: " + layer))
+                dialog.set_progress_text(tr('From memory to GeoJSON: ' + layer))
                 # Transforming the vector file
                 osm_geometries = {
                     'points': QgsWkbTypes.Point,
@@ -161,14 +161,14 @@ def process_query(
     """execute a query and send the result file to open_file."""
 
     # Prepare outputs
-    dialog.set_progress_text(tr("QuickOSM", u"Prepare outputs"))
+    dialog.set_progress_text(tr('Prepare outputs'))
 
     # Replace Nominatim or BBOX
     query = prepare_query(query=query, nominatim_name=nominatim, extent=bbox)
 
     # Getting the default overpass api and running the query
     server = get_setting('defaultOAPI')
-    dialog.set_progress_text(tr("QuickOSM", u"Downloading data from Overpass"))
+    dialog.set_progress_text(tr('Downloading data from Overpass'))
     QApplication.processEvents()
     connexion_overpass_api = ConnexionOAPI(url=server, output="xml")
     osm_file = connexion_overpass_api.query(query)

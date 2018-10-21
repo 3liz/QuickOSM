@@ -117,7 +117,7 @@ class OsmParser(QObject):
 
         # Foreach layers
         for layer in self.__layers:
-            self.signalText.emit(tr("QuickOSM", u"Parsing layer : " + layer))
+            self.signalText.emit(tr('Parsing layer : ' + layer))
             layers[layer] = {}
 
             # Reading it with a QgsVectorLayer
@@ -181,7 +181,7 @@ class OsmParser(QObject):
 
         # Creating GeoJSON files for each layers
         for layer in self.__layers:
-            msg = tr("QuickOSM", u"Creating memory layer : " + layer)
+            msg = tr('Creating memory layer : ' + layer)
             self.signalText.emit(msg)
             self.signalPercentage.emit(0)
 

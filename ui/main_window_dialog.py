@@ -157,7 +157,7 @@ class MainWindowDialog(QDialog, Ui_ui_main_window):
         Overwrite all queries
         """
         text = self.pushButton_restoreQueries.text()
-        self.pushButton_restoreQueries.setText(tr('QuickOSM', 'Copy ...'))
+        self.pushButton_restoreQueries.setText(tr('Copy ...'))
         get_user_query_folder(over_write=True)
         self.signal_new_query_successful.emit()
         # self.my_queries.fill_tree(force=True)

@@ -153,8 +153,7 @@ class Actions(object):
 
         if value == '':
             iface.messageBar().pushMessage(
-                tr('QuickOSM',
-                   'Sorry man, this field \'{}\' is empty for this entity.'
+                tr('Sorry man, this field \'{}\' is empty for this entity.'
                    .format(field)),
                 level=Qgis.Warning, duration=7)
         else:
@@ -195,8 +194,7 @@ class Actions(object):
                     urllib.request.urlopen(url).read()
                 except urllib.error.URLError:
                     iface.messageBar().pushMessage(
-                        tr('QuickOSM',
-                           'The JOSM remote seems to be disabled.'),
+                        tr('The JOSM remote seems to be disabled.'),
                         level=Qgis.Critical,
                         duration=7)
 
@@ -220,8 +218,7 @@ class Actions(object):
         """
         if network == '' or ref == '':
             iface.messageBar().pushMessage(
-                tr('QuickOSM',
-                   'Sorry man, this field is empty for this entity.'),
+                tr('Sorry man, this field is empty for this entity.'),
                 level=Qgis.Warning,
                 duration=7)
         else:

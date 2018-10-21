@@ -56,9 +56,9 @@ class QuickOSMWidget(QWidget):
 
     def init(self):
         """Init after the UI is loaded."""
-        self.output_directory.lineEdit().setPlaceholderText(tr('QuickOSM', 'Save to temporary file'))
+        self.output_directory.lineEdit().setPlaceholderText(tr('Save to temporary file'))
         self.output_directory.setStorageMode(QgsFileWidget.GetDirectory)
-        self.output_directory.setDialogTitle(tr('QuickOSM', 'Select a directory'))
+        self.output_directory.setDialogTitle(tr('Select a directory'))
         self.output_directory.fileChanged.connect(self.disable_prefix_file)
 
         try:
@@ -206,7 +206,7 @@ class QuickOSMWidget(QWidget):
         """
         self.pushButton_runQuery.setDisabled(True)
         self.pushButton_runQuery.initialText = self.pushButton_runQuery.text()
-        self.pushButton_runQuery.setText(tr('QuickOSM', 'Running query ...'))
+        self.pushButton_runQuery.setText(tr('Running query ...'))
         self.progressBar_execution.setMinimum(0)
         self.progressBar_execution.setMaximum(0)
         self.progressBar_execution.setValue(0)
@@ -260,8 +260,7 @@ class QuickOSMWidget(QWidget):
         LOGGER.critical(traceback.format_tb(tb))
 
         display_message_bar(
-            tr('QuickOSM',
-               'Error in the QGIS Logs, QuickOSM panel, please report it to '
+            tr('Error in the QGIS Logs, QuickOSM panel, please report it to '
                '<a href="https://github.com/3liz/QuickOSM/issues/new?'
                'template=1_BUG_REPORT.md">GitHub</a>'),
             level=Qgis.Critical,

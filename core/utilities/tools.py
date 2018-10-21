@@ -29,7 +29,7 @@ from qgis.PyQt.QtWidgets import QApplication
 from qgis.core import QgsApplication
 
 
-def tr(section, text):
+def tr(text, section='QuickOSM'):
     return QApplication.translate(section, text)
 
 

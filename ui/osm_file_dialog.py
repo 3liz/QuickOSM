@@ -58,7 +58,7 @@ class OsmFileWidget(QuickOSMWidget, Ui_ui_osm_file):
         self.lineEdit_filePrefix.setDisabled(True)
 
         # OSM File
-        self.osm_file.setDialogTitle(tr('QuickOSM', 'Select an OSM file'))
+        self.osm_file.setDialogTitle(tr('Select an OSM file'))
         self.osm_file.setFilter('OSM file (*.osm *.pbf)')
 
         # Set default osm conf
@@ -67,7 +67,7 @@ class OsmFileWidget(QuickOSMWidget, Ui_ui_osm_file):
         if not isfile(self.defaultOsmConf):
             self.defaultOsmConf = ''
         self.osm_conf.lineEdit().setPlaceholderText(self.defaultOsmConf)
-        self.osm_conf.setDialogTitle(tr('QuickOSM', 'Select OSM conf file'))
+        self.osm_conf.setDialogTitle(tr('Select OSM conf file'))
         self.osm_conf.setFilter('OSM conf (*.ini)')
         self.osm_conf.fileChanged.connect(self.disable_run_button)
         self.pushButton_runQuery.setEnabled(False)
@@ -147,7 +147,7 @@ class OsmFileWidget(QuickOSMWidget, Ui_ui_osm_file):
                     output_dir=output_directory,
                     prefix_file=prefix_file)
                 display_message_bar(
-                    tr('QuickOSM', u'Successful query !'),
+                    tr('Successful query'),
                     level=Qgis.Success,
                     duration=5)
 
@@ -166,4 +166,4 @@ class OsmFileDockWidget(QDockWidget):
         QDockWidget.__init__(self, parent)
         self.setAllowedAreas(Qt.LeftDockWidgetArea | Qt.RightDockWidgetArea)
         self.setWidget(OsmFileWidget())
-        self.setWindowTitle(tr("ui_osm_file", "QuickOSM - OSM File"))
+        self.setWindowTitle(tr('QuickOSM - OSM File'))
