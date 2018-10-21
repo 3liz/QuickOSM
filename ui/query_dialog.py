@@ -29,7 +29,7 @@ from QuickOSM.core.exceptions import (
     DirectoryOutPutException,
     OutPutGeomTypesException,
     MissingParameterException)
-from QuickOSM.core.query_parser import prepare_query
+from QuickOSM.core.query_preparation import prepare_query
 from QuickOSM.core.utilities.tools import tr, resources_path
 from QuickOSM.core.utilities.utilities_qgis import display_message_bar
 from QuickOSM.ui.QuickOSMWidget import QuickOSMWidget

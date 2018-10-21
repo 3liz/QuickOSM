@@ -29,7 +29,7 @@ from QuickOSM.core.api.connexion_oapi import ConnexionOAPI
 from QuickOSM.core.exceptions import FileOutPutException
 from QuickOSM.core.parser.osm_parser import OsmParser
 from QuickOSM.core.query_factory import QueryFactory
-from QuickOSM.core.query_parser import prepare_query
+from QuickOSM.core.query_preparation import prepare_query
 from QuickOSM.core.utilities.operating_system import get_default_encoding
 from QuickOSM.core.utilities.tools import get_setting
 from QuickOSM.core.utilities.tools import tr

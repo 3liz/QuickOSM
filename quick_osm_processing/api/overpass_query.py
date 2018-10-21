@@ -24,7 +24,7 @@
 from os.path import isfile, join, basename, dirname, abspath
 
 from QuickOSM.core.api.connexion_oapi import ConnexionOAPI
-from QuickOSM.core.query_parser import prepare_query
+from QuickOSM.core.query_preparation import prepare_query
 from QuickOSM.quick_osm_processing import *
 from processing.core.GeoAlgorithm import GeoAlgorithm
 from qgis.PyQt.QtCore import QSettings
