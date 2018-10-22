@@ -53,32 +53,27 @@ class QuickQueryWidget(QuickOSMWidget, Ui_ui_quick_query):
         self.init()
 
         # Setup UI
+
+        # Query type
+        self.cb_query_type.addItem(tr('In'), 'in')
+        self.cb_query_type.addItem(tr('Around'), 'around')
+        self.cb_query_type.addItem(tr('Canvas Extent'), 'canvas')
+        self.cb_query_type.addItem(tr('Layer Extent'), 'layer')
+        self.cb_query_type.addItem(tr('Not Spatial'), 'attributes')
+
+        self.cb_query_type.currentIndexChanged.connect(self.query_type_updated)
+
         self.label_progress.setText("")
         self.lineEdit_filePrefix.setDisabled(True)
-        self.activate_extent_layer()
-        self.comboBox_in_around.setDisabled(True)
-        self.lineEdit_nominatim.setDisabled(True)
-        self.radioButton_extentMapCanvas.setChecked(True)
-        self.spinBox_distance_point.setDisabled(True)
-        self.label_distance_point.setDisabled(True)
-
-        # Setup in/around combobox
-        self.comboBox_in_around.insertItem(0, tr('In'))
-        self.comboBox_in_around.insertItem(1, tr('Around'))
+        # self.activate_extent_layer()
 
         # connect
         self.pushButton_runQuery.clicked.connect(self.run_query)
         self.pushButton_showQuery.clicked.connect(self.show_query)
         self.comboBox_key.editTextChanged.connect(self.key_edited)
-        self.radioButton_extentLayer.toggled.connect(
-            self.allow_nominatim_or_extent)
-        self.radioButton_extentMapCanvas.toggled.connect(
-            self.allow_nominatim_or_extent)
-        self.radioButton_place.toggled.connect(self.allow_nominatim_or_extent)
         self.pushButton_mapFeatures.clicked.connect(self.open_map_features)
         self.buttonBox.button(QDialogButtonBox.Reset).clicked.connect(
             self.reset_form)
-        self.comboBox_in_around.currentIndexChanged.connect(self.in_or_around)
 
         # Setup auto completion
         map_features_json_file = join(
@@ -100,15 +95,16 @@ class QuickQueryWidget(QuickOSMWidget, Ui_ui_quick_query):
         self.comboBox_value.lineEdit().setPlaceholderText('Query on all values')
         self.key_edited()
 
+        self.query_type_updated()
         self.init_nominatim_autofill()
 
     def reset_form(self):
         self.comboBox_key.setCurrentIndex(0)
         self.comboBox_value.setCurrentIndex(0)
         self.lineEdit_nominatim.setText("")
-        self.radioButton_place.setChecked(True)
+        # self.radioButton_place.setChecked(True)
         self.spinBox_distance_point.setValue(1000)
-        self.comboBox_in_around.setCurrentIndex(0)
+        # self.comboBox_in_around.setCurrentIndex(0)
         self.checkBox_points.setChecked(True)
         self.checkBox_lines.setChecked(True)
         self.checkBox_multilinestrings.setChecked(True)
@@ -146,41 +142,6 @@ class QuickQueryWidget(QuickOSMWidget, Ui_ui_quick_query):
         self.comboBox_value.setCompleter(values_completer)
         self.comboBox_value.addItems(current_values)
 
-    def allow_nominatim_or_extent(self):
-        """
-        Disable or enable radiobuttons if nominatim or extent
-        """
-
-        if self.radioButton_extentMapCanvas.isChecked() or \
-                self.radioButton_extentLayer.isChecked():
-            self.lineEdit_nominatim.setDisabled(True)
-            self.spinBox_distance_point.setDisabled(True)
-            self.label_distance_point.setDisabled(True)
-            self.comboBox_in_around.setDisabled(True)
-        else:
-            self.lineEdit_nominatim.setDisabled(False)
-            self.comboBox_in_around.setDisabled(False)
-            self.in_or_around()
-
-        if self.radioButton_extentLayer.isChecked():
-            self.comboBox_extentLayer.setDisabled(False)
-        else:
-            self.comboBox_extentLayer.setDisabled(True)
-
-    def in_or_around(self):
-        """
-        Disable the spinbox distance if 'in' or 'around'
-        """
-
-        index = self.comboBox_in_around.currentIndex()
-
-        if index == 1:
-            self.spinBox_distance_point.setEnabled(True)
-            self.label_distance_point.setEnabled(True)
-        else:
-            self.spinBox_distance_point.setEnabled(False)
-            self.label_distance_point.setEnabled(False)
-
     def _get_osm_objects(self):
         """
         Get a list of osm objects from checkbox
@@ -216,10 +177,9 @@ class QuickQueryWidget(QuickOSMWidget, Ui_ui_quick_query):
         timeout = self.spinBox_timeout.value()
         output_directory = self.output_directory.filePath()
         prefix_file = self.lineEdit_filePrefix.text()
-        if self.comboBox_in_around.currentIndex() == 1:
-            is_around = True
-        else:
-            is_around = False
+
+        query_type = self.cb_query_type.currentData()
+        is_around = query_type == 'around'
         distance = self.spinBox_distance_point.value()
 
         # Which geometry at the end ?
@@ -238,8 +198,7 @@ class QuickQueryWidget(QuickOSMWidget, Ui_ui_quick_query):
 
             # If bbox, we must set None to nominatim, we can't have both
             bbox = None
-            if self.radioButton_extentLayer.isChecked() or \
-                    self.radioButton_extentMapCanvas.isChecked():
+            if query_type in ['layer', 'canvas']:
                 nominatim = None
                 bbox = self.get_bounding_box()
 
@@ -316,18 +275,17 @@ class QuickQueryWidget(QuickOSMWidget, Ui_ui_quick_query):
         timeout = self.spinBox_timeout.value()
         output_directory = self.output_directory.filePath()
         prefix_file = self.lineEdit_filePrefix.text()
-        if self.comboBox_in_around.currentIndex() == 1:
-            is_around = True
-        else:
-            is_around = False
+        query_type = self.cb_query_type.currentData()
+        is_around = query_type == 'around'
         distance = self.spinBox_distance_point.value()
 
         # If bbox, we must set None to nominatim, we can't have both
         bbox = None
-        if self.radioButton_extentLayer.isChecked() or \
-                self.radioButton_extentMapCanvas.isChecked():
+        if query_type in ['layer', 'canvas']:
             nominatim = None
             bbox = True
+        elif query_type in ['attributes']:
+            nominatim = None
 
         if nominatim == '':
             nominatim = None
@@ -345,14 +303,15 @@ class QuickQueryWidget(QuickOSMWidget, Ui_ui_quick_query):
         query_widget.checkBox_multipolygons.setChecked(
             self.checkBox_multipolygons.isChecked())
 
-        query_widget.radioButton_extentLayer.setChecked(
-            self.radioButton_extentLayer.isChecked())
-        query_widget.radioButton_extentMapCanvas.setChecked(
-            self.radioButton_extentMapCanvas.isChecked())
+        # What kind of extent query
+        # query_widget.radioButton_extentLayer.setChecked(
+        #     self.radioButton_extentLayer.isChecked())
+        # query_widget.radioButton_extentMapCanvas.setChecked(
+        #     self.radioButton_extentMapCanvas.isChecked())
 
         # Transfer the combobox from QuickQuery to Query
-        if self.comboBox_extentLayer.count():
-            query_widget.radioButton_extentLayer.setCheckable(True)
+        # if self.comboBox_extentLayer.count():
+        #     query_widget.radioButton_extentLayer.setCheckable(True)
 
         # Transfer the output
         query_widget.output_directory.setFilePath(output_directory)

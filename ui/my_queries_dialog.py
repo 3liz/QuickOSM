@@ -67,7 +67,7 @@ class MyQueriesWidget(QuickOSMWidget, Ui_ui_my_queries):
         self.radioButton_extentLayer.setEnabled(False)
         self.radioButton_extentMapCanvas.setEnabled(False)
 
-        self.activate_extent_layer()
+        # self.activate_extent_layer()
         self.fill_tree()
         self.groupBox.setCollapsed(True)
 

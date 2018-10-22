@@ -64,10 +64,14 @@ class QueryWidget(QuickOSMWidget, Ui_ui_query):
         self.pushButton_saveQuery.setVisible(False)
 
         # Setup UI
+        self.cb_query_type.addItem(tr('Canvas Extent'), 'canvas')
+        self.cb_query_type.addItem(tr('Layer Extent'), 'layer')
+        self.cb_query_type.currentIndexChanged.connect(self.query_type_updated)
+
         self.label_progress.setText("")
         self.lineEdit_filePrefix.setDisabled(True)
         self.bbox = None
-        self.activate_extent_layer()
+        # self.activate_extent_layer()
         self.pushButton_overpassTurbo.setIcon(QIcon(resources_path('turbo.png')))
         # Disable buttons
         self.pushButton_generateQuery.setDisabled(True)
@@ -107,10 +111,11 @@ class QueryWidget(QuickOSMWidget, Ui_ui_query):
             self.highlighter.rehighlight)
         self.textEdit_query.cursorPositionChanged.connect(
             self.allow_nominatim_or_extent)
-        self.radioButton_extentLayer.toggled.connect(self.extent_radio)
         self.pushButton_overpassTurbo.clicked.connect(self.open_overpass_turbo)
         self.buttonBox.button(QDialogButtonBox.Reset).clicked.connect(
             self.reset_form)
+
+        self.query_type_updated()
 
     def reset_form(self):
         self.textEdit_query.setText("")
@@ -132,7 +137,7 @@ class QueryWidget(QuickOSMWidget, Ui_ui_query):
         Disable buttons if the query is empty
         """
 
-        query = str(self.textEdit_query.toPlainText())
+        query = self.textEdit_query.toPlainText()
 
         if not query:
             self.pushButton_generateQuery.setDisabled(True)
@@ -152,16 +157,9 @@ class QueryWidget(QuickOSMWidget, Ui_ui_query):
             self.lineEdit_nominatim.setText("")
 
         if re.search(r'\{\{(bbox|center)\}\}', query):
-            self.radioButton_extentLayer.setEnabled(True)
-            self.radioButton_extentMapCanvas.setEnabled(True)
-            if self.radioButton_extentLayer.isChecked():
-                self.comboBox_extentLayer.setEnabled(True)
-            else:
-                self.comboBox_extentLayer.setEnabled(False)
+            self.cb_query_type.setEnabled(True)
         else:
-            self.radioButton_extentLayer.setEnabled(False)
-            self.radioButton_extentMapCanvas.setEnabled(False)
-            self.comboBox_extentLayer.setEnabled(False)
+            self.cb_query_type.setEnabled(False)
 
     def run_query(self):
         """
@@ -183,9 +181,9 @@ class QueryWidget(QuickOSMWidget, Ui_ui_query):
 
         # Set bbox
         bbox = None
-        if self.radioButton_extentLayer.isChecked() or \
-                self.radioButton_extentMapCanvas.isChecked():
-            bbox = self.get_bounding_box()
+        # if self.radioButton_extentLayer.isChecked() or \
+        #         self.radioButton_extentMapCanvas.isChecked():
+        #     bbox = self.get_bounding_box()
 
         # Check nominatim
         if nominatim == '':
@@ -272,8 +270,7 @@ class QueryWidget(QuickOSMWidget, Ui_ui_query):
         bbox = self.get_bounding_box()
 
         # Delete any templates
-        query = prepare_query(
-            query=query, extent=bbox, nominatim_name=nominatim)
+        query = QueryPreparation(query, bbox, nominatim).prepare_query()
 
         # Save the query
         save_query_dialog = SaveQueryDialog(

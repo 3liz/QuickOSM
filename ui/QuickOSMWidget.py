@@ -50,9 +50,9 @@ class QuickOSMWidget(QWidget):
             'nominatim.txt')
         QWidget.__init__(self, parent)
 
-        project = QgsProject.instance()
-        project.layersAdded.connect(self.activate_extent_layer)
-        project.layersRemoved.connect(self.activate_extent_layer)
+        # project = QgsProject.instance()
+        # project.layersAdded.connect(self.activate_extent_layer)
+        # project.layersRemoved.connect(self.activate_extent_layer)
 
     def init(self):
         """Init after the UI is loaded."""
@@ -95,7 +95,7 @@ class QuickOSMWidget(QWidget):
         return existing_places[:10]
 
     def nominatim_value(self):
-        value = str(self.lineEdit_nominatim.text())
+        value = self.lineEdit_nominatim.text()
         new_list = self.sort_nominatim_places(self.last_places, value)
 
         f = open(self.last_nominatim_places_filepath, 'w')
@@ -107,17 +107,6 @@ class QuickOSMWidget(QWidget):
 
         return value
 
-    def activate_extent_layer(self):
-        """Activate or deactivate the radio button about the extent layer."""
-        try:
-            if self.comboBox_extentLayer.count() < 1:
-                self.radioButton_extentLayer.setCheckable(False)
-                self.radioButton_extentMapCanvas.setChecked(True)
-            else:
-                self.radioButton_extentLayer.setCheckable(True)
-        except AttributeError:
-            pass
-
     def disable_prefix_file(self):
         """
         If the directory is empty, we disable the file prefix
@@ -128,14 +117,22 @@ class QuickOSMWidget(QWidget):
             self.lineEdit_filePrefix.setText("")
             self.lineEdit_filePrefix.setDisabled(True)
 
-    def extent_radio(self):
-        """
-        Disable or enable the combox box
-        """
-        if self.radioButton_extentLayer.isChecked():
-            self.comboBox_extentLayer.setDisabled(False)
+    def query_type_updated(self):
+        """Enable/disable the extent widget."""
+        current = self.cb_query_type.currentData()
+
+        if self.cb_query_type.count() == 2:
+            # Query tab
+            self.comboBox_extentLayer.setVisible(current == 'layer')
         else:
-            self.comboBox_extentLayer.setDisabled(True)
+            # Quick query tab
+            if current in ['in', 'around']:
+                self.stacked_query_type.setCurrentIndex(0)
+                self.spinBox_distance_point.setVisible(current == 'around')
+            elif current in ['layer']:
+                self.stacked_query_type.setCurrentIndex(1)
+            elif current in ['canvas', 'attributes']:
+                self.stacked_query_type.setCurrentIndex(2)
 
     def get_output_geometry_types(self):
         """
@@ -182,9 +179,9 @@ class QuickOSMWidget(QWidget):
         @rtype: QGsRectangle in WGS84
         @return: the extent of the map canvas
         """
+        query_type = self.cb_query_type.currentData()
 
-        # If mapCanvas is checked
-        if self.radioButton_extentMapCanvas.isChecked():
+        if query_type == 'canvas':
             geom_extent = iface.mapCanvas().extent()
             source_crs = iface.mapCanvas().mapSettings().destinationCrs()
         else:
