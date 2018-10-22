@@ -38,7 +38,7 @@ from QuickOSM.ui.QuickOSMWidget import QuickOSMWidget
 from QuickOSM.ui.my_queries import Ui_ui_my_queries
 from qgis.PyQt.QtCore import pyqtSignal, QFile, Qt
 from qgis.PyQt.QtWidgets import QTreeWidgetItem, QMenu, QAction, QMessageBox, \
-    QApplication, QDockWidget
+    QApplication
 from qgis.core import Qgis
 from qgis.utils import iface
 
@@ -450,23 +450,3 @@ class TreeQueryItem(QTreeWidgetItem):
 
         self.setToolTip(0, name)
         self.setText(0, name)
-
-
-class MyQueriesDockWidget(QDockWidget):
-
-    signal_delete_query_successful = pyqtSignal(
-        name='signal_delete_query_successful')
-
-    def __init__(self, parent=None):
-        QDockWidget.__init__(self, parent)
-        self.setAllowedAreas(Qt.LeftDockWidgetArea | Qt.RightDockWidgetArea)
-        self.setWidget(MyQueriesWidget())
-        self.setWindowTitle(tr('QuickOSM - My queries'))
-        self.widget().signal_delete_query_successful.connect(
-            self.signal_delete_query_successful.emit)
-
-    def refresh_my_queries_tree(self):
-        """
-        Slots which refresh the tree
-        """
-        self.widget().fill_tree(force=True)

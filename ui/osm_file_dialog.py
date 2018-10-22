@@ -37,7 +37,7 @@ from QuickOSM.core.utilities.utilities_qgis import display_message_bar
 from QuickOSM.ui.QuickOSMWidget import QuickOSMWidget
 from QuickOSM.ui.osm_file import Ui_ui_osm_file
 from qgis.PyQt.QtCore import Qt
-from qgis.PyQt.QtWidgets import QApplication, QDockWidget
+from qgis.PyQt.QtWidgets import QApplication
 from qgis.core import QgsProject, Qgis
 
 
@@ -159,11 +159,3 @@ class OsmFileWidget(QuickOSMWidget, Ui_ui_osm_file):
             QApplication.restoreOverrideCursor()
             self.end_process()
             QApplication.processEvents()
-
-
-class OsmFileDockWidget(QDockWidget):
-    def __init__(self, parent=None):
-        QDockWidget.__init__(self, parent)
-        self.setAllowedAreas(Qt.LeftDockWidgetArea | Qt.RightDockWidgetArea)
-        self.setWidget(OsmFileWidget())
-        self.setWindowTitle(tr('QuickOSM - OSM File'))

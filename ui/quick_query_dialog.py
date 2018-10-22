@@ -36,7 +36,7 @@ from QuickOSM.definitions.osm import OsmType, QueryType
 from QuickOSM.ui.QuickOSMWidget import QuickOSMWidget
 from QuickOSM.ui.quick_query import Ui_ui_quick_query
 from qgis.PyQt.QtCore import Qt
-from qgis.PyQt.QtWidgets import QDockWidget, QApplication, QCompleter, \
+from qgis.PyQt.QtWidgets import QApplication, QCompleter, \
     QDialogButtonBox
 from qgis.core import Qgis
 from qgis.utils import iface
@@ -347,12 +347,3 @@ class QuickQueryWidget(QuickOSMWidget, Ui_ui_quick_query):
         iface.QuickOSM_mainWindowDialog.listWidget.setCurrentRow(
             index_quick_query_widget)
         iface.QuickOSM_mainWindowDialog.exec_()
-
-
-class QuickQueryDockWidget(QDockWidget):
-    def __init__(self, parent=None):
-        QDockWidget.__init__(self, parent)
-        self.setAllowedAreas(Qt.LeftDockWidgetArea | Qt.RightDockWidgetArea)
-        self.widget = QuickQueryWidget()
-        self.setWidget(self.widget)
-        self.setWindowTitle(tr('QuickOSM - Quick query'))
