@@ -40,12 +40,11 @@ from QuickOSM.core.utilities.tools import (
     get_user_query_folder
 )
 from QuickOSM.ui.main_window_dialog import MainWindowDialog
-from qgis.PyQt.QtCore import QSettings, QTranslator, QCoreApplication
+from qgis.PyQt.QtCore import QTranslator, QCoreApplication
 from qgis.PyQt.QtGui import QIcon
 from qgis.PyQt.QtWidgets import QMenu, QAction, QPushButton
 from qgis.core import Qgis, QgsCoordinateTransform, \
-    QgsCoordinateReferenceSystem, QgsProject
-
+    QgsCoordinateReferenceSystem, QgsProject, QgsSettings
 
 # from processing.core.Processing import Processing
 
@@ -70,7 +69,13 @@ class QuickOSMPlugin(object):
         # initialize plugin directory
         self.plugin_dir = dirname(__file__)
         # initialize locale
-        locale = QSettings().value('locale/userLocale')[0:2]
+        # noinspection PyBroadException
+        try:
+            locale = QgsSettings().value('locale/userLocale', 'en')[0:2]
+        except AttributeError:
+            # Fallback to english #132
+            LOGGER.warning('Fallback to English as default language for the plugin')
+            locale = 'en'
         locale_path = join(
             self.plugin_dir,
             'i18n',
