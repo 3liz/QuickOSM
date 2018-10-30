@@ -163,15 +163,17 @@ def process_query(
     # Prepare outputs
     dialog.set_progress_text(tr('Prepare outputs'))
 
-    # Replace Nominatim or BBOX
-    query = QueryPreparation(query, bbox, nominatim)
-
     # Getting the default overpass api and running the query
     server = get_setting('defaultOAPI')
     dialog.set_progress_text(tr('Downloading data from Overpass'))
+    # Replace Nominatim or BBOX
+    query = QueryPreparation(query, bbox, nominatim, server)
     QApplication.processEvents()
-    connexion_overpass_api = ConnexionOAPI(url=server, output="xml")
-    osm_file = connexion_overpass_api.query(query.prepare_query())
+    query.prepare_query()
+    url = query.prepare_url()
+    connexion_overpass_api = ConnexionOAPI(url)
+    LOGGER.debug('Encoded URL: {}'.format(url))
+    osm_file = connexion_overpass_api.run()
 
     return open_file(
         dialog=dialog,
@@ -232,6 +234,7 @@ def process_quick_query(
         key = tr('allKeys')
     expected_name = [key, value, nominatim, distance_string]
     layer_name = '_'.join([f for f in expected_name if f])
+    LOGGER.info('Query: {}'.format(layer_name))
 
     # Call process_query with the new query
     return process_query(

@@ -257,11 +257,13 @@ class QueryPreparation:
     def prepare_url(self):
         """Prepare a query to be as an URL.
 
+        if the query is not ready to be URL prepared, a None is returned.
+
         :return: The URL encoded with the query.
         :rtype: basestring
         """
-        if not self._query_prepared:
-            return ''
+        if not self._query_is_ready:
+            return None
 
         if self._output_format:
             query = re.sub(
@@ -275,7 +277,7 @@ class QueryPreparation:
         else:
             query = self._query_prepared
 
-        url_query = QUrl(self._overpass)
+        url_query = QUrl(self._overpass + 'interpreter')
         query_string = QUrlQuery()
         query_string.addQueryItem('data', query)
         query_string.addQueryItem('info', 'QgisQuickOSMPlugin')
