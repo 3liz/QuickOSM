@@ -9,7 +9,7 @@ newQueries=False
 author=Etienne Trimaille
 email=etienne@trimaille.eu
 # For QGIS WPS
-server=False
+server=True
 
 # End of mandatory metadata
 

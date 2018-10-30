@@ -23,6 +23,13 @@ class LayerType(Enum):
     MultiPolygons = 'multipolygons'
 
 
+ALL_QUERY_TYPES = [
+    QueryType.AroundNominatimPlace,
+    QueryType.InNominatimPlace,
+    QueryType.NotSpatial,
+    QueryType.BBox,
+]
+
 ALL_LAYER_TYPES = [
     LayerType.Points,
     LayerType.Lines,

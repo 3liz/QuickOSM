@@ -28,7 +28,7 @@ from QuickOSM.core.api.nominatim import Nominatim
 from QuickOSM.definitions.overpass import OVERPASS_SERVERS
 from QuickOSM.core.exceptions import (
     QueryNotSupported, QueryFactoryException)
-from QuickOSM.core.utilities.tools import tr
+from QuickOSM.core.utilities.tools import tr, get_setting
 
 
 class QueryPreparation:
@@ -50,9 +50,12 @@ class QueryPreparation:
         :type nominatim_place: str, list(str)
         """
         if overpass is None:
-            self._overpass = OVERPASS_SERVERS[0]
+            server = get_setting('defaultOAPI') + 'interpreter'
+            if server is None:
+                server = OVERPASS_SERVERS[0]
+            self._overpass = QUrl(server + 'interpreter')
         else:
-            self._overpass = overpass
+            self._overpass = QUrl(overpass)
 
         self._query = query
         self._query_prepared = query
@@ -278,7 +281,7 @@ class QueryPreparation:
         else:
             query = self._query_prepared
 
-        url_query = QUrl(self._overpass + 'interpreter')
+        url_query = QUrl(self._overpass)
         query_string = QUrlQuery()
         query_string.addQueryItem('data', query)
         query_string.addQueryItem('info', 'QgisQuickOSMPlugin')

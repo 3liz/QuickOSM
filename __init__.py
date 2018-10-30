@@ -30,6 +30,5 @@ def classFactory(iface):
 
 # noinspection PyDocstring,PyPep8Naming
 def serverClassFactory(serverIface):
-    # from .quick_osm_processing.algorithm_provider import (
-    #     QuickOSMAlgorithmProvider)
+    from .quick_osm_processing.provider import Provider
     pass

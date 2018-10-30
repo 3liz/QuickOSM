@@ -28,8 +28,7 @@ from os.path import dirname, join, exists, isfile
 
 from QuickOSM.definitions.overpass import OVERPASS_SERVERS
 from QuickOSM.core.custom_logging import setup_logger
-# from QuickOSM.quick_osm_processing.algorithm_provider import (
-#     QuickOSMAlgorithmProvider)
+from QuickOSM.quick_osm_processing.provider import Provider
 from QuickOSM.core.utilities.tools import (
     get_current_version,
     get_setting,
@@ -43,10 +42,9 @@ from QuickOSM.ui.main_window_dialog import MainWindowDialog
 from qgis.PyQt.QtCore import QTranslator, QCoreApplication
 from qgis.PyQt.QtGui import QIcon
 from qgis.PyQt.QtWidgets import QMenu, QAction, QPushButton
-from qgis.core import Qgis, QgsCoordinateTransform, \
+from qgis.core import Qgis, QgsApplication, QgsCoordinateTransform, \
     QgsCoordinateReferenceSystem, QgsProject, QgsSettings
 
-# from processing.core.Processing import Processing
 
 LOGGER = logging.getLogger('QuickOSM')
 
@@ -91,8 +89,8 @@ class QuickOSMPlugin(object):
         get_user_query_folder(over_write=True)
 
         # Add to processing
-        # self.provider = QuickOSMAlgorithmProvider()
-        # Processing.addProvider(self.provider, True)
+        self.provider = Provider()
+        QgsApplication.processingRegistry().addProvider(self.provider)
 
         # Add the toolbar
         self.toolbar = self.iface.addToolBar('QuickOSM')
@@ -185,7 +183,7 @@ class QuickOSMPlugin(object):
     def unload(self):
         self.iface.removePluginVectorMenu('&QuickOSM', self.mainWindowAction)
         self.iface.removeToolBarIcon(self.mainWindowAction)
-        # Processing.removeProvider(self.provider)
+        QgsApplication.processingRegistry().removeProvider(self.provider)
 
     def josm_remote(self):
         map_settings = self.iface.mapCanvas().mapSettings()
@@ -214,7 +212,7 @@ class QuickOSMPlugin(object):
                     tr('JOSM Remote'), tr('Import done, check JOSM'))
         except IOError:
             self.iface.messageBar().pushCritical(
-                tr('JOSM Remote'), tr('Is the remote enabled?'))git check
+                tr('JOSM Remote'), tr('Is the remote enabled?'))
 
     def openMainWindow(self):
         self.iface.QuickOSM_mainWindowDialog.listWidget.setCurrentRow(0)
