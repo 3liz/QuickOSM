@@ -28,7 +28,7 @@ from QuickOSM.core.utilities.tools import tr
 from osgeo import gdal
 from qgis.PyQt.QtCore import QObject, pyqtSignal, QVariant
 from qgis.core import \
-    QgsVectorLayer, QgsFields, QgsField, QgsVectorFileWriter, QgsFeature, QgsMemoryProviderUtils, QgsHstoreUtils
+    QgsVectorLayer, QgsFields, QgsField, QgsFeature, QgsMemoryProviderUtils, QgsHstoreUtils
 
 
 class OsmParser(QObject):
@@ -96,7 +96,7 @@ class OsmParser(QObject):
         gdal.SetConfigOption('OSM_USE_CUSTOM_INDEXING', 'NO')
 
         if not isfile(self.__osmFile):
-            raise GeoAlgorithmException("File doesn't exist")
+            raise GeoAlgorithmException(tr('File does not exist'))
 
         uri = self.__osmFile + "|layername="
         layers = {}
@@ -110,14 +110,14 @@ class OsmParser(QObject):
                     uri + layer, file_name + " " + layer, "ogr")
 
                 if not layers[layer].isValid():
-                    msg = "Error on the layer : {}".format(layer)
+                    msg = tr("Error on the layer : {}").format(layer)
                     raise GeoAlgorithmException(msg)
 
             return layers
 
         # Foreach layers
         for layer in self.__layers:
-            self.signalText.emit(tr('Parsing layer : ' + layer))
+            self.signalText.emit(tr('Parsing layer : {}').format(layer))
             layers[layer] = {}
 
             # Reading it with a QgsVectorLayer

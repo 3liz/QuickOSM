@@ -90,9 +90,9 @@ class QuickQueryWidget(QuickOSMWidget, Ui_ui_quick_query):
                 self.comboBox_key.setCompleter(keys_completer)
                 self.comboBox_key.completer().setCompletionMode(
                     QCompleter.PopupCompletion)
-                self.comboBox_key.lineEdit().setPlaceholderText('Query on all keys')
+                self.comboBox_key.lineEdit().setPlaceholderText(tr('Query on all keys'))
 
-        self.comboBox_value.lineEdit().setPlaceholderText('Query on all values')
+        self.comboBox_value.lineEdit().setPlaceholderText(tr('Query on all values'))
         self.key_edited()
 
         self.query_type_updated()

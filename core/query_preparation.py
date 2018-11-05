@@ -28,6 +28,7 @@ from QuickOSM.core.api.nominatim import Nominatim
 from QuickOSM.definitions.overpass import OVERPASS_SERVERS
 from QuickOSM.core.exceptions import (
     QueryNotSupported, QueryFactoryException)
+from QuickOSM.core.utilities.tools import tr
 
 
 class QueryPreparation:
@@ -123,7 +124,7 @@ class QueryPreparation:
             return
         else:
             if self._extent is None:
-                raise QueryFactoryException('Missing extent parameter')
+                raise QueryFactoryException(tr('Missing extent parameter'))
 
         y = self._extent.center().y()
         x = self._extent.center().x()
@@ -145,7 +146,7 @@ class QueryPreparation:
             return
         else:
             if self._extent is None:
-                raise QueryFactoryException('Missing extent parameter')
+                raise QueryFactoryException(tr('Missing extent parameter'))
 
         y_min = self._extent.yMinimum()
         y_max = self._extent.yMaximum()

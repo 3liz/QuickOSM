@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS><TS version="2.0" language="fr" sourcelanguage="en">
+<?xml version="1.0" ?><!DOCTYPE TS><TS language="fr" sourcelanguage="en" version="2.0">
 <context>
     <name>@default</name>
     <message>
@@ -10,27 +9,22 @@
     <message>
         <location filename="../core/process.py" line="164"/>
         <source>Prepare outputs</source>
-        <translation type="unfinished"></translation>
+        <translation>Préparation des sorties</translation>
     </message>
     <message>
         <location filename="../core/process.py" line="168"/>
         <source>Downloading data from Overpass</source>
-        <translation type="unfinished"></translation>
+        <translation>Téléchargement des données Overpass</translation>
     </message>
     <message>
         <location filename="../core/process.py" line="234"/>
         <source>allKeys</source>
-        <translation type="unfinished"></translation>
+        <translation>toutesClés</translation>
     </message>
     <message>
         <location filename="../core/custom_logging.py" line="53"/>
         <source>Due to memory limitations on this machine, QuickOSM can not handle the full log</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../core/actions.py" line="162"/>
-        <source>Sorry man, this field &apos;{}&apos; is empty for this entity.</source>
-        <translation type="unfinished"></translation>
+        <translation>Due à des limitations de la mémoire sur cet ordinateur, QuickOSM ne peut pas afficher les logs en entier.</translation>
     </message>
     <message>
         <location filename="../core/actions.py" line="203"/>
@@ -38,19 +32,9 @@
         <translation>La télécommande JOSM semble désactivée.</translation>
     </message>
     <message>
-        <location filename="../core/actions.py" line="227"/>
-        <source>Sorry man, this field is empty for this entity.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../core/parser/osm_parser.py" line="120"/>
-        <source>Parsing layer : </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../core/parser/osm_parser.py" line="184"/>
         <source>Creating memory layer : </source>
-        <translation type="unfinished"></translation>
+        <translation>Création de la couche mémoire : </translation>
     </message>
     <message>
         <location filename="../core/exceptions.py" line="33"/>
@@ -60,222 +44,317 @@
     <message>
         <location filename="../core/exceptions.py" line="43"/>
         <source>GeoAlgorithm exception</source>
-        <translation type="unfinished"></translation>
+        <translation>Erreur GéoAlgorithme</translation>
     </message>
     <message>
         <location filename="../core/exceptions.py" line="55"/>
         <source>Bad request OverpassAPI</source>
-        <translation type="unfinished"></translation>
+        <translation>Erreur de requête OverpassAPI</translation>
     </message>
     <message>
         <location filename="../core/exceptions.py" line="62"/>
         <source>OverpassAPI timeout</source>
-        <translation type="unfinished"></translation>
+        <translation>Temps d&apos;exécution OverpassAPI atteint</translation>
     </message>
     <message>
         <location filename="../core/exceptions.py" line="69"/>
         <source>Network error</source>
-        <translation type="unfinished"></translation>
+        <translation>Erreur de réseau</translation>
     </message>
     <message>
         <location filename="../core/exceptions.py" line="82"/>
         <source>Error while building the query</source>
-        <translation type="unfinished"></translation>
+        <translation>Erreur en construisant la requête</translation>
     </message>
     <message>
         <location filename="../core/exceptions.py" line="90"/>
         <source>The query is not supported by the plugin because of : %s</source>
-        <translation type="unfinished"></translation>
+        <translation>La requête n&apos;est pas supportée par le plugin à cause de : %s</translation>
     </message>
     <message>
         <location filename="../core/exceptions.py" line="102"/>
         <source>No nominatim area</source>
-        <translation type="unfinished"></translation>
+        <translation>Absence de résultat Nominatim</translation>
     </message>
     <message>
         <location filename="../core/exceptions.py" line="113"/>
         <source>Error with ogr2ogr</source>
-        <translation type="unfinished"></translation>
+        <translation>Erreur avec ogr2ogr</translation>
     </message>
     <message>
         <location filename="../core/exceptions.py" line="120"/>
         <source>The layer is missing :</source>
-        <translation type="unfinished"></translation>
+        <translation>La couche est absente :</translation>
     </message>
     <message>
         <location filename="../core/exceptions.py" line="134"/>
         <source>The file does not exist</source>
-        <translation type="unfinished"></translation>
+        <translation>Le fichier n&apos;existe pas</translation>
     </message>
     <message>
         <location filename="../core/exceptions.py" line="143"/>
         <source>The output directory does not exist.</source>
-        <translation type="unfinished"></translation>
+        <translation>Le dossier de sortie n&apos;existe pas.</translation>
     </message>
     <message>
         <location filename="../core/exceptions.py" line="150"/>
         <source>The output file already exist, set a prefix</source>
-        <translation type="unfinished"></translation>
+        <translation>Le fichier de sortie existe déjà, préfixez</translation>
     </message>
     <message>
         <location filename="../core/exceptions.py" line="159"/>
         <source>Output not available</source>
-        <translation type="unfinished"></translation>
+        <translation>Format de sortie non disponible</translation>
     </message>
     <message>
         <location filename="../core/exceptions.py" line="166"/>
         <source>This query already exists</source>
-        <translation type="unfinished"></translation>
+        <translation>Cette requête existe déjà</translation>
     </message>
     <message>
         <location filename="../core/exceptions.py" line="177"/>
         <source>A parameter is missing :</source>
-        <translation type="unfinished"></translation>
+        <translation>Un paramètre est manquant :</translation>
     </message>
     <message>
         <location filename="../core/exceptions.py" line="186"/>
         <source>No osm objects selected</source>
-        <translation type="unfinished"></translation>
+        <translation>Aucun objet OSM sélectionné</translation>
     </message>
     <message>
         <location filename="../core/exceptions.py" line="193"/>
         <source>No outputs selected</source>
-        <translation type="unfinished"></translation>
+        <translation>Aucune sortie sélectionnée</translation>
     </message>
     <message>
         <location filename="../quick_osm.py" line="166"/>
         <source>New queries are available in the plugin. Would like to install them ? This will overwrite the current default queries.</source>
-        <translation type="unfinished"></translation>
+        <translation>Des nouvelles requêtes sont disponibles. Voulez-vous les installer? Cela va écraser les requêtes par défaut.</translation>
     </message>
     <message>
         <location filename="../quick_osm.py" line="172"/>
         <source>Install</source>
-        <translation type="unfinished"></translation>
+        <translation>Installation</translation>
     </message>
     <message>
         <location filename="../ui/my_queries_dialog.py" line="171"/>
         <source>Execute</source>
-        <translation type="unfinished"></translation>
+        <translation>Exécuter</translation>
     </message>
     <message>
         <location filename="../ui/my_queries_dialog.py" line="176"/>
         <source>Show query</source>
-        <translation type="unfinished">Montrer la requête</translation>
+        <translation>Montrer la requête</translation>
     </message>
     <message>
         <location filename="../ui/my_queries_dialog.py" line="181"/>
         <source>Delete</source>
-        <translation type="unfinished"></translation>
+        <translation>Supprimer</translation>
     </message>
     <message>
         <location filename="../ui/my_queries_dialog.py" line="220"/>
         <source>can be overridden</source>
-        <translation type="unfinished"></translation>
+        <translation>peut être surchargé</translation>
     </message>
     <message>
         <location filename="../ui/my_queries_dialog.py" line="224"/>
         <source>A village, a town, ...</source>
-        <translation type="unfinished">Un village, une ville, ...</translation>
+        <translation>Un village, une ville, ...</translation>
     </message>
     <message>
         <location filename="../ui/my_queries_dialog.py" line="268"/>
         <source>Are you sure you want to delete the query ?</source>
-        <translation type="unfinished"></translation>
+        <translation>Voulez-vous vraiment supprimer cette requête ?</translation>
     </message>
     <message>
         <location filename="../ui/my_queries_dialog.py" line="343"/>
         <source>Successful query !</source>
-        <translation type="unfinished"></translation>
+        <translation>Requête réussie !</translation>
     </message>
     <message>
         <location filename="../ui/query_dialog.py" line="229"/>
         <source>Successful query, but no result.</source>
-        <translation type="unfinished"></translation>
+        <translation>Requête réussie, mais pas de résultat.</translation>
     </message>
     <message>
         <location filename="../ui/osm_file_dialog.py" line="61"/>
         <source>Select an OSM file</source>
-        <translation type="unfinished"></translation>
+        <translation>Sélectionner un fichier OSM</translation>
     </message>
     <message>
         <location filename="../ui/osm_file_dialog.py" line="71"/>
         <source>Select OSM conf file</source>
-        <translation type="unfinished"></translation>
+        <translation>Sélectionner un fichier de configuration OSM</translation>
     </message>
     <message>
         <location filename="../ui/query_dialog.py" line="226"/>
         <source>Successful query</source>
-        <translation type="unfinished"></translation>
+        <translation>Requête réussie</translation>
     </message>
     <message>
         <location filename="../ui/QuickOSMWidget.py" line="59"/>
         <source>Save to temporary file</source>
-        <translation type="unfinished">Enregister temporairement</translation>
+        <translation>Enregister temporairement</translation>
     </message>
     <message>
         <location filename="../ui/QuickOSMWidget.py" line="61"/>
         <source>Select a directory</source>
-        <translation type="unfinished"></translation>
+        <translation>Sélectionner un répertoire</translation>
     </message>
     <message>
         <location filename="../ui/QuickOSMWidget.py" line="206"/>
         <source>Running query ...</source>
-        <translation type="unfinished"></translation>
+        <translation>Requête en cours ...</translation>
     </message>
     <message>
         <location filename="../ui/QuickOSMWidget.py" line="259"/>
         <source>Error in the QGIS Logs, QuickOSM panel, please report it to &lt;a href=&quot;https://github.com/3liz/QuickOSM/issues/new?template=1_BUG_REPORT.md&quot;&gt;GitHub&lt;/a&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>Erreur dans les logs de QGIS, panneau QuickOSM, veuillez la reporter sur &lt;a href=&quot;https://github.com/3liz/QuickOSM/issues/new?template=1_BUG_REPORT.md&quot;&gt;GitHub&lt;/a&gt;</translation>
     </message>
     <message>
         <location filename="../ui/main_window_dialog.py" line="160"/>
         <source>Copy ...</source>
-        <translation type="unfinished"></translation>
+        <translation>Copie ...</translation>
     </message>
     <message>
         <location filename="../ui/quick_query_dialog.py" line="58"/>
         <source>In</source>
-        <translation type="unfinished"></translation>
+        <translation>Dans</translation>
     </message>
     <message>
         <location filename="../ui/quick_query_dialog.py" line="59"/>
         <source>Around</source>
-        <translation type="unfinished"></translation>
+        <translation>Autour</translation>
     </message>
     <message>
         <location filename="../ui/query_dialog.py" line="67"/>
         <source>Canvas Extent</source>
-        <translation type="unfinished"></translation>
+        <translation>Emprise du canvas</translation>
     </message>
     <message>
         <location filename="../ui/query_dialog.py" line="68"/>
         <source>Layer Extent</source>
-        <translation type="unfinished"></translation>
+        <translation>Emprise d&apos;une couche</translation>
     </message>
     <message>
         <location filename="../ui/quick_query_dialog.py" line="62"/>
         <source>Not Spatial</source>
-        <translation type="unfinished"></translation>
+        <translation>Non spatial</translation>
     </message>
     <message>
         <location filename="../ui/quick_query_dialog.py" line="235"/>
         <source>No result</source>
-        <translation type="unfinished"></translation>
+        <translation>Pas de résultat</translation>
     </message>
     <message>
         <location filename="../ui/query_dialog.py" line="83"/>
         <source>Save as final query</source>
-        <translation type="unfinished"></translation>
+        <translation>Sauvegarder comme requête finale</translation>
     </message>
     <message>
         <location filename="../ui/query_dialog.py" line="87"/>
         <source>Save as template</source>
-        <translation type="unfinished"></translation>
+        <translation>Sauvegarder comme modèle</translation>
     </message>
     <message>
         <location filename="../ui/query_dialog.py" line="331"/>
         <source>QuickOSM - Query</source>
-        <translation type="unfinished">QuickOSM - Requête</translation>
+        <translation>QuickOSM - Requête</translation>
+    </message>
+    <message>
+        <location filename="../quick_osm.py" line="215"/>
+        <source>JOSM Remote</source>
+        <translation>Télécommande JOSM</translation>
+    </message>
+    <message>
+        <location filename="../quick_osm.py" line="212"/>
+        <source>Import done, check JOSM</source>
+        <translation>Import OK, vérifiez JOSM</translation>
+    </message>
+    <message>
+        <location filename="../quick_osm.py" line="215"/>
+        <source>Is the remote enabled?</source>
+        <translation>Est-ce que la télécommande est activée?</translation>
+    </message>
+    <message>
+        <location filename="../core/actions.py" line="45"/>
+        <source>OpenStreetMap Browser</source>
+        <translation>Navigateur OSM</translation>
+    </message>
+    <message>
+        <location filename="../core/actions.py" line="87"/>
+        <source>User default editor</source>
+        <translation>Éditeur de l&apos;utilisateur par défaut </translation>
+    </message>
+    <message>
+        <location filename="../core/actions.py" line="130"/>
+        <source>Sketchline</source>
+        <translation>Croquis de ligne</translation>
+    </message>
+    <message>
+        <location filename="../core/actions.py" line="162"/>
+        <source>Sorry, this field &apos;{}&apos; is empty for this entity.</source>
+        <translation>Désolé, le champ &apos;{}&apos; est vide pour cette entité.</translation>
+    </message>
+    <message>
+        <location filename="../core/actions.py" line="227"/>
+        <source>Sorry, this field is empty for this entity.</source>
+        <translation>Désolé, ce champ est vide pour cette entité.</translation>
+    </message>
+    <message>
+        <location filename="../core/query_preparation.py" line="149"/>
+        <source>Missing extent parameter</source>
+        <translation>Paramètre emprise manquant</translation>
+    </message>
+    <message>
+        <location filename="../core/parser/osm_parser.py" line="99"/>
+        <source>File does not exist</source>
+        <translation>Le fichier n&apos;existe pas</translation>
+    </message>
+    <message>
+        <location filename="../core/parser/osm_parser.py" line="113"/>
+        <source>Error on the layer : {}</source>
+        <translation>Erreur sur la couche : {}</translation>
+    </message>
+    <message>
+        <location filename="../core/parser/osm_parser.py" line="120"/>
+        <source>Parsing layer : {}</source>
+        <translation>Parsage de la couche : {}</translation>
+    </message>
+    <message>
+        <location filename="../core/query_factory.py" line="90"/>
+        <source>Wrong query type</source>
+        <translation>Erreur sur le type de requête</translation>
+    </message>
+    <message>
+        <location filename="../core/query_factory.py" line="93"/>
+        <source>OSM object required</source>
+        <translation>Objet OSM requis</translation>
+    </message>
+    <message>
+        <location filename="../core/query_factory.py" line="97"/>
+        <source>Wrong OSM object</source>
+        <translation>Mauvais objet OSM</translation>
+    </message>
+    <message>
+        <location filename="../core/query_factory.py" line="100"/>
+        <source>No distance provided with &quot;around&quot;.</source>
+        <translation>Pas de distance avec &quot;around&quot;</translation>
+    </message>
+    <message>
+        <location filename="../core/query_factory.py" line="105"/>
+        <source>Nominatim place required.</source>
+        <translation>Nom de lieu Nominatim requis.</translation>
+    </message>
+    <message>
+        <location filename="../ui/quick_query_dialog.py" line="93"/>
+        <source>Query on all keys</source>
+        <translation>Requête sur toutes les clés</translation>
+    </message>
+    <message>
+        <location filename="../ui/quick_query_dialog.py" line="95"/>
+        <source>Query on all values</source>
+        <translation>Requête sur toutes les valeurs</translation>
     </message>
 </context>
 <context>
@@ -368,7 +447,7 @@
     <message>
         <location filename="../ui/main_window.py" line="333"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The web-based translating platform &lt;a href=&quot;https://www.transifex.com/projects/p/gui/&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0057ae;&quot;&gt;Transifex&lt;/span&gt;&lt;/a&gt; is used. It&apos;s easier for translators.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;La plateforme web de traduction &lt;a href=&quot;https://www.transifex.com/projects/p/gui/&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0057ae;&quot;&gt;Transifex&lt;/span&gt;&lt;/a&gt; est utilisée. C&apos;est simple pour les traducteurs.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../ui/main_window.py" line="339"/>
@@ -388,32 +467,32 @@
     <message>
         <location filename="../ui/main_window.py" line="334"/>
         <source>Dutch</source>
-        <translation type="unfinished"></translation>
+        <translation>Néerlandais</translation>
     </message>
     <message>
         <location filename="../ui/main_window.py" line="323"/>
         <source>Timestamp</source>
-        <translation type="unfinished"></translation>
+        <translation>Timestamp</translation>
     </message>
     <message>
         <location filename="../ui/main_window.py" line="329"/>
         <source>GeoJSON (not editable, column&apos;s name longer)</source>
-        <translation type="unfinished"></translation>
+        <translation>GeoJSON (non éditable, nom des champs non tronqués)</translation>
     </message>
     <message>
         <location filename="../ui/main_window.py" line="330"/>
         <source>Shapefile (editable, column&apos;s name shorter)</source>
-        <translation type="unfinished"></translation>
+        <translation>Shapefile (éditable, nom des champs tronqués)</translation>
     </message>
     <message>
         <location filename="../ui/main_window.py" line="335"/>
         <source>Finnish</source>
-        <translation type="unfinished"></translation>
+        <translation>Finnois</translation>
     </message>
     <message>
         <location filename="../ui/main_window.py" line="340"/>
         <source>Taiwanese Mandarin</source>
-        <translation type="unfinished"></translation>
+        <translation>Mandarin de Taïwan</translation>
     </message>
 </context>
 <context>

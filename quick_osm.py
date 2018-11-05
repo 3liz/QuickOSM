@@ -82,6 +82,7 @@ class QuickOSMPlugin(object):
             'QuickOSM_{0}.qm'.format(locale))
 
         if exists(locale_path):
+            LOGGER.info('Translation to {}'.format(locale))
             self.translator = QTranslator()
             self.translator.load(locale_path)
             QCoreApplication.installTranslator(self.translator)
@@ -122,7 +123,7 @@ class QuickOSMPlugin(object):
         # Main window
         self.mainWindowAction = QAction(
             QIcon(join(dirname(__file__), 'resources', 'QuickOSM.svg')),
-            'QuickOSM',
+            'QuickOSM…',
             self.iface.mainWindow())
         # noinspection PyUnresolvedReferences
         self.mainWindowAction.triggered.connect(self.openMainWindow)
@@ -207,13 +208,13 @@ class QuickOSMPlugin(object):
             result = result.decode('utf8')
             if result.strip().upper() != 'OK':
                 self.iface.messageBar().pushCritical(
-                    'JOSM Remote', result)
+                    tr('JOSM Remote'), result)
             else:
                 self.iface.messageBar().pushSuccess(
-                    'JOSM Remote', 'Import done, check JOSM')
+                    tr('JOSM Remote'), tr('Import done, check JOSM'))
         except IOError:
             self.iface.messageBar().pushCritical(
-                'JOSM Remote', 'Is the remote enabled?')
+                tr('JOSM Remote'), tr('Is the remote enabled?'))
 
     def openMainWindow(self):
         self.iface.QuickOSM_mainWindowDialog.listWidget.setCurrentRow(0)

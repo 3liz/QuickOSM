@@ -25,6 +25,7 @@ from xml.dom.minidom import parseString
 
 from QuickOSM.definitions.osm import ALL_OSM_TYPES, QueryType
 from QuickOSM.core.exceptions import QueryFactoryException
+from QuickOSM.core.utilities.tools import tr
 
 
 class QueryFactory:
@@ -86,22 +87,22 @@ class QueryFactory:
     def _check_parameters(self):
         """Internal function to check that the query can be built."""
         if self._query_type not in QueryType:
-            raise QueryFactoryException('Wrong query type')
+            raise QueryFactoryException(tr('Wrong query type'))
 
         if len(self._osm_objects) < 1:
-            raise QueryFactoryException('OSM object required')
+            raise QueryFactoryException(tr('OSM object required'))
 
         for osmObject in self._osm_objects:
             if osmObject not in ALL_OSM_TYPES:
-                raise QueryFactoryException('Wrong OSM object')
+                raise QueryFactoryException(tr('Wrong OSM object'))
 
         if self._query_type == QueryType.AroundNominatimPlace and not self._distance_around:
-            raise QueryFactoryException('No distance provided with "around".')
+            raise QueryFactoryException(tr('No distance provided with "around".'))
 
         nominatim = [
             QueryType.InNominatimPlace, QueryType.AroundNominatimPlace]
         if self._query_type in nominatim and not self._nominatim_place:
-            raise QueryFactoryException('Nominatim place required.')
+            raise QueryFactoryException(tr('Nominatim place required.'))
 
     @staticmethod
     def get_pretty_xml(query):

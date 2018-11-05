@@ -29,8 +29,8 @@ from qgis.PyQt.QtWidgets import QApplication
 from qgis.core import QgsApplication
 
 
-def tr(text, section='QuickOSM'):
-    return QApplication.translate(section, text)
+def tr(text):
+    return QApplication.translate('@default', text)
 
 
 def read_metadata(section, item):

@@ -42,7 +42,7 @@ def add_actions(layer, keys):
     """
     actions = layer.actions()
 
-    title = 'OpenStreetMap Browser'
+    title = tr('OpenStreetMap Browser')
     osm_browser = QgsAction(
         QgsAction.OpenUrl,
         title,
@@ -81,7 +81,7 @@ def add_actions(layer, keys):
     )
     actions.addAction(josm)
 
-    title = 'User default editor'
+    title = tr('User default editor')
     default_editor = QgsAction(
         QgsAction.OpenUrl,
         title,
@@ -123,7 +123,7 @@ def add_actions(layer, keys):
     if 'network' in keys and 'ref' in keys:
         sketch_line = QgsAction(
             QgsAction.GenericPython,
-            'Sketchline',
+            tr('Sketchline'),
             (ACTIONS_PATH +
              'Actions.run_sketch_line("[% "network" %]","[% "ref" %]")'),
             '',
@@ -153,7 +153,7 @@ class Actions(object):
 
         if value == '':
             iface.messageBar().pushMessage(
-                tr('Sorry man, this field \'{}\' is empty for this entity.'
+                tr('Sorry, this field \'{}\' is empty for this entity.'
                    .format(field)),
                 level=Qgis.Warning, duration=7)
         else:
@@ -218,7 +218,7 @@ class Actions(object):
         """
         if network == '' or ref == '':
             iface.messageBar().pushMessage(
-                tr('Sorry man, this field is empty for this entity.'),
+                tr('Sorry, this field is empty for this entity.'),
                 level=Qgis.Warning,
                 duration=7)
         else:

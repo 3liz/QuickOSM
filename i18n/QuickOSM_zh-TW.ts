@@ -28,24 +28,9 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../core/actions.py" line="162"/>
-        <source>Sorry man, this field &apos;{}&apos; is empty for this entity.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../core/actions.py" line="203"/>
         <source>The JOSM remote seems to be disabled.</source>
         <translation type="unfinished">JOSM 遠端控制似乎關閉了</translation>
-    </message>
-    <message>
-        <location filename="../core/actions.py" line="227"/>
-        <source>Sorry man, this field is empty for this entity.</source>
-        <translation type="unfinished">對不起，檢索的欄位是空白的</translation>
-    </message>
-    <message>
-        <location filename="../core/parser/osm_parser.py" line="120"/>
-        <source>Parsing layer : </source>
-        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../core/parser/osm_parser.py" line="184"/>
@@ -276,6 +261,101 @@
         <location filename="../ui/query_dialog.py" line="331"/>
         <source>QuickOSM - Query</source>
         <translation type="unfinished">QuickOSM - 檢索</translation>
+    </message>
+    <message>
+        <location filename="../quick_osm.py" line="215"/>
+        <source>JOSM Remote</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../quick_osm.py" line="212"/>
+        <source>Import done, check JOSM</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../quick_osm.py" line="215"/>
+        <source>Is the remote enabled?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../core/actions.py" line="45"/>
+        <source>OpenStreetMap Browser</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../core/actions.py" line="87"/>
+        <source>User default editor</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../core/actions.py" line="130"/>
+        <source>Sketchline</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../core/actions.py" line="162"/>
+        <source>Sorry, this field &apos;{}&apos; is empty for this entity.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../core/actions.py" line="227"/>
+        <source>Sorry, this field is empty for this entity.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../core/query_preparation.py" line="149"/>
+        <source>Missing extent parameter</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../core/parser/osm_parser.py" line="99"/>
+        <source>File does not exist</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../core/parser/osm_parser.py" line="113"/>
+        <source>Error on the layer : {}</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../core/parser/osm_parser.py" line="120"/>
+        <source>Parsing layer : {}</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../core/query_factory.py" line="90"/>
+        <source>Wrong query type</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../core/query_factory.py" line="93"/>
+        <source>OSM object required</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../core/query_factory.py" line="97"/>
+        <source>Wrong OSM object</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../core/query_factory.py" line="100"/>
+        <source>No distance provided with &quot;around&quot;.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../core/query_factory.py" line="105"/>
+        <source>Nominatim place required.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui/quick_query_dialog.py" line="93"/>
+        <source>Query on all keys</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui/quick_query_dialog.py" line="95"/>
+        <source>Query on all values</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
