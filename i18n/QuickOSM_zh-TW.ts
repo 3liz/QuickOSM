@@ -1,448 +1,490 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS><TS version="2.0" language="en" sourcelanguage="en">
 <context>
-    <name>Exception</name>
+    <name>@default</name>
     <message>
-        <location filename="CoreQuickOSM/ExceptionQuickOSM.py" line="48"/>
-        <source>OverpassAPI timeout</source>
-        <translation>API 時間截止</translation>
+        <location filename="../core/process.py" line="100"/>
+        <source>From memory to GeoJSON: </source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="CoreQuickOSM/ExceptionQuickOSM.py" line="54"/>
-        <source>Network error</source>
-        <translation>網路出問題</translation>
-    </message>
-    <message>
-        <location filename="CoreQuickOSM/ExceptionQuickOSM.py" line="65"/>
-        <source>Error while building the query</source>
-        <translation>建構檢索發生錯誤</translation>
-    </message>
-    <message>
-        <location filename="CoreQuickOSM/ExceptionQuickOSM.py" line="76"/>
-        <source>No nominatim area</source>
-        <translation>沒有nominatim區域</translation>
-    </message>
-    <message>
-        <location filename="CoreQuickOSM/ExceptionQuickOSM.py" line="85"/>
-        <source>The OSM&apos;s driver is not installed. You must have GDAL/OGR &gt;= 1.10.</source>
-        <translation>OSM&apos;s驅動程式未安裝。你應該要有GDAL/OGR &gt;= 1.10。</translation>
-    </message>
-    <message>
-        <location filename="CoreQuickOSM/ExceptionQuickOSM.py" line="91"/>
-        <source>Error with ogr2ogr</source>
-        <translation>ogr2ogr錯誤</translation>
-    </message>
-    <message>
-        <location filename="CoreQuickOSM/ExceptionQuickOSM.py" line="97"/>
-        <source>The layer is missing :</source>
-        <translation>圖層不見了：</translation>
-    </message>
-    <message>
-        <location filename="CoreQuickOSM/ExceptionQuickOSM.py" line="105"/>
-        <source>The order must be node-way-relation. Check the print statement.</source>
-        <translation>指令必須是節點-路徑-關係。請檢查輸出命令。</translation>
-    </message>
-    <message>
-        <location filename="CoreQuickOSM/ExceptionQuickOSM.py" line="116"/>
-        <source>The file doesn&apos;t exist</source>
-        <translation>檔案不存在</translation>
-    </message>
-    <message>
-        <location filename="CoreQuickOSM/ExceptionQuickOSM.py" line="124"/>
-        <source>The output directory does not exist.</source>
-        <translation>輸出資料夾不存在。</translation>
-    </message>
-    <message>
-        <location filename="CoreQuickOSM/ExceptionQuickOSM.py" line="130"/>
-        <source>The output file already exist, set a prefix</source>
-        <translation>輸出檔案已經存在，請加上前輟</translation>
-    </message>
-    <message>
-        <location filename="CoreQuickOSM/ExceptionQuickOSM.py" line="138"/>
-        <source>Output not available</source>
-        <translation>不能輸出</translation>
-    </message>
-    <message>
-        <location filename="CoreQuickOSM/ExceptionQuickOSM.py" line="144"/>
-        <source>This query already exists</source>
-        <translation>該筆檢索已經存在了</translation>
-    </message>
-    <message>
-        <location filename="CoreQuickOSM/ExceptionQuickOSM.py" line="153"/>
-        <source>A parameter is missing :</source>
-        <translation>少了某個參數</translation>
-    </message>
-    <message>
-        <location filename="CoreQuickOSM/ExceptionQuickOSM.py" line="161"/>
-        <source>No osm objects selected</source>
-        <translation>未選擇osm物件</translation>
-    </message>
-    <message>
-        <location filename="CoreQuickOSM/ExceptionQuickOSM.py" line="167"/>
-        <source>No outputs selected</source>
-        <translation>未選擇輸出選項</translation>
-    </message>
-</context>
-<context>
-    <name>QuickOSM</name>
-    <message>
-        <location filename="quick_osm.py" line="79"/>
-        <source>Dock</source>
-        <translation>Dock</translation>
-    </message>
-    <message>
-        <location filename="Controller/Process.py" line="86"/>
-        <source>From GeoJSON to Shapefile</source>
-        <translation>從GeoJSON轉換為Shapefile</translation>
-    </message>
-    <message>
-        <location filename="Controller/Process.py" line="164"/>
+        <location filename="../core/process.py" line="164"/>
         <source>Prepare outputs</source>
-        <translation>準備輸出</translation>
+        <translation type="unfinished">準備輸出</translation>
     </message>
     <message>
-        <location filename="Controller/Process.py" line="173"/>
+        <location filename="../core/process.py" line="168"/>
         <source>Downloading data from Overpass</source>
-        <translation>從 Overpass 下載資料</translation>
+        <translation type="unfinished">從 Overpass 下載資料</translation>
     </message>
     <message>
-        <location filename="CoreQuickOSM/Actions.py" line="97"/>
-        <source>Sorry man, this field is empty for this entity.</source>
-        <translation>對不起，檢索的欄位是空白的</translation>
+        <location filename="../core/process.py" line="234"/>
+        <source>allKeys</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="CoreQuickOSM/Actions.py" line="73"/>
+        <location filename="../core/custom_logging.py" line="53"/>
+        <source>Due to memory limitations on this machine, QuickOSM can not handle the full log</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../core/actions.py" line="162"/>
+        <source>Sorry man, this field &apos;{}&apos; is empty for this entity.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../core/actions.py" line="203"/>
         <source>The JOSM remote seems to be disabled.</source>
-        <translation>JOSM 遠端控制似乎關閉了</translation>
+        <translation type="unfinished">JOSM 遠端控制似乎關閉了</translation>
     </message>
     <message>
-        <location filename="CoreQuickOSM/ExceptionQuickOSM.py" line="42"/>
+        <location filename="../core/actions.py" line="227"/>
+        <source>Sorry man, this field is empty for this entity.</source>
+        <translation type="unfinished">對不起，檢索的欄位是空白的</translation>
+    </message>
+    <message>
+        <location filename="../core/parser/osm_parser.py" line="120"/>
+        <source>Parsing layer : </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../core/parser/osm_parser.py" line="184"/>
+        <source>Creating memory layer : </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../core/exceptions.py" line="33"/>
+        <source>QuickOSM</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../core/exceptions.py" line="43"/>
+        <source>GeoAlgorithm exception</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../core/exceptions.py" line="55"/>
         <source>Bad request OverpassAPI</source>
-        <translation>OverpassAPI 錯誤請求</translation>
+        <translation type="unfinished">OverpassAPI 錯誤請求</translation>
     </message>
     <message>
-        <location filename="CoreQuickOSM/QueryFactory.py" line="77"/>
-        <source>nominatim OR bbox, not both</source>
-        <translation>nominatim 或 bbox，不能都選</translation>
+        <location filename="../core/exceptions.py" line="62"/>
+        <source>OverpassAPI timeout</source>
+        <translation type="unfinished">API 時間截止</translation>
     </message>
     <message>
-        <location filename="CoreQuickOSM/QueryFactory.py" line="86"/>
-        <source>key required</source>
-        <translation>缺少鍵</translation>
+        <location filename="../core/exceptions.py" line="69"/>
+        <source>Network error</source>
+        <translation type="unfinished">網路出問題</translation>
     </message>
     <message>
-        <location filename="CoreQuickOSM/QueryFactory.py" line="90"/>
-        <source>wrong OSM object</source>
-        <translation>錯誤 OSM 物件</translation>
+        <location filename="../core/exceptions.py" line="82"/>
+        <source>Error while building the query</source>
+        <translation type="unfinished">建構檢索發生錯誤</translation>
     </message>
     <message>
-        <location filename="ui/main_window_dialog.py" line="118"/>
-        <source>Fetching the timestamp ...</source>
-        <translation>取得時間戳記...</translation>
+        <location filename="../core/exceptions.py" line="90"/>
+        <source>The query is not supported by the plugin because of : %s</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/main_window_dialog.py" line="137"/>
-        <source>Copy ...</source>
-        <translation>複製中...</translation>
+        <location filename="../core/exceptions.py" line="102"/>
+        <source>No nominatim area</source>
+        <translation type="unfinished">沒有nominatim區域</translation>
     </message>
     <message>
-        <location filename="ui/my_queries_dialog.py" line="146"/>
+        <location filename="../core/exceptions.py" line="113"/>
+        <source>Error with ogr2ogr</source>
+        <translation type="unfinished">ogr2ogr錯誤</translation>
+    </message>
+    <message>
+        <location filename="../core/exceptions.py" line="120"/>
+        <source>The layer is missing :</source>
+        <translation type="unfinished">圖層不見了：</translation>
+    </message>
+    <message>
+        <location filename="../core/exceptions.py" line="134"/>
+        <source>The file does not exist</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../core/exceptions.py" line="143"/>
+        <source>The output directory does not exist.</source>
+        <translation type="unfinished">輸出資料夾不存在。</translation>
+    </message>
+    <message>
+        <location filename="../core/exceptions.py" line="150"/>
+        <source>The output file already exist, set a prefix</source>
+        <translation type="unfinished">輸出檔案已經存在，請加上前輟</translation>
+    </message>
+    <message>
+        <location filename="../core/exceptions.py" line="159"/>
+        <source>Output not available</source>
+        <translation type="unfinished">不能輸出</translation>
+    </message>
+    <message>
+        <location filename="../core/exceptions.py" line="166"/>
+        <source>This query already exists</source>
+        <translation type="unfinished">該筆檢索已經存在了</translation>
+    </message>
+    <message>
+        <location filename="../core/exceptions.py" line="177"/>
+        <source>A parameter is missing :</source>
+        <translation type="unfinished">少了某個參數</translation>
+    </message>
+    <message>
+        <location filename="../core/exceptions.py" line="186"/>
+        <source>No osm objects selected</source>
+        <translation type="unfinished">未選擇osm物件</translation>
+    </message>
+    <message>
+        <location filename="../core/exceptions.py" line="193"/>
+        <source>No outputs selected</source>
+        <translation type="unfinished">未選擇輸出選項</translation>
+    </message>
+    <message>
+        <location filename="../quick_osm.py" line="166"/>
+        <source>New queries are available in the plugin. Would like to install them ? This will overwrite the current default queries.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../quick_osm.py" line="172"/>
+        <source>Install</source>
+        <translation type="unfinished">安裝</translation>
+    </message>
+    <message>
+        <location filename="../ui/my_queries_dialog.py" line="171"/>
         <source>Execute</source>
-        <translation>執行</translation>
+        <translation type="unfinished">執行</translation>
     </message>
     <message>
-        <location filename="ui/my_queries_dialog.py" line="149"/>
+        <location filename="../ui/my_queries_dialog.py" line="176"/>
         <source>Show query</source>
-        <translation>顯示檢索</translation>
+        <translation type="unfinished">顯示檢索</translation>
     </message>
     <message>
-        <location filename="ui/my_queries_dialog.py" line="152"/>
+        <location filename="../ui/my_queries_dialog.py" line="181"/>
         <source>Delete</source>
-        <translation>刪除</translation>
+        <translation type="unfinished">刪除</translation>
     </message>
     <message>
-        <location filename="ui/my_queries_dialog.py" line="189"/>
+        <location filename="../ui/my_queries_dialog.py" line="220"/>
         <source>can be overridden</source>
-        <translation>能被覆寫</translation>
+        <translation type="unfinished">能被覆寫</translation>
     </message>
     <message>
-        <location filename="ui/my_queries_dialog.py" line="191"/>
+        <location filename="../ui/my_queries_dialog.py" line="224"/>
         <source>A village, a town, ...</source>
-        <translation>村莊、城鎮...</translation>
+        <translation type="unfinished">一座村莊、一座城鎮,...</translation>
     </message>
     <message>
-        <location filename="ui/my_queries_dialog.py" line="224"/>
+        <location filename="../ui/my_queries_dialog.py" line="268"/>
         <source>Are you sure you want to delete the query ?</source>
-        <translation>你確定你要刪除檢索？</translation>
+        <translation type="unfinished">你確定你要刪除檢索？</translation>
     </message>
     <message>
-        <location filename="ui/quick_query_dialog.py" line="236"/>
+        <location filename="../ui/my_queries_dialog.py" line="343"/>
         <source>Successful query !</source>
-        <translation>成功執行檢索！</translation>
+        <translation type="unfinished">成功執行檢索！</translation>
     </message>
     <message>
-        <location filename="ui/quick_query_dialog.py" line="239"/>
+        <location filename="../ui/query_dialog.py" line="229"/>
         <source>Successful query, but no result.</source>
-        <translation>成功執行檢索，但沒有查詢結果。</translation>
+        <translation type="unfinished">成功執行檢索，但沒有查詢結果。</translation>
     </message>
     <message>
-        <location filename="ui/osm_file_dialog.py" line="67"/>
-        <source>Select *.osm or *.pbf</source>
-        <translation>選擇 *.osm or *.pbf</translation>
+        <location filename="../ui/osm_file_dialog.py" line="61"/>
+        <source>Select an OSM file</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/osm_file_dialog.py" line="75"/>
-        <source>Select osm conf</source>
-        <translation>選擇 osm 設定</translation>
+        <location filename="../ui/osm_file_dialog.py" line="71"/>
+        <source>Select OSM conf file</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/query_dialog.py" line="64"/>
-        <source>Save as final query</source>
-        <translation>儲存為最終檢索</translation>
+        <location filename="../ui/query_dialog.py" line="226"/>
+        <source>Successful query</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/query_dialog.py" line="67"/>
-        <source>Save as template</source>
-        <translation>儲存為範例</translation>
+        <location filename="../ui/QuickOSMWidget.py" line="59"/>
+        <source>Save to temporary file</source>
+        <translation type="unfinished">儲存至暫時檔案</translation>
     </message>
     <message>
-        <location filename="ui/quick_query_dialog.py" line="238"/>
-        <source>No result</source>
-        <translation>沒有結果</translation>
+        <location filename="../ui/QuickOSMWidget.py" line="61"/>
+        <source>Select a directory</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/QuickOSMWidget.py" line="60"/>
-        <source>Select directory</source>
-        <translation>選擇資料夾</translation>
-    </message>
-    <message>
-        <location filename="ui/QuickOSMWidget.py" line="146"/>
+        <location filename="../ui/QuickOSMWidget.py" line="206"/>
         <source>Running query ...</source>
-        <translation>執行檢索...</translation>
+        <translation type="unfinished">執行檢索...</translation>
+    </message>
+    <message>
+        <location filename="../ui/QuickOSMWidget.py" line="259"/>
+        <source>Error in the QGIS Logs, QuickOSM panel, please report it to &lt;a href=&quot;https://github.com/3liz/QuickOSM/issues/new?template=1_BUG_REPORT.md&quot;&gt;GitHub&lt;/a&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui/main_window_dialog.py" line="160"/>
+        <source>Copy ...</source>
+        <translation type="unfinished">複製中...</translation>
+    </message>
+    <message>
+        <location filename="../ui/quick_query_dialog.py" line="58"/>
+        <source>In</source>
+        <translation type="unfinished">位於</translation>
+    </message>
+    <message>
+        <location filename="../ui/quick_query_dialog.py" line="59"/>
+        <source>Around</source>
+        <translation type="unfinished">附近</translation>
+    </message>
+    <message>
+        <location filename="../ui/query_dialog.py" line="67"/>
+        <source>Canvas Extent</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui/query_dialog.py" line="68"/>
+        <source>Layer Extent</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui/quick_query_dialog.py" line="62"/>
+        <source>Not Spatial</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui/quick_query_dialog.py" line="235"/>
+        <source>No result</source>
+        <translation type="unfinished">沒有結果</translation>
+    </message>
+    <message>
+        <location filename="../ui/query_dialog.py" line="83"/>
+        <source>Save as final query</source>
+        <translation type="unfinished">儲存為最終檢索</translation>
+    </message>
+    <message>
+        <location filename="../ui/query_dialog.py" line="87"/>
+        <source>Save as template</source>
+        <translation type="unfinished">儲存為範例</translation>
+    </message>
+    <message>
+        <location filename="../ui/query_dialog.py" line="331"/>
+        <source>QuickOSM - Query</source>
+        <translation type="unfinished">QuickOSM - 檢索</translation>
     </message>
 </context>
 <context>
     <name>ui_main_window</name>
     <message>
-        <location filename="ui/main_window.py" line="382"/>
+        <location filename="../ui/main_window.py" line="312"/>
         <source>Quick query</source>
         <translation>快速檢索</translation>
     </message>
     <message>
-        <location filename="ui/main_window.py" line="384"/>
-        <source>My queries</source>
-        <translation>我的檢索</translation>
-    </message>
-    <message>
-        <location filename="ui/main_window.py" line="386"/>
+        <location filename="../ui/main_window.py" line="314"/>
         <source>Query</source>
         <translation>檢索</translation>
     </message>
     <message>
-        <location filename="ui/main_window.py" line="388"/>
+        <location filename="../ui/main_window.py" line="316"/>
         <source>OSM File</source>
         <translation>OSM 檔案</translation>
     </message>
     <message>
-        <location filename="ui/main_window.py" line="390"/>
+        <location filename="../ui/main_window.py" line="318"/>
         <source>Parameters</source>
         <translation>參數</translation>
     </message>
     <message>
-        <location filename="ui/main_window.py" line="392"/>
-        <source>Help</source>
-        <translation>說明</translation>
-    </message>
-    <message>
-        <location filename="ui/main_window.py" line="394"/>
+        <location filename="../ui/main_window.py" line="320"/>
         <source>About</source>
         <translation>關於</translation>
     </message>
     <message>
-        <location filename="ui/main_window.py" line="396"/>
+        <location filename="../ui/main_window.py" line="322"/>
         <source>Overpass API</source>
         <translation>Overpass API</translation>
     </message>
     <message>
-        <location filename="ui/main_window.py" line="397"/>
+        <location filename="../ui/main_window.py" line="324"/>
         <source>Get timestamp</source>
         <translation>取得時間戳記</translation>
     </message>
     <message>
-        <location filename="ui/main_window.py" line="398"/>
+        <location filename="../ui/main_window.py" line="325"/>
         <source>unknow</source>
         <translation>未知</translation>
     </message>
     <message>
-        <location filename="ui/main_window.py" line="399"/>
+        <location filename="../ui/main_window.py" line="326"/>
         <source>Queries</source>
         <translation>檢索</translation>
     </message>
     <message>
-        <location filename="ui/main_window.py" line="400"/>
+        <location filename="../ui/main_window.py" line="327"/>
         <source>Restore queries</source>
         <translation>重置檢索</translation>
     </message>
     <message>
-        <location filename="ui/main_window.py" line="401"/>
+        <location filename="../ui/main_window.py" line="328"/>
         <source>Outputs</source>
         <translation>輸出</translation>
     </message>
     <message>
-        <location filename="ui/main_window.py" line="402"/>
-        <source>GeoJSON (not editable, colmun&apos;s name longer)</source>
-        <translation>GeoJSON (無法編輯，欄位名稱較長)</translation>
-    </message>
-    <message>
-        <location filename="ui/main_window.py" line="403"/>
-        <source>Shapefile (editable, colmun&apos;s name shorter)</source>
-        <translation>Shapefile (可編輯，欄位名稱較短)</translation>
-    </message>
-    <message>
-        <location filename="ui/main_window.py" line="404"/>
-        <source>Home</source>
-        <translation>首頁</translation>
-    </message>
-    <message>
-        <location filename="ui/main_window.py" line="405"/>
+        <location filename="../ui/main_window.py" line="331"/>
         <source>Realization</source>
         <translation>實現</translation>
     </message>
     <message>
-        <location filename="ui/main_window.py" line="406"/>
-        <source>Supervision</source>
-        <translation>監督</translation>
-    </message>
-    <message>
-        <location filename="ui/main_window.py" line="407"/>
-        <source>This intership was supervised by 3Liz</source>
-        <translation>這次實習由 3Liz 負責監督</translation>
-    </message>
-    <message>
-        <location filename="ui/main_window.py" line="408"/>
+        <location filename="../ui/main_window.py" line="332"/>
         <source>Translators</source>
         <translation>翻譯者</translation>
     </message>
     <message>
-        <location filename="ui/main_window.py" line="411"/>
+        <location filename="../ui/main_window.py" line="337"/>
         <source>German</source>
         <translation>德文</translation>
     </message>
     <message>
-        <location filename="ui/main_window.py" line="415"/>
+        <location filename="../ui/main_window.py" line="341"/>
         <source>Sources</source>
         <translation>來源</translation>
     </message>
     <message>
-        <location filename="ui/main_window.py" line="416"/>
+        <location filename="../ui/main_window.py" line="342"/>
         <source>Github&apos;s repository</source>
         <translation>Github 軟體庫</translation>
     </message>
     <message>
-        <location filename="ui/main_window.py" line="417"/>
+        <location filename="../ui/main_window.py" line="343"/>
         <source>Licence</source>
         <translation>授權條款</translation>
     </message>
     <message>
-        <location filename="ui/main_window.py" line="409"/>
+        <location filename="../ui/main_window.py" line="333"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The web-based translating platform &lt;a href=&quot;https://www.transifex.com/projects/p/gui/&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0057ae;&quot;&gt;Transifex&lt;/span&gt;&lt;/a&gt; is used. It&apos;s easier for translators.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;網路翻譯平臺 &lt;a href=&quot;https://www.transifex.com/projects/p/gui/&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0057ae;&quot;&gt;Transifex&lt;/span&gt;&lt;/a&gt; is used. It&apos;s easier for translators.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="ui/main_window.py" line="410"/>
+        <location filename="../ui/main_window.py" line="339"/>
         <source>Russian</source>
         <translation>俄語</translation>
     </message>
     <message>
-        <location filename="ui/main_window.py" line="412"/>
+        <location filename="../ui/main_window.py" line="338"/>
         <source>Italian</source>
         <translation>義大利語</translation>
     </message>
     <message>
-        <location filename="ui/main_window.py" line="414"/>
+        <location filename="../ui/main_window.py" line="336"/>
         <source>French</source>
         <translation>法語</translation>
     </message>
     <message>
-        <location filename="ui/main_window.py" line="413"/>
+        <location filename="../ui/main_window.py" line="334"/>
         <source>Dutch</source>
         <translation>荷蘭文</translation>
+    </message>
+    <message>
+        <location filename="../ui/main_window.py" line="323"/>
+        <source>Timestamp</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui/main_window.py" line="329"/>
+        <source>GeoJSON (not editable, column&apos;s name longer)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui/main_window.py" line="330"/>
+        <source>Shapefile (editable, column&apos;s name shorter)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui/main_window.py" line="335"/>
+        <source>Finnish</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui/main_window.py" line="340"/>
+        <source>Taiwanese Mandarin</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>ui_my_queries</name>
     <message>
-        <location filename="quick_osm.py" line="104"/>
-        <source>My queries</source>
-        <translation>我的檢索</translation>
-    </message>
-    <message>
-        <location filename="ui/my_queries.py" line="225"/>
+        <location filename="../ui/my_queries.py" line="211"/>
         <source>QuickOSM - My queries</source>
         <translation>QuickOSM - 我的檢索</translation>
     </message>
     <message>
-        <location filename="ui/my_queries.py" line="226"/>
+        <location filename="../ui/my_queries.py" line="212"/>
         <source>Search</source>
         <translation>搜尋</translation>
     </message>
     <message>
-        <location filename="ui/my_queries.py" line="228"/>
+        <location filename="../ui/my_queries.py" line="214"/>
         <source>Query</source>
         <translation>檢索</translation>
     </message>
     <message>
-        <location filename="ui/my_queries.py" line="229"/>
+        <location filename="../ui/my_queries.py" line="215"/>
         <source>Extent of the map canvas</source>
         <translation>地圖畫面範圍</translation>
     </message>
     <message>
-        <location filename="ui/my_queries.py" line="230"/>
+        <location filename="../ui/my_queries.py" line="216"/>
         <source>Extent of a layer</source>
         <translation>圖層範圍</translation>
     </message>
     <message>
-        <location filename="ui/my_queries.py" line="231"/>
+        <location filename="../ui/my_queries.py" line="217"/>
         <source>Advanced</source>
         <translation>進階</translation>
     </message>
     <message>
-        <location filename="ui/my_queries.py" line="232"/>
+        <location filename="../ui/my_queries.py" line="218"/>
         <source>Outputs</source>
         <translation>輸出</translation>
     </message>
     <message>
-        <location filename="ui/my_queries.py" line="233"/>
+        <location filename="../ui/my_queries.py" line="219"/>
         <source>or let empty</source>
         <translation>或是保留空白</translation>
     </message>
     <message>
-        <location filename="ui/my_queries.py" line="234"/>
+        <location filename="../ui/my_queries.py" line="220"/>
         <source>Directory</source>
         <translation>目錄</translation>
     </message>
     <message>
-        <location filename="ui/my_queries.py" line="235"/>
+        <location filename="../ui/my_queries.py" line="221"/>
         <source>Save to temporary file</source>
         <translation>儲存至暫時檔案</translation>
     </message>
     <message>
-        <location filename="ui/my_queries.py" line="236"/>
+        <location filename="../ui/my_queries.py" line="222"/>
         <source>Browse</source>
         <translation>瀏覽</translation>
     </message>
     <message>
-        <location filename="ui/my_queries.py" line="237"/>
+        <location filename="../ui/my_queries.py" line="223"/>
         <source>File prefix</source>
         <translation>檔案前綴</translation>
     </message>
     <message>
-        <location filename="ui/my_queries.py" line="238"/>
+        <location filename="../ui/my_queries.py" line="224"/>
         <source>Show query</source>
         <translation>顯示檢索</translation>
     </message>
     <message>
-        <location filename="ui/my_queries.py" line="239"/>
+        <location filename="../ui/my_queries.py" line="225"/>
         <source>Run query</source>
         <translation>執行檢索</translation>
     </message>
@@ -450,47 +492,37 @@
 <context>
     <name>ui_osm_file</name>
     <message>
-        <location filename="ui/osm_file.py" line="168"/>
+        <location filename="../ui/osm_file.py" line="129"/>
         <source>OSM File</source>
         <translation>OSM 檔案</translation>
     </message>
     <message>
-        <location filename="ui/osm_file.py" line="167"/>
+        <location filename="../ui/osm_file.py" line="128"/>
         <source>QuickOSM - OSM File</source>
         <translation>QuickOSM - OSM 檔案</translation>
     </message>
     <message>
-        <location filename="ui/osm_file.py" line="176"/>
-        <source>Browse</source>
-        <translation>瀏覽</translation>
-    </message>
-    <message>
-        <location filename="ui/osm_file.py" line="170"/>
+        <location filename="../ui/osm_file.py" line="130"/>
         <source>All tags</source>
         <translation>所有標籤</translation>
     </message>
     <message>
-        <location filename="ui/osm_file.py" line="171"/>
+        <location filename="../ui/osm_file.py" line="131"/>
         <source>Directory</source>
         <translation>目錄</translation>
     </message>
     <message>
-        <location filename="ui/osm_file.py" line="172"/>
-        <source>Save to temporary file</source>
-        <translation>儲存到暫存檔案</translation>
-    </message>
-    <message>
-        <location filename="ui/osm_file.py" line="174"/>
+        <location filename="../ui/osm_file.py" line="132"/>
         <source>File prefix</source>
         <translation>檔案前綴</translation>
     </message>
     <message>
-        <location filename="ui/osm_file.py" line="175"/>
+        <location filename="../ui/osm_file.py" line="133"/>
         <source>OSMConf</source>
         <translation>OSM 設定</translation>
     </message>
     <message>
-        <location filename="ui/osm_file.py" line="177"/>
+        <location filename="../ui/osm_file.py" line="134"/>
         <source>Open</source>
         <translation>開啟</translation>
     </message>
@@ -498,92 +530,67 @@
 <context>
     <name>ui_query</name>
     <message>
-        <location filename="quick_osm.py" line="115"/>
-        <source>Query</source>
-        <translation>檢索</translation>
-    </message>
-    <message>
-        <location filename="ui/query.py" line="244"/>
+        <location filename="../ui/query.ui" line="14"/>
         <source>QuickOSM - Query</source>
         <translation>QuickOSM - 檢索</translation>
     </message>
     <message>
-        <location filename="ui/query.py" line="245"/>
+        <location filename="../ui/query.ui" line="43"/>
         <source>Overpass query</source>
         <translation>Overpass 檢索</translation>
     </message>
     <message>
-        <location filename="ui/query.py" line="246"/>
+        <location filename="../ui/query.ui" line="88"/>
         <source>Advanced</source>
         <translation>進階</translation>
     </message>
     <message>
-        <location filename="ui/query.py" line="247"/>
+        <location filename="../ui/query.ui" line="109"/>
         <source>Can be overridden</source>
         <translation>可以被覆寫</translation>
     </message>
     <message>
-        <location filename="ui/query.py" line="248"/>
+        <location filename="../ui/query.ui" line="116"/>
         <source>{{bbox}} or {{center}}</source>
         <translation>{{bbox}} 或 {{center}}</translation>
     </message>
     <message>
-        <location filename="ui/query.py" line="249"/>
-        <source>Extent of the map canvas</source>
-        <translation>地圖畫面範圍</translation>
-    </message>
-    <message>
-        <location filename="ui/query.py" line="250"/>
+        <location filename="../ui/query.ui" line="140"/>
         <source>Outputs</source>
         <translation>輸出</translation>
     </message>
     <message>
-        <location filename="ui/query.py" line="251"/>
+        <location filename="../ui/query.ui" line="200"/>
         <source>or let empty</source>
         <translation>或是保留空白</translation>
     </message>
     <message>
-        <location filename="ui/query.py" line="252"/>
-        <source>Extent of a layer</source>
-        <translation>圖層範圍</translation>
-    </message>
-    <message>
-        <location filename="ui/query.py" line="253"/>
+        <location filename="../ui/query.ui" line="279"/>
         <source>Directory</source>
         <translation>目錄</translation>
     </message>
     <message>
-        <location filename="ui/query.py" line="254"/>
-        <source>Save to temporary file</source>
-        <translation>儲存至暫存檔案</translation>
-    </message>
-    <message>
-        <location filename="ui/query.py" line="255"/>
-        <source>Browse</source>
-        <translation>瀏覽</translation>
-    </message>
-    <message>
-        <location filename="ui/query.py" line="256"/>
+        <location filename="../ui/query.ui" line="289"/>
         <source>File prefix</source>
         <translation>檔案前綴</translation>
     </message>
     <message>
-        <location filename="ui/query.py" line="257"/>
+        <location filename="../ui/query.ui" line="309"/>
         <source>Generate query</source>
         <translation>產生檢索</translation>
     </message>
     <message>
-        <location filename="ui/query.py" line="258"/>
+        <location filename="../ui/query.ui" line="316"/>
         <source>Run query</source>
         <translation>執行檢索</translation>
     </message>
     <message>
-        <location filename="ui/query.py" line="259"/>
+        <location filename="../ui/query.ui" line="326"/>
         <source>Save query</source>
         <translation>儲存檢索</translation>
     </message>
     <message>
-        <location filename="ui/query.py" line="260"/>
+        <location filename="../ui/query.ui" line="364"/>
         <source>Documentation</source>
         <translation>說明文件</translation>
     </message>
@@ -591,125 +598,85 @@
 <context>
     <name>ui_quick_query</name>
     <message>
-        <location filename="quick_osm.py" line="126"/>
-        <source>Quick query</source>
-        <translation>快速檢索</translation>
-    </message>
-    <message>
-        <location filename="ui/quick_query_dialog.py" line="58"/>
-        <source>In</source>
-        <translation>位於</translation>
-    </message>
-    <message>
-        <location filename="ui/quick_query_dialog.py" line="59"/>
-        <source>Around</source>
-        <translation>附近</translation>
-    </message>
-    <message>
-        <location filename="ui/quick_query.py" line="282"/>
+        <location filename="../ui/quick_query.ui" line="14"/>
         <source>QuickOSM - Quick query</source>
         <translation>QuickOSM - 快速檢索</translation>
     </message>
     <message>
-        <location filename="ui/quick_query.py" line="283"/>
+        <location filename="../ui/quick_query.ui" line="43"/>
         <source>Help with key/value</source>
         <translation>鍵/值說明</translation>
     </message>
     <message>
-        <location filename="ui/quick_query.py" line="284"/>
+        <location filename="../ui/quick_query.ui" line="80"/>
         <source>Key</source>
         <translation>鍵</translation>
     </message>
     <message>
-        <location filename="ui/quick_query.py" line="285"/>
+        <location filename="../ui/quick_query.ui" line="103"/>
         <source>Value</source>
         <translation>值</translation>
     </message>
     <message>
-        <location filename="ui/quick_query.py" line="286"/>
-        <source>&quot;In&quot; will search the first multipolygon relation, however &quot;Around&quot; will get the first OSM node.</source>
-        <translation>&quot;In&quot; 將先搜尋由關鍵構成的多邊形，然而 &quot;Around&quot; 將先得到 OSM 節點。</translation>
-    </message>
-    <message>
-        <location filename="ui/quick_query.py" line="287"/>
+        <location filename="../ui/quick_query.ui" line="154"/>
         <source>A village, a town, ...</source>
         <translation>一座村莊、一座城鎮,...</translation>
     </message>
     <message>
-        <location filename="ui/quick_query.py" line="288"/>
-        <source>Extent of the map canvas</source>
-        <translation>地圖畫面範圍</translation>
-    </message>
-    <message>
-        <location filename="ui/quick_query.py" line="289"/>
-        <source>Extent of a layer</source>
-        <translation>圖層範圍</translation>
-    </message>
-    <message>
-        <location filename="ui/quick_query.py" line="290"/>
+        <location filename="../ui/quick_query.ui" line="219"/>
         <source>Advanced</source>
         <translation>進階</translation>
     </message>
     <message>
-        <location filename="ui/quick_query.py" line="291"/>
+        <location filename="../ui/quick_query.ui" line="361"/>
         <source>Timeout</source>
         <translation>時間終止</translation>
     </message>
     <message>
-        <location filename="ui/quick_query.py" line="292"/>
+        <location filename="../ui/quick_query.ui" line="384"/>
         <source>Directory</source>
         <translation>目錄</translation>
     </message>
     <message>
-        <location filename="ui/quick_query.py" line="293"/>
-        <source>Save to temporary file</source>
-        <translation>儲存至暫存檔案</translation>
-    </message>
-    <message>
-        <location filename="ui/quick_query.py" line="294"/>
-        <source>Browse</source>
-        <translation>瀏覽</translation>
-    </message>
-    <message>
-        <location filename="ui/quick_query.py" line="295"/>
+        <location filename="../ui/quick_query.ui" line="394"/>
         <source>File prefix</source>
         <translation>檔案前綴</translation>
     </message>
     <message>
-        <location filename="ui/quick_query.py" line="296"/>
+        <location filename="../ui/quick_query.ui" line="414"/>
         <source>Show query</source>
         <translation>顯示檢索</translation>
     </message>
     <message>
-        <location filename="ui/quick_query.py" line="297"/>
+        <location filename="../ui/quick_query.ui" line="421"/>
         <source>Run query</source>
         <translation>執行檢索</translation>
     </message>
     <message>
-        <location filename="quick_osm.py" line="170"/>
-        <source>Install</source>
-        <translation>安裝</translation>
+        <location filename="../ui/quick_query.ui" line="161"/>
+        <source>m</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>ui_save_query</name>
     <message>
-        <location filename="ui/save_query.py" line="62"/>
+        <location filename="../ui/save_query.py" line="48"/>
         <source>QuickOSM - Save query</source>
         <translation>QuickOSM - 儲存檢索</translation>
     </message>
     <message>
-        <location filename="ui/save_query.py" line="63"/>
+        <location filename="../ui/save_query.py" line="49"/>
         <source>The styles and names of these layers won&apos;t be saved.</source>
         <translation>樣式和圖層名稱並不會被儲存。</translation>
     </message>
     <message>
-        <location filename="ui/save_query.py" line="64"/>
+        <location filename="../ui/save_query.py" line="50"/>
         <source>Category</source>
         <translation>分類</translation>
     </message>
     <message>
-        <location filename="ui/save_query.py" line="65"/>
+        <location filename="../ui/save_query.py" line="51"/>
         <source>Name</source>
         <translation>名稱</translation>
     </message>

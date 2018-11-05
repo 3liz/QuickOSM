@@ -1,0 +1,9 @@
+[main]
+host = https://www.transifex.com
+
+[gui.quickosm]
+file_filter = i18n/QuickOSM_<lang>.ts
+minimum_perc = 0
+source_file = i18n/QuickOSM_en.ts
+source_lang = en
+type = QT

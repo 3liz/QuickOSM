@@ -1,717 +1,684 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS><TS version="2.0" language="nl" sourcelanguage="en">
 <context>
-    <name>Exception</name>
+    <name>@default</name>
     <message>
-        <location filename="CoreQuickOSM/ExceptionQuickOSM.py" line="48"/>
-        <source>OverpassAPI timeout</source>
-        <translation>OverpassAPI timeout</translation>
+        <location filename="../core/process.py" line="100"/>
+        <source>From memory to GeoJSON: </source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="CoreQuickOSM/ExceptionQuickOSM.py" line="54"/>
-        <source>Network error</source>
-        <translation>Netwerkfout</translation>
-    </message>
-    <message>
-        <location filename="CoreQuickOSM/ExceptionQuickOSM.py" line="65"/>
-        <source>Error while building the query</source>
-        <translation>Fout tijdens het opbouwen van de query</translation>
-    </message>
-    <message>
-        <location filename="CoreQuickOSM/ExceptionQuickOSM.py" line="76"/>
-        <source>No nominatim area</source>
-        <translation>Geen nominatim uitslag</translation>
-    </message>
-    <message>
-        <location filename="CoreQuickOSM/ExceptionQuickOSM.py" line="85"/>
-        <source>The OSM&apos;s driver is not installed. You must have GDAL/OGR &gt;= 1.10.</source>
-        <translation>Het OSM driver is niet geinstalleerd. U moet dowloaden GDAL/OGR &gt;= 1.10.</translation>
-    </message>
-    <message>
-        <location filename="CoreQuickOSM/ExceptionQuickOSM.py" line="91"/>
-        <source>Error with ogr2ogr</source>
-        <translation>Fout met ogr2ogr</translation>
-    </message>
-    <message>
-        <location filename="CoreQuickOSM/ExceptionQuickOSM.py" line="97"/>
-        <source>The layer is missing :</source>
-        <translation>De laag ontbreekt :</translation>
-    </message>
-    <message>
-        <location filename="CoreQuickOSM/ExceptionQuickOSM.py" line="105"/>
-        <source>The order must be node-way-relation. Check the print statement.</source>
-        <translation>De bestelling moet worden node-way-relation. Controleer de &quot;print&quot; verklaring.</translation>
-    </message>
-    <message>
-        <location filename="CoreQuickOSM/ExceptionQuickOSM.py" line="116"/>
-        <source>The file doesn&apos;t exist</source>
-        <translation>Het bestand bestaat niet</translation>
-    </message>
-    <message>
-        <location filename="CoreQuickOSM/ExceptionQuickOSM.py" line="124"/>
-        <source>The output directory does not exist.</source>
-        <translation>De uitvoermap bestaat niet.</translation>
-    </message>
-    <message>
-        <location filename="CoreQuickOSM/ExceptionQuickOSM.py" line="130"/>
-        <source>The output file already exist, set a prefix</source>
-        <translation>Het uitvoerbestand bestaat, set een prefix</translation>
-    </message>
-    <message>
-        <location filename="CoreQuickOSM/ExceptionQuickOSM.py" line="138"/>
-        <source>Output not available</source>
-        <translation>Uitvoer niet beschikbaar</translation>
-    </message>
-    <message>
-        <location filename="CoreQuickOSM/ExceptionQuickOSM.py" line="144"/>
-        <source>This query already exists</source>
-        <translation>Deze query bestaat reeds</translation>
-    </message>
-    <message>
-        <location filename="CoreQuickOSM/ExceptionQuickOSM.py" line="153"/>
-        <source>A parameter is missing :</source>
-        <translation>Een parameter ontbreekt :</translation>
-    </message>
-    <message>
-        <location filename="CoreQuickOSM/ExceptionQuickOSM.py" line="161"/>
-        <source>No osm objects selected</source>
-        <translation>Geen osm objecten geselecteerd</translation>
-    </message>
-    <message>
-        <location filename="CoreQuickOSM/ExceptionQuickOSM.py" line="167"/>
-        <source>No outputs selected</source>
-        <translation>Geen uitvoer geselecteerd</translation>
-    </message>
-</context>
-<context>
-    <name>QuickOSM</name>
-    <message>
-        <location filename="quick_osm.py" line="79"/>
-        <source>Dock</source>
-        <translation>Dock</translation>
-    </message>
-    <message>
-        <location filename="Controller/Process.py" line="86"/>
-        <source>From GeoJSON to Shapefile</source>
-        <translation>Van GeoJSON naar Shapefile</translation>
-    </message>
-    <message>
-        <location filename="Controller/Process.py" line="164"/>
+        <location filename="../core/process.py" line="164"/>
         <source>Prepare outputs</source>
-        <translation>Bereid de uitvoer</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Controller/Process.py" line="173"/>
+        <location filename="../core/process.py" line="168"/>
         <source>Downloading data from Overpass</source>
-        <translation>Gegevens gedownload van Overpass</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="CoreQuickOSM/Actions.py" line="97"/>
-        <source>Sorry man, this field is empty for this entity.</source>
-        <translation>Sorry man, dit veld is leeg voor deze entiteit.</translation>
+        <location filename="../core/process.py" line="234"/>
+        <source>allKeys</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="CoreQuickOSM/Actions.py" line="73"/>
+        <location filename="../core/custom_logging.py" line="53"/>
+        <source>Due to memory limitations on this machine, QuickOSM can not handle the full log</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../core/actions.py" line="162"/>
+        <source>Sorry man, this field &apos;{}&apos; is empty for this entity.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../core/actions.py" line="203"/>
         <source>The JOSM remote seems to be disabled.</source>
-        <translation>De JOSM afstandsbediening lijkt uitgeschakeld te zijn.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="CoreQuickOSM/ExceptionQuickOSM.py" line="42"/>
+        <location filename="../core/actions.py" line="227"/>
+        <source>Sorry man, this field is empty for this entity.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../core/parser/osm_parser.py" line="120"/>
+        <source>Parsing layer : </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../core/parser/osm_parser.py" line="184"/>
+        <source>Creating memory layer : </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../core/exceptions.py" line="33"/>
+        <source>QuickOSM</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../core/exceptions.py" line="43"/>
+        <source>GeoAlgorithm exception</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../core/exceptions.py" line="55"/>
         <source>Bad request OverpassAPI</source>
-        <translation>Verzoekfout OverpassAPI</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="CoreQuickOSM/QueryFactory.py" line="77"/>
-        <source>nominatim OR bbox, not both</source>
-        <translation>nominatim OF bbox, niet beide</translation>
+        <location filename="../core/exceptions.py" line="62"/>
+        <source>OverpassAPI timeout</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="CoreQuickOSM/QueryFactory.py" line="86"/>
-        <source>key required</source>
-        <translation>Sleutel vereist</translation>
+        <location filename="../core/exceptions.py" line="69"/>
+        <source>Network error</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="CoreQuickOSM/QueryFactory.py" line="90"/>
-        <source>wrong OSM object</source>
-        <translation>verkeerde OSM object</translation>
+        <location filename="../core/exceptions.py" line="82"/>
+        <source>Error while building the query</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/main_window_dialog.py" line="118"/>
-        <source>Fetching the timestamp ...</source>
-        <translation>Timestamp ophalen ...</translation>
+        <location filename="../core/exceptions.py" line="90"/>
+        <source>The query is not supported by the plugin because of : %s</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/main_window_dialog.py" line="137"/>
-        <source>Copy ...</source>
-        <translation>Kopie ...</translation>
+        <location filename="../core/exceptions.py" line="102"/>
+        <source>No nominatim area</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/my_queries_dialog.py" line="146"/>
+        <location filename="../core/exceptions.py" line="113"/>
+        <source>Error with ogr2ogr</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../core/exceptions.py" line="120"/>
+        <source>The layer is missing :</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../core/exceptions.py" line="134"/>
+        <source>The file does not exist</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../core/exceptions.py" line="143"/>
+        <source>The output directory does not exist.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../core/exceptions.py" line="150"/>
+        <source>The output file already exist, set a prefix</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../core/exceptions.py" line="159"/>
+        <source>Output not available</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../core/exceptions.py" line="166"/>
+        <source>This query already exists</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../core/exceptions.py" line="177"/>
+        <source>A parameter is missing :</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../core/exceptions.py" line="186"/>
+        <source>No osm objects selected</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../core/exceptions.py" line="193"/>
+        <source>No outputs selected</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../quick_osm.py" line="166"/>
+        <source>New queries are available in the plugin. Would like to install them ? This will overwrite the current default queries.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../quick_osm.py" line="172"/>
+        <source>Install</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui/my_queries_dialog.py" line="171"/>
         <source>Execute</source>
-        <translation>Uitvoeren</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/my_queries_dialog.py" line="149"/>
+        <location filename="../ui/my_queries_dialog.py" line="176"/>
         <source>Show query</source>
-        <translation>Query tonen</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/my_queries_dialog.py" line="152"/>
+        <location filename="../ui/my_queries_dialog.py" line="181"/>
         <source>Delete</source>
-        <translation>Verwijderen</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/my_queries_dialog.py" line="189"/>
+        <location filename="../ui/my_queries_dialog.py" line="220"/>
         <source>can be overridden</source>
-        <translation>kan worden overschreven</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/my_queries_dialog.py" line="191"/>
+        <location filename="../ui/my_queries_dialog.py" line="224"/>
         <source>A village, a town, ...</source>
-        <translation>Een dorp, een stad, ...</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/my_queries_dialog.py" line="224"/>
+        <location filename="../ui/my_queries_dialog.py" line="268"/>
         <source>Are you sure you want to delete the query ?</source>
-        <translation>Bent u zeker dat u de query wilt  verwijderen?</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/quick_query_dialog.py" line="236"/>
+        <location filename="../ui/my_queries_dialog.py" line="343"/>
         <source>Successful query !</source>
-        <translation>Query succesvol !</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/quick_query_dialog.py" line="239"/>
+        <location filename="../ui/query_dialog.py" line="229"/>
         <source>Successful query, but no result.</source>
-        <translation>Query succesvol, maar geen resultaat.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/osm_file_dialog.py" line="67"/>
-        <source>Select *.osm or *.pbf</source>
-        <translation>Selecteren *.osm of  *.pbf</translation>
+        <location filename="../ui/osm_file_dialog.py" line="61"/>
+        <source>Select an OSM file</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/osm_file_dialog.py" line="75"/>
-        <source>Select osm conf</source>
-        <translation>Selecteren osm conf</translation>
+        <location filename="../ui/osm_file_dialog.py" line="71"/>
+        <source>Select OSM conf file</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/query_dialog.py" line="64"/>
-        <source>Save as final query</source>
-        <translation>Opslaan als laatste query</translation>
+        <location filename="../ui/query_dialog.py" line="226"/>
+        <source>Successful query</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/query_dialog.py" line="67"/>
-        <source>Save as template</source>
-        <translation>Opslaan als sjabloon</translation>
+        <location filename="../ui/QuickOSMWidget.py" line="59"/>
+        <source>Save to temporary file</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/quick_query_dialog.py" line="238"/>
-        <source>No result</source>
-        <translation>Geen resultaat</translation>
+        <location filename="../ui/QuickOSMWidget.py" line="61"/>
+        <source>Select a directory</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/QuickOSMWidget.py" line="60"/>
-        <source>Select directory</source>
-        <translation>Map selecteren</translation>
-    </message>
-    <message>
-        <location filename="ui/QuickOSMWidget.py" line="146"/>
+        <location filename="../ui/QuickOSMWidget.py" line="206"/>
         <source>Running query ...</source>
-        <translation>Query is al bezig ...</translation>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui/QuickOSMWidget.py" line="259"/>
+        <source>Error in the QGIS Logs, QuickOSM panel, please report it to &lt;a href=&quot;https://github.com/3liz/QuickOSM/issues/new?template=1_BUG_REPORT.md&quot;&gt;GitHub&lt;/a&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui/main_window_dialog.py" line="160"/>
+        <source>Copy ...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui/quick_query_dialog.py" line="58"/>
+        <source>In</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui/quick_query_dialog.py" line="59"/>
+        <source>Around</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui/query_dialog.py" line="67"/>
+        <source>Canvas Extent</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui/query_dialog.py" line="68"/>
+        <source>Layer Extent</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui/quick_query_dialog.py" line="62"/>
+        <source>Not Spatial</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui/quick_query_dialog.py" line="235"/>
+        <source>No result</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui/query_dialog.py" line="83"/>
+        <source>Save as final query</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui/query_dialog.py" line="87"/>
+        <source>Save as template</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui/query_dialog.py" line="331"/>
+        <source>QuickOSM - Query</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>ui_main_window</name>
     <message>
-        <location filename="ui/main_window.py" line="382"/>
+        <location filename="../ui/main_window.py" line="312"/>
         <source>Quick query</source>
-        <translation>Snel query</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/main_window.py" line="384"/>
-        <source>My queries</source>
-        <translation>Mijn queries</translation>
-    </message>
-    <message>
-        <location filename="ui/main_window.py" line="386"/>
+        <location filename="../ui/main_window.py" line="314"/>
         <source>Query</source>
-        <translation>Query</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/main_window.py" line="388"/>
+        <location filename="../ui/main_window.py" line="316"/>
         <source>OSM File</source>
-        <translation>OSM bestand</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/main_window.py" line="390"/>
+        <location filename="../ui/main_window.py" line="318"/>
         <source>Parameters</source>
-        <translation>Parameters</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/main_window.py" line="392"/>
-        <source>Help</source>
-        <translation>Help</translation>
-    </message>
-    <message>
-        <location filename="ui/main_window.py" line="394"/>
+        <location filename="../ui/main_window.py" line="320"/>
         <source>About</source>
-        <translation>Info</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/main_window.py" line="396"/>
+        <location filename="../ui/main_window.py" line="322"/>
         <source>Overpass API</source>
-        <translation>Overpass API</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/main_window.py" line="397"/>
+        <location filename="../ui/main_window.py" line="324"/>
         <source>Get timestamp</source>
-        <translation>Timestamp krijgen</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/main_window.py" line="398"/>
+        <location filename="../ui/main_window.py" line="325"/>
         <source>unknow</source>
-        <translation>Onbekend</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/main_window.py" line="399"/>
+        <location filename="../ui/main_window.py" line="326"/>
         <source>Queries</source>
-        <translation>Queries</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/main_window.py" line="400"/>
+        <location filename="../ui/main_window.py" line="327"/>
         <source>Restore queries</source>
-        <translation>Queries herstellen</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/main_window.py" line="401"/>
+        <location filename="../ui/main_window.py" line="328"/>
         <source>Outputs</source>
-        <translation>Uitvoeren</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/main_window.py" line="402"/>
-        <source>GeoJSON (not editable, colmun&apos;s name longer)</source>
-        <translation>GeoJSON (niet bewerkbaar, kolomnaam langer)</translation>
-    </message>
-    <message>
-        <location filename="ui/main_window.py" line="403"/>
-        <source>Shapefile (editable, colmun&apos;s name shorter)</source>
-        <translation>GeoJSON (niet bewerkbaar, kolomnaam korter)</translation>
-    </message>
-    <message>
-        <location filename="ui/main_window.py" line="404"/>
-        <source>Home</source>
-        <translation>Startpagina</translation>
-    </message>
-    <message>
-        <location filename="ui/main_window.py" line="405"/>
+        <location filename="../ui/main_window.py" line="331"/>
         <source>Realization</source>
-        <translation>Realisatie</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/main_window.py" line="406"/>
-        <source>Supervision</source>
-        <translation>Toezicht</translation>
-    </message>
-    <message>
-        <location filename="ui/main_window.py" line="407"/>
-        <source>This intership was supervised by 3Liz</source>
-        <translation>Deze stage werd begeleid door 3Liz</translation>
-    </message>
-    <message>
-        <location filename="ui/main_window.py" line="408"/>
+        <location filename="../ui/main_window.py" line="332"/>
         <source>Translators</source>
-        <translation>Vertalers</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/main_window.py" line="411"/>
+        <location filename="../ui/main_window.py" line="337"/>
         <source>German</source>
-        <translation>Duitse</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/main_window.py" line="415"/>
+        <location filename="../ui/main_window.py" line="341"/>
         <source>Sources</source>
-        <translation>Bronnen</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/main_window.py" line="416"/>
+        <location filename="../ui/main_window.py" line="342"/>
         <source>Github&apos;s repository</source>
-        <translation>Github&apos;s repository</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/main_window.py" line="417"/>
+        <location filename="../ui/main_window.py" line="343"/>
         <source>Licence</source>
-        <translation>Licentie</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/main_window.py" line="409"/>
+        <location filename="../ui/main_window.py" line="333"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The web-based translating platform &lt;a href=&quot;https://www.transifex.com/projects/p/gui/&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0057ae;&quot;&gt;Transifex&lt;/span&gt;&lt;/a&gt; is used. It&apos;s easier for translators.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/main_window.py" line="410"/>
+        <location filename="../ui/main_window.py" line="339"/>
         <source>Russian</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/main_window.py" line="412"/>
+        <location filename="../ui/main_window.py" line="338"/>
         <source>Italian</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/main_window.py" line="413"/>
+        <location filename="../ui/main_window.py" line="336"/>
+        <source>French</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui/main_window.py" line="334"/>
         <source>Dutch</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/main_window.py" line="414"/>
-        <source>French</source>
+        <location filename="../ui/main_window.py" line="323"/>
+        <source>Timestamp</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui/main_window.py" line="329"/>
+        <source>GeoJSON (not editable, column&apos;s name longer)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui/main_window.py" line="330"/>
+        <source>Shapefile (editable, column&apos;s name shorter)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui/main_window.py" line="335"/>
+        <source>Finnish</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui/main_window.py" line="340"/>
+        <source>Taiwanese Mandarin</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>ui_my_queries</name>
     <message>
-        <location filename="quick_osm.py" line="104"/>
-        <source>My queries</source>
-        <translation>Mijn queries</translation>
-    </message>
-    <message>
-        <location filename="ui/my_queries.py" line="225"/>
+        <location filename="../ui/my_queries.py" line="211"/>
         <source>QuickOSM - My queries</source>
-        <translation>QuickOSM - Mijn queries</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/my_queries.py" line="226"/>
+        <location filename="../ui/my_queries.py" line="212"/>
         <source>Search</source>
-        <translation>Zoek</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/my_queries.py" line="228"/>
+        <location filename="../ui/my_queries.py" line="214"/>
         <source>Query</source>
-        <translation>Query</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/my_queries.py" line="229"/>
+        <location filename="../ui/my_queries.py" line="215"/>
         <source>Extent of the map canvas</source>
-        <translation>Extent van de kaart canvas</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/my_queries.py" line="230"/>
+        <location filename="../ui/my_queries.py" line="216"/>
         <source>Extent of a layer</source>
-        <translation>Extent van een laag</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/my_queries.py" line="231"/>
+        <location filename="../ui/my_queries.py" line="217"/>
         <source>Advanced</source>
-        <translation>Geavanceerd</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/my_queries.py" line="232"/>
+        <location filename="../ui/my_queries.py" line="218"/>
         <source>Outputs</source>
-        <translation>Uitvoeren</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/my_queries.py" line="233"/>
+        <location filename="../ui/my_queries.py" line="219"/>
         <source>or let empty</source>
-        <translation>of laat leeg</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/my_queries.py" line="234"/>
+        <location filename="../ui/my_queries.py" line="220"/>
         <source>Directory</source>
-        <translation>Map</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/my_queries.py" line="235"/>
+        <location filename="../ui/my_queries.py" line="221"/>
         <source>Save to temporary file</source>
-        <translation>Opslaan naar tijdelijk bestand</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/my_queries.py" line="236"/>
+        <location filename="../ui/my_queries.py" line="222"/>
         <source>Browse</source>
-        <translation>Bladeren</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/my_queries.py" line="237"/>
+        <location filename="../ui/my_queries.py" line="223"/>
         <source>File prefix</source>
-        <translation>Bestand prefix</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/my_queries.py" line="238"/>
+        <location filename="../ui/my_queries.py" line="224"/>
         <source>Show query</source>
-        <translation>Query tonen</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/my_queries.py" line="239"/>
+        <location filename="../ui/my_queries.py" line="225"/>
         <source>Run query</source>
-        <translation>Query uitvoeren</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>ui_osm_file</name>
     <message>
-        <location filename="ui/osm_file.py" line="168"/>
+        <location filename="../ui/osm_file.py" line="129"/>
         <source>OSM File</source>
-        <translation>OSM bestand</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/osm_file.py" line="167"/>
+        <location filename="../ui/osm_file.py" line="128"/>
         <source>QuickOSM - OSM File</source>
-        <translation>QuickOSM - OSM Bestand</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/osm_file.py" line="176"/>
-        <source>Browse</source>
-        <translation>Bladeren</translation>
-    </message>
-    <message>
-        <location filename="ui/osm_file.py" line="170"/>
+        <location filename="../ui/osm_file.py" line="130"/>
         <source>All tags</source>
-        <translation>Alle tags</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/osm_file.py" line="171"/>
+        <location filename="../ui/osm_file.py" line="131"/>
         <source>Directory</source>
-        <translation>Map</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/osm_file.py" line="172"/>
-        <source>Save to temporary file</source>
-        <translation>Opslaan naar tijdelijk bestand</translation>
-    </message>
-    <message>
-        <location filename="ui/osm_file.py" line="174"/>
+        <location filename="../ui/osm_file.py" line="132"/>
         <source>File prefix</source>
-        <translation>Bestand prefix</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/osm_file.py" line="175"/>
+        <location filename="../ui/osm_file.py" line="133"/>
         <source>OSMConf</source>
-        <translation>OSMConf</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/osm_file.py" line="177"/>
+        <location filename="../ui/osm_file.py" line="134"/>
         <source>Open</source>
-        <translation>Openen</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>ui_query</name>
     <message>
-        <location filename="quick_osm.py" line="115"/>
-        <source>Query</source>
-        <translation>Query</translation>
-    </message>
-    <message>
-        <location filename="ui/query.py" line="244"/>
+        <location filename="../ui/query.ui" line="14"/>
         <source>QuickOSM - Query</source>
-        <translation>QuickOSM - Query</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/query.py" line="245"/>
+        <location filename="../ui/query.ui" line="43"/>
         <source>Overpass query</source>
-        <translation>Overpass query</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/query.py" line="246"/>
+        <location filename="../ui/query.ui" line="88"/>
         <source>Advanced</source>
-        <translation>Geavanceerd</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/query.py" line="247"/>
+        <location filename="../ui/query.ui" line="109"/>
         <source>Can be overridden</source>
-        <translation>Kan worden overschreven</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/query.py" line="248"/>
+        <location filename="../ui/query.ui" line="116"/>
         <source>{{bbox}} or {{center}}</source>
-        <translation>{{bbox}} of {{center}}</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/query.py" line="249"/>
-        <source>Extent of the map canvas</source>
-        <translation>Extent van de kaart canvas</translation>
-    </message>
-    <message>
-        <location filename="ui/query.py" line="250"/>
+        <location filename="../ui/query.ui" line="140"/>
         <source>Outputs</source>
-        <translation>Uitvoeren</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/query.py" line="251"/>
+        <location filename="../ui/query.ui" line="200"/>
         <source>or let empty</source>
-        <translation>of laat leeg</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/query.py" line="252"/>
-        <source>Extent of a layer</source>
-        <translation>Extent van een laag</translation>
-    </message>
-    <message>
-        <location filename="ui/query.py" line="253"/>
+        <location filename="../ui/query.ui" line="279"/>
         <source>Directory</source>
-        <translation>Map</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/query.py" line="254"/>
-        <source>Save to temporary file</source>
-        <translation>Opslaan naar tijdelijk bestand</translation>
-    </message>
-    <message>
-        <location filename="ui/query.py" line="255"/>
-        <source>Browse</source>
-        <translation>Bladeren</translation>
-    </message>
-    <message>
-        <location filename="ui/query.py" line="256"/>
+        <location filename="../ui/query.ui" line="289"/>
         <source>File prefix</source>
-        <translation>Bestand prefix</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/query.py" line="257"/>
+        <location filename="../ui/query.ui" line="309"/>
         <source>Generate query</source>
-        <translation>Query opstellen</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/query.py" line="258"/>
+        <location filename="../ui/query.ui" line="316"/>
         <source>Run query</source>
-        <translation>Query uitvoeren</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/query.py" line="259"/>
+        <location filename="../ui/query.ui" line="326"/>
         <source>Save query</source>
-        <translation>Query opslaan</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/query.py" line="260"/>
+        <location filename="../ui/query.ui" line="364"/>
         <source>Documentation</source>
-        <translation>Documentatie</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>ui_quick_query</name>
     <message>
-        <location filename="quick_osm.py" line="126"/>
-        <source>Quick query</source>
-        <translation>Snel query</translation>
-    </message>
-    <message>
-        <location filename="ui/quick_query_dialog.py" line="58"/>
-        <source>In</source>
-        <translation>In</translation>
-    </message>
-    <message>
-        <location filename="ui/quick_query_dialog.py" line="59"/>
-        <source>Around</source>
-        <translation>Rondom</translation>
-    </message>
-    <message>
-        <location filename="ui/quick_query.py" line="282"/>
+        <location filename="../ui/quick_query.ui" line="14"/>
         <source>QuickOSM - Quick query</source>
-        <translation>QuickOSM - Snel query</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/quick_query.py" line="283"/>
+        <location filename="../ui/quick_query.ui" line="43"/>
         <source>Help with key/value</source>
-        <translation>Hulp met sleutel/waard</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/quick_query.py" line="284"/>
+        <location filename="../ui/quick_query.ui" line="80"/>
         <source>Key</source>
-        <translation>Sleutel</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/quick_query.py" line="285"/>
+        <location filename="../ui/quick_query.ui" line="103"/>
         <source>Value</source>
-        <translation>Waard</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/quick_query.py" line="286"/>
-        <source>&quot;In&quot; will search the first multipolygon relation, however &quot;Around&quot; will get the first OSM node.</source>
-        <translation>&quot;In&quot; zoekt de eerste MultiPolygon relatie, maar &quot;Rondom&quot; zal de eerste OSM knooppunt krijgen.</translation>
-    </message>
-    <message>
-        <location filename="ui/quick_query.py" line="287"/>
+        <location filename="../ui/quick_query.ui" line="154"/>
         <source>A village, a town, ...</source>
-        <translation>Een dorp, een stad, ...</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/quick_query.py" line="288"/>
-        <source>Extent of the map canvas</source>
-        <translation>Extent van de kaart canvas</translation>
-    </message>
-    <message>
-        <location filename="ui/quick_query.py" line="289"/>
-        <source>Extent of a layer</source>
-        <translation>Extent van een laag</translation>
-    </message>
-    <message>
-        <location filename="ui/quick_query.py" line="290"/>
+        <location filename="../ui/quick_query.ui" line="219"/>
         <source>Advanced</source>
-        <translation>Geavanceerd</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/quick_query.py" line="291"/>
+        <location filename="../ui/quick_query.ui" line="361"/>
         <source>Timeout</source>
-        <translation>Timeout</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/quick_query.py" line="292"/>
+        <location filename="../ui/quick_query.ui" line="384"/>
         <source>Directory</source>
-        <translation>Map</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/quick_query.py" line="293"/>
-        <source>Save to temporary file</source>
-        <translation>Opslaan naar tijdelijk bestand</translation>
-    </message>
-    <message>
-        <location filename="ui/quick_query.py" line="294"/>
-        <source>Browse</source>
-        <translation>Bladeren</translation>
-    </message>
-    <message>
-        <location filename="ui/quick_query.py" line="295"/>
+        <location filename="../ui/quick_query.ui" line="394"/>
         <source>File prefix</source>
-        <translation>Bestand prefix</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/quick_query.py" line="296"/>
+        <location filename="../ui/quick_query.ui" line="414"/>
         <source>Show query</source>
-        <translation>Query tonen</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/quick_query.py" line="297"/>
+        <location filename="../ui/quick_query.ui" line="421"/>
         <source>Run query</source>
-        <translation>Query uitvoeren</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="quick_osm.py" line="170"/>
-        <source>Install</source>
+        <location filename="../ui/quick_query.ui" line="161"/>
+        <source>m</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>ui_save_query</name>
     <message>
-        <location filename="ui/save_query.py" line="62"/>
+        <location filename="../ui/save_query.py" line="48"/>
         <source>QuickOSM - Save query</source>
-        <translation>QuickOSM - Opslaan query</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/save_query.py" line="63"/>
+        <location filename="../ui/save_query.py" line="49"/>
         <source>The styles and names of these layers won&apos;t be saved.</source>
-        <translation>De stijlen en de namen van deze lagen worden niet opgeslagen.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/save_query.py" line="64"/>
+        <location filename="../ui/save_query.py" line="50"/>
         <source>Category</source>
-        <translation>Categorie</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ui/save_query.py" line="65"/>
+        <location filename="../ui/save_query.py" line="51"/>
         <source>Name</source>
-        <translation>Naam</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 </TS>
