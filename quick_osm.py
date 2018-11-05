@@ -122,7 +122,7 @@ class QuickOSMPlugin(object):
         # Main window
         self.mainWindowAction = QAction(
             QIcon(join(dirname(__file__), 'resources', 'QuickOSM.svg')),
-            u'QuickOSM',
+            'QuickOSM',
             self.iface.mainWindow())
         # noinspection PyUnresolvedReferences
         self.mainWindowAction.triggered.connect(self.openMainWindow)
@@ -182,7 +182,7 @@ class QuickOSMPlugin(object):
         self.iface.messageBar().popWidget()
 
     def unload(self):
-        self.iface.removePluginVectorMenu(u'&QuickOSM', self.mainWindowAction)
+        self.iface.removePluginVectorMenu('&QuickOSM', self.mainWindowAction)
         self.iface.removeToolBarIcon(self.mainWindowAction)
         # Processing.removeProvider(self.provider)
 
@@ -190,7 +190,7 @@ class QuickOSMPlugin(object):
         map_settings = self.iface.mapCanvas().mapSettings()
         extent = map_settings.extent()
         crs_map = map_settings.destinationCrs()
-        if crs_map.authid() != u'EPSG:4326':
+        if crs_map.authid() != 'EPSG:4326':
             crs_4326 = QgsCoordinateReferenceSystem(4326)
             transform = QgsCoordinateTransform(crs_map, crs_4326, QgsProject.instance())
             extent = transform.transform(extent)

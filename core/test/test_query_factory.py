@@ -113,38 +113,38 @@ class TestQueryFactory(unittest.TestCase):
     def test_generate_xml(self):
         """Test generate XML."""
         query = QueryFactory(key='foo', value='bar', nominatim='paris')
-        expected = u'<osm-script output="xml" timeout="25">' \
-                   u'<id-query area="paris" into="area_0"/><union>' \
-                   u'<query type="node"><has-kv k="foo" v="bar"/>' \
-                   u'<area-query from="area_0" /></query><query type="way">' \
-                   u'<has-kv k="foo" v="bar"/><area-query from="area_0" />' \
-                   u'</query><query type="relation">' \
-                   u'<has-kv k="foo" v="bar"/><area-query from="area_0" />' \
-                   u'</query></union><union><item /><recurse type="down"/>' \
-                   u'</union><print mode="body" /></osm-script>'
+        expected = '<osm-script output="xml" timeout="25">' \
+                   '<id-query area="paris" into="area_0"/><union>' \
+                   '<query type="node"><has-kv k="foo" v="bar"/>' \
+                   '<area-query from="area_0" /></query><query type="way">' \
+                   '<has-kv k="foo" v="bar"/><area-query from="area_0" />' \
+                   '</query><query type="relation">' \
+                   '<has-kv k="foo" v="bar"/><area-query from="area_0" />' \
+                   '</query></union><union><item /><recurse type="down"/>' \
+                   '</union><print mode="body" /></osm-script>'
         self.assertEqual(query.generate_xml(), expected)
 
         query = QueryFactory(key='foo', bbox=True, timeout=35)
-        expected = u'<osm-script output="xml" timeout="35"><union>' \
-                   u'<query type="node"><has-kv k="foo" />' \
-                   u'<bbox-query bbox="custom" /></query><query type="way">' \
-                   u'<has-kv k="foo" /><bbox-query bbox="custom" /></query>' \
-                   u'<query type="relation"><has-kv k="foo" />' \
-                   u'<bbox-query bbox="custom" /></query></union><union>' \
-                   u'<item /><recurse type="down"/></union>' \
-                   u'<print mode="body" /></osm-script>'
+        expected = '<osm-script output="xml" timeout="35"><union>' \
+                   '<query type="node"><has-kv k="foo" />' \
+                   '<bbox-query bbox="custom" /></query><query type="way">' \
+                   '<has-kv k="foo" /><bbox-query bbox="custom" /></query>' \
+                   '<query type="relation"><has-kv k="foo" />' \
+                   '<bbox-query bbox="custom" /></query></union><union>' \
+                   '<item /><recurse type="down"/></union>' \
+                   '<print mode="body" /></osm-script>'
         self.assertEqual(query.generate_xml(), expected)
 
         query = QueryFactory(
             key='foo', nominatim='paris;dubai', osm_objects=['node'])
-        expected = u'<osm-script output="xml" timeout="25">' \
-                   u'<id-query area="paris" into="area_0"/>' \
-                   u'<id-query area="dubai" into="area_1"/><union>' \
-                   u'<query type="node"><has-kv k="foo" />' \
-                   u'<area-query from="area_0" /></query><query type="node">' \
-                   u'<has-kv k="foo" /><area-query from="area_1" /></query>' \
-                   u'</union><union><item /><recurse type="down"/></union>' \
-                   u'<print mode="body" /></osm-script>'
+        expected = '<osm-script output="xml" timeout="25">' \
+                   '<id-query area="paris" into="area_0"/>' \
+                   '<id-query area="dubai" into="area_1"/><union>' \
+                   '<query type="node"><has-kv k="foo" />' \
+                   '<area-query from="area_0" /></query><query type="node">' \
+                   '<has-kv k="foo" /><area-query from="area_1" /></query>' \
+                   '</union><union><item /><recurse type="down"/></union>' \
+                   '<print mode="body" /></osm-script>'
         self.assertEqual(query.generate_xml(), expected)
 
         query = QueryFactory(
@@ -153,35 +153,36 @@ class TestQueryFactory(unittest.TestCase):
             distance=1000,
             print_mode='meta',
             nominatim='a')
-        expected = u'<osm-script output="xml" timeout="25"><union>' \
-                   u'<query type="node"><has-kv k="foo" />' \
-                   u'<around area_coords="a" radius="1000" /></query>' \
-                   u'<query type="way"><has-kv k="foo" />' \
-                   u'<around area_coords="a" radius="1000" /></query>' \
-                   u'<query type="relation"><has-kv k="foo" />' \
-                   u'<around area_coords="a" radius="1000" /></query>' \
-                   u'</union>' \
-                   u'<union><item /><recurse type="down"/></union>' \
-                   u'<print mode="meta" /></osm-script>'
+        expected = '<osm-script output="xml" timeout="25"><union>' \
+                   '<query type="node"><has-kv k="foo" />' \
+                   '<around area_coords="a" radius="1000" /></query>' \
+                   '<query type="way"><has-kv k="foo" />' \
+                   '<around area_coords="a" radius="1000" /></query>' \
+                   '<query type="relation"><has-kv k="foo" />' \
+                   '<around area_coords="a" radius="1000" /></query>' \
+                   '</union>' \
+                   '<union><item /><recurse type="down"/></union>' \
+                   '<print mode="meta" /></osm-script>'
         self.assertEqual(query.generate_xml(), expected)
 
     def test_make(self):
         """Test make query."""
         query = QueryFactory('foo', 'bar', True)
-        expected = u'<osm-script output="xml" timeout="25">\n    ' \
-                   u'<union>\n        <query type="node">\n            ' \
-                   u'<has-kv k="foo" v="bar"/>\n            ' \
-                   u'<bbox-query {{bbox}}/>\n        </query>\n        ' \
-                   u'<query type="way">\n            ' \
-                   u'<has-kv k="foo" v="bar"/>\n            ' \
-                   u'<bbox-query {{bbox}}/>\n        </query>\n        ' \
-                   u'<query type="relation">\n            ' \
-                   u'<has-kv k="foo" v="bar"/>\n            ' \
-                   u'<bbox-query {{bbox}}/>\n        </query>\n    ' \
-                   u'</union>\n    <union>\n        <item/>\n        ' \
-                   u'<recurse type="down"/>\n    </union>\n    ' \
-                   u'<print mode="body"/>\n</osm-script>\n'
+        expected = '<osm-script output="xml" timeout="25">\n    ' \
+                   '<union>\n        <query type="node">\n            ' \
+                   '<has-kv k="foo" v="bar"/>\n            ' \
+                   '<bbox-query {{bbox}}/>\n        </query>\n        ' \
+                   '<query type="way">\n            ' \
+                   '<has-kv k="foo" v="bar"/>\n            ' \
+                   '<bbox-query {{bbox}}/>\n        </query>\n        ' \
+                   '<query type="relation">\n            ' \
+                   '<has-kv k="foo" v="bar"/>\n            ' \
+                   '<bbox-query {{bbox}}/>\n        </query>\n    ' \
+                   '</union>\n    <union>\n        <item/>\n        ' \
+                   '<recurse type="down"/>\n    </union>\n    ' \
+                   '<print mode="body"/>\n</osm-script>\n'
         self.assertEqual(query.make(), expected)
+
 
 if __name__ == '__main__':
     suite = unittest.makeSuite(TestQueryFactory)

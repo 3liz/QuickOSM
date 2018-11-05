@@ -47,7 +47,7 @@ def get_current_version():
 
 def new_queries_available():
     status = read_metadata('general', 'newQueries')
-    if status == u'True':
+    if status == 'True':
         return True
     else:
         return False
