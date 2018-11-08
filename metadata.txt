@@ -57,7 +57,7 @@ tags=osm,openstreetmap,overpass,download,osmdownloader,josm,remote,pbf
 homepage=https://github.com/3liz/QuickOSM
 tracker=https://github.com/3liz/QuickOSM/issues
 repository=https://github.com/3liz/QuickOSM
-icon=resources/icon.png
+icon=resources/QuickOSM.svg
 # experimental flag
 experimental=False
 
