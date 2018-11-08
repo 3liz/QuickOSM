@@ -133,7 +133,7 @@ class QuickOSMPlugin(object):
         # Action JOSM
         self.josmAction = QAction(
             QIcon(join(dirname(__file__), 'resources', 'josm_icon.svg')),
-            'JOSM Remote',
+            tr('JOSM Remote'),
             self.iface.mainWindow())
         self.josmAction.triggered.connect(self.josm_remote)
         self.toolbar.addAction(self.josmAction)
@@ -214,7 +214,7 @@ class QuickOSMPlugin(object):
                     tr('JOSM Remote'), tr('Import done, check JOSM'))
         except IOError:
             self.iface.messageBar().pushCritical(
-                tr('JOSM Remote'), tr('Is the remote enabled?'))
+                tr('JOSM Remote'), tr('Is the remote enabled?'))git check
 
     def openMainWindow(self):
         self.iface.QuickOSM_mainWindowDialog.listWidget.setCurrentRow(0)
