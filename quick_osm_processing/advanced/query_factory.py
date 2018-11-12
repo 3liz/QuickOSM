@@ -61,6 +61,10 @@ class QueryFactoryBasedAlgorithm(QgisAlgorithm):
     def group():
         return tr('Advanced')
 
+    @staticmethod
+    def groupId():
+        return 'advanced'
+
     def flags(self):
         return super().flags() | QgsProcessingAlgorithm.FlagHideFromToolbox
 
