@@ -21,6 +21,7 @@
 from processing.algs.qgis.QgisAlgorithm import QgisAlgorithm
 from qgis.core import (
     QgsProcessingAlgorithm,
+    QgsProcessingParameterDefinition,
     QgsProcessingParameterString,
     QgsProcessingParameterExtent,
     QgsProcessingParameterNumber,
@@ -78,14 +79,16 @@ class QueryFactoryBasedAlgorithm(QgisAlgorithm):
                 self.VALUE, tr('Value, default to all values'), optional=True))
 
     def add_bottom_parameters(self):
-        self.addParameter(
-            QgsProcessingParameterNumber(
-                self.TIMEOUT, tr('Timeout'), defaultValue=25, minValue=5))
+        parameter = QgsProcessingParameterNumber(
+            self.TIMEOUT, tr('Timeout'), defaultValue=25, minValue=5)
+        parameter.setFlags(parameter.flags() | QgsProcessingParameterDefinition.FlagAdvanced)
+        self.addParameter(parameter)
 
         server = get_setting('defaultOAPI') + 'interpreter'
-        self.addParameter(
-            QgsProcessingParameterString(
-                self.SERVER, tr('Overpass server'), optional=False, defaultValue=server))
+        parameter = QgsProcessingParameterString(
+            self.SERVER, tr('Overpass server'), optional=False, defaultValue=server)
+        parameter.setFlags(parameter.flags() | QgsProcessingParameterDefinition.FlagAdvanced)
+        self.addParameter(parameter)
 
         self.addOutput(
             QgsProcessingOutputString(
