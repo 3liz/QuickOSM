@@ -38,7 +38,7 @@ from QuickOSM.core.query_preparation import QueryPreparation
 from QuickOSM.core.utilities.tools import tr, get_setting
 
 
-class QueryFactoryBasedAlgorithm(QgisAlgorithm):
+class BuildQueryBasedAlgorithm(QgisAlgorithm):
 
     SERVER = 'SERVER'
     KEY = 'KEY'
@@ -48,7 +48,7 @@ class QueryFactoryBasedAlgorithm(QgisAlgorithm):
     OUTPUT_OQL_QUERY = 'OUTPUT_OQL_QUERY'
 
     def __init__(self):
-        super(QueryFactoryBasedAlgorithm, self).__init__()
+        super(BuildQueryBasedAlgorithm, self).__init__()
         self.feedback = None
         self.key = None
         self.value = None
@@ -92,7 +92,7 @@ class QueryFactoryBasedAlgorithm(QgisAlgorithm):
 
         self.addOutput(
             QgsProcessingOutputString(
-                self.OUTPUT_URL, tr('Query as URL')))
+                self.OUTPUT_URL, tr('Query as encoded URL')))
 
         self.addOutput(
             QgsProcessingOutputString(
@@ -126,17 +126,17 @@ class QueryFactoryBasedAlgorithm(QgisAlgorithm):
         return outputs
 
 
-class QueryFactoryNotSpatialAlgorithm(QueryFactoryBasedAlgorithm):
+class BuildQueryNotSpatialAlgorithm(BuildQueryBasedAlgorithm):
 
     QUERY_TYPE = QueryType.NotSpatial
 
     @staticmethod
     def name():
-        return 'query_factory_not_spatial'
+        return 'buildquerybyattributeonly'
 
     @staticmethod
     def displayName():
-        return tr('Query factory by attribute only')
+        return tr('Build query by attribute only')
 
     def initAlgorithm(self, config=None):
         self.add_top_parameters()
@@ -148,24 +148,24 @@ class QueryFactoryNotSpatialAlgorithm(QueryFactoryBasedAlgorithm):
         return self.build_query()
 
 
-class QueryFactoryInNominatimAlgorithm(QueryFactoryBasedAlgorithm):
+class BuildQueryInNominatimAlgorithm(BuildQueryBasedAlgorithm):
 
     QUERY_TYPE = QueryType.InNominatimPlace
     NOMINATIM = 'NOMINATIM'
 
     @staticmethod
     def name():
-        return 'query_factory_in_nominatim'
+        return 'buildqueryinsidearea'
 
     @staticmethod
     def displayName():
-        return tr('Query factory in a place')
+        return tr('Build query inside an area')
 
     def initAlgorithm(self, config=None):
         self.add_top_parameters()
         self.addParameter(
             QgsProcessingParameterString(
-                self.NOMINATIM, tr('In'), optional=False))
+                self.NOMINATIM, tr('Inside the area'), optional=False))
         self.add_bottom_parameters()
 
     def processAlgorithm(self, parameters, context, feedback):
@@ -175,7 +175,7 @@ class QueryFactoryInNominatimAlgorithm(QueryFactoryBasedAlgorithm):
         return self.build_query()
 
 
-class QueryFactoryAroundNominatimAlgorithm(QueryFactoryBasedAlgorithm):
+class BuildQueryAroundNominatimAlgorithm(BuildQueryBasedAlgorithm):
 
     QUERY_TYPE = QueryType.AroundNominatimPlace
     NOMINATIM = 'NOMINATIM'
@@ -183,20 +183,20 @@ class QueryFactoryAroundNominatimAlgorithm(QueryFactoryBasedAlgorithm):
 
     @staticmethod
     def name():
-        return 'query_factory_around_nominatim'
+        return 'buildqueryaroundarea'
 
     @staticmethod
     def displayName():
-        return tr('Query factory around a place')
+        return tr('Build query around an area')
 
     def initAlgorithm(self, config=None):
         self.add_top_parameters()
         self.addParameter(
             QgsProcessingParameterString(
-                self.NOMINATIM, tr('Around'), optional=False))
+                self.NOMINATIM, tr('Around the area'), optional=False))
         self.addParameter(
             QgsProcessingParameterNumber(
-                self.DISTANCE, tr('Distance'), defaultValue=1000, minValue=1))
+                self.DISTANCE, tr('Distance (meters)'), defaultValue=1000, minValue=1))
         self.add_bottom_parameters()
 
     def processAlgorithm(self, parameters, context, feedback):
@@ -207,18 +207,18 @@ class QueryFactoryAroundNominatimAlgorithm(QueryFactoryBasedAlgorithm):
         return self.build_query()
 
 
-class QueryFactoryExtentAlgorithm(QueryFactoryBasedAlgorithm):
+class BuildQueryExtentAlgorithm(BuildQueryBasedAlgorithm):
 
     QUERY_TYPE = QueryType.BBox
     EXTENT = 'EXTENT'
 
     @staticmethod
     def name():
-        return 'query_factory_extent'
+        return 'buildqueryextent'
 
     @staticmethod
     def displayName():
-        return tr('Query factory in an extent')
+        return tr('Build query inside an extent')
 
     def initAlgorithm(self, config=None):
         self.add_top_parameters()

@@ -34,11 +34,11 @@ from qgis.PyQt.QtGui import QIcon
 from qgis.core import QgsProcessingProvider
 
 from QuickOSM.quick_osm_processing.advanced.open_osm_file import OpenOsmFile
-from QuickOSM.quick_osm_processing.advanced.query_factory import (
-    QueryFactoryInNominatimAlgorithm,
-    QueryFactoryAroundNominatimAlgorithm,
-    QueryFactoryExtentAlgorithm,
-    QueryFactoryNotSpatialAlgorithm,
+from QuickOSM.quick_osm_processing.advanced.build_query import (
+    BuildQueryInNominatimAlgorithm,
+    BuildQueryAroundNominatimAlgorithm,
+    BuildQueryExtentAlgorithm,
+    BuildQueryNotSpatialAlgorithm,
 )
 from QuickOSM.core.utilities.tools import resources_path
 
@@ -48,10 +48,10 @@ class Provider(QgsProcessingProvider):
         super().__init__()
         self.alglist = [
             OpenOsmFile(),
-            QueryFactoryInNominatimAlgorithm(),
-            QueryFactoryAroundNominatimAlgorithm(),
-            QueryFactoryExtentAlgorithm(),
-            QueryFactoryNotSpatialAlgorithm(),
+            BuildQueryInNominatimAlgorithm(),
+            BuildQueryAroundNominatimAlgorithm(),
+            BuildQueryExtentAlgorithm(),
+            BuildQueryNotSpatialAlgorithm(),
         ]
 
     def getAlgs(self):
