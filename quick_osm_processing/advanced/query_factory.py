@@ -132,7 +132,7 @@ class QueryFactoryNotSpatialAlgorithm(QueryFactoryBasedAlgorithm):
 
     @staticmethod
     def name():
-        return 'query_factory_not_spatial'
+        return 'queryfactorybyattributeonly'
 
     @staticmethod
     def displayName():
@@ -155,17 +155,17 @@ class QueryFactoryInNominatimAlgorithm(QueryFactoryBasedAlgorithm):
 
     @staticmethod
     def name():
-        return 'query_factory_in_nominatim'
+        return 'queryfactoryinplacearea'
 
     @staticmethod
     def displayName():
-        return tr('Query factory in a place')
+        return tr('Query factory in an area')
 
     def initAlgorithm(self, config=None):
         self.add_top_parameters()
         self.addParameter(
             QgsProcessingParameterString(
-                self.NOMINATIM, tr('In'), optional=False))
+                self.NOMINATIM, tr('In the area'), optional=False))
         self.add_bottom_parameters()
 
     def processAlgorithm(self, parameters, context, feedback):
@@ -183,11 +183,11 @@ class QueryFactoryAroundNominatimAlgorithm(QueryFactoryBasedAlgorithm):
 
     @staticmethod
     def name():
-        return 'query_factory_around_nominatim'
+        return 'queryfactoryaroundarea'
 
     @staticmethod
     def displayName():
-        return tr('Query factory around a place')
+        return tr('Query factory around an area')
 
     def initAlgorithm(self, config=None):
         self.add_top_parameters()
@@ -214,7 +214,7 @@ class QueryFactoryExtentAlgorithm(QueryFactoryBasedAlgorithm):
 
     @staticmethod
     def name():
-        return 'query_factory_extent'
+        return 'queryfactoryextent'
 
     @staticmethod
     def displayName():
