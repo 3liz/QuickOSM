@@ -25,11 +25,12 @@ from processing.algs.qgis.QgisAlgorithm import QgisAlgorithm
 from qgis.core import (
     QgsVectorLayer,
     QgsProcessing,
-    QgsProcessingContext,
+    QgsProcessingAlgorithm,
     QgsProcessingException,
     QgsProcessingParameterFile,
     QgsProcessingOutputVectorLayer,
 )
+from QuickOSM.core.utilities.tools import tr
 
 
 class OpenOsmFile(QgisAlgorithm):
@@ -45,6 +46,17 @@ class OpenOsmFile(QgisAlgorithm):
     def __init__(self):
         super(OpenOsmFile, self).__init__()
         self.feedback = None
+
+    @staticmethod
+    def group():
+        return tr('Advanced')
+
+    @staticmethod
+    def groupId():
+        return 'advanced'
+
+    def flags(self):
+        return super().flags() | QgsProcessingAlgorithm.FlagHideFromToolbox
 
     @staticmethod
     def name():
@@ -99,33 +111,18 @@ class OpenOsmFile(QgisAlgorithm):
 
         points = QgsVectorLayer('{}|layername=points'.format(file), 'points', 'ogr')
         context.temporaryLayerStore().addMapLayer(points)
-        context.addLayerToLoadOnCompletion(
-            points.id(),
-            QgsProcessingContext.LayerDetails('Points', context.project(), self.OUTPUT_POINTS))
 
         lines = QgsVectorLayer('{}|layername=lines'.format(file), 'lines', 'ogr')
         context.temporaryLayerStore().addMapLayer(lines)
-        context.addLayerToLoadOnCompletion(
-            lines.id(),
-            QgsProcessingContext.LayerDetails('Lines', context.project(), self.OUTPUT_LINES))
 
         multilinestrings = QgsVectorLayer('{}|layername=multilinestrings'.format(file), 'multilinestrings', 'ogr')
         context.temporaryLayerStore().addMapLayer(multilinestrings)
-        context.addLayerToLoadOnCompletion(
-            multilinestrings.id(),
-            QgsProcessingContext.LayerDetails('Multilinestrings', context.project(), self.OUTPUT_MULTILINESTRINGS))
 
         multipolygons = QgsVectorLayer('{}|layername=multipolygons'.format(file), 'multipolygons', 'ogr')
         context.temporaryLayerStore().addMapLayer(multipolygons)
-        context.addLayerToLoadOnCompletion(
-            multipolygons.id(),
-            QgsProcessingContext.LayerDetails('Multipolygons', context.project(), self.OUTPUT_MULTIPOLYGONS))
 
         other_relations = QgsVectorLayer('{}|layername=other_relations'.format(file), 'other_relations', 'ogr')
         context.temporaryLayerStore().addMapLayer(other_relations)
-        context.addLayerToLoadOnCompletion(
-            other_relations.id(),
-            QgsProcessingContext.LayerDetails('Other_relations', context.project(), self.OUTPUT_OTHER_RELATIONS))
 
         outputs = {
             self.OUTPUT_POINTS: points.id(),

@@ -33,13 +33,14 @@ from qgis.PyQt.QtGui import QIcon
 
 from qgis.core import QgsProcessingProvider
 
-from QuickOSM.quick_osm_processing.advanced.open_osm_file import OpenOsmFile
 from QuickOSM.quick_osm_processing.advanced.build_query import (
     BuildQueryInNominatimAlgorithm,
     BuildQueryAroundNominatimAlgorithm,
     BuildQueryExtentAlgorithm,
     BuildQueryNotSpatialAlgorithm,
 )
+from QuickOSM.quick_osm_processing.advanced.download_overpass import DownloadOverpassUrl
+from QuickOSM.quick_osm_processing.advanced.open_osm_file import OpenOsmFile
 from QuickOSM.core.utilities.tools import resources_path
 
 
@@ -47,7 +48,8 @@ class Provider(QgsProcessingProvider):
     def __init__(self):
         super().__init__()
         self.alglist = [
-            OpenOsmFile(),
+            # DownloadOverpassUrl(),
+            # OpenOsmFile(),
             BuildQueryInNominatimAlgorithm(),
             BuildQueryAroundNominatimAlgorithm(),
             BuildQueryExtentAlgorithm(),
