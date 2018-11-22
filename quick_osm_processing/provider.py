@@ -41,6 +41,7 @@ from QuickOSM.quick_osm_processing.advanced.build_query import (
 )
 from QuickOSM.quick_osm_processing.advanced.download_overpass import DownloadOverpassUrl
 from QuickOSM.quick_osm_processing.advanced.open_osm_file import OpenOsmFile
+# from QuickOSM.quick_osm_processing.advanced.raw_query import RawQueryAlgorithm
 from QuickOSM.core.utilities.tools import resources_path
 
 
@@ -48,12 +49,13 @@ class Provider(QgsProcessingProvider):
     def __init__(self):
         super().__init__()
         self.alglist = [
-            # DownloadOverpassUrl(),
-            # OpenOsmFile(),
             BuildQueryInNominatimAlgorithm(),
             BuildQueryAroundNominatimAlgorithm(),
             BuildQueryExtentAlgorithm(),
             BuildQueryNotSpatialAlgorithm(),
+            # DownloadOverpassUrl(),
+            # OpenOsmFile(),
+            # RawQueryAlgorithm(),
         ]
 
     def getAlgs(self):
