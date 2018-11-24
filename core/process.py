@@ -164,8 +164,9 @@ def process_query(
     dialog.set_progress_text(tr('Prepare outputs'))
 
     # Getting the default overpass api and running the query
-    server = get_setting('defaultOAPI')
-    dialog.set_progress_text(tr('Downloading data from Overpass'))
+    server = get_setting('defaultOAPI') + 'interpreter'
+    dialog.set_progress_text(
+        tr('Downloading data from Overpass {}').format(server))
     # Replace Nominatim or BBOX
     query = QueryPreparation(query, bbox, nominatim, server)
     QApplication.processEvents()
