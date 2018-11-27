@@ -15,6 +15,7 @@
 	"addr:street": [],
 	"addr:postcode": [],
 	"addr:city": [],
+	"alt_name": [],
 	"amenity": [
 		"animal_boarding",
 		"animal_shelter",
@@ -244,6 +245,7 @@
 		"wayside_shrine",
 		"yes"
 	],
+	"inscription": [],
 	"landuse": [
 		"allotments",
 		"basin",
@@ -288,6 +290,7 @@
 		"track",
 		"water_park"
 	],
+	"loc_name": [],
 	"man_made": [
 		"chimney",
 		"cross",
@@ -303,6 +306,7 @@
 		"yes"
 	],
 	"mapillary": [],
+	"name": [],
 	"natural": [
 		"bay",
 		"beach",
@@ -359,6 +363,8 @@
 		"travel_agent",
 		"water_utility"
 	],
+	"old_name": [],
+	"operator": [],
 	"place": [
 		"allotments",
 		"archipelago",
@@ -581,6 +587,7 @@
 		"train",
 		"tram"
 	],
+	"short_name": [],
 	"tourism": [
 		"alpine_hut",
 		"apartement",
