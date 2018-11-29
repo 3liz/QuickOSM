@@ -46,9 +46,9 @@ from QuickOSM.core.utilities.tools import resources_path
 
 
 class Provider(QgsProcessingProvider):
-    def __init__(self):
-        super().__init__()
-        self.alglist = [
+
+    def getAlgs(self):
+        algs = [
             BuildQueryInNominatimAlgorithm(),
             BuildQueryAroundNominatimAlgorithm(),
             BuildQueryExtentAlgorithm(),
@@ -57,9 +57,7 @@ class Provider(QgsProcessingProvider):
             # OpenOsmFile(),
             # RawQueryAlgorithm(),
         ]
-
-    def getAlgs(self):
-        return self.alglist
+        return algs
 
     def id(self, *args, **kwargs):
         return 'quickosm'
@@ -74,5 +72,5 @@ class Provider(QgsProcessingProvider):
         return resources_path('QuickOSM.svg')
 
     def loadAlgorithms(self, *args, **kwargs):
-        for alg in self.alglist:
+        for alg in self.getAlgs():
             self.addAlgorithm(alg)
