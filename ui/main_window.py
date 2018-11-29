@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'ui/main_window.ui'
 #
-# Created by: PyQt5 UI code generator 5.9.2
+# Created by: PyQt5 UI code generator 5.10.1
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -259,7 +259,7 @@ class Ui_ui_main_window(object):
         self.label_19.setObjectName("label_19")
         self.gridLayout_4.addWidget(self.label_19, 0, 0, 1, 1)
         self.label_20 = QtWidgets.QLabel(self.groupBox_6)
-        self.label_20.setText("<a href=\"https://github.com/3liz/QgisQuickOSMPlugin\" style=\"color:#7BA11A;text-decoration:none;\">https://github.com/3liz/QgisQuickOSMPlugin</a>")
+        self.label_20.setText("<a href=\"https://github.com/3liz/QuickOSM\" style=\"color:#7BA11A;text-decoration:none;\">https://github.com/3liz/QuickOSM</a>")
         self.label_20.setOpenExternalLinks(True)
         self.label_20.setObjectName("label_20")
         self.gridLayout_4.addWidget(self.label_20, 0, 1, 1, 1)

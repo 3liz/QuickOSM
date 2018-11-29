@@ -485,7 +485,7 @@ QListWidget::item::selected {
                   <item row="0" column="1">
                    <widget class="QLabel" name="label_20">
                     <property name="text">
-                     <string notr="true">&lt;a href=&quot;https://github.com/3liz/QuickOSM&quot; style=&quot;color:#7BA11A;text-decoration:none;&quot;&gt;https://github.com/3liz/QuickOSMq&lt;/a&gt;</string>
+                     <string notr="true">&lt;a href=&quot;https://github.com/3liz/QuickOSM&quot; style=&quot;color:#7BA11A;text-decoration:none;&quot;&gt;https://github.com/3liz/QuickOSM&lt;/a&gt;</string>
                     </property>
                     <property name="openExternalLinks">
                      <bool>true</bool>
