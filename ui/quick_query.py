@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'ui/quick_query.ui'
 #
-# Created by: PyQt5 UI code generator 5.10.1
+# Created by: PyQt5 UI code generator 5.11.2
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -99,7 +99,7 @@ class Ui_ui_quick_query(object):
         self.horizontalLayout_7.setContentsMargins(0, 0, 0, 0)
         self.horizontalLayout_7.setSpacing(0)
         self.horizontalLayout_7.setObjectName("horizontalLayout_7")
-        self.comboBox_extentLayer = QgsMapLayerComboBox(self.layerExtent)
+        self.comboBox_extentLayer = gui.QgsMapLayerComboBox(self.layerExtent)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Expanding)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -113,7 +113,7 @@ class Ui_ui_quick_query(object):
         self.stacked_query_type.addWidget(self.nothingDisplayed)
         self.formLayout.setWidget(2, QtWidgets.QFormLayout.FieldRole, self.stacked_query_type)
         self.verticalLayout.addLayout(self.formLayout)
-        self.advanced = QgsCollapsibleGroupBox(self.scrollAreaWidgetContents)
+        self.advanced = gui.QgsCollapsibleGroupBox(self.scrollAreaWidgetContents)
         self.advanced.setChecked(False)
         self.advanced.setObjectName("advanced")
         self.verticalLayout_2 = QtWidgets.QVBoxLayout(self.advanced)
@@ -205,7 +205,7 @@ class Ui_ui_quick_query(object):
         self.label_4 = QtWidgets.QLabel(self.advanced)
         self.label_4.setObjectName("label_4")
         self.formLayout_2.setWidget(1, QtWidgets.QFormLayout.LabelRole, self.label_4)
-        self.output_directory = QgsFileWidget(self.advanced)
+        self.output_directory = gui.QgsFileWidget(self.advanced)
         self.output_directory.setObjectName("output_directory")
         self.formLayout_2.setWidget(1, QtWidgets.QFormLayout.FieldRole, self.output_directory)
         self.label_6 = QtWidgets.QLabel(self.advanced)
@@ -248,6 +248,25 @@ class Ui_ui_quick_query(object):
         self.retranslateUi(ui_quick_query)
         self.stacked_query_type.setCurrentIndex(0)
         QtCore.QMetaObject.connectSlotsByName(ui_quick_query)
+        ui_quick_query.setTabOrder(self.comboBox_key, self.comboBox_value)
+        ui_quick_query.setTabOrder(self.comboBox_value, self.cb_query_type)
+        ui_quick_query.setTabOrder(self.cb_query_type, self.lineEdit_nominatim)
+        ui_quick_query.setTabOrder(self.lineEdit_nominatim, self.spinBox_distance_point)
+        ui_quick_query.setTabOrder(self.spinBox_distance_point, self.comboBox_extentLayer)
+        ui_quick_query.setTabOrder(self.comboBox_extentLayer, self.advanced)
+        ui_quick_query.setTabOrder(self.advanced, self.checkBox_node)
+        ui_quick_query.setTabOrder(self.checkBox_node, self.checkBox_way)
+        ui_quick_query.setTabOrder(self.checkBox_way, self.checkBox_relation)
+        ui_quick_query.setTabOrder(self.checkBox_relation, self.checkBox_points)
+        ui_quick_query.setTabOrder(self.checkBox_points, self.checkBox_lines)
+        ui_quick_query.setTabOrder(self.checkBox_lines, self.checkBox_multilinestrings)
+        ui_quick_query.setTabOrder(self.checkBox_multilinestrings, self.checkBox_multipolygons)
+        ui_quick_query.setTabOrder(self.checkBox_multipolygons, self.spinBox_timeout)
+        ui_quick_query.setTabOrder(self.spinBox_timeout, self.lineEdit_filePrefix)
+        ui_quick_query.setTabOrder(self.lineEdit_filePrefix, self.pushButton_showQuery)
+        ui_quick_query.setTabOrder(self.pushButton_showQuery, self.pushButton_runQuery)
+        ui_quick_query.setTabOrder(self.pushButton_runQuery, self.scrollArea)
+        ui_quick_query.setTabOrder(self.scrollArea, self.pushButton_mapFeatures)
 
     def retranslateUi(self, ui_quick_query):
         _translate = QtCore.QCoreApplication.translate
@@ -264,4 +283,4 @@ class Ui_ui_quick_query(object):
         self.pushButton_showQuery.setText(_translate("ui_quick_query", "Show query"))
         self.pushButton_runQuery.setText(_translate("ui_quick_query", "Run query"))
 
-from qgis.gui import QgsCollapsibleGroupBox, QgsFileWidget, QgsMapLayerComboBox
+from qgis import gui

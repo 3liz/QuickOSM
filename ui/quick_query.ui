@@ -386,7 +386,7 @@
              </widget>
             </item>
             <item row="1" column="1">
-             <widget class="QgsFileWidget" name="output_directory" native="true"/>
+             <widget class="QgsFileWidget" name="output_directory"/>
             </item>
             <item row="2" column="0">
              <widget class="QLabel" name="label_6">
@@ -470,21 +470,43 @@
   <customwidget>
    <class>QgsCollapsibleGroupBox</class>
    <extends>QGroupBox</extends>
-   <header>qgis.gui</header>
+   <header>qgscollapsiblegroupbox.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>QgsFileWidget</class>
+   <extends>QWidget</extends>
+   <header>qgsfilewidget.h</header>
    <container>1</container>
   </customwidget>
   <customwidget>
    <class>QgsMapLayerComboBox</class>
    <extends>QComboBox</extends>
-   <header>qgis.gui</header>
-  </customwidget>
-  <customwidget>
-   <class>QgsFileWidget</class>
-   <extends>QWidget</extends>
-   <header>qgis.gui</header>
-   <container>1</container>
+   <header>qgsmaplayercombobox.h</header>
   </customwidget>
  </customwidgets>
+ <tabstops>
+  <tabstop>comboBox_key</tabstop>
+  <tabstop>comboBox_value</tabstop>
+  <tabstop>cb_query_type</tabstop>
+  <tabstop>lineEdit_nominatim</tabstop>
+  <tabstop>spinBox_distance_point</tabstop>
+  <tabstop>comboBox_extentLayer</tabstop>
+  <tabstop>advanced</tabstop>
+  <tabstop>checkBox_node</tabstop>
+  <tabstop>checkBox_way</tabstop>
+  <tabstop>checkBox_relation</tabstop>
+  <tabstop>checkBox_points</tabstop>
+  <tabstop>checkBox_lines</tabstop>
+  <tabstop>checkBox_multilinestrings</tabstop>
+  <tabstop>checkBox_multipolygons</tabstop>
+  <tabstop>spinBox_timeout</tabstop>
+  <tabstop>lineEdit_filePrefix</tabstop>
+  <tabstop>pushButton_showQuery</tabstop>
+  <tabstop>pushButton_runQuery</tabstop>
+  <tabstop>scrollArea</tabstop>
+  <tabstop>pushButton_mapFeatures</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>
