@@ -272,8 +272,13 @@ class Ui_ui_quick_query(object):
         _translate = QtCore.QCoreApplication.translate
         ui_quick_query.setWindowTitle(_translate("ui_quick_query", "QuickOSM - Quick query"))
         self.pushButton_mapFeatures.setText(_translate("ui_quick_query", "Help with key/value"))
+        self.label.setToolTip(_translate("ui_quick_query", "An OSM key to fetch. If empty, all keys will be fetched."))
         self.label.setText(_translate("ui_quick_query", "Key"))
+        self.comboBox_key.setToolTip(_translate("ui_quick_query", "An OSM key to fetch. If empty, all keys will be fetched."))
+        self.label_2.setToolTip(_translate("ui_quick_query", "An OSM value to fetch. If empty, all values will be fetched."))
         self.label_2.setText(_translate("ui_quick_query", "Value"))
+        self.comboBox_value.setToolTip(_translate("ui_quick_query", "An OSM value to fetch. If empty, all values will be fetched."))
+        self.cb_query_type.setToolTip(_translate("ui_quick_query", "The spatial extent to use for the query."))
         self.lineEdit_nominatim.setPlaceholderText(_translate("ui_quick_query", "A village, a town, ..."))
         self.spinBox_distance_point.setSuffix(_translate("ui_quick_query", "m"))
         self.advanced.setTitle(_translate("ui_quick_query", "Advanced"))
