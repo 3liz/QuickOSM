@@ -24,16 +24,12 @@ from qgis.core import (
     QgsProcessingParameterDefinition,
     QgsProcessingParameterString,
     QgsProcessingParameterExtent,
-    QgsProcessingParameterNumber,
     QgsProcessingOutputString,
     QgsCoordinateTransform,
     QgsProject,
     QgsCoordinateReferenceSystem,
 )
 
-
-from QuickOSM.definitions.osm import ALL_QUERY_TYPES, QueryType, ALL_OSM_TYPES, OsmType
-from QuickOSM.core.query_factory import QueryFactory
 from QuickOSM.core.query_preparation import QueryPreparation
 from QuickOSM.core.utilities.tools import tr, get_setting
 
@@ -43,12 +39,9 @@ class RawQueryAlgorithm(QgisAlgorithm):
     SERVER = 'SERVER'
     QUERY = 'QUERY'
     EXTENT = 'EXTENT'
+    NOMINATIM = 'NOMINATIM'
     OUTPUT_URL = 'OUTPUT_URL'
     OUTPUT_OQL_QUERY = 'OUTPUT_OQL_QUERY'
-
-    def __init__(self):
-        super(RawQueryAlgorithm, self).__init__()
-        self.feedback = None
 
     @staticmethod
     def group():
@@ -58,27 +51,36 @@ class RawQueryAlgorithm(QgisAlgorithm):
     def groupId():
         return 'advanced'
 
+    @staticmethod
+    def name():
+        return 'buildrawquery'
+
+    @staticmethod
+    def displayName():
+        return tr('Build raw query')
+
     def flags(self):
         return super().flags() | QgsProcessingAlgorithm.FlagHideFromToolbox
 
-    def add_top_parameters(self):
+    def initAlgorithm(self, config=None):
         self.addParameter(
             QgsProcessingParameterString(
-                self.KEY, tr('Key, default to all keys'), optional=True))
+                self.QUERY, tr('Query'), optional=False, multiLine=True))
 
         self.addParameter(
-            QgsProcessingParameterString(
-                self.VALUE, tr('Value, default to all values'), optional=True))
-
-    def add_bottom_parameters(self):
-        parameter = QgsProcessingParameterNumber(
-            self.TIMEOUT, tr('Timeout'), defaultValue=25, minValue=5)
-        parameter.setFlags(parameter.flags() | QgsProcessingParameterDefinition.FlagAdvanced)
-        self.addParameter(parameter)
+            QgsProcessingParameterExtent(
+                self.EXTENT, tr('Extent, if "{{bbox}}" in the query'), optional=True))
 
         server = get_setting('defaultOAPI') + 'interpreter'
         parameter = QgsProcessingParameterString(
             self.SERVER, tr('Overpass server'), optional=False, defaultValue=server)
+        parameter.setFlags(parameter.flags() | QgsProcessingParameterDefinition.FlagAdvanced)
+        self.addParameter(parameter)
+
+        parameter = QgsProcessingParameterString(
+            self.NOMINATIM,
+            tr('Place (if you want to override {{geocodeArea}} in the query'),
+            optional=True)
         parameter.setFlags(parameter.flags() | QgsProcessingParameterDefinition.FlagAdvanced)
         self.addParameter(parameter)
 
@@ -90,23 +92,20 @@ class RawQueryAlgorithm(QgisAlgorithm):
             QgsProcessingOutputString(
                 self.OUTPUT_OQL_QUERY, tr('Raw query as OQL')))
 
-    def fetch_based_parameters(self, parameters, context):
-        self.key = self.parameterAsString(parameters, self.KEY, context)
-        self.value = self.parameterAsString(parameters, self.VALUE, context)
-        self.timeout = self.parameterAsInt(parameters, self.TIMEOUT, context)
-        self.server = self.parameterAsString(parameters, self.SERVER, context)
+    def processAlgorithm(self, parameters, context, feedback):
+        raw_query = self.parameterAsString(parameters, self.QUERY, context)
+        server = self.parameterAsString(parameters, self.SERVER, context)
+        nominatim = self.parameterAsString(parameters, self.NOMINATIM, context)
+        extent = self.parameterAsExtent(parameters, self.EXTENT, context)
+        crs = self.parameterAsExtentCrs(parameters, self.EXTENT, context)
 
-    def build_query(self):
-        query_factory = QueryFactory(
-            query_type=self.QUERY_TYPE,
-            key=self.key,
-            value=self.value,
-            nominatim_place=self.nominatim,
-            around_distance=self.distance,
-            timeout=self.timeout)
-        raw_query = query_factory.make()
+        crs_4326 = QgsCoordinateReferenceSystem(4326)
+        transform = QgsCoordinateTransform(
+            crs, crs_4326, QgsProject.instance())
+        extent = transform.transform(extent)
+
         query_preparation = QueryPreparation(
-            raw_query, nominatim_place=self.nominatim, extent=self.extent, overpass=self.server
+            raw_query, extent=extent, nominatim_place=nominatim, overpass=server
         )
         raw_query = query_preparation.prepare_query()
         url = query_preparation.prepare_url()
@@ -116,37 +115,3 @@ class RawQueryAlgorithm(QgisAlgorithm):
             self.OUTPUT_OQL_QUERY: raw_query,
         }
         return outputs
-
-
-class BuildQueryExtentAlgorithm(BuildQueryBasedAlgorithm):
-
-    QUERY_TYPE = QueryType.BBox
-    EXTENT = 'EXTENT'
-
-    @staticmethod
-    def name():
-        return 'buildqueryextent'
-
-    @staticmethod
-    def displayName():
-        return tr('Build query inside an extent')
-
-    def initAlgorithm(self, config=None):
-        self.add_top_parameters()
-        self.addParameter(
-            QgsProcessingParameterExtent(
-                self.EXTENT, tr('Extent'), optional=False))
-        self.add_bottom_parameters()
-
-    def processAlgorithm(self, parameters, context, feedback):
-        self.feedback = feedback
-        self.fetch_based_parameters(parameters, context)
-
-        extent = self.parameterAsExtent(parameters, self.EXTENT, context)
-        crs = self.parameterAsExtentCrs(parameters, self.EXTENT, context)
-
-        crs_4326 = QgsCoordinateReferenceSystem(4326)
-        transform = QgsCoordinateTransform(crs, crs_4326, QgsProject.instance())
-        self.extent = transform.transform(extent)
-
-        return self.build_query()
