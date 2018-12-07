@@ -34,8 +34,8 @@ from qgis.PyQt.QtGui import QIcon
 from qgis.core import QgsProcessingProvider
 
 from QuickOSM.quick_osm_processing.advanced.build_query import (
-    BuildQueryInNominatimAlgorithm,
-    BuildQueryAroundNominatimAlgorithm,
+    BuildQueryInAreaAlgorithm,
+    BuildQueryAroundAreaAlgorithm,
     BuildQueryExtentAlgorithm,
     BuildQueryNotSpatialAlgorithm,
 )
@@ -49,8 +49,8 @@ class Provider(QgsProcessingProvider):
 
     def getAlgs(self):
         algs = [
-            BuildQueryInNominatimAlgorithm(),
-            BuildQueryAroundNominatimAlgorithm(),
+            BuildQueryInAreaAlgorithm(),
+            BuildQueryAroundAreaAlgorithm(),
             BuildQueryExtentAlgorithm(),
             BuildQueryNotSpatialAlgorithm(),
             # DownloadOverpassUrl(),

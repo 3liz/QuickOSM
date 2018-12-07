@@ -330,9 +330,9 @@ class QuickQueryWidget(QuickOSMWidget, Ui_ui_quick_query):
         # Move this logic UP
         # Copy/paste in quick_query_dialog.py
         if is_around and nominatim:
-            query_type = QueryType.AroundNominatimPlace
+            query_type = QueryType.AroundArea
         elif not is_around and nominatim:
-            query_type = QueryType.InNominatimPlace
+            query_type = QueryType.InArea
         elif bbox:
             query_type = QueryType.BBox
         else:
@@ -344,7 +344,7 @@ class QuickQueryWidget(QuickOSMWidget, Ui_ui_quick_query):
             query_type=query_type,
             key=key,
             value=value,
-            nominatim_place=nominatim,
+            area=nominatim,
             around_distance=distance,
             osm_objects=osm_objects,
             timeout=timeout

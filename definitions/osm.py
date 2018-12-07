@@ -6,8 +6,8 @@ from enum import Enum
 class QueryType(Enum):
     NotSpatial = 'NotSpatial'
     BBox = 'Bbox'
-    InNominatimPlace = 'InNominatimPlace'
-    AroundNominatimPlace = 'AroundNominatimPlace'
+    InArea = 'InNominatimPlace'
+    AroundArea = 'AroundNominatimPlace'
 
 
 class OsmType(Enum):
@@ -24,8 +24,8 @@ class LayerType(Enum):
 
 
 ALL_QUERY_TYPES = [
-    QueryType.AroundNominatimPlace,
-    QueryType.InNominatimPlace,
+    QueryType.AroundArea,
+    QueryType.InArea,
     QueryType.NotSpatial,
     QueryType.BBox,
 ]

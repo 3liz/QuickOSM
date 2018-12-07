@@ -52,7 +52,7 @@ class BuildQueryBasedAlgorithm(QgisAlgorithm):
         self.feedback = None
         self.key = None
         self.value = None
-        self.nominatim = None
+        self.area = None
         self.extent = None
         self.distance = None
         self.timeout = None
@@ -109,12 +109,12 @@ class BuildQueryBasedAlgorithm(QgisAlgorithm):
             query_type=self.QUERY_TYPE,
             key=self.key,
             value=self.value,
-            nominatim_place=self.nominatim,
+            area=self.area,
             around_distance=self.distance,
             timeout=self.timeout)
         raw_query = query_factory.make()
         query_preparation = QueryPreparation(
-            raw_query, nominatim_place=self.nominatim, extent=self.extent, overpass=self.server
+            raw_query, nominatim_place=self.area, extent=self.extent, overpass=self.server
         )
         raw_query = query_preparation.prepare_query()
         url = query_preparation.prepare_url()
@@ -148,10 +148,10 @@ class BuildQueryNotSpatialAlgorithm(BuildQueryBasedAlgorithm):
         return self.build_query()
 
 
-class BuildQueryInNominatimAlgorithm(BuildQueryBasedAlgorithm):
+class BuildQueryInAreaAlgorithm(BuildQueryBasedAlgorithm):
 
-    QUERY_TYPE = QueryType.InNominatimPlace
-    NOMINATIM = 'NOMINATIM'
+    QUERY_TYPE = QueryType.InArea
+    AREA = 'AREA'
 
     @staticmethod
     def name():
@@ -165,20 +165,20 @@ class BuildQueryInNominatimAlgorithm(BuildQueryBasedAlgorithm):
         self.add_top_parameters()
         self.addParameter(
             QgsProcessingParameterString(
-                self.NOMINATIM, tr('Inside the area'), optional=False))
+                self.AREA, tr('Inside the area'), optional=False))
         self.add_bottom_parameters()
 
     def processAlgorithm(self, parameters, context, feedback):
         self.feedback = feedback
         self.fetch_based_parameters(parameters, context)
-        self.nominatim = self.parameterAsString(parameters, self.NOMINATIM, context)
+        self.area = self.parameterAsString(parameters, self.AREA, context)
         return self.build_query()
 
 
-class BuildQueryAroundNominatimAlgorithm(BuildQueryBasedAlgorithm):
+class BuildQueryAroundAreaAlgorithm(BuildQueryBasedAlgorithm):
 
-    QUERY_TYPE = QueryType.AroundNominatimPlace
-    NOMINATIM = 'NOMINATIM'
+    QUERY_TYPE = QueryType.AroundArea
+    AREA = 'AREA'
     DISTANCE = 'DISTANCE'
 
     @staticmethod
@@ -193,7 +193,7 @@ class BuildQueryAroundNominatimAlgorithm(BuildQueryBasedAlgorithm):
         self.add_top_parameters()
         self.addParameter(
             QgsProcessingParameterString(
-                self.NOMINATIM, tr('Around the area'), optional=False))
+                self.AREA, tr('Around the area'), optional=False))
         self.addParameter(
             QgsProcessingParameterNumber(
                 self.DISTANCE, tr('Distance (meters)'), defaultValue=1000, minValue=1))
@@ -202,7 +202,7 @@ class BuildQueryAroundNominatimAlgorithm(BuildQueryBasedAlgorithm):
     def processAlgorithm(self, parameters, context, feedback):
         self.feedback = feedback
         self.fetch_based_parameters(parameters, context)
-        self.nominatim = self.parameterAsString(parameters, self.NOMINATIM, context)
+        self.area = self.parameterAsString(parameters, self.AREA, context)
         self.distance = self.parameterAsInt(parameters, self.DISTANCE, context)
         return self.build_query()
 

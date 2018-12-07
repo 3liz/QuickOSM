@@ -208,10 +208,10 @@ def process_quick_query(
     # Copy/paste in quick_query_dialog.py
     distance_string = None
     if is_around and nominatim:
-        query_type = QueryType.AroundNominatimPlace
+        query_type = QueryType.AroundArea
         distance_string = str(distance)
     elif not is_around and nominatim:
-        query_type = QueryType.InNominatimPlace
+        query_type = QueryType.InArea
     elif bbox:
         query_type = QueryType.BBox
     else:
@@ -223,7 +223,7 @@ def process_quick_query(
         query_type=query_type,
         key=key,
         value=value,
-        nominatim_place=nominatim,
+        area=nominatim,
         around_distance=distance,
         osm_objects=osm_objects,
         timeout=timeout

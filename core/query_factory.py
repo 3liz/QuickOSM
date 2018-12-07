@@ -37,7 +37,7 @@ class QueryFactory:
             query_type=None,
             key=None,
             value=None,
-            nominatim_place=None,
+            area=None,
             around_distance=None,
             osm_objects=ALL_OSM_TYPES,
             output='xml',
@@ -56,8 +56,8 @@ class QueryFactory:
         :param value: OSM value or None.
         :type value: str,None
 
-        :param nominatim_place: A place name if needed or None
-        :type nominatim_place: str,None
+        :param area: A place name if needed or None.
+        :type area: str,None
 
         :param around_distance: Distance to use if it's an around query or None
         :type around_distance: int,None
@@ -77,7 +77,7 @@ class QueryFactory:
         self._query_type = query_type
         self._key = key
         self._value = value
-        self._nominatim_place = nominatim_place
+        self._area = area
         self._distance_around = around_distance
         self._osm_objects = osm_objects
         self._timeout = timeout
@@ -96,13 +96,13 @@ class QueryFactory:
             if osmObject not in ALL_OSM_TYPES:
                 raise QueryFactoryException(tr('Wrong OSM object'))
 
-        if self._query_type == QueryType.AroundNominatimPlace and not self._distance_around:
+        if self._query_type == QueryType.AroundArea and not self._distance_around:
             raise QueryFactoryException(tr('No distance provided with "around".'))
 
-        nominatim = [
-            QueryType.InNominatimPlace, QueryType.AroundNominatimPlace]
-        if self._query_type in nominatim and not self._nominatim_place:
-            raise QueryFactoryException(tr('Nominatim place required.'))
+        areas = [
+            QueryType.InArea, QueryType.AroundArea]
+        if self._query_type in areas and not self._area:
+            raise QueryFactoryException(tr('Named area required or WKT.'))
 
     @staticmethod
     def get_pretty_xml(query):
@@ -126,13 +126,13 @@ class QueryFactory:
                 (self._output, self._timeout)
 
         # Nominatim might be a list of places or a single place, or not defined
-        if self._nominatim_place:
+        if self._area:
             nominatim = [
-                name.strip() for name in self._nominatim_place.split(';')]
+                name.strip() for name in self._area.split(';')]
         else:
             nominatim = None
 
-        if nominatim and self._query_type != QueryType.AroundNominatimPlace:
+        if nominatim and self._query_type != QueryType.AroundArea:
 
             for i, one_place in enumerate(nominatim):
                 query += '<id-query area="%s" into="area_%s"/>' % (one_place, i)
@@ -151,10 +151,10 @@ class QueryFactory:
 
                     query += '/>'
 
-                if self._nominatim_place and self._query_type != QueryType.AroundNominatimPlace:
+                if self._area and self._query_type != QueryType.AroundArea:
                     query += '<area-query from="area_%s" />' % i
 
-                elif self._nominatim_place and self._query_type == QueryType.AroundNominatimPlace:
+                elif self._area and self._query_type == QueryType.AroundArea:
                     query += '<around area_coords="%s" radius="%s" />' % \
                              (nominatim[i], self._distance_around)
 
