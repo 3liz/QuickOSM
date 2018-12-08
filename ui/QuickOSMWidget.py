@@ -26,7 +26,7 @@ from sys import exc_info
 
 from QuickOSM.core.utilities.tools import tr, quickosm_user_folder
 from QuickOSM.core.utilities.utilities_qgis import display_message_bar
-from QuickOSM.definitions.osm import LayerType, OsmType
+from QuickOSM.definitions.osm import LayerType
 from qgis.PyQt.QtWidgets import QWidget, QApplication, QCompleter
 from qgis.core import (
     QgsGeometry,
@@ -51,7 +51,8 @@ class QuickOSMWidget(QWidget):
 
     def init(self):
         """Init after the UI is loaded."""
-        self.output_directory.lineEdit().setPlaceholderText(tr('Save to temporary file'))
+        self.output_directory.lineEdit().setPlaceholderText(
+            tr('Save to temporary file'))
         self.output_directory.setStorageMode(QgsFileWidget.GetDirectory)
         self.output_directory.setDialogTitle(tr('Select a directory'))
         self.output_directory.fileChanged.connect(self.disable_prefix_file)
@@ -70,7 +71,10 @@ class QuickOSMWidget(QWidget):
         self.last_places = []
 
         if isfile(self.last_nominatim_places_filepath):
-            with io.open(self.last_nominatim_places_filepath, 'r', encoding='utf8') as f:
+            with io.open(
+                    self.last_nominatim_places_filepath,
+                    'r',
+                    encoding='utf8') as f:
                 for line in f:
                     self.last_places.append(line.rstrip('\n'))
 
@@ -80,7 +84,6 @@ class QuickOSMWidget(QWidget):
                 QCompleter.PopupCompletion)
         else:
             io.open(self.last_nominatim_places_filepath, 'a').close()
-
 
     @staticmethod
     def sort_nominatim_places(existing_places, place):
@@ -96,13 +99,18 @@ class QuickOSMWidget(QWidget):
 
         try:
             with io.open(
-                    self.last_nominatim_places_filepath, 'w', encoding='utf8') as f:
+                    self.last_nominatim_places_filepath,
+                    'w',
+                    encoding='utf8') as f:
                 for item in new_list:
                     f.write('{}\n'.format(item))
         except UnicodeDecodeError:
             # The file is corrupted ?
             # Remove all old places
-            with io.open(self.last_nominatim_places_filepath, 'w', encoding='utf8') as f:
+            with io.open(
+                    self.last_nominatim_places_filepath,
+                    'w',
+                    encoding='utf8') as f:
                 f.write('\n')
 
         self.init_nominatim_autofill()
@@ -258,14 +266,16 @@ class QuickOSMWidget(QWidget):
         _, _, tb = exc_info()
         import traceback
         traceback.print_tb(tb)
-        LOGGER.critical(tr('A critical error occurred, this is the traceback:'))
+        LOGGER.critical(
+            tr('A critical error occurred, this is the traceback:'))
         LOGGER.critical(exc_type)
         LOGGER.critical(f_name)
         LOGGER.critical(e)
         LOGGER.critical('\n'.join(traceback.format_tb(tb)))
 
         display_message_bar(
-            tr('Error in the logs, QuickOSM panel, please report it to GitHub'),
+            tr('Error in the logs, QuickOSM panel, please report it to '
+               'GitHub'),
             level=Qgis.Critical,
             open_logs=True,
             duration=10)

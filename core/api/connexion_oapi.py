@@ -98,8 +98,9 @@ class ConnexionOAPI:
         file_obj.close()
 
         lines = lines[-10:]  # Get last 10 lines
-        timeout = '<remark> runtime error: Query timed out in "[a-z]+" ' \
-                  'at line [\d]+ after ([\d]+) seconds. </remark>'
+        timeout = (
+            '<remark> runtime error: Query timed out in "[a-z]+" at line '
+            '[\d]+ after ([\d]+) seconds. </remark>')
         if re.search(timeout, ''.join(lines)):
             raise OverpassTimeoutException
         else:

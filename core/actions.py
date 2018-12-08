@@ -108,8 +108,8 @@ def add_actions(layer, keys):
             generic = QgsAction(
                 QgsAction.GenericPython,
                 link,
-                (ACTIONS_PATH +
-                    'Actions.run("{link}","[% "{link}" %]")'.format(link=link)),
+                (ACTIONS_PATH
+                 + 'Actions.run("{link}","[% "{link}" %]")'.format(link=link)),
                 image,
                 False,
                 link,

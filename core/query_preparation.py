@@ -51,7 +51,8 @@ class QueryPreparation:
         :type nominatim_place: str, list(str)
         """
         if overpass is None:
-            server = get_setting('defaultOAPI', OVERPASS_SERVERS[0]) + 'interpreter'
+            server = get_setting(
+                'defaultOAPI', OVERPASS_SERVERS[0]) + 'interpreter'
             self._overpass = QUrl(server + 'interpreter')
         else:
             self._overpass = QUrl(overpass)

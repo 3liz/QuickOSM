@@ -190,11 +190,12 @@ class OsmParser(QObject):
             for key in layers[layer]['tags']:
                 fields.append(QgsField(key, QVariant.String))
 
-            layers[layer]['vector_layer'] = QgsMemoryProviderUtils.createMemoryLayer(
-                layer,
-                fields,
-                layers[layer]['geomType'],
-                layers[layer]['vectorLayer'].crs())
+            layers[layer]['vector_layer'] = (
+                QgsMemoryProviderUtils.createMemoryLayer(
+                    layer,
+                    fields,
+                    layers[layer]['geomType'],
+                    layers[layer]['vectorLayer'].crs()))
             layers[layer]['vector_layer'].startEditing()
 
             # Foreach feature in the layer

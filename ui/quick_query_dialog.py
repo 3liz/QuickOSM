@@ -61,11 +61,16 @@ class QuickQueryWidget(QuickOSMWidget, Ui_ui_quick_query):
         self.cb_query_type.addItem(tr('Layer Extent'), 'layer')
         self.cb_query_type.addItem(tr('Not Spatial'), 'attributes')
 
-        # self.cb_query_type.setItemIcon(0, QIcon(resources_path('in.svg')))
-        # self.cb_query_type.setItemIcon(1, QIcon(resources_path('around.svg')))
-        # self.cb_query_type.setItemIcon(2, QIcon(resources_path('map_canvas.svg')))
-        # self.cb_query_type.setItemIcon(3, QIcon(resources_path('extent.svg')))
-        # self.cb_query_type.setItemIcon(4, QIcon(resources_path('mIconTableLayer.svg')))
+        # self.cb_query_type.setItemIcon(
+        #     0, QIcon(resources_path('in.svg')))
+        # self.cb_query_type.setItemIcon(
+        #     1, QIcon(resources_path('around.svg')))
+        # self.cb_query_type.setItemIcon(
+        #     2, QIcon(resources_path('map_canvas.svg')))
+        # self.cb_query_type.setItemIcon(
+        #     3, QIcon(resources_path('extent.svg')))
+        # self.cb_query_type.setItemIcon(
+        #     4, QIcon(resources_path('mIconTableLayer.svg')))
 
         self.cb_query_type.currentIndexChanged.connect(self.query_type_updated)
 
@@ -96,9 +101,11 @@ class QuickQueryWidget(QuickOSMWidget, Ui_ui_quick_query):
                 self.comboBox_key.setCompleter(keys_completer)
                 self.comboBox_key.completer().setCompletionMode(
                     QCompleter.PopupCompletion)
-                self.comboBox_key.lineEdit().setPlaceholderText(tr('Query on all keys'))
+                self.comboBox_key.lineEdit().setPlaceholderText(
+                    tr('Query on all keys'))
 
-        self.comboBox_value.lineEdit().setPlaceholderText(tr('Query on all values'))
+        self.comboBox_value.lineEdit().setPlaceholderText(
+            tr('Query on all values'))
         self.key_edited()
 
         self.query_type_updated()

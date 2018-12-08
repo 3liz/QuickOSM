@@ -70,19 +70,27 @@ class RawQueryAlgorithm(QgisAlgorithm):
 
         self.addParameter(
             QgsProcessingParameterExtent(
-                self.EXTENT, tr('Extent, if "{{bbox}}" in the query'), optional=True))
+                self.EXTENT,
+                tr('Extent, if "{{bbox}}" in the query'),
+                optional=True))
 
-        server = get_setting('defaultOAPI', OVERPASS_SERVERS[0]) + 'interpreter'
+        server = get_setting(
+            'defaultOAPI', OVERPASS_SERVERS[0]) + 'interpreter'
         parameter = QgsProcessingParameterString(
-            self.SERVER, tr('Overpass server'), optional=False, defaultValue=server)
-        parameter.setFlags(parameter.flags() | QgsProcessingParameterDefinition.FlagAdvanced)
+            self.SERVER,
+            tr('Overpass server'),
+            optional=False,
+            defaultValue=server)
+        parameter.setFlags(
+            parameter.flags() | QgsProcessingParameterDefinition.FlagAdvanced)
         self.addParameter(parameter)
 
         parameter = QgsProcessingParameterString(
             self.AREA,
             tr('Area (if you want to override {{geocodeArea}} in the query'),
             optional=True)
-        parameter.setFlags(parameter.flags() | QgsProcessingParameterDefinition.FlagAdvanced)
+        parameter.setFlags(
+            parameter.flags() | QgsProcessingParameterDefinition.FlagAdvanced)
         self.addParameter(parameter)
 
         self.addOutput(
@@ -106,7 +114,10 @@ class RawQueryAlgorithm(QgisAlgorithm):
         extent = transform.transform(extent)
 
         query_preparation = QueryPreparation(
-            raw_query, extent=extent, nominatim_place=nominatim, overpass=server
+            raw_query,
+            extent=extent,
+            nominatim_place=nominatim,
+            overpass=server
         )
         raw_query = query_preparation.prepare_query()
         url = query_preparation.prepare_url()

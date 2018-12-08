@@ -92,7 +92,7 @@ class QueryFactory:
 
     def _check_parameters(self):
         """Internal function to check that the query can be built."""
-        if self._query_type not in QueryType:
+        if type(self._query_type) != QueryType:
             raise QueryFactoryException(tr('Wrong query type'))
 
         if len(self._osm_objects) < 1:
@@ -102,8 +102,10 @@ class QueryFactory:
             if osmObject not in OsmType:
                 raise QueryFactoryException(tr('Wrong OSM object'))
 
-        if self._query_type == QueryType.AroundArea and not self._distance_around:
-            raise QueryFactoryException(tr('No distance provided with "around".'))
+        if self._query_type == QueryType.AroundArea and \
+                not self._distance_around:
+            raise QueryFactoryException(
+                tr('No distance provided with "around".'))
 
         areas = [
             QueryType.InArea, QueryType.AroundArea]
@@ -141,7 +143,8 @@ class QueryFactory:
         if nominatim and self._query_type != QueryType.AroundArea:
 
             for i, one_place in enumerate(nominatim):
-                query += '<id-query area="%s" into="area_%s"/>' % (one_place, i)
+                query += '<id-query area="{}" into="area_%s"/>'.format(
+                    one_place, i)
 
         query += '<union>'
 

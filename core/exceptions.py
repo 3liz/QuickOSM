@@ -70,6 +70,7 @@ class NetWorkErrorException(QuickOsmException):
             msg = msg + ' with ' + suffix
         QuickOsmException.__init__(self, msg)
 
+
 """
 QueryFactory
 """
@@ -90,6 +91,7 @@ class QueryNotSupported(QuickOsmException):
                  ': %s' % key)
         QuickOsmException.__init__(self, msg)
 
+
 """
 Nominatim
 """
@@ -100,6 +102,7 @@ class NominatimAreaException(QuickOsmException):
         if not msg:
             msg = tr('No nominatim area')
         QuickOsmException.__init__(self, msg)
+
 
 """
 Ogr2Ogr
@@ -164,6 +167,7 @@ class QueryAlreadyExistsException(QuickOsmException):
         if not msg:
             msg = tr('This query already exists')
         QuickOsmException.__init__(self, msg)
+
 
 """
 Forms

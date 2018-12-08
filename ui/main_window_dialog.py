@@ -19,7 +19,8 @@
  *                                                                         *
  ***************************************************************************/
 """
-from QuickOSM.core.utilities.tools import get_setting, set_setting, resources_path
+from QuickOSM.core.utilities.tools import (
+    get_setting, set_setting, resources_path)
 from QuickOSM.ui.main_window import Ui_ui_main_window
 from qgis.PyQt.QtCore import QUrl
 from qgis.PyQt.QtWidgets import QDialog
