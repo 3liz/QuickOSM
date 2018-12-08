@@ -65,7 +65,8 @@ class QuickOSMPlugin(object):
             locale = QgsSettings().value('locale/userLocale', 'en')[0:2]
         except AttributeError:
             # Fallback to english #132
-            LOGGER.warning('Fallback to English as default language for the plugin')
+            LOGGER.warning(
+                'Fallback to English as default language for the plugin')
             locale = 'en'
         locale_path = join(
             self.plugin_dir,
@@ -160,7 +161,8 @@ class QuickOSMPlugin(object):
         crs_map = map_settings.destinationCrs()
         if crs_map.authid() != 'EPSG:4326':
             crs_4326 = QgsCoordinateReferenceSystem(4326)
-            transform = QgsCoordinateTransform(crs_map, crs_4326, QgsProject.instance())
+            transform = QgsCoordinateTransform(
+                crs_map, crs_4326, QgsProject.instance())
             extent = transform.transform(extent)
 
         url = 'http://localhost:8111/load_and_zoom?'

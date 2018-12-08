@@ -55,8 +55,9 @@ class DownloadOverpassUrl(QgisAlgorithm):
         return super().flags()  # | QgsProcessingAlgorithm.FlagHideFromToolbox
 
     def shortHelpString(self):
-        return self.tr('Like the native QGIS File Downloader algorithm, this algorithm will '
-                  'perform a OSM integrity check at the end of the download.')
+        return self.tr(
+            'Like the native QGIS File Downloader algorithm, this algorithm '
+            'will perform a OSM integrity check at the end of the download.')
 
     def initAlgorithm(self, config=None):
         self.addParameter(
@@ -69,7 +70,7 @@ class DownloadOverpassUrl(QgisAlgorithm):
 
     def processAlgorithm(self, parameters, context, feedback):
         self.feedback = feedback
-        url = self.parameterAsString(parameters, self.URL, context)
+        # url = self.parameterAsString(parameters, self.URL, context)
         output = self.parameterAsFileOutput(parameters, self.OUTPUT, context)
 
         # processing.run("native:filedownloader", {

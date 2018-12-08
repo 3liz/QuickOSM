@@ -35,7 +35,8 @@ from QuickOSM.quick_osm_processing.advanced.build_query import (
     BuildQueryExtentAlgorithm,
     BuildQueryNotSpatialAlgorithm,
 )
-# from QuickOSM.quick_osm_processing.advanced.download_overpass import DownloadOverpassUrl
+# from QuickOSM.quick_osm_processing.advanced.download_overpass import (
+#   DownloadOverpassUrl)
 from QuickOSM.quick_osm_processing.advanced.open_osm_file import OpenOsmFile
 from QuickOSM.quick_osm_processing.advanced.raw_query import RawQueryAlgorithm
 from QuickOSM.core.utilities.tools import resources_path

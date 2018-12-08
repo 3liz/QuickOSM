@@ -113,29 +113,38 @@ class OpenOsmFile(QgisAlgorithm):
     def processAlgorithm(self, parameters, context, feedback):
         self.feedback = feedback
         file = self.parameterAsString(parameters, self.FILE, context)
-        osm_configuration = self.parameterAsString(parameters, self.OSM_CONF, context)
+        osm_configuration = self.parameterAsString(
+            parameters, self.OSM_CONF, context)
 
         if osm_configuration:
             if not exists(osm_configuration):
-                raise QgsProcessingException(self.tr('OSM Configuration file not found'))
+                raise QgsProcessingException(
+                    self.tr('OSM Configuration file not found'))
 
             gdal.SetConfigOption('OSM_CONFIG_FILE', osm_configuration)
 
         gdal.SetConfigOption('OSM_USE_CUSTOM_INDEXING', 'NO')
 
-        points = QgsVectorLayer('{}|layername=points'.format(file), 'points', 'ogr')
+        points = QgsVectorLayer(
+            '{}|layername=points'.format(file), 'points', 'ogr')
         context.temporaryLayerStore().addMapLayer(points)
 
-        lines = QgsVectorLayer('{}|layername=lines'.format(file), 'lines', 'ogr')
+        lines = QgsVectorLayer(
+            '{}|layername=lines'.format(file), 'lines', 'ogr')
         context.temporaryLayerStore().addMapLayer(lines)
 
-        multilinestrings = QgsVectorLayer('{}|layername=multilinestrings'.format(file), 'multilinestrings', 'ogr')
+        multilinestrings = QgsVectorLayer(
+            '{}|layername=multilinestrings'.format(
+                file), 'multilinestrings', 'ogr')
         context.temporaryLayerStore().addMapLayer(multilinestrings)
 
-        multipolygons = QgsVectorLayer('{}|layername=multipolygons'.format(file), 'multipolygons', 'ogr')
+        multipolygons = QgsVectorLayer(
+            '{}|layername=multipolygons'.format(file), 'multipolygons', 'ogr')
         context.temporaryLayerStore().addMapLayer(multipolygons)
 
-        other_relations = QgsVectorLayer('{}|layername=other_relations'.format(file), 'other_relations', 'ogr')
+        other_relations = QgsVectorLayer(
+            '{}|layername=other_relations'.format(
+                file), 'other_relations', 'ogr')
         context.temporaryLayerStore().addMapLayer(other_relations)
 
         outputs = {
