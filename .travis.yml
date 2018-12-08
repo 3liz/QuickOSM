@@ -1,39 +1,63 @@
+services:
+    - docker
+
+env:
+  global:
+    - IMAGE=qgis/qgis
+
+  matrix:
+    - QGIS_VERSION_TAG=latest
+    - QGIS_VERSION_TAG=release-3_4
+
 language: python
 
-python:
-  - "2.7"
+cache:
+  directories:
+    - $HOME/.cache/pip
 
-virtualenv:
-  system_site_packages: true
+python:
+  - "3.6"
 
 branches:
   only:
     - master
 
+addons:
+  apt:
+    packages:
+      - git
+      - python-software-properties
+
 before_install:
-  - sudo apt-get -qq -y update
+  - docker pull ${IMAGE}:${QGIS_VERSION_TAG}
 
 install:
-  - sudo apt-get install -y python-software-properties
-  - sudo add-apt-repository -y ppa:ubuntugis/ubuntugis-unstable
-  - sudo apt-get update
-  - sudo apt-get install -y git qgis python-qgis xvfb python-nose python-coverage pyflakes python-nosexcover
   - pip install --upgrade pip
-  - pip install --upgrade pep8
-  - pip install --upgrade pylint
+  - pip install --upgrade pep257
+  - pip install --upgrade flake8
+  - docker run -d --name qgis-testing-environment -v ${TRAVIS_BUILD_DIR}:/tests_directory -e DISPLAY=:99 ${IMAGE}:${QGIS_VERSION_TAG}
+  - sleep 10
+  - docker exec -it qgis-testing-environment sh -c "qgis_setup.sh QuickOSM"
 
-before_script:
-  - echo "Build starting on " `date`
-  - export QGIS_PREFIX_PATH=/usr
-  - export PYTHONPATH=${QGIS_PREFIX_PATH}/share/qgis/python/:${QGIS_PREFIX_PATH}/share/qgis/python/plugins:`pwd`
-  - echo "PYTHONPATH:" $PYTHONPATH
-  - export LD_LIBRARY_PATH=${QGIS_PREFIX_PATH}/lib
+#   - docker exec -it qgis-testing-environment sh -c "rm -f  /root/.local/share/QGIS/QGIS3/profiles/default/python/plugins/QuickOSM"
+#   - docker exec -it qgis-testing-environment sh -c "ln -s /tests_directory/ /root/.local/share/QGIS/QGIS3/profiles/default/python/plugins/inasafe"
+
+#   - docker exec -it qgis-testing-environment sh -c "pip3 install -r /tests_directory/REQUIREMENTS.txt"
+#   - docker exec -it qgis-testing-environment sh -c "pip3 install -r /tests_directory/REQUIREMENTS_TESTING.txt"
 
 script:
-  - make pep8
-  - xvfb-run --server-args="-screen 0, 1024x768x24" nosetests -A 'not slow' -v --with-id --with-xcoverage --with-xunit --verbose --cover-package=core core
-
+  # The real test
+  - docker exec -it qgis-testing-environment sh -c "qgis_testrunner.sh test_suite.test_package"
+#   - make pep257
+#   - make flake8
 
 notifications:
+  irc:
+    channels:
+      - "irc.freenode.org#inasafe"
+    use_notice: true
+
   email:
     - etienne.trimaille@gmail.com
+
+sudo: false
