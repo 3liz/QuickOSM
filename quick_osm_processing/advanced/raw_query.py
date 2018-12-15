@@ -39,7 +39,7 @@ class RawQueryAlgorithm(QgisAlgorithm):
     SERVER = 'SERVER'
     QUERY = 'QUERY'
     EXTENT = 'EXTENT'
-    NOMINATIM = 'NOMINATIM'
+    AREA = 'AREA'
     OUTPUT_URL = 'OUTPUT_URL'
     OUTPUT_OQL_QUERY = 'OUTPUT_OQL_QUERY'
 
@@ -78,8 +78,8 @@ class RawQueryAlgorithm(QgisAlgorithm):
         self.addParameter(parameter)
 
         parameter = QgsProcessingParameterString(
-            self.NOMINATIM,
-            tr('Place (if you want to override {{geocodeArea}} in the query'),
+            self.AREA,
+            tr('Area (if you want to override {{geocodeArea}} in the query'),
             optional=True)
         parameter.setFlags(parameter.flags() | QgsProcessingParameterDefinition.FlagAdvanced)
         self.addParameter(parameter)
@@ -95,7 +95,7 @@ class RawQueryAlgorithm(QgisAlgorithm):
     def processAlgorithm(self, parameters, context, feedback):
         raw_query = self.parameterAsString(parameters, self.QUERY, context)
         server = self.parameterAsString(parameters, self.SERVER, context)
-        nominatim = self.parameterAsString(parameters, self.NOMINATIM, context)
+        nominatim = self.parameterAsString(parameters, self.AREA, context)
         extent = self.parameterAsExtent(parameters, self.EXTENT, context)
         crs = self.parameterAsExtentCrs(parameters, self.EXTENT, context)
 
