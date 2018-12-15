@@ -19,6 +19,8 @@ server=True
 # changelog=
   Version 1.11.0
   * Add raw query processing algorithm
+  * API break in Processing algorithm about NOMINATIM replaced by AREA
+  * Allow point as WKT in the AREA parameter in the "Around" query
   Version 1.10.2
   * Fix Processing provider
   Version 1.10.1

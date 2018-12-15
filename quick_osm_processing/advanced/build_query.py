@@ -193,7 +193,7 @@ class BuildQueryAroundAreaAlgorithm(BuildQueryBasedAlgorithm):
         self.add_top_parameters()
         self.addParameter(
             QgsProcessingParameterString(
-                self.AREA, tr('Around the area'), optional=False))
+                self.AREA, tr('Around the area (Point WKT accepted)'), optional=False))
         self.addParameter(
             QgsProcessingParameterNumber(
                 self.DISTANCE, tr('Distance (meters)'), defaultValue=1000, minValue=1))

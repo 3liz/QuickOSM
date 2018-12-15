@@ -23,6 +23,7 @@
 import re
 
 from qgis.PyQt.QtCore import QUrl, QUrlQuery
+from qgis.core import QgsGeometry
 
 from QuickOSM.core.api.nominatim import Nominatim
 from QuickOSM.definitions.overpass import OVERPASS_SERVERS
@@ -176,8 +177,22 @@ class QueryPreparation:
             else:
                 search = catch
 
-            nominatim = Nominatim()
-            lon, lat = nominatim.get_first_point_from_query(search)
+            lat = None
+            lon = None
+
+            # Try first if it's a point written in WKT
+            geom = QgsGeometry.fromWkt(search)
+            if geom.isGeosValid():
+                try:
+                    point = geom.asPoint()
+                    lon = point.x()
+                    lat = point.y()
+                except TypeError:
+                    pass
+
+            if lat is None and lon is None:
+                nominatim = Nominatim()
+                lon, lat = nominatim.get_first_point_from_query(search)
 
             if self.is_oql_query():
                 new_string = '{},{}'.format(lat, lon)
