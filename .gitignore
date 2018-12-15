@@ -3,7 +3,6 @@ QuickOSM.zip
 *.py.bak
 *.*~
 scripts/
-plugin_upload.py
 help/
 .idea
 .coverage
