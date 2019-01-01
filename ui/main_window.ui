@@ -219,29 +219,6 @@ QListWidget::item::selected {
           </widget>
          </item>
          <item>
-          <widget class="QGroupBox" name="output_format_option">
-           <property name="title">
-            <string>Outputs</string>
-           </property>
-           <layout class="QVBoxLayout" name="verticalLayout_11">
-            <item>
-             <widget class="QRadioButton" name="radioButton_outputJson">
-              <property name="text">
-               <string>GeoJSON (not editable, column's name longer)</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QRadioButton" name="radioButton_outputShape">
-              <property name="text">
-               <string>Shapefile (editable, column's name shorter)</string>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </widget>
-         </item>
-         <item>
           <spacer name="verticalSpacer">
            <property name="orientation">
             <enum>Qt::Vertical</enum>
@@ -268,8 +245,8 @@ QListWidget::item::selected {
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>645</width>
-              <height>592</height>
+              <width>538</width>
+              <height>532</height>
              </rect>
             </property>
             <layout class="QVBoxLayout" name="verticalLayout_9">

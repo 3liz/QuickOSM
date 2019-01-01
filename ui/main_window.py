@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'ui/main_window.ui'
 #
-# Created by: PyQt5 UI code generator 5.10.1
+# Created by: PyQt5 UI code generator 5.11.2
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -57,7 +57,7 @@ class Ui_ui_main_window(object):
         self.horizontalLayout.addWidget(self.listWidget)
         self.verticalLayout_13 = QtWidgets.QVBoxLayout()
         self.verticalLayout_13.setObjectName("verticalLayout_13")
-        self.messageBar = QgsMessageBar(ui_main_window)
+        self.messageBar = gui.QgsMessageBar(ui_main_window)
         self.messageBar.setObjectName("messageBar")
         self.verticalLayout_13.addWidget(self.messageBar)
         self.stackedWidget = QtWidgets.QStackedWidget(ui_main_window)
@@ -120,17 +120,6 @@ class Ui_ui_main_window(object):
         self.horizontalLayout_7.addItem(spacerItem)
         self.verticalLayout_10.addLayout(self.horizontalLayout_7)
         self.verticalLayout_2.addWidget(self.restore_queries_group)
-        self.output_format_option = QtWidgets.QGroupBox(self.parameters)
-        self.output_format_option.setObjectName("output_format_option")
-        self.verticalLayout_11 = QtWidgets.QVBoxLayout(self.output_format_option)
-        self.verticalLayout_11.setObjectName("verticalLayout_11")
-        self.radioButton_outputJson = QtWidgets.QRadioButton(self.output_format_option)
-        self.radioButton_outputJson.setObjectName("radioButton_outputJson")
-        self.verticalLayout_11.addWidget(self.radioButton_outputJson)
-        self.radioButton_outputShape = QtWidgets.QRadioButton(self.output_format_option)
-        self.radioButton_outputShape.setObjectName("radioButton_outputShape")
-        self.verticalLayout_11.addWidget(self.radioButton_outputShape)
-        self.verticalLayout_2.addWidget(self.output_format_option)
         spacerItem1 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
         self.verticalLayout_2.addItem(spacerItem1)
         self.stackedWidget.addWidget(self.parameters)
@@ -142,7 +131,7 @@ class Ui_ui_main_window(object):
         self.scrollArea_2.setWidgetResizable(True)
         self.scrollArea_2.setObjectName("scrollArea_2")
         self.scrollAreaWidgetContents_2 = QtWidgets.QWidget()
-        self.scrollAreaWidgetContents_2.setGeometry(QtCore.QRect(0, 0, 645, 592))
+        self.scrollAreaWidgetContents_2.setGeometry(QtCore.QRect(0, 0, 538, 532))
         self.scrollAreaWidgetContents_2.setObjectName("scrollAreaWidgetContents_2")
         self.verticalLayout_9 = QtWidgets.QVBoxLayout(self.scrollAreaWidgetContents_2)
         self.verticalLayout_9.setObjectName("verticalLayout_9")
@@ -325,9 +314,6 @@ class Ui_ui_main_window(object):
         self.label_timestamp_oapi.setText(_translate("ui_main_window", "unknow"))
         self.restore_queries_group.setTitle(_translate("ui_main_window", "Queries"))
         self.pushButton_restoreQueries.setText(_translate("ui_main_window", "Restore queries"))
-        self.output_format_option.setTitle(_translate("ui_main_window", "Outputs"))
-        self.radioButton_outputJson.setText(_translate("ui_main_window", "GeoJSON (not editable, column\'s name longer)"))
-        self.radioButton_outputShape.setText(_translate("ui_main_window", "Shapefile (editable, column\'s name shorter)"))
         self.groupBox_2.setTitle(_translate("ui_main_window", "Realization"))
         self.groupBox_8.setTitle(_translate("ui_main_window", "Translators"))
         self.label_18.setText(_translate("ui_main_window", "<html><head/><body><p>The web-based translating platform <a href=\"https://www.transifex.com/projects/p/gui/\"><span style=\" text-decoration: underline; color:#0057ae;\">Transifex</span></a> is used. It\'s easier for translators.</p></body></html>"))
@@ -342,7 +328,7 @@ class Ui_ui_main_window(object):
         self.label_19.setText(_translate("ui_main_window", "Github\'s repository"))
         self.groupBox_4.setTitle(_translate("ui_main_window", "Licence"))
 
+from qgis import gui
 from .osm_file_dialog import OsmFileWidget
 from .query_dialog import QueryWidget
 from .quick_query_dialog import QuickQueryWidget
-from qgis.gui import QgsMessageBar

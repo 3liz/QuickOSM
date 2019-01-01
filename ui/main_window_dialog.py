@@ -59,7 +59,6 @@ class MainWindowDialog(QDialog, Ui_ui_main_window):
         # self.set_help_web_view()
         self.restore_queries_group.setVisible(False)
         self.timestamp_group.setVisible(False)
-        self.output_format_option.setVisible(False)
 
         self.help_file = None
 
@@ -79,8 +78,6 @@ class MainWindowDialog(QDialog, Ui_ui_main_window):
         # noinspection PyUnresolvedReferences
         self.pushButton_restoreQueries.clicked.connect(
             self.restore_default_queries)
-        # noinspection PyUnresolvedReferences
-        self.radioButton_outputJson.toggled.connect(self.set_output_format)
 
         # Set settings about the overpass API
         self.defaultServer = get_setting('defaultOAPI')
@@ -90,16 +87,6 @@ class MainWindowDialog(QDialog, Ui_ui_main_window):
         else:
             self.defaultServer = self.comboBox_default_OAPI.currentText()
             set_setting('defaultOAPI', self.defaultServer)
-
-        # Set settings about the output
-        self.outputFormat = get_setting('outputFormat')
-        if self.outputFormat == "geojson":
-            self.radioButton_outputJson.setChecked(True)
-        elif self.outputFormat == "shape":
-            self.radioButton_outputShape.setChecked(True)
-        else:
-            set_setting('outputFormat', 'shape')
-            self.radioButton_outputShape.setChecked(True)
 
         # Set minimum width for the menu
         self.listWidget.setMinimumWidth(
@@ -142,15 +129,6 @@ class MainWindowDialog(QDialog, Ui_ui_main_window):
         """
         self.defaultServer = self.comboBox_default_OAPI.currentText()
         set_setting('defaultOAPI', self.defaultServer)
-
-    def set_output_format(self):
-        """
-        Save the new output format
-        """
-        if self.radioButton_outputJson.isChecked():
-            set_setting('outputFormat', 'geojson')
-        else:
-            set_setting('outputFormat', 'shape')
 
     def restore_default_queries(self):
         """
