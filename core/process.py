@@ -34,6 +34,7 @@ from QuickOSM.core.utilities.operating_system import get_default_encoding
 from QuickOSM.core.utilities.tools import get_setting
 from QuickOSM.core.utilities.tools import tr
 from QuickOSM.definitions.osm import QueryType
+from QuickOSM.definitions.overpass import OVERPASS_SERVERS
 from qgis.PyQt.QtWidgets import QApplication
 from qgis.core import (
     QgsVectorLayer, QgsVectorFileWriter, QgsProject, QgsWkbTypes)
@@ -164,7 +165,7 @@ def process_query(
     dialog.set_progress_text(tr('Prepare outputs'))
 
     # Getting the default overpass api and running the query
-    server = get_setting('defaultOAPI') + 'interpreter'
+    server = get_setting('defaultOAPI', OVERPASS_SERVERS[0]) + 'interpreter'
     dialog.set_progress_text(
         tr('Downloading data from Overpass {}').format(server))
     # Replace Nominatim or BBOX

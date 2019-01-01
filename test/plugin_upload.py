@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # coding=utf-8
 """This script uploads a plugin package on the server.
         Authors: A. Pasotti, V. Picavet
@@ -19,7 +19,7 @@ VERBOSE = False
 
 
 def main(parameters, arguments):
-    """Main entry point.
+    """Main entry point.get
 
     :param parameters: Command line parameters.
     :param arguments: Command line arguments.
@@ -37,7 +37,7 @@ def main(parameters, arguments):
 
     try:
         plugin_id, version_id = server.plugin.upload(
-            xmlrpc.client.Binary(open(arguments[0]).read()))
+            xmlrpc.client.Binary(str(arguments[0])))
         print("Plugin ID: %s" % plugin_id)
         print("Version ID: %s" % version_id)
     except xmlrpc.client.ProtocolError as err:

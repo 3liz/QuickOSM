@@ -30,6 +30,7 @@ from qgis.core import (
     QgsCoordinateReferenceSystem,
 )
 
+from QuickOSM.definitions.overpass import OVERPASS_SERVERS
 from QuickOSM.core.query_preparation import QueryPreparation
 from QuickOSM.core.utilities.tools import tr, get_setting
 
@@ -71,7 +72,7 @@ class RawQueryAlgorithm(QgisAlgorithm):
             QgsProcessingParameterExtent(
                 self.EXTENT, tr('Extent, if "{{bbox}}" in the query'), optional=True))
 
-        server = get_setting('defaultOAPI') + 'interpreter'
+        server = get_setting('defaultOAPI', OVERPASS_SERVERS[0]) + 'interpreter'
         parameter = QgsProcessingParameterString(
             self.SERVER, tr('Overpass server'), optional=False, defaultValue=server)
         parameter.setFlags(parameter.flags() | QgsProcessingParameterDefinition.FlagAdvanced)

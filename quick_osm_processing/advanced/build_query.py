@@ -32,6 +32,7 @@ from qgis.core import (
 )
 
 
+from QuickOSM.definitions.overpass import OVERPASS_SERVERS
 from QuickOSM.definitions.osm import ALL_QUERY_TYPES, QueryType, ALL_OSM_TYPES, OsmType
 from QuickOSM.core.query_factory import QueryFactory
 from QuickOSM.core.query_preparation import QueryPreparation
@@ -84,7 +85,7 @@ class BuildQueryBasedAlgorithm(QgisAlgorithm):
         parameter.setFlags(parameter.flags() | QgsProcessingParameterDefinition.FlagAdvanced)
         self.addParameter(parameter)
 
-        server = get_setting('defaultOAPI') + 'interpreter'
+        server = get_setting('defaultOAPI', OVERPASS_SERVERS[0]) + 'interpreter'
         parameter = QgsProcessingParameterString(
             self.SERVER, tr('Overpass server'), optional=False, defaultValue=server)
         parameter.setFlags(parameter.flags() | QgsProcessingParameterDefinition.FlagAdvanced)

@@ -101,17 +101,26 @@ def get_user_query_folder(over_write=False):
     return str(QDir.toNativeSeparators(queries_folder))
 
 
-def get_setting(key):
-    """
-    Get a value in the QSettings
-    @param key: key
-    @type key: str
-    @return: value
-    @rtype: str
+def get_setting(key, default=None):
+    """Get a value in the QSettings.
+
+    :param key: The key to fetch in the QSettings
+    :type key: basestring
+
+    :param default: The default value if the key is not found.
+    :type default: basestring
+
+    :return: The value or the default value.
+    :rtype: basestring
     """
     qs = QSettings()
     prefix = '/QuickOSM/'
-    return qs.value(prefix + key)
+    value = qs.value(prefix + key)
+
+    if value:
+        return value
+    else:
+        return default
 
 
 def set_setting(key, value):
