@@ -4,7 +4,7 @@ qgisMinimumVersion=3.4
 qgisMaximumVersion=3.99
 description=Download OSM data thanks to the Overpass API. You can also open local OSM or PBF files. A special parser, on top of OGR, is used to let you see all OSM keys available.
 about=Execute customs Overpass queries in QGIS to get OSM data.
-version=1.11.0
+version=1.11.1
 newQueries=False
 author=Etienne Trimaille
 email=etienne@trimaille.eu
@@ -17,6 +17,8 @@ server=True
 
 # Uncomment the following line and add your changelog:
 # changelog=
+  Version 1.11.1
+  * Bug fix about QSettings
   Version 1.11.0
   * Add raw query processing algorithm
   * API break in Processing algorithm about NOMINATIM replaced by AREA
