@@ -37,7 +37,9 @@ from QuickOSM.definitions.osm import QueryType
 from QuickOSM.definitions.overpass import OVERPASS_SERVERS
 from qgis.PyQt.QtWidgets import QApplication
 from qgis.core import (
-    QgsVectorLayer, QgsVectorFileWriter, QgsProject, QgsWkbTypes)
+    QgsVectorLayer, QgsVectorFileWriter, QgsProject, QgsWkbTypes,
+    QgsExpressionContextUtils,
+)
 
 LOGGER = logging.getLogger('QuickOSM')
 
@@ -50,11 +52,16 @@ def open_file(
         layer_name="OsmFile",
         config_outputs=None,
         output_dir=None,
+        final_query=None,
         prefix_file=None):
     """
     Open an osm file.
 
     Memory layer if no output directory is set, or Geojson in the output directory.
+
+    :param final_query: The query where the file comes from. Might be empty if
+    it's a local OSM file.
+    :type final_query: basestring
     """
     outputs = {}
     if output_dir:
@@ -142,6 +149,10 @@ def open_file(
             # Add action about OpenStreetMap
             add_actions(new_layer, item['tags'])
 
+            if final_query:
+                QgsExpressionContextUtils.setLayerVariable(
+                    new_layer, 'quickosm_query', final_query)
+
             QgsProject.instance().addMapLayer(new_layer)
             num_layers += 1
 
@@ -171,7 +182,7 @@ def process_query(
     # Replace Nominatim or BBOX
     query = QueryPreparation(query, bbox, nominatim, server)
     QApplication.processEvents()
-    query.prepare_query()
+    final_query = query.prepare_query()
     url = query.prepare_url()
     connexion_overpass_api = ConnexionOAPI(url)
     LOGGER.debug('Encoded URL: {}'.format(url))
@@ -185,6 +196,7 @@ def process_query(
         layer_name=layer_name,
         output_dir=output_dir,
         prefix_file=prefix_file,
+        final_query=final_query,
         config_outputs=config_outputs)
 
 
