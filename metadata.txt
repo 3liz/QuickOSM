@@ -4,7 +4,7 @@ qgisMinimumVersion=3.4
 qgisMaximumVersion=3.99
 description=Download OSM data thanks to the Overpass API. You can also open local OSM or PBF files. A special parser, on top of OGR, is used to let you see all OSM keys available.
 about=Execute customs Overpass queries in QGIS to get OSM data.
-version=1.11.1
+version=1.12.0
 newQueries=False
 author=Etienne Trimaille
 email=etienne@trimaille.eu
@@ -17,6 +17,10 @@ server=True
 
 # Uncomment the following line and add your changelog:
 # changelog=
+  Version 1.12.0
+  * New logo
+  * New values in OSM tags (crop, produce and trees)
+  * Add the Overpass Query to the layer variable scope
   Version 1.11.1
   * Bug fix about QSettings
   Version 1.11.0
@@ -44,24 +48,6 @@ server=True
   * Make it more readable that you can query on all keys
   * Refactoring the query factory engine
   * Use QGIS Expression for parsing HStore field instead of library
-  Version 1.7.0
-  * Allow empty key in the Quick Query
-  * Add Overpass Kumi server
-  Version 1.6.1
-  * Fix Nominatim HTTPS
-  Version 1.6.0
-  * Drop shapefile from default export. Use QGIS "save as" if needed.
-  Version 1.5.3
-  * Fix OGR config
-  * Icons
-  * Read PBF
-  Version 1.5.2
-  * Bugfix
-  Version 1.5.1
-  * Bugfix
-  Version 1.5.0
-  * Port to QGIS 3, Python 3 and Qt5.
-  * New JOSM remote
 
 # Tags are comma separated with spaces allowed
 tags=osm,openstreetmap,overpass,download,osmdownload,josm,remote,pbf,processing,modeler
