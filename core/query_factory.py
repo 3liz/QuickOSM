@@ -23,7 +23,7 @@
 import re
 from xml.dom.minidom import parseString
 
-from QuickOSM.definitions.osm import ALL_OSM_TYPES, QueryType
+from QuickOSM.definitions.osm import OsmType, QueryType
 from QuickOSM.core.exceptions import QueryFactoryException
 from QuickOSM.core.utilities.tools import tr
 
@@ -39,7 +39,7 @@ class QueryFactory:
             value=None,
             area=None,
             around_distance=None,
-            osm_objects=ALL_OSM_TYPES,
+            osm_objects=None,
             output='xml',
             timeout=25,
             print_mode='body',
@@ -79,6 +79,11 @@ class QueryFactory:
         self._value = value
         self._area = area
         self._distance_around = around_distance
+
+        if osm_objects is None:
+            # noinspection PyTypeChecker
+            osm_objects = list(OsmType)
+
         self._osm_objects = osm_objects
         self._timeout = timeout
         self._output = output
@@ -93,7 +98,7 @@ class QueryFactory:
             raise QueryFactoryException(tr('OSM object required'))
 
         for osmObject in self._osm_objects:
-            if osmObject not in ALL_OSM_TYPES:
+            if osmObject not in OsmType:
                 raise QueryFactoryException(tr('Wrong OSM object'))
 
         if self._query_type == QueryType.AroundArea and not self._distance_around:

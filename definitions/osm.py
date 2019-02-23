@@ -21,24 +21,3 @@ class LayerType(Enum):
     Lines = 'lines'
     Multilinestrings = 'multilinestrings'
     MultiPolygons = 'multipolygons'
-
-
-ALL_QUERY_TYPES = [
-    QueryType.AroundArea,
-    QueryType.InArea,
-    QueryType.NotSpatial,
-    QueryType.BBox,
-]
-
-ALL_LAYER_TYPES = [
-    LayerType.Points,
-    LayerType.Lines,
-    LayerType.Multilinestrings,
-    LayerType.MultiPolygons
-]
-
-ALL_OSM_TYPES = [
-    OsmType.Node,
-    OsmType.Way,
-    OsmType.Relation
-]
