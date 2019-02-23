@@ -30,7 +30,7 @@ from QuickOSM.core.exceptions import (
     DirectoryOutPutException,
     OsmObjectsException)
 from QuickOSM.core.query_factory import QueryFactory
-from QuickOSM.core.utilities.tools import tr, resources_path
+from QuickOSM.core.utilities.tools import tr
 from QuickOSM.core.utilities.utilities_qgis import display_message_bar
 from QuickOSM.definitions.osm import OsmType, QueryType
 from QuickOSM.ui.QuickOSMWidget import QuickOSMWidget
@@ -40,7 +40,6 @@ from qgis.PyQt.QtWidgets import QApplication, QCompleter, \
     QDialogButtonBox
 from qgis.core import Qgis
 from qgis.utils import iface
-from qgis.PyQt.QtGui import QIcon
 
 
 class QuickQueryWidget(QuickOSMWidget, Ui_ui_quick_query):

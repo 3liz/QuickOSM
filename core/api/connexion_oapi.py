@@ -25,12 +25,12 @@ import logging
 import codecs
 import os
 import re
-from QuickOSM.core.utilities.tools import tr
+
 from QuickOSM.core.exceptions import (
     OverpassTimeoutException,
 )
 from qgis.PyQt.QtCore import (
-    QUrl, QEventLoop, QTemporaryFile, QDir, QIODevice)
+    QUrl, QEventLoop, QTemporaryFile, QDir)
 from qgis.core import QgsFileDownloader
 
 LOGGER = logging.getLogger('QuickOSM')

@@ -31,8 +31,7 @@ from QuickOSM.core.parser.osm_parser import OsmParser
 from QuickOSM.core.query_factory import QueryFactory
 from QuickOSM.core.query_preparation import QueryPreparation
 from QuickOSM.core.utilities.operating_system import get_default_encoding
-from QuickOSM.core.utilities.tools import get_setting
-from QuickOSM.core.utilities.tools import tr
+from QuickOSM.core.utilities.tools import get_setting, tr
 from QuickOSM.definitions.osm import QueryType
 from QuickOSM.definitions.overpass import OVERPASS_SERVERS
 from qgis.PyQt.QtWidgets import QApplication

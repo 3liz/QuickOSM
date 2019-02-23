@@ -33,7 +33,7 @@ from qgis.core import (
 
 
 from QuickOSM.definitions.overpass import OVERPASS_SERVERS
-from QuickOSM.definitions.osm import ALL_QUERY_TYPES, QueryType, ALL_OSM_TYPES, OsmType
+from QuickOSM.definitions.osm import QueryType
 from QuickOSM.core.query_factory import QueryFactory
 from QuickOSM.core.query_preparation import QueryPreparation
 from QuickOSM.core.utilities.tools import tr, get_setting

@@ -28,7 +28,7 @@ from QuickOSM.core.utilities.tools import tr, quickosm_user_folder
 from QuickOSM.core.utilities.utilities_qgis import display_message_bar
 from qgis.PyQt.QtCore import QUrl
 from qgis.PyQt.QtGui import QDesktopServices
-from qgis.PyQt.QtWidgets import QWidget, QFileDialog, QApplication, QCompleter
+from qgis.PyQt.QtWidgets import QWidget, QApplication, QCompleter
 from qgis.core import (
     QgsGeometry,
     QgsCoordinateTransform,

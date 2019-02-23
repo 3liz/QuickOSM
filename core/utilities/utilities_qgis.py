@@ -21,7 +21,6 @@
  ***************************************************************************/
 """
 
-from osgeo import gdal, ogr
 from qgis.core import Qgis
 from qgis.utils import iface
 

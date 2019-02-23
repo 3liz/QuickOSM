@@ -28,7 +28,8 @@ from QuickOSM.core.utilities.tools import tr
 from osgeo import gdal
 from qgis.PyQt.QtCore import QObject, pyqtSignal, QVariant
 from qgis.core import \
-    QgsVectorLayer, QgsFields, QgsField, QgsFeature, QgsMemoryProviderUtils, QgsHstoreUtils
+    QgsVectorLayer, QgsFields, QgsField, QgsFeature, QgsMemoryProviderUtils, \
+    QgsHstoreUtils
 
 
 class OsmParser(QObject):

@@ -45,7 +45,6 @@ from qgis.PyQt.QtWidgets import QMenu, QAction, QPushButton
 from qgis.core import Qgis, QgsApplication, QgsCoordinateTransform, \
     QgsCoordinateReferenceSystem, QgsProject, QgsSettings
 
-
 LOGGER = logging.getLogger('QuickOSM')
 
 

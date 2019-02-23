@@ -18,9 +18,9 @@
  ***************************************************************************/
 """
 
-from osgeo import gdal
 from os.path import exists
 
+from osgeo import gdal
 from processing.algs.qgis.QgisAlgorithm import QgisAlgorithm
 from qgis.core import (
     QgsVectorLayer,

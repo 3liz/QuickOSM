@@ -30,5 +30,6 @@ def classFactory(iface):
 
 # noinspection PyDocstring,PyPep8Naming
 def serverClassFactory(serverIface):
+    # noinspection PyUnresolvedReferences
     from .quick_osm_processing.provider import Provider
     pass
