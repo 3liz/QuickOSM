@@ -39,10 +39,6 @@ quick_query:
 	@echo pyuic5 ui/quick_query.ui > ui/quick_query.py
 	@pyuic5 ui/quick_query.ui > ui/quick_query.py
 
-my_queries:
-	@echo pyuic5 ui/my_queries.ui > ui/my_queries.py
-	@pyuic5 ui/my_queries.ui > ui/my_queries.py
-
 osm_file:
 	@echo pyuic5 ui/osm_file.ui > ui/osm_file.py
 	@pyuic5 ui/osm_file.ui > ui/osm_file.py
@@ -55,7 +51,7 @@ save_query:
 	@echo pyuic5 ui/save_query.ui > ui/save_query.py
 	@pyuic5 ui/save_query.ui > ui/save_query.py
 
-generate_ui: main_window quick_query my_queries osm_file query save_query
+generate_ui: main_window quick_query osm_file query save_query
 
 clean_pyc:
 	@echo "Cleaning python files"
@@ -77,7 +73,7 @@ pep8:
 	@echo "PEP8 issues"
 	@echo "-----------"
 	@pep8 --version
-	@pep8 --repeat --ignore=E203,E121,E122,E123,E124,E125,E126,E127,E128,E402 --exclude test/qgis_interface.py,test/utilities.py,resources_rc.py,./ui/main_window.py,./ui/my_queries.py,./ui/osm_file.py,./ui/save_query.py,./ui/query.py,./ui/quick_query.py . || true
+	@pep8 --repeat --ignore=E203,E121,E122,E123,E124,E125,E126,E127,E128,E402 --exclude test/qgis_interface.py,test/utilities.py,resources_rc.py,./ui/main_window.py,./ui/osm_file.py,./ui/save_query.py,./ui/query.py,./ui/quick_query.py . || true
 
 pylint:
 	@echo

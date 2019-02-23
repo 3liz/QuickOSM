@@ -73,8 +73,6 @@ class MainWindowDialog(QDialog, Ui_ui_main_window):
             self.set_server_overpass_api)
         self.query.signal_new_query_successful.connect(
             self.signal_new_query_successful.emit)
-        # self.my_queries.signal_delete_query_successful.connect(
-        #     self.signal_delete_query_successful.emit)
         # noinspection PyUnresolvedReferences
         self.pushButton_restoreQueries.clicked.connect(
             self.restore_default_queries)
@@ -117,12 +115,6 @@ class MainWindowDialog(QDialog, Ui_ui_main_window):
         """
         self.webBrowser.load(QUrl(self.help_file))
 
-    # def refresh_my_queries_tree(self):
-    #     """
-    #     Slot which force the tree to refresh
-    #     """
-    #     self.my_queries.fill_tree(force=True)
-
     def set_server_overpass_api(self):
         """
         Save the new OAPI server
@@ -138,5 +130,4 @@ class MainWindowDialog(QDialog, Ui_ui_main_window):
         self.pushButton_restoreQueries.setText(tr('Copy ...'))
         get_user_query_folder(over_write=True)
         self.signal_new_query_successful.emit()
-        # self.my_queries.fill_tree(force=True)
         self.pushButton_restoreQueries.setText(text)

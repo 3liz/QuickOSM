@@ -35,7 +35,7 @@ profile=no
 
 # Add files or directories to the blacklist. They should be base names, not
 # paths.
-ignore=resources_rc.py,main_window.py,my_queries.py,osm_file.py,save_query.py,query.py,quick_query.py
+ignore=resources_rc.py,main_window.py,osm_file.py,save_query.py,query.py,quick_query.py
 
 # Pickle collected data for later comparisons.
 persistent=yes
