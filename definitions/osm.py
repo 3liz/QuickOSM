@@ -1,23 +1,35 @@
 """Definitions for OSM concepts."""
 
-from enum import Enum
+from enum import Enum, unique, auto
 
 
-class QueryType(Enum):
-    NotSpatial = 'NotSpatial'
-    BBox = 'Bbox'
-    InArea = 'InNominatimPlace'
-    AroundArea = 'AroundNominatimPlace'
+class AutoEnum(Enum):
+    # noinspection PyMethodParameters
+    def _generate_next_value_(name, start, count, last_values):
+        return name
 
 
-class OsmType(Enum):
-    Node = 'node'
-    Way = 'way'
-    Relation = 'relation'
+@unique
+class QueryType(AutoEnum):
+    """Type of query that QuickOSM can generate."""
+    NotSpatial = auto()
+    BBox = auto()
+    InArea = auto()
+    AroundArea = auto()
 
 
-class LayerType(Enum):
-    Points = 'points'
-    Lines = 'lines'
-    Multilinestrings = 'multilinestrings'
-    MultiPolygons = 'multipolygons'
+@unique
+class OsmType(AutoEnum):
+    """OSM objects."""
+    Node = auto()
+    Way = auto()
+    Relation = auto()
+
+
+@unique
+class LayerType(AutoEnum):
+    """Layers that ogr2ogr can generate from an OSM file which are readable."""
+    Points = auto()
+    Lines = auto()
+    Multilinestrings = auto()
+    MultiPolygons = auto()
