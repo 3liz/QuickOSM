@@ -35,7 +35,6 @@ from QuickOSM.core.utilities.utilities_qgis import display_message_bar
 from QuickOSM.ui.QuickOSMWidget import QuickOSMWidget
 from QuickOSM.ui.XMLHighlighter import XMLHighlighter
 from QuickOSM.ui.query import Ui_ui_query
-from QuickOSM.ui.save_query_dialog import SaveQueryDialog
 from qgis.PyQt.QtCore import pyqtSignal, Qt, QUrl
 from qgis.PyQt.QtGui import QDesktopServices, QIcon
 from qgis.PyQt.QtWidgets import QDockWidget, QMenu, QAction, QApplication, \
@@ -82,11 +81,11 @@ class QueryWidget(QuickOSMWidget, Ui_ui_query):
         popup_menu = QMenu()
         save_final_query_action = QAction(
             tr('Save as final query'), self.pushButton_saveQuery)
-        save_final_query_action.triggered.connect(self.save_final_query)
+        # save_final_query_action.triggered.connect(self.save_final_query)
         popup_menu.addAction(save_final_query_action)
         save_template_query_action = QAction(
             tr('Save as template'), self.pushButton_saveQuery)
-        save_template_query_action.triggered.connect(self.save_template_query)
+        # save_template_query_action.triggered.connect(self.save_template_query)
         popup_menu.addAction(save_template_query_action)
         self.pushButton_saveQuery.setMenu(popup_menu)
 
@@ -255,51 +254,6 @@ class QueryWidget(QuickOSMWidget, Ui_ui_query):
         query = QueryPreparation(query, bbox, nominatim)
         query_string = query.prepare_query()
         self.textEdit_query.setPlainText(query_string)
-
-    def save_final_query(self):
-        """
-        Save the query without any templates, usefull for bbox
-        """
-
-        # Which geometry at the end ?
-        output_geometry_types = self.get_output_geometry_types()
-        white_list_values = self.get_white_list_values()
-
-        query = str(self.textEdit_query.toPlainText())
-        nominatim = str(self.lineEdit_nominatim.text())
-        bbox = self.get_bounding_box()
-
-        # Delete any templates
-        query = QueryPreparation(query, bbox, nominatim).prepare_query()
-
-        # Save the query
-        save_query_dialog = SaveQueryDialog(
-            query=query,
-            output_geometry_types=output_geometry_types,
-            white_list_values=white_list_values)
-        save_query_dialog.signal_new_query_successful.connect(
-            self.signal_new_query_successful.emit)
-        save_query_dialog.exec_()
-
-    def save_template_query(self):
-        """
-        Save the query with templates if some are presents
-        """
-
-        # Which geometry at the end ?
-        output_geometry_types = self.get_output_geometry_types()
-        white_list_values = self.get_white_list_values()
-
-        query = str(self.textEdit_query.toPlainText())
-
-        # save the query
-        save_query_dialog = SaveQueryDialog(
-            query=query,
-            output_geometry_types=output_geometry_types,
-            white_list_values=white_list_values)
-        save_query_dialog.signal_new_query_successful.connect(
-            self.signal_new_query_successful.emit)
-        save_query_dialog.exec_()
 
     @staticmethod
     def open_overpass_turbo():
