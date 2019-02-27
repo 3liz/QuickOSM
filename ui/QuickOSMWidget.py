@@ -253,8 +253,8 @@ class QuickOSMWidget(QWidget):
         traceback.print_tb(tb)
         LOGGER.critical(exc_type)
         LOGGER.critical(f_name)
-        LOGGER.critical(str(e))
-        LOGGER.critical(traceback.format_tb(tb))
+        LOGGER.critical(e)
+        LOGGER.critical('\n'.join(traceback.format_tb(tb)))
 
         display_message_bar(
             tr('Error in the QGIS Logs, QuickOSM panel, please report it to '

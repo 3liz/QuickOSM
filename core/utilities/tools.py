@@ -98,7 +98,7 @@ def get_user_query_folder(over_write=False):
     if not QDir(queries_folder).exists() or over_write:
         folder = join(dirname(dirname(dirname(abspath(__file__)))), 'queries')
         copy_tree(folder, QDir.toNativeSeparators(queries_folder))
-    return str(QDir.toNativeSeparators(queries_folder))
+    return QDir.toNativeSeparators(queries_folder)
 
 
 def get_setting(key, default=None):
