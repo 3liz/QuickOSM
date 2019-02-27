@@ -23,7 +23,7 @@
 import logging
 
 from QuickOSM.core.utilities.tools import tr
-from qgis.core import QgsMessageLog
+from qgis.core import QgsMessageLog, Qgis
 
 __author__ = 'tim@kartoza.com'
 __revision__ = '$Format:%H$'
@@ -31,6 +31,35 @@ __date__ = '29/01/2011'
 __copyright__ = 'Copyright 2016, Cadasta'
 
 LOGGER = logging.getLogger('QuickOSM')
+
+
+def qgis_level(logging_level):
+    """Check for the corresponding QGIS Level according to Logging Level.
+
+    For QGIS:
+    https://qgis.org/api/classQgis.html#a60c079f4d8b7c479498be3d42ec96257
+
+    For Logging:
+    https://docs.python.org/3/library/logging.html#levels
+
+    :param logging_level: The Logging level
+    :type logging_level: basestring
+
+    :return: The QGIS Level
+    :rtype: Qgis.MessageLevel
+    """
+    if logging_level == 'CRITICAL':
+        return Qgis.Critical
+    elif logging_level == 'ERROR':
+        return Qgis.Critical
+    elif logging_level == 'WARNING':
+        return Qgis.Warning
+    elif logging_level == 'INFO':
+        return Qgis.Info
+    elif logging_level == 'DEBUG':
+        return Qgis.Info
+
+    return Qgis.Info
 
 
 class QgsLogHandler(logging.Handler):
@@ -48,13 +77,13 @@ class QgsLogHandler(logging.Handler):
         """
         try:
             QgsMessageLog.logMessage(
-                record.getMessage(), 'QuickOSM', 0)
+                record.getMessage(), 'QuickOSM', qgis_level(record.levelname))
         except MemoryError:
             message = tr(
                 'Due to memory limitations on this machine, QuickOSM can not '
                 'handle the full log')
             print(message)
-            QgsMessageLog.logMessage(message, 'QuickOSM', 0)
+            QgsMessageLog.logMessage(message, 'QuickOSM', Qgis.Critical)
 
 
 def add_logging_handler_once(logger, handler):
