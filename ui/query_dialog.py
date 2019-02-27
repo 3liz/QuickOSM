@@ -173,7 +173,7 @@ class QueryWidget(QuickOSMWidget, Ui_ui_query):
         QApplication.processEvents()
 
         # Get all values
-        query = str(self.textEdit_query.toPlainText())
+        query = self.textEdit_query.toPlainText()
         output_directory = self.output_directory.filePath()
         prefix_file = self.lineEdit_filePrefix.text()
         nominatim = self.nominatim_value()
@@ -232,8 +232,10 @@ class QueryWidget(QuickOSMWidget, Ui_ui_query):
 
         except QuickOsmException as e:
             self.display_geo_algorithm_exception(e)
+            pass
         except Exception as e:  # pylint: disable=broad-except
             self.display_exception(e)
+            pass
 
         finally:
             # Resetting the button
@@ -248,8 +250,8 @@ class QueryWidget(QuickOSMWidget, Ui_ui_query):
         Transform the template to query "out of the box"
         """
 
-        query = str(self.textEdit_query.toPlainText())
-        nominatim = str(self.lineEdit_nominatim.text())
+        query = self.textEdit_query.toPlainText()
+        nominatim = self.lineEdit_nominatim.text()
         bbox = self.get_bounding_box()
         query = QueryPreparation(query, bbox, nominatim)
         query_string = query.prepare_query()

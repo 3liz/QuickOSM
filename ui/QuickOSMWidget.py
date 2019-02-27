@@ -26,6 +26,7 @@ from sys import exc_info
 
 from QuickOSM.core.utilities.tools import tr, quickosm_user_folder
 from QuickOSM.core.utilities.utilities_qgis import display_message_bar
+from QuickOSM.definitions.osm import LayerType, OsmType
 from qgis.PyQt.QtCore import QUrl
 from qgis.PyQt.QtGui import QDesktopServices
 from qgis.PyQt.QtWidgets import QWidget, QApplication, QCompleter
@@ -143,13 +144,14 @@ class QuickOSMWidget(QWidget):
         """
         output_geom_types = []
         if self.checkBox_points.isChecked():
-            output_geom_types.append('points')
+            output_geom_types.append(LayerType.Points)
         if self.checkBox_lines.isChecked():
-            output_geom_types.append('lines')
+            output_geom_types.append(LayerType.Lines)
         if self.checkBox_multilinestrings.isChecked():
-            output_geom_types.append('multilinestrings')
+            output_geom_types.append(LayerType.Multilinestrings)
         if self.checkBox_multipolygons.isChecked():
-            output_geom_types.append('multipolygons')
+            output_geom_types.append(LayerType.Multipolygons)
+
         return output_geom_types
 
     def get_white_list_values(self):
@@ -161,15 +163,18 @@ class QuickOSMWidget(QWidget):
         """
         white_list_values = {}
         if self.checkBox_points.isChecked():
-            white_list_values['points'] = self.lineEdit_csv_points.text()
+            white_list_values[LayerType.Points] = (
+                self.lineEdit_csv_points.text())
         if self.checkBox_lines.isChecked():
-            white_list_values['lines'] = self.lineEdit_csv_lines.text()
+            white_list_values[LayerType.Lines] = (
+                self.lineEdit_csv_lines.text())
         if self.checkBox_multilinestrings.isChecked():
-            white_list_values['multilinestrings'] = \
-                self.lineEdit_csv_multilinestrings.text()
+            white_list_values[LayerType.Multilinestrings] = (
+                self.lineEdit_csv_multilinestrings.text())
         if self.checkBox_multipolygons.isChecked():
-            white_list_values['multipolygons'] = \
-                self.lineEdit_csv_multipolygons.text()
+            white_list_values[LayerType.Multipolygons] = (
+                self.lineEdit_csv_multipolygons.text())
+
         return white_list_values
 
     def get_bounding_box(self):

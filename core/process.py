@@ -32,7 +32,7 @@ from QuickOSM.core.query_factory import QueryFactory
 from QuickOSM.core.query_preparation import QueryPreparation
 from QuickOSM.core.utilities.operating_system import get_default_encoding
 from QuickOSM.core.utilities.tools import get_setting, tr
-from QuickOSM.definitions.osm import QueryType
+from QuickOSM.definitions.osm import QueryType, LayerType
 from QuickOSM.definitions.overpass import OVERPASS_SERVERS
 from qgis.PyQt.QtWidgets import QApplication
 from qgis.core import (
@@ -74,11 +74,19 @@ def open_file(
             if isfile(outputs[layer]):
                 raise FileOutPutException(suffix='(' + outputs[layer] + ')')
 
+    # Legacy, waiting to remove the OsmParser for QGIS >= 3.6
+    output_geom_legacy = [l.value.lower() for l in output_geom_types]
+    if not white_list_column:
+        white_list_column = {}
+    white_list_legacy = (
+        {l.value.lower(): csv for l, csv in white_list_column.items()}
+    )
+
     # Parsing the file
     osm_parser = OsmParser(
         osm_file=osm_file,
-        layers=output_geom_types,
-        white_list_column=white_list_column)
+        layers=output_geom_legacy,
+        white_list_column=white_list_legacy)
 
     osm_parser.signalText.connect(dialog.set_progress_text)
     osm_parser.signalPercentage.connect(dialog.set_progress_percentage)
@@ -95,7 +103,7 @@ def open_file(
     for i, (layer, item) in enumerate(layers.items()):
         dialog.set_progress_percentage(i / len(layers) * 100)
         QApplication.processEvents()
-        if item['featureCount'] and layer in output_geom_types:
+        if item['featureCount'] and LayerType(layer.capitalize()) in output_geom_types:
 
             final_layer_name = layer_name
             # If configOutputs is not None (from My Queries)

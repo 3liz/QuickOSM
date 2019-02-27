@@ -63,7 +63,7 @@ class QueryFactory:
         :type around_distance: int,None
 
         :param osm_objects: List of osm objects to query on (node/way/relation)
-        :type osm_objects: list
+        :type osm_objects: list(OsmType)
 
         :param output:output of overpass : XML or JSON
         :type output: str
@@ -81,6 +81,7 @@ class QueryFactory:
         self._distance_around = around_distance
 
         if osm_objects is None:
+            # If None, we had all OSM Types from the enum
             # noinspection PyTypeChecker
             osm_objects = list(OsmType)
 
@@ -148,7 +149,7 @@ class QueryFactory:
 
         for osm_object in self._osm_objects:
             for i in range(0, loop):
-                query += '<query type="%s">' % osm_object.value
+                query += '<query type="%s">' % osm_object.value.lower()
                 if self._key:
                     query += '<has-kv k="%s" ' % self._key
                     if self._value:

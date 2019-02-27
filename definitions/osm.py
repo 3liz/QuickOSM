@@ -32,4 +32,4 @@ class LayerType(AutoEnum):
     Points = auto()
     Lines = auto()
     Multilinestrings = auto()
-    MultiPolygons = auto()
+    Multipolygons = auto()
