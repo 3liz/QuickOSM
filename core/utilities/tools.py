@@ -33,26 +33,6 @@ def tr(text):
     return QApplication.translate('@default', text)
 
 
-def read_metadata(section, item):
-    root = dirname(dirname(dirname(__file__)))
-    metadata = join(root, 'metadata.txt')
-    parser = configparser.ConfigParser()
-    parser.read(metadata)
-    return parser.get(section, item)
-
-
-def get_current_version():
-    return read_metadata('general', 'version')
-
-
-def new_queries_available():
-    status = read_metadata('general', 'newQueries')
-    if status == 'True':
-        return True
-    else:
-        return False
-
-
 def quickosm_user_folder():
     """
     Get the user folder, ~/.qgis2/QuickOSM on linux for instance
@@ -83,22 +63,6 @@ def resources_path(*args):
         path = abspath(join(path, item))
 
     return path
-
-
-def get_user_query_folder(over_write=False):
-    """
-    Get the user folder for queries.
-    For instance on linux : ~/.qgis2/QuickOSM/queries
-
-    @rtype: str
-    @return: path
-    """
-    folder = quickosm_user_folder()
-    queries_folder = join(folder, 'queries')
-    if not QDir(queries_folder).exists() or over_write:
-        folder = join(dirname(dirname(dirname(abspath(__file__)))), 'queries')
-        copy_tree(folder, QDir.toNativeSeparators(queries_folder))
-    return QDir.toNativeSeparators(queries_folder)
 
 
 def get_setting(key, default=None):

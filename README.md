@@ -28,7 +28,6 @@ QuickOSM allows you to work quickly with OSM data in QGIS thanks to [Overpass AP
 * Write some queries for you by providing a key/value
 * Choose to run the query on an area or an extent
 * Configure the query : which layers, which columns ...
-* Save your queries in categories and run them later
 * Open a local OSM (.osm or .pbf) with a specific osmconf in QGIS
 * Build some models with QGIS Processing
 

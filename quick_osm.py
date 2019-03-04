@@ -30,19 +30,14 @@ from QuickOSM.definitions.overpass import OVERPASS_SERVERS
 from QuickOSM.core.custom_logging import setup_logger
 from QuickOSM.quick_osm_processing.provider import Provider
 from QuickOSM.core.utilities.tools import (
-    get_current_version,
-    get_setting,
-    set_setting,
-    new_queries_available,
     tr,
     quickosm_user_folder,
-    get_user_query_folder
 )
 from QuickOSM.ui.main_window_dialog import MainWindowDialog
 from qgis.PyQt.QtCore import QTranslator, QCoreApplication
 from qgis.PyQt.QtGui import QIcon
-from qgis.PyQt.QtWidgets import QMenu, QAction, QPushButton
-from qgis.core import Qgis, QgsApplication, QgsCoordinateTransform, \
+from qgis.PyQt.QtWidgets import QMenu, QAction
+from qgis.core import QgsApplication, QgsCoordinateTransform, \
     QgsCoordinateReferenceSystem, QgsProject, QgsSettings
 
 LOGGER = logging.getLogger('QuickOSM')
@@ -83,9 +78,6 @@ class QuickOSMPlugin(object):
             self.translator = QTranslator()
             self.translator.load(locale_path)
             QCoreApplication.installTranslator(self.translator)
-
-        # Create the folder if it does not exist.
-        get_user_query_folder(over_write=True)
 
         # Add to processing
         self.provider = Provider()
@@ -153,29 +145,6 @@ class QuickOSMPlugin(object):
                                 server))
                         self.iface.QuickOSM_mainWindowDialog.\
                             comboBox_default_OAPI.addItem(server)
-
-        # Check previous version and if new queries are available
-        version = get_setting('version')
-        current_version = get_current_version()
-        if version != current_version:
-            if new_queries_available():
-                widget = self.iface.messageBar().createMessage(
-                    'QuickOSM',
-                    tr('New queries are available in the plugin. Would like '
-                       'to install them ? This will overwrite the current '
-                       'default queries.'))
-                button_ok = QPushButton(widget)
-                button_ok.setText(tr('Install'))
-                button_ok.pressed.connect(self.restoreDefaultQueries)
-                widget.layout().addWidget(button_ok)
-                self.iface.messageBar().pushWidget(
-                    widget, Qgis.Info, 0)
-
-            set_setting('version', current_version)
-
-    def restoreDefaultQueries(self):
-        self.iface.QuickOSM_mainWindowDialog.restore_default_queries()
-        self.iface.messageBar().popWidget()
 
     def unload(self):
         self.iface.removePluginVectorMenu('&QuickOSM', self.mainWindowAction)
