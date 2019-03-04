@@ -100,8 +100,6 @@ class QuickOSMPlugin(object):
         self.mainWindowAction = None
         self.osmFileAction = None
         self.osmFileDockWidget = None
-        # self.myQueriesAction = None
-        # self.myQueriesDockWidget = None
         self.queryAction = None
         self.queryDockWidget = None
         self.quickQueryAction = None
