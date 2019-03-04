@@ -11,6 +11,9 @@ email=etienne@trimaille.eu
 # For QGIS WPS
 server=True
 
+# QGIS Processing 3.8
+hasProcessingProvider=yes
+
 # End of mandatory metadata
 
 # Optional items:

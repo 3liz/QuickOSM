@@ -87,9 +87,7 @@ class QuickOSMPlugin(object):
         # Create the folder if it does not exist.
         get_user_query_folder(over_write=True)
 
-        # Add to processing
-        self.provider = Provider()
-        QgsApplication.processingRegistry().addProvider(self.provider)
+        self.provider = None
 
         # Add the toolbar
         self.toolbar = self.iface.addToolBar('QuickOSM')
@@ -108,7 +106,15 @@ class QuickOSMPlugin(object):
         self.quickQueryDockWidget = None
         self.josmAction = None
 
+    def initProcessing(self):
+        """Init Processing provider for QGIS >= 3.8."""
+        self.provider = Provider()
+        QgsApplication.processingRegistry().addProvider(self.provider)
+
     def initGui(self):
+
+        if Qgis.QGIS_VERSION_INT < 30800:
+            self.initProcessing()
 
         # Setup menu
         self.quickosm_menu = QMenu('QuickOSM')
