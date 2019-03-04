@@ -82,6 +82,8 @@ def open_file(
         {l.value.lower(): csv for l, csv in white_list_column.items()}
     )
 
+    LOGGER.info('The OSM file is: {}'.format(osm_file))
+
     # Parsing the file
     osm_parser = OsmParser(
         osm_file=osm_file,
@@ -237,6 +239,9 @@ def process_quick_query(
     else:
         query_type = QueryType.NotSpatial
     # End todo
+
+    LOGGER.info('QueryFactory: the key is "{}" and the value is "{}"'.format(
+        key, value))
 
     # Building the query
     query_factory = QueryFactory(
