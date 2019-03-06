@@ -22,18 +22,15 @@
 
 import logging
 import urllib.request
-from json import load
-from os.path import dirname, join, exists, isfile
+from os.path import dirname, join, exists
 
-from QuickOSM.definitions.overpass import OVERPASS_SERVERS
 from QuickOSM.core.custom_logging import setup_logger
 from QuickOSM.quick_osm_processing.provider import Provider
 from QuickOSM.core.utilities.tools import (
     tr,
-    quickosm_user_folder,
+    # quickosm_user_folder,
     resources_path,
 )
-from QuickOSM.ui.main_window_dialog import MainWindowDialog
 from qgis.PyQt.QtCore import QTranslator, QCoreApplication
 from qgis.PyQt.QtGui import QIcon
 from qgis.PyQt.QtWidgets import QMenu, QAction
@@ -118,9 +115,8 @@ class QuickOSMPlugin(object):
             'QuickOSM…',
             self.iface.mainWindow())
         # noinspection PyUnresolvedReferences
-        self.mainWindowAction.triggered.connect(self.openMainWindow)
+        self.mainWindowAction.triggered.connect(self.open_dialog)
         self.toolbar.addAction(self.mainWindowAction)
-        self.iface.QuickOSM_mainWindowDialog = MainWindowDialog()
 
         # Action JOSM
         self.josmAction = QAction(
@@ -133,23 +129,6 @@ class QuickOSMPlugin(object):
         # Insert in the good order
         self.quickosm_menu.addAction(self.mainWindowAction)
         self.quickosm_menu.addAction(self.josmAction)
-
-        for server in OVERPASS_SERVERS:
-            self.iface.QuickOSM_mainWindowDialog.comboBox_default_OAPI. \
-                addItem(server)
-
-        # Read the config file
-        custom_config = join(quickosm_user_folder(), 'custom_config.json')
-        if isfile(custom_config):
-            with open(custom_config) as f:
-                config_json = load(f)
-                for server in config_json.get('overpass_servers'):
-                    if server not in OVERPASS_SERVERS:
-                        LOGGER.info(
-                            'Custom overpass server list added: {}'.format(
-                                server))
-                        self.iface.QuickOSM_mainWindowDialog.\
-                            comboBox_default_OAPI.addItem(server)
 
     def unload(self):
         self.iface.removePluginVectorMenu('&QuickOSM', self.mainWindowAction)
@@ -186,6 +165,10 @@ class QuickOSMPlugin(object):
             self.iface.messageBar().pushCritical(
                 tr('JOSM Remote'), tr('Is the remote enabled?'))
 
-    def openMainWindow(self):
-        self.iface.QuickOSM_mainWindowDialog.listWidget.setCurrentRow(0)
-        self.iface.QuickOSM_mainWindowDialog.exec_()
+    @staticmethod
+    def open_dialog():
+        """Create and open the main dialog."""
+        from QuickOSM.ui.main_window_dialog import MainDialog
+        dialog = MainDialog()
+        dialog.listWidget.setCurrentRow(0)
+        dialog.exec_()

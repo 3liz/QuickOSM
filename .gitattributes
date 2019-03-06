@@ -1,6 +1,5 @@
 *test/ export-ignore
 /i18n/*.ts export-ignore
-/ui/*.ui export-ignore
 /.github/ export-ignore
 /.tx/ export-ignore
 .flake8 export-ignore
