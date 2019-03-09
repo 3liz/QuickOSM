@@ -38,30 +38,32 @@ There are some useful tips, like automatic colours on lines (if the tag is prese
 ## Using QuickOSM in a Processing model or in a Python script
 
 Since QGIS 3.4, QuickOSM is available in the Processing modeler.
-Here some useful algorithms to combine with QuickOSM algorithms:
-* **File Tools** -> **Download file**. You need to give the output of one of the *Build query* algorithms.
+Here some useful algorithms in an appropriate order:
+* **QuickOSM** -> **Advanced**, one of the **Build query** algorithms.
+* **File Tools** -> **Download file**.
 * **Modeler Tools** -> **String concatenation**. 
 Useful to concatenate the downloaded filepath with
   * `|layername=points`
   * `|layername=lines`
   * `|layername=multilinestrings`
   * `|layername=multipolygons`
-Check the answer on [stackechange](https://gis.stackexchange.com/a/313360/24505).
+ 
+Check a more detailed answer on [stackechange](https://gis.stackexchange.com/a/313360/24505).
+* **Vector Table** -> **Explode HStore field** (QGIS ≥ 3.6))
 * **Vector Table** -> **Feature filter**
-* **Vector Table** -> **Explode HSTore field** (QGIS ≥ 3.6 only))
 
 Since QGIS 3.6, you can export your Processing model as a Python script.
 
 ## Versions
 
+* QuickOSM is maintained only for a maintained QGIS version (LTR and stable release).
 * Current test status master : [![Build Status](https://travis-ci.org/3liz/QuickOSM.svg)](https://travis-ci.org/3liz/QuickOSM)
 
 | QuickOSM   | QGIS Min | QGIS Max | Branch       |
 |------------|----------|----------|--------------|
-| 1.0 -> 1.4 | 2.0      | 2.18     | master_qgis2 |
+| 1.0 -> 1.4 | 2.0      | 2.18     | [master_qgis2](https://github.com/3liz/QuickOSM/tree/master_qgis2) |
 | 1.5 -> 1.7 | 3.0      | 3.2      |              |
-| 1.8 ->     | 3.4      | 3.4      | master       |
-|            | 3.6      |          |              |
+| 1.8 ->     | 3.4      |          | [master](https://github.com/3liz/QuickOSM/tree/master)       |
 
 ## Authors
 
