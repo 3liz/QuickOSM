@@ -67,6 +67,12 @@ class BuildQueryBasedAlgorithm(QgisAlgorithm):
     def groupId():
         return 'advanced'
 
+    def shortHelpString(self):
+        return self.tr(
+            'This algorithm builds a query and then encode it into the '
+            'Overpass API URL. The "Download File" algorithm might be used '
+            'after that to fetch the result.')
+
     def flags(self):
         return super().flags() | QgsProcessingAlgorithm.FlagHideFromToolbox
 
