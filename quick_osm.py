@@ -36,7 +36,7 @@ from QuickOSM.ui.main_window_dialog import MainWindowDialog
 from qgis.PyQt.QtCore import QTranslator, QCoreApplication
 from qgis.PyQt.QtGui import QIcon
 from qgis.PyQt.QtWidgets import QMenu, QAction
-from qgis.core import QgsApplication, QgsCoordinateTransform, \
+from qgis.core import Qgis, QgsApplication, QgsCoordinateTransform, \
     QgsCoordinateReferenceSystem, QgsProject, QgsSettings
 
 LOGGER = logging.getLogger('QuickOSM')
@@ -78,9 +78,7 @@ class QuickOSMPlugin(object):
             self.translator.load(locale_path)
             QCoreApplication.installTranslator(self.translator)
 
-        # Add to processing
-        self.provider = Provider()
-        QgsApplication.processingRegistry().addProvider(self.provider)
+        self.provider = None
 
         # Add the toolbar
         self.toolbar = self.iface.addToolBar('QuickOSM')
@@ -97,7 +95,14 @@ class QuickOSMPlugin(object):
         self.quickQueryDockWidget = None
         self.josmAction = None
 
+    def initProcessing(self):
+        """Init Processing provider for QGIS >= 3.8."""
+        self.provider = Provider()
+        QgsApplication.processingRegistry().addProvider(self.provider)
+
     def initGui(self):
+        if Qgis.QGIS_VERSION_INT < 30800:
+            self.initProcessing()
 
         # Setup menu
         self.quickosm_menu = QMenu('QuickOSM')

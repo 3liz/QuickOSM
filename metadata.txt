@@ -7,6 +7,7 @@ about=Execute customs Overpass queries in QGIS to get OSM data.
 version=1.12.1
 author=Etienne Trimaille
 email=etienne@trimaille.eu
+hasProcessingProvider=yes
 # For QGIS WPS
 server=True
 
