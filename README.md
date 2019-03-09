@@ -1,5 +1,4 @@
-QuickOSM
-============================================================
+#QuickOSM
 
 ![Logo of QuickOSM](resources/QuickOSM.svg)
 
@@ -22,8 +21,8 @@ point and polygon layers for the toilets of London! (nodes and ways in OpenStree
 with the amenity=toilet tag on them) 
 
 
-Generalities
-=
+##Generalities
+
 QuickOSM allows you to work quickly with OSM data in QGIS thanks to [Overpass API][Overpass].
 * Write some queries for you by providing a key/value
 * Choose to run the query on an area or an extent
@@ -36,9 +35,25 @@ There are some useful tips, like automatic colours on lines (if the tag is prese
 
 [Overpass]: https://wiki.openstreetmap.org/wiki/Overpass_API
 
+##Using QuickOSM in a Processing model or in a Python script
 
-Versions
-=
+Since QGIS 3.4, QuickOSM is available in the Processing modeler.
+Here some useful algorithms to combine with QuickOSM algorithms:
+* **File Tools** -> **Download file**. You need to give the output of one of the *Build query* algorithms.
+* **Modeler Tools** -> **String concatenation**. 
+Useful to concatenate the downloaded filepath with
+  * `|layername=points`
+  * `|layername=lines`
+  * `|layername=multilinestrings`
+  * `|layername=multipolygons`
+Check the answer on [stackechange](https://gis.stackexchange.com/a/313360/24505).
+* **Vector Table** -> **Feature filter**
+* **Vector Table** -> **Explode HSTore field** (QGIS ≥ 3.6 only))
+
+Since QGIS 3.6, you can export your Processing model as a Python script.
+
+##Versions
+
 
 * Current test status master : [![Build Status](https://travis-ci.org/3liz/QuickOSM.svg)](https://travis-ci.org/3liz/QuickOSM)
 
@@ -50,6 +65,6 @@ Versions
 | 1.8 ->     | 3.4      | 3.4      | master       |
 |            | 3.6      |          |              |
 
-Authors
-=
+##Authors
+
 Etienne Trimaille : https://twitter.com/etrimaille
