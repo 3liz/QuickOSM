@@ -176,9 +176,11 @@ class QueryWidget(QuickOSMWidget, Ui_ui_query):
 
         # Set bbox
         bbox = None
-        # if self.radioButton_extentLayer.isChecked() or \
-        #         self.radioButton_extentMapCanvas.isChecked():
-        #     bbox = self.get_bounding_box()
+        if self.cb_query_type.isEnabled():
+            query_type = self.cb_query_type.currentData()
+            if query_type in ['layer', 'canvas']:
+                nominatim = None
+                bbox = self.get_bounding_box()
 
         # Check nominatim
         if nominatim == '':
