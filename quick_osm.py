@@ -36,7 +36,7 @@ from QuickOSM.ui.main_window_dialog import MainWindowDialog
 from qgis.PyQt.QtCore import QTranslator, QCoreApplication
 from qgis.PyQt.QtGui import QIcon
 from qgis.PyQt.QtWidgets import QMenu, QAction
-from qgis.core import Qgis, QgsApplication, QgsCoordinateTransform, \
+from qgis.core import QgsApplication, QgsCoordinateTransform, \
     QgsCoordinateReferenceSystem, QgsProject, QgsSettings
 
 LOGGER = logging.getLogger('QuickOSM')
@@ -101,8 +101,7 @@ class QuickOSMPlugin(object):
         QgsApplication.processingRegistry().addProvider(self.provider)
 
     def initGui(self):
-        if Qgis.QGIS_VERSION_INT < 30800:
-            self.initProcessing()
+        self.initProcessing()
 
         # Setup menu
         self.quickosm_menu = QMenu('QuickOSM')
