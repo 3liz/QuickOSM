@@ -34,17 +34,14 @@ from QuickOSM.core.utilities.utilities_qgis import display_message_bar
 from QuickOSM.ui.QuickOSMWidget import QuickOSMWidget
 from QuickOSM.ui.XMLHighlighter import XMLHighlighter
 from QuickOSM.ui.query import Ui_ui_query
-from qgis.PyQt.QtCore import pyqtSignal, Qt, QUrl
+from qgis.PyQt.QtCore import Qt, QUrl
 from qgis.PyQt.QtGui import QDesktopServices, QIcon
-from qgis.PyQt.QtWidgets import QDockWidget, QMenu, QAction, QApplication, \
+from qgis.PyQt.QtWidgets import QMenu, QAction, QApplication, \
     QDialogButtonBox
 from qgis.core import Qgis
 
 
 class QueryWidget(QuickOSMWidget, Ui_ui_query):
-    # Signal new query
-    signal_new_query_successful = pyqtSignal(
-        name='signal_new_query_successful')
 
     # noinspection PyUnresolvedReferences
     def __init__(self, parent=None):
@@ -272,16 +269,3 @@ class QueryWidget(QuickOSMWidget, Ui_ui_query):
         url = "http://wiki.openstreetmap.org/wiki/Overpass_API/Language_Guide"
         desktop_service = QDesktopServices()
         desktop_service.openUrl(QUrl(url))
-
-
-class QueryDockWidget(QDockWidget):
-    signal_new_query_successful = pyqtSignal(
-        name='signal_new_query_successful')
-
-    def __init__(self, parent=None):
-        QDockWidget.__init__(self, parent)
-        self.setAllowedAreas(Qt.LeftDockWidgetArea | Qt.RightDockWidgetArea)
-        self.setWidget(QueryWidget())
-        self.setWindowTitle(tr('QuickOSM - Query'))
-        self.widget().signal_new_query_successful.connect(
-            self.signal_new_query_successful.emit)
