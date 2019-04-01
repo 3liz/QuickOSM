@@ -43,12 +43,10 @@ def quickosm_user_folder():
     """
     path = abspath(join(QgsApplication.qgisSettingsDirPath(), 'QuickOSM'))
 
-    directory = QDir(path)
-    if not directory.exists():
+    if not QDir(path).exists():
         QDir().mkdir(path)
 
     return path
-
 
 
 def resources_path(*args):
