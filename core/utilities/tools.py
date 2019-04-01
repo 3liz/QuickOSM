@@ -19,10 +19,8 @@
  *                                                                         *
  ***************************************************************************/
 """
-import configparser
 from os.path import join, dirname, abspath, pardir
 
-from QuickOSM.core.utilities.operating_system import copy_tree
 from qgis.PyQt.QtCore import QDir, QSettings
 from qgis.PyQt.QtWidgets import QApplication
 from qgis.core import QgsApplication
@@ -34,12 +32,23 @@ def tr(text):
 
 def quickosm_user_folder():
     """
-    Get the user folder, ~/.qgis2/QuickOSM on linux for instance
+    Get the QuickOSM user folder.
+
+    If the folder does not exist, it will create it.
+
+    On Linux: .local/share/QGIS/QGIS3/profiles/default/QuickOSM
 
     @rtype: str
     @return: path
     """
-    return abspath(join(QgsApplication.qgisSettingsDirPath(), 'QuickOSM'))
+    path = abspath(join(QgsApplication.qgisSettingsDirPath(), 'QuickOSM'))
+
+    directory = QDir(path)
+    if not directory.exists():
+        QDir().mkdir(path)
+
+    return path
+
 
 
 def resources_path(*args):

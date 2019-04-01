@@ -50,10 +50,6 @@ class QuickOSMWidget(QWidget):
             'nominatim.txt')
         QWidget.__init__(self, parent)
 
-        # project = QgsProject.instance()
-        # project.layersAdded.connect(self.activate_extent_layer)
-        # project.layersRemoved.connect(self.activate_extent_layer)
-
     def init(self):
         """Init after the UI is loaded."""
         self.output_directory.lineEdit().setPlaceholderText(tr('Save to temporary file'))
