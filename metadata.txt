@@ -28,7 +28,7 @@ server=True
   * New values in OSM tags (crop, produce and trees)
   * Add the Overpass Query to the layer variable scope
   Version 1.11.1
-  * Bug fix about QSettings
+  * Bug fix about QgsSettings
   Version 1.11.0
   * Add raw query processing algorithm
   * API break in Processing algorithm about NOMINATIM replaced by AREA
@@ -39,21 +39,6 @@ server=True
   * Fix Overpass URL
   Version 1.10.0
   * Add Processing provider for Modeler
-  Version 1.9.1
-  * Trying to fix issue about settings and language #132
-  * Use more code in code about file downloader
-  * Add landuse=residential
-  Version 1.9.0
-  * New UI for selecting the extent of the query
-  * Add not spatial queries
-  * The query parser has been refactored
-  * Improve parsing of hstore
-  Version 1.8.0
-  * Add actions on features: OSM, Wikipedia, Wikidata, links
-  * Use custom Overpass list
-  * Make it more readable that you can query on all keys
-  * Refactoring the query factory engine
-  * Use QGIS Expression for parsing HStore field instead of library
 
 # Tags are comma separated with spaces allowed
 tags=osm,openstreetmap,overpass,download,osmdownload,josm,remote,pbf,processing,modeler

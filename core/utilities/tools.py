@@ -21,9 +21,9 @@
 """
 from os.path import join, dirname, abspath, pardir
 
-from qgis.PyQt.QtCore import QDir, QSettings
+from qgis.PyQt.QtCore import QDir
 from qgis.PyQt.QtWidgets import QApplication
-from qgis.core import QgsApplication
+from qgis.core import QgsApplication, QgsSettings
 
 
 def tr(text):
@@ -72,9 +72,9 @@ def resources_path(*args):
 
 
 def get_setting(key, default=None):
-    """Get a value in the QSettings.
+    """Get a value in the QgsSettings.
 
-    :param key: The key to fetch in the QSettings
+    :param key: The key to fetch in the QgsSettings
     :type key: basestring
 
     :param default: The default value if the key is not found.
@@ -83,7 +83,7 @@ def get_setting(key, default=None):
     :return: The value or the default value.
     :rtype: basestring
     """
-    qs = QSettings()
+    qs = QgsSettings()
     prefix = '/QuickOSM/'
     value = qs.value(prefix + key)
 
@@ -95,14 +95,16 @@ def get_setting(key, default=None):
 
 def set_setting(key, value):
     """
-    Set a value in the QSettings
+    Set a value in the QgsSettings
     @param key: key
     @type key: str
+
     @param value: value
     @type value: str
+
     @return: result
     @rtype: bool
     """
-    qs = QSettings()
+    qs = QgsSettings()
     prefix = '/QuickOSM/'
     return qs.setValue(prefix + key, value)
