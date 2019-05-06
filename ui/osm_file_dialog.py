@@ -65,7 +65,6 @@ class OsmFileWidget(QuickOSMWidget, Ui_ui_osm_file):
             dirname(dirname(abspath(__file__))), 'osmconf.ini')
         if not isfile(self.defaultOsmConf):
             self.defaultOsmConf = ''
-        self.osm_conf.lineEdit().setPlaceholderText(self.defaultOsmConf)
         self.osm_conf.setDialogTitle(tr('Select OSM conf file'))
         self.osm_conf.setFilter('OSM conf (*.ini)')
         self.osm_conf.fileChanged.connect(self.disable_run_button)
