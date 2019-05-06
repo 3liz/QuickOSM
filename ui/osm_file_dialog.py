@@ -128,11 +128,15 @@ class OsmFileWidget(QuickOSMWidget, Ui_ui_osm_file):
                 raise DirectoryOutPutException
 
             if load_only:
+                # Legacy, waiting to remove the OsmParser for QGIS >= 3.6
+                # Change in osm_file_dialog.py L131 too
+                output_geom_legacy = [
+                    l.value.lower() for l in output_geometry_types]
                 osm_parser = OsmParser(
                     osm_file,
                     load_only=True,
                     osm_conf=osm_conf,
-                    layers=output_geometry_types)
+                    layers=output_geom_legacy)
                 layers = osm_parser.parse()
 
                 for item in list(layers.values()):

@@ -74,6 +74,7 @@ def open_file(
                 raise FileOutPutException(suffix='(' + outputs[layer] + ')')
 
     # Legacy, waiting to remove the OsmParser for QGIS >= 3.6
+    # Change in osm_file_dialog.py L131 too
     output_geom_legacy = [l.value.lower() for l in output_geom_types]
     if not white_list_column:
         white_list_column = {}
