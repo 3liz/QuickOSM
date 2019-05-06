@@ -8,3 +8,4 @@ help/
 .coverage
 .noseids
 venv
+*.osm
