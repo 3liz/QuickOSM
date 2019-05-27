@@ -66,8 +66,11 @@ class OpenOsmFile(QgisAlgorithm):
         return self.tr('Open sublayers from an OSM file')
 
     def shortHelpString(self):
-        return self.tr('Open all sublayers from an OSM file. A custom OSM configuration file can be specified '
-                       'following the OGR documentation.')
+        return self.tr('Open all sublayers from an OSM file. A custom OSM '
+                       'configuration file can be specified following the OGR '
+                       'documentation. This algorithm will not make a copy of '
+                       'the input file, it will only open it using OGR and '
+                       'custom INI file if provided.')
 
     def initAlgorithm(self, config=None):
         self.addParameter(
@@ -80,23 +83,32 @@ class OpenOsmFile(QgisAlgorithm):
 
         self.addOutput(
             QgsProcessingOutputVectorLayer(
-                self.OUTPUT_POINTS, self.tr('Output points'), QgsProcessing.TypeVectorPoint))
+                self.OUTPUT_POINTS,
+                self.tr('Output points'),
+                QgsProcessing.TypeVectorPoint))
 
         self.addOutput(
             QgsProcessingOutputVectorLayer(
-                self.OUTPUT_LINES, self.tr('Output lines'), QgsProcessing.TypeVectorLine))
+                self.OUTPUT_LINES,
+                self.tr('Output lines'),
+                QgsProcessing.TypeVectorLine))
 
         self.addOutput(
             QgsProcessingOutputVectorLayer(
-                self.OUTPUT_MULTILINESTRINGS, self.tr('Output multilinestrings'), QgsProcessing.TypeVectorLine))
+                self.OUTPUT_MULTILINESTRINGS,
+                self.tr('Output multilinestrings'),
+                QgsProcessing.TypeVectorLine))
 
         self.addOutput(
             QgsProcessingOutputVectorLayer(
-                self.OUTPUT_MULTIPOLYGONS, self.tr('Output multipolygons'), QgsProcessing.TypeVectorPolygon))
+                self.OUTPUT_MULTIPOLYGONS,
+                self.tr('Output multipolygons'),
+                QgsProcessing.TypeVectorPolygon))
 
         self.addOutput(
             QgsProcessingOutputVectorLayer(
-                self.OUTPUT_OTHER_RELATIONS, self.tr('Output other relations'), QgsProcessing.TypeVector))
+                self.OUTPUT_OTHER_RELATIONS,
+                self.tr('Output other relations'), QgsProcessing.TypeVector))
 
     def processAlgorithm(self, parameters, context, feedback):
         self.feedback = feedback
@@ -106,7 +118,9 @@ class OpenOsmFile(QgisAlgorithm):
         if osm_configuration:
             if not exists(osm_configuration):
                 raise QgsProcessingException(self.tr('OSM Configuration file not found'))
+
             gdal.SetConfigOption('OSM_CONFIG_FILE', osm_configuration)
+
         gdal.SetConfigOption('OSM_USE_CUSTOM_INDEXING', 'NO')
 
         points = QgsVectorLayer('{}|layername=points'.format(file), 'points', 'ogr')
