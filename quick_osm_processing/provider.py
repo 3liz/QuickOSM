@@ -24,9 +24,6 @@ __author__ = 'Etienne Trimaille'
 __date__ = '2017-11-11'
 __copyright__ = '(C) 2017 by Etienne Trimaille'
 
-# This will get replaced with a git SHA1 when you do a git archive
-
-__revision__ = '$Format:%H$'
 
 from qgis.PyQt.QtGui import QIcon
 
@@ -46,18 +43,6 @@ from QuickOSM.core.utilities.tools import resources_path
 
 class Provider(QgsProcessingProvider):
 
-    def getAlgs(self):
-        algs = [
-            BuildQueryInAreaAlgorithm(),
-            BuildQueryAroundAreaAlgorithm(),
-            BuildQueryExtentAlgorithm(),
-            BuildQueryNotSpatialAlgorithm(),
-            # DownloadOverpassUrl(),
-            # OpenOsmFile(),
-            RawQueryAlgorithm(),
-        ]
-        return algs
-
     def id(self, *args, **kwargs):
         return 'quickosm'
 
@@ -71,5 +56,10 @@ class Provider(QgsProcessingProvider):
         return resources_path('QuickOSM.svg')
 
     def loadAlgorithms(self, *args, **kwargs):
-        for alg in self.getAlgs():
-            self.addAlgorithm(alg)
+        self.addAlgorithm(BuildQueryInAreaAlgorithm())
+        self.addAlgorithm(BuildQueryAroundAreaAlgorithm())
+        self.addAlgorithm(BuildQueryExtentAlgorithm())
+        self.addAlgorithm(BuildQueryNotSpatialAlgorithm())
+        self.addAlgorithm(RawQueryAlgorithm())
+        # self.addAlgorithm(DownloadOverpassUrl())
+        # self.addAlgorithm(OpenOsmFile())
