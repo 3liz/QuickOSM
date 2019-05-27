@@ -47,6 +47,7 @@ Useful to concatenate the downloaded filepath with
   * `|layername=lines`
   * `|layername=multilinestrings`
   * `|layername=multipolygons`
+* **QuickOSM** → **Open OSM file**. Instead of the step above with the string concatenation.
  
 Check a more detailed answer on [stackexchange](https://gis.stackexchange.com/a/313360/24505).
 * **Vector Table** → **Explode HStore field** (QGIS ≥ 3.6)
