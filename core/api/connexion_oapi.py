@@ -27,6 +27,7 @@ import re
 
 from QuickOSM.core.exceptions import (
     OverpassTimeoutException,
+    NetWorkErrorException,
 )
 from qgis.PyQt.QtCore import (
     QUrl, QEventLoop, QTemporaryFile, QDir)
@@ -59,14 +60,16 @@ class ConnexionOAPI:
     def error(messages):
         for msg in messages:
             LOGGER.error(msg)
+        raise NetWorkErrorException(msg)
 
     @staticmethod
     def canceled():
         LOGGER.info('Request canceled')
+        # TODO, need to handle this to stop the process.
 
     @staticmethod
     def completed():
-        pass
+        LOGGER.info('Request completed')
 
     def run(self):
         """Run the query.

@@ -43,9 +43,9 @@ class GeoAlgorithmException(QuickOsmException):
         QuickOsmException.__init__(self, msg)
 
 
-'''
+"""
 Overpass or network
-'''
+"""
 
 
 class OverpassBadRequestException(QuickOsmException):
@@ -70,9 +70,9 @@ class NetWorkErrorException(QuickOsmException):
             msg = msg + ' with ' + suffix
         QuickOsmException.__init__(self, msg)
 
-'''
+"""
 QueryFactory
-'''
+"""
 
 
 class QueryFactoryException(QuickOsmException):
@@ -90,9 +90,9 @@ class QueryNotSupported(QuickOsmException):
                  ': %s' % key)
         QuickOsmException.__init__(self, msg)
 
-'''
+"""
 Nominatim
-'''
+"""
 
 
 class NominatimAreaException(QuickOsmException):
@@ -101,9 +101,9 @@ class NominatimAreaException(QuickOsmException):
             msg = tr('No nominatim area')
         QuickOsmException.__init__(self, msg)
 
-'''
+"""
 Ogr2Ogr
-'''
+"""
 
 
 class Ogr2OgrException(QuickOsmException):
@@ -122,9 +122,9 @@ class NoLayerException(QuickOsmException):
         QuickOsmException.__init__(self, msg)
 
 
-'''
+"""
 File and directory
-'''
+"""
 
 
 class FileDoesntExistException(QuickOsmException):
@@ -165,9 +165,9 @@ class QueryAlreadyExistsException(QuickOsmException):
             msg = tr('This query already exists')
         QuickOsmException.__init__(self, msg)
 
-'''
+"""
 Forms
-'''
+"""
 
 
 class MissingParameterException(QuickOsmException):

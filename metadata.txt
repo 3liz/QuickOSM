@@ -18,6 +18,7 @@ server=True
 # Uncomment the following line and add your changelog:
 # changelog=
   Version 1.13.X
+  * Improve logging of network requests
   * Open the log panel when a bug occured
   * Add open OSM file algorithm to the Processing provider
   Version 1.12.X

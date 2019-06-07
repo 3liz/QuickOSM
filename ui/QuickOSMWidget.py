@@ -237,6 +237,7 @@ class QuickOSMWidget(QWidget):
         Display quickosm exceptions
         """
         self.label_progress.setText("")
+        LOGGER.debug(e.msg)
         display_message_bar(e.msg, level=e.level, duration=e.duration)
 
     @staticmethod
@@ -249,6 +250,7 @@ class QuickOSMWidget(QWidget):
         _, _, tb = exc_info()
         import traceback
         traceback.print_tb(tb)
+        LOGGER.critical(tr('A critical error occurred, this is the traceback:'))
         LOGGER.critical(exc_type)
         LOGGER.critical(f_name)
         LOGGER.critical(e)
