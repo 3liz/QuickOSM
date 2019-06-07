@@ -37,7 +37,7 @@ markComment: >
 #   Your comment here.
 
 # Comment to post when closing a stale Issue or Pull Request.
-# closeComment: >
+closeComment: >
    Feel free to reopen or to create a new ticket with your problem. We are closing this ticket.
 
 # Limit the number of actions per hour, from 1-30. Default is 30
