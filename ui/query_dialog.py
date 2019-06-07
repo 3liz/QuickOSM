@@ -31,7 +31,7 @@ from QuickOSM.core.exceptions import (
 from QuickOSM.core.query_preparation import QueryPreparation
 from QuickOSM.core.utilities.tools import tr, resources_path
 from QuickOSM.core.utilities.utilities_qgis import (
-    display_message_bar, open_map_features)
+    display_message_bar, open_map_features, open_overpass_turbo, open_doc_overpass)
 from QuickOSM.ui.QuickOSMWidget import QuickOSMWidget
 from QuickOSM.ui.XMLHighlighter import XMLHighlighter
 from QuickOSM.ui.query import Ui_ui_query
@@ -93,7 +93,7 @@ class QueryWidget(QuickOSMWidget, Ui_ui_query):
         map_features_action.triggered.connect(open_map_features)
         popup_menu.addAction(map_features_action)
         overpass_action = QAction('Overpass', self.pushButton_documentation)
-        overpass_action.triggered.connect(self.open_doc_overpass)
+        overpass_action.triggered.connect(open_doc_overpass)
         popup_menu.addAction(overpass_action)
         self.pushButton_documentation.setMenu(popup_menu)
 
@@ -107,7 +107,7 @@ class QueryWidget(QuickOSMWidget, Ui_ui_query):
             self.highlighter.rehighlight)
         self.textEdit_query.cursorPositionChanged.connect(
             self.allow_nominatim_or_extent)
-        self.pushButton_overpassTurbo.clicked.connect(self.open_overpass_turbo)
+        self.pushButton_overpassTurbo.clicked.connect(open_overpass_turbo)
         self.buttonBox.button(QDialogButtonBox.Reset).clicked.connect(
             self.reset_form)
 
