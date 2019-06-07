@@ -30,7 +30,8 @@ from QuickOSM.core.exceptions import (
     OsmObjectsException)
 from QuickOSM.core.query_factory import QueryFactory
 from QuickOSM.core.utilities.tools import tr
-from QuickOSM.core.utilities.utilities_qgis import display_message_bar
+from QuickOSM.core.utilities.utilities_qgis import (
+    display_message_bar, open_map_features)
 from QuickOSM.definitions.osm import OsmType, QueryType
 from QuickOSM.ui.QuickOSMWidget import QuickOSMWidget
 from QuickOSM.ui.quick_query import Ui_ui_quick_query
@@ -76,7 +77,7 @@ class QuickQueryWidget(QuickOSMWidget, Ui_ui_quick_query):
         self.pushButton_runQuery.clicked.connect(self.run_query)
         self.pushButton_showQuery.clicked.connect(self.show_query)
         self.comboBox_key.editTextChanged.connect(self.key_edited)
-        self.pushButton_mapFeatures.clicked.connect(self.open_map_features)
+        self.pushButton_mapFeatures.clicked.connect(open_map_features)
         self.buttonBox.button(QDialogButtonBox.Reset).clicked.connect(
             self.reset_form)
 

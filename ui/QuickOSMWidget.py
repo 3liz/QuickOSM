@@ -26,8 +26,6 @@ from sys import exc_info
 from QuickOSM.core.utilities.tools import tr, quickosm_user_folder
 from QuickOSM.core.utilities.utilities_qgis import display_message_bar
 from QuickOSM.definitions.osm import LayerType, OsmType
-from qgis.PyQt.QtCore import QUrl
-from qgis.PyQt.QtGui import QDesktopServices
 from qgis.PyQt.QtWidgets import QWidget, QApplication, QCompleter
 from qgis.core import (
     QgsGeometry,
@@ -257,17 +255,7 @@ class QuickOSMWidget(QWidget):
         LOGGER.critical('\n'.join(traceback.format_tb(tb)))
 
         display_message_bar(
-            tr('Error in the QGIS Logs, QuickOSM panel, please report it to '
-               '<a href="https://github.com/3liz/QuickOSM/issues/new?'
-               'template=1_BUG_REPORT.md">GitHub</a>'),
+            tr('Error in the logs, QuickOSM panel, please report it to GitHub'),
             level=Qgis.Critical,
+            open_logs=True,
             duration=10)
-
-    @staticmethod
-    def open_map_features():
-        """
-        Open MapFeatures
-        """
-        desktop_service = QDesktopServices()
-        desktop_service.openUrl(
-            QUrl("http://wiki.openstreetmap.org/wiki/Mapfeatures"))

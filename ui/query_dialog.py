@@ -30,12 +30,13 @@ from QuickOSM.core.exceptions import (
     MissingParameterException)
 from QuickOSM.core.query_preparation import QueryPreparation
 from QuickOSM.core.utilities.tools import tr, resources_path
-from QuickOSM.core.utilities.utilities_qgis import display_message_bar
+from QuickOSM.core.utilities.utilities_qgis import (
+    display_message_bar, open_map_features)
 from QuickOSM.ui.QuickOSMWidget import QuickOSMWidget
 from QuickOSM.ui.XMLHighlighter import XMLHighlighter
 from QuickOSM.ui.query import Ui_ui_query
 from qgis.PyQt.QtCore import Qt, QUrl
-from qgis.PyQt.QtGui import QDesktopServices, QIcon
+from qgis.PyQt.QtGui import QIcon
 from qgis.PyQt.QtWidgets import QMenu, QAction, QApplication, \
     QDialogButtonBox
 from qgis.core import Qgis
@@ -89,7 +90,7 @@ class QueryWidget(QuickOSMWidget, Ui_ui_query):
         popup_menu = QMenu()
         map_features_action = QAction(
             'Map Features', self.pushButton_documentation)
-        map_features_action.triggered.connect(self.open_map_features)
+        map_features_action.triggered.connect(open_map_features)
         popup_menu.addAction(map_features_action)
         overpass_action = QAction('Overpass', self.pushButton_documentation)
         overpass_action.triggered.connect(self.open_doc_overpass)
@@ -254,20 +255,3 @@ class QueryWidget(QuickOSMWidget, Ui_ui_query):
         query = QueryPreparation(query, bbox, nominatim)
         query_string = query.prepare_query()
         self.textEdit_query.setPlainText(query_string)
-
-    @staticmethod
-    def open_overpass_turbo():
-        """
-        Open Overpass Turbo
-        """
-        desktop_service = QDesktopServices()
-        desktop_service.openUrl(QUrl("http://overpass-turbo.eu/"))
-
-    @staticmethod
-    def open_doc_overpass():
-        """
-        Open Overpass's documentation
-        """
-        url = "http://wiki.openstreetmap.org/wiki/Overpass_API/Language_Guide"
-        desktop_service = QDesktopServices()
-        desktop_service.openUrl(QUrl(url))

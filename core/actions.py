@@ -20,9 +20,7 @@
  ***************************************************************************/
 """
 
-from QuickOSM.core.utilities.tools import tr, resources_path
-from qgis.PyQt.QtCore import QUrl
-from qgis.PyQt.QtGui import QDesktopServices
+from QuickOSM.core.utilities.tools import tr, resources_path, open_webpage
 from qgis.core import Qgis, QgsAction
 from qgis.utils import iface, plugins
 
@@ -110,7 +108,7 @@ def add_actions(layer, keys):
                 QgsAction.GenericPython,
                 link,
                 (ACTIONS_PATH +
-                    'Actions.run("' + link + '","[% "' + link + '" %]")'),
+                    'Actions.run("{link}","[% "{link}" %]")'.format(link=link)),
                 image,
                 False,
                 link,
@@ -158,7 +156,6 @@ class Actions(object):
         else:
 
             if field in ['url', 'website', 'wikipedia', 'wikidata']:
-                var = QDesktopServices()
                 url = None
 
                 if field == 'url' or field == 'website':
@@ -174,7 +171,7 @@ class Actions(object):
                 if field == 'wikidata':
                     url = "http://www.wikidata.org/wiki/" + value
 
-                var.openUrl(QUrl(url))
+                open_webpage(url)
 
             elif field == 'mapillary':
                 if 'go2mapillary' in plugins:
@@ -182,12 +179,13 @@ class Actions(object):
                     plugins["go2mapillary"].mainAction.setChecked(False)
                     plugins['go2mapillary'].viewer.openLocation(value)
                 else:
-                    var = QDesktopServices()
                     url = 'https://www.mapillary.com/map/im/' + value
-                    var.openUrl(QUrl(url))
+                    open_webpage(url)
 
             elif field == 'josm':
-                import urllib.request, urllib.error, urllib.parse
+                import urllib.request
+                import urllib.error
+                import urllib.parse
                 try:
                     url = 'http://localhost:8111/load_object?objects=' + value
                     urllib.request.urlopen(url).read()
@@ -221,7 +219,7 @@ class Actions(object):
                 level=Qgis.Warning,
                 duration=7)
         else:
-            var = QDesktopServices()
-            url = 'http://www.overpass-api.de/api/sketch-line?' \
-                  'network=' + network + '&ref=' + ref
-            var.openUrl(QUrl(url))
+            url = (
+                'http://www.overpass-api.de/api/sketch-line?'
+                'network={network}&ref={ref}').format(network=network, ref=ref)
+            open_webpage(url)
