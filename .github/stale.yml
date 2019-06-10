@@ -8,11 +8,14 @@ daysUntilStale: 1
 daysUntilClose: 7
 
 # Only issues or pull requests with all of these labels are check if stale. Defaults to `[]` (disabled)
-onlyLabels:
-  - candidate for closing
+onlyLabels: []
 
 # Issues or Pull Requests with these labels will never be considered stale. Set to `[]` to disable
-exemptLabels: []
+exemptLabels:
+  - bug
+  - feature
+  - feedbacks
+  - upstream
 
 # Set to true to ignore issues in a project (defaults to false)
 exemptProjects: false
