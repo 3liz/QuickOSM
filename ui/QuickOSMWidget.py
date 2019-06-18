@@ -19,6 +19,7 @@
  *                                                                         *
  ***************************************************************************/
 """
+import io
 import logging
 from os.path import split, join, isfile
 from sys import exc_info
@@ -63,23 +64,23 @@ class QuickOSMWidget(QWidget):
             pass
 
     def init_nominatim_autofill(self):
-
-        # Usefull to avoid duplicate if we add a new completer.
+        """Open the nominatim file and start setting up the completion."""
+        # Useful to avoid duplicate if we add a new completer.
         self.lineEdit_nominatim.setCompleter(None)
         self.last_places = []
 
         if isfile(self.last_nominatim_places_filepath):
-            last = open(self.last_nominatim_places_filepath, 'r')
-            for line in last:
-                self.last_places.append(line.rstrip('\n'))
+            with io.open(self.last_nominatim_places_filepath, 'r', encoding='utf8') as f:
+                for line in f:
+                    self.last_places.append(line.rstrip('\n'))
 
             nominatim_completer = QCompleter(self.last_places)
             self.lineEdit_nominatim.setCompleter(nominatim_completer)
             self.lineEdit_nominatim.completer().setCompletionMode(
                 QCompleter.PopupCompletion)
-            last.close()
         else:
-            open(self.last_nominatim_places_filepath, 'a').close()
+            io.open(self.last_nominatim_places_filepath, 'a').close()
+
 
     @staticmethod
     def sort_nominatim_places(existing_places, place):
@@ -89,13 +90,20 @@ class QuickOSMWidget(QWidget):
         return existing_places[:10]
 
     def nominatim_value(self):
+        """Edit the new nominatim file."""
         value = self.lineEdit_nominatim.text()
         new_list = self.sort_nominatim_places(self.last_places, value)
 
-        f = open(self.last_nominatim_places_filepath, 'w')
-        for item in new_list:
-            f.write('%s\n' % item)
-        f.close()
+        try:
+            with io.open(
+                    self.last_nominatim_places_filepath, 'w', encoding='utf8') as f:
+                for item in new_list:
+                    f.write('{}\n'.format(item))
+        except UnicodeDecodeError:
+            # The file is corrupted ?
+            # Remove all old places
+            with io.open(self.last_nominatim_places_filepath, 'w', encoding='utf8') as f:
+                f.write('\n')
 
         self.init_nominatim_autofill()
 
