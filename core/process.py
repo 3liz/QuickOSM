@@ -238,6 +238,7 @@ def process_quick_query(
         distance_string = '{}'.format(distance)
     elif not is_around and nominatim:
         query_type = QueryType.InArea
+        distance = None
     elif bbox:
         query_type = QueryType.BBox
     else:
