@@ -78,8 +78,19 @@ class QueryFactory:
         :type print_mode: str
         """
         self._query_type = query_type
+
+        if isinstance(key, str):
+            key = [key]
+        elif key is None:
+            key = []
         self._key = key
+
+        if isinstance(value, str):
+            value = [value]
+        elif value is None:
+            value = []
         self._value = value
+
         self._area = area
         self._distance_around = around_distance
 
@@ -132,6 +143,15 @@ class QueryFactory:
             raise QueryFactoryException(
                 tr('Not possible to query a value without a key.'))
 
+        if len(self._key) > len(self._value):
+            if len(self._key) != 1:
+                raise QueryFactoryException(
+                    tr('Missing some values for some keys'))
+
+        if len(self._key) < len(self._value):
+            raise QueryFactoryException(
+                tr('Missing some keys for some values'))
+
         self._checked = True
         return True
 
@@ -160,8 +180,8 @@ class QueryFactory:
 
         The query will not be valid because of Overpass templates !
         """
-        query = '<osm-script output="%s" timeout="%s">' % \
-                (self._output, self._timeout)
+        query = '<osm-script output="{}" timeout="{}">'.format(
+            self._output, self._timeout)
 
         # Nominatim might be a list of places or a single place, or not defined
         if self._area:
@@ -182,23 +202,23 @@ class QueryFactory:
 
         for osm_object in self._osm_objects:
             for i in range(0, loop):
-                query += '<query type="%s">' % osm_object.value.lower()
-                if self._key:
-                    query += '<has-kv k="%s" ' % self._key
-                    if self._value:
-                        query += 'v="%s"' % self._value
+                query += '<query type="{}">'.format(osm_object.value.lower())
+                for j, key in enumerate(self._key):
+                    query += '<has-kv k="{}" '.format(key)
+                    if j < len(self._value) and self._value[j] is not None:
+                        query += 'v="{}"'.format(self._value[j])
 
                     query += '/>'
 
                 if self._area and self._query_type != QueryType.AroundArea:
-                    query += '<area-query from="area_%s" />' % i
+                    query += '<area-query from="area_{}" />'.format(i)
 
                 elif self._area and self._query_type == QueryType.AroundArea:
-                    query += '<around area_coords="%s" radius="%s" />' % \
-                             (nominatim[i], self._distance_around)
+                    query += '<around area_coords="{}" radius="{}" />'.format(
+                        nominatim[i], self._distance_around)
 
                 elif self._query_type == QueryType.BBox:
-                    query = '%s<bbox-query bbox="custom" />' % query
+                    query = '{}<bbox-query bbox="custom" />'.format(query)
 
                 query += '</query>'
 
@@ -207,7 +227,7 @@ class QueryFactory:
         query += '<item />'
         query += '<recurse type="down"/>'
         query += '</union>'
-        query += '<print mode="%s" />' % self._print_mode
+        query += '<print mode="{}" />'.format(self._print_mode)
         query += '</osm-script>'
 
         return query

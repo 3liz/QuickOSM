@@ -85,6 +85,33 @@ class TestQueryFactory(unittest.TestCase):
         with self.assertRaisesRegex(QueryFactoryException, msg):
             query._check_parameters()
 
+        # Many keys with one value
+        query = QueryFactory(
+            query_type=QueryType.BBox,
+            key=['foo', 'bar'],
+            value='not possible')
+        msg = 'Missing some values for some keys'
+        with self.assertRaisesRegex(QueryFactoryException, msg):
+            query._check_parameters()
+
+        # Many keys with one value
+        query = QueryFactory(
+            query_type=QueryType.BBox,
+            key=['foo', 'bar'],
+            value=['not possible'])
+        msg = 'Missing some values for some keys'
+        with self.assertRaisesRegex(QueryFactoryException, msg):
+            query._check_parameters()
+
+        # Many values with one key
+        query = QueryFactory(
+            query_type=QueryType.BBox,
+            key=['bar'],
+            value=['foo', 'bar'])
+        msg = 'Missing some keys for some values'
+        with self.assertRaisesRegex(QueryFactoryException, msg):
+            query._check_parameters()
+
     def test_replace_template(self):
         """Test replace template."""
         query = ' area="paris"'
@@ -344,6 +371,88 @@ class TestQueryFactory(unittest.TestCase):
             '<recurse type="down"/>'
             '</union>'
             '<print mode="meta"/>'
+            '</osm-script>'
+        )
+        test_query(query, expected_xml, expected_xml_with_template)
+
+        # Many keys with many values
+        query = QueryFactory(
+            query_type=QueryType.BBox,
+            osm_objects=[OsmType.Node],
+            key=['a', 'c'],
+            value=['b', 'd']
+        )
+        expected_xml = (
+            '<osm-script output="xml" timeout="25">'
+            '<union>'
+            '<query type="node">'
+            '<has-kv k="a" v="b"/>'
+            '<has-kv k="c" v="d"/>'
+            '<bbox-query bbox="custom" />'
+            '</query>'
+            '</union>'
+            '<union>'
+            '<item />'
+            '<recurse type="down"/>'
+            '</union>'
+            '<print mode="body" />'
+            '</osm-script>'
+        )
+        expected_xml_with_template = (
+            '<osm-script output="xml" timeout="25">'
+            '<union>'
+            '<query type="node">'
+            '<has-kv k="a" v="b"/>'
+            '<has-kv k="c" v="d"/>'
+            '<bbox-query {{bbox}}/>'
+            '</query>'
+            '</union>'
+            '<union>'
+            '<item/>'
+            '<recurse type="down"/>'
+            '</union>'
+            '<print mode="body"/>'
+            '</osm-script>'
+        )
+        test_query(query, expected_xml, expected_xml_with_template)
+
+        # Many keys with None values
+        query = QueryFactory(
+            query_type=QueryType.BBox,
+            osm_objects=[OsmType.Node],
+            key=['a', 'c'],
+            value=[None, None]
+        )
+        expected_xml = (
+            '<osm-script output="xml" timeout="25">'
+            '<union>'
+            '<query type="node">'
+            '<has-kv k="a" />'
+            '<has-kv k="c" />'
+            '<bbox-query bbox="custom" />'
+            '</query>'
+            '</union>'
+            '<union>'
+            '<item />'
+            '<recurse type="down"/>'
+            '</union>'
+            '<print mode="body" />'
+            '</osm-script>'
+        )
+        expected_xml_with_template = (
+            '<osm-script output="xml" timeout="25">'
+            '<union>'
+            '<query type="node">'
+            '<has-kv k="a"/>'
+            '<has-kv k="c"/>'
+            '<bbox-query {{bbox}}/>'
+            '</query>'
+            '</union>'
+            '<union>'
+            '<item/>'
+            '<recurse type="down"/>'
+            '</union>'
+            '<print mode="body"/>'
             '</osm-script>'
         )
         test_query(query, expected_xml, expected_xml_with_template)
