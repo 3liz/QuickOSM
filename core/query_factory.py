@@ -28,6 +28,9 @@ from QuickOSM.core.exceptions import QueryFactoryException
 from QuickOSM.core.utilities.tools import tr
 
 
+SPACE_INDENT = '    '
+
+
 class QueryFactory:
 
     """Build a XML or OQL query."""
@@ -75,8 +78,19 @@ class QueryFactory:
         :type print_mode: str
         """
         self._query_type = query_type
+
+        if isinstance(key, str):
+            key = [key]
+        elif key is None:
+            key = []
         self._key = key
+
+        if isinstance(value, str):
+            value = [value]
+        elif value is None:
+            value = []
         self._value = value
+
         self._area = area
         self._distance_around = around_distance
 
@@ -90,25 +104,56 @@ class QueryFactory:
         self._output = output
         self._print_mode = print_mode
 
-    def _check_parameters(self):
-        """Internal function to check that the query can be built."""
-        if self._query_type not in QueryType:
-            raise QueryFactoryException(tr('Wrong query type'))
+        self._checked = False
 
-        if len(self._osm_objects) < 1:
-            raise QueryFactoryException(tr('OSM object required'))
+    def _check_parameters(self):
+        """Internal function to check that the query can be built.
+
+        :raise QueryFactoryException
+        :return True if everything went fine.
+        """
+        if type(self._query_type) != QueryType:
+            raise QueryFactoryException(tr('Wrong query type.'))
 
         for osmObject in self._osm_objects:
-            if osmObject not in OsmType:
-                raise QueryFactoryException(tr('Wrong OSM object'))
+            if type(osmObject) != OsmType:
+                raise QueryFactoryException(tr('Wrong OSM object.'))
 
-        if self._query_type == QueryType.AroundArea and not self._distance_around:
-            raise QueryFactoryException(tr('No distance provided with "around".'))
+        if self._query_type == QueryType.AroundArea:
+            if not self._distance_around:
+                raise QueryFactoryException(
+                    tr('No distance provided with "around".'))
+
+            try:
+                int(self._distance_around)
+            except ValueError:
+                raise QueryFactoryException(
+                    tr('Wrong distance parameter.'))
+
+        if self._distance_around and self._query_type == QueryType.InArea:
+            raise QueryFactoryException(
+                tr('Distance parameter is incompatible with this query.'))
 
         areas = [
             QueryType.InArea, QueryType.AroundArea]
         if self._query_type in areas and not self._area:
             raise QueryFactoryException(tr('Named area required or WKT.'))
+
+        if not self._key and self._value:
+            raise QueryFactoryException(
+                tr('Not possible to query a value without a key.'))
+
+        if len(self._key) > len(self._value):
+            if len(self._key) != 1:
+                raise QueryFactoryException(
+                    tr('Missing some values for some keys'))
+
+        if len(self._key) < len(self._value):
+            raise QueryFactoryException(
+                tr('Missing some keys for some values'))
+
+        self._checked = True
+        return True
 
     @staticmethod
     def get_pretty_xml(query):
@@ -118,7 +163,11 @@ class QueryFactory:
 
     @staticmethod
     def replace_template(query):
-        """Add some templates tags to the query {{ }}."""
+        """Add some templates tags to the query {{ }}.
+
+        This is a hack to get pretty XML working, because templates are not a
+        valid XML !
+        """
         query = re.sub(
             r' area_coords="(.*?)"', r' {{geocodeCoords:\1}}', query)
         query = re.sub(
@@ -127,9 +176,12 @@ class QueryFactory:
         return query
 
     def generate_xml(self):
-        """Generate the XML."""
-        query = '<osm-script output="%s" timeout="%s">' % \
-                (self._output, self._timeout)
+        """Generate the XML.
+
+        The query will not be valid because of Overpass templates !
+        """
+        query = '<osm-script output="{}" timeout="{}">'.format(
+            self._output, self._timeout)
 
         # Nominatim might be a list of places or a single place, or not defined
         if self._area:
@@ -141,7 +193,8 @@ class QueryFactory:
         if nominatim and self._query_type != QueryType.AroundArea:
 
             for i, one_place in enumerate(nominatim):
-                query += '<id-query area="%s" into="area_%s"/>' % (one_place, i)
+                query += '<id-query area="{}" into="area_{}"/>'.format(
+                    one_place, i)
 
         query += '<union>'
 
@@ -149,23 +202,23 @@ class QueryFactory:
 
         for osm_object in self._osm_objects:
             for i in range(0, loop):
-                query += '<query type="%s">' % osm_object.value.lower()
-                if self._key:
-                    query += '<has-kv k="%s" ' % self._key
-                    if self._value:
-                        query += 'v="%s"' % self._value
+                query += '<query type="{}">'.format(osm_object.value.lower())
+                for j, key in enumerate(self._key):
+                    query += '<has-kv k="{}" '.format(key)
+                    if j < len(self._value) and self._value[j] is not None:
+                        query += 'v="{}"'.format(self._value[j])
 
                     query += '/>'
 
                 if self._area and self._query_type != QueryType.AroundArea:
-                    query += '<area-query from="area_%s" />' % i
+                    query += '<area-query from="area_{}" />'.format(i)
 
                 elif self._area and self._query_type == QueryType.AroundArea:
-                    query += '<around area_coords="%s" radius="%s" />' % \
-                             (nominatim[i], self._distance_around)
+                    query += '<around area_coords="{}" radius="{}" />'.format(
+                        nominatim[i], self._distance_around)
 
                 elif self._query_type == QueryType.BBox:
-                    query = '%s<bbox-query bbox="custom" />' % query
+                    query = '{}<bbox-query bbox="custom" />'.format(query)
 
                 query += '</query>'
 
@@ -174,7 +227,7 @@ class QueryFactory:
         query += '<item />'
         query += '<recurse type="down"/>'
         query += '</union>'
-        query += '<print mode="%s" />' % self._print_mode
+        query += '<print mode="{}" />'.format(self._print_mode)
         query += '</osm-script>'
 
         return query
@@ -196,6 +249,15 @@ class QueryFactory:
         query = '\n'.join(query.split('\n')[1:])
 
         query = QueryFactory.replace_template(query)
-        query = query.replace('	', '    ')
+        query = query.replace('	', SPACE_INDENT)
 
+        return query
+
+    def _make_for_test(self):
+        """Helper for tests only!
+
+        Without indentation and lines.
+        """
+        query = self.make()
+        query = query.replace(SPACE_INDENT, '').replace('\n', '')
         return query

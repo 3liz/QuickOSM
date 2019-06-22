@@ -31,11 +31,15 @@ from QuickOSM.core.exceptions import (
 from QuickOSM.core.query_preparation import QueryPreparation
 from QuickOSM.core.utilities.tools import tr, resources_path
 from QuickOSM.core.utilities.utilities_qgis import (
-    display_message_bar, open_map_features, open_overpass_turbo, open_doc_overpass)
+    display_message_bar,
+    open_map_features,
+    open_overpass_turbo,
+    open_doc_overpass,
+)
 from QuickOSM.ui.QuickOSMWidget import QuickOSMWidget
 from QuickOSM.ui.XMLHighlighter import XMLHighlighter
 from QuickOSM.ui.query import Ui_ui_query
-from qgis.PyQt.QtCore import Qt, QUrl
+from qgis.PyQt.QtCore import Qt
 from qgis.PyQt.QtGui import QIcon
 from qgis.PyQt.QtWidgets import QMenu, QAction, QApplication, \
     QDialogButtonBox
@@ -68,7 +72,8 @@ class QueryWidget(QuickOSMWidget, Ui_ui_query):
         self.lineEdit_filePrefix.setDisabled(True)
         self.bbox = None
         # self.activate_extent_layer()
-        self.pushButton_overpassTurbo.setIcon(QIcon(resources_path('turbo.png')))
+        self.pushButton_overpassTurbo.setIcon(
+            QIcon(resources_path('turbo.png')))
         # Disable buttons
         self.pushButton_generateQuery.setDisabled(True)
         self.pushButton_saveQuery.setDisabled(True)

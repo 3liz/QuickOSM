@@ -55,7 +55,8 @@ def open_file(
     """
     Open an osm file.
 
-    Memory layer if no output directory is set, or Geojson in the output directory.
+    Memory layer if no output directory is set, or Geojson in the output
+    directory.
 
     :param final_query: The query where the file comes from. Might be empty if
     it's a local OSM file.
@@ -105,7 +106,8 @@ def open_file(
     for i, (layer, item) in enumerate(layers.items()):
         dialog.set_progress_percentage(i / len(layers) * 100)
         QApplication.processEvents()
-        if item['featureCount'] and LayerType(layer.capitalize()) in output_geom_types:
+        if item['featureCount'] and (
+                LayerType(layer.capitalize()) in output_geom_types):
 
             final_layer_name = layer_name
             # If configOutputs is not None (from My Queries)
@@ -114,7 +116,8 @@ def open_file(
                     final_layer_name = config_outputs[layer]['namelayer']
 
             if output_dir:
-                dialog.set_progress_text(tr('From memory to GeoJSON: ' + layer))
+                dialog.set_progress_text(
+                    tr('From memory to GeoJSON: ' + layer))
                 # Transforming the vector file
                 osm_geometries = {
                     'points': QgsWkbTypes.Point,
@@ -138,7 +141,8 @@ def open_file(
                 del writer
 
                 # Loading the final vector file
-                new_layer = QgsVectorLayer(outputs[layer], final_layer_name, "ogr")
+                new_layer = QgsVectorLayer(
+                    outputs[layer], final_layer_name, "ogr")
             else:
                 new_layer = item['vector_layer']
                 new_layer.setName(final_layer_name)
@@ -234,6 +238,7 @@ def process_quick_query(
         distance_string = '{}'.format(distance)
     elif not is_around and nominatim:
         query_type = QueryType.InArea
+        distance = None
     elif bbox:
         query_type = QueryType.BBox
     else:

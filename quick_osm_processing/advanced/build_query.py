@@ -88,13 +88,19 @@ class BuildQueryBasedAlgorithm(QgisAlgorithm):
     def add_bottom_parameters(self):
         parameter = QgsProcessingParameterNumber(
             self.TIMEOUT, tr('Timeout'), defaultValue=25, minValue=5)
-        parameter.setFlags(parameter.flags() | QgsProcessingParameterDefinition.FlagAdvanced)
+        parameter.setFlags(
+            parameter.flags() | QgsProcessingParameterDefinition.FlagAdvanced)
         self.addParameter(parameter)
 
-        server = get_setting('defaultOAPI', OVERPASS_SERVERS[0]) + 'interpreter'
+        server = get_setting(
+            'defaultOAPI', OVERPASS_SERVERS[0]) + 'interpreter'
         parameter = QgsProcessingParameterString(
-            self.SERVER, tr('Overpass server'), optional=False, defaultValue=server)
-        parameter.setFlags(parameter.flags() | QgsProcessingParameterDefinition.FlagAdvanced)
+            self.SERVER,
+            tr('Overpass server'),
+            optional=False,
+            defaultValue=server)
+        parameter.setFlags(
+            parameter.flags() | QgsProcessingParameterDefinition.FlagAdvanced)
         self.addParameter(parameter)
 
         self.addOutput(
@@ -121,7 +127,10 @@ class BuildQueryBasedAlgorithm(QgisAlgorithm):
             timeout=self.timeout)
         raw_query = query_factory.make()
         query_preparation = QueryPreparation(
-            raw_query, nominatim_place=self.area, extent=self.extent, overpass=self.server
+            raw_query,
+            nominatim_place=self.area,
+            extent=self.extent,
+            overpass=self.server
         )
         raw_query = query_preparation.prepare_query()
         url = query_preparation.prepare_url()
@@ -200,10 +209,15 @@ class BuildQueryAroundAreaAlgorithm(BuildQueryBasedAlgorithm):
         self.add_top_parameters()
         self.addParameter(
             QgsProcessingParameterString(
-                self.AREA, tr('Around the area (Point WKT accepted)'), optional=False))
+                self.AREA,
+                tr('Around the area (Point WKT accepted)'),
+                optional=False))
         self.addParameter(
             QgsProcessingParameterNumber(
-                self.DISTANCE, tr('Distance (meters)'), defaultValue=1000, minValue=1))
+                self.DISTANCE,
+                tr('Distance (meters)'),
+                defaultValue=1000,
+                minValue=1))
         self.add_bottom_parameters()
 
     def processAlgorithm(self, parameters, context, feedback):
@@ -242,7 +256,8 @@ class BuildQueryExtentAlgorithm(BuildQueryBasedAlgorithm):
         crs = self.parameterAsExtentCrs(parameters, self.EXTENT, context)
 
         crs_4326 = QgsCoordinateReferenceSystem(4326)
-        transform = QgsCoordinateTransform(crs, crs_4326, QgsProject.instance())
+        transform = QgsCoordinateTransform(
+            crs, crs_4326, QgsProject.instance())
         self.extent = transform.transform(extent)
 
         return self.build_query()

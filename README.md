@@ -2,6 +2,17 @@
 
 ![Logo of QuickOSM](resources/QuickOSM.svg)
 
+## Versions
+
+* QuickOSM is maintained only for a maintained QGIS version (LTR, stable release and dev).
+* Current test status master : [![Build Status](https://api.travis-ci.org/3liz/QuickOSM.svg?branch=master)](https://travis-ci.org/3liz/QuickOSM)
+
+| QuickOSM  | QGIS Min | QGIS Max | Branch       |
+|-----------|----------|----------|--------------|
+| 1.0 → 1.4 | 2.0      | 2.18     | [master_qgis2](https://github.com/3liz/QuickOSM/tree/master_qgis2) |
+| 1.5 → 1.7 | 3.0      | 3.2      |              |
+| 1.8 →     | 3.4      |          | [master](https://github.com/3liz/QuickOSM/tree/master)       |
+
 #### Watch the [Video tutorial](https://vimeo.com/108737868)
 
 **Install the QuickOSM plugin**
@@ -54,17 +65,6 @@ Check a more detailed answer on [stackexchange](https://gis.stackexchange.com/a/
 * **Vector Table** → **Feature filter**
 
 Since QGIS 3.6, you can export your Processing model as a Python script.
-
-## Versions
-
-* QuickOSM is maintained only for a maintained QGIS version (LTR and stable release).
-* Current test status master : [![Build Status](https://travis-ci.org/3liz/QuickOSM.svg)](https://travis-ci.org/3liz/QuickOSM)
-
-| QuickOSM  | QGIS Min | QGIS Max | Branch       |
-|-----------|----------|----------|--------------|
-| 1.0 → 1.4 | 2.0      | 2.18     | [master_qgis2](https://github.com/3liz/QuickOSM/tree/master_qgis2) |
-| 1.5 → 1.7 | 3.0      | 3.2      |              |
-| 1.8 →     | 3.4      |          | [master](https://github.com/3liz/QuickOSM/tree/master)       |
 
 ## Authors
 
