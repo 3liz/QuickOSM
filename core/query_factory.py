@@ -83,7 +83,9 @@ class QueryFactory:
             key = [key]
         elif key is None:
             key = []
-        self._key = key
+
+        # The initial key might be an empty key, remove it.
+        self._key = [x for x in key if x]
 
         if isinstance(value, str):
             value = [value]
