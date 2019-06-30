@@ -58,7 +58,7 @@ def add_actions(layer, keys):
         QgsAction.GenericPython,
         title,
         ACTIONS_PATH + 'Actions.run("mapillary","[% "mapillary" %]")',
-        resources_path('mapillary_logo.svg'),
+        resources_path('icons', 'mapillary_logo.svg'),
         False,
         title,
         ACTIONS_VISIBILITY,
@@ -71,7 +71,7 @@ def add_actions(layer, keys):
         QgsAction.GenericPython,
         title,
         ACTIONS_PATH + 'Actions.run("josm","[% "full_id" %]")',
-        resources_path('josm_icon.svg'),
+        resources_path('icons', 'josm_icon.svg'),
         False,
         title,
         ACTIONS_VISIBILITY,
@@ -98,11 +98,11 @@ def add_actions(layer, keys):
             # Add an image to the action if available
             image = ''
             if link == 'wikipedia':
-                image = resources_path('wikipedia.png')
+                image = resources_path('icons', 'wikipedia.png')
             elif link == 'wikidata':
-                image = resources_path('wikidata.png')
+                image = resources_path('icons', 'wikidata.png')
             elif link in ['url', 'website']:
-                image = resources_path('external_link.png')
+                image = resources_path('icons', 'external_link.png')
 
             link = link.replace(":", "_")
             generic = QgsAction(

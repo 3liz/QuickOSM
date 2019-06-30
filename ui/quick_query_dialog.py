@@ -20,7 +20,7 @@
  ***************************************************************************/
 """
 from json import load
-from os.path import dirname, abspath, join, isfile, isdir
+from os.path import isfile, isdir
 
 from QuickOSM.core.process import process_quick_query
 from QuickOSM.core.exceptions import (
@@ -29,7 +29,7 @@ from QuickOSM.core.exceptions import (
     DirectoryOutPutException,
     OsmObjectsException)
 from QuickOSM.core.query_factory import QueryFactory
-from QuickOSM.core.utilities.tools import tr
+from QuickOSM.core.utilities.tools import tr, resources_path
 from QuickOSM.core.utilities.utilities_qgis import (
     display_message_bar, open_map_features)
 from QuickOSM.definitions.osm import OsmType, QueryType
@@ -62,15 +62,15 @@ class QuickQueryWidget(QuickOSMWidget, Ui_ui_quick_query):
         self.cb_query_type.addItem(tr('Not Spatial'), 'attributes')
 
         # self.cb_query_type.setItemIcon(
-        #     0, QIcon(resources_path('in.svg')))
+        #     0, QIcon(resources_path('icons', 'in.svg')))
         # self.cb_query_type.setItemIcon(
-        #     1, QIcon(resources_path('around.svg')))
+        #     1, QIcon(resources_path('icons', 'around.svg')))
         # self.cb_query_type.setItemIcon(
-        #     2, QIcon(resources_path('map_canvas.svg')))
+        #     2, QIcon(resources_path('icons', 'map_canvas.svg')))
         # self.cb_query_type.setItemIcon(
-        #     3, QIcon(resources_path('extent.svg')))
+        #     3, QIcon(resources_path('icons', 'extent.svg')))
         # self.cb_query_type.setItemIcon(
-        #     4, QIcon(resources_path('mIconTableLayer.svg')))
+        #     4, QIcon(resources_path('icons', 'mIconTableLayer.svg')))
 
         self.cb_query_type.currentIndexChanged.connect(self.query_type_updated)
 
@@ -87,8 +87,7 @@ class QuickQueryWidget(QuickOSMWidget, Ui_ui_quick_query):
             self.reset_form)
 
         # Setup auto completion
-        map_features_json_file = join(
-            dirname(dirname(abspath(__file__))), 'mapFeatures.json')
+        map_features_json_file = resources_path('json', 'map_features.json')
 
         if isfile(map_features_json_file):
             with open(map_features_json_file) as f:

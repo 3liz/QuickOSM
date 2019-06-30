@@ -73,7 +73,7 @@ class QueryWidget(QuickOSMWidget, Ui_ui_query):
         self.bbox = None
         # self.activate_extent_layer()
         self.pushButton_overpassTurbo.setIcon(
-            QIcon(resources_path('turbo.png')))
+            QIcon(resources_path('icons', 'turbo.png')))
         # Disable buttons
         self.pushButton_generateQuery.setDisabled(True)
         self.pushButton_saveQuery.setDisabled(True)

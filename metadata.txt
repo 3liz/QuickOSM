@@ -42,7 +42,7 @@ tags=osm,openstreetmap,overpass,download,osmdownload,josm,remote,pbf,processing,
 homepage=https://github.com/3liz/QuickOSM
 tracker=https://github.com/3liz/QuickOSM/issues
 repository=https://github.com/3liz/QuickOSM
-icon=resources/QuickOSM.svg
+icon=resources/icons/QuickOSM.svg
 # experimental flag
 experimental=True
 

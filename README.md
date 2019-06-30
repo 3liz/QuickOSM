@@ -1,6 +1,6 @@
 # QuickOSM
 
-![Logo of QuickOSM](resources/QuickOSM.svg)
+![Logo of QuickOSM](resources/icons/QuickOSM.svg)
 
 ## Versions
 

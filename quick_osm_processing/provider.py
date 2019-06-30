@@ -51,10 +51,10 @@ class Provider(QgsProcessingProvider):
         return 'QuickOSM'
 
     def icon(self):
-        return QIcon(resources_path('QuickOSM.svg'))
+        return QIcon(resources_path('icons', 'QuickOSM.svg'))
 
     def svgIconPath(self):
-        return resources_path('QuickOSM.svg')
+        return resources_path('icons', 'QuickOSM.svg')
 
     def loadAlgorithms(self, *args, **kwargs):
         self.addAlgorithm(BuildQueryInAreaAlgorithm())

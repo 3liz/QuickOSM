@@ -38,16 +38,16 @@ class MainWindowDialog(QDialog, Ui_ui_main_window):
 
         # Set icons
         item = self.listWidget.item(0)
-        item.setIcon(QIcon(resources_path('quick.png')))
+        item.setIcon(QIcon(resources_path('icons', 'quick.png')))
         item = self.listWidget.item(1)
-        item.setIcon(QIcon(resources_path('edit.png')))
+        item.setIcon(QIcon(resources_path('icons', 'edit.png')))
         item = self.listWidget.item(2)
-        item.setIcon(QIcon(resources_path('open.png')))
+        item.setIcon(QIcon(resources_path('icons', 'open.png')))
         item = self.listWidget.item(3)
-        item.setIcon(QIcon(resources_path('general.svg')))
+        item.setIcon(QIcon(resources_path('icons', 'general.svg')))
         item = self.listWidget.item(4)
-        item.setIcon(QIcon(resources_path('info.png')))
-        self.label_gnu.setPixmap(QPixmap(resources_path('gnu.png')))
+        item.setIcon(QIcon(resources_path('icons', 'info.png')))
+        self.label_gnu.setPixmap(QPixmap(resources_path('icons', 'gnu.png')))
 
         # Disabled in QGIS3
         # self.set_help_web_view()

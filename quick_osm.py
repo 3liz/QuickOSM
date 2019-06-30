@@ -31,6 +31,7 @@ from QuickOSM.quick_osm_processing.provider import Provider
 from QuickOSM.core.utilities.tools import (
     tr,
     quickosm_user_folder,
+    resources_path,
 )
 from QuickOSM.ui.main_window_dialog import MainWindowDialog
 from qgis.PyQt.QtCore import QTranslator, QCoreApplication
@@ -107,13 +108,13 @@ class QuickOSMPlugin(object):
         # Setup menu
         self.quickosm_menu = QMenu('QuickOSM')
         self.quickosm_menu.setIcon(
-            QIcon(join(dirname(__file__), 'resources', 'QuickOSM.svg')))
+            QIcon(resources_path('icons', 'QuickOSM.svg')))
         self.vector_menu = self.iface.vectorMenu()
         self.vector_menu.addMenu(self.quickosm_menu)
 
         # Main window
         self.mainWindowAction = QAction(
-            QIcon(join(dirname(__file__), 'resources', 'QuickOSM.svg')),
+            QIcon(resources_path('icons', 'QuickOSM.svg')),
             'QuickOSM…',
             self.iface.mainWindow())
         # noinspection PyUnresolvedReferences
@@ -123,7 +124,7 @@ class QuickOSMPlugin(object):
 
         # Action JOSM
         self.josmAction = QAction(
-            QIcon(join(dirname(__file__), 'resources', 'josm_icon.svg')),
+            QIcon(resources_path('icons', 'josm_icon.svg')),
             tr('JOSM Remote'),
             self.iface.mainWindow())
         self.josmAction.triggered.connect(self.josm_remote)
