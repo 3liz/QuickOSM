@@ -21,7 +21,7 @@
 """
 import logging
 from json import load
-from os.path import join, dirname, isfile, abspath
+from os.path import join, isfile
 from qgis.PyQt import uic
 from qgis.PyQt.QtWidgets import QDialog, QDialogButtonBox, QCompleter
 from qgis.PyQt.QtGui import QPixmap, QIcon
@@ -30,7 +30,7 @@ from QuickOSM.core.utilities.tools import (
     get_setting, set_setting, resources_path, quickosm_user_folder, tr
 )
 
-FORM_CLASS, _ = uic.loadUiType(join(dirname(__file__), 'main_window.ui'))
+FORM_CLASS, _ = uic.loadUiType(resources_path('ui', 'main_window.ui'))
 LOGGER = logging.getLogger('QuickOSM')
 
 
@@ -45,6 +45,9 @@ class MainDialog(QDialog, FORM_CLASS):
 
         # self variable
         self.defaultServer = None
+        self.last_places = []
+        self.last_nominatim_places_filepath = join(
+            quickosm_user_folder(), 'nominatim.txt')
 
         self.set_ui_menu()
         self.set_ui_configuration_panel()
@@ -87,8 +90,7 @@ class MainDialog(QDialog, FORM_CLASS):
             set_setting('defaultOAPI', self.defaultServer)
 
         for server in OVERPASS_SERVERS:
-            self.comboBox_default_OAPI. \
-                addItem(server)
+            self.comboBox_default_OAPI.addItem(server)
 
         # Read the config file
         custom_config = join(quickosm_user_folder(), 'custom_config.json')
@@ -146,8 +148,7 @@ class MainDialog(QDialog, FORM_CLASS):
             self.reset_form)
 
         # Setup auto completion
-        map_features_json_file = join(
-            dirname(dirname(abspath(__file__))), 'mapFeatures.json')
+        map_features_json_file = resources_path('json', 'map_features.json')
 
         if isfile(map_features_json_file):
             with open(map_features_json_file) as f:

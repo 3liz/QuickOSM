@@ -132,7 +132,7 @@ QListWidget::item::selected {
         </size>
        </property>
        <property name="currentIndex">
-        <number>3</number>
+        <number>2</number>
        </property>
        <widget class="QWidget" name="quick_query">
         <layout class="QVBoxLayout" name="verticalLayout_18">
@@ -152,8 +152,8 @@ QListWidget::item::selected {
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>287</width>
-              <height>470</height>
+              <width>647</width>
+              <height>594</height>
              </rect>
             </property>
             <layout class="QVBoxLayout" name="verticalLayout_16">
@@ -622,7 +622,7 @@ QListWidget::item::selected {
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>370</width>
+              <width>633</width>
               <height>605</height>
              </rect>
             </property>
@@ -1074,37 +1074,36 @@ QListWidget::item::selected {
             </widget>
            </item>
            <item row="5" column="1">
-            <widget class="QGroupBox" name="groupBox_file">
-             <property name="title">
-              <string/>
-             </property>
-             <layout class="QVBoxLayout" name="verticalLayout_5">
-              <item>
-               <layout class="QFormLayout" name="formLayout_2">
-                <item row="0" column="0">
-                 <widget class="QLabel" name="label_28">
-                  <property name="text">
-                   <string>Directory</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="0" column="1">
-                 <widget class="QgsFileWidget" name="output_of_directory"/>
-                </item>
-                <item row="1" column="0">
-                 <widget class="QLabel" name="label_29">
-                  <property name="text">
-                   <string>File prefix</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="1" column="1">
-                 <widget class="QLineEdit" name="lineEdit_of_filePrefix"/>
-                </item>
-               </layout>
-              </item>
-             </layout>
-            </widget>
+            <layout class="QVBoxLayout" name="verticalLayout_3">
+             <item>
+              <layout class="QHBoxLayout" name="horizontalLayout_23">
+               <item>
+                <widget class="QLabel" name="label_28">
+                 <property name="text">
+                  <string>Directory</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QgsFileWidget" name="output_of_directory"/>
+               </item>
+              </layout>
+             </item>
+             <item>
+              <layout class="QHBoxLayout" name="horizontalLayout_29">
+               <item>
+                <widget class="QLabel" name="label_29">
+                 <property name="text">
+                  <string>File prefix</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QLineEdit" name="lineEdit_of_filePrefix"/>
+               </item>
+              </layout>
+             </item>
+            </layout>
            </item>
            <item row="6" column="0">
             <widget class="QRadioButton" name="radioButton_osmConf">
