@@ -1,14 +1,5 @@
 # Makefile for QuickOSM
 
-test: clean_pyc pep8 test_suite
-
-test_suite:
-	@echo
-	@echo "---------------------"
-	@echo "Regression Test Suite"
-	@echo "---------------------"
-	@-export PYTHONPATH=`pwd`:$(PYTHONPATH);export QGIS_DEBUG=0;export QGIS_LOG_FILE=/dev/null;export QGIS_DEBUG_FILE=/dev/null;nosetests -v --with-id --with-coverage --cover-package=core 3>&1 1>&2 2>&3 3>&- || true
-
 i18n_1_prepare:
 	@echo Updating strings locally 1/4
 	@./update_strings.sh fr de en fi it nl ru zh-TW
@@ -52,15 +43,3 @@ save_query:
 	@pyuic5 ui/save_query.ui > ui/save_query.py
 
 generate_ui: main_window quick_query osm_file query save_query
-
-clean_pyc:
-	@echo "Cleaning python files"
-	@find . -name "*.pyc" -type f -delete
-
-clean_ui:
-	@echo "Cleaning UI files"
-	@find . -name "*.ui" -type f -delete
-
-clean_test:
-	@echo "Cleaning tests files"
-	@find . -name test -exec rm -rf {} \;
