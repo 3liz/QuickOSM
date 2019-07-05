@@ -90,18 +90,20 @@ class ConnexionOAPI:
         downloader.startDownload()
         loop.exec_()
 
+        # The download is done, checking for not complete OSM file.
+        # Overpass might aborted the request with HTTP 200.
         file_obj = codecs.open(self.result_path, 'r', 'utf-8')
         file_obj.seek(0, 2)
         fsize = file_obj.tell()
         file_obj.seek(max(fsize - 1024, 0), 0)
         lines = file_obj.readlines()
         file_obj.close()
-
         lines = lines[-10:]  # Get last 10 lines
         timeout = (
             '<remark> runtime error: Query timed out in "[a-z]+" at line '
             '[\d]+ after ([\d]+) seconds. </remark>')
         if re.search(timeout, ''.join(lines)):
             raise OverpassTimeoutException
-        else:
-            return self.result_path
+
+        # Everything went fine
+        return self.result_path
