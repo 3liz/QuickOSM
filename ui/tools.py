@@ -22,10 +22,8 @@
 
 import io
 import logging
-import traceback
 
 from os.path import split, isfile
-from sys import exc_info
 
 from qgis.core import (
     Qgis,
@@ -35,27 +33,13 @@ from qgis.core import (
     QgsCoordinateTransform,
 )
 from qgis.gui import QgsFileWidget
-from qgis.PyQt.QtWidgets import QApplication, QCompleter
+from qgis.PyQt.QtWidgets import QCompleter
 
 from QuickOSM.core.utilities.tools import tr
-from QuickOSM.core.utilities.utilities_qgis import display_message_bar
 from QuickOSM.definitions.osm import LayerType
 
 
 LOGGER = logging.getLogger('QuickOSM')
-
-
-def init_ui(output_directory, advanced_panel=None):
-    """Init after the UI is loaded."""
-    output_directory.lineEdit().setPlaceholderText(
-        tr('Save to temporary file'))
-    output_directory.setStorageMode(QgsFileWidget.GetDirectory)
-    output_directory.setDialogTitle(tr('Select a directory'))
-    output_directory.fileChanged.connect(disable_prefix_file)
-
-    if advanced_panel:
-        advanced_panel.setSaveCollapsedState(False)
-        advanced_panel.setCollapsed(True)
 
 
 def init_nominatim_autofill(self):
@@ -140,25 +124,6 @@ def query_type_updated(combo_query_type, stacked_widget, spinbox):
             stacked_widget.setCurrentIndex(2)
 
 
-def get_output_geometry_types(points, lines, multilines, polygons):
-    """Get all checkbox about outputs and return a list.
-
-    :return: List of layers.
-    :rtype: list
-    """
-    output_geom_types = []
-    if points.isChecked():
-        output_geom_types.append(LayerType.Points)
-    if lines.isChecked():
-        output_geom_types.append(LayerType.Lines)
-    if multilines.isChecked():
-        output_geom_types.append(LayerType.Multilinestrings)
-    if polygons.isChecked():
-        output_geom_types.append(LayerType.Multipolygons)
-
-    return output_geom_types
-
-
 def get_white_list_values(
         points, points_csv,
         lines, lines_csv,
@@ -180,93 +145,3 @@ def get_white_list_values(
         white_list_values[LayerType.Multipolygons] = polygons_csv.text()
 
     return white_list_values
-
-
-def get_bounding_box(iface, query_type_combo, extent_layer_combo):
-    """Get the geometry of the bbox in WGS84.
-
-    :return: The extent of the query in WGS84.
-    :rtype: QgsRectangle
-    """
-    query_type = query_type_combo.currentData()
-
-    if query_type == 'canvas':
-        geom_extent = iface.mapCanvas().extent()
-        source_crs = iface.mapCanvas().mapSettings().destinationCrs()
-    else:
-        # Else if a layer is checked
-        layer = extent_layer_combo.currentLayer()
-        geom_extent = layer.extent()
-        source_crs = layer.crs()
-
-    geom_extent = QgsGeometry.fromRect(geom_extent)
-    epsg_4326 = QgsCoordinateReferenceSystem('EPSG:4326')
-    crs_transform = QgsCoordinateTransform(
-        source_crs, epsg_4326, QgsProject.instance())
-    geom_extent.transform(crs_transform)
-    return geom_extent.boundingBox()
-
-
-def start_process(run_button, progress_bar, label_progress):
-    """Make some stuff before launching the process."""
-    run_button.setDisabled(True)
-    run_button.initialText = run_button.text()
-    run_button.setText(tr('Running query…'))
-    progress_bar.setMinimum(0)
-    progress_bar.setMaximum(0)
-    progress_bar.setValue(0)
-    label_progress.setText('')
-
-
-def end_process(run_button, progress_bar):
-    """Make some stuff after the process."""
-    run_button.setDisabled(False)
-    run_button.setText(run_button.initialText)
-    progress_bar.setMinimum(0)
-    progress_bar.setMaximum(100)
-    progress_bar.setValue(100)
-    QApplication.processEvents()
-
-
-def set_progress_percentage(label, percent):
-    """Slot to update percentage during process."""
-    label.setValue(percent)
-    QApplication.processEvents()
-
-
-def set_progress_text(label, text):
-    """Slot to update text during process."""
-    label.setText(text)
-    QApplication.processEvents()
-
-
-def display_geo_algorithm_exception(exception, label):
-    """Display QuickOSM exceptions.
-
-    The label will be set to empty string.
-    """
-    label.setText("")
-    LOGGER.debug(exception.msg)
-    display_message_bar(
-        exception.msg, level=exception.level, duration=exception.duration)
-
-
-def display_exception(exception):
-    """Display others exceptions."""
-    exc_type, _, exc_tb = exc_info()
-    f_name = split(exc_tb.tb_frame.f_code.co_filename)[1]
-    _, _, tb = exc_info()
-    traceback.print_tb(tb)
-    LOGGER.critical(
-        tr('A critical error occurred, this is the traceback:'))
-    LOGGER.critical(exc_type)
-    LOGGER.critical(f_name)
-    LOGGER.critical(exception)
-    LOGGER.critical('\n'.join(traceback.format_tb(tb)))
-
-    display_message_bar(
-        tr('Error in the logs, QuickOSM panel, please report it to '
-           'GitHub'),
-        level=Qgis.Critical,
-        open_logs=True,
-        duration=10)

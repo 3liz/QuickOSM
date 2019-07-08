@@ -28,7 +28,6 @@ from QuickOSM.core.custom_logging import setup_logger
 from QuickOSM.quick_osm_processing.provider import Provider
 from QuickOSM.core.utilities.tools import (
     tr,
-    # quickosm_user_folder,
     resources_path,
 )
 from qgis.PyQt.QtCore import QTranslator, QCoreApplication
@@ -170,5 +169,5 @@ class QuickOSMPlugin(object):
         """Create and open the main dialog."""
         from QuickOSM.ui.main_window_dialog import MainDialog
         dialog = MainDialog()
-        dialog.listWidget.setCurrentRow(0)
+        dialog.menu_widget.setCurrentRow(0)
         dialog.exec_()

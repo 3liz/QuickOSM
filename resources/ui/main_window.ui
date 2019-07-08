@@ -9,17 +9,14 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>820</width>
-    <height>620</height>
+    <width>990</width>
+    <height>867</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string notr="true">QuickOSM</string>
   </property>
-  <layout class="QHBoxLayout" name="horizontalLayout">
-   <property name="spacing">
-    <number>0</number>
-   </property>
+  <layout class="QHBoxLayout" name="horizontalLayout_2">
    <property name="leftMargin">
     <number>0</number>
    </property>
@@ -33,7 +30,7 @@
     <number>0</number>
    </property>
    <item>
-    <widget class="QListWidget" name="listWidget">
+    <widget class="QListWidget" name="menu_widget">
      <property name="sizePolicy">
       <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
        <horstretch>0</horstretch>
@@ -113,54 +110,67 @@ QListWidget::item::selected {
     </widget>
    </item>
    <item>
-    <layout class="QVBoxLayout" name="verticalLayout_13">
+    <layout class="QVBoxLayout" name="content_widget">
      <item>
-      <widget class="QgsMessageBar" name="messageBar" native="true"/>
+      <widget class="QgsMessageBar" name="message_bar">
+       <property name="frameShape">
+        <enum>QFrame::StyledPanel</enum>
+       </property>
+       <property name="frameShadow">
+        <enum>QFrame::Raised</enum>
+       </property>
+      </widget>
      </item>
      <item>
-      <widget class="QStackedWidget" name="stackedWidget">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
+      <widget class="QScrollArea" name="main_scroll">
+       <property name="widgetResizable">
+        <bool>true</bool>
        </property>
-       <property name="minimumSize">
-        <size>
-         <width>300</width>
-         <height>200</height>
-        </size>
-       </property>
-       <property name="currentIndex">
-        <number>2</number>
-       </property>
-       <widget class="QWidget" name="quick_query">
-        <layout class="QVBoxLayout" name="verticalLayout_18">
+       <widget class="QWidget" name="main_scroll_inside">
+        <property name="geometry">
+         <rect>
+          <x>0</x>
+          <y>0</y>
+          <width>827</width>
+          <height>801</height>
+         </rect>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>783</width>
+          <height>0</height>
+         </size>
+        </property>
+        <layout class="QVBoxLayout" name="verticalLayout_5">
+         <property name="leftMargin">
+          <number>0</number>
+         </property>
+         <property name="topMargin">
+          <number>0</number>
+         </property>
+         <property name="rightMargin">
+          <number>0</number>
+         </property>
+         <property name="bottomMargin">
+          <number>0</number>
+         </property>
          <item>
-          <widget class="QScrollArea" name="scrollArea_3">
-           <property name="frameShape">
-            <enum>QFrame::NoFrame</enum>
+          <widget class="QStackedWidget" name="stacked_panels_widget">
+           <property name="currentIndex">
+            <number>0</number>
            </property>
-           <property name="frameShadow">
-            <enum>QFrame::Plain</enum>
-           </property>
-           <property name="widgetResizable">
-            <bool>true</bool>
-           </property>
-           <widget class="QWidget" name="scrollAreaWidgetContents_3">
-            <property name="geometry">
-             <rect>
-              <x>0</x>
-              <y>0</y>
-              <width>647</width>
-              <height>594</height>
-             </rect>
+           <widget class="QWidget" name="quickquery_page">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
             </property>
-            <layout class="QVBoxLayout" name="verticalLayout_16">
+            <layout class="QVBoxLayout" name="verticalLayout_2">
              <item>
-              <layout class="QHBoxLayout" name="horizontalLayout_24">
+              <layout class="QHBoxLayout" name="top_quick_query_buttons">
                <item>
-                <widget class="QPushButton" name="pushButton_mapFeatures_2">
+                <widget class="QPushButton" name="button_map_features">
                  <property name="text">
                   <string>Help with key/value</string>
                  </property>
@@ -180,7 +190,7 @@ QListWidget::item::selected {
                 </spacer>
                </item>
                <item>
-                <widget class="QDialogButtonBox" name="buttonBox_3">
+                <widget class="QDialogButtonBox" name="button_box_qq">
                  <property name="sizePolicy">
                   <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
                    <horstretch>0</horstretch>
@@ -195,7 +205,10 @@ QListWidget::item::selected {
               </layout>
              </item>
              <item>
-              <layout class="QFormLayout" name="formLayout_5">
+              <layout class="QFormLayout" name="formLayout">
+               <property name="sizeConstraint">
+                <enum>QLayout::SetDefaultConstraint</enum>
+               </property>
                <item row="0" column="0">
                 <widget class="QLabel" name="label_41">
                  <property name="toolTip">
@@ -207,7 +220,7 @@ QListWidget::item::selected {
                 </widget>
                </item>
                <item row="0" column="1">
-                <widget class="QComboBox" name="comboBox_key">
+                <widget class="QComboBox" name="combo_key">
                  <property name="sizePolicy">
                   <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
                    <horstretch>0</horstretch>
@@ -236,7 +249,7 @@ QListWidget::item::selected {
                 </widget>
                </item>
                <item row="1" column="1">
-                <widget class="QComboBox" name="comboBox_value">
+                <widget class="QComboBox" name="combo_value">
                  <property name="sizePolicy">
                   <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
                    <horstretch>0</horstretch>
@@ -255,7 +268,7 @@ QListWidget::item::selected {
                 </widget>
                </item>
                <item row="2" column="0">
-                <widget class="QComboBox" name="cb_query_type_2">
+                <widget class="QComboBox" name="combo_query_type_qq">
                  <property name="toolTip">
                   <string>The spatial extent to use for the query.</string>
                  </property>
@@ -287,14 +300,14 @@ QListWidget::item::selected {
                     <number>0</number>
                    </property>
                    <item>
-                    <widget class="QLineEdit" name="lineEdit_nominatim_2">
+                    <widget class="QLineEdit" name="line_place_qq">
                      <property name="placeholderText">
                       <string>A village, a town, ...</string>
                      </property>
                     </widget>
                    </item>
                    <item>
-                    <widget class="QSpinBox" name="spinBox_distance_point">
+                    <widget class="QSpinBox" name="spin_place_qq">
                      <property name="suffix">
                       <string>m</string>
                      </property>
@@ -335,7 +348,7 @@ QListWidget::item::selected {
                     <number>0</number>
                    </property>
                    <item>
-                    <widget class="QgsMapLayerComboBox" name="comboBox_extentLayer_2">
+                    <widget class="QgsMapLayerComboBox" name="combo_extent_layer_qq">
                      <property name="sizePolicy">
                       <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                        <horstretch>0</horstretch>
@@ -352,63 +365,57 @@ QListWidget::item::selected {
               </layout>
              </item>
              <item>
-              <widget class="QgsCollapsibleGroupBox" name="advanced_2">
+              <widget class="QgsCollapsibleGroupBox" name="advanced_quick_query">
                <property name="title">
                 <string>Advanced</string>
                </property>
                <property name="checked">
                 <bool>false</bool>
                </property>
+               <property name="collapsed">
+                <bool>false</bool>
+               </property>
                <layout class="QVBoxLayout" name="verticalLayout_17">
+                <property name="leftMargin">
+                 <number>0</number>
+                </property>
+                <property name="topMargin">
+                 <number>0</number>
+                </property>
+                <property name="rightMargin">
+                 <number>0</number>
+                </property>
+                <property name="bottomMargin">
+                 <number>0</number>
+                </property>
                 <item>
                  <layout class="QHBoxLayout" name="horizontalLayout_27">
                   <item>
                    <layout class="QFormLayout" name="formLayout_6">
-                    <item row="0" column="0">
-                     <widget class="QLabel" name="label_43">
-                      <property name="text">
-                       <string notr="true">Node</string>
-                      </property>
-                     </widget>
-                    </item>
                     <item row="0" column="1">
-                     <widget class="QCheckBox" name="checkBox_node">
+                     <widget class="QCheckBox" name="checkbox_node">
                       <property name="text">
-                       <string/>
+                       <string>Node</string>
                       </property>
                       <property name="checked">
                        <bool>true</bool>
-                      </property>
-                     </widget>
-                    </item>
-                    <item row="1" column="0">
-                     <widget class="QLabel" name="label_44">
-                      <property name="text">
-                       <string notr="true">Way</string>
                       </property>
                      </widget>
                     </item>
                     <item row="1" column="1">
-                     <widget class="QCheckBox" name="checkBox_way">
+                     <widget class="QCheckBox" name="checkbox_way">
                       <property name="text">
-                       <string/>
+                       <string>Way</string>
                       </property>
                       <property name="checked">
                        <bool>true</bool>
                       </property>
                      </widget>
                     </item>
-                    <item row="2" column="0">
-                     <widget class="QLabel" name="label_45">
-                      <property name="text">
-                       <string notr="true">Relation</string>
-                      </property>
-                     </widget>
-                    </item>
                     <item row="2" column="1">
-                     <widget class="QCheckBox" name="checkBox_relation">
+                     <widget class="QCheckBox" name="checkbox_relation">
                       <property name="text">
-                       <string/>
+                       <string>Relation</string>
                       </property>
                       <property name="checked">
                        <bool>true</bool>
@@ -419,17 +426,10 @@ QListWidget::item::selected {
                   </item>
                   <item>
                    <layout class="QFormLayout" name="formLayout_7">
-                    <item row="0" column="0">
-                     <widget class="QLabel" name="label_46">
-                      <property name="text">
-                       <string notr="true">Points</string>
-                      </property>
-                     </widget>
-                    </item>
                     <item row="0" column="1">
-                     <widget class="QCheckBox" name="checkBox_qq_points">
+                     <widget class="QCheckBox" name="checkbox_points_qq">
                       <property name="text">
-                       <string/>
+                       <string>Points</string>
                       </property>
                       <property name="checked">
                        <bool>true</bool>
@@ -437,50 +437,29 @@ QListWidget::item::selected {
                      </widget>
                     </item>
                     <item row="1" column="1">
-                     <widget class="QCheckBox" name="checkBox_qq_lines">
+                     <widget class="QCheckBox" name="checkbox_lines_qq">
                       <property name="text">
-                       <string/>
+                       <string>Lines</string>
                       </property>
                       <property name="checked">
                        <bool>true</bool>
-                      </property>
-                     </widget>
-                    </item>
-                    <item row="1" column="0">
-                     <widget class="QLabel" name="label_47">
-                      <property name="text">
-                       <string notr="true">Lines</string>
-                      </property>
-                     </widget>
-                    </item>
-                    <item row="3" column="0">
-                     <widget class="QLabel" name="label_48">
-                      <property name="text">
-                       <string notr="true">Multipolygons</string>
                       </property>
                      </widget>
                     </item>
                     <item row="3" column="1">
-                     <widget class="QCheckBox" name="checkBox_qq_multipolygons">
+                     <widget class="QCheckBox" name="checkbox_multipolygons_qq">
                       <property name="text">
-                       <string/>
+                       <string>Multipolygons</string>
                       </property>
                       <property name="checked">
                        <bool>true</bool>
                       </property>
                      </widget>
                     </item>
-                    <item row="2" column="0">
-                     <widget class="QLabel" name="label_49">
-                      <property name="text">
-                       <string notr="true">Multilinestrings</string>
-                      </property>
-                     </widget>
-                    </item>
                     <item row="2" column="1">
-                     <widget class="QCheckBox" name="checkBox_qq_multilinestrings">
+                     <widget class="QCheckBox" name="checkbox_multilinestrings_qq">
                       <property name="text">
-                       <string/>
+                       <string>Multilinestrings</string>
                       </property>
                       <property name="checked">
                        <bool>true</bool>
@@ -501,7 +480,7 @@ QListWidget::item::selected {
                    </widget>
                   </item>
                   <item row="0" column="1">
-                   <widget class="QSpinBox" name="spinBox_timeout">
+                   <widget class="QSpinBox" name="spin_timeout">
                     <property name="buttonSymbols">
                      <enum>QAbstractSpinBox::UpDownArrows</enum>
                     </property>
@@ -524,7 +503,7 @@ QListWidget::item::selected {
                    </widget>
                   </item>
                   <item row="1" column="1">
-                   <widget class="QgsFileWidget" name="output_qq_directory"/>
+                   <widget class="QgsFileWidget" name="output_directory_qq"/>
                   </item>
                   <item row="2" column="0">
                    <widget class="QLabel" name="label_52">
@@ -534,7 +513,7 @@ QListWidget::item::selected {
                    </widget>
                   </item>
                   <item row="2" column="1">
-                   <widget class="QLineEdit" name="lineEdit_qq_filePrefix"/>
+                   <widget class="QLineEdit" name="line_file_prefix_qq"/>
                   </item>
                  </layout>
                 </item>
@@ -542,19 +521,16 @@ QListWidget::item::selected {
               </widget>
              </item>
              <item>
-              <layout class="QHBoxLayout" name="horizontalLayout_28">
-               <property name="sizeConstraint">
-                <enum>QLayout::SetMinimumSize</enum>
-               </property>
+              <layout class="QHBoxLayout" name="horizontalLayout">
                <item>
-                <widget class="QPushButton" name="pushButton_showQuery">
+                <widget class="QPushButton" name="button_show_query">
                  <property name="text">
                   <string>Show query</string>
                  </property>
                 </widget>
                </item>
                <item>
-                <widget class="QPushButton" name="pushButton_qq_runQuery">
+                <widget class="QPushButton" name="button_run_query_qq">
                  <property name="text">
                   <string>Run query</string>
                  </property>
@@ -565,68 +541,10 @@ QListWidget::item::selected {
                </item>
               </layout>
              </item>
-             <item>
-              <widget class="QLabel" name="label_qq_progress">
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
-                 <horstretch>0</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
-               </property>
-               <property name="text">
-                <string notr="true">progress text</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QProgressBar" name="progressBar_qq_execution">
-               <property name="value">
-                <number>0</number>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <spacer name="verticalSpacer_4">
-               <property name="orientation">
-                <enum>Qt::Vertical</enum>
-               </property>
-               <property name="sizeHint" stdset="0">
-                <size>
-                 <width>20</width>
-                 <height>40</height>
-                </size>
-               </property>
-              </spacer>
-             </item>
             </layout>
            </widget>
-          </widget>
-         </item>
-        </layout>
-       </widget>
-       <widget class="QWidget" name="query">
-        <layout class="QVBoxLayout" name="verticalLayout_15">
-         <item>
-          <widget class="QScrollArea" name="scrollArea">
-           <property name="frameShape">
-            <enum>QFrame::NoFrame</enum>
-           </property>
-           <property name="frameShadow">
-            <enum>QFrame::Plain</enum>
-           </property>
-           <property name="widgetResizable">
-            <bool>true</bool>
-           </property>
-           <widget class="QWidget" name="scrollAreaWidgetContents">
-            <property name="geometry">
-             <rect>
-              <x>0</x>
-              <y>0</y>
-              <width>633</width>
-              <height>605</height>
-             </rect>
-            </property>
-            <layout class="QVBoxLayout" name="verticalLayout_11">
+           <widget class="QWidget" name="query_page">
+            <layout class="QVBoxLayout" name="verticalLayout_7">
              <item>
               <layout class="QHBoxLayout" name="horizontalLayout_17">
                <item>
@@ -682,6 +600,9 @@ QListWidget::item::selected {
                <property name="checked">
                 <bool>false</bool>
                </property>
+               <property name="collapsed">
+                <bool>false</bool>
+               </property>
                <layout class="QVBoxLayout" name="verticalLayout_14">
                 <item>
                  <layout class="QFormLayout" name="formLayout_4">
@@ -733,25 +654,8 @@ QListWidget::item::selected {
                     </property>
                    </widget>
                   </item>
-                  <item row="3" column="0">
-                   <widget class="QLabel" name="label_34">
-                    <property name="text">
-                     <string notr="true">Points</string>
-                    </property>
-                   </widget>
-                  </item>
                   <item row="3" column="1">
                    <layout class="QHBoxLayout" name="horizontalLayout_4">
-                    <item>
-                     <widget class="QCheckBox" name="checkBox_points_2">
-                      <property name="text">
-                       <string/>
-                      </property>
-                      <property name="checked">
-                       <bool>true</bool>
-                      </property>
-                     </widget>
-                    </item>
                     <item>
                      <widget class="QLineEdit" name="lineEdit_csv_points">
                       <property name="inputMask">
@@ -767,25 +671,8 @@ QListWidget::item::selected {
                     </item>
                    </layout>
                   </item>
-                  <item row="4" column="0">
-                   <widget class="QLabel" name="label_35">
-                    <property name="text">
-                     <string notr="true">Lines</string>
-                    </property>
-                   </widget>
-                  </item>
                   <item row="4" column="1">
                    <layout class="QHBoxLayout" name="horizontalLayout_18">
-                    <item>
-                     <widget class="QCheckBox" name="checkBox_lines_2">
-                      <property name="text">
-                       <string/>
-                      </property>
-                      <property name="checked">
-                       <bool>true</bool>
-                      </property>
-                     </widget>
-                    </item>
                     <item>
                      <widget class="QLineEdit" name="lineEdit_csv_lines">
                       <property name="placeholderText">
@@ -805,16 +692,6 @@ QListWidget::item::selected {
                   <item row="5" column="1">
                    <layout class="QHBoxLayout" name="horizontalLayout_19">
                     <item>
-                     <widget class="QCheckBox" name="checkBox_multilinestrings_2">
-                      <property name="text">
-                       <string/>
-                      </property>
-                      <property name="checked">
-                       <bool>true</bool>
-                      </property>
-                     </widget>
-                    </item>
-                    <item>
                      <widget class="QLineEdit" name="lineEdit_csv_multilinestrings">
                       <property name="placeholderText">
                        <string/>
@@ -823,25 +700,8 @@ QListWidget::item::selected {
                     </item>
                    </layout>
                   </item>
-                  <item row="5" column="0">
-                   <widget class="QLabel" name="label_37">
-                    <property name="text">
-                     <string notr="true">Multilinestrings</string>
-                    </property>
-                   </widget>
-                  </item>
                   <item row="6" column="1">
                    <layout class="QHBoxLayout" name="horizontalLayout_20">
-                    <item>
-                     <widget class="QCheckBox" name="checkBox_multipolygons_2">
-                      <property name="text">
-                       <string/>
-                      </property>
-                      <property name="checked">
-                       <bool>true</bool>
-                      </property>
-                     </widget>
-                    </item>
                     <item>
                      <widget class="QLineEdit" name="lineEdit_csv_multipolygons">
                       <property name="placeholderText">
@@ -851,10 +711,43 @@ QListWidget::item::selected {
                     </item>
                    </layout>
                   </item>
-                  <item row="6" column="0">
-                   <widget class="QLabel" name="label_38">
+                  <item row="3" column="0">
+                   <widget class="QCheckBox" name="checkBox_points_2">
                     <property name="text">
-                     <string notr="true">Multipolygons</string>
+                     <string>Points</string>
+                    </property>
+                    <property name="checked">
+                     <bool>true</bool>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="4" column="0">
+                   <widget class="QCheckBox" name="checkBox_lines_2">
+                    <property name="text">
+                     <string>Lines</string>
+                    </property>
+                    <property name="checked">
+                     <bool>true</bool>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="5" column="0">
+                   <widget class="QCheckBox" name="checkBox_multilinestrings_2">
+                    <property name="text">
+                     <string>Multilinestrings</string>
+                    </property>
+                    <property name="checked">
+                     <bool>true</bool>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="6" column="0">
+                   <widget class="QCheckBox" name="checkBox_multipolygons_2">
+                    <property name="text">
+                     <string>Multipolygons</string>
+                    </property>
+                    <property name="checked">
+                     <bool>true</bool>
                     </property>
                    </widget>
                   </item>
@@ -912,34 +805,7 @@ QListWidget::item::selected {
                  </property>
                 </widget>
                </item>
-               <item>
-                <widget class="QPushButton" name="pushButton_saveQuery">
-                 <property name="text">
-                  <string>Save query</string>
-                 </property>
-                </widget>
-               </item>
               </layout>
-             </item>
-             <item>
-              <widget class="QLabel" name="label_q_progress_2">
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
-                 <horstretch>0</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
-               </property>
-               <property name="text">
-                <string notr="true">progress text</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QProgressBar" name="progressBar_q_execution">
-               <property name="value">
-                <number>0</number>
-               </property>
-              </widget>
              </item>
              <item>
               <layout class="QHBoxLayout" name="horizontalLayout_22">
@@ -959,253 +825,153 @@ QListWidget::item::selected {
                </item>
               </layout>
              </item>
+            </layout>
+           </widget>
+           <widget class="QWidget" name="osm_file_page">
+            <layout class="QVBoxLayout" name="verticalLayout_9">
              <item>
-              <spacer name="verticalSpacer_3">
-               <property name="orientation">
-                <enum>Qt::Vertical</enum>
+              <layout class="QFormLayout" name="form_osm_file">
+               <property name="fieldGrowthPolicy">
+                <enum>QFormLayout::ExpandingFieldsGrow</enum>
                </property>
-               <property name="sizeHint" stdset="0">
-                <size>
-                 <width>20</width>
-                 <height>71</height>
-                </size>
+               <item row="0" column="0">
+                <widget class="QLabel" name="label_10">
+                 <property name="text">
+                  <string>OSM File</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="0" column="1">
+                <widget class="QgsFileWidget" name="osm_file_2"/>
+               </item>
+               <item row="1" column="0">
+                <widget class="QCheckBox" name="checkBox_of_points">
+                 <property name="text">
+                  <string>Points</string>
+                 </property>
+                 <property name="checked">
+                  <bool>true</bool>
+                 </property>
+                </widget>
+               </item>
+               <item row="2" column="0">
+                <widget class="QCheckBox" name="checkBox_of_lines">
+                 <property name="text">
+                  <string>Lines</string>
+                 </property>
+                 <property name="checked">
+                  <bool>true</bool>
+                 </property>
+                </widget>
+               </item>
+               <item row="3" column="0">
+                <widget class="QCheckBox" name="checkBox_of_multilinestrings">
+                 <property name="text">
+                  <string>Multilinestrings</string>
+                 </property>
+                 <property name="checked">
+                  <bool>true</bool>
+                 </property>
+                </widget>
+               </item>
+               <item row="4" column="0">
+                <widget class="QCheckBox" name="checkBox_of_multipolygons">
+                 <property name="text">
+                  <string>Multipolygons</string>
+                 </property>
+                 <property name="checked">
+                  <bool>true</bool>
+                 </property>
+                </widget>
+               </item>
+               <item row="5" column="0">
+                <widget class="QRadioButton" name="radioButton_allTags">
+                 <property name="text">
+                  <string>All tags</string>
+                 </property>
+                 <property name="checked">
+                  <bool>true</bool>
+                 </property>
+                </widget>
+               </item>
+               <item row="5" column="1">
+                <layout class="QVBoxLayout" name="verticalLayout_3">
+                 <item>
+                  <layout class="QHBoxLayout" name="horizontalLayout_23">
+                   <item>
+                    <widget class="QLabel" name="label_28">
+                     <property name="text">
+                      <string>Directory</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <widget class="QgsFileWidget" name="output_of_directory"/>
+                   </item>
+                  </layout>
+                 </item>
+                 <item>
+                  <layout class="QHBoxLayout" name="horizontalLayout_29">
+                   <item>
+                    <widget class="QLabel" name="label_29">
+                     <property name="text">
+                      <string>File prefix</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <widget class="QLineEdit" name="lineEdit_of_filePrefix"/>
+                   </item>
+                  </layout>
+                 </item>
+                </layout>
+               </item>
+               <item row="6" column="0">
+                <widget class="QRadioButton" name="radioButton_osmConf">
+                 <property name="text">
+                  <string>OSMConf</string>
+                 </property>
+                 <property name="checked">
+                  <bool>false</bool>
+                 </property>
+                </widget>
+               </item>
+               <item row="6" column="1">
+                <widget class="QgsFileWidget" name="osm_conf"/>
+               </item>
+              </layout>
+             </item>
+             <item>
+              <widget class="QPushButton" name="pushButton_of_runQuery">
+               <property name="text">
+                <string>Open</string>
                </property>
-              </spacer>
+              </widget>
              </item>
             </layout>
            </widget>
-          </widget>
-         </item>
-        </layout>
-       </widget>
-       <widget class="QWidget" name="osm_file">
-        <layout class="QVBoxLayout" name="verticalLayout_7">
-         <item>
-          <layout class="QFormLayout" name="formLayout">
-           <property name="fieldGrowthPolicy">
-            <enum>QFormLayout::ExpandingFieldsGrow</enum>
-           </property>
-           <item row="0" column="0">
-            <widget class="QLabel" name="label_10">
-             <property name="text">
-              <string>OSM File</string>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="1">
-            <widget class="QgsFileWidget" name="osm_file_2"/>
-           </item>
-           <item row="1" column="0">
-            <widget class="QLabel" name="label_11">
-             <property name="text">
-              <string notr="true">Points</string>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="1">
-            <widget class="QCheckBox" name="checkBox_of_points">
-             <property name="text">
-              <string/>
-             </property>
-             <property name="checked">
-              <bool>true</bool>
-             </property>
-            </widget>
-           </item>
-           <item row="2" column="0">
-            <widget class="QLabel" name="label_12">
-             <property name="text">
-              <string notr="true">Lines</string>
-             </property>
-            </widget>
-           </item>
-           <item row="2" column="1">
-            <widget class="QCheckBox" name="checkBox_of_lines">
-             <property name="text">
-              <string/>
-             </property>
-             <property name="checked">
-              <bool>true</bool>
-             </property>
-            </widget>
-           </item>
-           <item row="3" column="0">
-            <widget class="QLabel" name="label_16">
-             <property name="text">
-              <string notr="true">Multilinestrings</string>
-             </property>
-            </widget>
-           </item>
-           <item row="3" column="1">
-            <widget class="QCheckBox" name="checkBox_of_multilinestrings">
-             <property name="text">
-              <string/>
-             </property>
-             <property name="checked">
-              <bool>true</bool>
-             </property>
-            </widget>
-           </item>
-           <item row="4" column="0">
-            <widget class="QLabel" name="label_27">
-             <property name="text">
-              <string notr="true">Multipolygons</string>
-             </property>
-            </widget>
-           </item>
-           <item row="4" column="1">
-            <widget class="QCheckBox" name="checkBox_of_multipolygons">
-             <property name="text">
-              <string/>
-             </property>
-             <property name="checked">
-              <bool>true</bool>
-             </property>
-            </widget>
-           </item>
-           <item row="5" column="0">
-            <widget class="QRadioButton" name="radioButton_allTags">
-             <property name="text">
-              <string>All tags</string>
-             </property>
-             <property name="checked">
-              <bool>true</bool>
-             </property>
-            </widget>
-           </item>
-           <item row="5" column="1">
-            <layout class="QVBoxLayout" name="verticalLayout_3">
+           <widget class="QWidget" name="parameters_page">
+            <layout class="QVBoxLayout" name="verticalLayout_10">
              <item>
-              <layout class="QHBoxLayout" name="horizontalLayout_23">
-               <item>
-                <widget class="QLabel" name="label_28">
-                 <property name="text">
-                  <string>Directory</string>
-                 </property>
-                </widget>
-               </item>
-               <item>
-                <widget class="QgsFileWidget" name="output_of_directory"/>
-               </item>
-              </layout>
-             </item>
-             <item>
-              <layout class="QHBoxLayout" name="horizontalLayout_29">
-               <item>
-                <widget class="QLabel" name="label_29">
-                 <property name="text">
-                  <string>File prefix</string>
-                 </property>
-                </widget>
-               </item>
-               <item>
-                <widget class="QLineEdit" name="lineEdit_of_filePrefix"/>
-               </item>
-              </layout>
+              <widget class="QGroupBox" name="groupBox">
+               <property name="title">
+                <string>Overpass API</string>
+               </property>
+               <layout class="QVBoxLayout" name="verticalLayout">
+                <item>
+                 <layout class="QHBoxLayout" name="horizontalLayout_8">
+                  <item>
+                   <widget class="QComboBox" name="comboBox_default_OAPI"/>
+                  </item>
+                 </layout>
+                </item>
+               </layout>
+              </widget>
              </item>
             </layout>
-           </item>
-           <item row="6" column="0">
-            <widget class="QRadioButton" name="radioButton_osmConf">
-             <property name="text">
-              <string>OSMConf</string>
-             </property>
-             <property name="checked">
-              <bool>false</bool>
-             </property>
-            </widget>
-           </item>
-           <item row="6" column="1">
-            <widget class="QgsFileWidget" name="osm_conf"/>
-           </item>
-          </layout>
-         </item>
-         <item>
-          <widget class="QPushButton" name="pushButton_of_runQuery">
-           <property name="text">
-            <string>Open</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QLabel" name="label_of_progress">
-           <property name="text">
-            <string notr="true">text progress</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QProgressBar" name="progressBar_of_execution">
-           <property name="value">
-            <number>0</number>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <spacer name="verticalSpacer_2">
-           <property name="orientation">
-            <enum>Qt::Vertical</enum>
-           </property>
-           <property name="sizeHint" stdset="0">
-            <size>
-             <width>20</width>
-             <height>40</height>
-            </size>
-           </property>
-          </spacer>
-         </item>
-        </layout>
-       </widget>
-       <widget class="QWidget" name="parameters">
-        <layout class="QVBoxLayout" name="verticalLayout_2">
-         <item>
-          <widget class="QGroupBox" name="groupBox">
-           <property name="title">
-            <string>Overpass API</string>
-           </property>
-           <layout class="QVBoxLayout" name="verticalLayout">
-            <item>
-             <layout class="QHBoxLayout" name="horizontalLayout_8">
-              <item>
-               <widget class="QComboBox" name="comboBox_default_OAPI"/>
-              </item>
-             </layout>
-            </item>
-           </layout>
-          </widget>
-         </item>
-         <item>
-          <spacer name="verticalSpacer">
-           <property name="orientation">
-            <enum>Qt::Vertical</enum>
-           </property>
-           <property name="sizeHint" stdset="0">
-            <size>
-             <width>20</width>
-             <height>40</height>
-            </size>
-           </property>
-          </spacer>
-         </item>
-        </layout>
-       </widget>
-       <widget class="QWidget" name="about">
-        <layout class="QVBoxLayout" name="verticalLayout_4">
-         <item>
-          <widget class="QScrollArea" name="scrollArea_2">
-           <property name="widgetResizable">
-            <bool>true</bool>
-           </property>
-           <widget class="QWidget" name="scrollAreaWidgetContents_2">
-            <property name="geometry">
-             <rect>
-              <x>0</x>
-              <y>0</y>
-              <width>538</width>
-              <height>532</height>
-             </rect>
-            </property>
-            <layout class="QVBoxLayout" name="verticalLayout_9">
+           </widget>
+           <widget class="QWidget" name="about_page">
+            <layout class="QVBoxLayout" name="verticalLayout_4">
              <item>
               <widget class="QGroupBox" name="groupBox_2">
                <property name="title">
@@ -1259,7 +1025,7 @@ QListWidget::item::selected {
                   <item>
                    <widget class="QLabel" name="label_18">
                     <property name="text">
-                     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The web-based translating platform &lt;a href=&quot;https://www.transifex.com/projects/p/gui/&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0057ae;&quot;&gt;Transifex&lt;/span&gt;&lt;/a&gt; is used. It's easier for translators.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The web-based translating platform &lt;a href=&quot;https://www.transifex.com/projects/p/gui/&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0057ae;&quot;&gt;Transifex&lt;/span&gt;&lt;/a&gt; is used. It's easier for translators. Join us !&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                     </property>
                     <property name="scaledContents">
                      <bool>true</bool>
@@ -1485,6 +1251,24 @@ QListWidget::item::selected {
        </widget>
       </widget>
      </item>
+     <item>
+      <layout class="QVBoxLayout" name="progress_box">
+       <item>
+        <widget class="QLabel" name="progress_text">
+         <property name="text">
+          <string notr="true">progress text</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QProgressBar" name="progress_bar">
+         <property name="value">
+          <number>0</number>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
     </layout>
    </item>
   </layout>
@@ -1509,31 +1293,14 @@ QListWidget::item::selected {
   </customwidget>
   <customwidget>
    <class>QgsMessageBar</class>
-   <extends>QWidget</extends>
+   <extends>QFrame</extends>
    <header>qgis.gui</header>
    <container>1</container>
   </customwidget>
  </customwidgets>
  <tabstops>
-  <tabstop>listWidget</tabstop>
+  <tabstop>menu_widget</tabstop>
  </tabstops>
  <resources/>
- <connections>
-  <connection>
-   <sender>listWidget</sender>
-   <signal>currentRowChanged(int)</signal>
-   <receiver>stackedWidget</receiver>
-   <slot>setCurrentIndex(int)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>80</x>
-     <y>256</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>428</x>
-     <y>256</y>
-    </hint>
-   </hints>
-  </connection>
- </connections>
+ <connections/>
 </ui>

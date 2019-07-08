@@ -19,7 +19,7 @@
  *                                                                         *
  ***************************************************************************/
 """
-from os.path import join, dirname, abspath, pardir
+from os.path import join, dirname, abspath, pardir, isfile
 
 from qgis.PyQt.QtCore import QDir
 from qgis.PyQt.QtWidgets import QApplication
@@ -28,6 +28,23 @@ from qgis.core import QgsApplication, QgsSettings
 
 def tr(text):
     return QApplication.translate('@default', text)
+
+
+def custom_config_file():
+    """Get the custom config file or None."""
+    filepath = join(quickosm_user_folder(), 'custom_config.json')
+    if isfile(filepath):
+        return filepath
+    else:
+        return None
+
+
+def nominatim_file():
+    filepath = join(quickosm_user_folder(), 'nominatim.txt')
+    if isfile(filepath):
+        return filepath
+    else:
+        return None
 
 
 def quickosm_user_folder():

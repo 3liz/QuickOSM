@@ -23,6 +23,12 @@ import logging
 import time
 from os.path import dirname, abspath, join, isfile
 
+from qgis.PyQt.QtWidgets import QApplication
+from qgis.core import (
+    QgsVectorLayer, QgsVectorFileWriter, QgsProject, QgsWkbTypes,
+    QgsExpressionContextUtils,
+)
+
 from QuickOSM.core.actions import add_actions
 from QuickOSM.core.api.connexion_oapi import ConnexionOAPI
 from QuickOSM.core.exceptions import FileOutPutException
@@ -33,11 +39,6 @@ from QuickOSM.core.utilities.operating_system import get_default_encoding
 from QuickOSM.core.utilities.tools import get_setting, tr
 from QuickOSM.definitions.osm import QueryType, LayerType
 from QuickOSM.definitions.overpass import OVERPASS_SERVERS
-from qgis.PyQt.QtWidgets import QApplication
-from qgis.core import (
-    QgsVectorLayer, QgsVectorFileWriter, QgsProject, QgsWkbTypes,
-    QgsExpressionContextUtils,
-)
 
 LOGGER = logging.getLogger('QuickOSM')
 
