@@ -20,6 +20,7 @@
  ***************************************************************************/
 """
 import inspect
+import io
 import logging
 import traceback
 
@@ -37,6 +38,7 @@ from qgis._gui import QgsFileWidget
 from qgis.core import Qgis, QgsGeometry, QgsCoordinateReferenceSystem, QgsCoordinateTransform, QgsProject
 from qgis.utils import iface
 
+from QuickOSM.definitions.gui import Panels
 from QuickOSM.definitions.osm import OsmType, QueryType, LayerType
 from QuickOSM.definitions.overpass import OVERPASS_SERVERS
 from QuickOSM.core.exceptions import (
@@ -71,17 +73,23 @@ class MainDialog(QDialog, FORM_CLASS):
         self.setupUi(self)
 
         # Table mapping
+        self.panels = {
+            'run_quick_query': Panels.QuickQuery,
+        }
+        self.places_edits = {
+            Panels.QuickQuery: self.line_place_qq,
+        }
         self.query_type_buttons = {
-            'run_quick_query': self.combo_query_type_qq,
+            Panels.QuickQuery: self.combo_query_type_qq,
         }
         self.layers_buttons = {
-            'run_quick_query': self.combo_extent_layer_qq,
+            Panels.QuickQuery: self.combo_extent_layer_qq,
         }
         self.run_buttons = {
-            'run_quick_query': self.button_run_query_qq,
+            Panels.QuickQuery: self.button_run_query_qq,
         }
         self.output_buttons = {
-            'run_quick_query': [
+            Panels.QuickQuery: [
                 self.checkbox_points_qq,
                 self.checkbox_lines_qq,
                 self.checkbox_multilinestrings_qq,
@@ -89,13 +97,13 @@ class MainDialog(QDialog, FORM_CLASS):
             ]
         }
         self.output_directories = {
-            'run_quick_query': self.output_directory_qq,
+            Panels.QuickQuery: self.output_directory_qq,
         }
         self.advanced_panels = {
-            'run_quick_query': self.advanced_quick_query,
+            Panels.QuickQuery: self.advanced_qq,
         }
 
-        self.defaultServer = None
+        self.default_server = None
         self.last_places = []
 
         # Quick query
@@ -106,23 +114,27 @@ class MainDialog(QDialog, FORM_CLASS):
         self.set_ui_quick_query_panel()
 
     def _set_custom_ui(self, panel):
-        """Weird function to set custom UI for some panels."""
+        """Weird function to set custom UI for some panels.
+
+        :param panel: Name of the panel.
+        :type panel: Panels
+        """
         self.output_directories[panel].lineEdit().setPlaceholderText(
             tr('Save to temporary file'))
         self.output_directories[panel].setStorageMode(QgsFileWidget.GetDirectory)
         self.output_directories[panel].setDialogTitle(tr('Select a directory'))
 
-        def disable_prefix_file():
-            # TODO
-            def disable_prefix_file(directory, file_prefix):
-                """If the directory is empty, we disable the file prefix."""
-                if directory.filePath():
-                    file_prefix.setDisabled(False)
-                else:
-                    file_prefix.setText('')
-                    file_prefix.setDisabled(True)
-
-        # self.output_directories[panel].fileChanged.connect(disable_prefix_file)
+        # def disable_prefix_file():
+        #     # TODO
+        #     def disable_prefix_file(directory, file_prefix):
+        #         """If the directory is empty, we disable the file prefix."""
+        #         if directory.filePath():
+        #             file_prefix.setDisabled(False)
+        #         else:
+        #             file_prefix.setText('')
+        #             file_prefix.setDisabled(True)
+        #
+        # # self.output_directories[panel].fileChanged.connect(disable_prefix_file)
 
         if panel in self.advanced_panels.keys():
             self.advanced_panels[panel].setSaveCollapsedState(False)
@@ -156,10 +168,10 @@ class MainDialog(QDialog, FORM_CLASS):
         :return: A dictionary with all values inside.
         :rtype: dict
         """
-        caller = inspect.stack()[1][3]
+        caller = self.panels[inspect.stack()[1][3]]
         properties = {}
 
-        if caller == 'run_quick_query':
+        if caller == Panels.QuickQuery:
 
             osm_objects = []
             if self.checkbox_node.isChecked():
@@ -178,25 +190,33 @@ class MainDialog(QDialog, FORM_CLASS):
             properties['timeout'] = self.spin_timeout.value()
             properties['distance'] = self.spin_place_qq.value()
 
-        if caller in ['run_quick_query', 'run_query']:
+        place = self.nominatim_value(caller)
+        if place == '':
+            place = None
+        properties['place'] = place
+
+        if caller in [Panels.QuickQuery, Panels.Query]:
             properties['query_type'] = self.query_type_buttons[caller].currentData()
             properties['is_around'] = properties['query_type'] == 'around'
 
-            if properties['query_type'] == 'canvas':
-                geom_extent = iface.mapCanvas().extent()
-                source_crs = iface.mapCanvas().mapSettings().destinationCrs()
-            else:
-                # Else if a layer is checked
-                layer = self.layers_buttons[caller].currentLayer()
-                geom_extent = layer.extent()
-                source_crs = layer.crs()
+            if not properties['place']:
+                if properties['query_type'] == 'canvas':
+                    geom_extent = iface.mapCanvas().extent()
+                    source_crs = iface.mapCanvas().mapSettings().destinationCrs()
+                elif properties['query_type'] == 'layer':
+                    # Else if a layer is checked
+                    layer = self.layers_buttons[caller].currentLayer()
+                    geom_extent = layer.extent()
+                    source_crs = layer.crs()
 
-            geom_extent = QgsGeometry.fromRect(geom_extent)
-            epsg_4326 = QgsCoordinateReferenceSystem('EPSG:4326')
-            crs_transform = QgsCoordinateTransform(
-                source_crs, epsg_4326, QgsProject.instance())
-            geom_extent.transform(crs_transform)
-            properties['bbox'] = geom_extent.boundingBox()
+                geom_extent = QgsGeometry.fromRect(geom_extent)
+                epsg_4326 = QgsCoordinateReferenceSystem('EPSG:4326')
+                crs_transform = QgsCoordinateTransform(
+                    source_crs, epsg_4326, QgsProject.instance())
+                geom_extent.transform(crs_transform)
+                properties['bbox'] = geom_extent.boundingBox()
+            else:
+                properties['bbox'] = None
 
         properties['outputs'] = []
         if self.output_buttons[caller][0].isChecked():
@@ -214,11 +234,6 @@ class MainDialog(QDialog, FORM_CLASS):
 
         if not properties['outputs']:
             raise OutPutGeomTypesException
-
-        place = self.line_place_qq.displayText()
-        if place == '':
-            place = None
-        properties['place'] = place
 
         properties['output_directory'] = self.output_directory_qq.filePath()
         properties['prefix_file'] = self.line_file_prefix_qq.text()
@@ -317,10 +332,10 @@ class MainDialog(QDialog, FORM_CLASS):
 
     def _start_process(self):
         """Make some stuff before launching the process."""
-        caller = inspect.stack()[1][3]
+        caller = self.panels[inspect.stack()[1][3]]
         QApplication.setOverrideCursor(Qt.WaitCursor)
 
-        if caller == 'run_quick_query':
+        if caller == Panels.QuickQuery:
             self.button_show_query.setDisabled(True)
 
         self.run_buttons[caller].setDisabled(True)
@@ -335,10 +350,10 @@ class MainDialog(QDialog, FORM_CLASS):
 
     def _end_process(self):
         """Make some stuff after the process."""
-        caller = inspect.stack()[1][3]
+        caller = self.panels[inspect.stack()[1][3]]
         QApplication.restoreOverrideCursor()
 
-        if caller == 'run_quick_query':
+        if caller == Panels.QuickQuery:
             self.button_show_query.setDisabled(False)
 
         self.output_directories[caller].setDisabled(True)
@@ -348,6 +363,58 @@ class MainDialog(QDialog, FORM_CLASS):
         self.progress_bar.setMaximum(100)
         self.progress_bar.setValue(100)
         QApplication.processEvents()
+
+    def init_nominatim_autofill(self):
+        """Open the nominatim file and start setting up the auto-completion."""
+        # Useful to avoid duplicate if we add a new completer.
+        for line_edit in self.places_edits.values():
+            line_edit.setCompleter(None)
+
+        user_file = nominatim_file()
+
+        if isfile(user_file):
+            with io.open(user_file, 'r', encoding='utf8') as f:
+                for line in f:
+                    self.last_places.append(line.rstrip('\n'))
+
+                nominatim_completer = QCompleter(self.last_places)
+                for line_edit in self.places_edits.values():
+                    line_edit.setCompleter(nominatim_completer)
+                    line_edit.completer().setCompletionMode(QCompleter.PopupCompletion)
+        else:
+            io.open(user_file, 'a').close()
+
+    @staticmethod
+    def sort_nominatim_places(existing_places, place):
+        if place in existing_places:
+            existing_places.pop(existing_places.index(place))
+        existing_places.insert(0, place)
+        return existing_places[:10]
+
+    def nominatim_value(self, panel):
+        """Edit the new nominatim file from a given panel.
+
+        :param panel: Name of the panel.
+        :type panel: Panels
+        """
+        value = self.places_edits[panel].text()
+        new_list = self.sort_nominatim_places(self.last_places, value)
+
+        user_file = nominatim_file()
+
+        try:
+            with io.open(user_file, 'w', encoding='utf8') as f:
+                for item in new_list:
+                    if item:
+                        f.write('{}\n'.format(item))
+        except UnicodeDecodeError:
+            # The file is corrupted ?
+            # Remove all old places
+            with io.open(user_file, 'w', encoding='utf8') as f:
+                f.write('\n')
+
+        self.init_nominatim_autofill()
+        return value
 
     def set_progress_percentage(self, percent):
         """Slot to update percentage during process."""
@@ -366,23 +433,23 @@ class MainDialog(QDialog, FORM_CLASS):
     def set_ui_configuration_panel(self):
         """Set UI related the configuration panel."""
 
-        self._set_custom_ui('run_quick_query')
+        self._set_custom_ui(Panels.QuickQuery)
 
         # noinspection PyUnresolvedReferences
-        self.comboBox_default_OAPI.currentIndexChanged.connect(
+        self.combo_default_overpass.currentIndexChanged.connect(
             self.set_server_overpass_api)
 
         # Set settings about the overpass API
-        self.defaultServer = get_setting('defaultOAPI')
-        if self.defaultServer:
-            index = self.comboBox_default_OAPI.findText(self.defaultServer)
-            self.comboBox_default_OAPI.setCurrentIndex(index)
+        self.default_server = get_setting('defaultOAPI')
+        if self.default_server:
+            index = self.combo_default_overpass.findText(self.default_server)
+            self.combo_default_overpass.setCurrentIndex(index)
         else:
-            self.defaultServer = self.comboBox_default_OAPI.currentText()
-            set_setting('defaultOAPI', self.defaultServer)
+            self.default_server = self.combo_default_overpass.currentText()
+            set_setting('defaultOAPI', self.default_server)
 
         for server in OVERPASS_SERVERS:
-            self.comboBox_default_OAPI.addItem(server)
+            self.combo_default_overpass.addItem(server)
 
         # Read the config file
         custom_config = custom_config_file()
@@ -394,21 +461,19 @@ class MainDialog(QDialog, FORM_CLASS):
                         LOGGER.info(
                             'Custom overpass server list added: {}'.format(
                                 server))
-                        self.comboBox_default_OAPI.addItem(server)
+                        self.combo_default_overpass.addItem(server)
 
     def set_server_overpass_api(self):
         """
         Save the new OAPI server.
         """
-        self.defaultServer = self.comboBox_default_OAPI.currentText()
-        set_setting('defaultOAPI', self.defaultServer)
+        self.default_server = self.combo_default_overpass.currentText()
+        set_setting('defaultOAPI', self.default_server)
 
     # ###
     # quick query panel
     # ###
     def set_ui_quick_query_panel(self):
-
-        self.advanced_quick_query.setCollapsed(True)
 
         # Query type
         self.combo_query_type_qq.addItem(tr('In'), 'in')
@@ -461,7 +526,7 @@ class MainDialog(QDialog, FORM_CLASS):
         self.key_edited()
 
         self.query_type_updated_qq()
-        # self.init_nominatim_autofill()
+        self.init_nominatim_autofill()
 
     def query_type_updated_qq(self):
         query_type_updated(
@@ -475,7 +540,7 @@ class MainDialog(QDialog, FORM_CLASS):
         self.combo_value.setCompleter(None)
 
         try:
-            current_values = (self.osm_keys[self.combo_key.currentText()])
+            current_values = self.osm_keys[self.combo_key.currentText()]
         except KeyError:
             return
         except AttributeError:
@@ -493,8 +558,8 @@ class MainDialog(QDialog, FORM_CLASS):
 
     def run_quick_query(self):
         """Process for running the query."""
-        self._start_process()
         try:
+            self._start_process()
             p = self.gather_values()
             num_layers = process_quick_query(
                 dialog=self,
@@ -509,9 +574,7 @@ class MainDialog(QDialog, FORM_CLASS):
                 output_directory=p['output_directory'],
                 prefix_file=p['prefix_file'],
                 output_geometry_types=p['outputs'])
-
             self.end_query(num_layers)
-
         except QuickOsmException as e:
             self.display_geo_algorithm_exception(e)
         except Exception as e:

@@ -157,7 +157,7 @@ QListWidget::item::selected {
          <item>
           <widget class="QStackedWidget" name="stacked_panels_widget">
            <property name="currentIndex">
-            <number>0</number>
+            <number>3</number>
            </property>
            <widget class="QWidget" name="quickquery_page">
             <property name="sizePolicy">
@@ -365,7 +365,7 @@ QListWidget::item::selected {
               </layout>
              </item>
              <item>
-              <widget class="QgsCollapsibleGroupBox" name="advanced_quick_query">
+              <widget class="QgsCollapsibleGroupBox" name="advanced_qq">
                <property name="title">
                 <string>Advanced</string>
                </property>
@@ -617,7 +617,7 @@ QListWidget::item::selected {
                    </widget>
                   </item>
                   <item row="0" column="1">
-                   <widget class="QLineEdit" name="lineEdit_nominatim">
+                   <widget class="QLineEdit" name="line_place_query">
                     <property name="placeholderText">
                      <string>Can be overridden</string>
                     </property>
@@ -961,7 +961,7 @@ QListWidget::item::selected {
                 <item>
                  <layout class="QHBoxLayout" name="horizontalLayout_8">
                   <item>
-                   <widget class="QComboBox" name="comboBox_default_OAPI"/>
+                   <widget class="QComboBox" name="combo_default_overpass"/>
                   </item>
                  </layout>
                 </item>
