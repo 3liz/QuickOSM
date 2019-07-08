@@ -37,7 +37,6 @@ from QuickOSM.core.utilities.utilities_qgis import (
     open_doc_overpass,
 )
 from QuickOSM.ui.QuickOSMWidget import QuickOSMWidget
-from QuickOSM.ui.XMLHighlighter import XMLHighlighter
 from QuickOSM.ui.query import Ui_ui_query
 from qgis.PyQt.QtCore import Qt
 from qgis.PyQt.QtGui import QIcon
@@ -50,18 +49,6 @@ class QueryWidget(QuickOSMWidget, Ui_ui_query):
 
     # noinspection PyUnresolvedReferences
     def __init__(self, parent=None):
-        """
-        QueryWidget constructor
-        """
-        QuickOSMWidget.__init__(self, parent)
-        self.setupUi(self)
-        self.init()
-
-        # Highlight XML
-        self.highlighter = XMLHighlighter(self.textEdit_query.document())
-
-        # QGIS 3
-        self.pushButton_saveQuery.setVisible(False)
 
         # Setup UI
         self.cb_query_type.addItem(tr('Canvas Extent'), 'canvas')
@@ -236,11 +223,8 @@ class QueryWidget(QuickOSMWidget, Ui_ui_query):
 
         except QuickOsmException as e:
             self.display_geo_algorithm_exception(e)
-            pass
         except Exception as e:  # pylint: disable=broad-except
             self.display_exception(e)
-            pass
-
         finally:
             # Resetting the button
             self.output_directory.setDisabled(False)

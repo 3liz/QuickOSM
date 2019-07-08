@@ -157,7 +157,7 @@ QListWidget::item::selected {
          <item>
           <widget class="QStackedWidget" name="stacked_panels_widget">
            <property name="currentIndex">
-            <number>3</number>
+            <number>2</number>
            </property>
            <widget class="QWidget" name="quickquery_page">
             <property name="sizePolicy">
@@ -586,7 +586,7 @@ QListWidget::item::selected {
               </layout>
              </item>
              <item>
-              <widget class="QTextEdit" name="textEdit_query">
+              <widget class="QTextEdit" name="text_query">
                <property name="acceptRichText">
                 <bool>false</bool>
                </property>
@@ -842,10 +842,10 @@ QListWidget::item::selected {
                 </widget>
                </item>
                <item row="0" column="1">
-                <widget class="QgsFileWidget" name="osm_file_2"/>
+                <widget class="QgsFileWidget" name="osm_file"/>
                </item>
                <item row="1" column="0">
-                <widget class="QCheckBox" name="checkBox_of_points">
+                <widget class="QCheckBox" name="checkbox_points_f">
                  <property name="text">
                   <string>Points</string>
                  </property>
@@ -855,7 +855,7 @@ QListWidget::item::selected {
                 </widget>
                </item>
                <item row="2" column="0">
-                <widget class="QCheckBox" name="checkBox_of_lines">
+                <widget class="QCheckBox" name="checkbox_lines_f">
                  <property name="text">
                   <string>Lines</string>
                  </property>
@@ -865,7 +865,7 @@ QListWidget::item::selected {
                 </widget>
                </item>
                <item row="3" column="0">
-                <widget class="QCheckBox" name="checkBox_of_multilinestrings">
+                <widget class="QCheckBox" name="checkbox_multilinestrings_f">
                  <property name="text">
                   <string>Multilinestrings</string>
                  </property>
@@ -875,7 +875,7 @@ QListWidget::item::selected {
                 </widget>
                </item>
                <item row="4" column="0">
-                <widget class="QCheckBox" name="checkBox_of_multipolygons">
+                <widget class="QCheckBox" name="checkbox_multipolygons_f">
                  <property name="text">
                   <string>Multipolygons</string>
                  </property>
@@ -885,7 +885,7 @@ QListWidget::item::selected {
                 </widget>
                </item>
                <item row="5" column="0">
-                <widget class="QRadioButton" name="radioButton_allTags">
+                <widget class="QRadioButton" name="radio_all_tags">
                  <property name="text">
                   <string>All tags</string>
                  </property>
@@ -906,7 +906,7 @@ QListWidget::item::selected {
                     </widget>
                    </item>
                    <item>
-                    <widget class="QgsFileWidget" name="output_of_directory"/>
+                    <widget class="QgsFileWidget" name="output_directory_f"/>
                    </item>
                   </layout>
                  </item>
@@ -920,14 +920,14 @@ QListWidget::item::selected {
                     </widget>
                    </item>
                    <item>
-                    <widget class="QLineEdit" name="lineEdit_of_filePrefix"/>
+                    <widget class="QLineEdit" name="line_file_prefix_file"/>
                    </item>
                   </layout>
                  </item>
                 </layout>
                </item>
                <item row="6" column="0">
-                <widget class="QRadioButton" name="radioButton_osmConf">
+                <widget class="QRadioButton" name="radio_osm_conf">
                  <property name="text">
                   <string>OSMConf</string>
                  </property>
@@ -942,7 +942,7 @@ QListWidget::item::selected {
               </layout>
              </item>
              <item>
-              <widget class="QPushButton" name="pushButton_of_runQuery">
+              <widget class="QPushButton" name="button_run_file">
                <property name="text">
                 <string>Open</string>
                </property>

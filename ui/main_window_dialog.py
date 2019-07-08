@@ -29,13 +29,12 @@ from json import load
 from os.path import isfile, isdir, split
 from sys import exc_info
 
-
 from qgis.PyQt import uic
 from qgis.PyQt.QtCore import Qt
 from qgis.PyQt.QtWidgets import (
     QDialog, QDialogButtonBox, QCompleter, QApplication, QPushButton)
 from qgis.PyQt.QtGui import QPixmap, QIcon
-from qgis._gui import QgsFileWidget
+from qgis.gui import QgsFileWidget
 from qgis.core import (
     Qgis,
     QgsGeometry,
@@ -52,8 +51,8 @@ from QuickOSM.core.exceptions import (
     QuickOsmException,
     OutPutGeomTypesException,
     DirectoryOutPutException,
-    OsmObjectsException)
-from QuickOSM.core.process import process_quick_query
+    OsmObjectsException, FileDoesntExistException)
+from QuickOSM.core.process import process_quick_query, open_file
 from QuickOSM.core.utilities.tools import (
     get_setting,
     set_setting,
@@ -64,7 +63,10 @@ from QuickOSM.core.utilities.tools import (
 )
 from QuickOSM.core.utilities.utilities_qgis import (
     open_map_features, open_log_panel)
+from QuickOSM.core.parser.osm_parser import OsmParser
 from QuickOSM.ui.tools import query_type_updated
+# from QuickOSM.ui.XMLHighlighter import XMLHighlighter
+
 
 FORM_CLASS, _ = uic.loadUiType(resources_path('ui', 'main_window.ui'))
 LOGGER = logging.getLogger('QuickOSM')
@@ -82,6 +84,7 @@ class MainDialog(QDialog, FORM_CLASS):
         # Table mapping
         self.panels = {
             'run_quick_query': Panels.QuickQuery,
+            'open_file': Panels.File,
         }
         self.places_edits = {
             Panels.QuickQuery: self.line_place_qq,
@@ -94,6 +97,7 @@ class MainDialog(QDialog, FORM_CLASS):
         }
         self.run_buttons = {
             Panels.QuickQuery: self.button_run_query_qq,
+            Panels.File: self.button_run_file,
         }
         self.output_buttons = {
             Panels.QuickQuery: [
@@ -101,10 +105,21 @@ class MainDialog(QDialog, FORM_CLASS):
                 self.checkbox_lines_qq,
                 self.checkbox_multilinestrings_qq,
                 self.checkbox_multipolygons_qq
+            ],
+            Panels.File: [
+                self.checkbox_points_f,
+                self.checkbox_lines_f,
+                self.checkbox_multilinestrings_f,
+                self.checkbox_multipolygons_f,
             ]
         }
         self.output_directories = {
             Panels.QuickQuery: self.output_directory_qq,
+            Panels.File: self.output_directory_f
+        }
+        self.prefix_edits = {
+            Panels.QuickQuery: self.line_file_prefix_qq,
+            Panels.File: self.line_file_prefix_file,
         }
         self.advanced_panels = {
             Panels.QuickQuery: self.advanced_qq,
@@ -119,6 +134,8 @@ class MainDialog(QDialog, FORM_CLASS):
         self.set_ui_menu()
         self.set_ui_configuration_panel()
         self.set_ui_quick_query_panel()
+        # self.set_ui
+        self.set_ui_file_panel()
 
     def _set_custom_ui(self, panel):
         """Function to set custom UI for some panels.
@@ -179,10 +196,54 @@ class MainDialog(QDialog, FORM_CLASS):
         :rtype: dict
         """
         caller = self.panels[inspect.stack()[1][3]]
-        properties = {}
+        properties = dict()
+
+        properties['outputs'] = []
+        if self.output_buttons[caller][0].isChecked():
+            # noinspection PyTypeChecker
+            properties['outputs'].append(LayerType.Points)
+        if self.output_buttons[caller][1].isChecked():
+            # noinspection PyTypeChecker
+            properties['outputs'].append(LayerType.Lines)
+        if self.output_buttons[caller][2].isChecked():
+            # noinspection PyTypeChecker
+            properties['outputs'].append(LayerType.Multilinestrings)
+        if self.output_buttons[caller][3].isChecked():
+            # noinspection PyTypeChecker
+            properties['outputs'].append(LayerType.Multipolygons)
+
+        if not properties['outputs']:
+            raise OutPutGeomTypesException
+
+        properties['output_directory'] = (
+            self.output_directories[caller].filePath())
+        properties['prefix_file'] = self.prefix_edits[caller].text()
+
+        if properties['output_directory'] and not (
+                isdir(properties['output_directory'])):
+            raise DirectoryOutPutException
+
+        if caller == Panels.File:
+            properties['osm_file'] = self.osm_file.filePath()
+            conf = self.osm_conf.filePath()
+            if conf:
+                properties['osm_conf'] = conf
+            else:
+                properties['osm_conf'] = (
+                    self.osm_conf.lineEdit().placeholderText())
+
+            properties['load_only'] = self.radio_osm_conf.isChecked()
+
+            if not isfile(properties['osm_file']):
+                raise FileDoesntExistException(suffix="*.osm or *.pbf")
+
+            if properties['load_only']:
+                if not isfile(properties['osm_conf']):
+                    raise FileDoesntExistException(suffix="*.ini")
+
+            return properties
 
         if caller == Panels.QuickQuery:
-
             osm_objects = []
             if self.checkbox_node.isChecked():
                 osm_objects.append(OsmType.Node)
@@ -229,32 +290,6 @@ class MainDialog(QDialog, FORM_CLASS):
                 properties['bbox'] = geom_extent.boundingBox()
             else:
                 properties['bbox'] = None
-
-        properties['outputs'] = []
-        if self.output_buttons[caller][0].isChecked():
-            # noinspection PyTypeChecker
-            properties['outputs'].append(LayerType.Points)
-        if self.output_buttons[caller][1].isChecked():
-            # noinspection PyTypeChecker
-            properties['outputs'].append(LayerType.Lines)
-        if self.output_buttons[caller][2].isChecked():
-            # noinspection PyTypeChecker
-            properties['outputs'].append(LayerType.Multilinestrings)
-        if self.output_buttons[caller][3].isChecked():
-            # noinspection PyTypeChecker
-            properties['outputs'].append(LayerType.Multipolygons)
-
-        if not properties['outputs']:
-            raise OutPutGeomTypesException
-
-        properties['output_directory'] = self.output_directory_qq.filePath()
-        properties['prefix_file'] = self.line_file_prefix_qq.text()
-
-        if properties['output_directory'] and not (
-                isdir(properties['output_directory'])):
-            raise DirectoryOutPutException
-
-        LOGGER.debug(properties)
 
         return properties
 
@@ -605,6 +640,83 @@ class MainDialog(QDialog, FORM_CLASS):
     # query panel
     # ###
 
+    def set_ui_query_panel(self):
+
+        # highlighter = XMLHighlighter(self.text_query.document())
+        pass
+
     # ###
     # osm file panel
     # ###
+
+    def set_ui_file_panel(self):
+        self._set_custom_ui(Panels.File)
+        self.radio_osm_conf.setChecked(False)
+        self.osm_conf.setEnabled(False)
+        # TODO self.edit_file_prefix_f.setDisabled(True)
+
+        self.osm_file.setDialogTitle(tr('Select an OSM file'))
+        self.osm_file.setFilter('OSM file (*.osm *.pbf)')
+
+        default_osm_conf = resources_path('ogr', 'to_be_modified_osmconf.ini')
+        if not isfile(default_osm_conf):
+            default_osm_conf = ''
+        self.osm_conf.setDialogTitle(tr('Select OSM conf file'))
+        self.osm_conf.setFilter('OSM conf (*.ini)')
+        self.osm_conf.lineEdit().setPlaceholderText(default_osm_conf)
+
+        self.osm_conf.fileChanged.connect(self.disable_run_file_button)
+        self.radio_osm_conf.toggled.connect(self.disable_run_file_button)
+        # TODO
+        #  self.output_directory.fileChanged.connect(self.disable_prefix_file)
+        self.run_buttons[Panels.File].clicked.connect(self.open_file)
+
+        self.disable_run_file_button()
+
+    def disable_run_file_button(self):
+        """If the two fields are empty or allTags."""
+        if self.osm_file.filePath():
+            self.run_buttons[Panels.File].setEnabled(False)
+
+        # if self.radio_osm_conf.isChecked():
+        #     if self.osm_conf.filePath():
+        #         self.run_buttons[Panels.File].setEnabled(True)
+        #     else:
+        #         self.run_buttons[Panels.File].setEnabled(False)
+        # else:
+        self.run_buttons[Panels.File].setEnabled(True)
+
+    def open_file(self):
+        """Open the osm file with the osmconf."""
+        try:
+            self._start_process()
+            p = self.gather_values()
+            if p['load_only']:
+                # Legacy, waiting to remove the OsmParser for QGIS >= 3.6
+                # Change in osm_file_dialog.py L131 too
+                output_geom_legacy = [l.value.lower() for l in p['outputs']]
+                osm_parser = OsmParser(
+                    p['osm_file'],
+                    load_only=True,
+                    osm_conf=p['osm_conf'],
+                    layers=output_geom_legacy)
+                layers = osm_parser.parse()
+                for item in layers.values():
+                    QgsProject.instance().addMapLayer(item)
+            else:
+                open_file(
+                    dialog=self,
+                    osm_file=p['osm_file'],
+                    output_geom_types=p['outputs'],
+                    output_dir=p['output_directory'],
+                    prefix_file=p['prefix_file'])
+                self.display_message_bar(
+                    tr('Successful query'),
+                    level=Qgis.Success,
+                    duration=5)
+        except QuickOsmException as e:
+            self.display_geo_algorithm_exception(e)
+        except Exception as e:
+            self.display_exception(e)
+        finally:
+            self._end_process()
