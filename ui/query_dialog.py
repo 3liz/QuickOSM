@@ -218,7 +218,7 @@ class QueryWidget(QuickOSMWidget, Ui_ui_query):
                 prefix_file=prefix_file,
                 output_geometry_types=output_geometry_types,
                 white_list_values=white_list_values,
-                nominatim=nominatim,
+                area=nominatim,
                 bbox=bbox)
 
             if num_layers:

@@ -176,7 +176,7 @@ def open_file(
 def process_query(
         dialog=None,
         query=None,
-        nominatim=None,
+        area=None,
         bbox=None,
         output_dir=None,
         prefix_file=None,
@@ -194,7 +194,7 @@ def process_query(
     dialog.set_progress_text(
         tr('Downloading data from Overpass {}').format(server))
     # Replace Nominatim or BBOX
-    query = QueryPreparation(query, bbox, nominatim, server)
+    query = QueryPreparation(query, bbox, area, server)
     QApplication.processEvents()
     final_query = query.prepare_query()
     url = query.prepare_url()
@@ -219,7 +219,7 @@ def process_quick_query(
         key=None,
         value=None,
         bbox=None,
-        nominatim=None,
+        area=None,
         is_around=None,
         distance=None,
         osm_objects=None,
@@ -234,10 +234,10 @@ def process_quick_query(
     # Move this logic UP
     # Copy/paste in quick_query_dialog.py
     distance_string = None
-    if is_around and nominatim:
+    if is_around and area:
         query_type = QueryType.AroundArea
         distance_string = '{}'.format(distance)
-    elif not is_around and nominatim:
+    elif not is_around and area:
         query_type = QueryType.InArea
         distance = None
     elif bbox:
@@ -254,7 +254,7 @@ def process_quick_query(
         query_type=query_type,
         key=key,
         value=value,
-        area=nominatim,
+        area=area,
         around_distance=distance,
         osm_objects=osm_objects,
         timeout=timeout
@@ -264,7 +264,7 @@ def process_quick_query(
     # Generate layer name as following (if defined)
     if not key:
         key = tr('allKeys')
-    expected_name = [key, value, nominatim, distance_string]
+    expected_name = [key, value, area, distance_string]
     layer_name = '_'.join([f for f in expected_name if f])
     LOGGER.info('Query: {}'.format(layer_name))
 
@@ -272,7 +272,7 @@ def process_quick_query(
     return process_query(
         dialog=dialog,
         query=query,
-        nominatim=nominatim,
+        area=area,
         bbox=bbox,
         output_dir=output_directory,
         prefix_file=prefix_file,

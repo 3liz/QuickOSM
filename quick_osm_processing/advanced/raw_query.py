@@ -116,7 +116,7 @@ class RawQueryAlgorithm(QgisAlgorithm):
         query_preparation = QueryPreparation(
             raw_query,
             extent=extent,
-            nominatim_place=nominatim,
+            area=nominatim,
             overpass=server
         )
         raw_query = query_preparation.prepare_query()

@@ -19,31 +19,15 @@
  *                                                                         *
  ***************************************************************************/
 """
-from json import load
-from os.path import isfile, isdir
 
-from QuickOSM.core.process import process_quick_query
-from QuickOSM.core.exceptions import (
-    QuickOsmException,
-    OutPutGeomTypesException,
-    DirectoryOutPutException,
-    OsmObjectsException)
 from QuickOSM.core.query_factory import QueryFactory
-from QuickOSM.core.utilities.tools import tr, resources_path
-from QuickOSM.core.utilities.utilities_qgis import (
-    display_message_bar, open_map_features)
-from QuickOSM.definitions.osm import OsmType, QueryType
+from QuickOSM.definitions.osm import QueryType
 from QuickOSM.ui.QuickOSMWidget import QuickOSMWidget
 from QuickOSM.ui.quick_query import Ui_ui_quick_query
-from qgis.PyQt.QtCore import Qt
-from qgis.PyQt.QtWidgets import QApplication, QCompleter, \
-    QDialogButtonBox
-from qgis.core import Qgis
 from qgis.utils import iface
 
 
 class QuickQueryWidget(QuickOSMWidget, Ui_ui_quick_query):
-
 
     def show_query(self):
         """

@@ -128,7 +128,7 @@ class BuildQueryBasedAlgorithm(QgisAlgorithm):
         raw_query = query_factory.make()
         query_preparation = QueryPreparation(
             raw_query,
-            nominatim_place=self.area,
+            area=self.area,
             extent=self.extent,
             overpass=self.server
         )

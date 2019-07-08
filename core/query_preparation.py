@@ -37,7 +37,7 @@ class QueryPreparation:
     """Prepare the query before sending it to Overpass."""
 
     def __init__(
-            self, query, extent=None, nominatim_place=None,
+            self, query, extent=None, area=None,
             overpass=None, output_format='xml'):
         """Constructor.
 
@@ -47,8 +47,8 @@ class QueryPreparation:
         :param extent: The extent to use in 4326, if needed. It can be None.
         :type extent: QgsRectangle
 
-        :param nominatim_place: A name or a list of place names.
-        :type nominatim_place: str, list(str)
+        :param area: A name or a list of place names.
+        :type area: str, list(str)
         """
         if overpass is None:
             server = get_setting(
@@ -60,7 +60,7 @@ class QueryPreparation:
         self._query = query
         self._query_prepared = query
         self._extent = extent
-        self._nominatim_places = nominatim_place
+        self._places = area
         self._output_format = output_format
 
         self._query_is_ready = False
@@ -203,7 +203,7 @@ class QueryPreparation:
         template = r'{{(geocodeCoords):([^}]*)}}'
         self._query_prepared = re.sub(
             template, lambda m: replace(
-                m.groups()[1], self._nominatim_places), self._query_prepared)
+                m.groups()[1], self._places), self._query_prepared)
 
     def _replace_geocode_area(self):
         """Replace {{geocodeCoords}} by the centroid of the extent.
@@ -237,7 +237,7 @@ class QueryPreparation:
 
         template = r'{{(nominatimArea|geocodeArea):([^}]*)}}'
         self._query_prepared = re.sub(template, lambda m: replace(
-            m.groups()[1], self._nominatim_places), self._query_prepared)
+            m.groups()[1], self._places), self._query_prepared)
 
         return self._query_prepared
 

@@ -28,9 +28,6 @@ from QuickOSM.definitions.osm import LayerType
 LOGGER = logging.getLogger('QuickOSM')
 
 
-
-
-
 def disable_prefix_file(directory, file_prefix):
     """If the directory is empty, we disable the file prefix."""
     if directory.filePath():

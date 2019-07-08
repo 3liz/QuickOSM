@@ -32,14 +32,21 @@ from sys import exc_info
 
 from qgis.PyQt import uic
 from qgis.PyQt.QtCore import Qt
-from qgis.PyQt.QtWidgets import QDialog, QDialogButtonBox, QCompleter, QApplication, QPushButton
+from qgis.PyQt.QtWidgets import (
+    QDialog, QDialogButtonBox, QCompleter, QApplication, QPushButton)
 from qgis.PyQt.QtGui import QPixmap, QIcon
 from qgis._gui import QgsFileWidget
-from qgis.core import Qgis, QgsGeometry, QgsCoordinateReferenceSystem, QgsCoordinateTransform, QgsProject
+from qgis.core import (
+    Qgis,
+    QgsGeometry,
+    QgsCoordinateReferenceSystem,
+    QgsCoordinateTransform,
+    QgsProject,
+)
 from qgis.utils import iface
 
 from QuickOSM.definitions.gui import Panels
-from QuickOSM.definitions.osm import OsmType, QueryType, LayerType
+from QuickOSM.definitions.osm import OsmType, LayerType
 from QuickOSM.definitions.overpass import OVERPASS_SERVERS
 from QuickOSM.core.exceptions import (
     QuickOsmException,
@@ -114,14 +121,15 @@ class MainDialog(QDialog, FORM_CLASS):
         self.set_ui_quick_query_panel()
 
     def _set_custom_ui(self, panel):
-        """Weird function to set custom UI for some panels.
+        """Function to set custom UI for some panels.
 
         :param panel: Name of the panel.
         :type panel: Panels
         """
         self.output_directories[panel].lineEdit().setPlaceholderText(
             tr('Save to temporary file'))
-        self.output_directories[panel].setStorageMode(QgsFileWidget.GetDirectory)
+        self.output_directories[panel].setStorageMode(
+            QgsFileWidget.GetDirectory)
         self.output_directories[panel].setDialogTitle(tr('Select a directory'))
 
         # def disable_prefix_file():
@@ -134,7 +142,8 @@ class MainDialog(QDialog, FORM_CLASS):
         #             file_prefix.setText('')
         #             file_prefix.setDisabled(True)
         #
-        # # self.output_directories[panel].fileChanged.connect(disable_prefix_file)
+        # self.output_directories[panel].fileChanged.connect(
+        #    disable_prefix_file)
 
         if panel in self.advanced_panels.keys():
             self.advanced_panels[panel].setSaveCollapsedState(False)
@@ -160,7 +169,8 @@ class MainDialog(QDialog, FORM_CLASS):
 
         self.progress_text.setText('')
 
-        self.menu_widget.currentRowChanged['int'].connect(self.stacked_panels_widget.setCurrentIndex)
+        self.menu_widget.currentRowChanged['int'].connect(
+            self.stacked_panels_widget.setCurrentIndex)
 
     def gather_values(self):
         """Called by QuickQuery, Query and Open widgets.
@@ -196,13 +206,15 @@ class MainDialog(QDialog, FORM_CLASS):
         properties['place'] = place
 
         if caller in [Panels.QuickQuery, Panels.Query]:
-            properties['query_type'] = self.query_type_buttons[caller].currentData()
+            properties['query_type'] = (
+                self.query_type_buttons[caller].currentData())
             properties['is_around'] = properties['query_type'] == 'around'
 
             if not properties['place']:
                 if properties['query_type'] == 'canvas':
                     geom_extent = iface.mapCanvas().extent()
-                    source_crs = iface.mapCanvas().mapSettings().destinationCrs()
+                    source_crs = (
+                        iface.mapCanvas().mapSettings().destinationCrs())
                 elif properties['query_type'] == 'layer':
                     # Else if a layer is checked
                     layer = self.layers_buttons[caller].currentLayer()
@@ -238,7 +250,8 @@ class MainDialog(QDialog, FORM_CLASS):
         properties['output_directory'] = self.output_directory_qq.filePath()
         properties['prefix_file'] = self.line_file_prefix_qq.text()
 
-        if properties['output_directory'] and not isdir(properties['output_directory']):
+        if properties['output_directory'] and not (
+                isdir(properties['output_directory'])):
             raise DirectoryOutPutException
 
         LOGGER.debug(properties)
@@ -273,7 +286,12 @@ class MainDialog(QDialog, FORM_CLASS):
             duration=10)
 
     def display_message_bar(
-            self, title, message=None, level=Qgis.Info, duration=5, open_logs=False):
+            self,
+            title,
+            message=None,
+            level=Qgis.Info,
+            duration=5,
+            open_logs=False):
         """Display a message.
 
         :param title: Title of the message.
@@ -380,7 +398,8 @@ class MainDialog(QDialog, FORM_CLASS):
                 nominatim_completer = QCompleter(self.last_places)
                 for line_edit in self.places_edits.values():
                     line_edit.setCompleter(nominatim_completer)
-                    line_edit.completer().setCompletionMode(QCompleter.PopupCompletion)
+                    line_edit.completer().setCompletionMode(
+                        QCompleter.PopupCompletion)
         else:
             io.open(user_file, 'a').close()
 
@@ -565,7 +584,7 @@ class MainDialog(QDialog, FORM_CLASS):
                 dialog=self,
                 key=p['key'],
                 value=p['value'],
-                nominatim=p['place'],
+                area=p['place'],
                 is_around=p['is_around'],
                 distance=p['distance'],
                 bbox=p['bbox'],
