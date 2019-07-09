@@ -22,6 +22,7 @@
 import inspect
 import io
 import logging
+import re
 import traceback
 
 
@@ -32,7 +33,14 @@ from sys import exc_info
 from qgis.PyQt import uic
 from qgis.PyQt.QtCore import Qt
 from qgis.PyQt.QtWidgets import (
-    QDialog, QDialogButtonBox, QCompleter, QApplication, QPushButton)
+    QDialog,
+    QDialogButtonBox,
+    QCompleter,
+    QApplication,
+    QPushButton,
+    QMenu,
+    QAction,
+)
 from qgis.PyQt.QtGui import QPixmap, QIcon
 from qgis.gui import QgsFileWidget
 from qgis.core import (
@@ -45,14 +53,16 @@ from qgis.core import (
 from qgis.utils import iface
 
 from QuickOSM.definitions.gui import Panels
-from QuickOSM.definitions.osm import OsmType, LayerType
+from QuickOSM.definitions.osm import OsmType, LayerType, QueryType
 from QuickOSM.definitions.overpass import OVERPASS_SERVERS
 from QuickOSM.core.exceptions import (
     QuickOsmException,
     OutPutGeomTypesException,
     DirectoryOutPutException,
-    OsmObjectsException, FileDoesntExistException)
-from QuickOSM.core.process import process_quick_query, open_file
+    OsmObjectsException, FileDoesntExistException, MissingParameterException)
+from QuickOSM.core.query_factory import QueryFactory
+from QuickOSM.core.process import process_quick_query, open_file, process_query
+from QuickOSM.core.query_preparation import QueryPreparation
 from QuickOSM.core.utilities.tools import (
     get_setting,
     set_setting,
@@ -62,10 +72,9 @@ from QuickOSM.core.utilities.tools import (
     custom_config_file,
 )
 from QuickOSM.core.utilities.utilities_qgis import (
-    open_map_features, open_log_panel)
+    open_map_features, open_log_panel, open_doc_overpass, open_overpass_turbo)
 from QuickOSM.core.parser.osm_parser import OsmParser
-from QuickOSM.ui.tools import query_type_updated
-# from QuickOSM.ui.XMLHighlighter import XMLHighlighter
+from QuickOSM.ui.xml_highlighter import XMLHighlighter
 
 
 FORM_CLASS, _ = uic.loadUiType(resources_path('ui', 'main_window.ui'))
@@ -74,29 +83,34 @@ LOGGER = logging.getLogger('QuickOSM')
 
 class MainDialog(QDialog, FORM_CLASS):
 
+    """Main class about the dialog."""
+
     def __init__(self, parent=None):
-        """
-        Constructor
-        """
+        """Constructor."""
         QDialog.__init__(self, parent)
         self.setupUi(self)
 
         # Table mapping
         self.panels = {
             'run_quick_query': Panels.QuickQuery,
+            'run_query': Panels.Query,
             'open_file': Panels.File,
         }
         self.places_edits = {
             Panels.QuickQuery: self.line_place_qq,
+            Panels.Query: self.line_place_q,
         }
         self.query_type_buttons = {
             Panels.QuickQuery: self.combo_query_type_qq,
+            Panels.Query: self.combo_query_type_q,
         }
         self.layers_buttons = {
             Panels.QuickQuery: self.combo_extent_layer_qq,
+            Panels.Query: self.combo_extent_layer_q,
         }
         self.run_buttons = {
             Panels.QuickQuery: self.button_run_query_qq,
+            Panels.Query: self.button_run_query_q,
             Panels.File: self.button_run_file,
         }
         self.output_buttons = {
@@ -105,6 +119,12 @@ class MainDialog(QDialog, FORM_CLASS):
                 self.checkbox_lines_qq,
                 self.checkbox_multilinestrings_qq,
                 self.checkbox_multipolygons_qq
+            ],
+            Panels.Query: [
+                self.checkbox_points_q,
+                self.checkbox_lines_q,
+                self.checkbox_multilinestrings_q,
+                self.checkbox_multipolygons_q,
             ],
             Panels.File: [
                 self.checkbox_points_f,
@@ -115,14 +135,17 @@ class MainDialog(QDialog, FORM_CLASS):
         }
         self.output_directories = {
             Panels.QuickQuery: self.output_directory_qq,
+            Panels.Query: self.output_directory_q,
             Panels.File: self.output_directory_f
         }
         self.prefix_edits = {
             Panels.QuickQuery: self.line_file_prefix_qq,
+            Panels.Query: self.line_file_prefix_q,
             Panels.File: self.line_file_prefix_file,
         }
         self.advanced_panels = {
             Panels.QuickQuery: self.advanced_qq,
+            Panels.Query: self.advanced_q,
         }
 
         self.default_server = None
@@ -134,7 +157,7 @@ class MainDialog(QDialog, FORM_CLASS):
         self.set_ui_menu()
         self.set_ui_configuration_panel()
         self.set_ui_quick_query_panel()
-        # self.set_ui
+        self.set_ui_query_panel()
         self.set_ui_file_panel()
 
     def _set_custom_ui(self, panel):
@@ -198,6 +221,7 @@ class MainDialog(QDialog, FORM_CLASS):
         caller = self.panels[inspect.stack()[1][3]]
         properties = dict()
 
+        # For all queries
         properties['outputs'] = []
         if self.output_buttons[caller][0].isChecked():
             # noinspection PyTypeChecker
@@ -223,6 +247,7 @@ class MainDialog(QDialog, FORM_CLASS):
                 isdir(properties['output_directory'])):
             raise DirectoryOutPutException
 
+        # Specific to files
         if caller == Panels.File:
             properties['osm_file'] = self.osm_file.filePath()
             conf = self.osm_conf.filePath()
@@ -241,8 +266,10 @@ class MainDialog(QDialog, FORM_CLASS):
                 if not isfile(properties['osm_conf']):
                     raise FileDoesntExistException(suffix="*.ini")
 
+            # End for OSM file
             return properties
 
+        # Speficif for quick query
         if caller == Panels.QuickQuery:
             osm_objects = []
             if self.checkbox_node.isChecked():
@@ -261,47 +288,80 @@ class MainDialog(QDialog, FORM_CLASS):
             properties['timeout'] = self.spin_timeout.value()
             properties['distance'] = self.spin_place_qq.value()
 
+        # For quick query and query
         place = self.nominatim_value(caller)
         if place == '':
             place = None
         properties['place'] = place
 
-        if caller in [Panels.QuickQuery, Panels.Query]:
-            properties['query_type'] = (
-                self.query_type_buttons[caller].currentData())
-            properties['is_around'] = properties['query_type'] == 'around'
+        # Speficic for query
+        if caller == Panels.Query:
+            properties['query'] = self.text_query.toPlainText()
 
-            if not properties['place']:
-                if properties['query_type'] == 'canvas':
-                    geom_extent = iface.mapCanvas().extent()
-                    source_crs = (
-                        iface.mapCanvas().mapSettings().destinationCrs())
-                elif properties['query_type'] == 'layer':
-                    # Else if a layer is checked
-                    layer = self.layers_buttons[caller].currentLayer()
-                    geom_extent = layer.extent()
-                    source_crs = layer.crs()
+            properties['expected_csv'] = dict()
+            if self.checkbox_points_q.isChecked():
+                properties['expected_csv'][LayerType.Points] = (
+                    self.edit_csv_points.text())
+            if self.checkbox_lines_q.isChecked():
+                properties['expected_csv'][LayerType.Lines] = (
+                    self.edit_csv_lines.text())
+            if self.checkbox_multilinestrings_q.isChecked():
+                properties['expected_csv'][LayerType.Multilinestrings] = (
+                    self.edit_csv_multilinestrings.text())
+            if self.checkbox_multipolygons_q.isChecked():
+                properties['expected_csv'][LayerType.Multipolygons] = (
+                    self.edit_csv_multipolygons.text())
 
-                geom_extent = QgsGeometry.fromRect(geom_extent)
-                epsg_4326 = QgsCoordinateReferenceSystem('EPSG:4326')
-                crs_transform = QgsCoordinateTransform(
-                    source_crs, epsg_4326, QgsProject.instance())
-                geom_extent.transform(crs_transform)
-                properties['bbox'] = geom_extent.boundingBox()
-            else:
-                properties['bbox'] = None
+            if not place and \
+                    re.search(r'\{\{nominatim\}\}', properties['query']) or \
+                    re.search(r'\{\{nominatimArea:\}\}', properties['query']) or \
+                    re.search(r'\{\{geocodeArea:\}\}', properties['query']):
+
+                raise MissingParameterException(suffix='nominatim field')
+
+        # For quick query and query
+        properties['query_type'] = (
+            self.query_type_buttons[caller].currentData())
+        properties['is_around'] = properties['query_type'] == 'around'
+
+        if not properties['place']:
+            if properties['query_type'] == 'canvas':
+                geom_extent = iface.mapCanvas().extent()
+                source_crs = iface.mapCanvas().mapSettings().destinationCrs()
+            elif properties['query_type'] == 'layer':
+                # Else if a layer is checked
+                layer = self.layers_buttons[caller].currentLayer()
+                geom_extent = layer.extent()
+                source_crs = layer.crs()
+
+            geom_extent = QgsGeometry.fromRect(geom_extent)
+            epsg_4326 = QgsCoordinateReferenceSystem('EPSG:4326')
+            crs_transform = QgsCoordinateTransform(
+                source_crs, epsg_4326, QgsProject.instance())
+            geom_extent.transform(crs_transform)
+            properties['bbox'] = geom_extent.boundingBox()
+        else:
+            properties['bbox'] = None
 
         return properties
 
     def display_geo_algorithm_exception(self, exception):
-        """Display QuickOSM exceptions."""
+        """Display QuickOSM exceptions.
+
+        :param exception: The exception to display.
+        :rtype exception: GeoAlgorithmException
+        """
         self.set_progress_text('')
         LOGGER.debug(exception.msg)
         self.display_message_bar(
             exception.msg, level=exception.level, duration=exception.duration)
 
     def display_exception(self, exception):
-        """Display others exceptions."""
+        """Display others exceptions.
+
+        :param exception: The exception to display.
+        :rtype exception: BaseException
+        """
         exc_type, _, exc_tb = exc_info()
         f_name = split(exc_tb.tb_frame.f_code.co_filename)[1]
         _, _, tb = exc_info()
@@ -354,7 +414,30 @@ class MainDialog(QDialog, FORM_CLASS):
 
         self.message_bar.pushWidget(widget, level, duration)
 
+    @staticmethod
+    def query_type_updated(combo_query_type, widget, spinbox=None):
+        """Enable/disable the extent/layer widget."""
+        current = combo_query_type.currentData()
+
+        if combo_query_type.count() == 2:
+            # Query tab, widget is the layer selector
+            widget.setVisible(current == 'layer')
+        else:
+            # Quick query tab, widget is the stackedwidget
+            if current in ['in', 'around']:
+                widget.setCurrentIndex(0)
+                spinbox.setVisible(current == 'around')
+            elif current in ['layer']:
+                widget.setCurrentIndex(1)
+            elif current in ['canvas', 'attributes']:
+                widget.setCurrentIndex(2)
+
     def end_query(self, num_layers):
+        """Display the message at the end of the query.
+
+        :param num_layers: Number of layers which have been loaded.
+        :rtype num_layers: int
+        """
         if num_layers:
             self.set_progress_text(tr('Successful query'))
             self.display_message_bar(
@@ -366,22 +449,45 @@ class MainDialog(QDialog, FORM_CLASS):
                 level=Qgis.Warning, duration=7)
 
     def reset_form(self):
+        """Reset all the GUI to default state."""
         LOGGER.info(tr('Dialog has been reset'))
-        # TODO need to add other dialog
+
+        # Quickquery
         self.combo_key.setCurrentIndex(0)
         self.combo_value.setCurrentIndex(0)
-        self.line_place_qq.setText('')
-        self.spin_place_qq.setValue(1000)
-        self.checkbox_points_qq.setChecked(True)
-        self.checkbox_lines_qq.setChecked(True)
-        self.checkbox_multilinestrings_qq.setChecked(True)
-        self.checkbox_multipolygons_qq.setChecked(True)
         self.checkbox_node.setChecked(True)
         self.checkbox_way.setChecked(True)
         self.checkbox_relation.setChecked(True)
+        self.spin_place_qq.setValue(1000)
         self.spin_timeout.setValue(25)
-        self.output_directory_qq.lineEdit().setText('')
-        self.line_file_prefix_qq.setText('')
+
+        # Query
+        self.text_query.setText('')
+        self.edit_csv_points.setText('')
+        self.edit_csv_lines.setText('')
+        self.edit_csv_multilinestrings.setText('')
+        self.edit_csv_multipolygons.setText('')
+
+        # OSM File
+        self.osm_file.lineEdit().setText('')
+        self.osm_conf.lineEdit().setText('')
+
+        # Place nominatim
+        for edit in self.places_edits.values():
+            edit.setText('')
+
+        # Output layers
+        for panel in self.output_buttons.values():
+            for output in panel:
+                output.setChecked(True)
+
+        # Directories
+        for edit in self.output_directories.values():
+            edit.lineEdit().setText('')
+
+        # Prefix
+        for edit in self.prefix_edits.values():
+            edit.setText('')
 
     def _start_process(self):
         """Make some stuff before launching the process."""
@@ -390,6 +496,9 @@ class MainDialog(QDialog, FORM_CLASS):
 
         if caller == Panels.QuickQuery:
             self.button_show_query.setDisabled(True)
+
+        if caller == Panels.Query:
+            self.button_generate_query.setDisabled(True)
 
         self.run_buttons[caller].setDisabled(True)
         self.run_buttons[caller].initial_text = self.run_buttons[caller].text()
@@ -408,6 +517,9 @@ class MainDialog(QDialog, FORM_CLASS):
 
         if caller == Panels.QuickQuery:
             self.button_show_query.setDisabled(False)
+
+        if caller == Panels.Query:
+            self.button_generate_query.setDisabled(False)
 
         self.output_directories[caller].setDisabled(True)
         self.run_buttons[caller].setDisabled(False)
@@ -440,6 +552,7 @@ class MainDialog(QDialog, FORM_CLASS):
 
     @staticmethod
     def sort_nominatim_places(existing_places, place):
+        """Helper to sort and limit results of saved nominatim places."""
         if place in existing_places:
             existing_places.pop(existing_places.index(place))
         existing_places.insert(0, place)
@@ -518,17 +631,16 @@ class MainDialog(QDialog, FORM_CLASS):
                         self.combo_default_overpass.addItem(server)
 
     def set_server_overpass_api(self):
-        """
-        Save the new OAPI server.
-        """
+        """Save the new Overpass server."""
         self.default_server = self.combo_default_overpass.currentText()
         set_setting('defaultOAPI', self.default_server)
 
     # ###
     # quick query panel
     # ###
-    def set_ui_quick_query_panel(self):
 
+    def set_ui_quick_query_panel(self):
+        """Setup the UI for the QuickQuery."""
         # Query type
         self.combo_query_type_qq.addItem(tr('In'), 'in')
         self.combo_query_type_qq.addItem(tr('Around'), 'around')
@@ -583,7 +695,7 @@ class MainDialog(QDialog, FORM_CLASS):
         self.init_nominatim_autofill()
 
     def query_type_updated_qq(self):
-        query_type_updated(
+        self.query_type_updated(
             self.combo_query_type_qq,
             self.stacked_query_type,
             self.spin_place_qq)
@@ -636,14 +748,191 @@ class MainDialog(QDialog, FORM_CLASS):
         finally:
             self._end_process()
 
+    def show_query(self):
+        """Show the query in the main window."""
+        # We have to find the widget in the stacked widget of the main window
+        query_widget = None
+        index_quick_query_widget = None
+        for i in range(iface.QuickOSM_mainWindowDialog.stackedWidget.count()):
+            widget = iface.QuickOSM_mainWindowDialog.stackedWidget.widget(i)
+            if widget.__class__.__name__ == "QueryWidget":
+                query_widget = iface.QuickOSM_mainWindowDialog.stackedWidget.\
+                    widget(i)
+                index_quick_query_widget = i
+                break
+
+        # Get all values
+        key = self.comboBox_key.currentText()
+        value = self.comboBox_value.currentText()
+        nominatim = self.lineEdit_nominatim.text()
+        timeout = self.spinBox_timeout.value()
+        output_directory = self.output_directory.filePath()
+        prefix_file = self.lineEdit_filePrefix.text()
+        query_type = self.cb_query_type.currentData()
+        is_around = query_type == 'around'
+        distance = self.spinBox_distance_point.value()
+
+        # If bbox, we must set None to nominatim, we can't have both
+        bbox = None
+        if query_type in ['layer', 'canvas']:
+            nominatim = None
+            bbox = True
+        elif query_type in ['attributes']:
+            nominatim = None
+
+        if nominatim == '':
+            nominatim = None
+
+        # Which osm objects ?
+        osm_objects = self._get_osm_objects()
+
+        # Which geometry at the end ?
+        query_widget.checkBox_points.setChecked(
+            self.checkBox_points.isChecked())
+        query_widget.checkBox_lines.setChecked(
+            self.checkBox_lines.isChecked())
+        query_widget.checkBox_multilinestrings.setChecked(
+            self.checkBox_multilinestrings.isChecked())
+        query_widget.checkBox_multipolygons.setChecked(
+            self.checkBox_multipolygons.isChecked())
+
+        # What kind of extent query
+        # query_widget.radioButton_extentLayer.setChecked(
+        #     self.radioButton_extentLayer.isChecked())
+        # query_widget.radioButton_extentMapCanvas.setChecked(
+        #     self.radioButton_extentMapCanvas.isChecked())
+
+        # Transfer the combobox from QuickQuery to Query
+        # if self.comboBox_extentLayer.count():
+        #     query_widget.radioButton_extentLayer.setCheckable(True)
+
+        # Transfer the output
+        query_widget.output_directory.setFilePath(output_directory)
+        if prefix_file:
+            query_widget.lineEdit_filePrefix.setText(prefix_file)
+            query_widget.lineEdit_filePrefix.setEnabled(True)
+
+        # TODO
+        # Move this logic UP
+        # Copy/paste in quick_query_dialog.py
+        if is_around and nominatim:
+            query_type = QueryType.AroundArea
+        elif not is_around and nominatim:
+            query_type = QueryType.InArea
+        elif bbox:
+            query_type = QueryType.BBox
+        else:
+            query_type = QueryType.NotSpatial
+        # End todo
+
+        # Make the query
+        query_factory = QueryFactory(
+            query_type=query_type,
+            key=key,
+            value=value,
+            area=nominatim,
+            around_distance=distance,
+            osm_objects=osm_objects,
+            timeout=timeout
+        )
+        query = query_factory.make()
+        query_widget.textEdit_query.setPlainText(query)
+        iface.QuickOSM_mainWindowDialog.listWidget.setCurrentRow(
+            index_quick_query_widget)
+        iface.QuickOSM_mainWindowDialog.exec_()
+
     # ###
     # query panel
     # ###
 
     def set_ui_query_panel(self):
 
-        # highlighter = XMLHighlighter(self.text_query.document())
-        pass
+        self.combo_query_type_q.addItem(tr('Canvas Extent'), 'canvas')
+        self.combo_query_type_q.addItem(tr('Layer Extent'), 'layer')
+        self.combo_query_type_q.currentIndexChanged.connect(self.query_type_updated_q)
+
+        highlighter = XMLHighlighter(self.text_query.document())
+        self.text_query.cursorPositionChanged.connect(
+            highlighter.rehighlight)
+        self.text_query.cursorPositionChanged.connect(
+            self.allow_nominatim_or_extent)
+
+        self.button_overpass_turbo.setIcon(
+            QIcon(resources_path('icons', 'turbo.png')))
+        self.button_overpass_turbo.clicked.connect(open_overpass_turbo)
+
+        # Setup menu for documentation
+        popup_menu = QMenu()
+        map_features_action = QAction(
+            'Map Features', self.button_documentation)
+        map_features_action.triggered.connect(open_map_features)
+        popup_menu.addAction(map_features_action)
+        overpass_action = QAction('Overpass', self.button_documentation)
+        overpass_action.triggered.connect(open_doc_overpass)
+        popup_menu.addAction(overpass_action)
+        self.button_documentation.setMenu(popup_menu)
+
+        self.run_buttons[Panels.File].clicked.connect(self.run_query)
+        self.button_generate_query.clicked.connect(self.generate_query)
+        self.button_box_q.button(QDialogButtonBox.Reset).clicked.connect(
+            self.reset_form)
+
+        self.allow_nominatim_or_extent()
+        self.query_type_updated_q()
+
+    def query_type_updated_q(self):
+        self.query_type_updated(self.combo_query_type_q, self.combo_extent_layer_q)
+
+    def allow_nominatim_or_extent(self):
+        """Disable or enable radio buttons if nominatim or extent.
+        Disable buttons if the query is empty.
+        """
+        query = self.text_query.toPlainText()
+
+        self.button_generate_query.setDisabled(query is '')
+        self.button_run_query_q.setDisabled(query is '')
+
+        if re.search(r'\{\{nominatim\}\}', query) or \
+                re.search(r'\{\{nominatimArea:(.*)\}\}', query) or \
+                re.search(r'\{\{geocodeArea:(.*)\}\}', query):
+            self.line_place_q.setEnabled(True)
+        else:
+            self.line_place_q.setEnabled(False)
+            self.line_place_q.setText('')
+
+        if re.search(r'\{\{(bbox|center)\}\}', query):
+            self.combo_query_type_q.setEnabled(True)
+        else:
+            self.combo_query_type_q.setEnabled(False)
+
+    def run_query(self):
+        try:
+            self._start_process()
+            p = self.gather_values()
+            num_layers = process_query(
+                dialog=self,
+                query=p['query'],
+                output_dir=p['output_directory'],
+                prefix_file=p['prefix_file'],
+                output_geometry_types=p['outputs'],
+                white_list_values=p['expected_csv'],
+                area=p['place'],
+                bbox=p['bbox'])
+            self.end_query(num_layers)
+        except QuickOsmException as e:
+            self.display_geo_algorithm_exception(e)
+        except Exception as e:
+            self.display_exception(e)
+        finally:
+            self._end_process()
+
+    def generate_query(self):
+        query = self.text_query.toPlainText()
+        area = self.nominatim_value(Panels.Query).text()
+        bbox = self.get_bounding_box()
+        query = QueryPreparation(query, bbox, area)
+        query_string = query.prepare_query()
+        self.text_query.setPlainText(query_string)
 
     # ###
     # osm file panel

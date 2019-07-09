@@ -157,7 +157,7 @@ QListWidget::item::selected {
          <item>
           <widget class="QStackedWidget" name="stacked_panels_widget">
            <property name="currentIndex">
-            <number>2</number>
+            <number>1</number>
            </property>
            <widget class="QWidget" name="quickquery_page">
             <property name="sizePolicy">
@@ -568,7 +568,7 @@ QListWidget::item::selected {
                 </spacer>
                </item>
                <item>
-                <widget class="QDialogButtonBox" name="buttonBox">
+                <widget class="QDialogButtonBox" name="button_box_q">
                  <property name="sizePolicy">
                   <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
                    <horstretch>0</horstretch>
@@ -593,7 +593,7 @@ QListWidget::item::selected {
               </widget>
              </item>
              <item>
-              <widget class="QgsCollapsibleGroupBox" name="advanced">
+              <widget class="QgsCollapsibleGroupBox" name="advanced_q">
                <property name="title">
                 <string>Advanced</string>
                </property>
@@ -617,7 +617,7 @@ QListWidget::item::selected {
                    </widget>
                   </item>
                   <item row="0" column="1">
-                   <widget class="QLineEdit" name="line_place_query">
+                   <widget class="QLineEdit" name="line_place_q">
                     <property name="placeholderText">
                      <string>Can be overridden</string>
                     </property>
@@ -633,10 +633,10 @@ QListWidget::item::selected {
                   <item row="1" column="1">
                    <layout class="QHBoxLayout" name="horizontalLayout_3">
                     <item>
-                     <widget class="QComboBox" name="cb_query_type"/>
+                     <widget class="QComboBox" name="combo_query_type_q"/>
                     </item>
                     <item>
-                     <widget class="QgsMapLayerComboBox" name="comboBox_extentLayer">
+                     <widget class="QgsMapLayerComboBox" name="combo_extent_layer_q">
                       <property name="sizePolicy">
                        <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
                         <horstretch>0</horstretch>
@@ -657,7 +657,7 @@ QListWidget::item::selected {
                   <item row="3" column="1">
                    <layout class="QHBoxLayout" name="horizontalLayout_4">
                     <item>
-                     <widget class="QLineEdit" name="lineEdit_csv_points">
+                     <widget class="QLineEdit" name="edit_csv_points">
                       <property name="inputMask">
                        <string notr="true"/>
                       </property>
@@ -674,7 +674,7 @@ QListWidget::item::selected {
                   <item row="4" column="1">
                    <layout class="QHBoxLayout" name="horizontalLayout_18">
                     <item>
-                     <widget class="QLineEdit" name="lineEdit_csv_lines">
+                     <widget class="QLineEdit" name="edit_csv_lines">
                       <property name="placeholderText">
                        <string>or let empty</string>
                       </property>
@@ -692,7 +692,7 @@ QListWidget::item::selected {
                   <item row="5" column="1">
                    <layout class="QHBoxLayout" name="horizontalLayout_19">
                     <item>
-                     <widget class="QLineEdit" name="lineEdit_csv_multilinestrings">
+                     <widget class="QLineEdit" name="edit_csv_multilinestrings">
                       <property name="placeholderText">
                        <string/>
                       </property>
@@ -703,7 +703,7 @@ QListWidget::item::selected {
                   <item row="6" column="1">
                    <layout class="QHBoxLayout" name="horizontalLayout_20">
                     <item>
-                     <widget class="QLineEdit" name="lineEdit_csv_multipolygons">
+                     <widget class="QLineEdit" name="edit_csv_multipolygons">
                       <property name="placeholderText">
                        <string/>
                       </property>
@@ -712,7 +712,7 @@ QListWidget::item::selected {
                    </layout>
                   </item>
                   <item row="3" column="0">
-                   <widget class="QCheckBox" name="checkBox_points_2">
+                   <widget class="QCheckBox" name="checkbox_points_q">
                     <property name="text">
                      <string>Points</string>
                     </property>
@@ -722,7 +722,7 @@ QListWidget::item::selected {
                    </widget>
                   </item>
                   <item row="4" column="0">
-                   <widget class="QCheckBox" name="checkBox_lines_2">
+                   <widget class="QCheckBox" name="checkbox_lines_q">
                     <property name="text">
                      <string>Lines</string>
                     </property>
@@ -732,7 +732,7 @@ QListWidget::item::selected {
                    </widget>
                   </item>
                   <item row="5" column="0">
-                   <widget class="QCheckBox" name="checkBox_multilinestrings_2">
+                   <widget class="QCheckBox" name="checkbox_multilinestrings_q">
                     <property name="text">
                      <string>Multilinestrings</string>
                     </property>
@@ -742,7 +742,7 @@ QListWidget::item::selected {
                    </widget>
                   </item>
                   <item row="6" column="0">
-                   <widget class="QCheckBox" name="checkBox_multipolygons_2">
+                   <widget class="QCheckBox" name="checkbox_multipolygons_q">
                     <property name="text">
                      <string>Multipolygons</string>
                     </property>
@@ -766,7 +766,7 @@ QListWidget::item::selected {
                    </widget>
                   </item>
                   <item row="0" column="1">
-                   <widget class="QgsFileWidget" name="output_q_directory"/>
+                   <widget class="QgsFileWidget" name="output_directory_q"/>
                   </item>
                   <item row="1" column="0">
                    <widget class="QLabel" name="label_40">
@@ -776,7 +776,7 @@ QListWidget::item::selected {
                    </widget>
                   </item>
                   <item row="1" column="1">
-                   <widget class="QLineEdit" name="lineEdit_q_filePrefix"/>
+                   <widget class="QLineEdit" name="line_file_prefix_q"/>
                   </item>
                  </layout>
                 </item>
@@ -789,14 +789,14 @@ QListWidget::item::selected {
                 <enum>QLayout::SetMinimumSize</enum>
                </property>
                <item>
-                <widget class="QPushButton" name="pushButton_generateQuery">
+                <widget class="QPushButton" name="button_generate_query">
                  <property name="text">
                   <string>Generate query</string>
                  </property>
                 </widget>
                </item>
                <item>
-                <widget class="QPushButton" name="pushButton_q_runQuery">
+                <widget class="QPushButton" name="button_run_query_q">
                  <property name="text">
                   <string>Run query</string>
                  </property>
@@ -810,14 +810,14 @@ QListWidget::item::selected {
              <item>
               <layout class="QHBoxLayout" name="horizontalLayout_22">
                <item>
-                <widget class="QPushButton" name="pushButton_overpassTurbo">
+                <widget class="QPushButton" name="button_overpass_turbo">
                  <property name="text">
                   <string notr="true">Overpass Turbo</string>
                  </property>
                 </widget>
                </item>
                <item>
-                <widget class="QPushButton" name="pushButton_documentation">
+                <widget class="QPushButton" name="button_documentation">
                  <property name="text">
                   <string>Documentation</string>
                  </property>
