@@ -157,7 +157,7 @@ QListWidget::item::selected {
          <item>
           <widget class="QStackedWidget" name="stacked_panels_widget">
            <property name="currentIndex">
-            <number>1</number>
+            <number>4</number>
            </property>
            <widget class="QWidget" name="quickquery_page">
             <property name="sizePolicy">
@@ -302,7 +302,7 @@ QListWidget::item::selected {
                    <item>
                     <widget class="QLineEdit" name="line_place_qq">
                      <property name="placeholderText">
-                      <string>A village, a town, ...</string>
+                      <string>A village, a town…</string>
                      </property>
                     </widget>
                    </item>
@@ -1177,7 +1177,7 @@ QListWidget::item::selected {
                   <item row="0" column="0">
                    <widget class="QLabel" name="label_19">
                     <property name="text">
-                     <string>Github's repository</string>
+                     <string>GitHub's repository</string>
                     </property>
                    </widget>
                   </item>

@@ -9,3 +9,4 @@ help/
 .noseids
 venv
 *.osm
+i18n/*.qm

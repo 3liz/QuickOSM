@@ -29,7 +29,7 @@ from qgis.core import Qgis
 class QuickOsmException(BaseException):
     def __init__(self, msg=None):
         if not msg:
-            msg = tr('QuickOSM')
+            msg = 'QuickOSM'
         self.msg = msg
         BaseException.__init__(self, msg)
         self.level = Qgis.Critical
@@ -48,6 +48,7 @@ Overpass or network
 """
 
 
+# TODO, not used, but need to be fixed
 class OverpassBadRequestException(QuickOsmException):
     def __init__(self, msg=None):
         if not msg:
@@ -88,7 +89,7 @@ class QueryFactoryException(QuickOsmException):
 class QueryNotSupported(QuickOsmException):
     def __init__(self, key):
         msg = tr('The query is not supported by the plugin because of '
-                 ': %s' % key)
+                 ': {}'.format(key))
         QuickOsmException.__init__(self, msg)
 
 
@@ -101,27 +102,6 @@ class NominatimAreaException(QuickOsmException):
     def __init__(self, msg=None):
         if not msg:
             msg = tr('No nominatim area')
-        QuickOsmException.__init__(self, msg)
-
-
-"""
-Ogr2Ogr
-"""
-
-
-class Ogr2OgrException(QuickOsmException):
-    def __init__(self, msg=None):
-        if not msg:
-            msg = tr('Error with ogr2ogr')
-        QuickOsmException.__init__(self, msg)
-
-
-class NoLayerException(QuickOsmException):
-    def __init__(self, msg=None, suffix=None):
-        if not msg:
-            msg = tr('The layer is missing :')
-        if suffix:
-            msg = msg + " " + suffix
         QuickOsmException.__init__(self, msg)
 
 
@@ -152,20 +132,6 @@ class FileOutPutException(QuickOsmException):
             msg = tr('The output file already exist, set a prefix')
         if suffix:
             msg = msg + " " + suffix
-        QuickOsmException.__init__(self, msg)
-
-
-class OutPutFormatException(QuickOsmException):
-    def __init__(self, msg=None):
-        if not msg:
-            msg = tr('Output not available')
-        QuickOsmException.__init__(self, msg)
-
-
-class QueryAlreadyExistsException(QuickOsmException):
-    def __init__(self, msg=None):
-        if not msg:
-            msg = tr('This query already exists')
         QuickOsmException.__init__(self, msg)
 
 

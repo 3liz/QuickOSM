@@ -1,4 +1,4 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS language="ru" sourcelanguage="en" version="2.0">
+<?xml version="1.0" ?><!DOCTYPE TS><TS language="es_ES" sourcelanguage="en" version="2.0">
 <context>
     <name>@default</name>
     <message>
@@ -491,32 +491,32 @@
     <message>
         <location filename="../resources/ui/main_window.ui" line="87"/>
         <source>Quick query</source>
-        <translation>Быстрый запрос</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../resources/ui/main_window.ui" line="92"/>
         <source>Query</source>
-        <translation>Запрос</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../resources/ui/main_window.ui" line="840"/>
         <source>OSM File</source>
-        <translation>OSM Файл</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../resources/ui/main_window.ui" line="102"/>
         <source>Parameters</source>
-        <translation>Параметры</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../resources/ui/main_window.ui" line="107"/>
         <source>About</source>
-        <translation>О программе</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../resources/ui/main_window.ui" line="958"/>
         <source>Overpass API</source>
-        <translation>Overpass API</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../resources/ui/main_window.ui" line="653"/>
@@ -526,7 +526,7 @@
     <message>
         <location filename="../resources/ui/main_window.ui" line="978"/>
         <source>Realization</source>
-        <translation>Реализация</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../resources/ui/main_window.ui" line="1020"/>
@@ -541,12 +541,12 @@
     <message>
         <location filename="../resources/ui/main_window.ui" line="1172"/>
         <source>Sources</source>
-        <translation>Исходники</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../resources/ui/main_window.ui" line="1202"/>
         <source>Licence</source>
-        <translation>Лицензия</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../resources/ui/main_window.ui" line="1133"/>

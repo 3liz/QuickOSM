@@ -1,4 +1,4 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS language="ru" sourcelanguage="en" version="2.0">
+<?xml version="1.0" ?><!DOCTYPE TS><TS language="es" sourcelanguage="en" version="2.0">
 <context>
     <name>@default</name>
     <message>
@@ -94,27 +94,27 @@
     <message>
         <location filename="../ui/main_window_dialog.py" line="950"/>
         <source>Select an OSM file</source>
-        <translation type="unfinished"/>
+        <translation>Seleccione un archivo OSM</translation>
     </message>
     <message>
         <location filename="../ui/main_window_dialog.py" line="956"/>
         <source>Select OSM conf file</source>
-        <translation type="unfinished"/>
+        <translation>Seleccione un archivo de configuración de OSM</translation>
     </message>
     <message>
         <location filename="../ui/main_window_dialog.py" line="1005"/>
         <source>Successful query</source>
-        <translation type="unfinished"/>
+        <translation>Consulta exitosa</translation>
     </message>
     <message>
         <location filename="../ui/main_window_dialog.py" line="169"/>
         <source>Save to temporary file</source>
-        <translation type="unfinished"/>
+        <translation>Guardar en archivo temporal</translation>
     </message>
     <message>
         <location filename="../ui/main_window_dialog.py" line="173"/>
         <source>Select a directory</source>
-        <translation type="unfinished"/>
+        <translation>Seleccione un directorio</translation>
     </message>
     <message>
         <location filename="../ui/main_window_dialog.py" line="646"/>
@@ -491,32 +491,32 @@
     <message>
         <location filename="../resources/ui/main_window.ui" line="87"/>
         <source>Quick query</source>
-        <translation>Быстрый запрос</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../resources/ui/main_window.ui" line="92"/>
         <source>Query</source>
-        <translation>Запрос</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../resources/ui/main_window.ui" line="840"/>
         <source>OSM File</source>
-        <translation>OSM Файл</translation>
+        <translation>Archivo OSM</translation>
     </message>
     <message>
         <location filename="../resources/ui/main_window.ui" line="102"/>
         <source>Parameters</source>
-        <translation>Параметры</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../resources/ui/main_window.ui" line="107"/>
         <source>About</source>
-        <translation>О программе</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../resources/ui/main_window.ui" line="958"/>
         <source>Overpass API</source>
-        <translation>Overpass API</translation>
+        <translation>API Overpass</translation>
     </message>
     <message>
         <location filename="../resources/ui/main_window.ui" line="653"/>
@@ -526,47 +526,47 @@
     <message>
         <location filename="../resources/ui/main_window.ui" line="978"/>
         <source>Realization</source>
-        <translation>Реализация</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../resources/ui/main_window.ui" line="1020"/>
         <source>Translators</source>
-        <translation type="unfinished"/>
+        <translation>Traductores</translation>
     </message>
     <message>
         <location filename="../resources/ui/main_window.ui" line="1097"/>
         <source>German</source>
-        <translation type="unfinished"/>
+        <translation>Alemán</translation>
     </message>
     <message>
         <location filename="../resources/ui/main_window.ui" line="1172"/>
         <source>Sources</source>
-        <translation>Исходники</translation>
+        <translation>Fuentes</translation>
     </message>
     <message>
         <location filename="../resources/ui/main_window.ui" line="1202"/>
         <source>Licence</source>
-        <translation>Лицензия</translation>
+        <translation>Licencia</translation>
     </message>
     <message>
         <location filename="../resources/ui/main_window.ui" line="1133"/>
         <source>Russian</source>
-        <translation type="unfinished"/>
+        <translation>Ruso</translation>
     </message>
     <message>
         <location filename="../resources/ui/main_window.ui" line="1115"/>
         <source>Italian</source>
-        <translation type="unfinished"/>
+        <translation>Italiano</translation>
     </message>
     <message>
         <location filename="../resources/ui/main_window.ui" line="1079"/>
         <source>French</source>
-        <translation type="unfinished"/>
+        <translation>Frances</translation>
     </message>
     <message>
         <location filename="../resources/ui/main_window.ui" line="1043"/>
         <source>Dutch</source>
-        <translation type="unfinished"/>
+        <translation>Holandés</translation>
     </message>
     <message>
         <location filename="../resources/ui/main_window.ui" line="1061"/>
@@ -621,32 +621,32 @@
     <message>
         <location filename="../resources/ui/main_window.ui" line="398"/>
         <source>Node</source>
-        <translation type="unfinished"/>
+        <translation>Nodo</translation>
     </message>
     <message>
         <location filename="../resources/ui/main_window.ui" line="408"/>
         <source>Way</source>
-        <translation type="unfinished"/>
+        <translation>Vía</translation>
     </message>
     <message>
         <location filename="../resources/ui/main_window.ui" line="418"/>
         <source>Relation</source>
-        <translation type="unfinished"/>
+        <translation>Relación</translation>
     </message>
     <message>
         <location filename="../resources/ui/main_window.ui" line="850"/>
         <source>Points</source>
-        <translation type="unfinished"/>
+        <translation>Puntos</translation>
     </message>
     <message>
         <location filename="../resources/ui/main_window.ui" line="860"/>
         <source>Lines</source>
-        <translation type="unfinished"/>
+        <translation>Líneas</translation>
     </message>
     <message>
         <location filename="../resources/ui/main_window.ui" line="880"/>
         <source>Multipolygons</source>
-        <translation type="unfinished"/>
+        <translation>Multipolígonos</translation>
     </message>
     <message>
         <location filename="../resources/ui/main_window.ui" line="870"/>

@@ -375,7 +375,7 @@ class MainDialog(QDialog, FORM_CLASS):
         LOGGER.critical('\n'.join(traceback.format_tb(tb)))
 
         self.display_message_bar(
-            tr('Error in the logs, QuickOSM panel, please report it to '
+            tr('Error in the logs, in the QuickOSM panel, please report it to '
                'GitHub'),
             level=Qgis.Critical,
             open_logs=True,
@@ -408,7 +408,7 @@ class MainDialog(QDialog, FORM_CLASS):
 
         if open_logs:
             button = QPushButton(widget)
-            button.setText(tr('Report it!'))
+            button.setText(tr('Report it'))
             button.pressed.connect(
                 lambda: open_log_panel())
             widget.layout().addWidget(button)

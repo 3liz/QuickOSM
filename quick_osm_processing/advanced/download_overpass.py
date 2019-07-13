@@ -57,7 +57,8 @@ class DownloadOverpassUrl(QgisAlgorithm):
     def shortHelpString(self):
         return self.tr(
             'Like the native QGIS File Downloader algorithm, this algorithm '
-            'will perform a OSM integrity check at the end of the download.')
+            'will download an URL but it will also perform a OSM integrity '
+            'check at the end of the download.')
 
     def initAlgorithm(self, config=None):
         self.addParameter(

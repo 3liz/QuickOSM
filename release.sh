@@ -25,6 +25,15 @@ then
     exit 1
 fi
 
+count=`ls -1 i18n/*.qm 2>/dev/null | wc -l`
+if [ $count = 0 ]
+then
+    echo "No binary translation files found. Aborting."
+    echo "make i18n_3_pull"
+    echo "make i18n_4_compile"
+    exit 1
+fi
+
 echo "You are going to create the new tag:"
 echo ${VERSION}
 echo "on the remote:"

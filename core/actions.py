@@ -151,8 +151,8 @@ class Actions(object):
 
         if value == '':
             iface.messageBar().pushMessage(
-                tr('Sorry, this field \'{}\' is empty for this entity.'
-                   .format(field)),
+                tr('Sorry, the field \'{fieldname}\' is empty for this entity.'
+                   .format(fieldname=field)),
                 level=Qgis.Warning, duration=7)
         else:
 

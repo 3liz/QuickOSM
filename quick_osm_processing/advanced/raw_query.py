@@ -87,7 +87,7 @@ class RawQueryAlgorithm(QgisAlgorithm):
 
         parameter = QgsProcessingParameterString(
             self.AREA,
-            tr('Area (if you want to override {{geocodeArea}} in the query'),
+            tr('Area (if you want to override {{geocodeArea}} in the query)'),
             optional=True)
         parameter.setFlags(
             parameter.flags() | QgsProcessingParameterDefinition.FlagAdvanced)

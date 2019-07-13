@@ -118,7 +118,7 @@ def open_file(
 
             if output_dir:
                 dialog.set_progress_text(
-                    tr('From memory to GeoJSON: ' + layer))
+                    tr('From memory layer to GeoJSON: ' + layer))
                 # Transforming the vector file
                 osm_geometries = {
                     'points': QgsWkbTypes.Point,
@@ -192,7 +192,8 @@ def process_query(
     # Getting the default overpass api and running the query
     server = get_setting('defaultOAPI', OVERPASS_SERVERS[0]) + 'interpreter'
     dialog.set_progress_text(
-        tr('Downloading data from Overpass {}').format(server))
+        tr('Downloading data from Overpass {server_name}'.format(
+            server_name=server)))
     # Replace Nominatim or BBOX
     query = QueryPreparation(query, bbox, area, server)
     QApplication.processEvents()
