@@ -218,6 +218,7 @@ class TestQueryParser(unittest.TestCase):
                    '/osm-script>'
         self.assertEqual(prepare_query(query), expected)
 
+
 if __name__ == '__main__':
     suite = unittest.makeSuite(TestQueryParser)
     runner = unittest.TextTestRunner(verbosity=2)

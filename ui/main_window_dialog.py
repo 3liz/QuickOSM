@@ -314,7 +314,8 @@ class MainDialog(QDialog, FORM_CLASS):
 
             if not place and \
                     re.search(r'\{\{nominatim\}\}', properties['query']) or \
-                    re.search(r'\{\{nominatimArea:\}\}', properties['query']) or \
+                    re.search(r'\{\{nominatimArea:\}\}', properties['query']) \
+                    or \
                     re.search(r'\{\{geocodeArea:\}\}', properties['query']):
 
                 raise MissingParameterException(suffix='nominatim field')
@@ -849,7 +850,8 @@ class MainDialog(QDialog, FORM_CLASS):
 
         self.combo_query_type_q.addItem(tr('Canvas Extent'), 'canvas')
         self.combo_query_type_q.addItem(tr('Layer Extent'), 'layer')
-        self.combo_query_type_q.currentIndexChanged.connect(self.query_type_updated_q)
+        self.combo_query_type_q.currentIndexChanged.connect(
+            self.query_type_updated_q)
 
         highlighter = XMLHighlighter(self.text_query.document())
         self.text_query.cursorPositionChanged.connect(
@@ -881,7 +883,8 @@ class MainDialog(QDialog, FORM_CLASS):
         self.query_type_updated_q()
 
     def query_type_updated_q(self):
-        self.query_type_updated(self.combo_query_type_q, self.combo_extent_layer_q)
+        self.query_type_updated(
+            self.combo_query_type_q, self.combo_extent_layer_q)
 
     def allow_nominatim_or_extent(self):
         """Disable or enable radio buttons if nominatim or extent.
@@ -889,8 +892,8 @@ class MainDialog(QDialog, FORM_CLASS):
         """
         query = self.text_query.toPlainText()
 
-        self.button_generate_query.setDisabled(query is '')
-        self.button_run_query_q.setDisabled(query is '')
+        self.button_generate_query.setDisabled(query == '')
+        self.button_run_query_q.setDisabled(query == '')
 
         if re.search(r'\{\{nominatim\}\}', query) or \
                 re.search(r'\{\{nominatimArea:(.*)\}\}', query) or \
