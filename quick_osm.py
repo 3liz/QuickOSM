@@ -22,7 +22,19 @@
 
 import logging
 import urllib.request
+
 from os.path import dirname, join, exists
+
+from qgis.PyQt.QtCore import QTranslator, QCoreApplication
+from qgis.PyQt.QtGui import QIcon
+from qgis.PyQt.QtWidgets import QMenu, QAction
+from qgis.core import (
+    QgsApplication,
+    QgsCoordinateTransform,
+    QgsCoordinateReferenceSystem,
+    QgsProject,
+    QgsSettings,
+)
 
 from QuickOSM.core.custom_logging import setup_logger
 from QuickOSM.quick_osm_processing.provider import Provider
@@ -30,11 +42,6 @@ from QuickOSM.core.utilities.tools import (
     tr,
     resources_path,
 )
-from qgis.PyQt.QtCore import QTranslator, QCoreApplication
-from qgis.PyQt.QtGui import QIcon
-from qgis.PyQt.QtWidgets import QMenu, QAction
-from qgis.core import QgsApplication, QgsCoordinateTransform, \
-    QgsCoordinateReferenceSystem, QgsProject, QgsSettings
 
 LOGGER = logging.getLogger('QuickOSM')
 
@@ -54,8 +61,6 @@ class QuickOSMPlugin(object):
 
         setup_logger('QuickOSM')
 
-        # initialize plugin directory
-        self.plugin_dir = dirname(__file__)
         # initialize locale
         # noinspection PyBroadException
         try:
@@ -66,7 +71,7 @@ class QuickOSMPlugin(object):
                 'Fallback to English as default language for the plugin')
             locale = 'en'
         locale_path = join(
-            self.plugin_dir,
+            dirname(__file__),
             'i18n',
             'QuickOSM_{0}.qm'.format(locale))
 
@@ -84,14 +89,8 @@ class QuickOSMPlugin(object):
 
         self.quickosm_menu = None
         self.vector_menu = None
-        self.mainWindowAction = None
-        self.osmFileAction = None
-        self.osmFileDockWidget = None
-        self.queryAction = None
-        self.queryDockWidget = None
-        self.quickQueryAction = None
-        self.quickQueryDockWidget = None
-        self.josmAction = None
+        self.main_window_action = None
+        self.josm_action = None
 
     def initProcessing(self):
         """Init Processing provider for QGIS >= 3.8."""
@@ -109,29 +108,29 @@ class QuickOSMPlugin(object):
         self.vector_menu.addMenu(self.quickosm_menu)
 
         # Main window
-        self.mainWindowAction = QAction(
+        self.main_window_action = QAction(
             QIcon(resources_path('icons', 'QuickOSM.svg')),
             'QuickOSM…',
             self.iface.mainWindow())
         # noinspection PyUnresolvedReferences
-        self.mainWindowAction.triggered.connect(self.open_dialog)
-        self.toolbar.addAction(self.mainWindowAction)
+        self.main_window_action.triggered.connect(self.open_dialog)
+        self.toolbar.addAction(self.main_window_action)
 
         # Action JOSM
-        self.josmAction = QAction(
+        self.josm_action = QAction(
             QIcon(resources_path('icons', 'josm_icon.svg')),
             tr('JOSM Remote'),
             self.iface.mainWindow())
-        self.josmAction.triggered.connect(self.josm_remote)
-        self.toolbar.addAction(self.josmAction)
+        self.josm_action.triggered.connect(self.josm_remote)
+        self.toolbar.addAction(self.josm_action)
 
         # Insert in the good order
-        self.quickosm_menu.addAction(self.mainWindowAction)
-        self.quickosm_menu.addAction(self.josmAction)
+        self.quickosm_menu.addAction(self.main_window_action)
+        self.quickosm_menu.addAction(self.josm_action)
 
     def unload(self):
-        self.iface.removePluginVectorMenu('&QuickOSM', self.mainWindowAction)
-        self.iface.removeToolBarIcon(self.mainWindowAction)
+        self.iface.removePluginVectorMenu('&QuickOSM', self.main_window_action)
+        self.iface.removeToolBarIcon(self.main_window_action)
         QgsApplication.processingRegistry().removeProvider(self.provider)
 
     def josm_remote(self):
