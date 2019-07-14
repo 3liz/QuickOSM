@@ -1019,147 +1019,147 @@ QListWidget::item::selected {
                <property name="title">
                 <string>Translators</string>
                </property>
-               <layout class="QHBoxLayout" name="horizontalLayout_9">
+               <layout class="QVBoxLayout" name="verticalLayout_11">
                 <item>
-                 <layout class="QVBoxLayout" name="verticalLayout_12">
-                  <item>
-                   <widget class="QLabel" name="label_18">
+                 <widget class="QLabel" name="label_18">
+                  <property name="text">
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The web-based translating platform &lt;a href=&quot;https://www.transifex.com/projects/p/gui/&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0057ae;&quot;&gt;Transifex&lt;/span&gt;&lt;/a&gt; is used. It's easier for translators. Join us !&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                  </property>
+                  <property name="scaledContents">
+                   <bool>true</bool>
+                  </property>
+                  <property name="wordWrap">
+                   <bool>true</bool>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <layout class="QGridLayout" name="gridLayout">
+                  <item row="2" column="1">
+                   <widget class="QLabel" name="label_9">
                     <property name="text">
-                     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The web-based translating platform &lt;a href=&quot;https://www.transifex.com/projects/p/gui/&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0057ae;&quot;&gt;Transifex&lt;/span&gt;&lt;/a&gt; is used. It's easier for translators. Join us !&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                    </property>
-                    <property name="scaledContents">
-                     <bool>true</bool>
-                    </property>
-                    <property name="wordWrap">
-                     <bool>true</bool>
+                     <string notr="true">Etienne Trimaille</string>
                     </property>
                    </widget>
                   </item>
-                  <item>
-                   <layout class="QHBoxLayout" name="horizontalLayout_14">
-                    <item>
-                     <widget class="QLabel" name="label_21">
-                      <property name="text">
-                       <string>Dutch</string>
-                      </property>
-                     </widget>
-                    </item>
-                    <item>
-                     <widget class="QLabel" name="label_22">
-                      <property name="text">
-                       <string notr="true">Antony Bartolo</string>
-                      </property>
-                     </widget>
-                    </item>
-                   </layout>
+                  <item row="4" column="0">
+                   <widget class="QLabel" name="label_8">
+                    <property name="text">
+                     <string>Italian</string>
+                    </property>
+                   </widget>
                   </item>
-                  <item>
-                   <layout class="QHBoxLayout" name="horizontalLayout_15">
-                    <item>
-                     <widget class="QLabel" name="label_23">
-                      <property name="text">
-                       <string>Finnish</string>
-                      </property>
-                     </widget>
-                    </item>
-                    <item>
-                     <widget class="QLabel" name="label_24">
-                      <property name="text">
-                       <string notr="true">Kari Salovaara</string>
-                      </property>
-                     </widget>
-                    </item>
-                   </layout>
+                  <item row="5" column="0">
+                   <widget class="QLabel" name="label_11">
+                    <property name="text">
+                     <string>Portuguese</string>
+                    </property>
+                   </widget>
                   </item>
-                  <item>
-                   <layout class="QHBoxLayout" name="horizontalLayout_13">
-                    <item>
-                     <widget class="QLabel" name="label_17">
-                      <property name="text">
-                       <string>French</string>
-                      </property>
-                     </widget>
-                    </item>
-                    <item>
-                     <widget class="QLabel" name="label_9">
-                      <property name="text">
-                       <string notr="true">Etienne Trimaille</string>
-                      </property>
-                     </widget>
-                    </item>
-                   </layout>
+                  <item row="2" column="0">
+                   <widget class="QLabel" name="label_17">
+                    <property name="text">
+                     <string>French</string>
+                    </property>
+                   </widget>
                   </item>
-                  <item>
-                   <layout class="QHBoxLayout" name="horizontalLayout_12">
-                    <item>
-                     <widget class="QLabel" name="label_6">
-                      <property name="text">
-                       <string>German</string>
-                      </property>
-                     </widget>
-                    </item>
-                    <item>
-                     <widget class="QLabel" name="label_5">
-                      <property name="text">
-                       <string notr="true">Thomas Moenkemeier</string>
-                      </property>
-                     </widget>
-                    </item>
-                   </layout>
+                  <item row="0" column="0">
+                   <widget class="QLabel" name="label_21">
+                    <property name="text">
+                     <string>Dutch</string>
+                    </property>
+                   </widget>
                   </item>
-                  <item>
-                   <layout class="QHBoxLayout" name="horizontalLayout_11">
-                    <item>
-                     <widget class="QLabel" name="label_8">
-                      <property name="text">
-                       <string>Italian</string>
-                      </property>
-                     </widget>
-                    </item>
-                    <item>
-                     <widget class="QLabel" name="label_7">
-                      <property name="text">
-                       <string notr="true">Francesco Bisantis</string>
-                      </property>
-                     </widget>
-                    </item>
-                   </layout>
+                  <item row="8" column="1">
+                   <widget class="QLabel" name="label_25">
+                    <property name="text">
+                     <string notr="true">Supaplextw</string>
+                    </property>
+                   </widget>
                   </item>
-                  <item>
-                   <layout class="QHBoxLayout" name="horizontalLayout_10">
-                    <item>
-                     <widget class="QLabel" name="label_4">
-                      <property name="text">
-                       <string>Russian</string>
-                      </property>
-                     </widget>
-                    </item>
-                    <item>
-                     <widget class="QLabel" name="label_3">
-                      <property name="text">
-                       <string notr="true">&lt;a href=&quot;https://github.com/freeExec&quot; style=&quot;color:#7BA11A;text-decoration:none;&quot;&gt;freeExec&lt;/a&gt;</string>
-                      </property>
-                     </widget>
-                    </item>
-                   </layout>
+                  <item row="3" column="0">
+                   <widget class="QLabel" name="label_6">
+                    <property name="text">
+                     <string>German</string>
+                    </property>
+                   </widget>
                   </item>
-                  <item>
-                   <layout class="QHBoxLayout" name="horizontalLayout_16">
-                    <item>
-                     <widget class="QLabel" name="label_26">
-                      <property name="text">
-                       <string>Taiwanese Mandarin</string>
-                      </property>
-                     </widget>
-                    </item>
-                    <item>
-                     <widget class="QLabel" name="label_25">
-                      <property name="text">
-                       <string notr="true">Supaplextw</string>
-                      </property>
-                     </widget>
-                    </item>
-                   </layout>
+                  <item row="1" column="0">
+                   <widget class="QLabel" name="label_23">
+                    <property name="text">
+                     <string>Finnish</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="4" column="1">
+                   <widget class="QLabel" name="label_7">
+                    <property name="text">
+                     <string notr="true">Francesco Bisantis</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="3" column="1">
+                   <widget class="QLabel" name="label_5">
+                    <property name="text">
+                     <string notr="true">Thomas Moenkemeier</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="0" column="1">
+                   <widget class="QLabel" name="label_22">
+                    <property name="text">
+                     <string notr="true">Antony Bartolo, Dick Groskamp</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="6" column="0">
+                   <widget class="QLabel" name="label_4">
+                    <property name="text">
+                     <string>Russian</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="1" column="1">
+                   <widget class="QLabel" name="label_24">
+                    <property name="text">
+                     <string notr="true">Kari Salovaara</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="6" column="1">
+                   <widget class="QLabel" name="label_3">
+                    <property name="text">
+                     <string notr="true">freeExec</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="8" column="0">
+                   <widget class="QLabel" name="label_26">
+                    <property name="text">
+                     <string>Taiwanese Mandarin</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="5" column="1">
+                   <widget class="QLabel" name="label_12">
+                    <property name="text">
+                     <string notr="true">Narcélio de Sá Pereira Filho</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="7" column="0">
+                   <widget class="QLabel" name="label_16">
+                    <property name="text">
+                     <string>Spanish</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="7" column="1">
+                   <widget class="QLabel" name="label_27">
+                    <property name="text">
+                     <string notr="true">Jorge Sanz, Jesus</string>
+                    </property>
+                   </widget>
                   </item>
                  </layout>
                 </item>
