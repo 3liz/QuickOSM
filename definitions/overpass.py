@@ -19,9 +19,10 @@ core by updating this list below.
 
 # The order is important. The first server will be the default.
 OVERPASS_SERVERS = [
-    'http://www.overpass-api.de/api/',
-    'http://overpass.osm.rambler.ru/cgi/',
-    'http://api.openstreetmap.fr/oapi/',
-    'http://overpass.osm.ch/api/',
+    'https://lz4.overpass-api.de/api/',
+    'https://z.overpass-api.de/api/',
     'https://overpass.kumi.systems/api/',
+    'https://overpass.nchc.org.tw/api/',
+    'https://overpass.openstreetmap.fr/api/',
+    'http://overpass.osm.ch/api/',
 ]
