@@ -375,8 +375,8 @@ class MainDialog(QDialog, FORM_CLASS):
         LOGGER.critical('\n'.join(traceback.format_tb(tb)))
 
         self.display_message_bar(
-            tr('Error in the logs, in the QuickOSM panel, please report it to '
-               'GitHub'),
+            tr('Error in the logs, in the QuickOSM panel, copy/paste it and '
+               'please report it to GitHub'),
             level=Qgis.Critical,
             open_logs=True,
             duration=10)
