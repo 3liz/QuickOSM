@@ -5,7 +5,7 @@
 ## Versions
 
 * QuickOSM is maintained only for a maintained QGIS version (LTR, stable release and dev).
-* Current test status master : [![Build Status](https://api.travis-ci.org/3liz/QuickOSM.svg?branch=master)](https://travis-ci.org/3liz/QuickOSM)
+* Current test status master on QGIS Master and LTR : [![Build Status](https://api.travis-ci.org/3liz/QuickOSM.svg?branch=master)](https://travis-ci.org/3liz/QuickOSM)
 
 | QuickOSM  | QGIS Min | QGIS Max | Branch       |
 |-----------|----------|----------|--------------|
