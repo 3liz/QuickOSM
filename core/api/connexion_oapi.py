@@ -30,7 +30,7 @@ from QuickOSM.core.exceptions import (
     NetWorkErrorException,
 )
 from qgis.PyQt.QtCore import (
-    QUrl, QEventLoop, QTemporaryFile, QDir)
+    QUrl, QEventLoop, QTemporaryFile, QDir, QFileInfo)
 from qgis.core import QgsFileDownloader
 
 LOGGER = logging.getLogger('QuickOSM')
@@ -89,6 +89,10 @@ class ConnexionOAPI:
         downloader.downloadCompleted.connect(self.completed)
         downloader.startDownload()
         loop.exec_()
+
+        osm_file = QFileInfo(self.result_path)
+        if not osm_file.exists() and not osm_file.isFile():
+            raise OverpassTimeoutException
 
         # The download is done, checking for not complete OSM file.
         # Overpass might aborted the request with HTTP 200.

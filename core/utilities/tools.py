@@ -19,6 +19,8 @@
  *                                                                         *
  ***************************************************************************/
 """
+import io
+
 from os.path import join, dirname, abspath, pardir, isfile
 
 from qgis.PyQt.QtCore import QDir
@@ -40,11 +42,11 @@ def custom_config_file():
 
 
 def nominatim_file():
-    filepath = join(quickosm_user_folder(), 'nominatim.txt')
-    if isfile(filepath):
-        return filepath
-    else:
-        return None
+    path = join(quickosm_user_folder(), 'nominatim.txt')
+    if not path or not isfile(path):
+        io.open(path, 'a').close()
+
+    return path
 
 
 def quickosm_user_folder():

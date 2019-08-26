@@ -451,7 +451,7 @@ class MainDialog(QDialog, FORM_CLASS):
 
     def reset_form(self):
         """Reset all the GUI to default state."""
-        LOGGER.info(tr('Dialog has been reset'))
+        LOGGER.info('Dialog has been reset')
 
         # Quickquery
         self.combo_key.setCurrentIndex(0)
@@ -538,18 +538,15 @@ class MainDialog(QDialog, FORM_CLASS):
 
         user_file = nominatim_file()
 
-        if isfile(user_file):
-            with io.open(user_file, 'r', encoding='utf8') as f:
-                for line in f:
-                    self.last_places.append(line.rstrip('\n'))
+        with io.open(user_file, 'r', encoding='utf8') as f:
+            for line in f:
+                self.last_places.append(line.rstrip('\n'))
 
-                nominatim_completer = QCompleter(self.last_places)
-                for line_edit in self.places_edits.values():
-                    line_edit.setCompleter(nominatim_completer)
-                    line_edit.completer().setCompletionMode(
-                        QCompleter.PopupCompletion)
-        else:
-            io.open(user_file, 'a').close()
+            nominatim_completer = QCompleter(self.last_places)
+            for line_edit in self.places_edits.values():
+                line_edit.setCompleter(nominatim_completer)
+                line_edit.completer().setCompletionMode(
+                    QCompleter.PopupCompletion)
 
     @staticmethod
     def sort_nominatim_places(existing_places, place):

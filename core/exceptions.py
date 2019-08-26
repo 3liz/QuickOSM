@@ -59,7 +59,7 @@ class OverpassBadRequestException(QuickOsmException):
 class OverpassTimeoutException(QuickOsmException):
     def __init__(self, msg=None):
         if not msg:
-            msg = tr('OverpassAPI timeout')
+            msg = tr('OverpassAPI timeout, try again later or a smaller query')
         QuickOsmException.__init__(self, msg)
 
 
