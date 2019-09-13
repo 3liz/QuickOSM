@@ -24,4 +24,4 @@ i18n_4_compile:
 	@lrelease i18n/QuickOSM_de.ts -qm i18n/QuickOSM_pt.qm
 	@lrelease i18n/QuickOSM_pt_BR.ts -qm i18n/QuickOSM_pt_BR.qm
 	@lrelease i18n/QuickOSM_ru.ts -qm i18n/QuickOSM_ru.qm
-	@lrelease i18n/QuickOSM_zh_TW.ts -qm i18n/QuickOSM_zh_TW.qm
+	@lrelease i18n/QuickOSM_zh-TW.ts -qm i18n/QuickOSM_zh-TW.qm
