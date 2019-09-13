@@ -1,6 +1,5 @@
 import sys
 import unittest
-import pytest
 
 from osgeo import gdal
 from qgis.PyQt import Qt
@@ -34,6 +33,7 @@ def test_package(package='QuickOSM', engine='unittest'):
     :type engine: basestring
     """
     if engine == 'pytest':
+        import pytest
         pytest.main(['.'])
     else:
         test_loader = unittest.defaultTestLoader
