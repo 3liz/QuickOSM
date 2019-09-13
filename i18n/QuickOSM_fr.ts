@@ -1,4 +1,5 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS language="fr" sourcelanguage="en" version="2.0">
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE TS><TS version="2.0" language="fr" sourcelanguage="en">
 <context>
     <name>@default</name>
     <message>
@@ -35,11 +36,6 @@
         <location filename="../core/exceptions.py" line="55"/>
         <source>Bad request OverpassAPI</source>
         <translation>Erreur de requête OverpassAPI</translation>
-    </message>
-    <message>
-        <location filename="../core/exceptions.py" line="62"/>
-        <source>OverpassAPI timeout</source>
-        <translation>Temps d&apos;exécution OverpassAPI atteint</translation>
     </message>
     <message>
         <location filename="../core/exceptions.py" line="69"/>
@@ -92,17 +88,17 @@
         <translation>Requête réussie, mais pas de résultat.</translation>
     </message>
     <message>
-        <location filename="../ui/main_window_dialog.py" line="950"/>
+        <location filename="../ui/main_window_dialog.py" line="947"/>
         <source>Select an OSM file</source>
         <translation>Sélectionner un fichier OSM</translation>
     </message>
     <message>
-        <location filename="../ui/main_window_dialog.py" line="956"/>
+        <location filename="../ui/main_window_dialog.py" line="953"/>
         <source>Select OSM conf file</source>
         <translation>Sélectionner un fichier de configuration OSM</translation>
     </message>
     <message>
-        <location filename="../ui/main_window_dialog.py" line="1005"/>
+        <location filename="../ui/main_window_dialog.py" line="1002"/>
         <source>Successful query</source>
         <translation>Requête réussie</translation>
     </message>
@@ -117,27 +113,27 @@
         <translation>Sélectionner un répertoire</translation>
     </message>
     <message>
-        <location filename="../ui/main_window_dialog.py" line="646"/>
+        <location filename="../ui/main_window_dialog.py" line="643"/>
         <source>In</source>
         <translation>Dans</translation>
     </message>
     <message>
-        <location filename="../ui/main_window_dialog.py" line="647"/>
+        <location filename="../ui/main_window_dialog.py" line="644"/>
         <source>Around</source>
         <translation>Autour</translation>
     </message>
     <message>
-        <location filename="../ui/main_window_dialog.py" line="851"/>
+        <location filename="../ui/main_window_dialog.py" line="848"/>
         <source>Canvas Extent</source>
         <translation>Emprise du canvas</translation>
     </message>
     <message>
-        <location filename="../ui/main_window_dialog.py" line="852"/>
+        <location filename="../ui/main_window_dialog.py" line="849"/>
         <source>Layer Extent</source>
         <translation>Emprise d&apos;une couche</translation>
     </message>
     <message>
-        <location filename="../ui/main_window_dialog.py" line="650"/>
+        <location filename="../ui/main_window_dialog.py" line="647"/>
         <source>Not Spatial</source>
         <translation>Non spatial</translation>
     </message>
@@ -147,17 +143,17 @@
         <translation>Pas de résultat</translation>
     </message>
     <message>
-        <location filename="../quick_osm.py" line="163"/>
+        <location filename="../quick_osm.py" line="162"/>
         <source>JOSM Remote</source>
         <translation>Télécommande JOSM</translation>
     </message>
     <message>
-        <location filename="../quick_osm.py" line="160"/>
+        <location filename="../quick_osm.py" line="159"/>
         <source>Import done, check JOSM</source>
         <translation>Import OK, vérifiez JOSM</translation>
     </message>
     <message>
-        <location filename="../quick_osm.py" line="163"/>
+        <location filename="../quick_osm.py" line="162"/>
         <source>Is the remote enabled?</source>
         <translation>Est-ce que la télécommande est activée?</translation>
     </message>
@@ -207,12 +203,12 @@
         <translation>Pas de distance avec &quot;around&quot;.</translation>
     </message>
     <message>
-        <location filename="../ui/main_window_dialog.py" line="688"/>
+        <location filename="../ui/main_window_dialog.py" line="685"/>
         <source>Query on all keys</source>
         <translation>Requête sur toutes les clés</translation>
     </message>
     <message>
-        <location filename="../ui/main_window_dialog.py" line="691"/>
+        <location filename="../ui/main_window_dialog.py" line="688"/>
         <source>Query on all values</source>
         <translation>Requête sur toutes les valeurs</translation>
     </message>
@@ -352,13 +348,8 @@
         <translation>Une erreur critique est survenue, voici la source:</translation>
     </message>
     <message>
-        <location filename="../ui/main_window_dialog.py" line="454"/>
-        <source>Dialog has been reset</source>
-        <translation>La fenêtre a été réinitialisée</translation>
-    </message>
-    <message>
         <location filename="../ui/main_window_dialog.py" line="506"/>
-        <source>Running queryâ¦</source>
+        <source>Running query&#xe2;&#x80;&#xa6;</source>
         <translation>Requête en cours…</translation>
     </message>
     <message>
@@ -382,11 +373,6 @@
         <translation>Désolé, le champ &apos;{fieldname}&apos; est nul pour cette entité.</translation>
     </message>
     <message>
-        <location filename="../ui/main_window_dialog.py" line="377"/>
-        <source>Error in the logs, in the QuickOSM panel, please report it to GitHub</source>
-        <translation>Erreur dans les logs, dans le panneau QuickOSM, veuillez la reporter sur GitHub</translation>
-    </message>
-    <message>
         <location filename="../ui/main_window_dialog.py" line="411"/>
         <source>Report it</source>
         <translation>Rapportez la</translation>
@@ -395,6 +381,16 @@
         <location filename="../quick_osm_processing/advanced/raw_query.py" line="88"/>
         <source>Area (if you want to override {{geocodeArea}} in the query)</source>
         <translation>Lieu (si vous voulez surcharger {{geocodeArea}} dans la requête)</translation>
+    </message>
+    <message>
+        <location filename="../core/exceptions.py" line="62"/>
+        <source>OverpassAPI timeout, try again later or a smaller query</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui/main_window_dialog.py" line="377"/>
+        <source>Error in the logs, in the QuickOSM panel, copy/paste it and please report it to GitHub</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -534,7 +530,7 @@
         <translation>Traducteurs</translation>
     </message>
     <message>
-        <location filename="../resources/ui/main_window.ui" line="1097"/>
+        <location filename="../resources/ui/main_window.ui" line="1083"/>
         <source>German</source>
         <translation>Allemand</translation>
     </message>
@@ -549,32 +545,32 @@
         <translation>Licence</translation>
     </message>
     <message>
-        <location filename="../resources/ui/main_window.ui" line="1133"/>
+        <location filename="../resources/ui/main_window.ui" line="1118"/>
         <source>Russian</source>
         <translation>Russe</translation>
     </message>
     <message>
-        <location filename="../resources/ui/main_window.ui" line="1115"/>
+        <location filename="../resources/ui/main_window.ui" line="1048"/>
         <source>Italian</source>
         <translation>Italien</translation>
     </message>
     <message>
-        <location filename="../resources/ui/main_window.ui" line="1079"/>
+        <location filename="../resources/ui/main_window.ui" line="1062"/>
         <source>French</source>
         <translation>Français</translation>
     </message>
     <message>
-        <location filename="../resources/ui/main_window.ui" line="1043"/>
+        <location filename="../resources/ui/main_window.ui" line="1069"/>
         <source>Dutch</source>
         <translation>Néerlandais</translation>
     </message>
     <message>
-        <location filename="../resources/ui/main_window.ui" line="1061"/>
+        <location filename="../resources/ui/main_window.ui" line="1090"/>
         <source>Finnish</source>
         <translation>Finnois</translation>
     </message>
     <message>
-        <location filename="../resources/ui/main_window.ui" line="1151"/>
+        <location filename="../resources/ui/main_window.ui" line="1139"/>
         <source>Taiwanese Mandarin</source>
         <translation>Mandarin de Taïwan</translation>
     </message>
@@ -724,7 +720,7 @@
         <translation>Ouvrir</translation>
     </message>
     <message>
-        <location filename="../resources/ui/main_window.ui" line="1028"/>
+        <location filename="../resources/ui/main_window.ui" line="1026"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The web-based translating platform &lt;a href=&quot;https://www.transifex.com/projects/p/gui/&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0057ae;&quot;&gt;Transifex&lt;/span&gt;&lt;/a&gt; is used. It&apos;s easier for translators. Join us !&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;La plateforme web de traduction &lt;a href=&quot;https://www.transifex.com/projects/p/gui/&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0057ae;&quot;&gt;Transifex&lt;/span&gt;&lt;/a&gt; est utilisée. C&apos;est simple pour les traducteurs. Rejoignez-nous !&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
@@ -737,6 +733,16 @@
         <location filename="../resources/ui/main_window.ui" line="1180"/>
         <source>GitHub&apos;s repository</source>
         <translation>Dépôt GitHub</translation>
+    </message>
+    <message>
+        <location filename="../resources/ui/main_window.ui" line="1055"/>
+        <source>Portuguese</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../resources/ui/main_window.ui" line="1153"/>
+        <source>Spanish</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 </TS>

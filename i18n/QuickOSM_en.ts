@@ -38,11 +38,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../core/exceptions.py" line="62"/>
-        <source>OverpassAPI timeout</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../core/exceptions.py" line="69"/>
         <source>Network error</source>
         <translation type="unfinished"></translation>
@@ -93,17 +88,17 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/main_window_dialog.py" line="950"/>
+        <location filename="../ui/main_window_dialog.py" line="947"/>
         <source>Select an OSM file</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/main_window_dialog.py" line="956"/>
+        <location filename="../ui/main_window_dialog.py" line="953"/>
         <source>Select OSM conf file</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/main_window_dialog.py" line="1005"/>
+        <location filename="../ui/main_window_dialog.py" line="1002"/>
         <source>Successful query</source>
         <translation type="unfinished"></translation>
     </message>
@@ -118,27 +113,27 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/main_window_dialog.py" line="646"/>
+        <location filename="../ui/main_window_dialog.py" line="643"/>
         <source>In</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/main_window_dialog.py" line="647"/>
+        <location filename="../ui/main_window_dialog.py" line="644"/>
         <source>Around</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/main_window_dialog.py" line="851"/>
+        <location filename="../ui/main_window_dialog.py" line="848"/>
         <source>Canvas Extent</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/main_window_dialog.py" line="852"/>
+        <location filename="../ui/main_window_dialog.py" line="849"/>
         <source>Layer Extent</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/main_window_dialog.py" line="650"/>
+        <location filename="../ui/main_window_dialog.py" line="647"/>
         <source>Not Spatial</source>
         <translation type="unfinished"></translation>
     </message>
@@ -148,17 +143,17 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../quick_osm.py" line="163"/>
+        <location filename="../quick_osm.py" line="162"/>
         <source>JOSM Remote</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../quick_osm.py" line="160"/>
+        <location filename="../quick_osm.py" line="159"/>
         <source>Import done, check JOSM</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../quick_osm.py" line="163"/>
+        <location filename="../quick_osm.py" line="162"/>
         <source>Is the remote enabled?</source>
         <translation type="unfinished"></translation>
     </message>
@@ -208,12 +203,12 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/main_window_dialog.py" line="688"/>
+        <location filename="../ui/main_window_dialog.py" line="685"/>
         <source>Query on all keys</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/main_window_dialog.py" line="691"/>
+        <location filename="../ui/main_window_dialog.py" line="688"/>
         <source>Query on all values</source>
         <translation type="unfinished"></translation>
     </message>
@@ -353,11 +348,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/main_window_dialog.py" line="454"/>
-        <source>Dialog has been reset</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../ui/main_window_dialog.py" line="506"/>
         <source>Running query&#xe2;&#x80;&#xa6;</source>
         <translation type="unfinished"></translation>
@@ -383,11 +373,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/main_window_dialog.py" line="377"/>
-        <source>Error in the logs, in the QuickOSM panel, please report it to GitHub</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../ui/main_window_dialog.py" line="411"/>
         <source>Report it</source>
         <translation type="unfinished"></translation>
@@ -395,6 +380,16 @@
     <message>
         <location filename="../quick_osm_processing/advanced/raw_query.py" line="88"/>
         <source>Area (if you want to override {{geocodeArea}} in the query)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../core/exceptions.py" line="62"/>
+        <source>OverpassAPI timeout, try again later or a smaller query</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui/main_window_dialog.py" line="377"/>
+        <source>Error in the logs, in the QuickOSM panel, copy/paste it and please report it to GitHub</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -535,7 +530,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../resources/ui/main_window.ui" line="1097"/>
+        <location filename="../resources/ui/main_window.ui" line="1083"/>
         <source>German</source>
         <translation type="unfinished"></translation>
     </message>
@@ -550,32 +545,32 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../resources/ui/main_window.ui" line="1133"/>
+        <location filename="../resources/ui/main_window.ui" line="1118"/>
         <source>Russian</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../resources/ui/main_window.ui" line="1115"/>
+        <location filename="../resources/ui/main_window.ui" line="1048"/>
         <source>Italian</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../resources/ui/main_window.ui" line="1079"/>
+        <location filename="../resources/ui/main_window.ui" line="1062"/>
         <source>French</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../resources/ui/main_window.ui" line="1043"/>
+        <location filename="../resources/ui/main_window.ui" line="1069"/>
         <source>Dutch</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../resources/ui/main_window.ui" line="1061"/>
+        <location filename="../resources/ui/main_window.ui" line="1090"/>
         <source>Finnish</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../resources/ui/main_window.ui" line="1151"/>
+        <location filename="../resources/ui/main_window.ui" line="1139"/>
         <source>Taiwanese Mandarin</source>
         <translation type="unfinished"></translation>
     </message>
@@ -725,7 +720,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../resources/ui/main_window.ui" line="1028"/>
+        <location filename="../resources/ui/main_window.ui" line="1026"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The web-based translating platform &lt;a href=&quot;https://www.transifex.com/projects/p/gui/&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0057ae;&quot;&gt;Transifex&lt;/span&gt;&lt;/a&gt; is used. It&apos;s easier for translators. Join us !&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation type="unfinished"></translation>
     </message>
@@ -737,6 +732,16 @@
     <message>
         <location filename="../resources/ui/main_window.ui" line="1180"/>
         <source>GitHub&apos;s repository</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../resources/ui/main_window.ui" line="1055"/>
+        <source>Portuguese</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../resources/ui/main_window.ui" line="1153"/>
+        <source>Spanish</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
