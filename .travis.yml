@@ -9,8 +9,8 @@ env:
 
   matrix:
     - QGIS_VERSION_TAG=release-3_4
-    # - QGIS_VERSION_TAG=release-3_8
-    # - QGIS_VERSION_TAG=latest
+    # - QGIS_VERSION_TAG=release-3_10
+    - QGIS_VERSION_TAG=latest
 
 branches:
   only:
