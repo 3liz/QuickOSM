@@ -2,7 +2,7 @@
 
 i18n_1_prepare:
 	@echo Updating strings locally 1/4
-	@./update_strings.sh fr de en es es_ES fi it nl pt pt_BR ru zh_TW
+	@./update_strings.sh fr de en es es_ES fi id it nl pt pt_BR ru zh_TW
 
 i18n_2_push:
 	@echo Push strings to Transifex 2/4
@@ -19,6 +19,7 @@ i18n_4_compile:
 	@lrelease i18n/QuickOSM_es.ts -qm i18n/QuickOSM_es.qm
 	@lrelease i18n/QuickOSM_es_ES.ts -qm i18n/QuickOSM_es_ES.qm
 	@lrelease i18n/QuickOSM_fi.ts -qm i18n/QuickOSM_fi.qm
+	@lrelease i18n/QuickOSM_id.ts -qm i18n/QuickOSM_id.qm
 	@lrelease i18n/QuickOSM_it.ts -qm i18n/QuickOSM_it.qm
 	@lrelease i18n/QuickOSM_nl.ts -qm i18n/QuickOSM_nl.qm
 	@lrelease i18n/QuickOSM_de.ts -qm i18n/QuickOSM_pt.qm
