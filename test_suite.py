@@ -1,5 +1,6 @@
 import sys
 import unittest
+import pytest
 
 from osgeo import gdal
 from qgis.PyQt import Qt
@@ -7,7 +8,7 @@ from qgis.core import Qgis
 
 
 def _run_tests(test_suite, package_name):
-    """Core function to test a test suite.
+    """Core function to test a test suite  using UnitTest
 
     :param test_suite: Unittest test suite
     """
@@ -22,16 +23,22 @@ def _run_tests(test_suite, package_name):
     unittest.TextTestRunner(verbosity=3, stream=sys.stdout).run(test_suite)
 
 
-def test_package(package='QuickOSM'):
+def test_package(package='QuickOSM', engine='pytest'):
     """Test package.
     This function is called by travis without arguments.
 
     :param package: The package to test.
     :type package: str
+
+    :param engine: Either 'pytest' or 'unittest'.
+    :type engine: basestring
     """
-    test_loader = unittest.defaultTestLoader
-    test_suite = test_loader.discover(package)
-    _run_tests(test_suite, package)
+    if engine == 'pytest':
+        pytest.main(['.'])
+    else:
+        test_loader = unittest.defaultTestLoader
+        test_suite = test_loader.discover(package)
+        _run_tests(test_suite, package)
 
 
 if __name__ == '__main__':
