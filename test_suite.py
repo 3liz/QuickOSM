@@ -1,5 +1,4 @@
 import sys
-import unittest
 
 from osgeo import gdal
 from qgis.PyQt import Qt
@@ -19,6 +18,7 @@ def _run_tests(test_suite, package_name):
     print('QT : {}'.format(Qt.QT_VERSION_STR))
     # print('Python path : {}'.format(sys.path))
     print('########')
+    import unittest
     unittest.TextTestRunner(verbosity=3, stream=sys.stdout).run(test_suite)
 
 
@@ -36,6 +36,7 @@ def test_package(package='QuickOSM', engine='unittest'):
         import pytest
         pytest.main(['.'])
     else:
+        import unittest
         test_loader = unittest.defaultTestLoader
         test_suite = test_loader.discover(package)
         _run_tests(test_suite, package)
