@@ -6,6 +6,7 @@ from qgis.core import Qgis
 
 
 def pytest_report_header(config):
+    """Used by PyTest and Unittest."""
     message = 'QGIS : {}\n'.format(Qgis.QGIS_VERSION_INT)
     message += 'Python GDAL : {}\n'.format(gdal.VersionInfo('VERSION_NUM'))
     message += 'QT : {}'.format(Qt.QT_VERSION_STR)
