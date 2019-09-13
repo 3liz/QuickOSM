@@ -18,6 +18,11 @@ server=True
 # Uncomment the following line and add your changelog:
 # changelog=
   Version 1.13.X
+  * Update JOSM logo
+  * Fix issue about OSM file which doesn't exist
+  * Update translation from Transifex
+  * New Indonesian language
+  * Remove old PyUic files
   * Fix UTF8 error in nominatim places
   * Improve logging of network requests
   * Open the log panel when a bug occured
