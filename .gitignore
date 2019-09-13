@@ -1,4 +1,5 @@
 QuickOSM.zip
+.pytest_cache/
 *.pyc
 *.py.bak
 *.*~
