@@ -62,7 +62,6 @@ class QuickOSMPlugin(object):
         setup_logger('QuickOSM')
 
         # initialize locale
-        # noinspection PyBroadException
         try:
             locale = QgsSettings().value('locale/userLocale', 'en')[0:2]
         except AttributeError:
