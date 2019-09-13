@@ -12,42 +12,20 @@ env:
     # - QGIS_VERSION_TAG=release-3_8
     - QGIS_VERSION_TAG=latest
 
-
-language: python
-
-cache:
-  directories:
-    - $HOME/.cache/pip
-
-python:
-  - "3.6"
-
 branches:
   only:
     - master
-
-addons:
-  apt:
-    packages:
-      - git
-      - python-software-properties
 
 before_install:
   - docker pull ${IMAGE}:${QGIS_VERSION_TAG}
 
 install:
-  - pip install --upgrade pip
-  - pip install --upgrade pep257
-  - pip install --upgrade flake8
   - docker run -d --name qgis-testing-environment -v ${TRAVIS_BUILD_DIR}:/QuickOSM -e DISPLAY=:99 ${IMAGE}:${QGIS_VERSION_TAG}
   - sleep 10
   - docker exec -it qgis-testing-environment sh -c "qgis_setup.sh QuickOSM"
-
   - docker exec -it qgis-testing-environment sh -c "rm -f  /root/.local/share/QGIS/QGIS3/profiles/default/python/plugins/QuickOSM"
   - docker exec -it qgis-testing-environment sh -c "ln -s /QuickOSM/ /root/.local/share/QGIS/QGIS3/profiles/default/python/plugins/QuickOSM"
   - docker exec -it qgis-testing-environment sh -c "export PYTHONPATH=${PYTHONPATH}:/"
-
-#   - docker exec -it qgis-testing-environment sh -c "pip3 install -r /tests_directory/REQUIREMENTS.txt"
   - docker exec -it qgis-testing-environment sh -c "pip3 install -r /QuickOSM/requirements_dev.txt"
 
 script:
