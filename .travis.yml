@@ -42,7 +42,7 @@ install:
   - docker run -d --name qgis-testing-environment -v ${TRAVIS_BUILD_DIR}:/QuickOSM -e DISPLAY=:99 ${IMAGE}:${QGIS_VERSION_TAG}
   - sleep 10
   - docker exec -it qgis-testing-environment sh -c "qgis_setup.sh QuickOSM"
-
+  - docker exec -it qgis-testing-environment sh -c "pip3 install pytest"
   - docker exec -it qgis-testing-environment sh -c "rm -f  /root/.local/share/QGIS/QGIS3/profiles/default/python/plugins/QuickOSM"
   - docker exec -it qgis-testing-environment sh -c "ln -s /QuickOSM/ /root/.local/share/QGIS/QGIS3/profiles/default/python/plugins/QuickOSM"
   - docker exec -it qgis-testing-environment sh -c "export PYTHONPATH=${PYTHONPATH}:/"
