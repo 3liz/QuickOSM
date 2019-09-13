@@ -1,6 +1,8 @@
 import sys
 
-from .conftest import pytest_report_header
+from QuickOSM.conftest import pytest_report_header
+
+# DO NOT IMPORT BOTH unittest AND pytest
 
 
 def _run_tests(test_suite, package_name):
