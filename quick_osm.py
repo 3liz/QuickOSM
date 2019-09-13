@@ -162,10 +162,9 @@ class QuickOSMPlugin(object):
             self.iface.messageBar().pushCritical(
                 tr('JOSM Remote'), tr('Is the remote enabled?'))
 
-    @staticmethod
-    def open_dialog():
+    def open_dialog(self):
         """Create and open the main dialog."""
         from QuickOSM.ui.main_window_dialog import MainDialog
-        dialog = MainDialog()
+        dialog = MainDialog(self.iface)
         dialog.menu_widget.setCurrentRow(0)
         dialog.exec_()

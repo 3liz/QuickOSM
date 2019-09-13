@@ -88,7 +88,10 @@ class QueryFactory:
         self._key = [x for x in key if x]
 
         if isinstance(value, str):
-            value = [value]
+            if value == '':
+                value = []
+            else:
+                value = [value]
         elif value is None:
             value = []
         self._value = value
