@@ -7,7 +7,6 @@
 .gitignore export-ignore
 .travis.yml export-ignore
 Makefile export-ignore
-QuickOSM.pro export-ignore
 README.md export-ignore
 run-env-linux.sh export-ignore
 requirements_dev.txt export-ignore
