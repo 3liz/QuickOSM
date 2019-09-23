@@ -176,9 +176,7 @@ class Actions(object):
 
             elif field == 'mapillary':
                 if 'go2mapillary' in plugins:
-                    plugins['go2mapillary'].dockwidget.show()
-                    plugins["go2mapillary"].mainAction.setChecked(False)
-                    plugins['go2mapillary'].viewer.openLocation(value)
+                    plugins['go2mapillary'].viewer.open(value)
                 else:
                     url = 'https://www.mapillary.com/map/im/' + value
                     open_webpage(url)
