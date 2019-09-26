@@ -30,7 +30,6 @@ from json import load
 from os.path import isfile, isdir, split
 from sys import exc_info
 
-from qgis.PyQt import uic
 from qgis.PyQt.QtCore import Qt
 from qgis.PyQt.QtWidgets import (
     QDialog,
@@ -65,7 +64,6 @@ from QuickOSM.core.query_preparation import QueryPreparation
 from QuickOSM.core.utilities.tools import (
     get_setting,
     set_setting,
-    resources_path,
     tr,
     nominatim_file,
     custom_config_file,
@@ -74,9 +72,10 @@ from QuickOSM.core.utilities.utilities_qgis import (
     open_map_features, open_log_panel, open_doc_overpass, open_overpass_turbo)
 from QuickOSM.core.parser.osm_parser import OsmParser
 from QuickOSM.ui.xml_highlighter import XMLHighlighter
+from QuickOSM.qgis_plugin_tools.resources import load_ui, resources_path
 
 
-FORM_CLASS, _ = uic.loadUiType(resources_path('ui', 'main_window.ui'))
+FORM_CLASS = load_ui('main_window.ui')
 LOGGER = logging.getLogger('QuickOSM')
 
 

@@ -21,7 +21,7 @@
 """
 import io
 
-from os.path import join, dirname, abspath, pardir, isfile
+from os.path import join, abspath, isfile
 
 from qgis.PyQt.QtCore import QDir
 from qgis.PyQt.QtWidgets import QApplication
@@ -64,28 +64,6 @@ def quickosm_user_folder():
 
     if not QDir(path).exists():
         QDir().mkdir(path)
-
-    return path
-
-
-def resources_path(*args):
-    """Get the path to our resources folder.
-
-    .. versionadded:: 1.5.3
-
-    Note that in version 1.5.3 we removed the use of Qt Resource files in
-    favour of directly accessing on-disk resources.
-
-    :param args List of path elements e.g. ['img', 'logos', 'image.png']
-    :type args: str
-
-    :return: Absolute path to the resources folder.
-    :rtype: str
-    """
-    path = dirname(dirname(__file__))
-    path = abspath(join(path, pardir, 'resources'))
-    for item in args:
-        path = abspath(join(path, item))
 
     return path
 
