@@ -39,7 +39,7 @@ from QuickOSM.quick_osm_processing.advanced.build_query import (
 #   DownloadOverpassUrl)
 from QuickOSM.quick_osm_processing.advanced.open_osm_file import OpenOsmFile
 from QuickOSM.quick_osm_processing.advanced.raw_query import RawQueryAlgorithm
-from QuickOSM.core.utilities.tools import resources_path
+from QuickOSM.qgis_plugin_tools.resources import resources_path
 
 
 class Provider(QgsProcessingProvider):

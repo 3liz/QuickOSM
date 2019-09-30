@@ -25,7 +25,7 @@ then
     exit 1
 fi
 
-count=`ls -1 i18n/*.qm 2>/dev/null | wc -l`
+count=`ls -1 resources/i18n/*.qm 2>/dev/null | wc -l`
 if [ $count = 0 ]
 then
     echo "No binary translation files found. Aborting."

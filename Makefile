@@ -14,15 +14,15 @@ i18n_3_pull:
 
 i18n_4_compile:
 	@echo Compile TS files to QM 4/4
-	@lrelease i18n/QuickOSM_fr.ts -qm i18n/QuickOSM_fr.qm
-	@lrelease i18n/QuickOSM_de.ts -qm i18n/QuickOSM_de.qm
-	@lrelease i18n/QuickOSM_es.ts -qm i18n/QuickOSM_es.qm
-	@lrelease i18n/QuickOSM_es_ES.ts -qm i18n/QuickOSM_es_ES.qm
-	@lrelease i18n/QuickOSM_fi.ts -qm i18n/QuickOSM_fi.qm
-	@lrelease i18n/QuickOSM_id.ts -qm i18n/QuickOSM_id.qm
-	@lrelease i18n/QuickOSM_it.ts -qm i18n/QuickOSM_it.qm
-	@lrelease i18n/QuickOSM_nl.ts -qm i18n/QuickOSM_nl.qm
-	@lrelease i18n/QuickOSM_de.ts -qm i18n/QuickOSM_pt.qm
-	@lrelease i18n/QuickOSM_pt_BR.ts -qm i18n/QuickOSM_pt_BR.qm
-	@lrelease i18n/QuickOSM_ru.ts -qm i18n/QuickOSM_ru.qm
-	@lrelease i18n/QuickOSM_zh_TW.ts -qm i18n/QuickOSM_zh_TW.qm
+	@lrelease resources/i18n/QuickOSM_fr.ts -qm resources/i18n/QuickOSM_fr.qm
+	@lrelease resources/i18n/QuickOSM_de.ts -qm resources/i18n/QuickOSM_de.qm
+	@lrelease resources/i18n/QuickOSM_es.ts -qm resources/i18n/QuickOSM_es.qm
+	@lrelease resources/i18n/QuickOSM_es_ES.ts -qm resources/i18n/QuickOSM_es_ES.qm
+	@lrelease resources/i18n/QuickOSM_fi.ts -qm resources/i18n/QuickOSM_fi.qm
+	@lrelease resources/i18n/QuickOSM_id.ts -qm resources/i18n/QuickOSM_id.qm
+	@lrelease resources/i18n/QuickOSM_it.ts -qm resources/i18n/QuickOSM_it.qm
+	@lrelease resources/i18n/QuickOSM_nl.ts -qm resources/i18n/QuickOSM_nl.qm
+	@lrelease resources/i18n/QuickOSM_de.ts -qm resources/i18n/QuickOSM_pt.qm
+	@lrelease resources/i18n/QuickOSM_pt_BR.ts -qm resources/i18n/QuickOSM_pt_BR.qm
+	@lrelease resources/i18n/QuickOSM_ru.ts -qm resources/i18n/QuickOSM_ru.qm
+	@lrelease resources/i18n/QuickOSM_zh_TW.ts -qm resources/i18n/QuickOSM_zh_TW.qm

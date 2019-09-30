@@ -20,7 +20,8 @@
  ***************************************************************************/
 """
 
-from QuickOSM.core.utilities.tools import tr, resources_path
+from QuickOSM.qgis_plugin_tools.resources import resources_path
+from QuickOSM.qgis_plugin_tools.i18n import tr
 from QuickOSM.core.utilities.utilities_qgis import open_webpage
 from qgis.core import Qgis, QgsAction
 from qgis.utils import iface, plugins

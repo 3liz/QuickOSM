@@ -7,6 +7,6 @@ files_to_translate='quick_osm.py '${files_to_translate}
 
 for LOCALE in ${LOCALES}
 do
-    echo "i18n/QuickOSM_"${LOCALE}".ts"
-    pylupdate5 -noobsolete ${files_to_translate} -ts i18n/QuickOSM_${LOCALE}.ts
+    echo "resources/i18n/QuickOSM_"${LOCALE}".ts"
+    pylupdate5 -noobsolete ${files_to_translate} -ts resources/i18n/QuickOSM_${LOCALE}.ts
 done

@@ -36,12 +36,10 @@ from qgis.core import (
     QgsSettings,
 )
 
-from QuickOSM.core.custom_logging import setup_logger
+from QuickOSM.qgis_plugin_tools.resources import plugin_name, resources_path
+from QuickOSM.qgis_plugin_tools.custom_logging import setup_logger
+from QuickOSM.qgis_plugin_tools.i18n import setup_translation, tr
 from QuickOSM.quick_osm_processing.provider import Provider
-from QuickOSM.core.utilities.tools import (
-    tr,
-    resources_path,
-)
 
 LOGGER = logging.getLogger('QuickOSM')
 
@@ -59,26 +57,16 @@ class QuickOSMPlugin(object):
         # Save reference to the QGIS interface
         self.iface = iface
 
-        setup_logger('QuickOSM')
+        setup_logger(plugin_name())
 
-        # initialize locale
-        try:
-            locale = QgsSettings().value('locale/userLocale', 'en')[0:2]
-        except AttributeError:
-            # Fallback to english #132
-            LOGGER.warning(
-                'Fallback to English as default language for the plugin')
-            locale = 'en'
-        locale_path = join(
-            dirname(__file__),
-            'i18n',
-            'QuickOSM_{0}.qm'.format(locale))
-
-        if exists(locale_path):
+        locale = setup_translation('QuickOSM_{}.qm')
+        if locale:
             LOGGER.info('Translation to {}'.format(locale))
             self.translator = QTranslator()
-            self.translator.load(locale_path)
+            self.translator.load(locale)
             QCoreApplication.installTranslator(self.translator)
+        else:
+            LOGGER.info('Translation not found: {}'.format(locale))
 
         self.provider = None
 

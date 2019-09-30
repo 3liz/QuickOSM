@@ -10,4 +10,4 @@ help/
 .noseids
 venv
 *.osm
-i18n/*.qm
+resources/i18n/*.qm
