@@ -10,6 +10,7 @@ from ..core.utilities.tools import (
     set_setting,
     custom_config_file,
 )
+from ..definitions.gui import Panels
 from ..definitions.overpass import OVERPASS_SERVERS
 
 
@@ -23,14 +24,11 @@ LOGGER = logging.getLogger('QuickOSM')
 
 class ConfigurationPanel(BasePanel):
 
-    def __init__(self, dialog):
-        """Constructor.
+    """Final implementation for the panel."""
 
-        :param dialog: The dialog.
-        :type dialog: QDialog
-        """
+    def __init__(self, dialog):
         super().__init__(dialog)
-        self.dialog = dialog
+        self.panel = Panels.Configuration
 
     def setup_panel(self):
         """Set UI related the configuration panel."""

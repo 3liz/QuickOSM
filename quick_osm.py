@@ -134,7 +134,6 @@ class QuickOSMPlugin:
 
     def open_dialog(self):
         """Create and open the main dialog."""
-        from .ui.main_window_dialog import MainDialog
-        dialog = MainDialog(self.iface)
-        dialog.menu_widget.setCurrentRow(0)
+        from .ui.dialog import Dialog
+        dialog = Dialog(self.iface)
         dialog.exec_()
