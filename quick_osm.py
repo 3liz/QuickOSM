@@ -23,8 +23,6 @@
 import logging
 import urllib.request
 
-from os.path import dirname, join, exists
-
 from qgis.PyQt.QtCore import QTranslator, QCoreApplication
 from qgis.PyQt.QtGui import QIcon
 from qgis.PyQt.QtWidgets import QMenu, QAction
@@ -33,7 +31,6 @@ from qgis.core import (
     QgsCoordinateTransform,
     QgsCoordinateReferenceSystem,
     QgsProject,
-    QgsSettings,
 )
 
 from QuickOSM.qgis_plugin_tools.resources import plugin_name, resources_path
@@ -59,7 +56,7 @@ class QuickOSMPlugin(object):
 
         setup_logger(plugin_name())
 
-        locale = setup_translation('QuickOSM_{}.qm')
+        locale = setup_translation()
         if locale:
             LOGGER.info('Translation to {}'.format(locale))
             self.translator = QTranslator()
