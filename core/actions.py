@@ -1,30 +1,16 @@
-"""
-/***************************************************************************
- QuickOSM
- A QGIS plugin
- OSM Overpass API frontend
-                             -------------------
-        begin                : 2014-06-11
-        copyright            : (C) 2014 by 3Liz
-        email                : info at 3liz dot com
-        contributor          : Etienne Trimaille
- ***************************************************************************/
-
-/***************************************************************************
- *                                                                         *
- *   This program is free software; you can redistribute it and/or modify  *
- *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 2 of the License, or     *
- *   (at your option) any later version.                                   *
- *                                                                         *
- ***************************************************************************/
-"""
+"""Actions definitions."""
 
 from QuickOSM.qgis_plugin_tools.resources import resources_path
 from QuickOSM.qgis_plugin_tools.i18n import tr
 from QuickOSM.core.utilities.utilities_qgis import open_webpage
 from qgis.core import Qgis, QgsAction
 from qgis.utils import iface, plugins
+
+__copyright__ = 'Copyright 2019, 3Liz'
+__license__ = 'GPL version 3'
+__email__ = 'info@3liz.org'
+__revision__ = '$Format:%H$'
+
 
 ACTIONS_PATH = 'from QuickOSM.core.actions import Actions;'
 ACTIONS_VISIBILITY = ['Canvas', 'Feature', 'Field']
@@ -134,7 +120,7 @@ def add_actions(layer, keys):
         actions.addAction(sketch_line)
 
 
-class Actions(object):
+class Actions:
     """
     Manage actions available on layers
     """

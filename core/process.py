@@ -1,24 +1,5 @@
-"""
-/***************************************************************************
- QuickOSM
- A QGIS plugin
- OSM Overpass API frontend
-                             -------------------
-        begin                : 2014-06-11
-        copyright            : (C) 2014 by 3Liz
-        email                : info at 3liz dot com
-        contributor          : Etienne Trimaille
- ***************************************************************************/
+"""The full process of opening a query, an OSM file."""
 
-/***************************************************************************
- *                                                                         *
- *   This program is free software; you can redistribute it and/or modify  *
- *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 2 of the License, or     *
- *   (at your option) any later version.                                   *
- *                                                                         *
- ***************************************************************************/
-"""
 import logging
 import time
 from os.path import dirname, abspath, join, isfile
@@ -35,10 +16,15 @@ from QuickOSM.core.exceptions import FileOutPutException
 from QuickOSM.core.parser.osm_parser import OsmParser
 from QuickOSM.core.query_factory import QueryFactory
 from QuickOSM.core.query_preparation import QueryPreparation
-from QuickOSM.core.utilities.operating_system import get_default_encoding
-from QuickOSM.core.utilities.tools import get_setting, tr
+from QuickOSM.core.utilities.tools import get_setting, tr, get_default_encoding
 from QuickOSM.definitions.osm import QueryType, LayerType
 from QuickOSM.definitions.overpass import OVERPASS_SERVERS
+
+__copyright__ = 'Copyright 2019, 3Liz'
+__license__ = 'GPL version 3'
+__email__ = 'info@3liz.org'
+__revision__ = '$Format:%H$'
+
 
 LOGGER = logging.getLogger('QuickOSM')
 

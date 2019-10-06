@@ -1,12 +1,13 @@
+"""Python code style check."""
+
 import unittest
 import sys
 from os.path import abspath, dirname, join
 from subprocess import Popen, PIPE
 
-
-__copyright__ = 'Copyright 2019, QuickOSM Project'
+__copyright__ = 'Copyright 2019, 3Liz'
 __license__ = 'GPL version 3'
-__email__ = 'etienne.trimaille@gmail.com'
+__email__ = 'info@3liz.org'
 __revision__ = '$Format:%H$'
 
 
