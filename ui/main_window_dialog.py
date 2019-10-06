@@ -29,6 +29,7 @@ from qgis.core import (
 )
 from qgis.gui import QgsFileWidget
 
+from .panel_configuration import ConfigurationPanel
 from ..core.exceptions import (
     QuickOsmException,
     OutPutGeomTypesException,
@@ -39,16 +40,12 @@ from ..core.process import process_quick_query, open_file, process_query
 from ..core.query_factory import QueryFactory
 from ..core.query_preparation import QueryPreparation
 from ..core.utilities.tools import (
-    get_setting,
-    set_setting,
     nominatim_file,
-    custom_config_file,
 )
 from ..core.utilities.utilities_qgis import (
     open_map_features, open_log_panel, open_doc_overpass, open_overpass_turbo)
 from ..definitions.gui import Panels
 from ..definitions.osm import OsmType, LayerType, QueryType
-from ..definitions.overpass import OVERPASS_SERVERS
 from ..qgis_plugin_tools.i18n import tr
 from ..qgis_plugin_tools.resources import load_ui, resources_path
 from ..ui.xml_highlighter import XMLHighlighter
@@ -75,10 +72,20 @@ class MainDialog(QDialog, FORM_CLASS):
         self.query_index = self.stacked_panels_widget.indexOf(self.query_page)
 
         # Table mapping
+
+        # Explaining quickly, these letters are referring to the panel
+        # in the UI:
+        # qq : Quick Query
+        # q : Query
+        # f : file
         self.panels = {
             'run_quick_query': Panels.QuickQuery,
             'run_query': Panels.Query,
             'open_file': Panels.File,
+            'configuration': Panels.Configuration,
+        }
+        self.external_panels = {
+            Panels.Configuration: ConfigurationPanel(self)
         }
         self.places_edits = {
             Panels.QuickQuery: self.line_place_qq,
@@ -132,14 +139,14 @@ class MainDialog(QDialog, FORM_CLASS):
             Panels.Query: self.advanced_q,
         }
 
-        self.default_server = None
         self.last_places = []
 
         # Quick query
         self.osm_keys = None
 
         self.set_ui_menu()
-        self.set_ui_configuration_panel()
+        for panel in self.external_panels.values():
+            panel.setup_panel()
         self.set_ui_quick_query_panel()
         self.set_ui_query_panel()
         self.set_ui_file_panel()
@@ -587,48 +594,6 @@ class MainDialog(QDialog, FORM_CLASS):
         """Slot to update text during process."""
         self.progress_text.setText(text)
         QApplication.processEvents()
-
-    # ###
-    # configuration panel
-    # ###
-
-    def set_ui_configuration_panel(self):
-        """Set UI related the configuration panel."""
-
-        self._set_custom_ui(Panels.QuickQuery)
-
-        # noinspection PyUnresolvedReferences
-        self.combo_default_overpass.currentIndexChanged.connect(
-            self.set_server_overpass_api)
-
-        # Set settings about the overpass API
-        self.default_server = get_setting('defaultOAPI')
-        if self.default_server:
-            index = self.combo_default_overpass.findText(self.default_server)
-            self.combo_default_overpass.setCurrentIndex(index)
-        else:
-            self.default_server = self.combo_default_overpass.currentText()
-            set_setting('defaultOAPI', self.default_server)
-
-        for server in OVERPASS_SERVERS:
-            self.combo_default_overpass.addItem(server)
-
-        # Read the config file
-        custom_config = custom_config_file()
-        if custom_config:
-            with open(custom_config) as f:
-                config_json = load(f)
-                for server in config_json.get('overpass_servers'):
-                    if server not in OVERPASS_SERVERS:
-                        LOGGER.info(
-                            'Custom overpass server list added: {}'.format(
-                                server))
-                        self.combo_default_overpass.addItem(server)
-
-    def set_server_overpass_api(self):
-        """Save the new Overpass server."""
-        self.default_server = self.combo_default_overpass.currentText()
-        set_setting('defaultOAPI', self.default_server)
 
     # ###
     # quick query panel
