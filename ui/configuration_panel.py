@@ -10,7 +10,6 @@ from ..core.utilities.tools import (
     set_setting,
     custom_config_file,
 )
-from ..definitions.gui import Panels
 from ..definitions.overpass import OVERPASS_SERVERS
 
 
@@ -31,9 +30,7 @@ class ConfigurationPanel(BasePanel):
         :type dialog: QDialog
         """
         super().__init__(dialog)
-        self.panel = Panels.Configuration
         self.dialog = dialog
-        self.default_server = None
 
     def setup_panel(self):
         """Set UI related the configuration panel."""
@@ -42,13 +39,13 @@ class ConfigurationPanel(BasePanel):
             self.set_server_overpass_api)
 
         # Set settings about the overpass API
-        self.default_server = get_setting('defaultOAPI')
-        if self.default_server:
-            index = self.dialog.combo_default_overpass.findText(self.default_server)
+        default_server = get_setting('defaultOAPI')
+        if default_server:
+            index = self.dialog.combo_default_overpass.findText(default_server)
             self.dialog.combo_default_overpass.setCurrentIndex(index)
         else:
-            self.default_server = self.dialog.combo_default_overpass.currentText()
-            set_setting('defaultOAPI', self.default_server)
+            default_server = self.dialog.combo_default_overpass.currentText()
+            set_setting('defaultOAPI', default_server)
 
         for server in OVERPASS_SERVERS:
             self.dialog.combo_default_overpass.addItem(server)
@@ -67,5 +64,5 @@ class ConfigurationPanel(BasePanel):
 
     def set_server_overpass_api(self):
         """Save the new Overpass server."""
-        self.default_server = self.dialog.combo_default_overpass.currentText()
-        set_setting('defaultOAPI', self.default_server)
+        default_server = self.dialog.combo_default_overpass.currentText()
+        set_setting('defaultOAPI', default_server)

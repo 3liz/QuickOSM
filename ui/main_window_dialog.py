@@ -29,7 +29,7 @@ from qgis.core import (
 )
 from qgis.gui import QgsFileWidget
 
-from .panel_configuration import ConfigurationPanel
+from .configuration_panel import ConfigurationPanel
 from ..core.exceptions import (
     QuickOsmException,
     OutPutGeomTypesException,
