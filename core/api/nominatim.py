@@ -2,11 +2,14 @@
 
 import json
 
-from QuickOSM.core.exceptions import \
-    NominatimAreaException, NetWorkErrorException
 from qgis.PyQt.QtCore import QUrl, QUrlQuery, QEventLoop
 from qgis.PyQt.QtNetwork import QNetworkRequest, QNetworkReply
 from qgis.core import QgsNetworkAccessManager
+
+from ..exceptions import (
+    NetWorkErrorException,
+    NominatimAreaException
+)
 
 __copyright__ = 'Copyright 2019, 3Liz'
 __license__ = 'GPL version 3'

@@ -16,10 +16,6 @@ __email__ = 'info@3liz.org'
 __revision__ = '$Format:%H$'
 
 
-def tr(text):
-    return QApplication.translate('@default', text)
-
-
 def custom_config_file():
     """Get the custom config file or None."""
     filepath = join(quickosm_user_folder(), 'custom_config.json')

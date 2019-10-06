@@ -14,11 +14,12 @@ from qgis.core import (
 )
 
 
-from QuickOSM.definitions.overpass import OVERPASS_SERVERS
-from QuickOSM.definitions.osm import QueryType
-from QuickOSM.core.query_factory import QueryFactory
-from QuickOSM.core.query_preparation import QueryPreparation
-from QuickOSM.core.utilities.tools import tr, get_setting
+from ...qgis_plugin_tools.i18n import tr
+from ...definitions.overpass import OVERPASS_SERVERS
+from ...definitions.osm import QueryType
+from ...core.query_factory import QueryFactory
+from ...core.query_preparation import QueryPreparation
+from ...core.utilities.tools import get_setting
 
 __copyright__ = 'Copyright 2019, 3Liz'
 __license__ = 'GPL version 3'

@@ -3,9 +3,10 @@
 import re
 from xml.dom.minidom import parseString
 
-from QuickOSM.definitions.osm import OsmType, QueryType
-from QuickOSM.core.exceptions import QueryFactoryException
-from QuickOSM.core.utilities.tools import tr
+
+from ..qgis_plugin_tools.i18n import tr
+from ..definitions.osm import OsmType, QueryType
+from .exceptions import QueryFactoryException
 
 __copyright__ = 'Copyright 2019, 3Liz'
 __license__ = 'GPL version 3'

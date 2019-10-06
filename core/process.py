@@ -10,15 +10,16 @@ from qgis.core import (
     QgsExpressionContextUtils,
 )
 
-from QuickOSM.core.actions import add_actions
-from QuickOSM.core.api.connexion_oapi import ConnexionOAPI
-from QuickOSM.core.exceptions import FileOutPutException
-from QuickOSM.core.parser.osm_parser import OsmParser
-from QuickOSM.core.query_factory import QueryFactory
-from QuickOSM.core.query_preparation import QueryPreparation
-from QuickOSM.core.utilities.tools import get_setting, tr, get_default_encoding
-from QuickOSM.definitions.osm import QueryType, LayerType
-from QuickOSM.definitions.overpass import OVERPASS_SERVERS
+from ..qgis_plugin_tools.i18n import tr
+from .actions import add_actions
+from .api.connexion_oapi import ConnexionOAPI
+from .exceptions import FileOutPutException
+from .parser.osm_parser import OsmParser
+from .query_factory import QueryFactory
+from .query_preparation import QueryPreparation
+from .utilities.tools import get_setting, get_default_encoding
+from ..definitions.osm import QueryType, LayerType
+from ..definitions.overpass import OVERPASS_SERVERS
 
 __copyright__ = 'Copyright 2019, 3Liz'
 __license__ = 'GPL version 3'

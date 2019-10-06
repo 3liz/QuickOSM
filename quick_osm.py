@@ -13,17 +13,17 @@ from qgis.core import (
     QgsProject,
 )
 
-from QuickOSM.qgis_plugin_tools.resources import plugin_name, resources_path
-from QuickOSM.qgis_plugin_tools.custom_logging import setup_logger
-from QuickOSM.qgis_plugin_tools.i18n import setup_translation, tr
-from QuickOSM.quick_osm_processing.provider import Provider
+from .qgis_plugin_tools.resources import plugin_name, resources_path
+from .qgis_plugin_tools.custom_logging import setup_logger
+from .qgis_plugin_tools.i18n import setup_translation, tr
+from .quick_osm_processing.provider import Provider
 
 __copyright__ = 'Copyright 2019, 3Liz'
 __license__ = 'GPL version 3'
 __email__ = 'info@3liz.org'
 __revision__ = '$Format:%H$'
 
-LOGGER = logging.getLogger('QuickOSM')
+LOGGER = logging.getLogger(plugin_name())
 
 
 class QuickOSMPlugin:
@@ -134,7 +134,7 @@ class QuickOSMPlugin:
 
     def open_dialog(self):
         """Create and open the main dialog."""
-        from QuickOSM.ui.main_window_dialog import MainDialog
+        from .ui.main_window_dialog import MainDialog
         dialog = MainDialog(self.iface)
         dialog.menu_widget.setCurrentRow(0)
         dialog.exec_()
