@@ -1,24 +1,5 @@
-"""
-/***************************************************************************
- QuickOSM
- A QGIS plugin
- OSM Overpass API frontend
-                             -------------------
-        begin                : 2014-06-11
-        copyright            : (C) 2014 by 3Liz
-        email                : info at 3liz dot com
-        contributor          : Etienne Trimaille
- ***************************************************************************/
+"""Main dialog of QuickOSM."""
 
-/***************************************************************************
- *                                                                         *
- *   This program is free software; you can redistribute it and/or modify  *
- *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 2 of the License, or     *
- *   (at your option) any later version.                                   *
- *                                                                         *
- ***************************************************************************/
-"""
 import inspect
 import io
 import logging
@@ -74,6 +55,10 @@ from QuickOSM.core.parser.osm_parser import OsmParser
 from QuickOSM.ui.xml_highlighter import XMLHighlighter
 from QuickOSM.qgis_plugin_tools.resources import load_ui, resources_path
 
+__copyright__ = 'Copyright 2019, 3Liz'
+__license__ = 'GPL version 3'
+__email__ = 'info@3liz.org'
+__revision__ = '$Format:%H$'
 
 FORM_CLASS = load_ui('main_window.ui')
 LOGGER = logging.getLogger('QuickOSM')

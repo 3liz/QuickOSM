@@ -1,31 +1,19 @@
-"""
-/***************************************************************************
- QuickOSM
-                                 A QGIS plugin
- OSM Overpass API frontend
-                             -------------------
-        begin                : 2014-06-11
-        copyright            : (C) 2014 by 3Liz
-        email                : info at 3liz dot com
-        contributor          : Etienne Trimaille
- ***************************************************************************/
+"""Tools for QuickOSM."""
 
-/***************************************************************************
- *                                                                         *
- *   This program is free software; you can redistribute it and/or modify  *
- *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 2 of the License, or     *
- *   (at your option) any later version.                                   *
- *                                                                         *
- ***************************************************************************/
-"""
 import io
+import platform
+import sys
 
 from os.path import join, abspath, isfile
 
 from qgis.PyQt.QtCore import QDir
 from qgis.PyQt.QtWidgets import QApplication
 from qgis.core import QgsApplication, QgsSettings
+
+__copyright__ = 'Copyright 2019, 3Liz'
+__license__ = 'GPL version 3'
+__email__ = 'info@3liz.org'
+__revision__ = '$Format:%H$'
 
 
 def tr(text):
@@ -47,6 +35,13 @@ def nominatim_file():
         io.open(path, 'a').close()
 
     return path
+
+
+def get_default_encoding():
+    if platform.system() == 'Windows':
+        return sys.getdefaultencoding()
+    else:
+        return 'UTF-8'
 
 
 def quickosm_user_folder():

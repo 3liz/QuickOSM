@@ -17,6 +17,12 @@ A pull request is more than welcome if you want to add your server in QuickOSM
 core by updating this list below.
 """
 
+__copyright__ = 'Copyright 2019, 3Liz'
+__license__ = 'GPL version 3'
+__email__ = 'info@3liz.org'
+__revision__ = '$Format:%H$'
+
+
 # The order is important. The first server will be the default.
 OVERPASS_SERVERS = [
     'https://lz4.overpass-api.de/api/',

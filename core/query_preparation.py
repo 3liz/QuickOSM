@@ -1,24 +1,4 @@
-"""
-/***************************************************************************
- QuickOSM
- A QGIS plugin
- OSM Overpass API frontend
-                             -------------------
-        begin                : 2014-06-11
-        copyright            : (C) 2014 by 3Liz
-        email                : info at 3liz dot com
-        contributor          : Etienne Trimaille
- ***************************************************************************/
-
-/***************************************************************************
- *                                                                         *
- *   This program is free software; you can redistribute it and/or modify  *
- *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 2 of the License, or     *
- *   (at your option) any later version.                                   *
- *                                                                         *
- ***************************************************************************/
-"""
+"""Query preparation step."""
 
 import re
 
@@ -30,6 +10,11 @@ from QuickOSM.definitions.overpass import OVERPASS_SERVERS
 from QuickOSM.core.exceptions import (
     QueryNotSupported, QueryFactoryException)
 from QuickOSM.core.utilities.tools import tr, get_setting
+
+__copyright__ = 'Copyright 2019, 3Liz'
+__license__ = 'GPL version 3'
+__email__ = 'info@3liz.org'
+__revision__ = '$Format:%H$'
 
 
 class QueryPreparation:
