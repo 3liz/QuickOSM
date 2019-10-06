@@ -13,7 +13,6 @@ from qgis.core import (
     QgsHstoreUtils,
 )
 
-
 from ..exceptions import GeoAlgorithmException
 from ...qgis_plugin_tools.i18n import tr
 

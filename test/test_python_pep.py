@@ -1,7 +1,7 @@
 """Python code style check."""
 
-import unittest
 import sys
+import unittest
 from os.path import abspath, dirname, join
 from subprocess import Popen, PIPE
 

@@ -5,13 +5,12 @@ import io
 import logging
 import re
 import traceback
-
-
 from json import load
 from os.path import isfile, isdir, split
 from sys import exc_info
 
 from qgis.PyQt.QtCore import Qt
+from qgis.PyQt.QtGui import QPixmap, QIcon
 from qgis.PyQt.QtWidgets import (
     QDialog,
     QDialogButtonBox,
@@ -21,8 +20,6 @@ from qgis.PyQt.QtWidgets import (
     QMenu,
     QAction,
 )
-from qgis.PyQt.QtGui import QPixmap, QIcon
-from qgis.gui import QgsFileWidget
 from qgis.core import (
     Qgis,
     QgsGeometry,
@@ -30,17 +27,16 @@ from qgis.core import (
     QgsCoordinateTransform,
     QgsProject,
 )
+from qgis.gui import QgsFileWidget
 
-from ..definitions.gui import Panels
-from ..definitions.osm import OsmType, LayerType, QueryType
-from ..definitions.overpass import OVERPASS_SERVERS
 from ..core.exceptions import (
     QuickOsmException,
     OutPutGeomTypesException,
     DirectoryOutPutException,
     OsmObjectsException, FileDoesntExistException, MissingParameterException)
-from ..core.query_factory import QueryFactory
+from ..core.parser.osm_parser import OsmParser
 from ..core.process import process_quick_query, open_file, process_query
+from ..core.query_factory import QueryFactory
 from ..core.query_preparation import QueryPreparation
 from ..core.utilities.tools import (
     get_setting,
@@ -48,12 +44,14 @@ from ..core.utilities.tools import (
     nominatim_file,
     custom_config_file,
 )
-from ..qgis_plugin_tools.i18n import tr
 from ..core.utilities.utilities_qgis import (
     open_map_features, open_log_panel, open_doc_overpass, open_overpass_turbo)
-from ..core.parser.osm_parser import OsmParser
-from ..ui.xml_highlighter import XMLHighlighter
+from ..definitions.gui import Panels
+from ..definitions.osm import OsmType, LayerType, QueryType
+from ..definitions.overpass import OVERPASS_SERVERS
+from ..qgis_plugin_tools.i18n import tr
 from ..qgis_plugin_tools.resources import load_ui, resources_path
+from ..ui.xml_highlighter import XMLHighlighter
 
 __copyright__ = 'Copyright 2019, 3Liz'
 __license__ = 'GPL version 3'

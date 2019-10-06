@@ -1,7 +1,7 @@
 """Manage Overpass API connexion."""
 
-import logging
 import codecs
+import logging
 import os
 import re
 
@@ -18,7 +18,6 @@ from ..exceptions import (
     OverpassTimeoutException,
     NetWorkErrorException,
 )
-
 
 __copyright__ = 'Copyright 2019, 3Liz'
 __license__ = 'GPL version 3'

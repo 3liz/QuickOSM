@@ -13,13 +13,12 @@ from qgis.core import (
     QgsCoordinateReferenceSystem,
 )
 
-
-from ...qgis_plugin_tools.i18n import tr
-from ...definitions.overpass import OVERPASS_SERVERS
-from ...definitions.osm import QueryType
 from ...core.query_factory import QueryFactory
 from ...core.query_preparation import QueryPreparation
 from ...core.utilities.tools import get_setting
+from ...definitions.osm import QueryType
+from ...definitions.overpass import OVERPASS_SERVERS
+from ...qgis_plugin_tools.i18n import tr
 
 __copyright__ = 'Copyright 2019, 3Liz'
 __license__ = 'GPL version 3'

@@ -5,14 +5,14 @@ import re
 from qgis.PyQt.QtCore import QUrl, QUrlQuery
 from qgis.core import QgsGeometry
 
-from ..qgis_plugin_tools.i18n import tr
 from .api.nominatim import Nominatim
-from ..definitions.overpass import OVERPASS_SERVERS
 from .exceptions import (
     QueryNotSupported,
     QueryFactoryException,
 )
 from .utilities.tools import get_setting
+from ..definitions.overpass import OVERPASS_SERVERS
+from ..qgis_plugin_tools.i18n import tr
 
 __copyright__ = 'Copyright 2019, 3Liz'
 __license__ = 'GPL version 3'

@@ -1,9 +1,10 @@
 """Exceptions definitions."""
 
-from ..qgis_plugin_tools.i18n import tr
 # from processing.core.GeoAlgorithmExecutionException import \
 #     GeoAlgorithmExecutionException
 from qgis.core import Qgis
+
+from ..qgis_plugin_tools.i18n import tr
 
 __copyright__ = 'Copyright 2019, 3Liz'
 __license__ = 'GPL version 3'
