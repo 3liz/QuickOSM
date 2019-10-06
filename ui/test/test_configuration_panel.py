@@ -3,7 +3,7 @@ import sys
 from qgis.testing import unittest, start_app
 from qgis.testing.mocked import get_iface
 
-from ..main_window_dialog import MainDialog
+from ..dialog import Dialog
 from ...core.utilities.tools import (
     get_setting,
 )
@@ -21,7 +21,7 @@ class TestUiMainWindow(unittest.TestCase):
         """Test we can save the custom server."""
         servers = len(OVERPASS_SERVERS)
 
-        dialog = MainDialog(get_iface())
+        dialog = Dialog(get_iface())
         self.assertEqual(dialog.combo_default_overpass.count(), servers)
         default_server = get_setting('defaultOAPI')
         self.assertEqual(default_server, OVERPASS_SERVERS[0])

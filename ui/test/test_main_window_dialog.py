@@ -3,7 +3,7 @@ import sys
 from qgis.testing import unittest, start_app
 from qgis.testing.mocked import get_iface
 
-from ..main_window_dialog import MainDialog
+from ..dialog import Dialog
 
 if not hasattr(sys, 'argv'):
     sys.argv = ['']
@@ -16,6 +16,6 @@ class TestUiMainWindow(unittest.TestCase):
     def test_show_query(self):
         """Test we can show a query by switching tab with all params."""
         # Empty query
-        dialog = MainDialog(get_iface())
+        dialog = Dialog(get_iface())
         dialog.button_show_query.click()
         self.assertEqual(dialog.stacked_panels_widget.currentIndex(), dialog.query_index)
