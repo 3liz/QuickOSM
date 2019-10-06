@@ -5,11 +5,14 @@ import re
 from qgis.PyQt.QtCore import QUrl, QUrlQuery
 from qgis.core import QgsGeometry
 
-from QuickOSM.core.api.nominatim import Nominatim
-from QuickOSM.definitions.overpass import OVERPASS_SERVERS
-from QuickOSM.core.exceptions import (
-    QueryNotSupported, QueryFactoryException)
-from QuickOSM.core.utilities.tools import tr, get_setting
+from ..qgis_plugin_tools.i18n import tr
+from .api.nominatim import Nominatim
+from ..definitions.overpass import OVERPASS_SERVERS
+from .exceptions import (
+    QueryNotSupported,
+    QueryFactoryException,
+)
+from .utilities.tools import get_setting
 
 __copyright__ = 'Copyright 2019, 3Liz'
 __license__ = 'GPL version 3'

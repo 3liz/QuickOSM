@@ -2,13 +2,20 @@
 
 from os.path import dirname, realpath, join, isfile, basename
 
-from QuickOSM.core.exceptions import GeoAlgorithmException
-from QuickOSM.core.utilities.tools import tr
 from osgeo import gdal
 from qgis.PyQt.QtCore import QObject, pyqtSignal, QVariant
-from qgis.core import \
-    QgsVectorLayer, QgsFields, QgsField, QgsFeature, QgsMemoryProviderUtils, \
-    QgsHstoreUtils
+from qgis.core import (
+    QgsVectorLayer,
+    QgsFields,
+    QgsField,
+    QgsFeature,
+    QgsMemoryProviderUtils,
+    QgsHstoreUtils,
+)
+
+
+from ..exceptions import GeoAlgorithmException
+from ...qgis_plugin_tools.i18n import tr
 
 __copyright__ = 'Copyright 2019, 3Liz'
 __license__ = 'GPL version 3'

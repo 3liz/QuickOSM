@@ -31,29 +31,29 @@ from qgis.core import (
     QgsProject,
 )
 
-from QuickOSM.definitions.gui import Panels
-from QuickOSM.definitions.osm import OsmType, LayerType, QueryType
-from QuickOSM.definitions.overpass import OVERPASS_SERVERS
-from QuickOSM.core.exceptions import (
+from ..definitions.gui import Panels
+from ..definitions.osm import OsmType, LayerType, QueryType
+from ..definitions.overpass import OVERPASS_SERVERS
+from ..core.exceptions import (
     QuickOsmException,
     OutPutGeomTypesException,
     DirectoryOutPutException,
     OsmObjectsException, FileDoesntExistException, MissingParameterException)
-from QuickOSM.core.query_factory import QueryFactory
-from QuickOSM.core.process import process_quick_query, open_file, process_query
-from QuickOSM.core.query_preparation import QueryPreparation
-from QuickOSM.core.utilities.tools import (
+from ..core.query_factory import QueryFactory
+from ..core.process import process_quick_query, open_file, process_query
+from ..core.query_preparation import QueryPreparation
+from ..core.utilities.tools import (
     get_setting,
     set_setting,
-    tr,
     nominatim_file,
     custom_config_file,
 )
-from QuickOSM.core.utilities.utilities_qgis import (
+from ..qgis_plugin_tools.i18n import tr
+from ..core.utilities.utilities_qgis import (
     open_map_features, open_log_panel, open_doc_overpass, open_overpass_turbo)
-from QuickOSM.core.parser.osm_parser import OsmParser
-from QuickOSM.ui.xml_highlighter import XMLHighlighter
-from QuickOSM.qgis_plugin_tools.resources import load_ui, resources_path
+from ..core.parser.osm_parser import OsmParser
+from ..ui.xml_highlighter import XMLHighlighter
+from ..qgis_plugin_tools.resources import load_ui, resources_path
 
 __copyright__ = 'Copyright 2019, 3Liz'
 __license__ = 'GPL version 3'

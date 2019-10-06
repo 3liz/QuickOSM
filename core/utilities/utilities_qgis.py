@@ -10,7 +10,7 @@ __email__ = 'info@3liz.org'
 __revision__ = '$Format:%H$'
 
 
-from QuickOSM.definitions.urls import (
+from ...definitions.urls import (
     BUG_REPORT_URL, MAP_FEATURES_URL, DOC_OVERPASS_URL, OVERPASS_TURBO_URL)
 
 

@@ -5,13 +5,20 @@ import codecs
 import os
 import re
 
-from QuickOSM.core.exceptions import (
+from qgis.PyQt.QtCore import (
+    QUrl,
+    QEventLoop,
+    QTemporaryFile,
+    QDir,
+    QFileInfo,
+)
+from qgis.core import QgsFileDownloader
+
+from ..exceptions import (
     OverpassTimeoutException,
     NetWorkErrorException,
 )
-from qgis.PyQt.QtCore import (
-    QUrl, QEventLoop, QTemporaryFile, QDir, QFileInfo)
-from qgis.core import QgsFileDownloader
+
 
 __copyright__ = 'Copyright 2019, 3Liz'
 __license__ = 'GPL version 3'

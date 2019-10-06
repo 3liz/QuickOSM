@@ -1,6 +1,6 @@
 """Exceptions definitions."""
 
-from QuickOSM.core.utilities.tools import tr
+from ..qgis_plugin_tools.i18n import tr
 # from processing.core.GeoAlgorithmExecutionException import \
 #     GeoAlgorithmExecutionException
 from qgis.core import Qgis

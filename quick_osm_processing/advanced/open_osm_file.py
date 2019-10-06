@@ -12,7 +12,7 @@ from qgis.core import (
     QgsProcessingParameterFile,
     QgsProcessingOutputVectorLayer,
 )
-from QuickOSM.core.utilities.tools import tr
+from ...qgis_plugin_tools.i18n import tr
 
 __copyright__ = 'Copyright 2019, 3Liz'
 __license__ = 'GPL version 3'

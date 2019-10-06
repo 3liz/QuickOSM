@@ -12,9 +12,10 @@ from qgis.core import (
     QgsCoordinateReferenceSystem,
 )
 
-from QuickOSM.definitions.overpass import OVERPASS_SERVERS
-from QuickOSM.core.query_preparation import QueryPreparation
-from QuickOSM.core.utilities.tools import tr, get_setting
+from ...definitions.overpass import OVERPASS_SERVERS
+from ...core.query_preparation import QueryPreparation
+from ...core.utilities.tools import get_setting
+from ...qgis_plugin_tools.i18n import tr
 
 __copyright__ = 'Copyright 2019, 3Liz'
 __license__ = 'GPL version 3'
