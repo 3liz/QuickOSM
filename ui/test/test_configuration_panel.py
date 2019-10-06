@@ -17,7 +17,7 @@ start_app()
 
 class TestUiMainWindow(unittest.TestCase):
 
-    def configuration_panel(self):
+    def test_configuration_panel(self):
         """Test we can save the custom server."""
         servers = len(OVERPASS_SERVERS)
 
