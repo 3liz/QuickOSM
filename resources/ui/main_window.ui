@@ -1313,6 +1313,53 @@ QListWidget::item::selected {
   </customwidget>
  </customwidgets>
  <tabstops>
+  <tabstop>main_scroll</tabstop>
+  <tabstop>button_map_features</tabstop>
+  <tabstop>combo_key</tabstop>
+  <tabstop>combo_value</tabstop>
+  <tabstop>combo_query_type_qq</tabstop>
+  <tabstop>line_place_qq</tabstop>
+  <tabstop>spin_place_qq</tabstop>
+  <tabstop>advanced_qq</tabstop>
+  <tabstop>checkbox_node</tabstop>
+  <tabstop>checkbox_way</tabstop>
+  <tabstop>checkbox_relation</tabstop>
+  <tabstop>checkbox_points_qq</tabstop>
+  <tabstop>checkbox_lines_qq</tabstop>
+  <tabstop>checkbox_multilinestrings_qq</tabstop>
+  <tabstop>checkbox_multipolygons_qq</tabstop>
+  <tabstop>spin_timeout</tabstop>
+  <tabstop>line_file_prefix_qq</tabstop>
+  <tabstop>button_show_query</tabstop>
+  <tabstop>button_run_query_qq</tabstop>
+  <tabstop>text_query</tabstop>
+  <tabstop>advanced_q</tabstop>
+  <tabstop>line_place_q</tabstop>
+  <tabstop>combo_query_type_q</tabstop>
+  <tabstop>combo_extent_layer_q</tabstop>
+  <tabstop>checkbox_points_q</tabstop>
+  <tabstop>edit_csv_points</tabstop>
+  <tabstop>checkbox_lines_q</tabstop>
+  <tabstop>edit_csv_lines</tabstop>
+  <tabstop>checkbox_multilinestrings_q</tabstop>
+  <tabstop>edit_csv_multilinestrings</tabstop>
+  <tabstop>checkbox_multipolygons_q</tabstop>
+  <tabstop>edit_csv_multipolygons</tabstop>
+  <tabstop>line_file_prefix_q</tabstop>
+  <tabstop>button_generate_query</tabstop>
+  <tabstop>button_run_query_q</tabstop>
+  <tabstop>button_overpass_turbo</tabstop>
+  <tabstop>button_documentation</tabstop>
+  <tabstop>checkbox_points_f</tabstop>
+  <tabstop>checkbox_lines_f</tabstop>
+  <tabstop>checkbox_multilinestrings_f</tabstop>
+  <tabstop>checkbox_multipolygons_f</tabstop>
+  <tabstop>radio_all_tags</tabstop>
+  <tabstop>line_file_prefix_file</tabstop>
+  <tabstop>radio_osm_conf</tabstop>
+  <tabstop>button_run_file</tabstop>
+  <tabstop>combo_default_overpass</tabstop>
+  <tabstop>combo_extent_layer_qq</tabstop>
   <tabstop>menu_widget</tabstop>
  </tabstops>
  <resources/>
