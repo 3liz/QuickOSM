@@ -14,3 +14,4 @@ class Panels(Enum):
     QuickQuery = 'QuickQuery'
     Query = 'Query'
     File = 'File'
+    Configuration = 'Configuration'
