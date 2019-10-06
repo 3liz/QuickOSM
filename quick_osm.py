@@ -13,9 +13,9 @@ from qgis.core import (
     QgsProject,
 )
 
-from .qgis_plugin_tools.resources import plugin_name, resources_path
 from .qgis_plugin_tools.custom_logging import setup_logger
 from .qgis_plugin_tools.i18n import setup_translation, tr
+from .qgis_plugin_tools.resources import plugin_name, resources_path
 from .quick_osm_processing.provider import Provider
 
 __copyright__ = 'Copyright 2019, 3Liz'

@@ -1,8 +1,8 @@
 """Utilities when using QGIS."""
 
-from qgis.utils import iface
 from qgis.PyQt.QtCore import QUrl
 from qgis.PyQt.QtGui import QDesktopServices
+from qgis.utils import iface
 
 __copyright__ = 'Copyright 2019, 3Liz'
 __license__ = 'GPL version 3'

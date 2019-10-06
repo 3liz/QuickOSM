@@ -1,7 +1,6 @@
 """Processing QuickOSM provider."""
 
 from qgis.PyQt.QtGui import QIcon
-
 from qgis.core import QgsProcessingProvider
 
 from .advanced.build_query import (

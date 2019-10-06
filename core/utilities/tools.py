@@ -3,11 +3,9 @@
 import io
 import platform
 import sys
-
 from os.path import join, abspath, isfile
 
 from qgis.PyQt.QtCore import QDir
-from qgis.PyQt.QtWidgets import QApplication
 from qgis.core import QgsApplication, QgsSettings
 
 __copyright__ = 'Copyright 2019, 3Liz'
