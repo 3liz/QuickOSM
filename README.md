@@ -66,6 +66,10 @@ Check a more detailed answer on [stackexchange](https://gis.stackexchange.com/a/
 
 Since QGIS 3.6, you can export your Processing model as a Python script.
 
+## Development
+
+For panels, you can find a quick diagram in the `doc` folder.
+
 ## Authors
 
 Etienne Trimaille : https://twitter.com/etrimaille

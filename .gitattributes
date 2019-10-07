@@ -1,4 +1,5 @@
 *test/ export-ignore
+/doc/ export-ignore
 /resources/i18n/*.ts export-ignore
 /.github/ export-ignore
 /.tx/ export-ignore
