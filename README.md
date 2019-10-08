@@ -68,7 +68,11 @@ Since QGIS 3.6, you can export your Processing model as a Python script.
 
 ## Development
 
-For panels, you can find a quick diagram in the `doc` folder.
+* QuickOSM uses a [Git submodule](https://git-scm.com/book/en/v2/Git-Tools-Submodules).
+  * For a new clone, including the submodule, do `git clone --recursive https://github.com/3liz/QuickOSM.git`.
+  * For an existing clone, do `git submodule init` and `git submodule update`.
+  * These command will populate the `qgis_plugin_tools`.
+* For panels, you can find a quick diagram in the `doc` folder.
 
 ## Authors
 
