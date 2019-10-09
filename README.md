@@ -80,6 +80,12 @@ Since QGIS 3.6, you can export your Processing model as a Python script.
      * `qgis_plugin_tools/docker_test.sh QuickOSM release-3_4` for QGIS 3.4
      * `qgis_plugin_tools/docker_test.sh QuickOSM latest` for QGIS Master or any other tags available on [Docker Hub](https://hub.docker.com/r/qgis/qgis/tags).
      * Setting up your IDE to launch them by adding paths to your QGIS installation. I personally use PyCharm on Ubuntu.
+     * Launching tests from QGIS Desktop app, in the Python console. Unfortunately, it's not working yet.
+
+```python
+from qgis.utils import plugins
+plugins['QuickOSM'].run_tests()
+```
 
 ## Authors
 

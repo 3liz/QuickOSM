@@ -15,7 +15,7 @@ from qgis.core import (
 
 from .qgis_plugin_tools.custom_logging import setup_logger
 from .qgis_plugin_tools.i18n import setup_translation, tr
-from .qgis_plugin_tools.resources import plugin_name, resources_path
+from .qgis_plugin_tools.resources import plugin_name, resources_path, plugin_path
 from .quick_osm_processing.provider import Provider
 
 __copyright__ = 'Copyright 2019, 3Liz'
@@ -67,6 +67,7 @@ class QuickOSMPlugin:
         QgsApplication.processingRegistry().addProvider(self.provider)
 
     def initGui(self):
+        """Init the user interface."""
         self.initProcessing()
 
         # Setup menu
@@ -98,11 +99,13 @@ class QuickOSMPlugin:
         self.quickosm_menu.addAction(self.josm_action)
 
     def unload(self):
+        """Unload the user interface."""
         self.iface.removePluginVectorMenu('&QuickOSM', self.main_window_action)
         self.iface.removeToolBarIcon(self.main_window_action)
         QgsApplication.processingRegistry().removeProvider(self.provider)
 
     def josm_remote(self):
+        """Call the JOSM remote control using the current canvas extent."""
         map_settings = self.iface.mapCanvas().mapSettings()
         extent = map_settings.extent()
         crs_map = map_settings.destinationCrs()
@@ -137,3 +140,12 @@ class QuickOSMPlugin:
         from .ui.dialog import Dialog
         dialog = Dialog(self.iface)
         dialog.exec_()
+
+    @staticmethod
+    def run_tests():
+        """Run the test inside QGIS."""
+        try:
+            from .qgis_plugin_tools.test_runner import test_package
+            test_package(plugin_path())
+        except AttributeError:
+            LOGGER.debug('Could not load tests. Are you using a production package?')
