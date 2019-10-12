@@ -204,11 +204,11 @@ def process_query(
 
 def process_quick_query(
         dialog=None,
+        query_type=None,
         key=None,
         value=None,
         bbox=None,
         area=None,
-        is_around=None,
         distance=None,
         osm_objects=None,
         timeout=25,
@@ -218,21 +218,6 @@ def process_quick_query(
     """
     Generate a query and send it to process_query.
     """
-    # TODO
-    # Move this logic UP
-    # Copy/paste in quick_query_dialog.py
-    distance_string = None
-    if is_around and area:
-        query_type = QueryType.AroundArea
-        distance_string = '{}'.format(distance)
-    elif not is_around and area:
-        query_type = QueryType.InArea
-        distance = None
-    elif bbox:
-        query_type = QueryType.BBox
-    else:
-        query_type = QueryType.NotSpatial
-    # End todo
 
     LOGGER.info('QueryFactory: the key is "{}" and the value is "{}"'.format(
         key, value))
@@ -252,6 +237,9 @@ def process_quick_query(
     # Generate layer name as following (if defined)
     if not key:
         key = tr('allKeys')
+    distance_string = None
+    if distance:
+        distance_string = '{}'.format(distance)
     expected_name = [key, value, area, distance_string]
     layer_name = '_'.join([f for f in expected_name if f])
     LOGGER.info('Query: {}'.format(layer_name))

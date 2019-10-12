@@ -14,6 +14,7 @@ from qgis.PyQt.QtWidgets import QCompleter
 from .base_processing_panel import BaseProcessingPanel
 from ..core.utilities.tools import nominatim_file
 from ..definitions.gui import Panels
+from ..definitions.osm import QueryType
 from ..qgis_plugin_tools.i18n import tr
 
 
@@ -151,20 +152,20 @@ class BaseOverpassPanel(BaseProcessingPanel):
             place = None
         properties['place'] = place
 
-        properties['query_type'] = (
-            self.dialog.query_type_buttons[self.panel].currentData())
-        properties['is_around'] = properties['query_type'] == 'around'
+        query_type = self.dialog.query_type_buttons[self.panel].currentData()
 
         if not properties['place']:
-            if properties['query_type'] in ['canvas', 'layer']:
-                if properties['query_type'] == 'canvas':
+            if query_type in ['canvas', 'layer']:
+                if query_type == 'canvas':
                     geom_extent = self.dialog.iface.mapCanvas().extent()
                     source_crs = self.dialog.iface.mapCanvas().mapSettings().destinationCrs()
-                elif properties['query_type'] == 'layer':
+                elif query_type == 'layer':
                     # Else if a layer is checked
                     layer = self.dialog.layers_buttons[self.panel].currentLayer()
                     geom_extent = layer.extent()
                     source_crs = layer.crs()
+                else:
+                    raise NotImplemented
 
                 # noinspection PyArgumentList
                 geom_extent = QgsGeometry.fromRect(geom_extent)
@@ -178,5 +179,18 @@ class BaseOverpassPanel(BaseProcessingPanel):
                 properties['bbox'] = None
         else:
             properties['bbox'] = None
+
+        if query_type == 'in':
+            properties['query_type'] = QueryType.InArea
+        elif query_type == 'around':
+            properties['query_type'] = QueryType.AroundArea
+        elif query_type == 'canvas':
+            properties['query_type'] = QueryType.BBox
+        elif query_type == 'layer':
+            properties['query_type'] = QueryType.BBox
+        elif query_type == 'attributes':
+            properties['query_type'] = QueryType.NotSpatial
+        else:
+            raise NotImplemented
 
         return properties

@@ -133,8 +133,9 @@ class QuickQueryPanel(BaseOverpassPanel):
         properties['value'] = self.dialog.combo_value.currentText()
         properties['timeout'] = self.dialog.spin_timeout.value()
 
-        # TODO move?
         properties['distance'] = self.dialog.spin_place_qq.value()
+        if properties['query_type'] != QueryType.AroundArea:
+            properties['distance'] = None
         return properties
 
     def _run(self):
@@ -142,10 +143,10 @@ class QuickQueryPanel(BaseOverpassPanel):
         properties = self.gather_values()
         num_layers = process_quick_query(
             dialog=self.dialog,
+            query_type=properties['query_type'],
             key=properties['key'],
             value=properties['value'],
             area=properties['place'],
-            is_around=properties['is_around'],
             distance=properties['distance'],
             bbox=properties['bbox'],
             osm_objects=properties['osm_objects'],
@@ -172,23 +173,9 @@ class QuickQueryPanel(BaseOverpassPanel):
             self.dialog.line_file_prefix_q.setText(p['prefix_file'])
             self.dialog.line_file_prefix_q.setEnabled(True)
 
-        # TODO
-        # Move this logic UP
-        # Copy/paste in quick_query_dialog.py
-        if p['is_around'] and p['place']:
-            query_type = QueryType.AroundArea
-        elif not p['is_around'] and p['place']:
-            query_type = QueryType.InArea
-            distance = None
-        elif p['bbox']:
-            query_type = QueryType.BBox
-        else:
-            query_type = QueryType.NotSpatial
-        # End todo
-
         # Make the query
         query_factory = QueryFactory(
-            query_type=query_type,
+            query_type=p['query_type'],
             key=p['key'],
             value=p['value'],
             area=p['place'],
