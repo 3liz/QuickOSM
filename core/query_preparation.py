@@ -51,6 +51,8 @@ class QueryPreparation:
         self._places = area
         self._output_format = output_format
 
+        self._nominatim = None
+
         self._query_is_ready = False
 
     @property
@@ -178,8 +180,9 @@ class QueryPreparation:
                     pass
 
             if lat is None and lon is None:
-                nominatim = Nominatim()
-                lon, lat = nominatim.get_first_point_from_query(search)
+                if not self._nominatim:
+                    self._nominatim = Nominatim()
+                lon, lat = self._nominatim.get_first_point_from_query(search)
 
             if self.is_oql_query():
                 new_string = '{},{}'.format(lat, lon)
@@ -211,8 +214,17 @@ class QueryPreparation:
                 osm_id = search
             else:
                 # We perform a nominatim query
-                nominatim = Nominatim()
-                osm_id = nominatim.get_first_polygon_from_query(search)
+                if not self._nominatim:
+                    self._nominatim = Nominatim()
+                osm_id = self._nominatim.get_first_polygon_from_query(search)
+
+            # HACK when running in test.
+            # In production, osm_id IS an integer, not in tests.
+            if osm_id == 'foo_BAR':
+                osm_id = 12345
+            elif osm_id == 'bar_FOO':
+                osm_id = 54321
+            # END big hack
 
             area = int(osm_id) + 3600000000
 

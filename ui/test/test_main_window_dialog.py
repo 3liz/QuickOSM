@@ -1,12 +1,8 @@
-import sys
-
 from qgis.testing import unittest, start_app
 from qgis.testing.mocked import get_iface
 
 from ..dialog import Dialog
 
-if not hasattr(sys, 'argv'):
-    sys.argv = ['']
 
 start_app()
 

@@ -1,5 +1,3 @@
-import sys
-
 from qgis.testing import unittest, start_app
 from qgis.testing.mocked import get_iface
 
@@ -9,8 +7,6 @@ from ...core.utilities.tools import (
 )
 from ...definitions.overpass import OVERPASS_SERVERS
 
-if not hasattr(sys, 'argv'):
-    sys.argv = ['']
 
 start_app()
 
