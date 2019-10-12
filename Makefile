@@ -1,7 +1,7 @@
 # Makefile for QuickOSM
 
 # Add ISO code for any locales you want to support here (space separated)
-LOCALES = fr de en es es_ES fi id it nl pt pt_BR ru zh_TW
+LOCALES = fr de en es fi id it nl pl pt pt_BR ru zh_TW
 # Name of the plugin, for the ZIP file
 PLUGINNAME = QuickOSM
 

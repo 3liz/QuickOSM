@@ -18,15 +18,21 @@ server=True
 # Uncomment the following line and add your changelog:
 # changelog=
   Version 1.13.X
+  * Fix Nominatim call when no osm_type #205
+  * Fix mapillary panel
+  * Update of Overpass server list
   * Update JOSM logo
   * Fix issue about OSM file which doesn't exist
   * Update translation from Transifex
-  * New Indonesian language
+  * New Indonesian, Polish and Portuguese languages
+  * Update translation files
   * Remove old PyUic files
   * Fix UTF8 error in nominatim places
   * Improve logging of network requests
   * Open the log panel when a bug occured
   * Add open OSM file algorithm to the Processing provider
+  * Big refactoring of the code
+  * Fix various little bugs
   Version 1.12.X
   * Fix loading an OSM file with a custom INI file #159
   * Fix launch of QuickOSM on a new profile
@@ -35,11 +41,6 @@ server=True
   * New logo
   * New values in OSM tags (crop, produce and trees)
   * Add the Overpass Query to the layer variable scope
-  Version 1.11.X
-  * Bug fix about QgsSettings
-  * Add raw query processing algorithm
-  * API break in Processing algorithm about NOMINATIM replaced by AREA
-  * Allow point as WKT in the AREA parameter in the "Around" query
 
 # Tags are comma separated with spaces allowed
 tags=osm,openstreetmap,overpass,download,osmdownload,josm,remote,pbf,processing,modeler
