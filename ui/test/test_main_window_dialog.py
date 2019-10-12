@@ -21,7 +21,8 @@ class TestUiMainWindow(unittest.TestCase):
         index = dialog.combo_query_type_qq.findData('attributes')
         dialog.combo_query_type_qq.setCurrentIndex(index)
         dialog.button_show_query.click()
-        self.assertEqual(dialog.stacked_panels_widget.currentIndex(), dialog.query_index)
+        expected_index = dialog.stacked_panels_widget.indexOf(dialog.query_page)
+        self.assertEqual(dialog.stacked_panels_widget.currentIndex(), expected_index)
         self.assertNotEqual(dialog.text_query.toPlainText(), '')
 
     def test_show_query_key_value_in(self):
@@ -31,5 +32,6 @@ class TestUiMainWindow(unittest.TestCase):
         dialog.combo_value.lineEdit().setText('value')
         dialog.places_edits[Panels.QuickQuery].setText('foo')
         dialog.button_show_query.click()
-        self.assertEqual(dialog.stacked_panels_widget.currentIndex(), dialog.query_index)
+        expected_index = dialog.stacked_panels_widget.indexOf(dialog.query_page)
+        self.assertEqual(dialog.stacked_panels_widget.currentIndex(), expected_index)
         self.assertNotEqual(dialog.text_query.toPlainText(), '')

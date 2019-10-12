@@ -6,7 +6,7 @@ from os.path import isfile
 from qgis.PyQt.QtWidgets import QDialogButtonBox, QCompleter
 
 from .base_overpass_panel import BaseOverpassPanel
-from ..core.exceptions import OsmObjectsException
+from ..core.exceptions import OsmObjectsException, QuickOsmException
 from ..core.process import process_quick_query
 from ..core.query_factory import QueryFactory
 from ..core.utilities.utilities_qgis import open_map_features
@@ -158,7 +158,14 @@ class QuickQueryPanel(BaseOverpassPanel):
 
     def show_query(self):
         """Show the query in the main window."""
-        p = self.gather_values()
+        try:
+            p = self.gather_values()
+        except QuickOsmException as e:
+            self.dialog.display_quickosm_exception(e)
+            return
+        except Exception as e:
+            self.dialog.display_critical_exception(e)
+            return
 
         # Transfer each output with zip
         check_boxes = zip(
@@ -183,6 +190,13 @@ class QuickQueryPanel(BaseOverpassPanel):
             osm_objects=p['osm_objects'],
             timeout=p['timeout']
         )
-        query = query_factory.make()
-        self.dialog.text_query.setPlainText(query)
-        self.dialog.stacked_panels_widget.setCurrentIndex(self.dialog.query_index)
+        try:
+            query = query_factory.make()
+        except QuickOsmException as e:
+            self.dialog.display_quickosm_exception(e)
+        except Exception as e:
+            self.dialog.display_critical_exception(e)
+        else:
+            self.dialog.text_query.setPlainText(query)
+            item = self.dialog.menu_widget.item(self.dialog.query_menu_index)
+            self.dialog.menu_widget.setCurrentItem(item)

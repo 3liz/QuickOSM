@@ -165,6 +165,12 @@ Forms
 """
 
 
+class MissingLayerUI(QuickOsmException):
+    def __init__(self):
+        message = tr('The layer combobox is empty.')
+        super().__init__(message)
+
+
 class MissingParameterException(QuickOsmException):
     def __init__(self, message=None, suffix=None):
         if not message:

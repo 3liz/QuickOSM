@@ -127,7 +127,10 @@ class QueryFactory:
         areas = [
             QueryType.InArea, QueryType.AroundArea]
         if self._query_type in areas and not self._area:
-            raise QueryFactoryException(tr('Named area required or WKT.'))
+            raise QueryFactoryException(
+                tr(
+                    'Named area required or WKT when the query is "In" or '
+                    '"Around".'))
 
         if not self._key and self._value:
             raise QueryFactoryException(

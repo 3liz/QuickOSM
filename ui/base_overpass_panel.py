@@ -12,6 +12,7 @@ from qgis.core import (
 from qgis.PyQt.QtWidgets import QCompleter
 
 from .base_processing_panel import BaseProcessingPanel
+from ..core.exceptions import MissingLayerUI
 from ..core.utilities.tools import nominatim_file
 from ..definitions.gui import Panels
 from ..definitions.osm import QueryType
@@ -162,6 +163,8 @@ class BaseOverpassPanel(BaseProcessingPanel):
                 elif query_type == 'layer':
                     # Else if a layer is checked
                     layer = self.dialog.layers_buttons[self.panel].currentLayer()
+                    if not layer:
+                        raise MissingLayerUI
                     geom_extent = layer.extent()
                     source_crs = layer.crs()
                 else:

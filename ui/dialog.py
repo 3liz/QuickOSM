@@ -43,7 +43,7 @@ class Dialog(QDialog, FORM_CLASS):
         self.setupUi(self)
         self.iface = iface
 
-        self.query_index = self.stacked_panels_widget.indexOf(self.query_page)
+        self.query_menu_index = 1
 
         # Table mapping
 
