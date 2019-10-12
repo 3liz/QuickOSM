@@ -54,13 +54,28 @@ class OverpassTimeoutException(QuickOsmException):
         super().__init__(message)
 
 
-class NetWorkErrorException(QuickOsmException):
-    def __init__(self, message=None, suffix=None):
-        if not message:
-            message = tr('Network error')
-        if suffix:
-            message = message + ' with ' + suffix
+class OverpassMemoryException(QuickOsmException):
+    def __init__(self, amount_memory, unit):
+        message = tr(
+            'OverpassAPI out of memory, try another query or a smaller area.')
+        details = tr(
+            'The server would need more or less {number} {unit} of RAM.').format(
+            number=amount_memory, unit=unit
+        )
+        super().__init__(message, details)
+
+
+class OverpassRuntimeError(QuickOsmException):
+    def __init__(self, message):
+        message = tr('Overpass: {}').format(message)
         super().__init__(message)
+
+
+class NetWorkErrorException(QuickOsmException):
+    def __init__(self, service, details=None):
+        if details:
+            service = service + ' : ' + details
+        super().__init__(service)
 
 
 """

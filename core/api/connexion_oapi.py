@@ -17,6 +17,8 @@ from qgis.core import QgsFileDownloader
 from ..exceptions import (
     OverpassTimeoutException,
     NetWorkErrorException,
+    OverpassRuntimeError,
+    OverpassMemoryException,
 )
 
 __copyright__ = 'Copyright 2019, 3Liz'
@@ -47,11 +49,11 @@ class ConnexionOAPI:
         self.result_path = temporary.fileName()
         temporary.close()
 
-    @staticmethod
-    def error(messages):
+    def error(self, messages):
         for message in messages:
+            self.is_query_timed_out(message)
             LOGGER.error(message)
-        raise NetWorkErrorException(', '.join(messages))
+        raise NetWorkErrorException('Overpass API', ', '.join(messages))
 
     @staticmethod
     def canceled():
@@ -83,22 +85,50 @@ class ConnexionOAPI:
 
         osm_file = QFileInfo(self.result_path)
         if not osm_file.exists() and not osm_file.isFile():
-            raise OverpassTimeoutException
+            # Do not raise a QuickOSM exception here
+            # It must be a bug from QuickOSM
+            raise FileNotFoundError
 
+        self.check_file(self.result_path)
+
+        # Everything went fine
+        return self.result_path
+
+    @staticmethod
+    def check_file(path):
         # The download is done, checking for not complete OSM file.
         # Overpass might aborted the request with HTTP 200.
-        file_obj = codecs.open(self.result_path, 'r', 'utf-8')
+        file_obj = codecs.open(path, 'r', 'utf-8')
         file_obj.seek(0, 2)
         fsize = file_obj.tell()
         file_obj.seek(max(fsize - 1024, 0), 0)
         lines = file_obj.readlines()
         file_obj.close()
         lines = lines[-10:]  # Get last 10 lines
+
         timeout = (
             '<remark> runtime error: Query timed out in "[a-z]+" at line '
             '[\d]+ after ([\d]+) seconds. </remark>')
         if re.search(timeout, ''.join(lines)):
             raise OverpassTimeoutException
 
-        # Everything went fine
-        return self.result_path
+        memory = (
+            '<remark> runtime error: Query ran out of memory in "query" at '
+            'line [\d]+. It would need at least ([\d]+) (.*) of RAM to '
+            'continue. </remark>')
+        search = re.search(memory, ''.join(lines))
+        if search:
+            raise OverpassMemoryException(search.group(1), search.group(2))
+
+        generic = (
+            '<remark> runtime error: (.*)</remark>')
+        search = re.search(generic, ''.join(lines))
+        if search:
+            raise OverpassRuntimeError(search.group(1))
+
+    @staticmethod
+    def is_query_timed_out(string):
+        text = 'Network request (.*) timed out'
+        search = re.search(text, string)
+        if search:
+            raise OverpassTimeoutException

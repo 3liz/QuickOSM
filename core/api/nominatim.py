@@ -66,7 +66,7 @@ class Nominatim:
         if self.network_reply.error() == QNetworkReply.NoError:
             return json.loads(self.data)
         else:
-            raise NetWorkErrorException(suffix='Nominatim API')
+            raise NetWorkErrorException('Nominatim API')
 
     def _end_of_request(self):
         """Internal function to read the content."""
