@@ -13,7 +13,7 @@ from qgis.core import (
     QgsHstoreUtils,
 )
 
-from ..exceptions import GeoAlgorithmException
+from ..exceptions import QuickOsmException
 from ...qgis_plugin_tools.i18n import tr
 
 __copyright__ = 'Copyright 2019, 3Liz'
@@ -87,7 +87,7 @@ class OsmParser(QObject):
         gdal.SetConfigOption('OSM_USE_CUSTOM_INDEXING', 'NO')
 
         if not isfile(self.__osmFile):
-            raise GeoAlgorithmException(tr('File does not exist'))
+            raise QuickOsmException(tr('File does not exist'))
 
         uri = self.__osmFile + "|layername="
         layers = {}
@@ -101,8 +101,8 @@ class OsmParser(QObject):
                     uri + layer, file_name + " " + layer, "ogr")
 
                 if not layers[layer].isValid():
-                    msg = tr("Error on the layer : {}").format(layer)
-                    raise GeoAlgorithmException(msg)
+                    message = tr("Error on the layer : {}").format(layer)
+                    raise QuickOsmException(message)
 
             return layers
 
@@ -116,8 +116,8 @@ class OsmParser(QObject):
                 uri + layer, "test_" + layer, "ogr")
 
             if not layers[layer]['vectorLayer'].isValid():
-                msg = "Error on the layer : {}".format(layer)
-                raise GeoAlgorithmException(msg)
+                message = "Error on the layer : {}".format(layer)
+                raise QuickOsmException(message)
 
             layers[layer]['vectorLayer'].setProviderEncoding('UTF-8')
 
@@ -172,8 +172,8 @@ class OsmParser(QObject):
 
         # Creating GeoJSON files for each layers
         for layer in self.__layers:
-            msg = tr('Creating memory layer : ' + layer)
-            self.signalText.emit(msg)
+            message = tr('Creating memory layer : ' + layer)
+            self.signalText.emit(message)
             self.signalPercentage.emit(0)
 
             # Adding the attribute table

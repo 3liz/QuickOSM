@@ -49,9 +49,9 @@ class ConnexionOAPI:
 
     @staticmethod
     def error(messages):
-        for msg in messages:
-            LOGGER.error(msg)
-        raise NetWorkErrorException(msg)
+        for message in messages:
+            LOGGER.error(message)
+        raise NetWorkErrorException(', '.join(messages))
 
     @staticmethod
     def canceled():

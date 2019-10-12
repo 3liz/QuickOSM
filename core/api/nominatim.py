@@ -10,6 +10,7 @@ from ..exceptions import (
     NetWorkErrorException,
     NominatimAreaException
 )
+from ...definitions.osm import OsmType
 
 __copyright__ = 'Copyright 2019, 3Liz'
 __license__ = 'GPL version 3'
@@ -18,38 +19,38 @@ __revision__ = '$Format:%H$'
 
 
 class Nominatim:
+
     """Manage connexion to Nominatim."""
 
-    def __init__(self,
-                 url="https://nominatim.openstreetmap.org/search?format=json"):
+    def __init__(self, url=None):
+        """Constructor.
+
+        :param url: URL of Nominatim server.
+        :type url: basestring
         """
-        Constructor
-        @param url:URL of Nominatim
-        @type url:str
-        """
+        if url is None:
+            url = 'https://nominatim.openstreetmap.org/search?format=json'
 
         self.__url = url
+        # noinspection PyArgumentList
         self.network = QgsNetworkAccessManager.instance()
         self.data = None
         self.network_reply = None
         self.loop = None
 
     def query(self, query):
+        """Perform a nominatim query.
+
+        :param query: Query to execute on the nominatim server.
+        :type query: basestring
+
+        :return: The result of the query as a dictionary.
+        :rtype: dict
+
+        :raise NetWorkErrorException
         """
-        Perform a nominatim query
-
-        @param query: Query to execute
-        @type query: str
-
-        @raise NetWorkErrorException
-
-        @return: the result of the query
-        @rtype: str
-        """
-
         url_query = QUrl(self.__url)
 
-        # query = QUrl.toPercentEncoding(query)
         query_string = QUrlQuery()
         query_string.addQueryItem('q', query)
         query_string.addQueryItem('format', 'json')
@@ -57,7 +58,6 @@ class Nominatim:
         url_query.setQuery(query_string)
 
         request = QNetworkRequest(url_query)
-        # request.setRawHeader("User-Agent", "QuickOSM")
         self.network_reply = self.network.get(request)
         self.loop = QEventLoop()
         self.network.finished.connect(self._end_of_request)
@@ -66,48 +66,52 @@ class Nominatim:
         if self.network_reply.error() == QNetworkReply.NoError:
             return json.loads(self.data)
         else:
-            raise NetWorkErrorException(suffix="Nominatim API")
+            raise NetWorkErrorException(suffix='Nominatim API')
 
     def _end_of_request(self):
+        """Internal function to read the content."""
         self.data = self.network_reply.readAll().data().decode('utf-8')
         self.loop.quit()
 
     def get_first_polygon_from_query(self, query):
-        """
-        Get first OSM_ID of a Nominatim area
+        """Get first OSM_ID of a Nominatim area.
 
-        @param query: Query to execute
-        @type query: str
+        :param query: Query to execute.
+        :type query: basestring
 
-        @raise NominatimAreaException:
+        :return: First relation's with an "osm_id".
+        :rtype: int
 
-        @return: First relation's osm_id
-        @rtype: str
+        :raise NominatimAreaException:
         """
         data = self.query(query)
         for result in data:
-            if result['osm_type'] == "relation":
-                return result['osm_id']
+            if result.get('osm_type') == OsmType.Relation.name.lower():
+                osm_id = result.get('osm_id')
+                if osm_id:
+                    return osm_id
 
         # If no result has been return
-        raise NominatimAreaException
+        raise NominatimAreaException(OsmType.Relation, query)
 
     def get_first_point_from_query(self, query):
-        """
-        Get first longitude, latitude of a Nominatim point
+        """Get first longitude, latitude of a Nominatim point.
 
-        @param query: Query to execute
-        @type query: str
+        :param query: Query to execute.
+        :type query: basestring
 
-        @raise NominatimAreaException:
+        :return: First node with its longitude and latitude.
+        :rtype: tuple(float, float)
 
-        @return: First relation's osm_id
-        @rtype: str
+        :raise NominatimAreaException:
         """
         data = self.query(query)
         for result in data:
-            if result['osm_type'] == "node":
-                return result['lon'], result['lat']
+            if result.get('osm_type') == OsmType.Node.name.lower():
+                lon = result.get('lon')
+                lat = result.get('lat')
+                if lon and lat:
+                    return lon, lat
 
         # If no result has been return
-        raise NominatimAreaException
+        raise NominatimAreaException(OsmType.Node, query)

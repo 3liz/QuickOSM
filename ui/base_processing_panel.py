@@ -31,15 +31,13 @@ class BaseProcessingPanel(BasePanel):
         super().__init__(dialog)
 
     def run(self):
+        self._start_process()
         try:
-            self._start_process()
             self._run()
         except QuickOsmException as e:
-            # self.dialog.display_geo_algorithm_exception(e)
-            raise
+            self.dialog.display_quickosm_exception(e)
         except Exception as e:
-            # self.dialog.display_exception(e)
-            raise
+            self.dialog.display_critical_exception(e)
         finally:
             self._end_process()
 

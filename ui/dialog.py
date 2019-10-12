@@ -10,6 +10,7 @@ from qgis.PyQt.QtWidgets import (
     QDialog,
     QApplication,
     QPushButton,
+    QMessageBox,
 )
 from qgis.core import Qgis
 
@@ -17,6 +18,7 @@ from .configuration_panel import ConfigurationPanel
 from .osm_file_panel import OsmFilePanel
 from .query_panel import QueryPanel
 from .quick_query_panel import QuickQueryPanel
+from ..core.exceptions import QuickOsmException
 from ..core.utilities.utilities_qgis import open_log_panel
 from ..definitions.gui import Panels
 from ..qgis_plugin_tools.i18n import tr
@@ -133,19 +135,31 @@ class Dialog(QDialog, FORM_CLASS):
             panel.setup_panel()
         self.menu_widget.setCurrentRow(0)
 
-    def display_geo_algorithm_exception(self, exception):
+    def display_quickosm_exception(self, exception):
         """Display QuickOSM exceptions.
 
+        These exceptions are been raised by QuickOSM itself.
+        It should be an error from the user.
+
         :param exception: The exception to display.
-        :rtype exception: GeoAlgorithmException
+        :rtype exception: QuickOsmException
         """
         self.set_progress_text('')
-        LOGGER.debug(exception.msg)
-        self.display_message_bar(
-            exception.msg, level=exception.level, duration=exception.duration)
+        if isinstance(exception, QuickOsmException):
+            self.display_message_bar(
+                exception.message,
+                level=exception.level,
+                duration=exception.duration,
+                more_details=exception.more_details,
+            )
+        else:
+            # Should not happen, just in case
+            self.display_critical_exception(exception)
 
-    def display_exception(self, exception):
-        """Display others exceptions.
+    def display_critical_exception(self, exception):
+        """Display others exceptions, these are criticals.
+
+        They are not managed by QuickOSM so it's a bug from the plugin.
 
         :param exception: The exception to display.
         :rtype exception: BaseException
@@ -174,6 +188,7 @@ class Dialog(QDialog, FORM_CLASS):
             message=None,
             level=Qgis.Info,
             duration=5,
+            more_details=None,
             open_logs=False):
         """Display a message.
 
@@ -190,16 +205,27 @@ class Dialog(QDialog, FORM_CLASS):
 
         :param open_logs: If we need to add a button for the log panel.
         :type open_logs: bool
+
+        :param more_details: The message to display in the "More button".
+        :type more_details: basestring
         """
         widget = self.message_bar.createMessage(title, message)
 
-        if open_logs:
+        if more_details or open_logs:
+            # Adding the button
             button = QPushButton(widget)
-            button.setText(tr('Report it'))
-            # noinspection PyUnresolvedReferences
-            button.pressed.connect(
-                lambda: open_log_panel())
             widget.layout().addWidget(button)
+
+            if open_logs:
+                button.setText(tr('Report it'))
+                # noinspection PyUnresolvedReferences
+                button.pressed.connect(
+                    lambda: open_log_panel())
+            else:
+                button.setText(tr('More details'))
+                # noinspection PyUnresolvedReferences
+                button.pressed.connect(
+                    lambda: QMessageBox.information(None, title, more_details))
 
         self.message_bar.pushWidget(widget, level, duration)
 

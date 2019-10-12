@@ -11,13 +11,14 @@ __revision__ = '$Format:%H$'
 
 
 from ...definitions.urls import (
-    BUG_REPORT_URL, MAP_FEATURES_URL, DOC_OVERPASS_URL, OVERPASS_TURBO_URL)
+    MAP_FEATURES_URL, DOC_OVERPASS_URL, OVERPASS_TURBO_URL)
 
 
 def open_log_panel():
     """Open the log panel for bug reporting."""
     iface.openMessageLog()
-    open_webpage(BUG_REPORT_URL)
+    # Disabled because too much tickets without useful info.
+    # open_webpage(BUG_REPORT_URL)
 
 
 def open_overpass_turbo():
