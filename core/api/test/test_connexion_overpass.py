@@ -1,13 +1,16 @@
 """Tests for Overpass API requests."""
 
 from qgis.testing import unittest
+from qgis.PyQt.QtCore import QUrl, QUrlQuery
 
 from ..connexion_oapi import ConnexionOAPI
 from ...exceptions import (
+    OverpassBadRequestException,
     OverpassTimeoutException,
     OverpassMemoryException,
     OverpassRuntimeError,
 )
+from ....definitions.overpass import OVERPASS_SERVERS
 from ....qgis_plugin_tools.resources import plugin_test_data_path
 
 __copyright__ = 'Copyright 2019, 3Liz'
@@ -17,6 +20,31 @@ __revision__ = '$Format:%H$'
 
 
 class TestOverpass(unittest.TestCase):
+
+    def test_real_wrong_request(self):
+        """Test wrong request.
+
+        This is test is using internet.
+        """
+        url = QUrl(OVERPASS_SERVERS[0])
+        query_string = QUrlQuery()
+        query_string.addQueryItem('data', 'fake_query')
+        url.setQuery(query_string)
+        overpass = ConnexionOAPI(url.toString())
+
+        self.assertListEqual(overpass.errors, [])
+
+        # We don't want the FileNotFoundError
+        try:
+            overpass.run()
+        except OverpassBadRequestException:
+            self.assertTrue(True)
+        except FileNotFoundError:
+            self.assertFalse(True)
+        else:
+            self.assertFalse(True)
+
+        self.assertEqual(len(overpass.errors), 1)
 
     def test_parsing_http_string(self):
         """Test we can parse the HTTP return string from QGIS for timing out."""

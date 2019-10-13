@@ -15,6 +15,7 @@ from qgis.PyQt.QtCore import (
 from qgis.core import QgsFileDownloader
 
 from ..exceptions import (
+    OverpassBadRequestException,
     OverpassTimeoutException,
     NetWorkErrorException,
     OverpassRuntimeError,
@@ -48,12 +49,10 @@ class ConnexionOAPI:
         temporary.open()
         self.result_path = temporary.fileName()
         temporary.close()
+        self.errors = []
 
     def error(self, messages):
-        for message in messages:
-            self.is_query_timed_out(message)
-            LOGGER.error(message)
-        raise NetWorkErrorException('Overpass API', ', '.join(messages))
+        self.errors = messages
 
     @staticmethod
     def canceled():
@@ -82,6 +81,14 @@ class ConnexionOAPI:
         downloader.downloadCompleted.connect(self.completed)
         downloader.startDownload()
         loop.exec_()
+
+        for message in self.errors:
+            self.is_query_timed_out(message)
+            self.is_bad_request(message)
+            LOGGER.error(message)
+
+        if len(self.errors):
+            raise NetWorkErrorException('Overpass API', ', '.join(self.errors))
 
         osm_file = QFileInfo(self.result_path)
         if not osm_file.exists() and not osm_file.isFile():
@@ -132,3 +139,15 @@ class ConnexionOAPI:
         search = re.search(text, string)
         if search:
             raise OverpassTimeoutException
+
+    @staticmethod
+    def is_bad_request(string):
+        text = '(.*)server replied: Bad Request'
+        search = re.search(text, string)
+        if search:
+            raise OverpassBadRequestException
+
+        text = '(.*)server replied: Forbidden'
+        search = re.search(text, string)
+        if search:
+            raise OverpassBadRequestException
