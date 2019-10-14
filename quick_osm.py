@@ -146,6 +146,9 @@ class QuickOSMPlugin:
         """Run the test inside QGIS."""
         try:
             from .qgis_plugin_tools.test_runner import test_package
-            test_package(plugin_path())
-        except AttributeError:
-            LOGGER.debug('Could not load tests. Are you using a production package?')
+            from pathlib import Path
+            test_package('{}.__init__'.format(Path(__file__).parent.name))
+        except (AttributeError, ModuleNotFoundError):
+            message = 'Could not load tests. Are you using a production package?'
+            print(message)
+            LOGGER.debug(message)
