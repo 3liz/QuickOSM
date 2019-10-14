@@ -35,6 +35,9 @@ class QueryPanel(BaseOverpassPanel):
         super().__init__(dialog)
         self.panel = Panels.Query
 
+        # Fix #203, the XML Highlighter must be a member of the class
+        self.highlighter = None
+
     def setup_panel(self):
         super().setup_panel()
         self.dialog.combo_query_type_q.addItem(tr('Canvas Extent'), 'canvas')
@@ -42,9 +45,9 @@ class QueryPanel(BaseOverpassPanel):
         self.dialog.combo_query_type_q.currentIndexChanged.connect(
             self.query_type_updated)
 
-        highlighter = XMLHighlighter(self.dialog.text_query.document())
+        self.highlighter = XMLHighlighter(self.dialog.text_query.document())
         self.dialog.text_query.cursorPositionChanged.connect(
-            highlighter.rehighlight)
+            self.highlighter.rehighlight)
         self.dialog.text_query.cursorPositionChanged.connect(
             self.allow_nominatim_or_extent)
 
