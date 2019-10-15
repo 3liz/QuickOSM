@@ -87,6 +87,9 @@ class QuickQueryPanel(BaseOverpassPanel):
         self.query_type_updated()
         self.init_nominatim_autofill()
 
+        self._update_friendly()
+
+        
     def query_type_updated(self):
         self._core_query_type_updated(
             self.dialog.combo_query_type_qq,
@@ -114,6 +117,7 @@ class QuickQueryPanel(BaseOverpassPanel):
         values_completer = QCompleter(current_values)
         self.dialog.combo_value.setCompleter(values_completer)
         self.dialog.combo_value.addItems(current_values)
+        self._update_friendly()
 
     def gather_values(self):
         properties = super().gather_values()
@@ -200,3 +204,9 @@ class QuickQueryPanel(BaseOverpassPanel):
             self.dialog.text_query.setPlainText(query)
             item = self.dialog.menu_widget.item(self.dialog.query_menu_index)
             self.dialog.menu_widget.setCurrentItem(item)
+
+    def _update_friendly(self):
+        """ Updates the QuickQuery Friendly Label (label_qq_friendly) """
+        msg = tr("Please select an input location, above.")
+
+        self.dialog.label_qq_friendly.setText(msg)
