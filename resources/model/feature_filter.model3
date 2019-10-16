@@ -1,0 +1,142 @@
+<!DOCTYPE model>
+<Option type="Map">
+  <Option name="children" type="Map">
+    <Option name="native:explodehstorefield_1" type="Map">
+      <Option name="active" value="true" type="bool"/>
+      <Option name="alg_config"/>
+      <Option name="alg_id" value="native:explodehstorefield" type="QString"/>
+      <Option name="component_description" value="Explode HStore Field" type="QString"/>
+      <Option name="component_pos_x" value="360" type="double"/>
+      <Option name="component_pos_y" value="363" type="double"/>
+      <Option name="dependencies"/>
+      <Option name="id" value="native:explodehstorefield_1" type="QString"/>
+      <Option name="outputs" type="Map">
+        <Option name="Output" type="Map">
+          <Option name="child_id" value="native:explodehstorefield_1" type="QString"/>
+          <Option name="component_description" value="Output" type="QString"/>
+          <Option name="component_pos_x" value="560" type="double"/>
+          <Option name="component_pos_y" value="408" type="double"/>
+          <Option name="default_value" type="invalid"/>
+          <Option name="mandatory" value="false" type="bool"/>
+          <Option name="name" value="Output" type="QString"/>
+          <Option name="output_name" value="OUTPUT" type="QString"/>
+        </Option>
+      </Option>
+      <Option name="outputs_collapsed" value="true" type="bool"/>
+      <Option name="parameters_collapsed" value="true" type="bool"/>
+      <Option name="params" type="Map">
+        <Option name="EXPECTED_FIELDS" type="List">
+          <Option type="Map">
+            <Option name="source" value="2" type="int"/>
+            <Option name="static_value" value="" type="QString"/>
+          </Option>
+        </Option>
+        <Option name="FIELD" type="List">
+          <Option type="Map">
+            <Option name="source" value="2" type="int"/>
+            <Option name="static_value" value="other_tags" type="QString"/>
+          </Option>
+        </Option>
+        <Option name="INPUT" type="List">
+          <Option type="Map">
+            <Option name="child_id" value="native:stringconcatenation_1" type="QString"/>
+            <Option name="output_name" value="CONCATENATION" type="QString"/>
+            <Option name="source" value="1" type="int"/>
+          </Option>
+        </Option>
+      </Option>
+    </Option>
+    <Option name="native:stringconcatenation_1" type="Map">
+      <Option name="active" value="true" type="bool"/>
+      <Option name="alg_config"/>
+      <Option name="alg_id" value="native:stringconcatenation" type="QString"/>
+      <Option name="component_description" value="String concatenation" type="QString"/>
+      <Option name="component_pos_x" value="120" type="double"/>
+      <Option name="component_pos_y" value="160" type="double"/>
+      <Option name="dependencies"/>
+      <Option name="id" value="native:stringconcatenation_1" type="QString"/>
+      <Option name="outputs"/>
+      <Option name="outputs_collapsed" value="true" type="bool"/>
+      <Option name="parameters_collapsed" value="true" type="bool"/>
+      <Option name="params" type="Map">
+        <Option name="INPUT_1" type="List">
+          <Option type="Map">
+            <Option name="parameter_name" value="file" type="QString"/>
+            <Option name="source" value="0" type="int"/>
+          </Option>
+        </Option>
+        <Option name="INPUT_2" type="List">
+          <Option type="Map">
+            <Option name="expression" value="'||layername=' ||  @layer || '|subset=&quot;' ||  @key  || '&quot; != \'\''" type="QString"/>
+            <Option name="source" value="3" type="int"/>
+          </Option>
+        </Option>
+      </Option>
+    </Option>
+  </Option>
+  <Option name="help"/>
+  <Option name="modelVariables"/>
+  <Option name="model_group" value="OSM" type="QString"/>
+  <Option name="model_name" value="OSM PBF Filter" type="QString"/>
+  <Option name="parameterDefinitions" type="Map">
+    <Option name="file" type="Map">
+      <Option name="behavior" value="0" type="int"/>
+      <Option name="default" type="invalid"/>
+      <Option name="description" value="FILE" type="QString"/>
+      <Option name="extension" value="" type="QString"/>
+      <Option name="flags" value="0" type="int"/>
+      <Option name="metadata"/>
+      <Option name="name" value="file" type="QString"/>
+      <Option name="parameter_type" value="file" type="QString"/>
+    </Option>
+    <Option name="key" type="Map">
+      <Option name="default" value="building" type="QString"/>
+      <Option name="description" value="Key" type="QString"/>
+      <Option name="flags" value="0" type="int"/>
+      <Option name="metadata"/>
+      <Option name="multiline" value="false" type="bool"/>
+      <Option name="name" value="key" type="QString"/>
+      <Option name="parameter_type" value="string" type="QString"/>
+    </Option>
+    <Option name="layer" type="Map">
+      <Option name="default" value="multipolygons" type="QString"/>
+      <Option name="description" value="Layer" type="QString"/>
+      <Option name="flags" value="0" type="int"/>
+      <Option name="metadata"/>
+      <Option name="multiline" value="false" type="bool"/>
+      <Option name="name" value="layer" type="QString"/>
+      <Option name="parameter_type" value="string" type="QString"/>
+    </Option>
+    <Option name="native:explodehstorefield_1:Output" type="Map">
+      <Option name="create_by_default" value="true" type="bool"/>
+      <Option name="data_type" value="-1" type="int"/>
+      <Option name="default" type="invalid"/>
+      <Option name="description" value="Output" type="QString"/>
+      <Option name="flags" value="0" type="int"/>
+      <Option name="metadata"/>
+      <Option name="name" value="native:explodehstorefield_1:Output" type="QString"/>
+      <Option name="parameter_type" value="sink" type="QString"/>
+      <Option name="supports_non_file_outputs" value="true" type="bool"/>
+    </Option>
+  </Option>
+  <Option name="parameters" type="Map">
+    <Option name="file" type="Map">
+      <Option name="component_description" value="file" type="QString"/>
+      <Option name="component_pos_x" value="120" type="double"/>
+      <Option name="component_pos_y" value="60" type="double"/>
+      <Option name="name" value="file" type="QString"/>
+    </Option>
+    <Option name="key" type="Map">
+      <Option name="component_description" value="key" type="QString"/>
+      <Option name="component_pos_x" value="560" type="double"/>
+      <Option name="component_pos_y" value="60" type="double"/>
+      <Option name="name" value="key" type="QString"/>
+    </Option>
+    <Option name="layer" type="Map">
+      <Option name="component_description" value="layer" type="QString"/>
+      <Option name="component_pos_x" value="340" type="double"/>
+      <Option name="component_pos_y" value="60" type="double"/>
+      <Option name="name" value="layer" type="QString"/>
+    </Option>
+  </Option>
+</Option>
