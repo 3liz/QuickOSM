@@ -122,6 +122,7 @@ class TestQueryFactory(unittest.TestCase):
         # Key value and named place
         query = QueryFactory(
             query_type=QueryType.InArea, key='foo', value='bar', area='paris')
+        self.assertListEqual(query.area, ['paris'])
         expected_xml = (
             '<osm-script output="xml" timeout="25">'
             '<id-query area="paris" into="area_0"/>'
@@ -173,6 +174,7 @@ class TestQueryFactory(unittest.TestCase):
 
         # Key in bbox
         query = QueryFactory(query_type=QueryType.BBox, key='foo', timeout=35)
+        self.assertIsNone(query.area)
         expected_xml = (
             '<osm-script output="xml" timeout="35">'
             '<union>'
@@ -228,6 +230,7 @@ class TestQueryFactory(unittest.TestCase):
             area='paris;dubai',
             osm_objects=[OsmType.Node],
         )
+        self.assertListEqual(query.area, ['paris', 'dubai'])
         expected_xml = (
             '<osm-script output="xml" timeout="25">'
             '<id-query area="paris" into="area_0"/>'
@@ -279,6 +282,7 @@ class TestQueryFactory(unittest.TestCase):
             around_distance=1000,
             print_mode='meta',
             area='a')
+        self.assertListEqual(query.area, ['a'])
         expected_xml = (
             '<osm-script output="xml" timeout="25">'
             '<union>'
@@ -334,6 +338,7 @@ class TestQueryFactory(unittest.TestCase):
             print_mode='meta',
             osm_objects=[OsmType.Node],
             area='a')
+        self.assertListEqual(query.area, ['a'])
         expected_xml = (
             '<osm-script output="xml" timeout="25"><union>'
             '<query type="node">'
@@ -366,6 +371,7 @@ class TestQueryFactory(unittest.TestCase):
             key=['a', 'c'],
             value=['b', 'd']
         )
+        self.assertIsNone(query.area)
         expected_xml = (
             '<osm-script output="xml" timeout="25">'
             '<union>'
@@ -407,6 +413,7 @@ class TestQueryFactory(unittest.TestCase):
             key=['a', 'c'],
             value=[None, None]
         )
+        self.assertIsNone(query.area)
         expected_xml = (
             '<osm-script output="xml" timeout="25">'
             '<union>'
@@ -445,6 +452,7 @@ class TestQueryFactory(unittest.TestCase):
         """Test make query wuth valid indentation and lines."""
         query = QueryFactory(
             query_type=QueryType.BBox, key='foo', value='bar')
+        self.assertIsNone(query.area)
         expected = (
             '<osm-script output="xml" timeout="25">\n    '
             '<union>\n        <query type="node">\n            '
