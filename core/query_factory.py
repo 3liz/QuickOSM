@@ -81,7 +81,14 @@ class QueryFactory:
             value = []
         self._value = value
 
-        self._area = area
+        # Nominatim might be:
+        # a list of places or
+        # a single place or
+        # not defined (None)
+        self._area = None
+        if area:
+            self._area = [name.strip() for name in area.split(';')]
+
         self._distance_around = around_distance
 
         if osm_objects is None:
@@ -95,6 +102,16 @@ class QueryFactory:
         self._print_mode = print_mode
 
         self._checked = False
+
+    @property
+    def area(self):
+        """Return the area defined for the query.
+
+        Either None if no area or a list of areas.
+
+        :rtype: list
+        """
+        return self._area
 
     def _check_parameters(self):
         """Internal function to check that the query can be built.
@@ -176,10 +193,8 @@ class QueryFactory:
         query = '<osm-script output="{}" timeout="{}">'.format(
             self._output, self._timeout)
 
-        # Nominatim might be a list of places or a single place, or not defined
         if self._area:
-            nominatim = [
-                name.strip() for name in self._area.split(';')]
+            nominatim = self._area
         else:
             nominatim = None
 
