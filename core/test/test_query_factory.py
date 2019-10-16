@@ -12,7 +12,6 @@ __email__ = 'info@3liz.org'
 __revision__ = '$Format:%H$'
 
 
-# noinspection PyTypeChecker
 class TestQueryFactory(unittest.TestCase):
 
     def setUp(self):
@@ -21,6 +20,7 @@ class TestQueryFactory(unittest.TestCase):
     def test_impossible_queries(self):
         """Test queries which are not possible and must raise an exception."""
         # Query type
+        # noinspection PyTypeChecker
         query = QueryFactory('fake_query_type', area='foo')
         msg = 'Wrong query type.'
         with self.assertRaisesRegex(QueryFactoryException, msg):
@@ -113,11 +113,11 @@ class TestQueryFactory(unittest.TestCase):
     def test_possible_queries(self):
         """Test queries which are possible and must return a XML query."""
 
-        def test_query(query, xml, xml_with_template):
+        def test_query(q, xml, xml_with_template):
             """Internal helper for testing queries."""
-            self.assertTrue(query._check_parameters())
-            self.assertEqual(xml, query.generate_xml())
-            self.assertEqual(xml_with_template, query._make_for_test())
+            self.assertTrue(q._check_parameters())
+            self.assertEqual(xml, q.generate_xml())
+            self.assertEqual(xml_with_template, q._make_for_test())
 
         # Key value and named place
         query = QueryFactory(
@@ -471,6 +471,4 @@ class TestQueryFactory(unittest.TestCase):
 
 
 if __name__ == '__main__':
-    suite = unittest.makeSuite(TestQueryFactory)
-    runner = unittest.TextTestRunner(verbosity=2)
-    runner.run(suite)
+    unittest.main()
