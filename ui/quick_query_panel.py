@@ -30,7 +30,7 @@ class QuickQueryPanel(BaseOverpassPanel):
         super().__init__(dialog)
         self.panel = Panels.QuickQuery
         self.osm_keys = None
-
+        
     def setup_panel(self):
         super().setup_panel()
         """Setup the UI for the QuickQuery."""
@@ -64,6 +64,13 @@ class QuickQueryPanel(BaseOverpassPanel):
         self.dialog.button_box_qq.button(QDialogButtonBox.Reset).clicked.connect(
             self.dialog.reset_form)
 
+        # setup callbacks for friendly-label-update only
+        self.dialog.combo_value.editTextChanged.connect(self.update_friendly)
+        self.dialog.line_place_qq.textChanged.connect(self.update_friendly)
+        self.dialog.spin_place_qq.valueChanged.connect(self.update_friendly)
+        self.dialog.combo_extent_layer_qq.layerChanged.connect(self.update_friendly)
+        
+        
         # Setup auto completion
         map_features_json_file = resources_path('json', 'map_features.json')
         if isfile(map_features_json_file):
@@ -87,7 +94,7 @@ class QuickQueryPanel(BaseOverpassPanel):
         self.query_type_updated()
         self.init_nominatim_autofill()
 
-        self._update_friendly()
+        self.update_friendly()
 
         
     def query_type_updated(self):
@@ -95,6 +102,7 @@ class QuickQueryPanel(BaseOverpassPanel):
             self.dialog.combo_query_type_qq,
             self.dialog.stacked_query_type,
             self.dialog.spin_place_qq)
+        self.update_friendly()
 
     def key_edited(self):
         """Add values to the combobox according to the key."""
@@ -117,8 +125,12 @@ class QuickQueryPanel(BaseOverpassPanel):
         values_completer = QCompleter(current_values)
         self.dialog.combo_value.setCompleter(values_completer)
         self.dialog.combo_value.addItems(current_values)
-        self._update_friendly()
+        self.update_friendly()
 
+    def value_edited(self):
+        """Callback when the value combobox has been edited """
+        self.update_friendly()
+        
     def gather_values(self):
         properties = super().gather_values()
         osm_objects = []
@@ -205,8 +217,88 @@ class QuickQueryPanel(BaseOverpassPanel):
             item = self.dialog.menu_widget.item(self.dialog.query_menu_index)
             self.dialog.menu_widget.setCurrentItem(item)
 
-    def _update_friendly(self):
+            
+    def update_friendly(self):
         """ Updates the QuickQuery Friendly Label (label_qq_friendly) """
-        msg = tr("Please select an input location, above.")
 
+        # Although self.gather_values() might be a tempting way to fetch
+        # the required info, this calls super.nominatim_value() which
+        # executes file I/O - this crashes X
+        # Therefore query the widget values directly
+
+        query_type = self.dialog.query_type_buttons[self.panel].currentData()
+        place = self.dialog.places_edits[self.panel].text()
+        if place is not None:
+            place = place.strip()
+            if place == '':
+                place = None
+        distance = self.dialog.spin_place_qq.value()
+        layerobj = self.dialog.layers_buttons[self.panel].currentLayer()
+        layer = None if (layerobj is None) else layerobj.name()
+            
+        # first translate the location information
+        have_loc_info = False
+        if query_type == 'in':
+            if place is not None:
+                geomsg = "within " + place
+                have_loc_info = True
+                
+        elif query_type == 'around':
+            if place is not None:
+                geomsg = tr("within ") + str(distance)
+                geomsg = geomsg + tr(" meters of ") + place
+                have_loc_info = True
+
+        elif query_type == 'canvas':
+            geomsg = tr(" in the canvas extent ")
+            have_loc_info = True
+        elif query_type == 'layer':
+            if layer is not None:
+                geomsg = tr(" in the layer extent '") + layer + "' "
+                have_loc_info = True
+
+        elif query_type == 'attributes':
+            geomsg = ""
+            have_loc_info = True
+        else:
+            have_loc_info = False
+
+        if not have_loc_info:
+            msg = tr("Please select an input location or area.")
+            self.dialog.label_qq_friendly.setText(msg)
+            self.proc = False
+            return
+
+        # Next get the key / values
+        key = self.dialog.combo_key.currentText()
+        val = self.dialog.combo_value.currentText()
+        if key is not None:
+            key = key.strip()
+            if key== '':
+                key = None
+        if val is not None:
+            val = val.strip()
+            if val == '':
+                val = None
+                
+        if key == None:
+            # simple extents only message
+            msg = tr("All OSM objects ") + geomsg
+            #+ tr(" are going to be downloaded.")
+
+        else:
+            # Do we have a value?
+            if val is not None:
+                # provide both the key and value
+                msg = tr("All OSM objects having a tag '") + key
+                msg = msg + "'='" + val + "' " + geomsg
+                
+            else:
+                # provide just the key
+                msg = tr("All OSM objects having a key='") + key
+                msg = msg + "' " + geomsg
+
+        msg = msg + tr(" are going to be downloaded.")
+        
         self.dialog.label_qq_friendly.setText(msg)
+
