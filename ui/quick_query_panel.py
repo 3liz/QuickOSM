@@ -30,7 +30,6 @@ class QuickQueryPanel(BaseOverpassPanel):
         super().__init__(dialog)
         self.panel = Panels.QuickQuery
         self.osm_keys = None
-        
     def setup_panel(self):
         super().setup_panel()
         """Setup the UI for the QuickQuery."""
