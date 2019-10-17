@@ -30,6 +30,7 @@ class QuickQueryPanel(BaseOverpassPanel):
         super().__init__(dialog)
         self.panel = Panels.QuickQuery
         self.osm_keys = None
+        
     def setup_panel(self):
         super().setup_panel()
         """Setup the UI for the QuickQuery."""
@@ -68,8 +69,7 @@ class QuickQueryPanel(BaseOverpassPanel):
         self.dialog.line_place_qq.textChanged.connect(self.update_friendly)
         self.dialog.spin_place_qq.valueChanged.connect(self.update_friendly)
         self.dialog.combo_extent_layer_qq.layerChanged.connect(self.update_friendly)
-        
-        
+                
         # Setup auto completion
         map_features_json_file = resources_path('json', 'map_features.json')
         if isfile(map_features_json_file):
@@ -126,10 +126,6 @@ class QuickQueryPanel(BaseOverpassPanel):
         self.dialog.combo_value.addItems(current_values)
         self.update_friendly()
 
-    def value_edited(self):
-        """Callback when the value combobox has been edited """
-        self.update_friendly()
-        
     def gather_values(self):
         properties = super().gather_values()
         osm_objects = []
@@ -222,9 +218,13 @@ class QuickQueryPanel(BaseOverpassPanel):
         """ Updates the QuickQuery Friendly Label (label_qq_friendly) """
 
         # Although self.gather_values() might be a tempting way to fetch
-        # the required info, this calls super.nominatim_value() which
-        # executes file I/O - this crashes X
-        # Therefore query the widget values directly
+        # the required info, this was found to crash X on Ubuntu
+        # I believe the problem is due to the file I/O calls in
+        # super.nominatim_value() - either the time these take or another
+        # clash between file I/O and X or Qt.
+        # See Issue #212
+
+        # Therefore we query the widget values directly
 
         query_type = self.dialog.query_type_buttons[self.panel].currentData()
         place = self.dialog.places_edits[self.panel].text()
@@ -235,26 +235,41 @@ class QuickQueryPanel(BaseOverpassPanel):
         distance = self.dialog.spin_place_qq.value()
         layerobj = self.dialog.layers_buttons[self.panel].currentLayer()
         layer = None if (layerobj is None) else layerobj.name()
-            
+
+        # These are the text templates to be used
+        ALL_VALUES = tr("All OSM objects with the key {key} in {extent} are going to be downloaded")
+        ALL_VALUES_WITH_DIST = tr("All OSM objects with the key {key} in {dist} meters of {extent} are going to be downloaded")
+
+        NO_KEY = tr("All OSM objects in {extent} are going to be downloaded")
+        NO_KEY_WITH_DIST = tr("All OSM objects in {dist} meters of {extent} are going to be downloaded")
+
+        extent_lbl = ""
+        dist_lbl = ""
+        key_lbl = ""
+        use_with_dist = False
+        use_all_vals = False
+        
         # first translate the location information
         have_loc_info = False
         if query_type == 'in':
             if place is not None:
-                geomsg = "within " + place
+                extent_lbl = place
                 have_loc_info = True
                 
         elif query_type == 'around':
             if place is not None:
-                geomsg = tr("within ") + str(distance)
-                geomsg = geomsg + tr(" meters of ") + place
+                extent_lbl = place
+                dist_lbl = str(distance)
+                use_with_dist = True
                 have_loc_info = True
 
         elif query_type == 'canvas':
-            geomsg = tr(" in the canvas extent ")
+            extent_lbl = tr("the canvas extent")
             have_loc_info = True
+            
         elif query_type == 'layer':
             if layer is not None:
-                geomsg = tr(" in the layer extent '") + layer + "' "
+                extent_lbl = layer + tr(" layer extent")
                 have_loc_info = True
 
         elif query_type == 'attributes':
@@ -282,23 +297,31 @@ class QuickQueryPanel(BaseOverpassPanel):
                 val = None
                 
         if key == None:
-            # simple extents only message
-            msg = tr("All OSM objects ") + geomsg
-            #+ tr(" are going to be downloaded.")
+            if val is not None:
+                msg = tr("You have specified a value without a matching key.")
+                self.dialog.label_qq_friendly.setText(msg)
+                self.proc = False
+                return
 
         else:
             # Do we have a value?
+            use_all_vals = True
             if val is not None:
                 # provide both the key and value
-                msg = tr("All OSM objects having a tag '") + key
-                msg = msg + "'='" + val + "' " + geomsg
-                
+                key_lbl = "'{key}'='{val}'".format(key=key,val=val)
             else:
                 # provide just the key
-                msg = tr("All OSM objects having a key='") + key
-                msg = msg + "' " + geomsg
+                key_lbl = "'{key}'".format(key=key)
 
-        msg = msg + tr(" are going to be downloaded.")
-        
+        if use_all_vals:
+            if use_with_dist:
+                msg = ALL_VALUES_WITH_DIST.format(key=key_lbl,dist=dist_lbl,extent=extent_lbl)
+            else:
+                msg = ALL_VALUES.format(key=key_lbl,extent=extent_lbl)
+        else:
+            if use_with_dist:
+                msg = NO_KEY_WITH_DIST.format(dist=dist_lbl,extent=extent_lbl)
+            else:
+                msg = NO_KEY.format(extent=extent_lbl)
+                
         self.dialog.label_qq_friendly.setText(msg)
-
