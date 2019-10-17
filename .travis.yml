@@ -29,7 +29,7 @@ install:
   - docker exec -it qgis-testing-environment sh -c "pip3 install -r /QuickOSM/requirements_dev.txt"
 
 script:
-  - docker exec -it qgis-testing-environment sh -c "cd /QuickOSM && qgis_testrunner.sh qgis_plugin_tools.test_runner.test_package"
+  - docker exec -it qgis-testing-environment sh -c "cd /QuickOSM && qgis_testrunner.sh qgis_plugin_tools.infrastructure.test_runner.test_package"
 
 notifications:
   email:

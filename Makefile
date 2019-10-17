@@ -1,7 +1,7 @@
 # Makefile for QuickOSM
 
 # Add ISO code for any locales you want to support here (space separated)
-LOCALES = fr de en es fi id it nl pl pt pt_BR ru zh_TW
+LOCALES = "fr de en es fi id it nl pl pt pt_BR ru zh_TW"
 # Name of the plugin, for the ZIP file
 PLUGINNAME = QuickOSM
 
@@ -14,5 +14,5 @@ docker_test:
 i18n_%:
 	$(MAKE) -C qgis_plugin_tools i18n_$* LOCALES=$(LOCALES)
 
-deploy_%:
-	$(MAKE) -C qgis_plugin_tools deploy_$* PLUGINNAME=$(PLUGINNAME)
+release_%:
+	$(MAKE) -C qgis_plugin_tools release_$* PLUGINNAME=$(PLUGINNAME)

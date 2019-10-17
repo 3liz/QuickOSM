@@ -15,7 +15,7 @@ from qgis.core import (
 
 from .qgis_plugin_tools.custom_logging import setup_logger
 from .qgis_plugin_tools.i18n import setup_translation, tr
-from .qgis_plugin_tools.resources import plugin_name, resources_path, plugin_path
+from .qgis_plugin_tools.resources import plugin_name, resources_path
 from .quick_osm_processing.provider import Provider
 
 __copyright__ = 'Copyright 2019, 3Liz'
@@ -145,7 +145,7 @@ class QuickOSMPlugin:
     def run_tests():
         """Run the test inside QGIS."""
         try:
-            from .qgis_plugin_tools.test_runner import test_package
+            from qgis_plugin_tools.infrastructure.test_runner import test_package
             from pathlib import Path
             test_package('{}.__init__'.format(Path(__file__).parent.name))
         except (AttributeError, ModuleNotFoundError):
