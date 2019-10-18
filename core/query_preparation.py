@@ -1,5 +1,6 @@
 """Query preparation step."""
 
+import logging
 import re
 
 from qgis.PyQt.QtCore import QUrl, QUrlQuery
@@ -13,11 +14,14 @@ from .exceptions import (
 from .utilities.tools import get_setting
 from ..definitions.overpass import OVERPASS_SERVERS
 from ..qgis_plugin_tools.i18n import tr
+from ..qgis_plugin_tools.resources import plugin_name
 
 __copyright__ = 'Copyright 2019, 3Liz'
 __license__ = 'GPL version 3'
 __email__ = 'info@3liz.org'
 __revision__ = '$Format:%H$'
+
+LOGGER = logging.getLogger(plugin_name())
 
 
 class QueryPreparation:
@@ -117,7 +121,7 @@ class QueryPreparation:
             return
         else:
             if self._extent is None:
-                raise QueryFactoryException(tr('Missing extent parameter'))
+                raise QueryFactoryException(tr('Missing extent parameter.'))
 
         y = self._extent.center().y()
         x = self._extent.center().x()
@@ -139,7 +143,7 @@ class QueryPreparation:
             return
         else:
             if self._extent is None:
-                raise QueryFactoryException(tr('Missing extent parameter'))
+                raise QueryFactoryException(tr('Missing extent parameter.'))
 
         y_min = self._extent.yMinimum()
         y_max = self._extent.yMaximum()
@@ -176,6 +180,7 @@ class QueryPreparation:
                     point = geom.asPoint()
                     lon = point.x()
                     lat = point.y()
+                    LOGGER.info(tr('WKT detected for "geocodeCoords".'))
                 except TypeError:
                     pass
 

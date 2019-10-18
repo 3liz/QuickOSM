@@ -44,7 +44,7 @@ class TestQueryFactory(unittest.TestCase):
 
         # Query type with distance
         query = QueryFactory(QueryType.AroundArea)
-        msg = 'No distance provided with "around".'
+        msg = 'No distance provided with the "around" query.'
         with self.assertRaisesRegex(QueryFactoryException, msg):
             query._check_parameters()
 
@@ -55,13 +55,13 @@ class TestQueryFactory(unittest.TestCase):
 
         # One value but no key
         query = QueryFactory(query_type=QueryType.BBox, value='b')
-        msg = 'Not possible to query a value without a key.'
+        msg = 'Not possible to query a specific value without a key.'
         with self.assertRaisesRegex(QueryFactoryException, msg):
             query._check_parameters()
 
         # Query with named area
         query = QueryFactory(QueryType.InArea)
-        msg = 'Named area required or WKT.'
+        msg = 'Named area is required when the query is "In".'
         with self.assertRaisesRegex(QueryFactoryException, msg):
             query._check_parameters()
         query = QueryFactory(QueryType.InArea, around_distance=500)

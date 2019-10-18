@@ -130,10 +130,10 @@ class QuickOSMPlugin:
                     tr('JOSM Remote'), result)
             else:
                 self.iface.messageBar().pushSuccess(
-                    tr('JOSM Remote'), tr('Import done, check JOSM'))
+                    tr('JOSM Remote'), tr('Import done, check JOSM.'))
         except IOError:
             self.iface.messageBar().pushCritical(
-                tr('JOSM Remote'), tr('Is the remote enabled?'))
+                tr('JOSM Remote'), tr('Is the remote enabled in the JOSM settings?'))
 
     def open_dialog(self):
         """Create and open the main dialog."""

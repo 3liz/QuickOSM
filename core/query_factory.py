@@ -129,7 +129,7 @@ class QueryFactory:
         if self._query_type == QueryType.AroundArea:
             if not self._distance_around:
                 raise QueryFactoryException(
-                    tr('No distance provided with "around".'))
+                    tr('No distance provided with the "around" query.'))
 
             try:
                 int(self._distance_around)
@@ -141,26 +141,26 @@ class QueryFactory:
             raise QueryFactoryException(
                 tr('Distance parameter is incompatible with this query.'))
 
-        areas = [
-            QueryType.InArea, QueryType.AroundArea]
-        if self._query_type in areas and not self._area:
+        if self._query_type == QueryType.InArea and not self._area:
             raise QueryFactoryException(
-                tr(
-                    'Named area required or WKT when the query is "In" or '
-                    '"Around".'))
+                tr('Named area is required when the query is "In".'))
+
+        if self._query_type == QueryType.AroundArea and not self._area:
+            raise QueryFactoryException(
+                tr('Named area or a WKT is required when the query is "Around".'))
 
         if not self._key and self._value:
             raise QueryFactoryException(
-                tr('Not possible to query a value without a key.'))
+                tr('Not possible to query a specific value without a key.'))
 
         if len(self._key) > len(self._value):
             if len(self._key) != 1:
                 raise QueryFactoryException(
-                    tr('Missing some values for some keys'))
+                    tr('Missing some values for some keys.'))
 
         if len(self._key) < len(self._value):
             raise QueryFactoryException(
-                tr('Missing some keys for some values'))
+                tr('Missing some keys for some values.'))
 
         self._checked = True
         return True

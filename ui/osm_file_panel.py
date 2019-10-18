@@ -36,7 +36,7 @@ class OsmFilePanel(BaseProcessingPanel):
         self.dialog.osm_conf.setEnabled(False)
         # TODO self.edit_file_prefix_f.setDisabled(True)
 
-        self.dialog.osm_file.setDialogTitle(tr('Select an OSM file'))
+        self.dialog.osm_file.setDialogTitle(tr('Select an OSM/PBF file'))
         self.dialog.osm_file.setFilter('OSM file (*.osm *.pbf)')
 
         default_osm_conf = resources_path('ogr', 'to_be_modified_osmconf.ini')

@@ -43,21 +43,21 @@ Overpass or network
 class OverpassBadRequestException(QuickOsmException):
     def __init__(self, message=None):
         if not message:
-            message = tr('Bad request OverpassAPI')
+            message = tr('Bad request OverpassAPI.')
         super().__init__(message)
 
 
 class OverpassTimeoutException(QuickOsmException):
     def __init__(self, message=None):
         if not message:
-            message = tr('OverpassAPI timeout, try again later or a smaller query')
+            message = tr('OverpassAPI timeout, try again later or a smaller query.')
         super().__init__(message)
 
 
 class OverpassMemoryException(QuickOsmException):
     def __init__(self, amount_memory, unit):
         message = tr(
-            'OverpassAPI out of memory, try another query or a smaller area.')
+            'OverpassAPI is out of memory, try another query or a smaller area.')
         details = tr(
             'The server would need more or less {number} {unit} of RAM.').format(
             number=amount_memory, unit=unit
@@ -67,7 +67,7 @@ class OverpassMemoryException(QuickOsmException):
 
 class OverpassRuntimeError(QuickOsmException):
     def __init__(self, message):
-        message = tr('Overpass: {}').format(message)
+        message = tr('Overpass error: {message}').format(message=message)
         super().__init__(message)
 
 
@@ -95,7 +95,7 @@ class QueryFactoryException(QuickOsmException):
 class QueryNotSupported(QuickOsmException):
     def __init__(self, key):
         message = tr(
-            'The query is not supported by the plugin because of : {}'.format(key))
+            'The query is not supported by the plugin because of : {key}').format(key=key)
         super().__init__(message)
 
 
@@ -118,7 +118,7 @@ class NominatimAreaException(QuickOsmException):
         :type query: basestring
         """
         message = tr(
-            'No nominatim area found for OSM {osm_type} named {place_name}".')
+            'No named area found for OSM {osm_type} called "{place_name}".')
         message = message.format(osm_type=osm_type.name.lower(), place_name=query)
 
         more_details = None
@@ -138,7 +138,7 @@ File and directory
 class FileDoesntExistException(QuickOsmException):
     def __init__(self, message=None, suffix=None):
         if not message:
-            message = tr('The file does not exist')
+            message = tr('The file does not exist.')
         if suffix:
             message = message + " " + suffix
         super().__init__(message)
@@ -154,7 +154,7 @@ class DirectoryOutPutException(QuickOsmException):
 class FileOutPutException(QuickOsmException):
     def __init__(self, message=None, suffix=None):
         if not message:
-            message = tr('The output file already exist, set a prefix')
+            message = tr('The output file already exist, set a prefix.')
         if suffix:
             message = message + " " + suffix
         super().__init__(message)
@@ -183,12 +183,12 @@ class MissingParameterException(QuickOsmException):
 class OsmObjectsException(QuickOsmException):
     def __init__(self, message=None):
         if not message:
-            message = tr('No osm objects selected')
+            message = tr('No osm objects selected. Please select one.')
         super().__init__(message)
 
 
 class OutPutGeomTypesException(QuickOsmException):
     def __init__(self, message=None):
         if not message:
-            message = tr('No outputs selected')
+            message = tr('No outputs selected. Please select one.')
         super().__init__(message)

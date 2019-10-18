@@ -78,7 +78,7 @@ class TestOverpass(unittest.TestCase):
         except OverpassTimeoutException as e:
             self.assertEqual(
                 e.message,
-                'OverpassAPI timeout, try again later or a smaller query')
+                'OverpassAPI timeout, try again later or a smaller query.')
         else:
             self.assertFalse(True)
 
@@ -88,7 +88,7 @@ class TestOverpass(unittest.TestCase):
         except OverpassMemoryException as e:
             self.assertEqual(
                 e.message,
-                'OverpassAPI out of memory, try another query or a smaller area.')
+                'OverpassAPI is out of memory, try another query or a smaller area.')
             self.assertEqual(
                 e.more_details,
                 'The server would need more or less 513 MB of RAM.')
@@ -99,6 +99,6 @@ class TestOverpass(unittest.TestCase):
         try:
             ConnexionOAPI.check_file(generic_error)
         except OverpassRuntimeError as e:
-            self.assertEqual(e.message, 'Overpass: FAKE error that I do not know')
+            self.assertEqual(e.message, 'Overpass error: FAKE error that I do not know')
         else:
             self.assertFalse(True)

@@ -123,6 +123,16 @@ class TestQueryPreparation(unittest.TestCase):
         expected = 'foobarlat="Paris,France" lon="Paris,France"foobar'
         test(query, expected)
 
+        # Test with WKT in XML
+        query = 'foobar{{geocodeCoords:POINT(6 10)}}foobar'
+        expected = 'foobarlat="10.0" lon="6.0"foobar'
+        test(query, expected)
+
+        # Test with WKT in OQL.
+        query = 'foobar{{geocodeCoords:POINT(6 10)}}foobar;'
+        expected = 'foobar10.0,6.0foobar;'
+        test(query, expected)
+
         # Test with Paris in OQL.
         query = 'foobar{{geocodeCoords:Paris,France}}foobar;'
         expected = 'foobarParis,France,Paris,Francefoobar;'

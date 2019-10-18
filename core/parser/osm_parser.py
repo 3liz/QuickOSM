@@ -23,8 +23,9 @@ __revision__ = '$Format:%H$'
 
 
 class OsmParser(QObject):
+
     """
-    Parse an OSM file with OGR
+    Parse an OSM file with OGR.
     """
 
     # Signal percentage
@@ -79,7 +80,7 @@ class OsmParser(QObject):
 
     def parse(self):
         """
-        Start parsing the osm file
+        Start parsing the osm file.
         """
 
         # Configuration for OGR
@@ -98,25 +99,25 @@ class OsmParser(QObject):
             file_name = basename(self.__osmFile)
             for layer in self.__layers:
                 layers[layer] = QgsVectorLayer(
-                    uri + layer, file_name + " " + layer, "ogr")
+                    uri + layer, file_name + ' ' + layer, 'ogr')
 
                 if not layers[layer].isValid():
-                    message = tr("Error on the layer : {}").format(layer)
+                    message = tr('Error on the layer : {layer}').format(layer=layer)
                     raise QuickOsmException(message)
 
             return layers
 
         # Foreach layers
         for layer in self.__layers:
-            self.signalText.emit(tr('Parsing layer : {}').format(layer))
+            self.signalText.emit(tr('Parsing layer : {layer}').format(layer=layer))
             layers[layer] = {}
 
             # Reading it with a QgsVectorLayer
             layers[layer]['vectorLayer'] = QgsVectorLayer(
-                uri + layer, "test_" + layer, "ogr")
+                uri + layer, 'test_' + layer, 'ogr')
 
             if not layers[layer]['vectorLayer'].isValid():
-                message = "Error on the layer : {}".format(layer)
+                message = 'Error on the layer : {layer}'.format(layer=layer)
                 raise QuickOsmException(message)
 
             layers[layer]['vectorLayer'].setProviderEncoding('UTF-8')
@@ -144,7 +145,7 @@ class OsmParser(QObject):
                 if self.__whiteListColumn[layer] == ',':
                     continue
 
-                # Get the "others_tags" field
+                # Get the 'others_tags' field
                 attributes = str(feature.attributes()[other_tags_index])
 
                 if attributes:
@@ -172,7 +173,7 @@ class OsmParser(QObject):
 
         # Creating GeoJSON files for each layers
         for layer in self.__layers:
-            message = tr('Creating memory layer : ' + layer)
+            message = tr('Creating memory layer : {layer}').format(layer=layer)
             self.signalText.emit(message)
             self.signalPercentage.emit(0)
 
@@ -200,9 +201,9 @@ class OsmParser(QObject):
 
                 if layer in ['points', 'lines', 'multilinestrings']:
                     if layer == 'points':
-                        osm_type = "node"
+                        osm_type = 'node'
                     elif layer == 'lines':
-                        osm_type = "way"
+                        osm_type = 'way'
                     elif layer == 'multilinestrings':
                         osm_type = 'relation'
 
@@ -223,12 +224,12 @@ class OsmParser(QObject):
 
                 elif layer == 'multipolygons':
                     if attributes[0]:
-                        osm_type = "relation"
+                        osm_type = 'relation'
                         new_attributes.append(
                             self.DIC_OSM_TYPE[osm_type] + str(attributes[0]))
                         new_attributes.append(str(attributes[0]))
                     else:
-                        osm_type = "way"
+                        osm_type = 'way'
                         new_attributes.append(
                             self.DIC_OSM_TYPE[osm_type] + str(attributes[1]))
                         new_attributes.append(attributes[1])
