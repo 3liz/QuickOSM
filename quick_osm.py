@@ -41,14 +41,15 @@ class QuickOSMPlugin:
 
         setup_logger(plugin_name())
 
-        locale = setup_translation()
-        if locale:
-            LOGGER.info('Translation to {}'.format(locale))
+        locale, file_path = setup_translation()
+        if file_path:
+            # LOGGER.info('Translation to {}'.format(file_path))
             self.translator = QTranslator()
             self.translator.load(locale)
             QCoreApplication.installTranslator(self.translator)
         else:
-            LOGGER.info('Translation not found: {}'.format(locale))
+            # LOGGER.info('Translation not found: {}'.format(locale))
+            pass
 
         self.provider = None
 
