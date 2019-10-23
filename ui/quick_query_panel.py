@@ -235,7 +235,6 @@ class QuickQueryPanel(BaseOverpassPanel):
                 place = None
             else:
                 # english format a list
-                # place = ', '.join(places.split(';'))
                 place_list = place.split(';')
                 if len(place_list) >=2:
                     # we have a list
