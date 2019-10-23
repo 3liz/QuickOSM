@@ -236,7 +236,14 @@ class QuickQueryPanel(BaseOverpassPanel):
             else:
                 # english format a list
                 # place = ', '.join(places.split(';'))
-                place = ' {} '.format(tr('and')).join(place.split(';'))
+                place_list = place.split(';')
+                if len(place_list) >=2:
+                    # we have a list
+                    if len(place_list) == 2:
+                        place = ' {} '.format(tr('and')).join(place_list)
+                    else:
+                        place = ', '.join(place_list[:-2]) + ", "
+                        place = place + ' {} '.format(tr('and')).join(place_list[-2:])
         distance = self.dialog.spin_place_qq.value()
         layerobj = self.dialog.layers_buttons[self.panel].currentLayer()
         layer = None if (layerobj is None) else layerobj.name()
