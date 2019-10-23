@@ -225,12 +225,18 @@ class QuickQueryPanel(BaseOverpassPanel):
 
         # Therefore we query the widget values directly
 
+        #properties = self.gather_values()
+        
         query_type = self.dialog.query_type_buttons[self.panel].currentData()
         place = self.dialog.places_edits[self.panel].text()
         if place is not None:
             place = place.strip()
             if place == '':
                 place = None
+            else:
+                # english format a list
+                # place = ', '.join(places.split(';'))
+                place = ' {} '.format(tr('and')).join(place.split(';'))
         distance = self.dialog.spin_place_qq.value()
         layerobj = self.dialog.layers_buttons[self.panel].currentLayer()
         layer = None if (layerobj is None) else layerobj.name()
