@@ -140,6 +140,7 @@ class QuickQueryPanel(BaseOverpassPanel):
 
     def _run(self):
         """Process for running the query."""
+        self.write_nominatim_file(self.panel)
         properties = self.gather_values()
         num_layers = process_quick_query(
             dialog=self.dialog,

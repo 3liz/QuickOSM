@@ -70,10 +70,10 @@ class BaseOverpassPanel(BaseProcessingPanel):
         existing_places.insert(0, place)
         return existing_places[:10]
 
-    def nominatim_value(self, panel):
-        """Edit the new nominatim file from a given panel.
+    def write_nominatim_file(self, panel):
+        """Write new nominatim value in the file.
 
-        :param panel: Name of the panel.
+        :param panel: The panel to use so as to fetch the nominatim value.
         :type panel: Panels
         """
         value = self.dialog.places_edits[panel].text()
@@ -93,7 +93,6 @@ class BaseOverpassPanel(BaseProcessingPanel):
                 f.write('\n')
 
         self.init_nominatim_autofill()
-        return value
 
     @staticmethod
     def _core_query_type_updated(combo_query_type, widget, spinbox=None):
@@ -148,7 +147,7 @@ class BaseOverpassPanel(BaseProcessingPanel):
     def gather_values(self):
         properties = super().gather_values()
 
-        place = self.nominatim_value(self.panel)
+        place = self.dialog.places_edits[self.panel].text()
         if place == '':
             place = None
         properties['place'] = place

@@ -107,6 +107,7 @@ class QueryPanel(BaseOverpassPanel):
         return properties
 
     def _run(self):
+        self.write_nominatim_file(self.panel)
         properties = self.gather_values()
         num_layers = process_query(
             dialog=self.dialog,
@@ -121,7 +122,8 @@ class QueryPanel(BaseOverpassPanel):
 
     def generate_query(self):
         query = self.dialog.text_query.toPlainText()
-        area = self.nominatim_value(Panels.Query).text()
+        area = self.dialog.places_edits[Panels.Query].text()
+        self.write_nominatim_file(Panels.Query)
         bbox = self.dialog.get_bounding_box()
         query = QueryPreparation(query, bbox, area)
         query_string = query.prepare_query()
