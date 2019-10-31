@@ -10,7 +10,7 @@ from .base_panel import BasePanel
 from ..core.exceptions import QuickOsmException, OutPutGeomTypesException, DirectoryOutPutException
 from ..definitions.gui import Panels
 from ..definitions.osm import LayerType
-from ..qgis_plugin_tools.i18n import tr
+from ..qgis_plugin_tools.tools.i18n import tr
 
 __copyright__ = 'Copyright 2019, 3Liz'
 __license__ = 'GPL version 3'

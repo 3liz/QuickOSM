@@ -11,8 +11,8 @@ from ..core.exceptions import FileDoesntExistException
 from ..core.parser.osm_parser import OsmParser
 from ..core.process import open_file
 from ..definitions.gui import Panels
-from ..qgis_plugin_tools.i18n import tr
-from ..qgis_plugin_tools.resources import resources_path
+from ..qgis_plugin_tools.tools.i18n import tr
+from ..qgis_plugin_tools.tools.resources import resources_path
 
 
 __copyright__ = 'Copyright 2019, 3Liz'

@@ -18,8 +18,8 @@ from ..core.utilities.utilities_qgis import (
     open_map_features, open_doc_overpass, open_overpass_turbo)
 from ..definitions.gui import Panels
 from ..definitions.osm import LayerType
-from ..qgis_plugin_tools.i18n import tr
-from ..qgis_plugin_tools.resources import resources_path
+from ..qgis_plugin_tools.tools.i18n import tr
+from ..qgis_plugin_tools.tools.resources import resources_path
 
 __copyright__ = 'Copyright 2019, 3Liz'
 __license__ = 'GPL version 3'

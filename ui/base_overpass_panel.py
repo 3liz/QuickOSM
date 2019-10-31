@@ -16,7 +16,7 @@ from ..core.exceptions import MissingLayerUI
 from ..core.utilities.tools import nominatim_file
 from ..definitions.gui import Panels
 from ..definitions.osm import QueryType
-from ..qgis_plugin_tools.i18n import tr
+from ..qgis_plugin_tools.tools.i18n import tr
 
 
 __copyright__ = 'Copyright 2019, 3Liz'

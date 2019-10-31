@@ -14,7 +14,7 @@ from qgis.core import (
 )
 
 from ..exceptions import QuickOsmException
-from ...qgis_plugin_tools.i18n import tr
+from ...qgis_plugin_tools.tools.i18n import tr
 
 __copyright__ = 'Copyright 2019, 3Liz'
 __license__ = 'GPL version 3'

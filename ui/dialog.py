@@ -21,8 +21,8 @@ from .quick_query_panel import QuickQueryPanel
 from ..core.exceptions import QuickOsmException
 from ..core.utilities.utilities_qgis import open_log_panel
 from ..definitions.gui import Panels
-from ..qgis_plugin_tools.i18n import tr
-from ..qgis_plugin_tools.resources import load_ui, resources_path
+from ..qgis_plugin_tools.tools.i18n import tr
+from ..qgis_plugin_tools.tools.resources import load_ui, resources_path
 
 __copyright__ = 'Copyright 2019, 3Liz'
 __license__ = 'GPL version 3'

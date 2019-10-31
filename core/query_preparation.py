@@ -13,8 +13,8 @@ from .exceptions import (
 )
 from .utilities.tools import get_setting
 from ..definitions.overpass import OVERPASS_SERVERS
-from ..qgis_plugin_tools.i18n import tr
-from ..qgis_plugin_tools.resources import plugin_name
+from ..qgis_plugin_tools.tools.i18n import tr
+from ..qgis_plugin_tools.tools.resources import plugin_name
 
 __copyright__ = 'Copyright 2019, 3Liz'
 __license__ = 'GPL version 3'

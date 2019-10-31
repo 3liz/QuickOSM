@@ -13,7 +13,7 @@ from .advanced.build_query import (
 #   DownloadOverpassUrl)
 from .advanced.open_osm_file import OpenOsmFile
 from .advanced.raw_query import RawQueryAlgorithm
-from ..qgis_plugin_tools.resources import resources_path
+from ..qgis_plugin_tools.tools.resources import resources_path
 
 __copyright__ = 'Copyright 2019, 3Liz'
 __license__ = 'GPL version 3'

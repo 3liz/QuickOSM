@@ -11,7 +11,7 @@ from ...exceptions import (
     OverpassRuntimeError,
 )
 from ....definitions.overpass import OVERPASS_SERVERS
-from ....qgis_plugin_tools.resources import plugin_test_data_path
+from ....qgis_plugin_tools.tools.resources import plugin_test_data_path
 
 __copyright__ = 'Copyright 2019, 3Liz'
 __license__ = 'GPL version 3'
