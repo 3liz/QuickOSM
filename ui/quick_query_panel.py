@@ -226,9 +226,11 @@ class QuickQueryPanel(BaseOverpassPanel):
 
         # Therefore we query the widget values directly
 
-        #properties = self.gather_values()
+        properties = self.gather_values()
         
-        query_type = self.dialog.query_type_buttons[self.panel].currentData()
+        #query_type = self.dialog.query_type_buttons[self.panel].currentData()
+        query_type = properties['query_type']
+        
         place = self.dialog.places_edits[self.panel].text()
         if place is not None:
             place = place.strip()
@@ -245,8 +247,8 @@ class QuickQueryPanel(BaseOverpassPanel):
                         place = ', '.join(place_list[:-2]) + ", "
                         place = place + ' {} '.format(tr('and')).join(place_list[-2:])
         distance = self.dialog.spin_place_qq.value()
-        layerobj = self.dialog.layers_buttons[self.panel].currentLayer()
-        layer = None if (layerobj is None) else layerobj.name()
+        #layerobj = self.dialog.layers_buttons[self.panel].currentLayer()
+        #layer = None if (layerobj is None) else layerobj.name()
 
         # These are the text templates to be used
         ALL_VALUES = tr("All OSM objects with the key {key} in {extent} are going to be downloaded")
@@ -263,28 +265,29 @@ class QuickQueryPanel(BaseOverpassPanel):
         
         # first translate the location information
         have_loc_info = False
-        if query_type == 'in':
+        if query_type == QueryType.InArea:  #'in':
             if place is not None:
                 extent_lbl = place
                 have_loc_info = True
                 
-        elif query_type == 'around':
+        elif query_type == QueryType.AroundArea:  #'around':
             if place is not None:
                 extent_lbl = place
                 dist_lbl = str(distance)
                 use_with_dist = True
                 have_loc_info = True
 
-        elif query_type == 'canvas':
-            extent_lbl = tr("the canvas extent")
+        elif query_type == QueryType.BBox:  # 'canvas' or 'layer'
+            
+            extent_lbl = tr("the canvas or layer extent")
             have_loc_info = True
             
-        elif query_type == 'layer':
-            if layer is not None:
-                extent_lbl = layer + tr(" layer extent")
-                have_loc_info = True
+        #elif query_type == 'layer':
+        #    if layer is not None:
+        #        extent_lbl = layer + tr(" layer extent")
+        #        have_loc_info = True
 
-        elif query_type == 'attributes':
+        elif query_type == QueryType.NotSpatial:  #'attributes':
             geomsg = ""
             have_loc_info = True
         else:
