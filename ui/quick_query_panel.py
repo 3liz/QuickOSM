@@ -216,28 +216,16 @@ class QuickQueryPanel(BaseOverpassPanel):
             
     def update_friendly(self):
         """ Updates the QuickQuery Friendly Label (label_qq_friendly) """
-
-        # Although self.gather_values() might be a tempting way to fetch
-        # the required info, this was found to crash X on Ubuntu
-        # I believe the problem is due to the file I/O calls in
-        # super.nominatim_value() - either the time these take or another
-        # clash between file I/O and X or Qt.
-        # See Issue #212
-
-        # Therefore we query the widget values directly
-
-        properties = self.gather_values()
+        properties = self.gather_values()        
+        query_type = properties['query_type']        
+        place = properties['place']
         
-        #query_type = self.dialog.query_type_buttons[self.panel].currentData()
-        query_type = properties['query_type']
-        
-        place = self.dialog.places_edits[self.panel].text()
         if place is not None:
             place = place.strip()
             if place == '':
                 place = None
             else:
-                # english format a list
+                # human format a list
                 place_list = place.split(';')
                 if len(place_list) >=2:
                     # we have a list
@@ -246,7 +234,9 @@ class QuickQueryPanel(BaseOverpassPanel):
                     else:
                         place = ', '.join(place_list[:-2]) + ", "
                         place = place + ' {} '.format(tr('and')).join(place_list[-2:])
-        distance = self.dialog.spin_place_qq.value()
+
+        distance = properties['distance']
+
         #layerobj = self.dialog.layers_buttons[self.panel].currentLayer()
         #layer = None if (layerobj is None) else layerobj.name()
 
@@ -257,11 +247,14 @@ class QuickQueryPanel(BaseOverpassPanel):
         NO_KEY = tr("All OSM objects in {extent} are going to be downloaded")
         NO_KEY_WITH_DIST = tr("All OSM objects in {dist} meters of {extent} are going to be downloaded")
 
+        ATTRIB_ONLY = tr("All OSM objects with the key {key} are going to be downloaded")
+        
         extent_lbl = ""
         dist_lbl = ""
         key_lbl = ""
         use_with_dist = False
         use_all_vals = False
+        attrib_only = False
         
         # first translate the location information
         have_loc_info = False
@@ -290,18 +283,19 @@ class QuickQueryPanel(BaseOverpassPanel):
         elif query_type == QueryType.NotSpatial:  #'attributes':
             geomsg = ""
             have_loc_info = True
+            attrib_only = True
         else:
             have_loc_info = False
 
         if not have_loc_info:
             msg = tr("Please select an input location or area.")
             self.dialog.label_qq_friendly.setText(msg)
-            self.proc = False
+            #self.proc = False
             return
 
         # Next get the key / values
-        key = self.dialog.combo_key.currentText()
-        val = self.dialog.combo_value.currentText()
+        key = properties['key']
+        val = properties['value']
         if key is not None:
             key = key.strip()
             if key== '':
@@ -311,11 +305,16 @@ class QuickQueryPanel(BaseOverpassPanel):
             if val == '':
                 val = None
                 
-        if key == None:
+        if key is None:
             if val is not None:
                 msg = tr("You have specified a value without a matching key.")
                 self.dialog.label_qq_friendly.setText(msg)
-                self.proc = False
+                #self.proc = False
+                return
+            elif attrib_only:
+                msg = tr("You have must specify a key.")
+                self.dialog.label_qq_friendly.setText(msg)
+                #self.proc = False
                 return
 
         else:
@@ -328,7 +327,10 @@ class QuickQueryPanel(BaseOverpassPanel):
                 # provide just the key
                 key_lbl = "'{key}'".format(key=key)
 
-        if use_all_vals:
+        if attrib_only:
+            msg = ATTRIB_ONLY.format(key=key_lbl)
+            
+        elif use_all_vals:
             if use_with_dist:
                 msg = ALL_VALUES_WITH_DIST.format(key=key_lbl,dist=dist_lbl,extent=extent_lbl)
             else:
