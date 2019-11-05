@@ -269,3 +269,115 @@ class QueryFactory:
         query = self.make()
         query = query.replace(SPACE_INDENT, '').replace('\n', '')
         return query
+
+
+    def friendly_message(self):
+        """Create a friendly/human message about what the query will do.
+
+        @return: The message
+        @rtype: str
+        """
+        
+        self._check_parameters()
+
+        place = self._area
+        if self._area is not None:
+            # human format a list
+            if len(self._area) == 1:
+                place = ' ' + self._area[0] + ' '  # simply unwrap the list
+            elif len(self._area) == 2:
+                place = ' {} '.format(tr('and')).join(self._area)
+            else:
+                place = ', '.join(self._area[:-2]) + ", "
+                place = place + ' {} '.format(tr('and')).join(self._area[-2:])
+
+        # These are the text templates to be used
+        ALL_VALUES = tr("All OSM objects with the key {key} in {extent} are going to be downloaded")
+        ALL_VALUES_WITH_DIST = tr("All OSM objects with the key {key} in {dist} meters of {extent} are going to be downloaded")
+
+        NO_KEY = tr("All OSM objects in {extent} are going to be downloaded")
+        NO_KEY_WITH_DIST = tr("All OSM objects in {dist} meters of {extent} are going to be downloaded")
+
+        ATTRIB_ONLY = tr("All OSM objects with the key {key} are going to be downloaded")
+        
+        extent_lbl = ""
+        dist_lbl = ""
+        key_lbl = ""
+        use_with_dist = False
+        use_all_vals = False
+        attrib_only = False
+        
+        # first translate the location information
+        have_loc_info = False
+        if self._query_type == QueryType.InArea:  #'in':
+            if place is not None:
+                extent_lbl = place
+                have_loc_info = True
+                
+        elif self._query_type == QueryType.AroundArea:  #'around':
+            if place is not None:
+                extent_lbl = place
+                dist_lbl = str(self._distance_around)
+                use_with_dist = True
+                have_loc_info = True
+
+        elif self._query_type == QueryType.BBox:  # 'canvas' or 'layer'
+            extent_lbl = tr("the canvas or layer extent")
+            have_loc_info = True
+            
+        elif self._query_type == QueryType.NotSpatial:  #'attributes':
+            geomsg = ""
+            have_loc_info = True
+            attrib_only = True
+        else:
+            have_loc_info = False
+
+        if not have_loc_info:
+            msg = tr("Please select an input location or area.")
+            return msg
+
+        # Next get the key / values
+        if len(self._key)==0:
+            key = None
+        else:
+            key = self._key[0]
+
+        if len(self._value)==0:
+            val = None
+        else:
+            val = self._value[0]
+                
+        if key is None:
+            if val is not None:
+                return tr("You have specified a value without a matching key.")
+
+            elif attrib_only:
+                return tr("You have must specify a key.")
+
+        else:
+            # Do we have a value?
+            use_all_vals = True
+            if val is not None:
+                # provide both the key and value
+                key_lbl = "'{key}'='{val}'".format(key=key,val=val)
+            else:
+                # provide just the key
+                key_lbl = "'{key}'".format(key=key)
+
+        if attrib_only:
+            msg = ATTRIB_ONLY.format(key=key_lbl)
+            
+        elif use_all_vals:
+            if use_with_dist:
+                msg = ALL_VALUES_WITH_DIST.format(key=key_lbl,dist=dist_lbl,extent=extent_lbl)
+            else:
+                msg = ALL_VALUES.format(key=key_lbl,extent=extent_lbl)
+        else:
+            if use_with_dist:
+                msg = NO_KEY_WITH_DIST.format(dist=dist_lbl,extent=extent_lbl)
+            else:
+                msg = NO_KEY.format(extent=extent_lbl)
+
+        return msg
+
+
