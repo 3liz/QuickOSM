@@ -30,7 +30,7 @@ class QuickQueryPanel(BaseOverpassPanel):
         super().__init__(dialog)
         self.panel = Panels.QuickQuery
         self.osm_keys = None
-
+        
     def setup_panel(self):
         super().setup_panel()
         """Setup the UI for the QuickQuery."""
@@ -64,6 +64,12 @@ class QuickQueryPanel(BaseOverpassPanel):
         self.dialog.button_box_qq.button(QDialogButtonBox.Reset).clicked.connect(
             self.dialog.reset_form)
 
+        # setup callbacks for friendly-label-update only
+        self.dialog.combo_value.editTextChanged.connect(self.update_friendly)
+        self.dialog.line_place_qq.textChanged.connect(self.update_friendly)
+        self.dialog.spin_place_qq.valueChanged.connect(self.update_friendly)
+        self.dialog.combo_extent_layer_qq.layerChanged.connect(self.update_friendly)
+                
         # Setup auto completion
         map_features_json_file = resources_path('json', 'map_features.json')
         if isfile(map_features_json_file):
@@ -87,11 +93,15 @@ class QuickQueryPanel(BaseOverpassPanel):
         self.query_type_updated()
         self.init_nominatim_autofill()
 
+        self.update_friendly()
+
+        
     def query_type_updated(self):
         self._core_query_type_updated(
             self.dialog.combo_query_type_qq,
             self.dialog.stacked_query_type,
             self.dialog.spin_place_qq)
+        self.update_friendly()
 
     def key_edited(self):
         """Add values to the combobox according to the key."""
@@ -114,6 +124,7 @@ class QuickQueryPanel(BaseOverpassPanel):
         values_completer = QCompleter(current_values)
         self.dialog.combo_value.setCompleter(values_completer)
         self.dialog.combo_value.addItems(current_values)
+        self.update_friendly()
 
     def gather_values(self):
         properties = super().gather_values()
@@ -201,3 +212,36 @@ class QuickQueryPanel(BaseOverpassPanel):
             self.dialog.text_query.setPlainText(query)
             item = self.dialog.menu_widget.item(self.dialog.query_menu_index)
             self.dialog.menu_widget.setCurrentItem(item)
+
+            
+    def update_friendly(self):
+        """ Updates the QuickQuery Friendly Label (label_qq_friendly) """
+        try:
+            p = self.gather_values()
+        except QuickOsmException as e:
+            self.dialog.display_quickosm_exception(e)
+            return
+        except Exception as e:
+            self.dialog.display_critical_exception(e)
+            return
+
+        # Make the query, in order to create the friendly message
+        query_factory = QueryFactory(
+            query_type=p['query_type'],
+            key=p['key'],
+            value=p['value'],
+            area=p['place'],
+            around_distance=p['distance'],
+            osm_objects=p['osm_objects'],
+            timeout=p['timeout']
+        )
+        try:
+            msg = query_factory.friendly_message()
+        except QuickOsmException as e:
+            self.dialog.display_quickosm_exception(e)
+            self.dialog.label_qq_friendly.setText("")
+        except Exception as e:
+            self.dialog.display_critical_exception(e)
+            self.dialog.label_qq_friendly.setText("")
+        else:
+            self.dialog.label_qq_friendly.setText(msg)
