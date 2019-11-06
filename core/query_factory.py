@@ -308,33 +308,20 @@ class QueryFactory:
         attrib_only = False
         
         # first translate the location information
-        have_loc_info = False
         if self._query_type == QueryType.InArea:  #'in':
-            if place is not None:
-                extent_lbl = place
-                have_loc_info = True
+            extent_lbl = place
                 
         elif self._query_type == QueryType.AroundArea:  #'around':
-            if place is not None:
-                extent_lbl = place
-                dist_lbl = str(self._distance_around)
-                use_with_dist = True
-                have_loc_info = True
+            extent_lbl = place
+            dist_lbl = str(self._distance_around)
+            use_with_dist = True
 
         elif self._query_type == QueryType.BBox:  # 'canvas' or 'layer'
             extent_lbl = tr("the canvas or layer extent")
-            have_loc_info = True
             
         elif self._query_type == QueryType.NotSpatial:  #'attributes':
             geomsg = ""
-            have_loc_info = True
             attrib_only = True
-        else:
-            have_loc_info = False
-
-        if not have_loc_info:
-            msg = tr("Please select an input location or area.")
-            return msg
 
         # Next get the key / values
         if len(self._key)==0:
@@ -348,10 +335,7 @@ class QueryFactory:
             val = self._value[0]
                 
         if key is None:
-            if val is not None:
-                return tr("You have specified a value without a matching key.")
-
-            elif attrib_only:
+            if attrib_only:
                 return tr("You have must specify a key.")
 
         else:
