@@ -388,6 +388,7 @@
 		"water_utility"
 	],
 	"old_name": [],
+	"old_ref": [],
 	"operator": [],
 	"place": [
 		"allotments",
@@ -637,7 +638,15 @@
 		"tram_stop"
 	],
 	"ref": [],
+	"ref:FR:FANTOIR": [],
+	"ref:FR:FINESS": [],
+	"ref:FR:LaPoste": [],
+	"ref:FR:NAF": [],
+	"ref:FR:SIRET": [],
 	"ref:INSEE": [],
+	"ref:isil": [],
+	"ref:sandre": [],
+	"ref:UAI": [],
 	"route": [
 		"bicycle",
 		"bus",
