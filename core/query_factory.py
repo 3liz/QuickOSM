@@ -313,7 +313,7 @@ class QueryFactory:
                 
         elif self._query_type == QueryType.AroundArea:  #'around':
             extent_lbl = place
-            dist_lbl = str(self._distance_around)
+            dist_lbl = self._distance_around
             use_with_dist = True
 
         elif self._query_type == QueryType.BBox:  # 'canvas' or 'layer'
@@ -336,7 +336,7 @@ class QueryFactory:
                 
         if key is None:
             if attrib_only:
-                return tr("You have must specify a key.")
+                return tr("You must specify a key.")
 
         else:
             # Do we have a value?

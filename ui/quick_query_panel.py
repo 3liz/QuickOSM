@@ -238,8 +238,8 @@ class QuickQueryPanel(BaseOverpassPanel):
         try:
             msg = query_factory.friendly_message()
         except QuickOsmException as e:
-            self.dialog.display_quickosm_exception(e)
-            self.dialog.label_qq_friendly.setText("")
+            #self.dialog.display_quickosm_exception(e)
+            self.dialog.label_qq_friendly.setText(e.message)
         except Exception as e:
             self.dialog.display_critical_exception(e)
             self.dialog.label_qq_friendly.setText("")
