@@ -636,6 +636,8 @@
 		"tram",
 		"tram_stop"
 	],
+	"ref": [],
+	"ref:INSEE": [],
 	"route": [
 		"bicycle",
 		"bus",
