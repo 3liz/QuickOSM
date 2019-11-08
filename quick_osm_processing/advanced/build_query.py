@@ -113,6 +113,7 @@ class BuildQueryBasedAlgorithm(QgisAlgorithm):
             around_distance=self.distance,
             timeout=self.timeout)
         raw_query = query_factory.make()
+        self.feedback.pushInfo(query_factory.friendly_message())
         query_preparation = QueryPreparation(
             raw_query,
             area=self.area,
