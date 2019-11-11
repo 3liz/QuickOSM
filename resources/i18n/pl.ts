@@ -32,7 +32,7 @@
         <translation>Brakuje parametru:</translation>
     </message>
     <message>
-        <location filename="../../ui/base_overpass_panel.py" line="144"/>
+        <location filename="../../ui/base_overpass_panel.py" line="143"/>
         <source>Successful query, but no result.</source>
         <translation>Zapytanie nie przyniosło rezultatu.</translation>
     </message>
@@ -82,12 +82,12 @@
         <translation>Nieprzestrzenne</translation>
     </message>
     <message>
-        <location filename="../../ui/base_overpass_panel.py" line="143"/>
+        <location filename="../../ui/base_overpass_panel.py" line="142"/>
         <source>No result</source>
         <translation>Brak rezultatów</translation>
     </message>
     <message>
-        <location filename="../../quick_osm.py" line="135"/>
+        <location filename="../../quick_osm.py" line="136"/>
         <source>JOSM Remote</source>
         <translation>Kontrolka zdalna JOSM</translation>
     </message>
@@ -117,17 +117,17 @@
         <translation>Plik nie istnieje.</translation>
     </message>
     <message>
-        <location filename="../../ui/quick_query_panel.py" line="81"/>
+        <location filename="../../ui/quick_query_panel.py" line="87"/>
         <source>Query on all keys</source>
         <translation>Odpytaj dla wszystkich kluczy</translation>
     </message>
     <message>
-        <location filename="../../ui/quick_query_panel.py" line="83"/>
+        <location filename="../../ui/quick_query_panel.py" line="89"/>
         <source>Query on all values</source>
         <translation>Odpytaj dla wszystkich wartości</translation>
     </message>
     <message>
-        <location filename="../../quick_osm_processing/advanced/raw_query.py" line="37"/>
+        <location filename="../../quick_osm_processing/advanced/build_query.py" line="51"/>
         <source>Advanced</source>
         <translation>Zaawansowane</translation>
     </message>
@@ -147,17 +147,17 @@
         <translation>Zakres, jeżeli &quot;{{bbox}}&quot; jest w zapytaniu</translation>
     </message>
     <message>
-        <location filename="../../quick_osm_processing/advanced/raw_query.py" line="67"/>
+        <location filename="../../quick_osm_processing/advanced/build_query.py" line="84"/>
         <source>Overpass server</source>
         <translation>Serwer Overpass</translation>
     </message>
     <message>
-        <location filename="../../quick_osm_processing/advanced/raw_query.py" line="84"/>
+        <location filename="../../quick_osm_processing/advanced/build_query.py" line="93"/>
         <source>Query as encoded URL</source>
         <translation>Zapytanie jako zakodowany URL</translation>
     </message>
     <message>
-        <location filename="../../quick_osm_processing/advanced/raw_query.py" line="88"/>
+        <location filename="../../quick_osm_processing/advanced/build_query.py" line="97"/>
         <source>Raw query as OQL</source>
         <translation>Surowe zapytanie jako OQL</translation>
     </message>
@@ -177,62 +177,62 @@
         <translation>Czas minął</translation>
     </message>
     <message>
-        <location filename="../../quick_osm_processing/advanced/build_query.py" line="142"/>
+        <location filename="../../quick_osm_processing/advanced/build_query.py" line="143"/>
         <source>Build query by attribute only</source>
         <translation>Generuj zapytanie tylko wg atrybutów</translation>
     </message>
     <message>
-        <location filename="../../quick_osm_processing/advanced/build_query.py" line="165"/>
+        <location filename="../../quick_osm_processing/advanced/build_query.py" line="166"/>
         <source>Build query inside an area</source>
         <translation>Zbuduj zapytanie w obszarze</translation>
     </message>
     <message>
-        <location filename="../../quick_osm_processing/advanced/build_query.py" line="169"/>
+        <location filename="../../quick_osm_processing/advanced/build_query.py" line="170"/>
         <source>Inside the area</source>
         <translation>Wewnątrz obszaru</translation>
     </message>
     <message>
-        <location filename="../../quick_osm_processing/advanced/build_query.py" line="193"/>
+        <location filename="../../quick_osm_processing/advanced/build_query.py" line="194"/>
         <source>Build query around an area</source>
         <translation>Generuj zapytanie wokół obszaru</translation>
     </message>
     <message>
-        <location filename="../../quick_osm_processing/advanced/build_query.py" line="197"/>
+        <location filename="../../quick_osm_processing/advanced/build_query.py" line="198"/>
         <source>Around the area (Point WKT accepted)</source>
         <translation>Wokół obszaru (akceptowalna geometria punktowa w formacie WKT)</translation>
     </message>
     <message>
-        <location filename="../../quick_osm_processing/advanced/build_query.py" line="202"/>
+        <location filename="../../quick_osm_processing/advanced/build_query.py" line="203"/>
         <source>Distance (meters)</source>
         <translation>Odległość (metry)</translation>
     </message>
     <message>
-        <location filename="../../quick_osm_processing/advanced/build_query.py" line="229"/>
+        <location filename="../../quick_osm_processing/advanced/build_query.py" line="230"/>
         <source>Build query inside an extent</source>
         <translation>Zbuduj zapytanie w zasięgu</translation>
     </message>
     <message>
-        <location filename="../../quick_osm_processing/advanced/build_query.py" line="233"/>
+        <location filename="../../quick_osm_processing/advanced/build_query.py" line="234"/>
         <source>Extent</source>
         <translation>Zasięg</translation>
     </message>
     <message>
-        <location filename="../../core/query_factory.py" line="123"/>
+        <location filename="../../core/query_factory.py" line="133"/>
         <source>Wrong query type.</source>
         <translation>Błędny rodzaj zapytania.</translation>
     </message>
     <message>
-        <location filename="../../core/query_factory.py" line="127"/>
+        <location filename="../../core/query_factory.py" line="137"/>
         <source>Wrong OSM object.</source>
         <translation>Nieprawidłowy obiekt OSM</translation>
     </message>
     <message>
-        <location filename="../../core/query_factory.py" line="137"/>
+        <location filename="../../core/query_factory.py" line="147"/>
         <source>Wrong distance parameter.</source>
         <translation>Błędna wartość odległości</translation>
     </message>
     <message>
-        <location filename="../../core/query_factory.py" line="141"/>
+        <location filename="../../core/query_factory.py" line="151"/>
         <source>Distance parameter is incompatible with this query.</source>
         <translation>Parametr odległości jest niekompatybilny z tym zapytaniem.</translation>
     </message>
@@ -282,12 +282,12 @@
         <translation>Więcej szczegółów</translation>
     </message>
     <message>
-        <location filename="../../ui/base_overpass_panel.py" line="137"/>
+        <location filename="../../ui/base_overpass_panel.py" line="136"/>
         <source>Successful query, {} layer(s) has been loaded.</source>
-        <translation type="unfinished"/>
+        <translation>Udane zapytanie, {} warstwa(y) zostały wczytane.</translation>
     </message>
     <message>
-        <location filename="../../qgis_plugin_tools/custom_logging.py" line="63"/>
+        <location filename="../../qgis_plugin_tools/tools/custom_logging.py" line="63"/>
         <source>Due to memory limitations on this machine, the plugin {} can not handle the full log</source>
         <translation>W związku z ograniczeniami pamięci na tej maszynie, plugin {} nie może pobrać pełnego dziennika.</translation>
     </message>
@@ -299,7 +299,7 @@
     <message>
         <location filename="../../core/exceptions.py" line="127"/>
         <source>No OSM polygon (relation) has been found, you should try the &quot;Around&quot; query which will search for a point (node).</source>
-        <translation type="unfinished"/>
+        <translation>Obszar (relacja) OSM nie został znaleziony, spróbuj zapytania &quot;W pobliżu&quot;, które wyszuka punkt (węzeł).</translation>
     </message>
     <message>
         <location filename="../../core/exceptions.py" line="170"/>
@@ -312,12 +312,12 @@
         <translation>Wybierz plik OSM/PBF</translation>
     </message>
     <message>
-        <location filename="../../quick_osm.py" line="132"/>
+        <location filename="../../quick_osm.py" line="133"/>
         <source>Import done, check JOSM.</source>
         <translation>Import zakończony, sprawdź JOSM</translation>
     </message>
     <message>
-        <location filename="../../quick_osm.py" line="135"/>
+        <location filename="../../quick_osm.py" line="136"/>
         <source>Is the remote enabled in the JOSM settings?</source>
         <translation>Czy w ustawieniach JOSM jest aktywna funkcja zdalna?</translation>
     </message>
@@ -339,47 +339,47 @@
     <message>
         <location filename="../../core/exceptions.py" line="70"/>
         <source>Overpass error: {message}</source>
-        <translation type="unfinished"/>
+        <translation>Błąd Overpass: {message}</translation>
     </message>
     <message>
         <location filename="../../core/exceptions.py" line="97"/>
         <source>The query is not supported by the plugin because of : {key}</source>
-        <translation type="unfinished"/>
+        <translation>Wtyczka nie obsługuje zapytania ze względu na: {key}</translation>
     </message>
     <message>
         <location filename="../../core/exceptions.py" line="120"/>
         <source>No named area found for OSM {osm_type} called &quot;{place_name}&quot;.</source>
-        <translation type="unfinished"/>
+        <translation>Nie znaleziono nazwanego obszaru OSM {osm_type} zwanego &quot;{place_name}&quot;.</translation>
     </message>
     <message>
         <location filename="../../core/exceptions.py" line="141"/>
         <source>The file does not exist.</source>
-        <translation type="unfinished"/>
+        <translation>Plik nie istnieje</translation>
     </message>
     <message>
         <location filename="../../core/exceptions.py" line="157"/>
         <source>The output file already exist, set a prefix.</source>
-        <translation type="unfinished"/>
+        <translation>Plik wyjściowy już istnieje, ustaw przedrostek</translation>
     </message>
     <message>
         <location filename="../../core/exceptions.py" line="186"/>
         <source>No osm objects selected. Please select one.</source>
-        <translation type="unfinished"/>
+        <translation>Nie wybrano obiektu osm. Proszę jakiś wybrać.</translation>
     </message>
     <message>
         <location filename="../../core/exceptions.py" line="193"/>
         <source>No outputs selected. Please select one.</source>
-        <translation type="unfinished"/>
+        <translation>Nie wybrano obiektu wynikowego. Proszę jakiś wybrać.</translation>
     </message>
     <message>
         <location filename="../../core/parser/osm_parser.py" line="105"/>
         <source>Error on the layer : {layer}</source>
-        <translation type="unfinished"/>
+        <translation>Błąd w warstwie : {layer}</translation>
     </message>
     <message>
         <location filename="../../core/parser/osm_parser.py" line="112"/>
         <source>Parsing layer : {layer}</source>
-        <translation type="unfinished"/>
+        <translation>Przetwarzanie warstwy : {layer}</translation>
     </message>
     <message>
         <location filename="../../core/parser/osm_parser.py" line="176"/>
@@ -387,32 +387,32 @@
         <translation>Tworzenie warstwy pamięci: {layer}</translation>
     </message>
     <message>
-        <location filename="../../core/query_factory.py" line="131"/>
+        <location filename="../../core/query_factory.py" line="141"/>
         <source>No distance provided with the &quot;around&quot; query.</source>
         <translation>Brak podanej odległości dla funkcji &quot;około&quot;.</translation>
     </message>
     <message>
-        <location filename="../../core/query_factory.py" line="145"/>
+        <location filename="../../core/query_factory.py" line="155"/>
         <source>Named area is required when the query is &quot;In&quot;.</source>
-        <translation type="unfinished"/>
+        <translation>Nazwa obszru jest wymagana kiedy zapytanie jest &quot;In&quot;</translation>
     </message>
     <message>
-        <location filename="../../core/query_factory.py" line="149"/>
+        <location filename="../../core/query_factory.py" line="159"/>
         <source>Named area or a WKT is required when the query is &quot;Around&quot;.</source>
         <translation>Nazwany obszar lub WKT jest wymagany, gdy zapytanie dotyczy &quot;w pobliżu&quot;</translation>
     </message>
     <message>
-        <location filename="../../core/query_factory.py" line="153"/>
+        <location filename="../../core/query_factory.py" line="163"/>
         <source>Not possible to query a specific value without a key.</source>
         <translation>Niemożliwe wyszukanie specyficznej wartości bez klucza.</translation>
     </message>
     <message>
-        <location filename="../../core/query_factory.py" line="158"/>
+        <location filename="../../core/query_factory.py" line="173"/>
         <source>Missing some values for some keys.</source>
         <translation>Dla niektórych kluczy brakuje wartości.</translation>
     </message>
     <message>
-        <location filename="../../core/query_factory.py" line="162"/>
+        <location filename="../../core/query_factory.py" line="177"/>
         <source>Missing some keys for some values.</source>
         <translation>Dla niektórych wartości brakuje niektórych kluczy. </translation>
     </message>
@@ -425,6 +425,46 @@
         <location filename="../../core/query_preparation.py" line="183"/>
         <source>WKT detected for &quot;geocodeCoords&quot;.</source>
         <translation>Wykryte WKT dla &quot;koordynatów geolokalizacji&quot;</translation>
+    </message>
+    <message>
+        <location filename="../../core/query_factory.py" line="18"/>
+        <source>All OSM objects with the key {key} in {extent} are going to be downloaded.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../../core/query_factory.py" line="20"/>
+        <source>All OSM objects with the key {key} in {dist} meters of {extent} are going to be downloaded.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../../core/query_factory.py" line="22"/>
+        <source>All OSM objects in {extent} are going to be downloaded.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../../core/query_factory.py" line="23"/>
+        <source>All OSM objects in {dist} meters of {extent} are going to be downloaded.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../../core/query_factory.py" line="25"/>
+        <source>All OSM objects with the key {key} are going to be downloaded.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../../core/query_factory.py" line="168"/>
+        <source>A key is required.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../../core/query_factory.py" line="305"/>
+        <source>and</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../../core/query_factory.py" line="324"/>
+        <source>the canvas or layer extent</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -517,6 +557,27 @@
     </message>
 </context>
 <context>
+    <name>QueryItemDelegate</name>
+    <message>
+        <location filename="../../ui/custom_ui.py" line="70"/>
+        <source>Query on all keys</source>
+        <translation>Odpytaj dla wszystkich kluczy</translation>
+    </message>
+    <message>
+        <location filename="../../ui/custom_ui.py" line="81"/>
+        <source>Query on all values</source>
+        <translation>Odpytaj dla wszystkich wartości</translation>
+    </message>
+</context>
+<context>
+    <name>TableKeyValue</name>
+    <message>
+        <location filename="../../ui/custom_ui.py" line="35"/>
+        <source>Query on all keys</source>
+        <translation>Odpytaj dla wszystkich kluczy</translation>
+    </message>
+</context>
+<context>
     <name>ui_main_window</name>
     <message>
         <location filename="../ui/main_window.ui" line="87"/>
@@ -529,7 +590,7 @@
         <translation>Zapytanie</translation>
     </message>
     <message>
-        <location filename="../ui/main_window.ui" line="840"/>
+        <location filename="../ui/main_window.ui" line="860"/>
         <source>OSM File</source>
         <translation>Plik OSM</translation>
     </message>
@@ -544,67 +605,67 @@
         <translation>O wtyczce</translation>
     </message>
     <message>
-        <location filename="../ui/main_window.ui" line="958"/>
+        <location filename="../ui/main_window.ui" line="978"/>
         <source>Overpass API</source>
         <translation>Overpass API</translation>
     </message>
     <message>
-        <location filename="../ui/main_window.ui" line="653"/>
+        <location filename="../ui/main_window.ui" line="673"/>
         <source>Outputs</source>
         <translation>Wyniki</translation>
     </message>
     <message>
-        <location filename="../ui/main_window.ui" line="978"/>
+        <location filename="../ui/main_window.ui" line="998"/>
         <source>Realization</source>
         <translation>Realizacja</translation>
     </message>
     <message>
-        <location filename="../ui/main_window.ui" line="1020"/>
+        <location filename="../ui/main_window.ui" line="1040"/>
         <source>Translators</source>
         <translation>Tłumacze</translation>
     </message>
     <message>
-        <location filename="../ui/main_window.ui" line="1114"/>
+        <location filename="../ui/main_window.ui" line="1134"/>
         <source>German</source>
         <translation>Niemiecki</translation>
     </message>
     <message>
-        <location filename="../ui/main_window.ui" line="1203"/>
+        <location filename="../ui/main_window.ui" line="1223"/>
         <source>Sources</source>
         <translation>Żródła</translation>
     </message>
     <message>
-        <location filename="../ui/main_window.ui" line="1233"/>
+        <location filename="../ui/main_window.ui" line="1253"/>
         <source>Licence</source>
         <translation>Licencja</translation>
     </message>
     <message>
-        <location filename="../ui/main_window.ui" line="1107"/>
+        <location filename="../ui/main_window.ui" line="1127"/>
         <source>Russian</source>
         <translation>Rosyjski</translation>
     </message>
     <message>
-        <location filename="../ui/main_window.ui" line="1065"/>
+        <location filename="../ui/main_window.ui" line="1085"/>
         <source>Italian</source>
         <translation>Włoski</translation>
     </message>
     <message>
-        <location filename="../ui/main_window.ui" line="1086"/>
+        <location filename="../ui/main_window.ui" line="1106"/>
         <source>French</source>
         <translation>Francuski</translation>
     </message>
     <message>
-        <location filename="../ui/main_window.ui" line="1149"/>
+        <location filename="../ui/main_window.ui" line="1169"/>
         <source>Dutch</source>
         <translation>Holenderski</translation>
     </message>
     <message>
-        <location filename="../ui/main_window.ui" line="1142"/>
+        <location filename="../ui/main_window.ui" line="1162"/>
         <source>Finnish</source>
         <translation>Fiński</translation>
     </message>
     <message>
-        <location filename="../ui/main_window.ui" line="1156"/>
+        <location filename="../ui/main_window.ui" line="1176"/>
         <source>Taiwanese Mandarin</source>
         <translation>Tajwański mandaryński</translation>
     </message>
@@ -644,117 +705,117 @@
         <translation>m</translation>
     </message>
     <message>
-        <location filename="../ui/main_window.ui" line="598"/>
+        <location filename="../ui/main_window.ui" line="618"/>
         <source>Advanced</source>
         <translation>Zaawansowany</translation>
     </message>
     <message>
-        <location filename="../ui/main_window.ui" line="398"/>
+        <location filename="../ui/main_window.ui" line="418"/>
         <source>Node</source>
         <translation>Węzeł</translation>
     </message>
     <message>
-        <location filename="../ui/main_window.ui" line="408"/>
+        <location filename="../ui/main_window.ui" line="428"/>
         <source>Way</source>
         <translation>Linia</translation>
     </message>
     <message>
-        <location filename="../ui/main_window.ui" line="418"/>
+        <location filename="../ui/main_window.ui" line="438"/>
         <source>Relation</source>
         <translation>Relacja</translation>
     </message>
     <message>
-        <location filename="../ui/main_window.ui" line="850"/>
+        <location filename="../ui/main_window.ui" line="870"/>
         <source>Points</source>
         <translation>Punkt</translation>
     </message>
     <message>
-        <location filename="../ui/main_window.ui" line="860"/>
+        <location filename="../ui/main_window.ui" line="880"/>
         <source>Lines</source>
         <translation>Linie</translation>
     </message>
     <message>
-        <location filename="../ui/main_window.ui" line="880"/>
+        <location filename="../ui/main_window.ui" line="900"/>
         <source>Multipolygons</source>
         <translation>Multipoligony</translation>
     </message>
     <message>
-        <location filename="../ui/main_window.ui" line="870"/>
+        <location filename="../ui/main_window.ui" line="890"/>
         <source>Multilinestrings</source>
         <translation>Multilinie</translation>
     </message>
     <message>
-        <location filename="../ui/main_window.ui" line="478"/>
+        <location filename="../ui/main_window.ui" line="498"/>
         <source>Timeout</source>
         <translation>Limit czasu</translation>
     </message>
     <message>
-        <location filename="../ui/main_window.ui" line="904"/>
+        <location filename="../ui/main_window.ui" line="924"/>
         <source>Directory</source>
         <translation>Katalog</translation>
     </message>
     <message>
-        <location filename="../ui/main_window.ui" line="918"/>
+        <location filename="../ui/main_window.ui" line="938"/>
         <source>File prefix</source>
         <translation>Przedrostek pliku</translation>
     </message>
     <message>
-        <location filename="../ui/main_window.ui" line="528"/>
+        <location filename="../ui/main_window.ui" line="548"/>
         <source>Show query</source>
         <translation>Pokaż zapytanie</translation>
     </message>
     <message>
-        <location filename="../ui/main_window.ui" line="801"/>
+        <location filename="../ui/main_window.ui" line="821"/>
         <source>Run query</source>
         <translation>Uruchom zapytanie</translation>
     </message>
     <message>
-        <location filename="../ui/main_window.ui" line="553"/>
+        <location filename="../ui/main_window.ui" line="573"/>
         <source>Overpass query</source>
         <translation>Zapytanie Overpass</translation>
     </message>
     <message>
-        <location filename="../ui/main_window.ui" line="622"/>
+        <location filename="../ui/main_window.ui" line="642"/>
         <source>Can be overridden</source>
         <translation>Może zostać nadpisana</translation>
     </message>
     <message>
-        <location filename="../ui/main_window.ui" line="629"/>
+        <location filename="../ui/main_window.ui" line="649"/>
         <source>{{bbox}} or {{center}}</source>
         <translation>{{bbox}} lub {{center}}</translation>
     </message>
     <message>
-        <location filename="../ui/main_window.ui" line="679"/>
+        <location filename="../ui/main_window.ui" line="699"/>
         <source>or let empty</source>
         <translation>lub pozostaw puste</translation>
     </message>
     <message>
-        <location filename="../ui/main_window.ui" line="794"/>
+        <location filename="../ui/main_window.ui" line="814"/>
         <source>Generate query</source>
         <translation>Generowanie zapytania</translation>
     </message>
     <message>
-        <location filename="../ui/main_window.ui" line="822"/>
+        <location filename="../ui/main_window.ui" line="842"/>
         <source>Documentation</source>
         <translation>Dokumentacja</translation>
     </message>
     <message>
-        <location filename="../ui/main_window.ui" line="890"/>
+        <location filename="../ui/main_window.ui" line="910"/>
         <source>All tags</source>
         <translation>Wszystkie tagi</translation>
     </message>
     <message>
-        <location filename="../ui/main_window.ui" line="932"/>
+        <location filename="../ui/main_window.ui" line="952"/>
         <source>OSMConf</source>
         <translation>OSMConf</translation>
     </message>
     <message>
-        <location filename="../ui/main_window.ui" line="947"/>
+        <location filename="../ui/main_window.ui" line="967"/>
         <source>Open</source>
         <translation>Otwórz</translation>
     </message>
     <message>
-        <location filename="../ui/main_window.ui" line="1026"/>
+        <location filename="../ui/main_window.ui" line="1046"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The web-based translating platform &lt;a href=&quot;https://www.transifex.com/projects/p/gui/&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0057ae;&quot;&gt;Transifex&lt;/span&gt;&lt;/a&gt; is used. It&apos;s easier for translators. Join us !&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Używamy internetowej platformy do tłumaczenia &lt;a href=&quot;https://www.transifex.com/projects/p/gui/&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0057ae;&quot;&gt;Transifex&lt;/span&gt;&lt;/a&gt;, która ułatwia pracę tłumaczom. Dołącz do nas i pomóż!&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
@@ -764,27 +825,27 @@
         <translation>Miejscowość lub miasto</translation>
     </message>
     <message>
-        <location filename="../ui/main_window.ui" line="1211"/>
+        <location filename="../ui/main_window.ui" line="1231"/>
         <source>GitHub&apos;s repository</source>
         <translation>Repozytorium GitHub</translation>
     </message>
     <message>
-        <location filename="../ui/main_window.ui" line="1121"/>
+        <location filename="../ui/main_window.ui" line="1141"/>
         <source>Portuguese</source>
         <translation>Portugalski</translation>
     </message>
     <message>
-        <location filename="../ui/main_window.ui" line="1093"/>
+        <location filename="../ui/main_window.ui" line="1113"/>
         <source>Spanish</source>
         <translation>Hiszpański</translation>
     </message>
     <message>
-        <location filename="../ui/main_window.ui" line="1072"/>
+        <location filename="../ui/main_window.ui" line="1092"/>
         <source>Indonesian</source>
         <translation>Indonezyjski</translation>
     </message>
     <message>
-        <location filename="../ui/main_window.ui" line="1100"/>
+        <location filename="../ui/main_window.ui" line="1120"/>
         <source>Polish</source>
         <translation>Polski</translation>
     </message>

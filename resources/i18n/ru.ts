@@ -1,431 +1,470 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS><TS version="2.0" language="ru" sourcelanguage="en">
+<?xml version="1.0" ?><!DOCTYPE TS><TS language="ru" sourcelanguage="en" version="2.0">
 <context>
     <name>@default</name>
     <message>
         <location filename="../../core/process.py" line="177"/>
         <source>Prepare outputs</source>
-        <translation type="unfinished"></translation>
+        <translation>Подготовка результата</translation>
     </message>
     <message>
         <location filename="../../core/process.py" line="239"/>
         <source>allKeys</source>
-        <translation type="unfinished"></translation>
+        <translation>allKeys</translation>
     </message>
     <message>
         <location filename="../../core/actions.py" line="180"/>
         <source>The JOSM remote seems to be disabled.</source>
-        <translation type="unfinished"></translation>
+        <translation>Удаленное управление JOSM, возможно, отключено.</translation>
     </message>
     <message>
         <location filename="../../core/exceptions.py" line="89"/>
         <source>Error while building the query</source>
-        <translation type="unfinished"></translation>
+        <translation>Ошибка при построении запроса</translation>
     </message>
     <message>
         <location filename="../../core/exceptions.py" line="150"/>
         <source>The output directory does not exist.</source>
-        <translation type="unfinished"></translation>
+        <translation>Результирующий каталог не существует.</translation>
     </message>
     <message>
         <location filename="../../core/exceptions.py" line="177"/>
         <source>A parameter is missing :</source>
-        <translation type="unfinished"></translation>
+        <translation>Отсутствует параметр :</translation>
     </message>
     <message>
-        <location filename="../../ui/base_overpass_panel.py" line="144"/>
+        <location filename="../../ui/base_overpass_panel.py" line="143"/>
         <source>Successful query, but no result.</source>
-        <translation type="unfinished"></translation>
+        <translation>Успешный запрос, но без результата.</translation>
     </message>
     <message>
         <location filename="../../ui/osm_file_panel.py" line="45"/>
         <source>Select OSM conf file</source>
-        <translation type="unfinished"></translation>
+        <translation>Выбрать файл конфигурации OSM</translation>
     </message>
     <message>
         <location filename="../../ui/osm_file_panel.py" line="114"/>
         <source>Successful query</source>
-        <translation type="unfinished"></translation>
+        <translation>Успешный запрос</translation>
     </message>
     <message>
         <location filename="../../ui/base_processing_panel.py" line="49"/>
         <source>Save to temporary file</source>
-        <translation type="unfinished"></translation>
+        <translation>Сохранить во временный файл</translation>
     </message>
     <message>
         <location filename="../../ui/base_processing_panel.py" line="53"/>
         <source>Select a directory</source>
-        <translation type="unfinished"></translation>
+        <translation>Выбрать каталог</translation>
     </message>
     <message>
         <location filename="../../ui/quick_query_panel.py" line="38"/>
         <source>In</source>
-        <translation type="unfinished"></translation>
+        <translation>В</translation>
     </message>
     <message>
         <location filename="../../ui/quick_query_panel.py" line="39"/>
         <source>Around</source>
-        <translation type="unfinished"></translation>
+        <translation>Вокруг</translation>
     </message>
     <message>
         <location filename="../../ui/query_panel.py" line="43"/>
         <source>Canvas Extent</source>
-        <translation type="unfinished"></translation>
+        <translation>Покрывать холст</translation>
     </message>
     <message>
         <location filename="../../ui/query_panel.py" line="44"/>
         <source>Layer Extent</source>
-        <translation type="unfinished"></translation>
+        <translation>Покрывать слой</translation>
     </message>
     <message>
         <location filename="../../ui/quick_query_panel.py" line="42"/>
         <source>Not Spatial</source>
-        <translation type="unfinished"></translation>
+        <translation>Не пространственные</translation>
     </message>
     <message>
-        <location filename="../../ui/base_overpass_panel.py" line="143"/>
+        <location filename="../../ui/base_overpass_panel.py" line="142"/>
         <source>No result</source>
-        <translation type="unfinished"></translation>
+        <translation>Нет результата</translation>
     </message>
     <message>
-        <location filename="../../quick_osm.py" line="135"/>
+        <location filename="../../quick_osm.py" line="136"/>
         <source>JOSM Remote</source>
-        <translation type="unfinished"></translation>
+        <translation>Удаленное управление JOSM</translation>
     </message>
     <message>
         <location filename="../../core/actions.py" line="31"/>
         <source>OpenStreetMap Browser</source>
-        <translation type="unfinished"></translation>
+        <translation>Браузер OpenStreetMap</translation>
     </message>
     <message>
         <location filename="../../core/actions.py" line="70"/>
         <source>User default editor</source>
-        <translation type="unfinished"></translation>
+        <translation>Пользовательский редактор по умолчанию</translation>
     </message>
     <message>
         <location filename="../../core/actions.py" line="110"/>
         <source>Sketchline</source>
-        <translation type="unfinished"></translation>
+        <translation>Эскизная линия</translation>
     </message>
     <message>
         <location filename="../../core/actions.py" line="204"/>
         <source>Sorry, this field is empty for this entity.</source>
-        <translation type="unfinished"></translation>
+        <translation>К сожалению, это поле пустое для этого объекта.</translation>
     </message>
     <message>
         <location filename="../../core/parser/osm_parser.py" line="91"/>
         <source>File does not exist</source>
-        <translation type="unfinished"></translation>
+        <translation>Файл не существует</translation>
     </message>
     <message>
-        <location filename="../../ui/quick_query_panel.py" line="81"/>
+        <location filename="../../ui/quick_query_panel.py" line="87"/>
         <source>Query on all keys</source>
-        <translation type="unfinished"></translation>
+        <translation>Запрос на все ключи</translation>
     </message>
     <message>
-        <location filename="../../ui/quick_query_panel.py" line="83"/>
+        <location filename="../../ui/quick_query_panel.py" line="89"/>
         <source>Query on all values</source>
-        <translation type="unfinished"></translation>
+        <translation>Запрос на все значения</translation>
     </message>
     <message>
-        <location filename="../../quick_osm_processing/advanced/raw_query.py" line="37"/>
+        <location filename="../../quick_osm_processing/advanced/build_query.py" line="51"/>
         <source>Advanced</source>
-        <translation type="unfinished"></translation>
+        <translation>Дополнительные настройки</translation>
     </message>
     <message>
         <location filename="../../quick_osm_processing/advanced/raw_query.py" line="49"/>
         <source>Build raw query</source>
-        <translation type="unfinished"></translation>
+        <translation>Сконструировать необработанный запрос</translation>
     </message>
     <message>
         <location filename="../../quick_osm_processing/advanced/raw_query.py" line="55"/>
         <source>Query</source>
-        <translation type="unfinished">Запрос</translation>
+        <translation>Запрос</translation>
     </message>
     <message>
         <location filename="../../quick_osm_processing/advanced/raw_query.py" line="59"/>
         <source>Extent, if &quot;{{bbox}}&quot; in the query</source>
-        <translation type="unfinished"></translation>
+        <translation>Покрывать, если &quot;{{bbox}}&quot; в запросе</translation>
     </message>
     <message>
-        <location filename="../../quick_osm_processing/advanced/raw_query.py" line="67"/>
+        <location filename="../../quick_osm_processing/advanced/build_query.py" line="84"/>
         <source>Overpass server</source>
-        <translation type="unfinished"></translation>
+        <translation>Сервер Overpass</translation>
     </message>
     <message>
-        <location filename="../../quick_osm_processing/advanced/raw_query.py" line="84"/>
+        <location filename="../../quick_osm_processing/advanced/build_query.py" line="93"/>
         <source>Query as encoded URL</source>
-        <translation type="unfinished"></translation>
+        <translation>Запрос в формате закодированного URL</translation>
     </message>
     <message>
-        <location filename="../../quick_osm_processing/advanced/raw_query.py" line="88"/>
+        <location filename="../../quick_osm_processing/advanced/build_query.py" line="97"/>
         <source>Raw query as OQL</source>
-        <translation type="unfinished"></translation>
+        <translation>Необработанный запрос в формате OQL</translation>
     </message>
     <message>
         <location filename="../../quick_osm_processing/advanced/build_query.py" line="67"/>
         <source>Key, default to all keys</source>
-        <translation type="unfinished"></translation>
+        <translation>Ключ по умолчанию для всех ключей</translation>
     </message>
     <message>
         <location filename="../../quick_osm_processing/advanced/build_query.py" line="71"/>
         <source>Value, default to all values</source>
-        <translation type="unfinished"></translation>
+        <translation>Значение по умолчанию для всех значений</translation>
     </message>
     <message>
         <location filename="../../quick_osm_processing/advanced/build_query.py" line="76"/>
         <source>Timeout</source>
-        <translation type="unfinished"></translation>
+        <translation>Время на запрос</translation>
     </message>
     <message>
-        <location filename="../../quick_osm_processing/advanced/build_query.py" line="142"/>
+        <location filename="../../quick_osm_processing/advanced/build_query.py" line="143"/>
         <source>Build query by attribute only</source>
-        <translation type="unfinished"></translation>
+        <translation>Построить запрос только на аттрибуте</translation>
     </message>
     <message>
-        <location filename="../../quick_osm_processing/advanced/build_query.py" line="165"/>
+        <location filename="../../quick_osm_processing/advanced/build_query.py" line="166"/>
         <source>Build query inside an area</source>
-        <translation type="unfinished"></translation>
+        <translation>Построить запрос внутри зоны</translation>
     </message>
     <message>
-        <location filename="../../quick_osm_processing/advanced/build_query.py" line="169"/>
+        <location filename="../../quick_osm_processing/advanced/build_query.py" line="170"/>
         <source>Inside the area</source>
-        <translation type="unfinished"></translation>
+        <translation>Внутри зоны</translation>
     </message>
     <message>
-        <location filename="../../quick_osm_processing/advanced/build_query.py" line="193"/>
+        <location filename="../../quick_osm_processing/advanced/build_query.py" line="194"/>
         <source>Build query around an area</source>
-        <translation type="unfinished"></translation>
+        <translation>Построить запрос вокруг зоны</translation>
     </message>
     <message>
-        <location filename="../../quick_osm_processing/advanced/build_query.py" line="197"/>
+        <location filename="../../quick_osm_processing/advanced/build_query.py" line="198"/>
         <source>Around the area (Point WKT accepted)</source>
-        <translation type="unfinished"></translation>
+        <translation>Вокруг зоны (Принимается точка WKT)</translation>
     </message>
     <message>
-        <location filename="../../quick_osm_processing/advanced/build_query.py" line="202"/>
+        <location filename="../../quick_osm_processing/advanced/build_query.py" line="203"/>
         <source>Distance (meters)</source>
-        <translation type="unfinished"></translation>
+        <translation>Расстояние (в метрах)</translation>
     </message>
     <message>
-        <location filename="../../quick_osm_processing/advanced/build_query.py" line="229"/>
+        <location filename="../../quick_osm_processing/advanced/build_query.py" line="230"/>
         <source>Build query inside an extent</source>
-        <translation type="unfinished"></translation>
+        <translation>Построить запрос внутри покрытия</translation>
     </message>
     <message>
-        <location filename="../../quick_osm_processing/advanced/build_query.py" line="233"/>
+        <location filename="../../quick_osm_processing/advanced/build_query.py" line="234"/>
         <source>Extent</source>
-        <translation type="unfinished"></translation>
+        <translation>Покрытие</translation>
     </message>
     <message>
-        <location filename="../../core/query_factory.py" line="123"/>
+        <location filename="../../core/query_factory.py" line="133"/>
         <source>Wrong query type.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../core/query_factory.py" line="127"/>
-        <source>Wrong OSM object.</source>
-        <translation type="unfinished"></translation>
+        <translation>Неверный тип запроса.</translation>
     </message>
     <message>
         <location filename="../../core/query_factory.py" line="137"/>
-        <source>Wrong distance parameter.</source>
-        <translation type="unfinished"></translation>
+        <source>Wrong OSM object.</source>
+        <translation>Неверный OSM объект.</translation>
     </message>
     <message>
-        <location filename="../../core/query_factory.py" line="141"/>
+        <location filename="../../core/query_factory.py" line="147"/>
+        <source>Wrong distance parameter.</source>
+        <translation>Неверный параметр расстояния.</translation>
+    </message>
+    <message>
+        <location filename="../../core/query_factory.py" line="151"/>
         <source>Distance parameter is incompatible with this query.</source>
-        <translation type="unfinished"></translation>
+        <translation>Параметр расстояния несовместим с этим запросом.</translation>
     </message>
     <message>
         <location filename="../../ui/dialog.py" line="171"/>
         <source>A critical error occurred, this is the traceback:</source>
-        <translation type="unfinished"></translation>
+        <translation>Произошла критическая ошибка, вот отчет:</translation>
     </message>
     <message>
         <location filename="../../ui/base_processing_panel.py" line="80"/>
-        <source>Running query&#xe2;&#x80;&#xa6;</source>
-        <translation type="unfinished"></translation>
+        <source>Running queryâ¦</source>
+        <translation>Выполнение запроса</translation>
     </message>
     <message>
         <location filename="../../core/process.py" line="107"/>
         <source>From memory layer to GeoJSON: </source>
-        <translation type="unfinished"></translation>
+        <translation>Из виртуального слоя в GeoJSON:</translation>
     </message>
     <message>
         <location filename="../../core/process.py" line="181"/>
         <source>Downloading data from Overpass {server_name}</source>
-        <translation type="unfinished"></translation>
+        <translation>Скачивание данных с Overpass {server_name}</translation>
     </message>
     <message>
         <location filename="../../core/actions.py" line="141"/>
         <source>Sorry, the field &apos;{fieldname}&apos; is empty for this entity.</source>
-        <translation type="unfinished"></translation>
+        <translation>Извините, поле &apos;{fieldname}&apos; пустое для этого объекта </translation>
     </message>
     <message>
         <location filename="../../ui/dialog.py" line="220"/>
         <source>Report it</source>
-        <translation type="unfinished"></translation>
+        <translation>Сообщить об этом</translation>
     </message>
     <message>
         <location filename="../../quick_osm_processing/advanced/raw_query.py" line="76"/>
         <source>Area (if you want to override {{geocodeArea}} in the query)</source>
-        <translation type="unfinished"></translation>
+        <translation>Зона (если вы хотите переписать {{geocodeArea}} в запросе)</translation>
     </message>
     <message>
         <location filename="../../ui/dialog.py" line="178"/>
         <source>Error in the logs, in the QuickOSM panel, copy/paste it and please report it to GitHub</source>
-        <translation type="unfinished"></translation>
+        <translation>Ошибка в Отладочных сообщениях, на панели QuickOSM, скопируйте и отправьте ее на GitHub</translation>
     </message>
     <message>
         <location filename="../../ui/dialog.py" line="225"/>
         <source>More details</source>
-        <translation type="unfinished"></translation>
+        <translation>Больше деталей</translation>
     </message>
     <message>
-        <location filename="../../ui/base_overpass_panel.py" line="137"/>
+        <location filename="../../ui/base_overpass_panel.py" line="136"/>
         <source>Successful query, {} layer(s) has been loaded.</source>
-        <translation type="unfinished"></translation>
+        <translation>Успешный запрос, слой/слои {} загружены. </translation>
     </message>
     <message>
-        <location filename="../../qgis_plugin_tools/custom_logging.py" line="63"/>
+        <location filename="../../qgis_plugin_tools/tools/custom_logging.py" line="63"/>
         <source>Due to memory limitations on this machine, the plugin {} can not handle the full log</source>
-        <translation type="unfinished"></translation>
+        <translation>Плагин {} не может обработать весь журнал ошибок из-за нехватки памяти на вашем компьютере</translation>
     </message>
     <message>
         <location filename="../../core/exceptions.py" line="61"/>
         <source>The server would need more or less {number} {unit} of RAM.</source>
-        <translation type="unfinished"></translation>
+        <translation>Серверу необходимо больше или меньше {number} {unit} ОЗУ.</translation>
     </message>
     <message>
         <location filename="../../core/exceptions.py" line="127"/>
         <source>No OSM polygon (relation) has been found, you should try the &quot;Around&quot; query which will search for a point (node).</source>
-        <translation type="unfinished"></translation>
+        <translation>Не найден ни один OSM полигон (отношение), вы должны попробовать запрос &quot;Вокруг&quot;, который будет искать точку (нод).</translation>
     </message>
     <message>
         <location filename="../../core/exceptions.py" line="170"/>
         <source>The layer combobox is empty.</source>
-        <translation type="unfinished"></translation>
+        <translation>Не выбран слой.</translation>
     </message>
     <message>
         <location filename="../../ui/osm_file_panel.py" line="39"/>
         <source>Select an OSM/PBF file</source>
-        <translation type="unfinished"></translation>
+        <translation>Выберите OSM/PBF файл</translation>
     </message>
     <message>
-        <location filename="../../quick_osm.py" line="132"/>
+        <location filename="../../quick_osm.py" line="133"/>
         <source>Import done, check JOSM.</source>
-        <translation type="unfinished"></translation>
+        <translation>Импорт завершен, проверьте JOSM</translation>
     </message>
     <message>
-        <location filename="../../quick_osm.py" line="135"/>
+        <location filename="../../quick_osm.py" line="136"/>
         <source>Is the remote enabled in the JOSM settings?</source>
-        <translation type="unfinished"></translation>
+        <translation>Включено ли удаленное управление в настройках JOSM?</translation>
     </message>
     <message>
         <location filename="../../core/exceptions.py" line="46"/>
         <source>Bad request OverpassAPI.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ошибочный запрос OverpassAPI</translation>
     </message>
     <message>
         <location filename="../../core/exceptions.py" line="53"/>
         <source>OverpassAPI timeout, try again later or a smaller query.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ошибка длительности запроса OverpassAPI, попробуйте снова позже или постройте запрос поменьше.</translation>
     </message>
     <message>
         <location filename="../../core/exceptions.py" line="59"/>
         <source>OverpassAPI is out of memory, try another query or a smaller area.</source>
-        <translation type="unfinished"></translation>
+        <translation>OverpassAPI исрасходовал память, попробуйте другой запрос или зону поменьше.</translation>
     </message>
     <message>
         <location filename="../../core/exceptions.py" line="70"/>
         <source>Overpass error: {message}</source>
-        <translation type="unfinished"></translation>
+        <translation>Ошибка Overpass: {message}</translation>
     </message>
     <message>
         <location filename="../../core/exceptions.py" line="97"/>
         <source>The query is not supported by the plugin because of : {key}</source>
-        <translation type="unfinished"></translation>
+        <translation>Запрос не поддерживается плагином из-за : {key}</translation>
     </message>
     <message>
         <location filename="../../core/exceptions.py" line="120"/>
         <source>No named area found for OSM {osm_type} called &quot;{place_name}&quot;.</source>
-        <translation type="unfinished"></translation>
+        <translation>Для OSM {} не найдена зона с именем &quot;{place_name}&quot;.</translation>
     </message>
     <message>
         <location filename="../../core/exceptions.py" line="141"/>
         <source>The file does not exist.</source>
-        <translation type="unfinished"></translation>
+        <translation>Файл не существует.</translation>
     </message>
     <message>
         <location filename="../../core/exceptions.py" line="157"/>
         <source>The output file already exist, set a prefix.</source>
-        <translation type="unfinished"></translation>
+        <translation>Результирующий файл уже существует, добавьте префикс.</translation>
     </message>
     <message>
         <location filename="../../core/exceptions.py" line="186"/>
         <source>No osm objects selected. Please select one.</source>
-        <translation type="unfinished"></translation>
+        <translation>Не выбраны OSM-объекты. Пожалуйста, выберите один. </translation>
     </message>
     <message>
         <location filename="../../core/exceptions.py" line="193"/>
         <source>No outputs selected. Please select one.</source>
-        <translation type="unfinished"></translation>
+        <translation>Не выбраны результаты. Пожалуйста, выберите один.</translation>
     </message>
     <message>
         <location filename="../../core/parser/osm_parser.py" line="105"/>
         <source>Error on the layer : {layer}</source>
-        <translation type="unfinished"></translation>
+        <translation>Ошибка на слое : {layer}</translation>
     </message>
     <message>
         <location filename="../../core/parser/osm_parser.py" line="112"/>
         <source>Parsing layer : {layer}</source>
-        <translation type="unfinished"></translation>
+        <translation>Считывается слой : {layer}</translation>
     </message>
     <message>
         <location filename="../../core/parser/osm_parser.py" line="176"/>
         <source>Creating memory layer : {layer}</source>
-        <translation type="unfinished"></translation>
+        <translation>Создается временный слой : {layer}</translation>
     </message>
     <message>
-        <location filename="../../core/query_factory.py" line="131"/>
+        <location filename="../../core/query_factory.py" line="141"/>
         <source>No distance provided with the &quot;around&quot; query.</source>
-        <translation type="unfinished"></translation>
+        <translation>Не указано расстояние в запросе &quot;вокруг&quot;.</translation>
     </message>
     <message>
-        <location filename="../../core/query_factory.py" line="145"/>
+        <location filename="../../core/query_factory.py" line="155"/>
         <source>Named area is required when the query is &quot;In&quot;.</source>
-        <translation type="unfinished"></translation>
+        <translation>Требуется зона с именем, когда выполняется запрос &quot;В&quot;</translation>
     </message>
     <message>
-        <location filename="../../core/query_factory.py" line="149"/>
+        <location filename="../../core/query_factory.py" line="159"/>
         <source>Named area or a WKT is required when the query is &quot;Around&quot;.</source>
-        <translation type="unfinished"></translation>
+        <translation>Требуется зона с именем или WKT, когда выполняется запрос &quot;Вокруг&quot;</translation>
     </message>
     <message>
-        <location filename="../../core/query_factory.py" line="153"/>
+        <location filename="../../core/query_factory.py" line="163"/>
         <source>Not possible to query a specific value without a key.</source>
-        <translation type="unfinished"></translation>
+        <translation>Невозможно выполнить запрос с конкретным значением без ключа.</translation>
     </message>
     <message>
-        <location filename="../../core/query_factory.py" line="158"/>
+        <location filename="../../core/query_factory.py" line="173"/>
         <source>Missing some values for some keys.</source>
-        <translation type="unfinished"></translation>
+        <translation>Отсутствуют значений для некоторых ключей.</translation>
     </message>
     <message>
-        <location filename="../../core/query_factory.py" line="162"/>
+        <location filename="../../core/query_factory.py" line="177"/>
         <source>Missing some keys for some values.</source>
-        <translation type="unfinished"></translation>
+        <translation>Отсутствуют ключи для некоторых значений.</translation>
     </message>
     <message>
         <location filename="../../core/query_preparation.py" line="146"/>
         <source>Missing extent parameter.</source>
-        <translation type="unfinished"></translation>
+        <translation>Отсутствует параметр покрытия.</translation>
     </message>
     <message>
         <location filename="../../core/query_preparation.py" line="183"/>
         <source>WKT detected for &quot;geocodeCoords&quot;.</source>
-        <translation type="unfinished"></translation>
+        <translation>Обнаружен WKT для &quot;geocodeCoords&quot;</translation>
+    </message>
+    <message>
+        <location filename="../../core/query_factory.py" line="18"/>
+        <source>All OSM objects with the key {key} in {extent} are going to be downloaded.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../../core/query_factory.py" line="20"/>
+        <source>All OSM objects with the key {key} in {dist} meters of {extent} are going to be downloaded.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../../core/query_factory.py" line="22"/>
+        <source>All OSM objects in {extent} are going to be downloaded.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../../core/query_factory.py" line="23"/>
+        <source>All OSM objects in {dist} meters of {extent} are going to be downloaded.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../../core/query_factory.py" line="25"/>
+        <source>All OSM objects with the key {key} are going to be downloaded.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../../core/query_factory.py" line="168"/>
+        <source>A key is required.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../../core/query_factory.py" line="305"/>
+        <source>and</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../../core/query_factory.py" line="324"/>
+        <source>the canvas or layer extent</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -433,7 +472,7 @@
     <message>
         <location filename="../../quick_osm_processing/advanced/build_query.py" line="58"/>
         <source>This algorithm builds a query and then encode it into the Overpass API URL. The &quot;Download File&quot; algorithm might be used after that to fetch the result.</source>
-        <translation type="unfinished"></translation>
+        <translation>Этот алгоритм строит запрос, а затем кодирует его в Overpass API URL. Можно использовать стандартный алгоритм &quot;Download File&quot; для последующего скачивания результата.</translation>
     </message>
 </context>
 <context>
@@ -441,27 +480,27 @@
     <message>
         <location filename="../../quick_osm_processing/advanced/download_overpass.py" line="28"/>
         <source>Advanced</source>
-        <translation type="unfinished"></translation>
+        <translation>Дополнительные настройки</translation>
     </message>
     <message>
         <location filename="../../quick_osm_processing/advanced/download_overpass.py" line="39"/>
         <source>Download from Overpass</source>
-        <translation type="unfinished"></translation>
+        <translation>Скачать с Overpass</translation>
     </message>
     <message>
         <location filename="../../quick_osm_processing/advanced/download_overpass.py" line="51"/>
         <source>URL, with the query encoded</source>
-        <translation type="unfinished"></translation>
+        <translation>URL с закодированным запросом</translation>
     </message>
     <message>
         <location filename="../../quick_osm_processing/advanced/download_overpass.py" line="55"/>
         <source>Output</source>
-        <translation type="unfinished"></translation>
+        <translation>Результат</translation>
     </message>
     <message>
         <location filename="../../quick_osm_processing/advanced/download_overpass.py" line="45"/>
         <source>Like the native QGIS File Downloader algorithm, this algorithm will download an URL but it will also perform a OSM integrity check at the end of the download.</source>
-        <translation type="unfinished"></translation>
+        <translation>Аналогично стандартному алгоритму QGIS File Downloader, этот алгоритм скачает URL, но также проверить целостность OSM в конце скачивания.</translation>
     </message>
 </context>
 <context>
@@ -469,52 +508,73 @@
     <message>
         <location filename="../../quick_osm_processing/advanced/open_osm_file.py" line="54"/>
         <source>Open sublayers from an OSM file</source>
-        <translation type="unfinished"></translation>
+        <translation>Открывать подслои из OSM файла</translation>
     </message>
     <message>
         <location filename="../../quick_osm_processing/advanced/open_osm_file.py" line="57"/>
         <source>Open all sublayers from an OSM file. A custom OSM configuration file can be specified following the OGR documentation. This algorithm will not make a copy of the input file, it will only open it using OGR and custom INI file if provided.</source>
-        <translation type="unfinished"></translation>
+        <translation>Отрывать все подслои из OSM файла. Пользовательский файл конфигурации OSM может быть указан в соответствии документации OGR. Этот алгоритм не создаст копию исходного файла, а только откроет его посредством OGR и пользовательского INI файла, если они предоставлены.</translation>
     </message>
     <message>
         <location filename="../../quick_osm_processing/advanced/open_osm_file.py" line="64"/>
         <source>OSM file</source>
-        <translation type="unfinished"></translation>
+        <translation>OSM файл</translation>
     </message>
     <message>
         <location filename="../../quick_osm_processing/advanced/open_osm_file.py" line="68"/>
         <source>OSM configuration</source>
-        <translation type="unfinished"></translation>
+        <translation>Конфигурации OSM</translation>
     </message>
     <message>
         <location filename="../../quick_osm_processing/advanced/open_osm_file.py" line="72"/>
         <source>Output points</source>
-        <translation type="unfinished"></translation>
+        <translation>Вывод точек</translation>
     </message>
     <message>
         <location filename="../../quick_osm_processing/advanced/open_osm_file.py" line="78"/>
         <source>Output lines</source>
-        <translation type="unfinished"></translation>
+        <translation>Вывод линий</translation>
     </message>
     <message>
         <location filename="../../quick_osm_processing/advanced/open_osm_file.py" line="84"/>
         <source>Output multilinestrings</source>
-        <translation type="unfinished"></translation>
+        <translation>Вывод мультилиний</translation>
     </message>
     <message>
         <location filename="../../quick_osm_processing/advanced/open_osm_file.py" line="90"/>
         <source>Output multipolygons</source>
-        <translation type="unfinished"></translation>
+        <translation>Вывод мультиполигонов</translation>
     </message>
     <message>
         <location filename="../../quick_osm_processing/advanced/open_osm_file.py" line="96"/>
         <source>Output other relations</source>
-        <translation type="unfinished"></translation>
+        <translation>Вывод других отношений</translation>
     </message>
     <message>
         <location filename="../../quick_osm_processing/advanced/open_osm_file.py" line="109"/>
         <source>OSM Configuration file not found</source>
-        <translation type="unfinished"></translation>
+        <translation>Файл конфигурации OSM не найден</translation>
+    </message>
+</context>
+<context>
+    <name>QueryItemDelegate</name>
+    <message>
+        <location filename="../../ui/custom_ui.py" line="70"/>
+        <source>Query on all keys</source>
+        <translation>Запрос на все ключи</translation>
+    </message>
+    <message>
+        <location filename="../../ui/custom_ui.py" line="81"/>
+        <source>Query on all values</source>
+        <translation>Запрос на все значения</translation>
+    </message>
+</context>
+<context>
+    <name>TableKeyValue</name>
+    <message>
+        <location filename="../../ui/custom_ui.py" line="35"/>
+        <source>Query on all keys</source>
+        <translation>Запрос на все ключи</translation>
     </message>
 </context>
 <context>
@@ -530,7 +590,7 @@
         <translation>Запрос</translation>
     </message>
     <message>
-        <location filename="../ui/main_window.ui" line="840"/>
+        <location filename="../ui/main_window.ui" line="860"/>
         <source>OSM File</source>
         <translation>OSM Файл</translation>
     </message>
@@ -545,249 +605,249 @@
         <translation>О программе</translation>
     </message>
     <message>
-        <location filename="../ui/main_window.ui" line="958"/>
+        <location filename="../ui/main_window.ui" line="978"/>
         <source>Overpass API</source>
         <translation>Overpass API</translation>
     </message>
     <message>
-        <location filename="../ui/main_window.ui" line="653"/>
+        <location filename="../ui/main_window.ui" line="673"/>
         <source>Outputs</source>
-        <translation type="unfinished"></translation>
+        <translation>Результаты</translation>
     </message>
     <message>
-        <location filename="../ui/main_window.ui" line="978"/>
+        <location filename="../ui/main_window.ui" line="998"/>
         <source>Realization</source>
         <translation>Реализация</translation>
     </message>
     <message>
-        <location filename="../ui/main_window.ui" line="1020"/>
+        <location filename="../ui/main_window.ui" line="1040"/>
         <source>Translators</source>
-        <translation type="unfinished"></translation>
+        <translation>Переводчики</translation>
     </message>
     <message>
-        <location filename="../ui/main_window.ui" line="1114"/>
+        <location filename="../ui/main_window.ui" line="1134"/>
         <source>German</source>
-        <translation type="unfinished"></translation>
+        <translation>Немецкий</translation>
     </message>
     <message>
-        <location filename="../ui/main_window.ui" line="1203"/>
+        <location filename="../ui/main_window.ui" line="1223"/>
         <source>Sources</source>
         <translation>Исходники</translation>
     </message>
     <message>
-        <location filename="../ui/main_window.ui" line="1233"/>
+        <location filename="../ui/main_window.ui" line="1253"/>
         <source>Licence</source>
         <translation>Лицензия</translation>
     </message>
     <message>
-        <location filename="../ui/main_window.ui" line="1107"/>
+        <location filename="../ui/main_window.ui" line="1127"/>
         <source>Russian</source>
-        <translation type="unfinished"></translation>
+        <translation>Русский</translation>
     </message>
     <message>
-        <location filename="../ui/main_window.ui" line="1065"/>
+        <location filename="../ui/main_window.ui" line="1085"/>
         <source>Italian</source>
-        <translation type="unfinished"></translation>
+        <translation>Итальянский</translation>
     </message>
     <message>
-        <location filename="../ui/main_window.ui" line="1086"/>
+        <location filename="../ui/main_window.ui" line="1106"/>
         <source>French</source>
-        <translation type="unfinished"></translation>
+        <translation>Французский</translation>
     </message>
     <message>
-        <location filename="../ui/main_window.ui" line="1149"/>
+        <location filename="../ui/main_window.ui" line="1169"/>
         <source>Dutch</source>
-        <translation type="unfinished"></translation>
+        <translation>Датский</translation>
     </message>
     <message>
-        <location filename="../ui/main_window.ui" line="1142"/>
+        <location filename="../ui/main_window.ui" line="1162"/>
         <source>Finnish</source>
-        <translation type="unfinished"></translation>
+        <translation>Финский</translation>
     </message>
     <message>
-        <location filename="../ui/main_window.ui" line="1156"/>
+        <location filename="../ui/main_window.ui" line="1176"/>
         <source>Taiwanese Mandarin</source>
-        <translation type="unfinished"></translation>
+        <translation>Тайваньский Мандарин</translation>
     </message>
     <message>
         <location filename="../ui/main_window.ui" line="175"/>
         <source>Help with key/value</source>
-        <translation type="unfinished"></translation>
+        <translation>Помощь с ключами/значениями</translation>
     </message>
     <message>
         <location filename="../ui/main_window.ui" line="231"/>
         <source>An OSM key to fetch. If empty, all keys will be fetched.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ключ OSM для запроса. Оставьте пустым, чтобы все ключи были запрошены.</translation>
     </message>
     <message>
         <location filename="../ui/main_window.ui" line="218"/>
         <source>Key</source>
-        <translation type="unfinished"></translation>
+        <translation>Ключ</translation>
     </message>
     <message>
         <location filename="../ui/main_window.ui" line="260"/>
         <source>An OSM value to fetch. If empty, all values will be fetched.</source>
-        <translation type="unfinished"></translation>
+        <translation>Значение OSM для запроса. Оставьте пустым, чтобы все значения были запрошены.</translation>
     </message>
     <message>
         <location filename="../ui/main_window.ui" line="247"/>
         <source>Value</source>
-        <translation type="unfinished"></translation>
+        <translation>Значение</translation>
     </message>
     <message>
         <location filename="../ui/main_window.ui" line="273"/>
         <source>The spatial extent to use for the query.</source>
-        <translation type="unfinished"></translation>
+        <translation>Пространственное покрытие для использования этого запроса.</translation>
     </message>
     <message>
         <location filename="../ui/main_window.ui" line="312"/>
         <source>m</source>
-        <translation type="unfinished"></translation>
+        <translation>м</translation>
     </message>
     <message>
-        <location filename="../ui/main_window.ui" line="598"/>
+        <location filename="../ui/main_window.ui" line="618"/>
         <source>Advanced</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../ui/main_window.ui" line="398"/>
-        <source>Node</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../ui/main_window.ui" line="408"/>
-        <source>Way</source>
-        <translation type="unfinished"></translation>
+        <translation>Дополнительные настройки</translation>
     </message>
     <message>
         <location filename="../ui/main_window.ui" line="418"/>
+        <source>Node</source>
+        <translation>Нод</translation>
+    </message>
+    <message>
+        <location filename="../ui/main_window.ui" line="428"/>
+        <source>Way</source>
+        <translation>Путь</translation>
+    </message>
+    <message>
+        <location filename="../ui/main_window.ui" line="438"/>
         <source>Relation</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../ui/main_window.ui" line="850"/>
-        <source>Points</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../ui/main_window.ui" line="860"/>
-        <source>Lines</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../ui/main_window.ui" line="880"/>
-        <source>Multipolygons</source>
-        <translation type="unfinished"></translation>
+        <translation>Отношение</translation>
     </message>
     <message>
         <location filename="../ui/main_window.ui" line="870"/>
-        <source>Multilinestrings</source>
-        <translation type="unfinished"></translation>
+        <source>Points</source>
+        <translation>Точки</translation>
     </message>
     <message>
-        <location filename="../ui/main_window.ui" line="478"/>
-        <source>Timeout</source>
-        <translation type="unfinished"></translation>
+        <location filename="../ui/main_window.ui" line="880"/>
+        <source>Lines</source>
+        <translation>Линии</translation>
     </message>
     <message>
-        <location filename="../ui/main_window.ui" line="904"/>
-        <source>Directory</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../ui/main_window.ui" line="918"/>
-        <source>File prefix</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../ui/main_window.ui" line="528"/>
-        <source>Show query</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../ui/main_window.ui" line="801"/>
-        <source>Run query</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../ui/main_window.ui" line="553"/>
-        <source>Overpass query</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../ui/main_window.ui" line="622"/>
-        <source>Can be overridden</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../ui/main_window.ui" line="629"/>
-        <source>{{bbox}} or {{center}}</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../ui/main_window.ui" line="679"/>
-        <source>or let empty</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../ui/main_window.ui" line="794"/>
-        <source>Generate query</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../ui/main_window.ui" line="822"/>
-        <source>Documentation</source>
-        <translation type="unfinished"></translation>
+        <location filename="../ui/main_window.ui" line="900"/>
+        <source>Multipolygons</source>
+        <translation>Мультиполигоны</translation>
     </message>
     <message>
         <location filename="../ui/main_window.ui" line="890"/>
+        <source>Multilinestrings</source>
+        <translation>Мультилинии</translation>
+    </message>
+    <message>
+        <location filename="../ui/main_window.ui" line="498"/>
+        <source>Timeout</source>
+        <translation>Время на запрос</translation>
+    </message>
+    <message>
+        <location filename="../ui/main_window.ui" line="924"/>
+        <source>Directory</source>
+        <translation>Каталог</translation>
+    </message>
+    <message>
+        <location filename="../ui/main_window.ui" line="938"/>
+        <source>File prefix</source>
+        <translation>Префикс файла</translation>
+    </message>
+    <message>
+        <location filename="../ui/main_window.ui" line="548"/>
+        <source>Show query</source>
+        <translation>Показать запрос</translation>
+    </message>
+    <message>
+        <location filename="../ui/main_window.ui" line="821"/>
+        <source>Run query</source>
+        <translation>Выполнить запрос</translation>
+    </message>
+    <message>
+        <location filename="../ui/main_window.ui" line="573"/>
+        <source>Overpass query</source>
+        <translation>Overpass запрос</translation>
+    </message>
+    <message>
+        <location filename="../ui/main_window.ui" line="642"/>
+        <source>Can be overridden</source>
+        <translation>Может быть перезаписан</translation>
+    </message>
+    <message>
+        <location filename="../ui/main_window.ui" line="649"/>
+        <source>{{bbox}} or {{center}}</source>
+        <translation>{{bbox}} или {{center}}</translation>
+    </message>
+    <message>
+        <location filename="../ui/main_window.ui" line="699"/>
+        <source>or let empty</source>
+        <translation>или пустое</translation>
+    </message>
+    <message>
+        <location filename="../ui/main_window.ui" line="814"/>
+        <source>Generate query</source>
+        <translation>Сгенерировать запрос</translation>
+    </message>
+    <message>
+        <location filename="../ui/main_window.ui" line="842"/>
+        <source>Documentation</source>
+        <translation>Документация</translation>
+    </message>
+    <message>
+        <location filename="../ui/main_window.ui" line="910"/>
         <source>All tags</source>
-        <translation type="unfinished"></translation>
+        <translation>Все теги</translation>
     </message>
     <message>
-        <location filename="../ui/main_window.ui" line="932"/>
+        <location filename="../ui/main_window.ui" line="952"/>
         <source>OSMConf</source>
-        <translation type="unfinished"></translation>
+        <translation>Конфигурация OSM</translation>
     </message>
     <message>
-        <location filename="../ui/main_window.ui" line="947"/>
+        <location filename="../ui/main_window.ui" line="967"/>
         <source>Open</source>
-        <translation type="unfinished"></translation>
+        <translation>Открыть</translation>
     </message>
     <message>
-        <location filename="../ui/main_window.ui" line="1026"/>
+        <location filename="../ui/main_window.ui" line="1046"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The web-based translating platform &lt;a href=&quot;https://www.transifex.com/projects/p/gui/&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0057ae;&quot;&gt;Transifex&lt;/span&gt;&lt;/a&gt; is used. It&apos;s easier for translators. Join us !&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Использована веб-платформа переводов &lt;a href=&quot;https://www.transifex.com/projects/p/gui/&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0057ae;&quot;&gt;Transifex&lt;/span&gt;&lt;/a&gt;. Это упрощает жизнь переводчикам. Присоединяйтесь к нам!&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message encoding="UTF-8">
         <location filename="../ui/main_window.ui" line="305"/>
         <source>A village, a town…</source>
-        <translation type="unfinished"></translation>
+        <translation>Деревня, город...</translation>
     </message>
     <message>
-        <location filename="../ui/main_window.ui" line="1211"/>
+        <location filename="../ui/main_window.ui" line="1231"/>
         <source>GitHub&apos;s repository</source>
-        <translation type="unfinished"></translation>
+        <translation>Репозиторий GitHub</translation>
     </message>
     <message>
-        <location filename="../ui/main_window.ui" line="1121"/>
+        <location filename="../ui/main_window.ui" line="1141"/>
         <source>Portuguese</source>
-        <translation type="unfinished"></translation>
+        <translation>Португальский</translation>
     </message>
     <message>
-        <location filename="../ui/main_window.ui" line="1093"/>
+        <location filename="../ui/main_window.ui" line="1113"/>
         <source>Spanish</source>
-        <translation type="unfinished"></translation>
+        <translation>Испанский</translation>
     </message>
     <message>
-        <location filename="../ui/main_window.ui" line="1072"/>
+        <location filename="../ui/main_window.ui" line="1092"/>
         <source>Indonesian</source>
-        <translation type="unfinished"></translation>
+        <translation>Индонезийский</translation>
     </message>
     <message>
-        <location filename="../ui/main_window.ui" line="1100"/>
+        <location filename="../ui/main_window.ui" line="1120"/>
         <source>Polish</source>
-        <translation type="unfinished"></translation>
+        <translation>Польский</translation>
     </message>
 </context>
 </TS>
