@@ -126,11 +126,58 @@ class TestQueryFactory(unittest.TestCase):
     def test_possible_queries(self):
         """Test queries which are possible and must return a XML query."""
 
-        def test_query(q, xml, xml_with_template):
+        def test_query(q, xml, xml_with_template, human_label):
             """Internal helper for testing queries."""
             self.assertTrue(q._check_parameters())
-            self.assertEqual(xml, q.generate_xml())
-            self.assertEqual(xml_with_template, q._make_for_test())
+            self.assertEqual(q.generate_xml(), xml)
+            self.assertEqual(q.friendly_message(), human_label)
+            self.assertEqual(q._make_for_test(), xml_with_template)
+
+        # All keys in extent
+        query = QueryFactory(
+            query_type=QueryType.BBox)
+        expected_xml = (
+            '<osm-script output="xml" timeout="25">'
+            '<union>'
+            '<query type="node">'
+            '<bbox-query bbox="custom" />'
+            '</query>'
+            '<query type="way">'
+            '<bbox-query bbox="custom" />'
+            '</query>'
+            '<query type="relation">'
+            '<bbox-query bbox="custom" />'
+            '</query>'
+            '</union>'
+            '<union>'
+            '<item />'
+            '<recurse type="down"/>'
+            '</union>'
+            '<print mode="body" />'
+            '</osm-script>'
+        )
+        expected_xml_with_template = (
+            '<osm-script output="xml" timeout="25">'
+            '<union>'
+            '<query type="node">'
+            '<bbox-query {{bbox}}/>'
+            '</query>'
+            '<query type="way">'
+            '<bbox-query {{bbox}}/>'
+            '</query>'
+            '<query type="relation">'
+            '<bbox-query {{bbox}}/>'
+            '</query>'
+            '</union>'
+            '<union>'
+            '<item/>'
+            '<recurse type="down"/>'
+            '</union>'
+            '<print mode="body"/>'
+            '</osm-script>'
+        )
+        human = 'All OSM objects in the canvas or layer extent are going to be downloaded.'
+        test_query(query, expected_xml, expected_xml_with_template, human)
 
         # Key value and named place
         query = QueryFactory(
@@ -183,7 +230,8 @@ class TestQueryFactory(unittest.TestCase):
             '<print mode="body"/>'
             '</osm-script>'
         )
-        test_query(query, expected_xml, expected_xml_with_template)
+        human = 'All OSM objects with the key \'foo\'=\'bar\' in paris are going to be downloaded.'
+        test_query(query, expected_xml, expected_xml_with_template, human)
 
         # Key in bbox
         query = QueryFactory(query_type=QueryType.BBox, key='foo', timeout=35)
@@ -234,7 +282,54 @@ class TestQueryFactory(unittest.TestCase):
             '<print mode="body"/>'
             '</osm-script>'
         )
-        test_query(query, expected_xml, expected_xml_with_template)
+        human = 'All OSM objects with the key \'foo\' in the canvas or layer extent are going to be downloaded.'
+        test_query(query, expected_xml, expected_xml_with_template, human)
+
+        # Attribute only
+        query = QueryFactory(query_type=QueryType.NotSpatial, key='foo', timeout=35)
+        self.assertIsNone(query.area)
+        expected_xml = (
+            '<osm-script output="xml" timeout="35">'
+            '<union>'
+            '<query type="node">'
+            '<has-kv k="foo" />'
+            '</query>'
+            '<query type="way">'
+            '<has-kv k="foo" />'
+            '</query>'
+            '<query type="relation">'
+            '<has-kv k="foo" />'
+            '</query>'
+            '</union>'
+            '<union>'
+            '<item />'
+            '<recurse type="down"/>'
+            '</union>'
+            '<print mode="body" />'
+            '</osm-script>'
+        )
+        expected_xml_with_template = (
+            '<osm-script output="xml" timeout="35">'
+            '<union>'
+            '<query type="node">'
+            '<has-kv k="foo"/>'
+            '</query>'
+            '<query type="way">'
+            '<has-kv k="foo"/>'
+            '</query>'
+            '<query type="relation">'
+            '<has-kv k="foo"/>'
+            '</query>'
+            '</union>'
+            '<union>'
+            '<item/>'
+            '<recurse type="down"/>'
+            '</union>'
+            '<print mode="body"/>'
+            '</osm-script>'
+        )
+        human = 'All OSM objects with the key \'foo\' are going to be downloaded.'
+        test_query(query, expected_xml, expected_xml_with_template, human)
 
         # Double place name, with node only
         query = QueryFactory(
@@ -286,7 +381,18 @@ class TestQueryFactory(unittest.TestCase):
             '<print mode="body"/>'
             '</osm-script>'
         )
-        test_query(query, expected_xml, expected_xml_with_template)
+        human = 'All OSM objects with the key \'foo\' in paris and dubai are going to be downloaded.'
+        test_query(query, expected_xml, expected_xml_with_template, human)
+
+        # Not testing the XML or OQL
+        query = QueryFactory(
+            query_type=QueryType.InArea,
+            key='foo',
+            area='paris;dubai;new york',
+            osm_objects=[OsmType.Node],
+        )
+        human = 'All OSM objects with the key \'foo\' in paris, dubai and new york are going to be downloaded.'
+        self.assertEqual(query.friendly_message(), human)
 
         # Around query with meta and one key
         query = QueryFactory(
@@ -342,7 +448,8 @@ class TestQueryFactory(unittest.TestCase):
             '<print mode="meta"/>'
             '</osm-script>'
         )
-        test_query(query, expected_xml, expected_xml_with_template)
+        human = 'All OSM objects with the key \'foo\' in 1000 meters of a are going to be downloaded.'
+        test_query(query, expected_xml, expected_xml_with_template, human)
 
         # No key, no value, one object
         query = QueryFactory(
@@ -375,7 +482,8 @@ class TestQueryFactory(unittest.TestCase):
             '<print mode="meta"/>'
             '</osm-script>'
         )
-        test_query(query, expected_xml, expected_xml_with_template)
+        human = 'All OSM objects in 1000 meters of a are going to be downloaded.'
+        test_query(query, expected_xml, expected_xml_with_template, human)
 
         # Many keys with many values
         query = QueryFactory(
@@ -417,7 +525,9 @@ class TestQueryFactory(unittest.TestCase):
             '<print mode="body"/>'
             '</osm-script>'
         )
-        test_query(query, expected_xml, expected_xml_with_template)
+        # TODO, fix many keys
+        human = 'All OSM objects with the key \'a\'=\'b\' in the canvas or layer extent are going to be downloaded.'
+        test_query(query, expected_xml, expected_xml_with_template, human)
 
         # Many keys with None values
         query = QueryFactory(
@@ -459,7 +569,8 @@ class TestQueryFactory(unittest.TestCase):
             '<print mode="body"/>'
             '</osm-script>'
         )
-        test_query(query, expected_xml, expected_xml_with_template)
+        human = 'All OSM objects with the key \'a\' in the canvas or layer extent are going to be downloaded.'
+        test_query(query, expected_xml, expected_xml_with_template, human)
 
     def test_make(self):
         """Test make query wuth valid indentation and lines."""

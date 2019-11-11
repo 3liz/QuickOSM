@@ -297,7 +297,7 @@ class QueryFactory:
         if self._area is not None:
             # human format a list
             if len(self._area) == 1:
-                place = ' {} '.format(self._area[0])  # simply unwrap the list
+                place = self._area[0]  # simply unwrap the list
             elif len(self._area) == 2:
                 place = ' {} '.format(tr('and')).join(self._area)
             else:
