@@ -97,5 +97,6 @@ plugins['QuickOSM'].run_tests()
 ## Credits
 
 Author: Etienne Trimaille : https://twitter.com/etrimaille
+
 Contributors:
 * Richard Marsden [winwaed](https://github.com/winwaed)
