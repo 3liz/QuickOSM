@@ -163,6 +163,11 @@ class QueryFactory:
             raise QueryFactoryException(
                 tr('Not possible to query a specific value without a key.'))
 
+        if self._query_type == QueryType.NotSpatial:
+            if not self._key:
+                raise QueryFactoryException(
+                    tr('A key is required.'))
+
         if len(self._key) > len(self._value):
             if len(self._key) != 1:
                 raise QueryFactoryException(
@@ -332,11 +337,7 @@ class QueryFactory:
         else:
             val = self._value[0]
                 
-        if key is None:
-            if attrib_only:
-                return tr('You must specify a key.')
-
-        else:
+        if key is not None:
             # Do we have a value?
             use_all_vals = True
             if val is not None:

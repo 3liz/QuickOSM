@@ -53,9 +53,22 @@ class TestQueryFactory(unittest.TestCase):
         with self.assertRaisesRegex(QueryFactoryException, msg):
             query._check_parameters()
 
-        # One value but no key
+        # One value but no key, bbox
         query = QueryFactory(query_type=QueryType.BBox, value='b')
         msg = 'Not possible to query a specific value without a key.'
+        with self.assertRaisesRegex(QueryFactoryException, msg):
+            query._check_parameters()
+
+        # One value but no key, attributes only
+        query = QueryFactory(
+            query_type=QueryType.NotSpatial, value='b')
+        msg = 'Not possible to query a specific value without a key.'
+        with self.assertRaisesRegex(QueryFactoryException, msg):
+            query._check_parameters()
+
+        # Attributes only
+        query = QueryFactory(query_type=QueryType.NotSpatial)
+        msg = 'A key is required.'
         with self.assertRaisesRegex(QueryFactoryException, msg):
             query._check_parameters()
 

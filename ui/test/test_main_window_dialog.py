@@ -18,7 +18,7 @@ class TestUiMainWindow(unittest.TestCase):
     def test_show_query_empty(self):
         """Test we can show a query by switching tab with all params."""
         dialog = Dialog(get_iface())
-        index = dialog.combo_query_type_qq.findData('attributes')
+        index = dialog.combo_query_type_qq.findData('canvas')
         dialog.combo_query_type_qq.setCurrentIndex(index)
         dialog.button_show_query.click()
         expected_index = dialog.stacked_panels_widget.indexOf(dialog.query_page)
