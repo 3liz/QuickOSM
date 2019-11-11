@@ -4,7 +4,7 @@ qgisMinimumVersion=3.4
 qgisMaximumVersion=3.99
 description=Download OSM data thanks to the Overpass API. You can also open local OSM or PBF files. A special parser, on top of OGR, is used to let you see all OSM keys available.
 about=Execute customs Overpass queries in QGIS to get OSM data.
-version=1.13.1
+version=1.14.0
 author=Etienne Trimaille
 email=etienne@trimaille.eu
 hasProcessingProvider=yes
@@ -17,6 +17,9 @@ server=True
 
 # Uncomment the following line and add your changelog:
 # changelog=
+  Version 1.14.0
+  * Version 1.13.X was only experimental, so all features from 1.13.X
+  * Show human friendly label in the QuickQuery
   Version 1.13.X
   * Fix Nominatim call when no osm_type #205
   * Fix mapillary panel
@@ -33,14 +36,6 @@ server=True
   * Add open OSM file algorithm to the Processing provider
   * Big refactoring of the code
   * Fix various little bugs
-  Version 1.12.X
-  * Fix loading an OSM file with a custom INI file #159
-  * Fix launch of QuickOSM on a new profile
-  * Fix some minor bugs
-  * Some internal refactoring
-  * New logo
-  * New values in OSM tags (crop, produce and trees)
-  * Add the Overpass Query to the layer variable scope
 
 # Tags are comma separated with spaces allowed
 tags=osm,openstreetmap,overpass,download,osmdownload,josm,remote,pbf,processing,modeler
@@ -50,7 +45,7 @@ tracker=https://github.com/3liz/QuickOSM/issues
 repository=https://github.com/3liz/QuickOSM
 icon=resources/icons/QuickOSM.svg
 # experimental flag
-experimental=True
+experimental=False
 
 # deprecated flag (applies to the whole plugin, not just a single version)
 deprecated=False

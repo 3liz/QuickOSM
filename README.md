@@ -94,6 +94,8 @@ from qgis.utils import plugins
 plugins['QuickOSM'].run_tests()
 ```
 
-## Authors
+## Credits
 
-Etienne Trimaille : https://twitter.com/etrimaille
+Author: Etienne Trimaille : https://twitter.com/etrimaille
+Contributors:
+* Richard Marsden [winwaed](https://github.com/winwaed)
