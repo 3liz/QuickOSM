@@ -89,13 +89,10 @@ class QuickQueryPanel(BaseOverpassPanel):
         self.dialog.combo_value.lineEdit().setPlaceholderText(
             tr('Query on all values'))
         self.key_edited()
-
         self.query_type_updated()
         self.init_nominatim_autofill()
-
         self.update_friendly()
 
-        
     def query_type_updated(self):
         self._core_query_type_updated(
             self.dialog.combo_query_type_qq,
@@ -111,8 +108,10 @@ class QuickQueryPanel(BaseOverpassPanel):
         try:
             current_values = self.osm_keys[self.dialog.combo_key.currentText()]
         except KeyError:
+            self.update_friendly()
             return
         except AttributeError:
+            self.update_friendly()
             return
 
         if len(current_values) == 0:
@@ -213,9 +212,8 @@ class QuickQueryPanel(BaseOverpassPanel):
             item = self.dialog.menu_widget.item(self.dialog.query_menu_index)
             self.dialog.menu_widget.setCurrentItem(item)
 
-            
     def update_friendly(self):
-        """ Updates the QuickQuery Friendly Label (label_qq_friendly) """
+        """Updates the QuickQuery friendly label (label_qq_friendly)."""
         try:
             p = self.gather_values()
         except QuickOsmException as e:
@@ -238,10 +236,11 @@ class QuickQueryPanel(BaseOverpassPanel):
         try:
             msg = query_factory.friendly_message()
         except QuickOsmException as e:
-            #self.dialog.display_quickosm_exception(e)
+            self.dialog.label_qq_friendly.setStyleSheet('QLabel { color : red; }')
             self.dialog.label_qq_friendly.setText(e.message)
         except Exception as e:
             self.dialog.display_critical_exception(e)
-            self.dialog.label_qq_friendly.setText("")
+            self.dialog.label_qq_friendly.setText('')
         else:
+            self.dialog.label_qq_friendly.setStyleSheet('')
             self.dialog.label_qq_friendly.setText(msg)
