@@ -392,7 +392,7 @@ QListWidget::item::selected {
                <property name="checked">
                 <bool>false</bool>
                </property>
-               <property name="collapsed">
+               <property name="collapsed" stdset="0">
                 <bool>false</bool>
                </property>
                <layout class="QVBoxLayout" name="verticalLayout_17">
@@ -523,7 +523,7 @@ QListWidget::item::selected {
                    </widget>
                   </item>
                   <item row="1" column="1">
-                   <widget class="QgsFileWidget" name="output_directory_qq"/>
+                   <widget class="QgsFileWidget" name="output_directory_qq" native="true"/>
                   </item>
                   <item row="2" column="0">
                    <widget class="QLabel" name="label_52">
@@ -620,7 +620,7 @@ QListWidget::item::selected {
                <property name="checked">
                 <bool>false</bool>
                </property>
-               <property name="collapsed">
+               <property name="collapsed" stdset="0">
                 <bool>false</bool>
                </property>
                <layout class="QVBoxLayout" name="verticalLayout_14">
@@ -786,7 +786,7 @@ QListWidget::item::selected {
                    </widget>
                   </item>
                   <item row="0" column="1">
-                   <widget class="QgsFileWidget" name="output_directory_q"/>
+                   <widget class="QgsFileWidget" name="output_directory_q" native="true"/>
                   </item>
                   <item row="1" column="0">
                    <widget class="QLabel" name="label_40">
@@ -862,7 +862,7 @@ QListWidget::item::selected {
                 </widget>
                </item>
                <item row="0" column="1">
-                <widget class="QgsFileWidget" name="osm_file"/>
+                <widget class="QgsFileWidget" name="osm_file" native="true"/>
                </item>
                <item row="1" column="0">
                 <widget class="QCheckBox" name="checkbox_points_f">
@@ -926,7 +926,7 @@ QListWidget::item::selected {
                     </widget>
                    </item>
                    <item>
-                    <widget class="QgsFileWidget" name="output_directory_f"/>
+                    <widget class="QgsFileWidget" name="output_directory_f" native="true"/>
                    </item>
                   </layout>
                  </item>
@@ -957,7 +957,7 @@ QListWidget::item::selected {
                 </widget>
                </item>
                <item row="6" column="1">
-                <widget class="QgsFileWidget" name="osm_conf"/>
+                <widget class="QgsFileWidget" name="osm_conf" native="true"/>
                </item>
               </layout>
              </item>
@@ -1035,6 +1035,36 @@ QListWidget::item::selected {
               </widget>
              </item>
              <item>
+              <widget class="QGroupBox" name="groupBox_3">
+               <property name="title">
+                <string>Contributors</string>
+               </property>
+               <layout class="QVBoxLayout" name="verticalLayout_13">
+                <item>
+                 <widget class="QLabel" name="label_45">
+                  <property name="text">
+                   <string notr="true">Eric Stadtherr</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLabel" name="label_44">
+                  <property name="text">
+                   <string notr="true">Matteo Ghetta</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLabel" name="label_38">
+                  <property name="text">
+                   <string notr="true">Richard Marsden</string>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </widget>
+             </item>
+             <item>
               <widget class="QGroupBox" name="groupBox_8">
                <property name="title">
                 <string>Translators</string>
@@ -1096,7 +1126,7 @@ QListWidget::item::selected {
                   <item row="4" column="1">
                    <widget class="QLabel" name="label_35">
                     <property name="text">
-                     <string notr="true">Abdul Hafid, Ivan Busthomi</string>
+                     <string notr="true">Abdul Hafid, Anita Hapsari, Ivan Busthomi</string>
                     </property>
                    </widget>
                   </item>

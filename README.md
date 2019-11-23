@@ -70,8 +70,6 @@ Since QGIS 3.6, you can export your Processing model as a Python script.
 
 * The web-based translating platform [Transifex](https://www.transifex.com/quickosm/gui/dashboard/) is used.
 
-![statistics](https://chart.googleapis.com/chart?chxt=y%2Cr&chd=e%3A....63yjyjx6xRJmEeEeD1DMAA&chco=B7E1FF%2C73E6D2%2CF4F6FB&chbh=9&chs=350x183&cht=bhs&chxl=0%3A%7CPortuguese%7CRussian%7CGerman%7CItalian%7CFinnish%7CSpanish%7CPortuguese+%28Brazil%29%7CIndonesian%7CDutch%7CChinese+%28Taiwan%29%7CPolish%7CEnglish%7CFrench%7C1%3A%7C0%25%7C5%25%7C6%25%7C7%25%7C7%25%7C15%25%7C77%25%7C78%25%7C79%25%7C79%25%7C92%25%7C100%25%7C100%25%7C)
-
 ## Development
 
 * QuickOSM uses a [Git submodule](https://git-scm.com/book/en/v2/Git-Tools-Submodules).

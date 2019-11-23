@@ -1,4 +1,5 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS language="ru" sourcelanguage="en" version="2.0">
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE TS><TS version="2.0" language="ru" sourcelanguage="en">
 <context>
     <name>@default</name>
     <message>
@@ -42,7 +43,7 @@
         <translation>Выбрать файл конфигурации OSM</translation>
     </message>
     <message>
-        <location filename="../../ui/osm_file_panel.py" line="114"/>
+        <location filename="../../ui/osm_file_panel.py" line="116"/>
         <source>Successful query</source>
         <translation>Успешный запрос</translation>
     </message>
@@ -127,7 +128,7 @@
         <translation>Запрос на все значения</translation>
     </message>
     <message>
-        <location filename="../../quick_osm_processing/advanced/build_query.py" line="51"/>
+        <location filename="../../quick_osm_processing/advanced/raw_query.py" line="37"/>
         <source>Advanced</source>
         <translation>Дополнительные настройки</translation>
     </message>
@@ -147,17 +148,17 @@
         <translation>Покрывать, если &quot;{{bbox}}&quot; в запросе</translation>
     </message>
     <message>
-        <location filename="../../quick_osm_processing/advanced/build_query.py" line="84"/>
+        <location filename="../../quick_osm_processing/advanced/raw_query.py" line="67"/>
         <source>Overpass server</source>
         <translation>Сервер Overpass</translation>
     </message>
     <message>
-        <location filename="../../quick_osm_processing/advanced/build_query.py" line="93"/>
+        <location filename="../../quick_osm_processing/advanced/raw_query.py" line="84"/>
         <source>Query as encoded URL</source>
         <translation>Запрос в формате закодированного URL</translation>
     </message>
     <message>
-        <location filename="../../quick_osm_processing/advanced/build_query.py" line="97"/>
+        <location filename="../../quick_osm_processing/advanced/raw_query.py" line="88"/>
         <source>Raw query as OQL</source>
         <translation>Необработанный запрос в формате OQL</translation>
     </message>
@@ -243,7 +244,7 @@
     </message>
     <message>
         <location filename="../../ui/base_processing_panel.py" line="80"/>
-        <source>Running queryâ¦</source>
+        <source>Running query&#xe2;&#x80;&#xa6;</source>
         <translation>Выполнение запроса</translation>
     </message>
     <message>
@@ -429,42 +430,42 @@
     <message>
         <location filename="../../core/query_factory.py" line="18"/>
         <source>All OSM objects with the key {key} in {extent} are going to be downloaded.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../core/query_factory.py" line="20"/>
         <source>All OSM objects with the key {key} in {dist} meters of {extent} are going to be downloaded.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../core/query_factory.py" line="22"/>
         <source>All OSM objects in {extent} are going to be downloaded.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../core/query_factory.py" line="23"/>
         <source>All OSM objects in {dist} meters of {extent} are going to be downloaded.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../core/query_factory.py" line="25"/>
         <source>All OSM objects with the key {key} are going to be downloaded.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../core/query_factory.py" line="168"/>
         <source>A key is required.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../core/query_factory.py" line="305"/>
         <source>and</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../core/query_factory.py" line="324"/>
         <source>the canvas or layer extent</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -557,27 +558,6 @@
     </message>
 </context>
 <context>
-    <name>QueryItemDelegate</name>
-    <message>
-        <location filename="../../ui/custom_ui.py" line="70"/>
-        <source>Query on all keys</source>
-        <translation>Запрос на все ключи</translation>
-    </message>
-    <message>
-        <location filename="../../ui/custom_ui.py" line="81"/>
-        <source>Query on all values</source>
-        <translation>Запрос на все значения</translation>
-    </message>
-</context>
-<context>
-    <name>TableKeyValue</name>
-    <message>
-        <location filename="../../ui/custom_ui.py" line="35"/>
-        <source>Query on all keys</source>
-        <translation>Запрос на все ключи</translation>
-    </message>
-</context>
-<context>
     <name>ui_main_window</name>
     <message>
         <location filename="../ui/main_window.ui" line="87"/>
@@ -615,57 +595,52 @@
         <translation>Результаты</translation>
     </message>
     <message>
-        <location filename="../ui/main_window.ui" line="998"/>
-        <source>Realization</source>
-        <translation>Реализация</translation>
-    </message>
-    <message>
-        <location filename="../ui/main_window.ui" line="1040"/>
+        <location filename="../ui/main_window.ui" line="1070"/>
         <source>Translators</source>
         <translation>Переводчики</translation>
     </message>
     <message>
-        <location filename="../ui/main_window.ui" line="1134"/>
+        <location filename="../ui/main_window.ui" line="1164"/>
         <source>German</source>
         <translation>Немецкий</translation>
     </message>
     <message>
-        <location filename="../ui/main_window.ui" line="1223"/>
+        <location filename="../ui/main_window.ui" line="1253"/>
         <source>Sources</source>
         <translation>Исходники</translation>
     </message>
     <message>
-        <location filename="../ui/main_window.ui" line="1253"/>
+        <location filename="../ui/main_window.ui" line="1283"/>
         <source>Licence</source>
         <translation>Лицензия</translation>
     </message>
     <message>
-        <location filename="../ui/main_window.ui" line="1127"/>
+        <location filename="../ui/main_window.ui" line="1157"/>
         <source>Russian</source>
         <translation>Русский</translation>
     </message>
     <message>
-        <location filename="../ui/main_window.ui" line="1085"/>
+        <location filename="../ui/main_window.ui" line="1115"/>
         <source>Italian</source>
         <translation>Итальянский</translation>
     </message>
     <message>
-        <location filename="../ui/main_window.ui" line="1106"/>
+        <location filename="../ui/main_window.ui" line="1136"/>
         <source>French</source>
         <translation>Французский</translation>
     </message>
     <message>
-        <location filename="../ui/main_window.ui" line="1169"/>
+        <location filename="../ui/main_window.ui" line="1199"/>
         <source>Dutch</source>
         <translation>Датский</translation>
     </message>
     <message>
-        <location filename="../ui/main_window.ui" line="1162"/>
+        <location filename="../ui/main_window.ui" line="1192"/>
         <source>Finnish</source>
         <translation>Финский</translation>
     </message>
     <message>
-        <location filename="../ui/main_window.ui" line="1176"/>
+        <location filename="../ui/main_window.ui" line="1206"/>
         <source>Taiwanese Mandarin</source>
         <translation>Тайваньский Мандарин</translation>
     </message>
@@ -815,7 +790,7 @@
         <translation>Открыть</translation>
     </message>
     <message>
-        <location filename="../ui/main_window.ui" line="1046"/>
+        <location filename="../ui/main_window.ui" line="1076"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The web-based translating platform &lt;a href=&quot;https://www.transifex.com/projects/p/gui/&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0057ae;&quot;&gt;Transifex&lt;/span&gt;&lt;/a&gt; is used. It&apos;s easier for translators. Join us !&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Использована веб-платформа переводов &lt;a href=&quot;https://www.transifex.com/projects/p/gui/&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0057ae;&quot;&gt;Transifex&lt;/span&gt;&lt;/a&gt;. Это упрощает жизнь переводчикам. Присоединяйтесь к нам!&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
@@ -825,29 +800,39 @@
         <translation>Деревня, город...</translation>
     </message>
     <message>
-        <location filename="../ui/main_window.ui" line="1231"/>
+        <location filename="../ui/main_window.ui" line="1261"/>
         <source>GitHub&apos;s repository</source>
         <translation>Репозиторий GitHub</translation>
     </message>
     <message>
-        <location filename="../ui/main_window.ui" line="1141"/>
+        <location filename="../ui/main_window.ui" line="1171"/>
         <source>Portuguese</source>
         <translation>Португальский</translation>
     </message>
     <message>
-        <location filename="../ui/main_window.ui" line="1113"/>
+        <location filename="../ui/main_window.ui" line="1143"/>
         <source>Spanish</source>
         <translation>Испанский</translation>
     </message>
     <message>
-        <location filename="../ui/main_window.ui" line="1092"/>
+        <location filename="../ui/main_window.ui" line="1122"/>
         <source>Indonesian</source>
         <translation>Индонезийский</translation>
     </message>
     <message>
-        <location filename="../ui/main_window.ui" line="1120"/>
+        <location filename="../ui/main_window.ui" line="1150"/>
         <source>Polish</source>
         <translation>Польский</translation>
+    </message>
+    <message>
+        <location filename="../ui/main_window.ui" line="998"/>
+        <source>Realization</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui/main_window.ui" line="1040"/>
+        <source>Contributors</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 </TS>

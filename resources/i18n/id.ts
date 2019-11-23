@@ -1,4 +1,5 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS language="id" sourcelanguage="en" version="2.0">
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE TS><TS version="2.0" language="id" sourcelanguage="en">
 <context>
     <name>@default</name>
     <message>
@@ -42,7 +43,7 @@
         <translation>Pilih file conf OSM </translation>
     </message>
     <message>
-        <location filename="../../ui/osm_file_panel.py" line="114"/>
+        <location filename="../../ui/osm_file_panel.py" line="116"/>
         <source>Successful query</source>
         <translation>Kueri berhasil</translation>
     </message>
@@ -127,7 +128,7 @@
         <translation>Kueri pada semua nilai</translation>
     </message>
     <message>
-        <location filename="../../quick_osm_processing/advanced/build_query.py" line="51"/>
+        <location filename="../../quick_osm_processing/advanced/raw_query.py" line="37"/>
         <source>Advanced</source>
         <translation>Tingkat lanjut</translation>
     </message>
@@ -147,17 +148,17 @@
         <translation>Batas, jika &quot;{{bbox}}&quot; di dalam kueri</translation>
     </message>
     <message>
-        <location filename="../../quick_osm_processing/advanced/build_query.py" line="84"/>
+        <location filename="../../quick_osm_processing/advanced/raw_query.py" line="67"/>
         <source>Overpass server</source>
         <translation>Server overpass</translation>
     </message>
     <message>
-        <location filename="../../quick_osm_processing/advanced/build_query.py" line="93"/>
+        <location filename="../../quick_osm_processing/advanced/raw_query.py" line="84"/>
         <source>Query as encoded URL</source>
         <translation>Kueri sebagai URL bersandi</translation>
     </message>
     <message>
-        <location filename="../../quick_osm_processing/advanced/build_query.py" line="97"/>
+        <location filename="../../quick_osm_processing/advanced/raw_query.py" line="88"/>
         <source>Raw query as OQL</source>
         <translation>Kueri mentah sebagai OQL</translation>
     </message>
@@ -243,7 +244,7 @@
     </message>
     <message>
         <location filename="../../ui/base_processing_panel.py" line="80"/>
-        <source>Running queryâ¦</source>
+        <source>Running query&#xe2;&#x80;&#xa6;</source>
         <translation>Menjalankan kueriâ¦</translation>
     </message>
     <message>
@@ -429,42 +430,42 @@
     <message>
         <location filename="../../core/query_factory.py" line="18"/>
         <source>All OSM objects with the key {key} in {extent} are going to be downloaded.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../core/query_factory.py" line="20"/>
         <source>All OSM objects with the key {key} in {dist} meters of {extent} are going to be downloaded.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../core/query_factory.py" line="22"/>
         <source>All OSM objects in {extent} are going to be downloaded.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../core/query_factory.py" line="23"/>
         <source>All OSM objects in {dist} meters of {extent} are going to be downloaded.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../core/query_factory.py" line="25"/>
         <source>All OSM objects with the key {key} are going to be downloaded.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../core/query_factory.py" line="168"/>
         <source>A key is required.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../core/query_factory.py" line="305"/>
         <source>and</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../core/query_factory.py" line="324"/>
         <source>the canvas or layer extent</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -557,27 +558,6 @@
     </message>
 </context>
 <context>
-    <name>QueryItemDelegate</name>
-    <message>
-        <location filename="../../ui/custom_ui.py" line="70"/>
-        <source>Query on all keys</source>
-        <translation>Kueri pada semua kunci</translation>
-    </message>
-    <message>
-        <location filename="../../ui/custom_ui.py" line="81"/>
-        <source>Query on all values</source>
-        <translation>Kueri pada semua nilai</translation>
-    </message>
-</context>
-<context>
-    <name>TableKeyValue</name>
-    <message>
-        <location filename="../../ui/custom_ui.py" line="35"/>
-        <source>Query on all keys</source>
-        <translation>Kueri pada semua kunci</translation>
-    </message>
-</context>
-<context>
     <name>ui_main_window</name>
     <message>
         <location filename="../ui/main_window.ui" line="87"/>
@@ -615,57 +595,52 @@
         <translation>Output</translation>
     </message>
     <message>
-        <location filename="../ui/main_window.ui" line="998"/>
-        <source>Realization</source>
-        <translation>Realisasi</translation>
-    </message>
-    <message>
-        <location filename="../ui/main_window.ui" line="1040"/>
+        <location filename="../ui/main_window.ui" line="1070"/>
         <source>Translators</source>
         <translation>Penerjemah</translation>
     </message>
     <message>
-        <location filename="../ui/main_window.ui" line="1134"/>
+        <location filename="../ui/main_window.ui" line="1164"/>
         <source>German</source>
         <translation>Jerman</translation>
     </message>
     <message>
-        <location filename="../ui/main_window.ui" line="1223"/>
+        <location filename="../ui/main_window.ui" line="1253"/>
         <source>Sources</source>
         <translation>Sumber</translation>
     </message>
     <message>
-        <location filename="../ui/main_window.ui" line="1253"/>
+        <location filename="../ui/main_window.ui" line="1283"/>
         <source>Licence</source>
         <translation>Lisensi</translation>
     </message>
     <message>
-        <location filename="../ui/main_window.ui" line="1127"/>
+        <location filename="../ui/main_window.ui" line="1157"/>
         <source>Russian</source>
         <translation>Rusia</translation>
     </message>
     <message>
-        <location filename="../ui/main_window.ui" line="1085"/>
+        <location filename="../ui/main_window.ui" line="1115"/>
         <source>Italian</source>
         <translation>Italia</translation>
     </message>
     <message>
-        <location filename="../ui/main_window.ui" line="1106"/>
+        <location filename="../ui/main_window.ui" line="1136"/>
         <source>French</source>
         <translation>Prancis</translation>
     </message>
     <message>
-        <location filename="../ui/main_window.ui" line="1169"/>
+        <location filename="../ui/main_window.ui" line="1199"/>
         <source>Dutch</source>
         <translation>Belanda</translation>
     </message>
     <message>
-        <location filename="../ui/main_window.ui" line="1162"/>
+        <location filename="../ui/main_window.ui" line="1192"/>
         <source>Finnish</source>
         <translation>Finlandia</translation>
     </message>
     <message>
-        <location filename="../ui/main_window.ui" line="1176"/>
+        <location filename="../ui/main_window.ui" line="1206"/>
         <source>Taiwanese Mandarin</source>
         <translation>Mandarin Taiwan</translation>
     </message>
@@ -815,7 +790,7 @@
         <translation>Buka</translation>
     </message>
     <message>
-        <location filename="../ui/main_window.ui" line="1046"/>
+        <location filename="../ui/main_window.ui" line="1076"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The web-based translating platform &lt;a href=&quot;https://www.transifex.com/projects/p/gui/&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0057ae;&quot;&gt;Transifex&lt;/span&gt;&lt;/a&gt; is used. It&apos;s easier for translators. Join us !&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;platform penerjemahan berbasis web &lt;a href=&quot;https://www.transifex.com/projects/p/gui/&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0057ae;&quot;&gt;Transifex&lt;/span&gt;&lt;/a&gt;digunakan. Lebih mudah bagi para penerjemah. Gabung bersama kami!&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
@@ -825,29 +800,39 @@
         <translation>Sebuah desa, sebuah kota...</translation>
     </message>
     <message>
-        <location filename="../ui/main_window.ui" line="1231"/>
+        <location filename="../ui/main_window.ui" line="1261"/>
         <source>GitHub&apos;s repository</source>
         <translation>repositori GitHub</translation>
     </message>
     <message>
-        <location filename="../ui/main_window.ui" line="1141"/>
+        <location filename="../ui/main_window.ui" line="1171"/>
         <source>Portuguese</source>
         <translation>Portugis</translation>
     </message>
     <message>
-        <location filename="../ui/main_window.ui" line="1113"/>
+        <location filename="../ui/main_window.ui" line="1143"/>
         <source>Spanish</source>
         <translation>Spanyol</translation>
     </message>
     <message>
-        <location filename="../ui/main_window.ui" line="1092"/>
+        <location filename="../ui/main_window.ui" line="1122"/>
         <source>Indonesian</source>
         <translation>Bahasa Indonesia</translation>
     </message>
     <message>
-        <location filename="../ui/main_window.ui" line="1120"/>
+        <location filename="../ui/main_window.ui" line="1150"/>
         <source>Polish</source>
         <translation>Bahasa Polandia</translation>
+    </message>
+    <message>
+        <location filename="../ui/main_window.ui" line="998"/>
+        <source>Realization</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui/main_window.ui" line="1040"/>
+        <source>Contributors</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 </TS>

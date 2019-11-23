@@ -42,7 +42,7 @@
         <translation>Sélectionner un fichier de configuration OSM</translation>
     </message>
     <message>
-        <location filename="../../ui/osm_file_panel.py" line="114"/>
+        <location filename="../../ui/osm_file_panel.py" line="116"/>
         <source>Successful query</source>
         <translation>Requête réussie</translation>
     </message>
@@ -127,7 +127,7 @@
         <translation>Requête sur toutes les valeurs</translation>
     </message>
     <message>
-        <location filename="../../quick_osm_processing/advanced/build_query.py" line="51"/>
+        <location filename="../../quick_osm_processing/advanced/raw_query.py" line="37"/>
         <source>Advanced</source>
         <translation>Avancé</translation>
     </message>
@@ -147,17 +147,17 @@
         <translation>Emprise, si &quot;{{bbox}}&quot; dans la requête</translation>
     </message>
     <message>
-        <location filename="../../quick_osm_processing/advanced/build_query.py" line="84"/>
+        <location filename="../../quick_osm_processing/advanced/raw_query.py" line="67"/>
         <source>Overpass server</source>
         <translation>Serveur Overpass</translation>
     </message>
     <message>
-        <location filename="../../quick_osm_processing/advanced/build_query.py" line="93"/>
+        <location filename="../../quick_osm_processing/advanced/raw_query.py" line="84"/>
         <source>Query as encoded URL</source>
         <translation>Requête en tant que URL encodée</translation>
     </message>
     <message>
-        <location filename="../../quick_osm_processing/advanced/build_query.py" line="97"/>
+        <location filename="../../quick_osm_processing/advanced/raw_query.py" line="88"/>
         <source>Raw query as OQL</source>
         <translation>Requête brute en OQL</translation>
     </message>
@@ -557,27 +557,6 @@
     </message>
 </context>
 <context>
-    <name>QueryItemDelegate</name>
-    <message>
-        <location filename="../../ui/custom_ui.py" line="70"/>
-        <source>Query on all keys</source>
-        <translation>Requête sur toutes les clés</translation>
-    </message>
-    <message>
-        <location filename="../../ui/custom_ui.py" line="81"/>
-        <source>Query on all values</source>
-        <translation>Requête sur toutes les valeurs</translation>
-    </message>
-</context>
-<context>
-    <name>TableKeyValue</name>
-    <message>
-        <location filename="../../ui/custom_ui.py" line="35"/>
-        <source>Query on all keys</source>
-        <translation>Requête sur toutes les clés</translation>
-    </message>
-</context>
-<context>
     <name>ui_main_window</name>
     <message>
         <location filename="../ui/main_window.ui" line="87"/>
@@ -615,57 +594,52 @@
         <translation>Sorties</translation>
     </message>
     <message>
-        <location filename="../ui/main_window.ui" line="998"/>
-        <source>Realization</source>
-        <translation>Réalisation</translation>
-    </message>
-    <message>
-        <location filename="../ui/main_window.ui" line="1040"/>
+        <location filename="../ui/main_window.ui" line="1070"/>
         <source>Translators</source>
         <translation>Traducteurs</translation>
     </message>
     <message>
-        <location filename="../ui/main_window.ui" line="1134"/>
+        <location filename="../ui/main_window.ui" line="1164"/>
         <source>German</source>
         <translation>Allemand</translation>
     </message>
     <message>
-        <location filename="../ui/main_window.ui" line="1223"/>
+        <location filename="../ui/main_window.ui" line="1253"/>
         <source>Sources</source>
         <translation>Sources</translation>
     </message>
     <message>
-        <location filename="../ui/main_window.ui" line="1253"/>
+        <location filename="../ui/main_window.ui" line="1283"/>
         <source>Licence</source>
         <translation>Licence</translation>
     </message>
     <message>
-        <location filename="../ui/main_window.ui" line="1127"/>
+        <location filename="../ui/main_window.ui" line="1157"/>
         <source>Russian</source>
         <translation>Russe</translation>
     </message>
     <message>
-        <location filename="../ui/main_window.ui" line="1085"/>
+        <location filename="../ui/main_window.ui" line="1115"/>
         <source>Italian</source>
         <translation>Italien</translation>
     </message>
     <message>
-        <location filename="../ui/main_window.ui" line="1106"/>
+        <location filename="../ui/main_window.ui" line="1136"/>
         <source>French</source>
         <translation>Français</translation>
     </message>
     <message>
-        <location filename="../ui/main_window.ui" line="1169"/>
+        <location filename="../ui/main_window.ui" line="1199"/>
         <source>Dutch</source>
         <translation>Néerlandais</translation>
     </message>
     <message>
-        <location filename="../ui/main_window.ui" line="1162"/>
+        <location filename="../ui/main_window.ui" line="1192"/>
         <source>Finnish</source>
         <translation>Finnois</translation>
     </message>
     <message>
-        <location filename="../ui/main_window.ui" line="1176"/>
+        <location filename="../ui/main_window.ui" line="1206"/>
         <source>Taiwanese Mandarin</source>
         <translation>Mandarin de Taïwan</translation>
     </message>
@@ -815,7 +789,7 @@
         <translation>Ouvrir</translation>
     </message>
     <message>
-        <location filename="../ui/main_window.ui" line="1046"/>
+        <location filename="../ui/main_window.ui" line="1076"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The web-based translating platform &lt;a href=&quot;https://www.transifex.com/projects/p/gui/&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0057ae;&quot;&gt;Transifex&lt;/span&gt;&lt;/a&gt; is used. It&apos;s easier for translators. Join us !&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;La plateforme web de traduction &lt;a href=&quot;https://www.transifex.com/projects/p/gui/&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0057ae;&quot;&gt;Transifex&lt;/span&gt;&lt;/a&gt; est utilisée. C&apos;est simple pour les traducteurs. Rejoignez-nous !&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
@@ -825,29 +799,39 @@
         <translation>Un village, une ville…</translation>
     </message>
     <message>
-        <location filename="../ui/main_window.ui" line="1231"/>
+        <location filename="../ui/main_window.ui" line="1261"/>
         <source>GitHub&apos;s repository</source>
         <translation>Dépôt GitHub</translation>
     </message>
     <message>
-        <location filename="../ui/main_window.ui" line="1141"/>
+        <location filename="../ui/main_window.ui" line="1171"/>
         <source>Portuguese</source>
         <translation>Portugais</translation>
     </message>
     <message>
-        <location filename="../ui/main_window.ui" line="1113"/>
+        <location filename="../ui/main_window.ui" line="1143"/>
         <source>Spanish</source>
         <translation>Espagnol</translation>
     </message>
     <message>
-        <location filename="../ui/main_window.ui" line="1092"/>
+        <location filename="../ui/main_window.ui" line="1122"/>
         <source>Indonesian</source>
         <translation>Indonésien</translation>
     </message>
     <message>
-        <location filename="../ui/main_window.ui" line="1120"/>
+        <location filename="../ui/main_window.ui" line="1150"/>
         <source>Polish</source>
         <translation>Polonais</translation>
+    </message>
+    <message>
+        <location filename="../ui/main_window.ui" line="998"/>
+        <source>Realization</source>
+        <translation>Réalisation</translation>
+    </message>
+    <message>
+        <location filename="../ui/main_window.ui" line="1040"/>
+        <source>Contributors</source>
+        <translation>Contributeurs</translation>
     </message>
 </context>
 </TS>

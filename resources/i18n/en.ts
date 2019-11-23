@@ -43,7 +43,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../ui/osm_file_panel.py" line="114"/>
+        <location filename="../../ui/osm_file_panel.py" line="116"/>
         <source>Successful query</source>
         <translation type="unfinished"></translation>
     </message>
@@ -128,7 +128,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../quick_osm_processing/advanced/build_query.py" line="51"/>
+        <location filename="../../quick_osm_processing/advanced/raw_query.py" line="37"/>
         <source>Advanced</source>
         <translation type="unfinished"></translation>
     </message>
@@ -148,17 +148,17 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../quick_osm_processing/advanced/build_query.py" line="84"/>
+        <location filename="../../quick_osm_processing/advanced/raw_query.py" line="67"/>
         <source>Overpass server</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../quick_osm_processing/advanced/build_query.py" line="93"/>
+        <location filename="../../quick_osm_processing/advanced/raw_query.py" line="84"/>
         <source>Query as encoded URL</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../quick_osm_processing/advanced/build_query.py" line="97"/>
+        <location filename="../../quick_osm_processing/advanced/raw_query.py" line="88"/>
         <source>Raw query as OQL</source>
         <translation type="unfinished"></translation>
     </message>
@@ -558,27 +558,6 @@
     </message>
 </context>
 <context>
-    <name>QueryItemDelegate</name>
-    <message>
-        <location filename="../../ui/custom_ui.py" line="70"/>
-        <source>Query on all keys</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../ui/custom_ui.py" line="81"/>
-        <source>Query on all values</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>TableKeyValue</name>
-    <message>
-        <location filename="../../ui/custom_ui.py" line="35"/>
-        <source>Query on all keys</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
     <name>ui_main_window</name>
     <message>
         <location filename="../ui/main_window.ui" line="87"/>
@@ -616,57 +595,52 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/main_window.ui" line="998"/>
-        <source>Realization</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../ui/main_window.ui" line="1040"/>
+        <location filename="../ui/main_window.ui" line="1070"/>
         <source>Translators</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/main_window.ui" line="1134"/>
+        <location filename="../ui/main_window.ui" line="1164"/>
         <source>German</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/main_window.ui" line="1223"/>
+        <location filename="../ui/main_window.ui" line="1253"/>
         <source>Sources</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/main_window.ui" line="1253"/>
+        <location filename="../ui/main_window.ui" line="1283"/>
         <source>Licence</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/main_window.ui" line="1127"/>
+        <location filename="../ui/main_window.ui" line="1157"/>
         <source>Russian</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/main_window.ui" line="1085"/>
+        <location filename="../ui/main_window.ui" line="1115"/>
         <source>Italian</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/main_window.ui" line="1106"/>
+        <location filename="../ui/main_window.ui" line="1136"/>
         <source>French</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/main_window.ui" line="1169"/>
+        <location filename="../ui/main_window.ui" line="1199"/>
         <source>Dutch</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/main_window.ui" line="1162"/>
+        <location filename="../ui/main_window.ui" line="1192"/>
         <source>Finnish</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/main_window.ui" line="1176"/>
+        <location filename="../ui/main_window.ui" line="1206"/>
         <source>Taiwanese Mandarin</source>
         <translation type="unfinished"></translation>
     </message>
@@ -816,7 +790,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/main_window.ui" line="1046"/>
+        <location filename="../ui/main_window.ui" line="1076"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The web-based translating platform &lt;a href=&quot;https://www.transifex.com/projects/p/gui/&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0057ae;&quot;&gt;Transifex&lt;/span&gt;&lt;/a&gt; is used. It&apos;s easier for translators. Join us !&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation type="unfinished"></translation>
     </message>
@@ -826,28 +800,38 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/main_window.ui" line="1231"/>
+        <location filename="../ui/main_window.ui" line="1261"/>
         <source>GitHub&apos;s repository</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/main_window.ui" line="1141"/>
+        <location filename="../ui/main_window.ui" line="1171"/>
         <source>Portuguese</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/main_window.ui" line="1113"/>
+        <location filename="../ui/main_window.ui" line="1143"/>
         <source>Spanish</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/main_window.ui" line="1092"/>
+        <location filename="../ui/main_window.ui" line="1122"/>
         <source>Indonesian</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/main_window.ui" line="1120"/>
+        <location filename="../ui/main_window.ui" line="1150"/>
         <source>Polish</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui/main_window.ui" line="998"/>
+        <source>Realization</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui/main_window.ui" line="1040"/>
+        <source>Contributors</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
