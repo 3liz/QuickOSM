@@ -56,16 +56,18 @@ class OsmFilePanel(BaseProcessingPanel):
 
     def disable_run_file_button(self):
         """If the two fields are empty or allTags."""
-        if self.dialog.osm_file.filePath():
+        if not self.dialog.osm_file.filePath():
             self.dialog.run_buttons[self.panel].setEnabled(False)
 
-        # if self.radio_osm_conf.isChecked():
-        #     if self.osm_conf.filePath():
-        #         self.run_buttons[Panels.File].setEnabled(True)
-        #     else:
-        #         self.run_buttons[Panels.File].setEnabled(False)
-        # else:
-        self.dialog.run_buttons[self.panel].setEnabled(True)
+        if self.dialog.radio_osm_conf.isChecked():
+            self.dialog.osm_conf.setEnabled(True)
+            if self.dialog.osm_conf.filePath() or self.dialog.osm_conf.lineEdit().placeholderText():
+                self.dialog.run_buttons[Panels.File].setEnabled(True)
+            else:
+                self.dialog.run_buttons[Panels.File].setEnabled(False)
+        else:
+            self.dialog.osm_conf.setEnabled(False)
+            self.dialog.run_buttons[self.panel].setEnabled(True)
 
     def gather_values(self):
         properties = super().gather_values()
