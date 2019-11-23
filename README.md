@@ -70,7 +70,7 @@ Since QGIS 3.6, you can export your Processing model as a Python script.
 
 * The web-based translating platform [Transifex](https://www.transifex.com/quickosm/gui/dashboard/) is used.
 
-## Development
+## Development and tests
 
 * QuickOSM uses a [Git submodule](https://git-scm.com/book/en/v2/Git-Tools-Submodules).
   * For a new clone, including the submodule, do `git clone --recursive https://github.com/3liz/QuickOSM.git`.
@@ -79,13 +79,13 @@ Since QGIS 3.6, you can export your Processing model as a Python script.
 * For panels, you can find a quick diagram in the `doc` folder.
 * For tests, it's using the `unittest` framework.
   * They are launched on GitHub using Travis, you can check the [Travis status](https://travis-ci.org/3liz/QuickOSM) on each commits and pull requests.
-  * You can launch them locally using the QGIS docker image:
-     * `make docker_test` using the current LTR following the [QGIS release schedule](https://www.qgis.org/en/site/getinvolved/development/roadmap.html#release-schedule).
-     * `qgis_plugin_tools/docker_test.sh QuickOSM release-3_4` for QGIS 3.4
-     * `qgis_plugin_tools/docker_test.sh QuickOSM latest` for QGIS Master or any other tags available on [Docker Hub](https://hub.docker.com/r/qgis/qgis/tags).
-     * If you are using docker, do not forget to update your image from time to time `docker pull qgis/qgis:latest`.
+  * You can launch them locally:
+     * `make docker_test` using Docker with the current LTR following the [QGIS release schedule](https://www.qgis.org/en/site/getinvolved/development/roadmap.html#release-schedule).
+        * `qgis_plugin_tools/docker_test.sh QuickOSM release-3_4` for QGIS 3.4
+        * `qgis_plugin_tools/docker_test.sh QuickOSM latest` for QGIS Master or any other tags available on [Docker Hub](https://hub.docker.com/r/qgis/qgis/tags).
+        * If you are using docker, do not forget to update your image from time to time `docker pull qgis/qgis:latest`.
      * Setting up your IDE to launch them by adding paths to your QGIS installation. I personally use PyCharm on Ubuntu.
-     * Launching tests from QGIS Desktop app, in the Python console.
+     * Launching tests from QGIS Desktop app, in the Python console using : 
 
 ```python
 from qgis.utils import plugins
