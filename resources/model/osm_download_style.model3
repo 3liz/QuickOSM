@@ -1,0 +1,546 @@
+<!DOCTYPE model>
+<Option type="Map">
+  <Option type="Map" name="children">
+    <Option type="Map" name="gdal:convertformat_1">
+      <Option type="bool" value="true" name="active"/>
+      <Option name="alg_config"/>
+      <Option type="QString" value="gdal:convertformat" name="alg_id"/>
+      <Option type="QString" value="points" name="component_description"/>
+      <Option type="double" value="401" name="component_pos_x"/>
+      <Option type="double" value="946" name="component_pos_y"/>
+      <Option name="dependencies"/>
+      <Option type="QString" value="gdal:convertformat_1" name="id"/>
+      <Option name="outputs"/>
+      <Option type="bool" value="true" name="outputs_collapsed"/>
+      <Option type="bool" value="true" name="parameters_collapsed"/>
+      <Option type="Map" name="params">
+        <Option type="List" name="INPUT">
+          <Option type="Map">
+            <Option type="QString" value="native:filedownloader_1" name="child_id"/>
+            <Option type="QString" value="OUTPUT" name="output_name"/>
+            <Option type="int" value="1" name="source"/>
+          </Option>
+        </Option>
+        <Option type="List" name="OPTIONS">
+          <Option type="Map">
+            <Option type="int" value="2" name="source"/>
+            <Option type="QString" value="-t_srs EPSG:3857" name="static_value"/>
+          </Option>
+        </Option>
+      </Option>
+    </Option>
+    <Option type="Map" name="gdal:convertformat_2">
+      <Option type="bool" value="true" name="active"/>
+      <Option name="alg_config"/>
+      <Option type="QString" value="gdal:convertformat" name="alg_id"/>
+      <Option type="QString" value="multilines" name="component_description"/>
+      <Option type="double" value="1009" name="component_pos_x"/>
+      <Option type="double" value="904" name="component_pos_y"/>
+      <Option name="dependencies"/>
+      <Option type="QString" value="gdal:convertformat_2" name="id"/>
+      <Option name="outputs"/>
+      <Option type="bool" value="true" name="outputs_collapsed"/>
+      <Option type="bool" value="true" name="parameters_collapsed"/>
+      <Option type="Map" name="params">
+        <Option type="List" name="INPUT">
+          <Option type="Map">
+            <Option type="QString" value="native:filedownloader_1" name="child_id"/>
+            <Option type="QString" value="OUTPUT" name="output_name"/>
+            <Option type="int" value="1" name="source"/>
+          </Option>
+        </Option>
+        <Option type="List" name="OPTIONS">
+          <Option type="Map">
+            <Option type="int" value="2" name="source"/>
+            <Option type="QString" value="-sql &quot;select * from multilinestrings&quot; -t_srs EPSG:3857" name="static_value"/>
+          </Option>
+        </Option>
+      </Option>
+    </Option>
+    <Option type="Map" name="gdal:convertformat_3">
+      <Option type="bool" value="true" name="active"/>
+      <Option name="alg_config"/>
+      <Option type="QString" value="gdal:convertformat" name="alg_id"/>
+      <Option type="QString" value="lines" name="component_description"/>
+      <Option type="double" value="700" name="component_pos_x"/>
+      <Option type="double" value="936" name="component_pos_y"/>
+      <Option name="dependencies"/>
+      <Option type="QString" value="gdal:convertformat_3" name="id"/>
+      <Option name="outputs"/>
+      <Option type="bool" value="true" name="outputs_collapsed"/>
+      <Option type="bool" value="true" name="parameters_collapsed"/>
+      <Option type="Map" name="params">
+        <Option type="List" name="INPUT">
+          <Option type="Map">
+            <Option type="QString" value="native:filedownloader_1" name="child_id"/>
+            <Option type="QString" value="OUTPUT" name="output_name"/>
+            <Option type="int" value="1" name="source"/>
+          </Option>
+        </Option>
+        <Option type="List" name="OPTIONS">
+          <Option type="Map">
+            <Option type="int" value="2" name="source"/>
+            <Option type="QString" value="-sql &quot;select * from lines&quot; -t_srs EPSG:3857" name="static_value"/>
+          </Option>
+        </Option>
+      </Option>
+    </Option>
+    <Option type="Map" name="gdal:convertformat_4">
+      <Option type="bool" value="true" name="active"/>
+      <Option name="alg_config"/>
+      <Option type="QString" value="gdal:convertformat" name="alg_id"/>
+      <Option type="QString" value="areas" name="component_description"/>
+      <Option type="double" value="1269" name="component_pos_x"/>
+      <Option type="double" value="919" name="component_pos_y"/>
+      <Option name="dependencies"/>
+      <Option type="QString" value="gdal:convertformat_4" name="id"/>
+      <Option name="outputs"/>
+      <Option type="bool" value="true" name="outputs_collapsed"/>
+      <Option type="bool" value="true" name="parameters_collapsed"/>
+      <Option type="Map" name="params">
+        <Option type="List" name="INPUT">
+          <Option type="Map">
+            <Option type="QString" value="native:filedownloader_1" name="child_id"/>
+            <Option type="QString" value="OUTPUT" name="output_name"/>
+            <Option type="int" value="1" name="source"/>
+          </Option>
+        </Option>
+        <Option type="List" name="OPTIONS">
+          <Option type="Map">
+            <Option type="int" value="2" name="source"/>
+            <Option type="QString" value="-sql &quot;select * from multipolygons&quot; -t_srs EPSG:3857" name="static_value"/>
+          </Option>
+        </Option>
+      </Option>
+    </Option>
+    <Option type="Map" name="native:filedownloader_1">
+      <Option type="bool" value="true" name="active"/>
+      <Option name="alg_config"/>
+      <Option type="QString" value="native:filedownloader" name="alg_id"/>
+      <Option type="QString" value="Download file" name="component_description"/>
+      <Option type="double" value="575" name="component_pos_x"/>
+      <Option type="double" value="722" name="component_pos_y"/>
+      <Option name="dependencies"/>
+      <Option type="QString" value="native:filedownloader_1" name="id"/>
+      <Option name="outputs"/>
+      <Option type="bool" value="true" name="outputs_collapsed"/>
+      <Option type="bool" value="true" name="parameters_collapsed"/>
+      <Option type="Map" name="params">
+        <Option type="List" name="URL">
+          <Option type="Map">
+            <Option type="QString" value="quickosm:buildrawquery_1" name="child_id"/>
+            <Option type="QString" value="OUTPUT_URL" name="output_name"/>
+            <Option type="int" value="1" name="source"/>
+          </Option>
+        </Option>
+      </Option>
+    </Option>
+    <Option type="Map" name="native:package_1">
+      <Option type="bool" value="true" name="active"/>
+      <Option name="alg_config"/>
+      <Option type="QString" value="native:package" name="alg_id"/>
+      <Option type="QString" value="final" name="component_description"/>
+      <Option type="double" value="1210" name="component_pos_x"/>
+      <Option type="double" value="1569" name="component_pos_y"/>
+      <Option name="dependencies"/>
+      <Option type="QString" value="native:package_1" name="id"/>
+      <Option type="Map" name="outputs">
+        <Option type="Map" name="styled_output">
+          <Option type="QString" value="native:package_1" name="child_id"/>
+          <Option type="QString" value="styled_output" name="component_description"/>
+          <Option type="double" value="1431" name="component_pos_x"/>
+          <Option type="double" value="1670" name="component_pos_y"/>
+          <Option type="invalid" name="default_value"/>
+          <Option type="bool" value="false" name="mandatory"/>
+          <Option type="QString" value="styled_output" name="name"/>
+          <Option type="QString" value="OUTPUT" name="output_name"/>
+        </Option>
+      </Option>
+      <Option type="bool" value="false" name="outputs_collapsed"/>
+      <Option type="bool" value="true" name="parameters_collapsed"/>
+      <Option type="Map" name="params">
+        <Option type="List" name="LAYERS">
+          <Option type="Map">
+            <Option type="QString" value="native:renamelayer_1" name="child_id"/>
+            <Option type="QString" value="OUTPUT" name="output_name"/>
+            <Option type="int" value="1" name="source"/>
+          </Option>
+          <Option type="Map">
+            <Option type="QString" value="native:renamelayer_2" name="child_id"/>
+            <Option type="QString" value="OUTPUT" name="output_name"/>
+            <Option type="int" value="1" name="source"/>
+          </Option>
+          <Option type="Map">
+            <Option type="QString" value="native:renamelayer_3" name="child_id"/>
+            <Option type="QString" value="OUTPUT" name="output_name"/>
+            <Option type="int" value="1" name="source"/>
+          </Option>
+          <Option type="Map">
+            <Option type="QString" value="native:renamelayer_4" name="child_id"/>
+            <Option type="QString" value="OUTPUT" name="output_name"/>
+            <Option type="int" value="1" name="source"/>
+          </Option>
+        </Option>
+        <Option type="List" name="OVERWRITE">
+          <Option type="Map">
+            <Option type="int" value="2" name="source"/>
+            <Option type="bool" value="true" name="static_value"/>
+          </Option>
+        </Option>
+        <Option type="List" name="SAVE_STYLES">
+          <Option type="Map">
+            <Option type="int" value="2" name="source"/>
+            <Option type="bool" value="true" name="static_value"/>
+          </Option>
+        </Option>
+      </Option>
+    </Option>
+    <Option type="Map" name="native:renamelayer_1">
+      <Option type="bool" value="true" name="active"/>
+      <Option name="alg_config"/>
+      <Option type="QString" value="native:renamelayer" name="alg_id"/>
+      <Option type="QString" value="Rename layer" name="component_description"/>
+      <Option type="double" value="589" name="component_pos_x"/>
+      <Option type="double" value="1358" name="component_pos_y"/>
+      <Option name="dependencies"/>
+      <Option type="QString" value="native:renamelayer_1" name="id"/>
+      <Option name="outputs"/>
+      <Option type="bool" value="true" name="outputs_collapsed"/>
+      <Option type="bool" value="true" name="parameters_collapsed"/>
+      <Option type="Map" name="params">
+        <Option type="List" name="INPUT">
+          <Option type="Map">
+            <Option type="QString" value="native:setlayerstyle_1" name="child_id"/>
+            <Option type="QString" value="OUTPUT" name="output_name"/>
+            <Option type="int" value="1" name="source"/>
+          </Option>
+        </Option>
+        <Option type="List" name="NAME">
+          <Option type="Map">
+            <Option type="int" value="2" name="source"/>
+            <Option type="QString" value="points" name="static_value"/>
+          </Option>
+        </Option>
+      </Option>
+    </Option>
+    <Option type="Map" name="native:renamelayer_2">
+      <Option type="bool" value="true" name="active"/>
+      <Option name="alg_config"/>
+      <Option type="QString" value="native:renamelayer" name="alg_id"/>
+      <Option type="QString" value="Rename layer" name="component_description"/>
+      <Option type="double" value="1094" name="component_pos_x"/>
+      <Option type="double" value="1325" name="component_pos_y"/>
+      <Option name="dependencies"/>
+      <Option type="QString" value="native:renamelayer_2" name="id"/>
+      <Option name="outputs"/>
+      <Option type="bool" value="true" name="outputs_collapsed"/>
+      <Option type="bool" value="true" name="parameters_collapsed"/>
+      <Option type="Map" name="params">
+        <Option type="List" name="INPUT">
+          <Option type="Map">
+            <Option type="QString" value="native:setlayerstyle_2" name="child_id"/>
+            <Option type="QString" value="OUTPUT" name="output_name"/>
+            <Option type="int" value="1" name="source"/>
+          </Option>
+        </Option>
+        <Option type="List" name="NAME">
+          <Option type="Map">
+            <Option type="int" value="2" name="source"/>
+            <Option type="QString" value="multilinestrings" name="static_value"/>
+          </Option>
+        </Option>
+      </Option>
+    </Option>
+    <Option type="Map" name="native:renamelayer_3">
+      <Option type="bool" value="true" name="active"/>
+      <Option name="alg_config"/>
+      <Option type="QString" value="native:renamelayer" name="alg_id"/>
+      <Option type="QString" value="Rename layer" name="component_description"/>
+      <Option type="double" value="844" name="component_pos_x"/>
+      <Option type="double" value="1332" name="component_pos_y"/>
+      <Option name="dependencies"/>
+      <Option type="QString" value="native:renamelayer_3" name="id"/>
+      <Option name="outputs"/>
+      <Option type="bool" value="true" name="outputs_collapsed"/>
+      <Option type="bool" value="true" name="parameters_collapsed"/>
+      <Option type="Map" name="params">
+        <Option type="List" name="INPUT">
+          <Option type="Map">
+            <Option type="QString" value="native:setlayerstyle_3" name="child_id"/>
+            <Option type="QString" value="OUTPUT" name="output_name"/>
+            <Option type="int" value="1" name="source"/>
+          </Option>
+        </Option>
+        <Option type="List" name="NAME">
+          <Option type="Map">
+            <Option type="int" value="2" name="source"/>
+            <Option type="QString" value="lines" name="static_value"/>
+          </Option>
+        </Option>
+      </Option>
+    </Option>
+    <Option type="Map" name="native:renamelayer_4">
+      <Option type="bool" value="true" name="active"/>
+      <Option name="alg_config"/>
+      <Option type="QString" value="native:renamelayer" name="alg_id"/>
+      <Option type="QString" value="Rename layer" name="component_description"/>
+      <Option type="double" value="1362" name="component_pos_x"/>
+      <Option type="double" value="1320" name="component_pos_y"/>
+      <Option name="dependencies"/>
+      <Option type="QString" value="native:renamelayer_4" name="id"/>
+      <Option name="outputs"/>
+      <Option type="bool" value="true" name="outputs_collapsed"/>
+      <Option type="bool" value="true" name="parameters_collapsed"/>
+      <Option type="Map" name="params">
+        <Option type="List" name="INPUT">
+          <Option type="Map">
+            <Option type="QString" value="native:setlayerstyle_4" name="child_id"/>
+            <Option type="QString" value="OUTPUT" name="output_name"/>
+            <Option type="int" value="1" name="source"/>
+          </Option>
+        </Option>
+        <Option type="List" name="NAME">
+          <Option type="Map">
+            <Option type="int" value="2" name="source"/>
+            <Option type="QString" value="multipolygons" name="static_value"/>
+          </Option>
+        </Option>
+      </Option>
+    </Option>
+    <Option type="Map" name="native:setlayerstyle_1">
+      <Option type="bool" value="true" name="active"/>
+      <Option name="alg_config"/>
+      <Option type="QString" value="native:setlayerstyle" name="alg_id"/>
+      <Option type="QString" value="points styled" name="component_description"/>
+      <Option type="double" value="475" name="component_pos_x"/>
+      <Option type="double" value="1139" name="component_pos_y"/>
+      <Option name="dependencies"/>
+      <Option type="QString" value="native:setlayerstyle_1" name="id"/>
+      <Option name="outputs"/>
+      <Option type="bool" value="true" name="outputs_collapsed"/>
+      <Option type="bool" value="true" name="parameters_collapsed"/>
+      <Option type="Map" name="params">
+        <Option type="List" name="INPUT">
+          <Option type="Map">
+            <Option type="QString" value="gdal:convertformat_1" name="child_id"/>
+            <Option type="QString" value="OUTPUT" name="output_name"/>
+            <Option type="int" value="1" name="source"/>
+          </Option>
+        </Option>
+        <Option type="List" name="STYLE">
+          <Option type="Map">
+            <Option type="QString" value="Pointstyle" name="parameter_name"/>
+            <Option type="int" value="0" name="source"/>
+          </Option>
+        </Option>
+      </Option>
+    </Option>
+    <Option type="Map" name="native:setlayerstyle_2">
+      <Option type="bool" value="true" name="active"/>
+      <Option name="alg_config"/>
+      <Option type="QString" value="native:setlayerstyle" name="alg_id"/>
+      <Option type="QString" value="multilines styled" name="component_description"/>
+      <Option type="double" value="1021" name="component_pos_x"/>
+      <Option type="double" value="1127" name="component_pos_y"/>
+      <Option name="dependencies"/>
+      <Option type="QString" value="native:setlayerstyle_2" name="id"/>
+      <Option name="outputs"/>
+      <Option type="bool" value="true" name="outputs_collapsed"/>
+      <Option type="bool" value="true" name="parameters_collapsed"/>
+      <Option type="Map" name="params">
+        <Option type="List" name="INPUT">
+          <Option type="Map">
+            <Option type="QString" value="gdal:convertformat_2" name="child_id"/>
+            <Option type="QString" value="OUTPUT" name="output_name"/>
+            <Option type="int" value="1" name="source"/>
+          </Option>
+        </Option>
+        <Option type="List" name="STYLE">
+          <Option type="Map">
+            <Option type="QString" value="Linestyle" name="parameter_name"/>
+            <Option type="int" value="0" name="source"/>
+          </Option>
+        </Option>
+      </Option>
+    </Option>
+    <Option type="Map" name="native:setlayerstyle_3">
+      <Option type="bool" value="true" name="active"/>
+      <Option name="alg_config"/>
+      <Option type="QString" value="native:setlayerstyle" name="alg_id"/>
+      <Option type="QString" value="lines styled" name="component_description"/>
+      <Option type="double" value="758" name="component_pos_x"/>
+      <Option type="double" value="1126" name="component_pos_y"/>
+      <Option name="dependencies"/>
+      <Option type="QString" value="native:setlayerstyle_3" name="id"/>
+      <Option name="outputs"/>
+      <Option type="bool" value="true" name="outputs_collapsed"/>
+      <Option type="bool" value="true" name="parameters_collapsed"/>
+      <Option type="Map" name="params">
+        <Option type="List" name="INPUT">
+          <Option type="Map">
+            <Option type="QString" value="gdal:convertformat_3" name="child_id"/>
+            <Option type="QString" value="OUTPUT" name="output_name"/>
+            <Option type="int" value="1" name="source"/>
+          </Option>
+        </Option>
+        <Option type="List" name="STYLE">
+          <Option type="Map">
+            <Option type="QString" value="Linestyle" name="parameter_name"/>
+            <Option type="int" value="0" name="source"/>
+          </Option>
+        </Option>
+      </Option>
+    </Option>
+    <Option type="Map" name="native:setlayerstyle_4">
+      <Option type="bool" value="true" name="active"/>
+      <Option name="alg_config"/>
+      <Option type="QString" value="native:setlayerstyle" name="alg_id"/>
+      <Option type="QString" value="areas styled" name="component_description"/>
+      <Option type="double" value="1309" name="component_pos_x"/>
+      <Option type="double" value="1149" name="component_pos_y"/>
+      <Option name="dependencies"/>
+      <Option type="QString" value="native:setlayerstyle_4" name="id"/>
+      <Option name="outputs"/>
+      <Option type="bool" value="true" name="outputs_collapsed"/>
+      <Option type="bool" value="true" name="parameters_collapsed"/>
+      <Option type="Map" name="params">
+        <Option type="List" name="INPUT">
+          <Option type="Map">
+            <Option type="QString" value="gdal:convertformat_4" name="child_id"/>
+            <Option type="QString" value="OUTPUT" name="output_name"/>
+            <Option type="int" value="1" name="source"/>
+          </Option>
+        </Option>
+        <Option type="List" name="STYLE">
+          <Option type="Map">
+            <Option type="QString" value="Areastyle" name="parameter_name"/>
+            <Option type="int" value="0" name="source"/>
+          </Option>
+        </Option>
+      </Option>
+    </Option>
+    <Option type="Map" name="quickosm:buildrawquery_1">
+      <Option type="bool" value="true" name="active"/>
+      <Option name="alg_config"/>
+      <Option type="QString" value="quickosm:buildrawquery" name="alg_id"/>
+      <Option type="QString" value="Build raw query" name="component_description"/>
+      <Option type="double" value="355" name="component_pos_x"/>
+      <Option type="double" value="622" name="component_pos_y"/>
+      <Option name="dependencies"/>
+      <Option type="QString" value="quickosm:buildrawquery_1" name="id"/>
+      <Option name="outputs"/>
+      <Option type="bool" value="true" name="outputs_collapsed"/>
+      <Option type="bool" value="true" name="parameters_collapsed"/>
+      <Option type="Map" name="params">
+        <Option type="List" name="AREA">
+          <Option type="Map">
+            <Option type="int" value="2" name="source"/>
+            <Option type="QString" value="" name="static_value"/>
+          </Option>
+        </Option>
+        <Option type="List" name="EXTENT">
+          <Option type="Map">
+            <Option type="QString" value="extent" name="parameter_name"/>
+            <Option type="int" value="0" name="source"/>
+          </Option>
+        </Option>
+        <Option type="List" name="QUERY">
+          <Option type="Map">
+            <Option type="int" value="2" name="source"/>
+            <Option type="QString" value="&lt;osm-script output=&quot;xml&quot; timeout=&quot;25&quot;>&#xa;    &lt;union>&#xa;        &lt;query type=&quot;node&quot;>&#xa;            &lt;bbox-query {{bbox}}/>&#xa;        &lt;/query>&#xa;        &lt;query type=&quot;way&quot;>&#xa;            &lt;bbox-query {{bbox}}/>&#xa;        &lt;/query>&#xa;        &lt;query type=&quot;relation&quot;>&#xa;            &lt;bbox-query {{bbox}}/>&#xa;        &lt;/query>&#xa;    &lt;/union>&#xa;    &lt;union>&#xa;        &lt;item/>&#xa;        &lt;recurse type=&quot;down&quot;/>&#xa;    &lt;/union>&#xa;    &lt;print mode=&quot;body&quot;/>&#xa;&lt;/osm-script>&#xa;" name="static_value"/>
+          </Option>
+        </Option>
+        <Option type="List" name="SERVER">
+          <Option type="Map">
+            <Option type="int" value="2" name="source"/>
+            <Option type="QString" value="http://www.overpass-api.de/api/interpreter" name="static_value"/>
+          </Option>
+        </Option>
+      </Option>
+    </Option>
+  </Option>
+  <Option name="help"/>
+  <Option name="modelVariables"/>
+  <Option type="QString" value="osm_download" name="model_group"/>
+  <Option type="QString" value="osm" name="model_name"/>
+  <Option type="Map" name="parameterDefinitions">
+    <Option type="Map" name="Areastyle">
+      <Option type="int" value="0" name="behavior"/>
+      <Option type="invalid" name="default"/>
+      <Option type="QString" value="Area style" name="description"/>
+      <Option type="QString" value="" name="extension"/>
+      <Option type="QString" value="All Files (*.*)" name="filefilter"/>
+      <Option type="int" value="0" name="flags"/>
+      <Option name="metadata"/>
+      <Option type="QString" value="Areastyle" name="name"/>
+      <Option type="QString" value="file" name="parameter_type"/>
+    </Option>
+    <Option type="Map" name="Linestyle">
+      <Option type="int" value="0" name="behavior"/>
+      <Option type="invalid" name="default"/>
+      <Option type="QString" value="Line style" name="description"/>
+      <Option type="QString" value="" name="extension"/>
+      <Option type="QString" value="All Files (*.*)" name="filefilter"/>
+      <Option type="int" value="0" name="flags"/>
+      <Option name="metadata"/>
+      <Option type="QString" value="Linestyle" name="name"/>
+      <Option type="QString" value="file" name="parameter_type"/>
+    </Option>
+    <Option type="Map" name="Pointstyle">
+      <Option type="int" value="0" name="behavior"/>
+      <Option type="invalid" name="default"/>
+      <Option type="QString" value="Point style" name="description"/>
+      <Option type="QString" value="" name="extension"/>
+      <Option type="QString" value="All Files (*.*)" name="filefilter"/>
+      <Option type="int" value="0" name="flags"/>
+      <Option name="metadata"/>
+      <Option type="QString" value="Pointstyle" name="name"/>
+      <Option type="QString" value="file" name="parameter_type"/>
+    </Option>
+    <Option type="Map" name="extent">
+      <Option type="invalid" name="default"/>
+      <Option type="QString" value="extent" name="description"/>
+      <Option type="int" value="0" name="flags"/>
+      <Option name="metadata"/>
+      <Option type="QString" value="extent" name="name"/>
+      <Option type="QString" value="extent" name="parameter_type"/>
+    </Option>
+    <Option type="Map" name="native:package_1:styled_output">
+      <Option type="bool" value="true" name="create_by_default"/>
+      <Option type="invalid" name="default"/>
+      <Option type="QString" value="styled_output" name="description"/>
+      <Option type="QString" value="GeoPackage files (*.gpkg)" name="file_filter"/>
+      <Option type="int" value="0" name="flags"/>
+      <Option name="metadata"/>
+      <Option type="QString" value="native:package_1:styled_output" name="name"/>
+      <Option type="QString" value="fileDestination" name="parameter_type"/>
+      <Option type="bool" value="true" name="supports_non_file_outputs"/>
+    </Option>
+  </Option>
+  <Option type="Map" name="parameters">
+    <Option type="Map" name="Areastyle">
+      <Option type="QString" value="Areastyle" name="component_description"/>
+      <Option type="double" value="1448" name="component_pos_x"/>
+      <Option type="double" value="1060" name="component_pos_y"/>
+      <Option type="QString" value="Areastyle" name="name"/>
+    </Option>
+    <Option type="Map" name="Linestyle">
+      <Option type="QString" value="Linestyle" name="component_description"/>
+      <Option type="double" value="810" name="component_pos_x"/>
+      <Option type="double" value="1027" name="component_pos_y"/>
+      <Option type="QString" value="Linestyle" name="name"/>
+    </Option>
+    <Option type="Map" name="Pointstyle">
+      <Option type="QString" value="Pointstyle" name="component_description"/>
+      <Option type="double" value="215" name="component_pos_x"/>
+      <Option type="double" value="1066" name="component_pos_y"/>
+      <Option type="QString" value="Pointstyle" name="name"/>
+    </Option>
+    <Option type="Map" name="extent">
+      <Option type="QString" value="extent" name="component_description"/>
+      <Option type="double" value="289" name="component_pos_x"/>
+      <Option type="double" value="432" name="component_pos_y"/>
+      <Option type="QString" value="extent" name="name"/>
+    </Option>
+  </Option>
+</Option>
