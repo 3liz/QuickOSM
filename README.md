@@ -27,9 +27,9 @@
 * Set the name of the town/village to `London`
 * `Run Query`
 
-The Overpass API takes a few seconds to respond, and after that you should get new 
-point and polygon layers for the toilets of London! (nodes and ways in OpenStreetMap 
-with the `amenity`=`toilet` tag on them) 
+The Overpass API takes a few seconds to respond, and after that you should get new
+point and polygon layers for the toilets of London! (nodes and ways in OpenStreetMap
+with the `amenity`=`toilet` tag on them)
 
 
 ## Generalities
@@ -52,19 +52,21 @@ Since QGIS 3.4, QuickOSM is available in the Processing modeler.
 Here some useful algorithms in an appropriate order:
 * **QuickOSM** → **Advanced**, one of the **Build query** algorithms.
 * **File Tools** → **Download file**.
-* **Modeler Tools** → **String concatenation**. 
+* **Modeler Tools** → **String concatenation**.
 Useful to concatenate the downloaded filepath with
   * `|layername=points`
   * `|layername=lines`
   * `|layername=multilinestrings`
   * `|layername=multipolygons`
 * **QuickOSM** → **Open OSM file**. Instead of the step above with the string concatenation.
- 
+
 Check a more detailed answer on [stackexchange](https://gis.stackexchange.com/a/313360/24505).
 * **Vector Table** → **Explode HStore field** (QGIS ≥ 3.6)
 * **Vector Table** → **Feature filter**
 
 Since QGIS 3.6, you can export your Processing model as a Python script.
+
+As an example, you can download [this model](../resources/model/osm_download_style.model3) and [load it in your QGIS](https://docs.qgis.org/3.4/en/docs/user_manual/processing/modeler.html#saving-and-loading-models). Additionally, you can download example QGIS style files for OSM from [here](https://github.com/anitagraser/QGIS-resources/tree/master/qgis2/osm_spatialite). The model will download and style OSM data from an extent and packages it in one Geopackage.
 
 ## Translation
 
@@ -85,7 +87,7 @@ Since QGIS 3.6, you can export your Processing model as a Python script.
         * `qgis_plugin_tools/docker_test.sh QuickOSM latest` for QGIS Master or any other tags available on [Docker Hub](https://hub.docker.com/r/qgis/qgis/tags).
         * If you are using docker, do not forget to update your image from time to time `docker pull qgis/qgis:latest`.
      * Setting up your IDE to launch them by adding paths to your QGIS installation. I personally use PyCharm on Ubuntu.
-     * Launching tests from QGIS Desktop app, in the Python console using : 
+     * Launching tests from QGIS Desktop app, in the Python console using :
 
 ```python
 from qgis.utils import plugins
