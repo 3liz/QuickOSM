@@ -127,7 +127,7 @@
         <translation>Requête sur toutes les valeurs</translation>
     </message>
     <message>
-        <location filename="../../quick_osm_processing/advanced/raw_query.py" line="37"/>
+        <location filename="../../quick_osm_processing/advanced/build_query.py" line="51"/>
         <source>Advanced</source>
         <translation>Avancé</translation>
     </message>
@@ -147,17 +147,17 @@
         <translation>Emprise, si &quot;{{bbox}}&quot; dans la requête</translation>
     </message>
     <message>
-        <location filename="../../quick_osm_processing/advanced/raw_query.py" line="67"/>
+        <location filename="../../quick_osm_processing/advanced/build_query.py" line="84"/>
         <source>Overpass server</source>
         <translation>Serveur Overpass</translation>
     </message>
     <message>
-        <location filename="../../quick_osm_processing/advanced/raw_query.py" line="84"/>
+        <location filename="../../quick_osm_processing/advanced/build_query.py" line="93"/>
         <source>Query as encoded URL</source>
         <translation>Requête en tant que URL encodée</translation>
     </message>
     <message>
-        <location filename="../../quick_osm_processing/advanced/raw_query.py" line="88"/>
+        <location filename="../../quick_osm_processing/advanced/build_query.py" line="97"/>
         <source>Raw query as OQL</source>
         <translation>Requête brute en OQL</translation>
     </message>
@@ -554,6 +554,27 @@
         <location filename="../../quick_osm_processing/advanced/open_osm_file.py" line="109"/>
         <source>OSM Configuration file not found</source>
         <translation>Fichier de configuration OSM non trouvé</translation>
+    </message>
+</context>
+<context>
+    <name>QueryItemDelegate</name>
+    <message>
+        <location filename="../../ui/custom_ui.py" line="70"/>
+        <source>Query on all keys</source>
+        <translation>Requête sur toutes les clés</translation>
+    </message>
+    <message>
+        <location filename="../../ui/custom_ui.py" line="81"/>
+        <source>Query on all values</source>
+        <translation>Requête sur toutes les valeurs</translation>
+    </message>
+</context>
+<context>
+    <name>TableKeyValue</name>
+    <message>
+        <location filename="../../ui/custom_ui.py" line="35"/>
+        <source>Query on all keys</source>
+        <translation>Requête sur toutes les clés</translation>
     </message>
 </context>
 <context>

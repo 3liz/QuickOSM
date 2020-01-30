@@ -128,7 +128,7 @@
         <translation>Consulta en todos los valores</translation>
     </message>
     <message>
-        <location filename="../../quick_osm_processing/advanced/raw_query.py" line="37"/>
+        <location filename="../../quick_osm_processing/advanced/build_query.py" line="51"/>
         <source>Advanced</source>
         <translation>Avanzado</translation>
     </message>
@@ -148,17 +148,17 @@
         <translation>Extensión, si &quot;{{bbox}}&quot; en la consulta</translation>
     </message>
     <message>
-        <location filename="../../quick_osm_processing/advanced/raw_query.py" line="67"/>
+        <location filename="../../quick_osm_processing/advanced/build_query.py" line="84"/>
         <source>Overpass server</source>
         <translation>Servidor Overpass</translation>
     </message>
     <message>
-        <location filename="../../quick_osm_processing/advanced/raw_query.py" line="84"/>
+        <location filename="../../quick_osm_processing/advanced/build_query.py" line="93"/>
         <source>Query as encoded URL</source>
         <translation>Consulta como URL codificada</translation>
     </message>
     <message>
-        <location filename="../../quick_osm_processing/advanced/raw_query.py" line="88"/>
+        <location filename="../../quick_osm_processing/advanced/build_query.py" line="97"/>
         <source>Raw query as OQL</source>
         <translation>Consulta RAW como OQL</translation>
     </message>
@@ -555,6 +555,27 @@
         <location filename="../../quick_osm_processing/advanced/open_osm_file.py" line="109"/>
         <source>OSM Configuration file not found</source>
         <translation>Archivo de configuración de OSM no encontrado</translation>
+    </message>
+</context>
+<context>
+    <name>QueryItemDelegate</name>
+    <message>
+        <location filename="../../ui/custom_ui.py" line="70"/>
+        <source>Query on all keys</source>
+        <translation type="unfinished">Consulta en todas las claves</translation>
+    </message>
+    <message>
+        <location filename="../../ui/custom_ui.py" line="81"/>
+        <source>Query on all values</source>
+        <translation type="unfinished">Consulta en todos los valores</translation>
+    </message>
+</context>
+<context>
+    <name>TableKeyValue</name>
+    <message>
+        <location filename="../../ui/custom_ui.py" line="35"/>
+        <source>Query on all keys</source>
+        <translation type="unfinished">Consulta en todas las claves</translation>
     </message>
 </context>
 <context>

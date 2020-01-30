@@ -128,7 +128,7 @@
         <translation>檢索所有值</translation>
     </message>
     <message>
-        <location filename="../../quick_osm_processing/advanced/raw_query.py" line="37"/>
+        <location filename="../../quick_osm_processing/advanced/build_query.py" line="51"/>
         <source>Advanced</source>
         <translation>進階</translation>
     </message>
@@ -148,17 +148,17 @@
         <translation>如果 &quot;{{bbox}}&quot; 存在檢索當中時的範圍</translation>
     </message>
     <message>
-        <location filename="../../quick_osm_processing/advanced/raw_query.py" line="67"/>
+        <location filename="../../quick_osm_processing/advanced/build_query.py" line="84"/>
         <source>Overpass server</source>
         <translation>Overpass 伺服器</translation>
     </message>
     <message>
-        <location filename="../../quick_osm_processing/advanced/raw_query.py" line="84"/>
+        <location filename="../../quick_osm_processing/advanced/build_query.py" line="93"/>
         <source>Query as encoded URL</source>
         <translation>以編碼過的網址來檢索</translation>
     </message>
     <message>
-        <location filename="../../quick_osm_processing/advanced/raw_query.py" line="88"/>
+        <location filename="../../quick_osm_processing/advanced/build_query.py" line="97"/>
         <source>Raw query as OQL</source>
         <translation>以 OQL 的原始檢索方式進行</translation>
     </message>
@@ -555,6 +555,27 @@
         <location filename="../../quick_osm_processing/advanced/open_osm_file.py" line="109"/>
         <source>OSM Configuration file not found</source>
         <translation>沒有找到 OSM 設定檔</translation>
+    </message>
+</context>
+<context>
+    <name>QueryItemDelegate</name>
+    <message>
+        <location filename="../../ui/custom_ui.py" line="70"/>
+        <source>Query on all keys</source>
+        <translation type="unfinished">檢索所有鍵</translation>
+    </message>
+    <message>
+        <location filename="../../ui/custom_ui.py" line="81"/>
+        <source>Query on all values</source>
+        <translation type="unfinished">檢索所有值</translation>
+    </message>
+</context>
+<context>
+    <name>TableKeyValue</name>
+    <message>
+        <location filename="../../ui/custom_ui.py" line="35"/>
+        <source>Query on all keys</source>
+        <translation type="unfinished">檢索所有鍵</translation>
     </message>
 </context>
 <context>
