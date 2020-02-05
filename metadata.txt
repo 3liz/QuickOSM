@@ -16,7 +16,7 @@ server=True
 # Optional items:
 
 # Uncomment the following line and add your changelog:
-# changelog=
+changelog=
   Version 1.14.2
   * Fix railway=abandoned
   * Add a model by default in the modeler
