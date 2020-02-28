@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS><TS version="2.0" language="pl" sourcelanguage="en">
+<?xml version="1.0" ?><!DOCTYPE TS><TS language="pl" sourcelanguage="en" version="2.0">
 <context>
     <name>@default</name>
     <message>
@@ -244,7 +243,7 @@
     </message>
     <message>
         <location filename="../../ui/base_processing_panel.py" line="80"/>
-        <source>Running query&#xe2;&#x80;&#xa6;</source>
+        <source>Running queryâ¦</source>
         <translation>Zapytanie uruchomione</translation>
     </message>
     <message>
@@ -430,42 +429,42 @@
     <message>
         <location filename="../../core/query_factory.py" line="18"/>
         <source>All OSM objects with the key {key} in {extent} are going to be downloaded.</source>
-        <translation type="unfinished"></translation>
+        <translation>Wszystkie obiekty OSM dla klucza {key} w {extent} będą pobrane.</translation>
     </message>
     <message>
         <location filename="../../core/query_factory.py" line="20"/>
         <source>All OSM objects with the key {key} in {dist} meters of {extent} are going to be downloaded.</source>
-        <translation type="unfinished"></translation>
+        <translation>Wszystkie obiekty OSM dla klucza {key} w odległości {dist} metrów od {extent} zostaną pobrane.</translation>
     </message>
     <message>
         <location filename="../../core/query_factory.py" line="22"/>
         <source>All OSM objects in {extent} are going to be downloaded.</source>
-        <translation type="unfinished"></translation>
+        <translation>Wszystkie obiekty OSM w {extent} zostaną pobrane.</translation>
     </message>
     <message>
         <location filename="../../core/query_factory.py" line="23"/>
         <source>All OSM objects in {dist} meters of {extent} are going to be downloaded.</source>
-        <translation type="unfinished"></translation>
+        <translation>Wszystkie obiekty OSM w odległości {dist} metrów od {extent} zostaną pobrane.</translation>
     </message>
     <message>
         <location filename="../../core/query_factory.py" line="25"/>
         <source>All OSM objects with the key {key} are going to be downloaded.</source>
-        <translation type="unfinished"></translation>
+        <translation>Wszystkie obiekty OSM dla klucza {key} zostaną pobrane.</translation>
     </message>
     <message>
         <location filename="../../core/query_factory.py" line="168"/>
         <source>A key is required.</source>
-        <translation type="unfinished"></translation>
+        <translation>Klucz jest wymagany</translation>
     </message>
     <message>
         <location filename="../../core/query_factory.py" line="305"/>
         <source>and</source>
-        <translation type="unfinished"></translation>
+        <translation>i</translation>
     </message>
     <message>
         <location filename="../../core/query_factory.py" line="324"/>
         <source>the canvas or layer extent</source>
-        <translation type="unfinished"></translation>
+        <translation>Zasięg warstwy lub widoku.</translation>
     </message>
 </context>
 <context>
@@ -562,12 +561,12 @@
     <message>
         <location filename="../../ui/custom_ui.py" line="70"/>
         <source>Query on all keys</source>
-        <translation type="unfinished">Odpytaj dla wszystkich kluczy</translation>
+        <translation>Zapytanie dla wszystkich kluczy</translation>
     </message>
     <message>
         <location filename="../../ui/custom_ui.py" line="81"/>
         <source>Query on all values</source>
-        <translation type="unfinished">Odpytaj dla wszystkich wartości</translation>
+        <translation>Zapytanie dla wszystkich wartości</translation>
     </message>
 </context>
 <context>
@@ -575,7 +574,7 @@
     <message>
         <location filename="../../ui/custom_ui.py" line="35"/>
         <source>Query on all keys</source>
-        <translation type="unfinished">Odpytaj dla wszystkich kluczy</translation>
+        <translation>Zapytanie dla wszystkich kluczy</translation>
     </message>
 </context>
 <context>
@@ -848,12 +847,12 @@
     <message>
         <location filename="../ui/main_window.ui" line="998"/>
         <source>Realization</source>
-        <translation type="unfinished"></translation>
+        <translation>Realizacja</translation>
     </message>
     <message>
         <location filename="../ui/main_window.ui" line="1040"/>
         <source>Contributors</source>
-        <translation type="unfinished"></translation>
+        <translation>Współautorzy</translation>
     </message>
 </context>
 </TS>

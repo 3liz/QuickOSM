@@ -7,3 +7,4 @@ minimum_perc = 0
 source_file = resources/i18n/en.ts
 source_lang = en
 type = QT
+
