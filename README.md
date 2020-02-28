@@ -2,10 +2,12 @@
 
 ![Logo of QuickOSM](resources/icons/QuickOSM.svg)
 
+![Transifex](https://github.com/3liz/QuickOSM/workflows/Transifex/badge.svg)
+[![Build Status](https://api.travis-ci.org/3liz/QuickOSM.svg?branch=master)](https://travis-ci.org/3liz/QuickOSM)
+
 ## Versions
 
 * QuickOSM is maintained only for a maintained QGIS version (LTR, stable release and dev).
-* Current test status master on QGIS Master and LTR : [![Build Status](https://api.travis-ci.org/3liz/QuickOSM.svg?branch=master)](https://travis-ci.org/3liz/QuickOSM)
 
 | QuickOSM  | QGIS Min | QGIS Max | Branch       |
 |-----------|----------|----------|--------------|
