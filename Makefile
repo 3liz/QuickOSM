@@ -1,18 +1,13 @@
-# Makefile for QuickOSM
+start_tests:
+	@echo 'Start docker-compose'
+	@cd docker && ./start.sh
 
-# Add ISO code for any locales you want to support here (space separated)
-LOCALES = "fr de en es fi id it nl pl pt pt_BR ru zh_TW"
-# Name of the plugin, for the ZIP file
-PLUGINNAME = QuickOSM
+run_tests:
+	@echo 'Running tests, containers must be running'
+	@cd docker && ./exec.sh
 
-help:
-	$(MAKE) -C qgis_plugin_tools help
+stop_tests:
+	@echo 'Stopping/killing containers'
+	@cd docker && ./stop.sh
 
-docker_test:
-	$(MAKE) -C qgis_plugin_tools docker_test PLUGINNAME=$(PLUGINNAME)
-
-i18n_%:
-	$(MAKE) -C qgis_plugin_tools i18n_$* LOCALES=$(LOCALES)
-
-release_%:
-	$(MAKE) -C qgis_plugin_tools release_$* PLUGINNAME=$(PLUGINNAME)
+tests: start_tests run_tests stop_tests

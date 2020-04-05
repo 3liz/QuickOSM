@@ -1,0 +1,70 @@
+
+	<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="128" height="128" viewBox="0 0 100 100">
+
+
+		<defs>
+			<linearGradient id="Gradient_1" gradientUnits="userSpaceOnUse" x1="50" y1="53" x2="50" y2="0" spreadMethod="pad">
+<stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.1"/>
+
+<stop offset="100%" stop-color="#FFFFFF" stop-opacity="0.4"/>
+</linearGradient><linearGradient id="Gradient_2" gradientUnits="userSpaceOnUse" x1="100" y1="50" x2="0" y2="50" spreadMethod="pad">
+<stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.1"/>
+
+<stop offset="100%" stop-color="#FFFFFF" stop-opacity="0.4"/>
+</linearGradient><linearGradient id="Gradient_3" gradientUnits="userSpaceOnUse" x1="0" y1="50" x2="100" y2="50" spreadMethod="pad">
+<stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.1"/>
+
+<stop offset="100%" stop-color="#FFFFFF" stop-opacity="0.4"/>
+</linearGradient><g id="background">
+<path fill="url(#background-gradient)" stroke="none" d=" M 0 0 L 0 100 100 100 100 0 0 0 Z"/>
+</g><mask id="mask">
+<path fill="#FFFFFF" stroke="none" d=" M 0 0 L 0 100 100 100 100 0 0 0 Z"/>
+</mask><g id="gloss-top">
+<path fill="url(#Gradient_1)" stroke="none" d=" M 100 53.1 L 100 0 0 0 0 53.1 100 53.1 Z"/>
+</g><g id="gloss-right">
+<path fill="url(#Gradient_2)" stroke="none" d=" M 100 100 L 100 0 0 0 100 100 Z"/>
+</g><g id="gloss-left">
+<path fill="url(#Gradient_3)" stroke="none" d=" M 0 0 L 0 100 100 0 0 0 Z"/>
+</g>
+			
+	<linearGradient id="background-gradient" x1="0" y1="0" y2="1" x2="0" >
+		<stop stop-color="#589632" offset="0%"/>
+		<stop stop-color="#9DDA77" offset="100%"/>
+	</linearGradient>
+
+			
+			
+			<g transform="scale(2.0746887638410394) translate(0 0.049999237060546875)" id="picture"><path d="M47.4 42.1L34.8 29.4c2-3.1 3.1-6.7 3.1-10.4 0-5.1-2-9.8-5.5-13.4C28.8 2 24 0 18.9 0 8.5 0 0 8.5 0 18.9c0 10.4 8.5 18.9 18.9 18.9 3.8 0 7.4-1.1 10.4-3.1L42 47.4c.7.7 1.9.7 2.7 0l2.7-2.7c.8-.7.8-1.9 0-2.6zM28.8 28.8c-2.6 2.6-6.1 4.1-9.8 4.1-7.7 0-13.9-6.2-13.9-13.9S11.3 5.1 19 5.1c3.7 0 7.2 1.4 9.8 4.1 2.6 2.6 4.1 6.1 4.1 9.8-.1 3.6-1.5 7.1-4.1 9.8z"/></g>
+			
+	<linearGradient id="picture-gradient" x1="0" y1="0" y2="1" x2="0" >
+		<stop stop-color="#ffffff" offset="0%"/>
+		<stop stop-color="#e5eff9" offset="100%"/>
+	</linearGradient>
+
+		</defs>
+
+		
+
+			<use xlink:href="#background" fill="url(#background-gradient)" />
+
+		
+
+			<g mask="url(#mask)">
+				<g transform="
+				        translate(
+                                50 50
+)
+                            translate(0 0)  scale(0.84) scale(-1 1) 
+                            translate(
+                                -50 -50
+)">
+						<use xlink:href="#picture" fill="url(#picture-gradient)"  />
+				</g>
+			</g>
+
+		
+
+			<use xlink:href="#gloss-left" opacity="1" />
+
+
+	</svg>

@@ -1,36 +1,53 @@
+dist: bionic
+
+language: python
+
+python: 3.7
+
 services:
-    - docker
+  - docker
 
-sudo: false
+jobs:
+  include:
+    - stage: Run tests
+      name: QGIS Desktop
+      install:
+        - cd .docker
+        - ./start.sh
+      script:
+        - ./exec.sh
 
-env:
-  global:
-    - IMAGE=qgis/qgis
+    - stage: Push translations to Transifex
+      if: branch = master
+      install:
+        - pip3 install git+https://github.com/Gustry/qgis-plugin-ci.git
+      script: qgis-plugin-ci push-translation ${TX_TOKEN}
 
-  matrix:
-    - QGIS_VERSION_TAG=release-3_4
-    # - QGIS_VERSION_TAG=release-3_10
-    - QGIS_VERSION_TAG=latest
+    - stage: Deploy
+      if: tag IS present
+      name: Create release, plugins.qgis.org
+      install:
+        - pip3 install git+https://github.com/Gustry/qgis-plugin-ci.git
+      before_deploy:
+        - export RELEASE_TITLE=${TRAVIS_TAG:1}
+      script:
+        - qgis-plugin-ci -v
+      deploy:
+        - provider: releases
+          edge: true
+          file: .
+          name: ${RELEASE_TITLE}
+          api_key: ${GH_TOKEN}
+          on:
+            tags: true
 
-branches:
-  only:
-    - master
+        - provider: script
+          script: qgis-plugin-ci release ${TRAVIS_TAG} --transifex-token ${TX_TOKEN} --github-token ${GH_TOKEN} --osgeo-username ${OSGEO_USERNAME} --osgeo-password ${OSGEO_PASSWORD} --allow-uncommitted-changes
+          on:
+            tags: true
 
-before_install:
-  - docker pull ${IMAGE}:${QGIS_VERSION_TAG}
-
-install:
-  - docker run -d --name qgis-testing-environment -v ${TRAVIS_BUILD_DIR}:/QuickOSM -e DISPLAY=:99 ${IMAGE}:${QGIS_VERSION_TAG}
-  - sleep 10
-  - docker exec -it qgis-testing-environment sh -c "qgis_setup.sh QuickOSM"
-  - docker exec -it qgis-testing-environment sh -c "rm -f  /root/.local/share/QGIS/QGIS3/profiles/default/python/plugins/QuickOSM"
-  - docker exec -it qgis-testing-environment sh -c "ln -s /QuickOSM/ /root/.local/share/QGIS/QGIS3/profiles/default/python/plugins/QuickOSM"
-  - docker exec -it qgis-testing-environment sh -c "export PYTHONPATH=${PYTHONPATH}:/"
-  - docker exec -it qgis-testing-environment sh -c "pip3 install -r /QuickOSM/requirements_dev.txt"
-
-script:
-  - docker exec -it qgis-testing-environment sh -c "cd /QuickOSM && qgis_testrunner.sh qgis_plugin_tools.infrastructure.test_runner.test_package"
-
-notifications:
-  email:
-    - etienne.trimaille@gmail.com
+        - provider: script
+          skip_cleanup: true
+          script: ./github/push.sh
+          on:
+            tags: true

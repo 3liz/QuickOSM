@@ -1,0 +1,13 @@
+version: '3'
+
+services:
+
+  qgis:
+    image: qgis/qgis:release-3_4
+    container_name: qgis
+    volumes:
+      # - /tmp/.X11-unix:/tmp/.X11-unix
+      - ../QuickOSM:/tests_directory/QuickOSM
+    environment:
+      # - DISPLAY=unix$DISPLAY
+      - DISPLAY=:99

@@ -10,3 +10,5 @@ help/
 .noseids
 venv
 *.osm
+QuickOSM/i18n/*.ts
+quickosm.*.zip
