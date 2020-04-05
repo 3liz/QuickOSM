@@ -1,8 +1,7 @@
 # QuickOSM
 
-![Logo of QuickOSM](resources/icons/QuickOSM.svg)
+![Logo of QuickOSM](QuickOSM/resources/icons/QuickOSM.svg)
 
-![Transifex](https://github.com/3liz/QuickOSM/workflows/Transifex/badge.svg)
 [![Build Status](https://api.travis-ci.org/3liz/QuickOSM.svg?branch=master)](https://travis-ci.org/3liz/QuickOSM)
 
 ## Versions
@@ -68,7 +67,7 @@ Check a more detailed answer on [stackexchange](https://gis.stackexchange.com/a/
 
 Since QGIS 3.6, you can export your Processing model as a Python script.
 
-As an example, you can download [this model](../resources/model/osm_download_style.model3) and [load it in your QGIS](https://docs.qgis.org/3.4/en/docs/user_manual/processing/modeler.html#saving-and-loading-models). Additionally, you can download example QGIS style files for OSM from [here](https://github.com/anitagraser/QGIS-resources/tree/master/qgis2/osm_spatialite). The model will download and style OSM data from an extent and packages it in one Geopackage.
+As an example, you can download [this model](../QuickOSM/resources/model/osm_download_style.model3) and [load it in your QGIS](https://docs.qgis.org/3.4/en/docs/user_manual/processing/modeler.html#saving-and-loading-models). Additionally, you can download example QGIS style files for OSM from [here](https://github.com/anitagraser/QGIS-resources/tree/master/qgis2/osm_spatialite). The model will download and style OSM data from an extent and packages it in one Geopackage.
 
 ## Translation
 
