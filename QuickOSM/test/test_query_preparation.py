@@ -4,8 +4,8 @@ import unittest
 
 from qgis.core import QgsRectangle
 
-from ..query_preparation import QueryPreparation
-from ..api.nominatim import Nominatim
+from QuickOSM.core.query_preparation import QueryPreparation
+from QuickOSM.core.api.nominatim import Nominatim
 
 __copyright__ = 'Copyright 2019, 3Liz'
 __license__ = 'GPL version 3'

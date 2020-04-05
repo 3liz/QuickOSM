@@ -1,11 +1,11 @@
 from qgis.testing import unittest, start_app
 from qgis.testing.mocked import get_iface
 
-from ..dialog import Dialog
-from ...core.utilities.tools import (
+from QuickOSM.ui.dialog import Dialog
+from QuickOSM.core.utilities.tools import (
     get_setting,
 )
-from ...definitions.overpass import OVERPASS_SERVERS
+from QuickOSM.definitions.overpass import OVERPASS_SERVERS
 
 
 start_app()

@@ -1,8 +1,8 @@
 from qgis.testing import unittest, start_app
 from qgis.testing.mocked import get_iface
 
-from ...definitions.gui import Panels
-from ..dialog import Dialog
+from QuickOSM.definitions.gui import Panels
+from QuickOSM.ui.dialog import Dialog
 
 
 start_app()

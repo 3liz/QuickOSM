@@ -2,9 +2,9 @@
 
 from qgis.testing import unittest
 
-from ..exceptions import QueryFactoryException
-from ..query_factory import QueryFactory
-from ...definitions.osm import QueryType, OsmType
+from QuickOSM.core.exceptions import QueryFactoryException
+from QuickOSM.core.query_factory import QueryFactory
+from QuickOSM.definitions.osm import QueryType, OsmType
 
 __copyright__ = 'Copyright 2019, 3Liz'
 __license__ = 'GPL version 3'

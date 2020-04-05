@@ -3,15 +3,15 @@
 from qgis.testing import unittest
 from qgis.PyQt.QtCore import QUrl, QUrlQuery
 
-from ..connexion_oapi import ConnexionOAPI
-from ...exceptions import (
+from QuickOSM.core.api.connexion_oapi import ConnexionOAPI
+from QuickOSM.core.exceptions import (
     OverpassBadRequestException,
     OverpassTimeoutException,
     OverpassMemoryException,
     OverpassRuntimeError,
 )
-from ....definitions.overpass import OVERPASS_SERVERS
-from ....qgis_plugin_tools.tools.resources import plugin_test_data_path
+from QuickOSM.definitions.overpass import OVERPASS_SERVERS
+from QuickOSM.qgis_plugin_tools.tools.resources import plugin_test_data_path
 
 __copyright__ = 'Copyright 2019, 3Liz'
 __license__ = 'GPL version 3'
