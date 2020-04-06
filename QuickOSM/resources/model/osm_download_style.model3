@@ -210,7 +210,7 @@
       <Option type="Map" name="params">
         <Option type="List" name="INPUT">
           <Option type="Map">
-            <Option type="QString" value="native:setlayerstyle_1" name="child_id"/>
+            <Option type="QString" value="qgis:setstyleforvectorlayer_1" name="child_id"/>
             <Option type="QString" value="OUTPUT" name="output_name"/>
             <Option type="int" value="1" name="source"/>
           </Option>
@@ -238,7 +238,7 @@
       <Option type="Map" name="params">
         <Option type="List" name="INPUT">
           <Option type="Map">
-            <Option type="QString" value="native:setlayerstyle_2" name="child_id"/>
+            <Option type="QString" value="qgis:setstyleforvectorlayer_2" name="child_id"/>
             <Option type="QString" value="OUTPUT" name="output_name"/>
             <Option type="int" value="1" name="source"/>
           </Option>
@@ -266,7 +266,7 @@
       <Option type="Map" name="params">
         <Option type="List" name="INPUT">
           <Option type="Map">
-            <Option type="QString" value="native:setlayerstyle_3" name="child_id"/>
+            <Option type="QString" value="qgis:setstyleforvectorlayer_3" name="child_id"/>
             <Option type="QString" value="OUTPUT" name="output_name"/>
             <Option type="int" value="1" name="source"/>
           </Option>
@@ -294,7 +294,7 @@
       <Option type="Map" name="params">
         <Option type="List" name="INPUT">
           <Option type="Map">
-            <Option type="QString" value="native:setlayerstyle_4" name="child_id"/>
+            <Option type="QString" value="qgis:setstyleforvectorlayer_4" name="child_id"/>
             <Option type="QString" value="OUTPUT" name="output_name"/>
             <Option type="int" value="1" name="source"/>
           </Option>
@@ -307,15 +307,15 @@
         </Option>
       </Option>
     </Option>
-    <Option type="Map" name="native:setlayerstyle_1">
+    <Option type="Map" name="qgis:setstyleforvectorlayer_1">
       <Option type="bool" value="true" name="active"/>
       <Option name="alg_config"/>
-      <Option type="QString" value="native:setlayerstyle" name="alg_id"/>
+      <Option type="QString" value="qgis:setstyleforvectorlayer" name="alg_id"/>
       <Option type="QString" value="points styled" name="component_description"/>
       <Option type="double" value="475" name="component_pos_x"/>
       <Option type="double" value="1139" name="component_pos_y"/>
       <Option name="dependencies"/>
-      <Option type="QString" value="native:setlayerstyle_1" name="id"/>
+      <Option type="QString" value="qgis:setstyleforvectorlayer_1" name="id"/>
       <Option name="outputs"/>
       <Option type="bool" value="true" name="outputs_collapsed"/>
       <Option type="bool" value="true" name="parameters_collapsed"/>
@@ -335,15 +335,15 @@
         </Option>
       </Option>
     </Option>
-    <Option type="Map" name="native:setlayerstyle_2">
+    <Option type="Map" name="qgis:setstyleforvectorlayer_2">
       <Option type="bool" value="true" name="active"/>
       <Option name="alg_config"/>
-      <Option type="QString" value="native:setlayerstyle" name="alg_id"/>
+      <Option type="QString" value="qgis:setstyleforvectorlayer" name="alg_id"/>
       <Option type="QString" value="multilines styled" name="component_description"/>
       <Option type="double" value="1021" name="component_pos_x"/>
       <Option type="double" value="1127" name="component_pos_y"/>
       <Option name="dependencies"/>
-      <Option type="QString" value="native:setlayerstyle_2" name="id"/>
+      <Option type="QString" value="qgis:setstyleforvectorlayer_2" name="id"/>
       <Option name="outputs"/>
       <Option type="bool" value="true" name="outputs_collapsed"/>
       <Option type="bool" value="true" name="parameters_collapsed"/>
@@ -363,15 +363,15 @@
         </Option>
       </Option>
     </Option>
-    <Option type="Map" name="native:setlayerstyle_3">
+    <Option type="Map" name="qgis:setstyleforvectorlayer_3">
       <Option type="bool" value="true" name="active"/>
       <Option name="alg_config"/>
-      <Option type="QString" value="native:setlayerstyle" name="alg_id"/>
+      <Option type="QString" value="qgis:setstyleforvectorlayer" name="alg_id"/>
       <Option type="QString" value="lines styled" name="component_description"/>
       <Option type="double" value="758" name="component_pos_x"/>
       <Option type="double" value="1126" name="component_pos_y"/>
       <Option name="dependencies"/>
-      <Option type="QString" value="native:setlayerstyle_3" name="id"/>
+      <Option type="QString" value="qgis:setstyleforvectorlayer_3" name="id"/>
       <Option name="outputs"/>
       <Option type="bool" value="true" name="outputs_collapsed"/>
       <Option type="bool" value="true" name="parameters_collapsed"/>
@@ -391,15 +391,15 @@
         </Option>
       </Option>
     </Option>
-    <Option type="Map" name="native:setlayerstyle_4">
+    <Option type="Map" name="qgis:setstyleforvectorlayer_4">
       <Option type="bool" value="true" name="active"/>
       <Option name="alg_config"/>
-      <Option type="QString" value="native:setlayerstyle" name="alg_id"/>
+      <Option type="QString" value="qgis:setstyleforvectorlayer" name="alg_id"/>
       <Option type="QString" value="areas styled" name="component_description"/>
       <Option type="double" value="1309" name="component_pos_x"/>
       <Option type="double" value="1149" name="component_pos_y"/>
       <Option name="dependencies"/>
-      <Option type="QString" value="native:setlayerstyle_4" name="id"/>
+      <Option type="QString" value="qgis:setstyleforvectorlayer_4" name="id"/>
       <Option name="outputs"/>
       <Option type="bool" value="true" name="outputs_collapsed"/>
       <Option type="bool" value="true" name="parameters_collapsed"/>
