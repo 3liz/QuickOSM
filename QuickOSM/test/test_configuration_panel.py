@@ -28,5 +28,6 @@ class TestUiMainWindow(unittest.TestCase):
         self.assertEqual(default_server, OVERPASS_SERVERS[0])
 
         dialog.combo_default_overpass.setCurrentIndex(1)
+        dialog.save_config.click()
         default_server = get_setting('defaultOAPI')
         self.assertEqual(default_server, OVERPASS_SERVERS[1])
