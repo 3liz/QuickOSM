@@ -74,6 +74,15 @@ class TestQueryPreparation(unittest.TestCase):
         expected = 'foobar1.0,15.0foobar{{bbox}}foobar;'
         test(query, expected, extent)
 
+    def test_replace_big_bbox(self):
+        """Test we can restrict a BBOX to +-90 and +-180."""
+        extent = QgsRectangle(-181, -91, 181, 91)
+        query = 'foobar{{bbox}}foobar'
+        expected = 'foobare="180" n="90" s="-90" w="-180"foobar'
+        q = QueryPreparation(query, extent=extent)
+        q.replace_bbox()
+        self.assertEqual(expected, q._query_prepared)
+
     def test_replace_bbox(self):
         """Test we can replace {{bbox}} in a query."""
         extent = QgsRectangle(10.00, 0.5, 20.00, 1.5)

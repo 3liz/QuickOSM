@@ -150,6 +150,26 @@ class QueryPreparation:
         x_min = self._extent.xMinimum()
         x_max = self._extent.xMaximum()
 
+        # make sure we don't query for invalid bounds #222
+        area_is_too_big = False
+        if y_min < -90:
+            y_min = -90
+            area_is_too_big = True
+        if y_max > 90:
+            y_max = 90
+            area_is_too_big = True
+        if x_min < -180:
+            x_min = -180
+            area_is_too_big = True
+        if x_max > 180:
+            x_max = 180
+            area_is_too_big = True
+
+        if area_is_too_big:
+            LOGGER.info(tr(
+                'The area was overlapping the WGS84 limits ±90 / ±180 degrees. The query has '
+                'been restricted.'))
+
         if self.is_oql_query():
             new_string = '{},{},{},{}'.format(y_min, x_min, y_max, x_max)
         else:
