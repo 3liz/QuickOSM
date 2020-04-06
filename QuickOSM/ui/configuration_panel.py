@@ -32,18 +32,7 @@ class ConfigurationPanel(BasePanel):
 
     def setup_panel(self):
         """Set UI related the configuration panel."""
-        # noinspection PyUnresolvedReferences
-        self.dialog.combo_default_overpass.currentIndexChanged.connect(
-            self.set_server_overpass_api)
-
-        # Set settings about the overpass API
-        default_server = get_setting('defaultOAPI')
-        if default_server:
-            index = self.dialog.combo_default_overpass.findText(default_server)
-            self.dialog.combo_default_overpass.setCurrentIndex(index)
-        else:
-            default_server = self.dialog.combo_default_overpass.currentText()
-            set_setting('defaultOAPI', default_server)
+        self.dialog.save_config.clicked.connect(self.set_server_overpass_api)
 
         for server in OVERPASS_SERVERS:
             self.dialog.combo_default_overpass.addItem(server)
@@ -59,6 +48,16 @@ class ConfigurationPanel(BasePanel):
                             'Custom overpass server list added: {}'.format(
                                 server))
                         self.dialog.combo_default_overpass.addItem(server)
+
+        # Set settings about the overpass API
+        # Set it after populating the combobox #235
+        default_server = get_setting('defaultOAPI')
+        if default_server:
+            index = self.dialog.combo_default_overpass.findText(default_server)
+            self.dialog.combo_default_overpass.setCurrentIndex(index)
+        else:
+            default_server = self.dialog.combo_default_overpass.currentText()
+            set_setting('defaultOAPI', default_server)
 
     def set_server_overpass_api(self):
         """Save the new Overpass server."""
