@@ -53,10 +53,7 @@ class QuickOSMPlugin:
 
         self.provider = None
 
-        # Add the toolbar
-        self.toolbar = self.iface.addToolBar('QuickOSM')
-        self.toolbar.setObjectName('QuickOSM')
-
+        self.toolbar = None
         self.quickosm_menu = None
         self.vector_menu = None
         self.main_window_action = None
@@ -70,6 +67,10 @@ class QuickOSMPlugin:
     def initGui(self):
         """Init the user interface."""
         self.initProcessing()
+
+        # Add the toolbar
+        self.toolbar = self.iface.addToolBar('QuickOSM')
+        self.toolbar.setObjectName('QuickOSM')
 
         # Setup menu
         self.quickosm_menu = QMenu('QuickOSM')
