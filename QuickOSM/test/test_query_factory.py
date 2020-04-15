@@ -129,9 +129,9 @@ class TestQueryFactory(unittest.TestCase):
         def test_query(q, xml, xml_with_template, human_label):
             """Internal helper for testing queries."""
             self.assertTrue(q._check_parameters())
-            self.assertEqual(q.generate_xml(), xml)
-            self.assertEqual(q.friendly_message(), human_label)
-            self.assertEqual(q._make_for_test(), xml_with_template)
+            self.assertEqual(xml, q.generate_xml())
+            self.assertEqual(human_label, q.friendly_message())
+            self.assertEqual(xml_with_template, q._make_for_test())
 
         # All keys in extent
         query = QueryFactory(
@@ -525,8 +525,7 @@ class TestQueryFactory(unittest.TestCase):
             '<print mode="body"/>'
             '</osm-script>'
         )
-        # TODO, fix many keys
-        human = 'All OSM objects with the key \'a\'=\'b\' in the canvas or layer extent are going to be downloaded.'
+        human = 'All OSM objects with keys \'a\'=\'b\', \'c\'=\'d\' in the canvas or layer extent are going to be downloaded.'
         test_query(query, expected_xml, expected_xml_with_template, human)
 
         # Many keys with None values
@@ -569,7 +568,7 @@ class TestQueryFactory(unittest.TestCase):
             '<print mode="body"/>'
             '</osm-script>'
         )
-        human = 'All OSM objects with the key \'a\' in the canvas or layer extent are going to be downloaded.'
+        human = 'All OSM objects with keys \'a\', \'c\' in the canvas or layer extent are going to be downloaded.'
         test_query(query, expected_xml, expected_xml_with_template, human)
 
     def test_make(self):

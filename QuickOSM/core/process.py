@@ -237,9 +237,17 @@ def process_quick_query(
     # Generate layer name as following (if defined)
     if not key:
         key = tr('allKeys')
+    elif isinstance(key, list):
+        LOGGER.info('Query with multi keys: {}'.format(', '.join(key)))
+        key = key[0]
+
+    if isinstance(value, list):
+        value = value[0]
+
     distance_string = None
     if distance:
         distance_string = '{}'.format(distance)
+
     expected_name = [key, value, area, distance_string]
     layer_name = '_'.join([f for f in expected_name if f])
     LOGGER.info('Query: {}'.format(layer_name))

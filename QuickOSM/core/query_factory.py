@@ -15,6 +15,7 @@ __revision__ = '$Format:%H$'
 
 SPACE_INDENT = '    '
 
+# Single key/value
 ALL_VALUES = tr(
     'All OSM objects with the key {key} in {extent} are going to be downloaded.')
 ALL_VALUES_WITH_DISTANCE = tr(
@@ -24,6 +25,14 @@ NO_KEY_WITH_DISTANCE = tr(
     'All OSM objects in {dist} meters of {extent} are going to be downloaded.')
 ATTRIBUTE_ONLY = tr(
     'All OSM objects with the key {key} are going to be downloaded.')
+
+# Multiple keys/values
+ATTRIBUTES_ONLY = tr(
+    'All OSM objects with keys {key} are going to be downloaded.')
+ALL_MULTI = tr(
+    'All OSM objects with keys {key} in {extent} are going to be downloaded.')
+ALL_MULTI_WITH_DISTANCE = tr(
+    'All OSM objects with keys {key} in {dist} meters of {extent} are going to be downloaded.')
 
 
 class QueryFactory:
@@ -306,9 +315,7 @@ class QueryFactory:
 
         extent_lbl = ''
         dist_lbl = ''
-        key_lbl = ''
         use_with_dist = False
-        use_all_vals = False
         attrib_only = False
         
         # first translate the location information
@@ -326,6 +333,26 @@ class QueryFactory:
         elif self._query_type == QueryType.NotSpatial:
             attrib_only = True
 
+
+        multi_keys = len(self._key) > 1 or len(self._value) > 1
+        if multi_keys:
+            keys = []
+            for k, v in zip(self._key, self._value):
+                if v:
+                    keys.append('\'{k}\'=\'{v}\''.format(k=k, v=v))
+                else:
+                    keys.append('\'{k}\''.format(k=k))
+
+            keys = ', '.join(keys)
+
+            if attrib_only:
+                return ATTRIBUTES_ONLY.format(keys=keys)
+
+            if use_with_dist:
+                return ALL_MULTI_WITH_DISTANCE.format(key=keys, dist=dist_lbl, extent=extent_lbl)
+            else:
+                return ALL_MULTI.format(key=keys, extent=extent_lbl)
+
         # Next get the key / values
         if len(self._key) == 0:
             key = None
@@ -336,7 +363,10 @@ class QueryFactory:
             val = None
         else:
             val = self._value[0]
-                
+
+        key_lbl = ''
+        use_all_vals = False
+
         if key is not None:
             # Do we have a value?
             use_all_vals = True
@@ -348,17 +378,15 @@ class QueryFactory:
                 key_lbl = "'{key}'".format(key=key)
 
         if attrib_only:
-            msg = ATTRIBUTE_ONLY.format(key=key_lbl)
+            return ATTRIBUTE_ONLY.format(key=key_lbl)
             
-        elif use_all_vals:
+        if use_all_vals:
             if use_with_dist:
-                msg = ALL_VALUES_WITH_DISTANCE.format(key=key_lbl, dist=dist_lbl, extent=extent_lbl)
+                return ALL_VALUES_WITH_DISTANCE.format(key=key_lbl, dist=dist_lbl, extent=extent_lbl)
             else:
-                msg = ALL_VALUES.format(key=key_lbl,extent=extent_lbl)
-        else:
-            if use_with_dist:
-                msg = NO_KEY_WITH_DISTANCE.format(dist=dist_lbl, extent=extent_lbl)
-            else:
-                msg = NO_KEY.format(extent=extent_lbl)
+                return ALL_VALUES.format(key=key_lbl, extent=extent_lbl)
 
-        return msg
+        if use_with_dist:
+            return NO_KEY_WITH_DISTANCE.format(dist=dist_lbl, extent=extent_lbl)
+        else:
+            return NO_KEY.format(extent=extent_lbl)

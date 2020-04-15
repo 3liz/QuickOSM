@@ -3,7 +3,10 @@
 from json import load
 from os.path import isfile
 
-from qgis.PyQt.QtWidgets import QDialogButtonBox, QCompleter
+from qgis.core import QgsApplication
+from qgis.PyQt.QtCore import Qt
+from qgis.PyQt.QtGui import QIcon
+from qgis.PyQt.QtWidgets import QDialogButtonBox, QCompleter, QTableWidgetItem, QAbstractItemView, QHeaderView
 
 from .base_overpass_panel import BaseOverpassPanel
 from ..core.exceptions import OsmObjectsException, QuickOsmException
@@ -30,10 +33,38 @@ class QuickQueryPanel(BaseOverpassPanel):
         super().__init__(dialog)
         self.panel = Panels.QuickQuery
         self.osm_keys = None
+        self.all_keys_placeholder = tr('Query on all keys')
+        self.all_values_placeholder = tr('Query on all values')
         
     def setup_panel(self):
         super().setup_panel()
         """Setup the UI for the QuickQuery."""
+        # Table
+        self.dialog.table.setColumnCount(2)
+        column = QTableWidgetItem(tr('Key'))
+        column.setToolTip('The key used for the query.')
+        self.dialog.table.setHorizontalHeaderItem(0, column)
+
+        column = QTableWidgetItem(tr('Value'))
+        column.setToolTip('The value used for the query.')
+        self.dialog.table.setHorizontalHeaderItem(1, column)
+
+        self.dialog.table.setSelectionMode(QAbstractItemView.SingleSelection)
+        self.dialog.table.setEditTriggers(QAbstractItemView.NoEditTriggers)
+        self.dialog.table.setSelectionBehavior(QAbstractItemView.SelectRows)
+        self.dialog.table.setAlternatingRowColors(True)
+
+        header = self.dialog.table.horizontalHeader()
+        header.setSectionResizeMode(QHeaderView.Stretch)
+        # header.setSectionResizeMode(1, QHeaderView.Stretch)
+
+        # noinspection PyArgumentList,PyCallByClass
+        self.dialog.add_row.setIcon(QIcon(QgsApplication.iconPath('symbologyAdd.svg')))
+        self.dialog.add_row.setText('')
+        # noinspection PyArgumentList,PyCallByClass
+        self.dialog.remove_row.setIcon(QIcon(QgsApplication.iconPath('symbologyRemove.svg')))
+        self.dialog.remove_row.setText('')
+
         # Query type
         self.dialog.combo_query_type_qq.addItem(tr('In'), 'in')
         self.dialog.combo_query_type_qq.addItem(tr('Around'), 'around')
@@ -57,6 +88,8 @@ class QuickQueryPanel(BaseOverpassPanel):
 
         self.dialog.line_file_prefix_qq.setDisabled(True)
 
+        self.dialog.add_row.clicked.connect(self.add_row_to_table)
+        self.dialog.remove_row.clicked.connect(self.remove_selection)
         self.dialog.button_run_query_qq.clicked.connect(self.run)
         self.dialog.button_show_query.clicked.connect(self.show_query)
         self.dialog.combo_key.editTextChanged.connect(self.key_edited)
@@ -65,7 +98,6 @@ class QuickQueryPanel(BaseOverpassPanel):
             self.dialog.reset_form)
 
         # setup callbacks for friendly-label-update only
-        self.dialog.combo_value.editTextChanged.connect(self.update_friendly)
         self.dialog.line_place_qq.textChanged.connect(self.update_friendly)
         self.dialog.spin_place_qq.valueChanged.connect(self.update_friendly)
         self.dialog.combo_extent_layer_qq.layerChanged.connect(self.update_friendly)
@@ -84,13 +116,48 @@ class QuickQueryPanel(BaseOverpassPanel):
                 self.dialog.combo_key.completer().setCompletionMode(
                     QCompleter.PopupCompletion)
 
-        self.dialog.combo_key.lineEdit().setPlaceholderText(
-            tr('Query on all keys'))
-        self.dialog.combo_value.lineEdit().setPlaceholderText(
-            tr('Query on all values'))
+        self.dialog.combo_key.lineEdit().setPlaceholderText(self.all_keys_placeholder)
+        self.dialog.combo_value.lineEdit().setPlaceholderText(self.all_values_placeholder)
         self.key_edited()
         self.query_type_updated()
         self.init_nominatim_autofill()
+        self.update_friendly()
+
+    def add_row_to_table(self):
+        # noinspection PyCallingNonCallable
+        row = self.dialog.table.rowCount()
+        self.dialog.table.setRowCount(row + 1)
+
+        key = self.dialog.combo_key.currentText()
+        if not key:
+            key = self.all_keys_placeholder
+        cell = QTableWidgetItem()
+        cell.setText(key)
+        cell.setData(Qt.UserRole, key)
+        self.dialog.table.setItem(row, 0, cell)
+
+        value = self.dialog.combo_value.currentText()
+        if not value:
+            value = self.all_values_placeholder
+        cell = QTableWidgetItem()
+        cell.setText(value)
+        cell.setData(Qt.UserRole, value)
+        self.dialog.table.setItem(row, 1, cell)
+
+        # only at the end, so the value is kept
+        self.dialog.combo_key.setCurrentText('')
+        self.dialog.combo_value.setCurrentText('')
+        self.update_friendly()
+
+    def remove_selection(self):
+        """Remove the selected row from the table."""
+        selection = self.dialog.table.selectedIndexes()
+        if len(selection) <= 0:
+            return
+
+        row = selection[0].row()
+        self.dialog.table.clearSelection()
+        self.dialog.table.removeRow(row)
         self.update_friendly()
 
     def query_type_updated(self):
@@ -108,10 +175,8 @@ class QuickQueryPanel(BaseOverpassPanel):
         try:
             current_values = self.osm_keys[self.dialog.combo_key.currentText()]
         except KeyError:
-            self.update_friendly()
             return
         except AttributeError:
-            self.update_friendly()
             return
 
         if len(current_values) == 0:
@@ -123,7 +188,6 @@ class QuickQueryPanel(BaseOverpassPanel):
         values_completer = QCompleter(current_values)
         self.dialog.combo_value.setCompleter(values_completer)
         self.dialog.combo_value.addItems(current_values)
-        self.update_friendly()
 
     def gather_values(self):
         properties = super().gather_values()
@@ -139,8 +203,16 @@ class QuickQueryPanel(BaseOverpassPanel):
         if not properties['osm_objects']:
             raise OsmObjectsException
 
-        properties['key'] = self.dialog.combo_key.currentText()
-        properties['value'] = self.dialog.combo_value.currentText()
+        # Table
+        properties['key'] = list()
+        properties['value'] = list()
+        for row in range(self.dialog.table.rowCount()):
+            item = self.dialog.table.item(row, 0)
+            properties['key'].append(item.data(Qt.UserRole))
+
+            item = self.dialog.table.item(row, 1)
+            properties['value'].append(item.data(Qt.UserRole))
+
         properties['timeout'] = self.dialog.spin_timeout.value()
 
         properties['distance'] = self.dialog.spin_place_qq.value()
@@ -217,11 +289,15 @@ class QuickQueryPanel(BaseOverpassPanel):
         try:
             p = self.gather_values()
         except QuickOsmException as e:
-            self.dialog.display_quickosm_exception(e)
+            self.dialog.label_qq_friendly.setStyleSheet('QLabel { color : red; }')
+            self.dialog.label_qq_friendly.setText(e.message)
             return
         except Exception as e:
             self.dialog.display_critical_exception(e)
             return
+
+        self.dialog.label_qq_friendly.setStyleSheet('')
+        self.dialog.label_qq_friendly.setText('')
 
         # Make the query, in order to create the friendly message
         query_factory = QueryFactory(
