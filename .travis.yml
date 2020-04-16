@@ -18,7 +18,7 @@ jobs:
         - ./exec.sh
 
     - stage: Push translations to Transifex
-      if: branch = master
+      if: branch = master AND type != pull_request
       install:
         - pip3 install git+https://github.com/Gustry/qgis-plugin-ci.git
       script: qgis-plugin-ci push-translation ${TX_TOKEN}
