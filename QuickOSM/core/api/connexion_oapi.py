@@ -1,6 +1,5 @@
 """Manage Overpass API connexion."""
 
-import codecs
 import logging
 import os
 import re

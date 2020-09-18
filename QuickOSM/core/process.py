@@ -64,11 +64,11 @@ def open_file(
 
     # Legacy, waiting to remove the OsmParser for QGIS >= 3.6
     # Change in osm_file_dialog.py L131 too
-    output_geom_legacy = [l.value.lower() for l in output_geom_types]
+    output_geom_legacy = [geom.value.lower() for geom in output_geom_types]
     if not white_list_column:
         white_list_column = {}
     white_list_legacy = (
-        {l.value.lower(): csv for l, csv in white_list_column.items()}
+        {cols.value.lower(): csv for cols, csv in white_list_column.items()}
     )
 
     LOGGER.info('The OSM file is: {}'.format(osm_file))
@@ -218,10 +218,6 @@ def process_quick_query(
     """
     Generate a query and send it to process_query.
     """
-
-    LOGGER.info('QueryFactory: the key is "{}" and the value is "{}"'.format(
-        key, value))
-
     # Building the query
     query_factory = QueryFactory(
         query_type=query_type,
@@ -233,6 +229,7 @@ def process_quick_query(
         timeout=timeout
     )
     query = query_factory.make()
+    LOGGER.info(query_factory.friendly_message())
 
     # Generate layer name as following (if defined)
     if not key:
