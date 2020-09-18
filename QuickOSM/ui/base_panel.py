@@ -22,7 +22,7 @@ class BasePanel:
         if self._panel:
             return self._panel
         else:
-            raise NotImplemented
+            raise NotImplementedError
 
     @panel.setter
     def panel(self, panel):
@@ -38,4 +38,4 @@ class BasePanel:
 
     def setup_panel(self):
         """Setup the UI for the panel."""
-        raise NotImplemented
+        raise NotImplementedError

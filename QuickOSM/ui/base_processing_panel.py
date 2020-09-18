@@ -42,7 +42,7 @@ class BaseProcessingPanel(BasePanel):
             self._end_process()
 
     def _run(self):
-        raise NotImplemented
+        raise NotImplementedError
 
     def setup_panel(self):
         """Function to set custom UI for some panels."""

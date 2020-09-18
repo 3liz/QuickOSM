@@ -310,11 +310,11 @@ class QueryFactory:
         use_with_dist = False
         use_all_vals = False
         attrib_only = False
-        
+
         # first translate the location information
         if self._query_type == QueryType.InArea:
             extent_lbl = place
-                
+
         elif self._query_type == QueryType.AroundArea:
             extent_lbl = place
             dist_lbl = self._distance_around
@@ -322,7 +322,7 @@ class QueryFactory:
 
         elif self._query_type == QueryType.BBox:
             extent_lbl = tr('the canvas or layer extent')
-            
+
         elif self._query_type == QueryType.NotSpatial:
             attrib_only = True
 
@@ -336,7 +336,7 @@ class QueryFactory:
             val = None
         else:
             val = self._value[0]
-                
+
         if key is not None:
             # Do we have a value?
             use_all_vals = True
@@ -349,12 +349,12 @@ class QueryFactory:
 
         if attrib_only:
             msg = ATTRIBUTE_ONLY.format(key=key_lbl)
-            
+
         elif use_all_vals:
             if use_with_dist:
                 msg = ALL_VALUES_WITH_DISTANCE.format(key=key_lbl, dist=dist_lbl, extent=extent_lbl)
             else:
-                msg = ALL_VALUES.format(key=key_lbl,extent=extent_lbl)
+                msg = ALL_VALUES.format(key=key_lbl, extent=extent_lbl)
         else:
             if use_with_dist:
                 msg = NO_KEY_WITH_DISTANCE.format(dist=dist_lbl, extent=extent_lbl)

@@ -96,7 +96,7 @@ class OsmFilePanel(BaseProcessingPanel):
         if properties['load_only']:
             # Legacy, waiting to remove the OsmParser for QGIS >= 3.6
             # Change in osm_file_dialog.py L131 too
-            output_geom_legacy = [l.value.lower() for l in properties['outputs']]
+            output_geom_legacy = [layer.value.lower() for layer in properties['outputs']]
             osm_parser = OsmParser(
                 properties['osm_file'],
                 load_only=True,

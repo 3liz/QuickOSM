@@ -30,7 +30,7 @@ class QuickQueryPanel(BaseOverpassPanel):
         super().__init__(dialog)
         self.panel = Panels.QuickQuery
         self.osm_keys = None
-        
+
     def setup_panel(self):
         super().setup_panel()
         """Setup the UI for the QuickQuery."""
@@ -69,7 +69,7 @@ class QuickQueryPanel(BaseOverpassPanel):
         self.dialog.line_place_qq.textChanged.connect(self.update_friendly)
         self.dialog.spin_place_qq.valueChanged.connect(self.update_friendly)
         self.dialog.combo_extent_layer_qq.layerChanged.connect(self.update_friendly)
-                
+
         # Setup auto completion
         map_features_json_file = resources_path('json', 'map_features.json')
         if isfile(map_features_json_file):

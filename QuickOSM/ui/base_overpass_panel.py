@@ -70,7 +70,7 @@ class BaseOverpassPanel(BaseProcessingPanel):
         existing_places.insert(0, place)
         return existing_places[:10]
 
-    def write_nominatim_file(self, panel):
+    def write_nominatim_file(self, panel: Panels):
         """Write new nominatim value in the file.
 
         :param panel: The panel to use so as to fetch the nominatim value.
@@ -167,7 +167,7 @@ class BaseOverpassPanel(BaseProcessingPanel):
                     geom_extent = layer.extent()
                     source_crs = layer.crs()
                 else:
-                    raise NotImplemented
+                    raise NotImplementedError
 
                 # noinspection PyArgumentList
                 geom_extent = QgsGeometry.fromRect(geom_extent)
@@ -193,6 +193,6 @@ class BaseOverpassPanel(BaseProcessingPanel):
         elif query_type == 'attributes':
             properties['query_type'] = QueryType.NotSpatial
         else:
-            raise NotImplemented
+            raise NotImplementedError
 
         return properties
