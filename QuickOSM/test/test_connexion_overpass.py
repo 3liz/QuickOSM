@@ -69,6 +69,11 @@ class TestOverpass(unittest.TestCase):
         else:
             self.assertFalse(True)
 
+    def test_read_xml_encoding(self):
+        """ Test #240 related to encoding. """
+        encoding_file = plugin_test_data_path('overpass', 'error_decode_utf8.xml')
+        ConnexionOAPI.check_file(encoding_file)
+
     def test_xml_error(self):
         """Test we can parse Overpass error within a file."""
 
