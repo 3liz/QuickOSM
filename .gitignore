@@ -11,4 +11,4 @@ help/
 venv
 *.osm
 QuickOSM/i18n/*.ts
-quickosm.*.zip
+QuickOSM.*.zip
