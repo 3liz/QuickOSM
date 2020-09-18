@@ -1,8 +1,13 @@
 #!/usr/bin/env bash
+export $(grep -v '^#' .env | xargs)
 
-docker-compose up -d --force-recreate
-echo 'Wait 10 seconds'
+FILE="docker-compose-qgis.yml"
+
+docker-compose -f ${FILE} up -d --force-recreate --remove-orphans
+echo "Wait 10 seconds"
 sleep 10
-echo 'Installation of the plugin'
-docker exec -it qgis sh -c "qgis_setup.sh QuickOSM"
-echo 'Containers are running'
+if [ "$WITH_QGIS" = with-qgis ]; then
+  echo "Installation of the plugin ${PLUGIN_NAME}"
+  docker exec -it qgis sh -c "qgis_setup.sh ${PLUGIN_NAME}"
+fi
+echo "Containers are running"

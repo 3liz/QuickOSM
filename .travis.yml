@@ -52,6 +52,6 @@ jobs:
             tags: true
 
         - provider: script
-          script: ./github/push.sh
+          script: ./github/push_to_github.sh
           on:
             tags: true
