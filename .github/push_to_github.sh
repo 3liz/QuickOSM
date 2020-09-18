@@ -13,7 +13,7 @@ commit_processing_files() {
 }
 
 commit_i18n_files() {
-  git add lizsync/i18n/*.qm
+  git add QuickOSM/i18n/*.qm
   git commit --message "Update translations to version : $TRAVIS_TAG" --message "[skip travis]"
 }
 
