@@ -2,7 +2,7 @@
 
 ### 1.14.3 - 18/09/2020
 
-* 
+* Fix issue about unicode in the OSM file when reading the end of the file only #240
 
 ### 1.14.2 - 30/01/2020
 
