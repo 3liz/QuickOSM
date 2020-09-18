@@ -1,7 +1,6 @@
+os: linux
 dist: bionic
-
 language: python
-
 python: 3.7
 
 services:
@@ -18,18 +17,18 @@ jobs:
         - ./exec.sh
 
     - stage: Push translations to Transifex
-      if: branch = master
+      if: branch = master AND type != pull_request
       install:
-        - pip3 install git+https://github.com/Gustry/qgis-plugin-ci.git
+        - pip3 install qgis-plugin-ci==1.8.4
       script: qgis-plugin-ci push-translation ${TX_TOKEN}
 
     - stage: Deploy
       if: tag IS present
       name: Create release, plugins.qgis.org
       install:
-        - pip3 install git+https://github.com/Gustry/qgis-plugin-ci.git
+        - pip3 install qgis-plugin-ci==1.8.4
       before_deploy:
-        - export RELEASE_TITLE=${TRAVIS_TAG:1}
+         - export RELEASE_TITLE="$TRAVIS_TAG"
       script:
         - qgis-plugin-ci -v
       deploy:
@@ -42,12 +41,17 @@ jobs:
             tags: true
 
         - provider: script
-          script: qgis-plugin-ci release ${TRAVIS_TAG} --transifex-token ${TX_TOKEN} --github-token ${GH_TOKEN} --osgeo-username ${OSGEO_USERNAME} --osgeo-password ${OSGEO_PASSWORD} --allow-uncommitted-changes
+          script: >-
+            qgis-plugin-ci
+            release ${TRAVIS_TAG}
+            --transifex-token ${TX_TOKEN}
+            --github-token ${GH_TOKEN}
+            --create-plugin-repo
+            --allow-uncommitted-changes
           on:
             tags: true
 
         - provider: script
-          skip_cleanup: true
           script: ./github/push.sh
           on:
             tags: true
