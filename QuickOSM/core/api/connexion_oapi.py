@@ -105,13 +105,30 @@ class ConnexionOAPI:
     def check_file(path):
         # The download is done, checking for not complete OSM file.
         # Overpass might aborted the request with HTTP 200.
-        file_obj = codecs.open(path, 'r', 'utf-8')
-        file_obj.seek(0, 2)
-        fsize = file_obj.tell()
-        file_obj.seek(max(fsize - 1024, 0), 0)
-        lines = file_obj.readlines()
-        file_obj.close()
-        lines = lines[-10:]  # Get last 10 lines
+        LOGGER.info('Checking OSM file content {}'.format(path))
+
+        def last_lines(file_path, line_count):
+            bufsize = 8192
+            fsize = os.stat(file_path).st_size
+            iter = 0
+            with open(file_path) as f:
+                if bufsize > fsize:
+                    bufsize = fsize - 1
+                    data = []
+                    while True:
+                        iter += 1
+                        seek_size = fsize - bufsize * iter
+                        if seek_size < 0:
+                            seek_size = 0
+                        f.seek(seek_size)
+                        data.extend(f.readlines())
+                        if len(data) >= line_count or f.tell() == 0:
+                            line_content = data[-line_count:]
+                            return line_content
+                else:
+                    return list(f.readlines())
+
+        lines = last_lines(path, 10)
 
         timeout = (
             '<remark> runtime error: Query timed out in "[a-z]+" at line '

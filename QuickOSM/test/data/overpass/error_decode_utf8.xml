@@ -1,0 +1,617 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<osm version="0.6" generator="Overpass API 0.7.56.7 b85c4387">
+<note>The data included in this document is from www.openstreetmap.org. The data is made available under ODbL.</note>
+<meta osm_base="2020-09-08T15:51:03Z" areas="2020-09-08T13:51:02Z"/>
+
+  <node id="31377320" lat="47.0374257" lon="19.7863141">
+    <tag k="ksh_ref" v="19716"/>
+    <tag k="name" v="Nagykőrös"/>
+    <tag k="name:de" v="Grosskirisch"/>
+    <tag k="name:ru" v="Надькёрёш"/>
+    <tag k="name:sk" v="Veľký Kereš"/>
+    <tag k="name:sr" v="Нађкереш"/>
+    <tag k="place" v="town"/>
+    <tag k="population" v="23589"/>
+    <tag k="postal_code" v="2750"/>
+    <tag k="source:population" v="KSH (www.ksh.hu)"/>
+    <tag k="source:population:date" v="2016-01-01"/>
+    <tag k="source:postal_code" v="Magyar Posta (posta.hu)"/>
+    <tag k="source:postal_code:date" v="2009-03-01"/>
+    <tag k="wikidata" v="Q830394"/>
+  </node>
+  <node id="84775644" lat="46.9803541" lon="20.2541166">
+    <tag k="ksh_ref" v="13815"/>
+    <tag k="name" v="Tiszaföldvár"/>
+    <tag k="name:ru" v="Тисафёльдвар"/>
+    <tag k="place" v="town"/>
+    <tag k="population" v="10741"/>
+    <tag k="postal_code" v="5430"/>
+    <tag k="source:population" v="KSH (www.ksh.hu)"/>
+    <tag k="source:population:date" v="2016-01-01"/>
+    <tag k="source:postal_code" v="Magyar Posta (posta.hu)"/>
+    <tag k="source:postal_code:date" v="2009-03-01"/>
+  </node>
+  <node id="84776496" lat="47.0186153" lon="20.2813933">
+    <tag k="ksh_ref" v="02626"/>
+    <tag k="name" v="Martfű"/>
+    <tag k="name:ru" v="Мартфю"/>
+    <tag k="place" v="town"/>
+    <tag k="population" v="6237"/>
+    <tag k="postal_code" v="5435"/>
+    <tag k="source:population" v="KSH (www.ksh.hu)"/>
+    <tag k="source:population:date" v="2016-01-01"/>
+    <tag k="source:postal_code" v="Magyar Posta (posta.hu)"/>
+    <tag k="source:postal_code:date" v="2009-03-01"/>
+  </node>
+  <node id="84782806" lat="47.1716447" lon="19.7977516">
+    <tag k="ksh_ref" v="11341"/>
+    <tag k="name" v="Cegléd"/>
+    <tag k="name:de" v="Zieglet"/>
+    <tag k="name:ru" v="Цеглед"/>
+    <tag k="name:sk" v="Ceglíd"/>
+    <tag k="place" v="town"/>
+    <tag k="population" v="35616"/>
+    <tag k="postal_code" v="2700"/>
+    <tag k="source:population" v="KSH (www.ksh.hu)"/>
+    <tag k="source:population:date" v="2016-01-01"/>
+    <tag k="source:postal_code" v="Magyar Posta (posta.hu)"/>
+    <tag k="source:postal_code:date" v="2009-03-01"/>
+    <tag k="wikidata" v="Q214948"/>
+  </node>
+  <node id="140335407" lat="47.6052871" lon="19.3535185">
+    <tag k="ksh_ref" v="32559"/>
+    <tag k="name" v="Gödöllő"/>
+    <tag k="name:de" v="Getterle"/>
+    <tag k="name:ru" v="Гёдёллё"/>
+    <tag k="name:sk" v="Jedľovo"/>
+    <tag k="place" v="town"/>
+    <tag k="population" v="32437"/>
+    <tag k="postal_code" v="2100"/>
+    <tag k="source:population" v="KSH (www.ksh.hu)"/>
+    <tag k="source:population:date" v="2016-01-01"/>
+    <tag k="source:postal_code" v="Magyar Posta (posta.hu)"/>
+    <tag k="source:postal_code:date" v="2009-03-01"/>
+    <tag k="wikidata" v="Q209988"/>
+  </node>
+  <node id="146855791" lat="47.9303241" lon="19.1375901">
+    <tag k="ksh_ref" v="23825"/>
+    <tag k="name" v="Rétság"/>
+    <tag k="name:ru" v="Решетаг"/>
+    <tag k="name:sk" v="Rečág"/>
+    <tag k="place" v="town"/>
+    <tag k="population" v="2722"/>
+    <tag k="postal_code" v="2651"/>
+    <tag k="source:population" v="KSH (www.ksh.hu)"/>
+    <tag k="source:population:date" v="2016-01-01"/>
+    <tag k="source:postal_code" v="Magyar Posta (posta.hu)"/>
+    <tag k="source:postal_code:date" v="2009-03-01"/>
+  </node>
+  <node id="177532814" lat="47.7782873" lon="19.1278294">
+    <tag k="ksh_ref" v="24934"/>
+    <tag k="name" v="Vác"/>
+    <tag k="name:de" v="Waitzen"/>
+    <tag k="name:ru" v="Вац"/>
+    <tag k="name:sk" v="Vacov"/>
+    <tag k="name:sr" v="Вац"/>
+    <tag k="place" v="town"/>
+    <tag k="population" v="32981"/>
+    <tag k="postal_code" v="2600"/>
+    <tag k="source:population" v="KSH (www.ksh.hu)"/>
+    <tag k="source:population:date" v="2016-01-01"/>
+    <tag k="source:postal_code" v="Magyar Posta (posta.hu)"/>
+    <tag k="source:postal_code:date" v="2009-03-01"/>
+    <tag k="wikidata" v="Q207408"/>
+  </node>
+  <node id="180730584" lat="47.6125871" lon="19.1980105">
+    <tag k="ksh_ref" v="32610"/>
+    <tag k="name" v="Fót"/>
+    <tag k="name:ru" v="Фот"/>
+    <tag k="place" v="town"/>
+    <tag k="population" v="19216"/>
+    <tag k="postal_code" v="2151"/>
+    <tag k="source:population" v="KSH (www.ksh.hu)"/>
+    <tag k="source:population:date" v="2016-01-01"/>
+    <tag k="source:postal_code" v="Magyar Posta (posta.hu)"/>
+    <tag k="source:postal_code:date" v="2009-03-01"/>
+    <tag k="wikidata" v="Q830652"/>
+  </node>
+  <node id="180731026" lat="47.6316697" lon="19.1294055">
+    <tag k="ksh_ref" v="18616"/>
+    <tag k="name" v="Dunakeszi"/>
+    <tag k="name:ru" v="Дунакеси"/>
+    <tag k="place" v="town"/>
+    <tag k="population" v="42467"/>
+    <tag k="postal_code" v="2120"/>
+    <tag k="source:population" v="KSH (www.ksh.hu)"/>
+    <tag k="source:population:date" v="2016-01-01"/>
+    <tag k="source:postal_code" v="Magyar Posta (posta.hu)"/>
+    <tag k="source:postal_code:date" v="2009-03-01"/>
+    <tag k="wikidata" v="Q547479"/>
+  </node>
+  <node id="201505357" lat="47.5616135" lon="19.2869071">
+    <tag k="ksh_ref" v="34166"/>
+    <tag k="name" v="Kerepes"/>
+    <tag k="name:ru" v="Керепеш"/>
+    <tag k="name:sk" v="Kerepeš"/>
+    <tag k="place" v="town"/>
+    <tag k="population" v="9904"/>
+    <tag k="postal_code" v="2144"/>
+    <tag k="source:population" v="KSH (www.ksh.hu)"/>
+    <tag k="source:population:date" v="2016-01-01"/>
+    <tag k="source:postal_code" v="Magyar Posta (posta.hu)"/>
+    <tag k="source:postal_code:date" v="2009-03-01"/>
+  </node>
+  <node id="204008081" lat="47.1729302" lon="19.3229242">
+    <tag k="ksh_ref" v="09247"/>
+    <tag k="name" v="Dabas"/>
+    <tag k="name:de" v="Dabotz"/>
+    <tag k="name:ru" v="Дабаш"/>
+    <tag k="name:sk" v="Dabaš"/>
+    <tag k="place" v="town"/>
+    <tag k="population" v="16728"/>
+    <tag k="postal_code" v="2370"/>
+    <tag k="source:population" v="KSH (www.ksh.hu)"/>
+    <tag k="source:population:date" v="2016-01-01"/>
+    <tag k="source:postal_code" v="Magyar Posta (posta.hu)"/>
+    <tag k="source:postal_code:date" v="2009-03-01"/>
+    <tag k="wikidata" v="Q854940"/>
+  </node>
+  <node id="204009228" lat="47.2200186" lon="19.3841049">
+    <tag k="ksh_ref" v="06293"/>
+    <tag k="name" v="Újhartyán"/>
+    <tag k="name:de" v="Neuhartian"/>
+    <tag k="name:sk" v="Nové Chrťany"/>
+    <tag k="place" v="town"/>
+    <tag k="population" v="2702"/>
+    <tag k="postal_code" v="2367"/>
+    <tag k="source:population" v="KSH (www.ksh.hu)"/>
+    <tag k="source:population:date" v="2016-01-01"/>
+    <tag k="source:postal_code" v="Magyar Posta (posta.hu)"/>
+    <tag k="source:postal_code:date" v="2009-03-01"/>
+  </node>
+  <node id="206359948" lat="47.6552350" lon="19.2868815">
+    <tag k="ksh_ref" v="18342"/>
+    <tag k="name" v="Veresegyház"/>
+    <tag k="place" v="town"/>
+    <tag k="population" v="17532"/>
+    <tag k="postal_code" v="2112"/>
+    <tag k="source:population" v="KSH (www.ksh.hu)"/>
+    <tag k="source:population:date" v="2016-01-01"/>
+    <tag k="source:postal_code" v="Magyar Posta (posta.hu)"/>
+    <tag k="source:postal_code:date" v="2009-03-01"/>
+    <tag k="wikidata" v="Q843039"/>
+  </node>
+  <node id="206360043" lat="47.6827581" lon="19.2638480">
+    <tag k="ksh_ref" v="08545"/>
+    <tag k="name" v="Őrbottyán"/>
+    <tag k="name:sk" v="Boťany"/>
+    <tag k="place" v="town"/>
+    <tag k="population" v="7062"/>
+    <tag k="postal_code" v="2162"/>
+    <tag k="source:population" v="KSH (www.ksh.hu)"/>
+    <tag k="source:population:date" v="2016-01-01"/>
+    <tag k="source:postal_code" v="Magyar Posta (posta.hu)"/>
+    <tag k="source:postal_code:date" v="2009-03-01"/>
+  </node>
+  <node id="206360857" lat="47.6834336" lon="19.1341568">
+    <tag k="ksh_ref" v="23649"/>
+    <tag k="name" v="Göd"/>
+    <tag k="name:ru" v="Гёд"/>
+    <tag k="place" v="town"/>
+    <tag k="population" v="18351"/>
+    <tag k="postal_code" v="2131"/>
+    <tag k="source:population" v="KSH (www.ksh.hu)"/>
+    <tag k="source:population:date" v="2016-01-01"/>
+    <tag k="source:postal_code" v="A Magyar Köztársaság Helységnévtára, 2009"/>
+    <tag k="wikidata" v="Q604258"/>
+  </node>
+  <node id="206361816" lat="47.6532732" lon="19.4747432">
+    <tag k="ksh_ref" v="16188"/>
+    <tag k="name" v="Aszód"/>
+    <tag k="name:ru" v="Асод"/>
+    <tag k="name:sk" v="Asód"/>
+    <tag k="place" v="town"/>
+    <tag k="population" v="6160"/>
+    <tag k="postal_code" v="2170"/>
+    <tag k="source:population" v="KSH (www.ksh.hu)"/>
+    <tag k="source:population:date" v="2016-01-01"/>
+    <tag k="source:postal_code" v="Magyar Posta (posta.hu)"/>
+    <tag k="source:postal_code:date" v="2009-03-01"/>
+  </node>
+  <node id="206362107" lat="47.6683971" lon="19.6743874">
+    <tag k="ksh_ref" v="22309"/>
+    <tag k="name" v="Hatvan"/>
+    <tag k="name:de" v="Hottwan"/>
+    <tag k="name:ru" v="Хатван"/>
+    <tag k="name:sk" v="Chotvan"/>
+    <tag k="place" v="town"/>
+    <tag k="population" v="20250"/>
+    <tag k="postal_code" v="3000"/>
+    <tag k="source:population" v="KSH (www.ksh.hu)"/>
+    <tag k="source:population:date" v="2016-01-01"/>
+    <tag k="source:postal_code" v="Magyar Posta (posta.hu)"/>
+    <tag k="source:postal_code:date" v="2009-03-01"/>
+    <tag k="wikidata" v="Q629849"/>
+  </node>
+  <node id="243682087" lat="47.8183245" lon="18.8727585">
+    <tag k="ksh_ref" v="24916"/>
+    <tag k="name" v="Szob"/>
+    <tag k="name:de" v="Zopp an der Donau"/>
+    <tag k="name:ru" v="Соб"/>
+    <tag k="name:sk" v="Soba"/>
+    <tag k="place" v="town"/>
+    <tag k="population" v="2660"/>
+    <tag k="postal_code" v="2628"/>
+    <tag k="source:population" v="KSH (www.ksh.hu)"/>
+    <tag k="source:population:date" v="2016-01-01"/>
+    <tag k="source:postal_code" v="Magyar Posta (posta.hu)"/>
+    <tag k="source:postal_code:date" v="2009-03-01"/>
+  </node>
+  <node id="243682091" lat="47.7891142" lon="18.9587262">
+    <tag k="ksh_ref" v="31732"/>
+    <tag k="name" v="Nagymaros"/>
+    <tag k="name:de" v="Freistadt"/>
+    <tag k="name:ru" v="Надьмарош"/>
+    <tag k="name:sk" v="Veľká Maruša"/>
+    <tag k="place" v="town"/>
+    <tag k="population" v="4717"/>
+    <tag k="postal_code" v="2626"/>
+    <tag k="source:population" v="KSH (www.ksh.hu)"/>
+    <tag k="source:population:date" v="2016-01-01"/>
+    <tag k="source:postal_code" v="Magyar Posta (posta.hu)"/>
+    <tag k="source:postal_code:date" v="2009-03-01"/>
+  </node>
+  <node id="243687006" lat="48.0768832" lon="19.2926037">
+    <tag k="ksh_ref" v="13657"/>
+    <tag k="name" v="Balassagyarmat"/>
+    <tag k="name:de" v="Jahrmarkt"/>
+    <tag k="name:ru" v="Балашшадьярмат"/>
+    <tag k="name:sk" v="Balážske Ďarmoty"/>
+    <tag k="place" v="town"/>
+    <tag k="population" v="15280"/>
+    <tag k="postal_code" v="2660"/>
+    <tag k="source:population" v="KSH (www.ksh.hu)"/>
+    <tag k="source:population:date" v="2016-01-01"/>
+    <tag k="source:postal_code" v="Magyar Posta (posta.hu)"/>
+    <tag k="source:postal_code:date" v="2009-03-01"/>
+    <tag k="wikidata" v="Q789233"/>
+    <tag k="wikipedia" v="hu:Balassagyarmat"/>
+  </node>
+  <node id="243688206" lat="48.0802382" lon="19.5207485">
+    <tag k="ksh_ref" v="06628"/>
+    <tag k="name" v="Szécsény"/>
+    <tag k="name:ru" v="Сечень"/>
+    <tag k="name:sk" v="Sečany"/>
+    <tag k="place" v="town"/>
+    <tag k="population" v="5883"/>
+    <tag k="postal_code" v="3170"/>
+    <tag k="source:population" v="KSH (www.ksh.hu)"/>
+    <tag k="source:population:date" v="2016-01-01"/>
+    <tag k="source:postal_code" v="Magyar Posta (posta.hu)"/>
+    <tag k="source:postal_code:date" v="2009-03-01"/>
+    <tag k="website" v="http://szecseny.hu/"/>
+  </node>
+  <node id="257448661" lat="47.5303335" lon="19.4017001">
+    <tag k="ksh_ref" v="07807"/>
+    <tag k="name" v="Isaszeg"/>
+    <tag k="name:ru" v="Ишасег"/>
+    <tag k="name:sk" v="Išaseg"/>
+    <tag k="place" v="town"/>
+    <tag k="population" v="11264"/>
+    <tag k="postal_code" v="2117"/>
+    <tag k="source:population" v="KSH (www.ksh.hu)"/>
+    <tag k="source:population:date" v="2016-01-01"/>
+    <tag k="source:postal_code" v="Magyar Posta (posta.hu)"/>
+    <tag k="source:postal_code:date" v="2009-03-01"/>
+  </node>
+  <node id="274960664" lat="47.2789632" lon="19.0661045">
+    <tag k="ksh_ref" v="20534"/>
+    <tag k="name" v="Dunavarsány"/>
+    <tag k="name:ru" v="Дунаваршань"/>
+    <tag k="place" v="town"/>
+    <tag k="population" v="7659"/>
+    <tag k="postal_code" v="2336"/>
+    <tag k="source:population" v="KSH (www.ksh.hu)"/>
+    <tag k="source:population:date" v="2016-01-01"/>
+    <tag k="source:postal_code" v="Magyar Posta (posta.hu)"/>
+    <tag k="source:postal_code:date" v="2009-03-01"/>
+  </node>
+  <node id="274961269" lat="47.3599760" lon="19.0953357">
+    <tag k="ksh_ref" v="09584"/>
+    <tag k="name" v="Dunaharaszti"/>
+    <tag k="name:de" v="Harast"/>
+    <tag k="name:gsw" v="Hrascht"/>
+    <tag k="name:ru" v="Дунахарасти"/>
+    <tag k="place" v="town"/>
+    <tag k="population" v="21018"/>
+    <tag k="postal_code" v="2330"/>
+    <tag k="source:population" v="KSH (www.ksh.hu)"/>
+    <tag k="source:population:date" v="2016-01-01"/>
+    <tag k="source:postal_code" v="Magyar Posta (posta.hu)"/>
+    <tag k="source:postal_code:date" v="2009-03-01"/>
+    <tag k="wikidata" v="Q854933"/>
+  </node>
+  <node id="274961837" lat="47.3845453" lon="19.2173066">
+    <tag k="ksh_ref" v="25627"/>
+    <tag k="name" v="Gyál"/>
+    <tag k="name:ru" v="Дьяль"/>
+    <tag k="place" v="town"/>
+    <tag k="population" v="23152"/>
+    <tag k="postal_code" v="2360"/>
+    <tag k="source:population" v="KSH (www.ksh.hu)"/>
+    <tag k="source:population:date" v="2016-01-01"/>
+    <tag k="source:postal_code" v="Magyar Posta (posta.hu)"/>
+    <tag k="source:postal_code:date" v="2009-03-01"/>
+    <tag k="wikidata" v="Q842908"/>
+  </node>
+  <node id="286129272" lat="47.9957901" lon="19.8276504">
+    <tag k="ksh_ref" v="33534"/>
+    <tag k="name" v="Bátonyterenye"/>
+    <tag k="name:sk" v="Terany"/>
+    <tag k="place" v="town"/>
+    <tag k="population" v="12221"/>
+    <tag k="postal_code" v="3070"/>
+    <tag k="source:population" v="KSH (www.ksh.hu)"/>
+    <tag k="source:population:date" v="2016-01-01"/>
+    <tag k="source:postal_code" v="Magyar Posta (posta.hu)"/>
+    <tag k="source:postal_code:date" v="2009-03-01"/>
+  </node>
+  <node id="286129575" lat="47.9210914" lon="19.6998353">
+    <tag k="ksh_ref" v="07409"/>
+    <tag k="name" v="Pásztó"/>
+    <tag k="name:ru" v="Пасто"/>
+    <tag k="name:sk" v="Pastuchov"/>
+    <tag k="place" v="town"/>
+    <tag k="population" v="9212"/>
+    <tag k="postal_code" v="3060"/>
+    <tag k="source:population" v="KSH (www.ksh.hu)"/>
+    <tag k="source:population:date" v="2016-01-01"/>
+    <tag k="source:postal_code" v="Magyar Posta (posta.hu)"/>
+    <tag k="source:postal_code:date" v="2009-03-01"/>
+  </node>
+  <node id="286199233" lat="47.3011895" lon="19.2313617">
+    <tag k="ksh_ref" v="04075"/>
+    <tag k="name" v="Ócsa"/>
+    <tag k="name:ru" v="Оча"/>
+    <tag k="place" v="town"/>
+    <tag k="population" v="9247"/>
+    <tag k="postal_code" v="2364"/>
+    <tag k="source:population" v="KSH (www.ksh.hu)"/>
+    <tag k="source:population:date" v="2016-01-01"/>
+    <tag k="source:postal_code" v="Magyar Posta (posta.hu)"/>
+    <tag k="source:postal_code:date" v="2009-03-01"/>
+  </node>
+  <node id="286200051" lat="47.4094382" lon="19.2648259">
+    <tag k="ksh_ref" v="26815"/>
+    <tag k="name" v="Vecsés"/>
+    <tag k="name:de" v="Wetschesch"/>
+    <tag k="name:ru" v="Вечеш"/>
+    <tag k="name:sk" v="Večeš"/>
+    <tag k="place" v="town"/>
+    <tag k="population" v="20673"/>
+    <tag k="postal_code" v="2220"/>
+    <tag k="source:population" v="KSH (www.ksh.hu)"/>
+    <tag k="source:population:date" v="2016-01-01"/>
+    <tag k="source:postal_code" v="Magyar Posta (posta.hu)"/>
+    <tag k="source:postal_code:date" v="2009-03-01"/>
+    <tag k="wikidata" v="Q36063"/>
+  </node>
+  <node id="286200348" lat="47.3850605" lon="19.3453263">
+    <tag k="ksh_ref" v="12894"/>
+    <tag k="name" v="Üllő"/>
+    <tag k="name:ru" v="Илле"/>
+    <tag k="name:sk" v="Ilov"/>
+    <tag k="place" v="town"/>
+    <tag k="population" v="11774"/>
+    <tag k="postal_code" v="2225"/>
+    <tag k="source:population" v="KSH (www.ksh.hu)"/>
+    <tag k="source:population:date" v="2016-01-01"/>
+    <tag k="source:postal_code" v="Magyar Posta (posta.hu)"/>
+    <tag k="source:postal_code:date" v="2009-03-01"/>
+  </node>
+  <node id="286200470" lat="47.3527433" lon="19.4468404">
+    <tag k="ksh_ref" v="10551"/>
+    <tag k="name" v="Monor"/>
+    <tag k="name:de" v="Monnor"/>
+    <tag k="name:ru" v="Монор"/>
+    <tag k="name:sk" v="Monor"/>
+    <tag k="place" v="town"/>
+    <tag k="population" v="17960"/>
+    <tag k="postal_code" v="2200"/>
+    <tag k="source:population" v="KSH (www.ksh.hu)"/>
+    <tag k="source:population:date" v="2016-01-01"/>
+    <tag k="source:postal_code" v="Magyar Posta (posta.hu)"/>
+    <tag k="source:postal_code:date" v="2009-03-01"/>
+    <tag k="wikidata" v="Q749320"/>
+  </node>
+  <node id="286201239" lat="47.2860696" lon="19.5467411">
+    <tag k="ksh_ref" v="09821"/>
+    <tag k="name" v="Pilis"/>
+    <tag k="name:ru" v="Пилиш"/>
+    <tag k="name:sk" v="Pilíš"/>
+    <tag k="place" v="town"/>
+    <tag k="population" v="11518"/>
+    <tag k="postal_code" v="2721"/>
+    <tag k="source:population" v="KSH (www.ksh.hu)"/>
+    <tag k="source:population:date" v="2016-01-01"/>
+    <tag k="source:postal_code" v="Magyar Posta (posta.hu)"/>
+    <tag k="source:postal_code:date" v="2009-03-01"/>
+  </node>
+  <node id="286201536" lat="47.2457295" lon="19.6127835">
+    <tag k="ksh_ref" v="31653"/>
+    <tag k="name" v="Albertirsa"/>
+    <tag k="name:de" v="Irschingen"/>
+    <tag k="name:ru" v="Альбертиша"/>
+    <tag k="name:sk" v="Irša"/>
+    <tag k="place" v="town"/>
+    <tag k="population" v="12188"/>
+    <tag k="postal_code" v="2730"/>
+    <tag k="source:population" v="KSH (www.ksh.hu)"/>
+    <tag k="source:population:date" v="2016-01-01"/>
+    <tag k="source:postal_code" v="Magyar Posta (posta.hu)"/>
+    <tag k="source:postal_code:date" v="2009-03-01"/>
+  </node>
+  <node id="286202645" lat="47.4223375" lon="19.3945030">
+    <tag k="ksh_ref" v="29735"/>
+    <tag k="name" v="Gyömrő"/>
+    <tag k="name:ru" v="Дьёмрё"/>
+    <tag k="name:sk" v="Demrov"/>
+    <tag k="place" v="town"/>
+    <tag k="place:hu" v="Város"/>
+    <tag k="population" v="17236"/>
+    <tag k="postal_code" v="2230"/>
+    <tag k="source:population" v="KSH (www.ksh.hu)"/>
+    <tag k="source:population:date" v="2016-01-01"/>
+    <tag k="source:postal_code" v="Magyar Posta (posta.hu)"/>
+    <tag k="source:postal_code:date" v="2009-03-01"/>
+    <tag k="telephone_area_code" v="29"/>
+    <tag k="wikidata" v="Q854906"/>
+  </node>
+  <node id="286202716" lat="47.4449622" lon="19.3593136">
+    <tag k="ksh_ref" v="10922"/>
+    <tag k="name" v="Maglód"/>
+    <tag k="name:de" v="Maglau"/>
+    <tag k="name:sk" v="Maglovec"/>
+    <tag k="place" v="town"/>
+    <tag k="population" v="12037"/>
+    <tag k="postal_code" v="2234"/>
+    <tag k="source:population" v="KSH (www.ksh.hu)"/>
+    <tag k="source:population:date" v="2016-01-01"/>
+    <tag k="source:postal_code" v="Magyar Posta (posta.hu)"/>
+    <tag k="source:postal_code:date" v="2009-03-01"/>
+  </node>
+  <node id="286203307" lat="47.4911201" lon="19.3446801">
+    <tag k="ksh_ref" v="04057"/>
+    <tag k="name" v="Pécel"/>
+    <tag k="name:ru" v="Пецель"/>
+    <tag k="place" v="town"/>
+    <tag k="population" v="15494"/>
+    <tag k="postal_code" v="2119"/>
+    <tag k="source:population" v="KSH (www.ksh.hu)"/>
+    <tag k="source:population:date" v="2016-01-01"/>
+    <tag k="source:postal_code" v="Magyar Posta (posta.hu)"/>
+    <tag k="source:postal_code:date" v="2009-03-01"/>
+    <tag k="wikidata" v="Q222964"/>
+  </node>
+  <node id="286933452" lat="47.5447322" lon="19.2636378">
+    <tag k="ksh_ref" v="34157"/>
+    <tag k="name" v="Kistarcsa"/>
+    <tag k="name:ru" v="Киштарча"/>
+    <tag k="name:sk" v="Malá Tarča"/>
+    <tag k="place" v="town"/>
+    <tag k="population" v="12383"/>
+    <tag k="postal_code" v="2143"/>
+    <tag k="source:population" v="KSH (www.ksh.hu)"/>
+    <tag k="source:population:date" v="2016-01-01"/>
+    <tag k="source:postal_code" v="Magyar Posta (posta.hu)"/>
+    <tag k="source:postal_code:date" v="2009-03-01"/>
+  </node>
+  <node id="286935167" lat="47.4138187" lon="19.7503736">
+    <tag k="ksh_ref" v="13435"/>
+    <tag k="name" v="Nagykáta"/>
+    <tag k="name:ru" v="Надьката"/>
+    <tag k="place" v="town"/>
+    <tag k="population" v="12384"/>
+    <tag k="postal_code" v="2760"/>
+    <tag k="source:population" v="KSH (www.ksh.hu)"/>
+    <tag k="source:population:date" v="2016-01-01"/>
+    <tag k="source:postal_code" v="Magyar Posta (posta.hu)"/>
+    <tag k="source:postal_code:date" v="2009-03-01"/>
+  </node>
+  <node id="286936520" lat="47.6093500" lon="19.5949442">
+    <tag k="ksh_ref" v="09593"/>
+    <tag k="name" v="Tura"/>
+    <tag k="name:ru" v="Тура"/>
+    <tag k="place" v="town"/>
+    <tag k="population" v="7689"/>
+    <tag k="postal_code" v="2194"/>
+    <tag k="source:population" v="KSH (www.ksh.hu)"/>
+    <tag k="source:population:date" v="2016-01-01"/>
+    <tag k="source:postal_code" v="Magyar Posta (posta.hu)"/>
+    <tag k="source:postal_code:date" v="2009-03-01"/>
+  </node>
+  <node id="286937639" lat="47.1297585" lon="19.4309024">
+    <tag k="ksh_ref" v="05281"/>
+    <tag k="name" v="Örkény"/>
+    <tag k="name:ru" v="Эркень"/>
+    <tag k="place" v="town"/>
+    <tag k="population" v="4748"/>
+    <tag k="postal_code" v="2377"/>
+    <tag k="source:population" v="KSH (www.ksh.hu)"/>
+    <tag k="source:population:date" v="2016-01-01"/>
+    <tag k="source:postal_code" v="Magyar Posta (posta.hu)"/>
+    <tag k="source:postal_code:date" v="2009-03-01"/>
+  </node>
+  <node id="286961168" lat="47.2844426" lon="20.0702678">
+    <tag k="ksh_ref" v="15291"/>
+    <tag k="name" v="Újszász"/>
+    <tag k="name:ru" v="Уйсас"/>
+    <tag k="place" v="town"/>
+    <tag k="population" v="6054"/>
+    <tag k="postal_code" v="5052"/>
+    <tag k="source:population" v="KSH (www.ksh.hu)"/>
+    <tag k="source:population:date" v="2016-01-01"/>
+    <tag k="source:postal_code" v="Magyar Posta (posta.hu)"/>
+    <tag k="source:postal_code:date" v="2009-03-01"/>
+  </node>
+  <node id="286964115" lat="47.7400504" lon="19.6773099">
+    <tag k="ksh_ref" v="30401"/>
+    <tag k="name" v="Lőrinci"/>
+    <tag k="name:ru" v="Лёринци"/>
+    <tag k="name:sk" v="Laurinec"/>
+    <tag k="place" v="town"/>
+    <tag k="population" v="5446"/>
+    <tag k="postal_code" v="3021"/>
+    <tag k="source:population" v="KSH (www.ksh.hu)"/>
+    <tag k="source:population:date" v="2016-01-01"/>
+    <tag k="source:postal_code" v="Magyar Posta (posta.hu)"/>
+    <tag k="source:postal_code:date" v="2009-03-01"/>
+  </node>
+  <node id="414953978" lat="47.3321179" lon="19.8753916">
+    <tag k="ksh_ref" v="14146"/>
+    <tag k="name" v="Tápiószele"/>
+    <tag k="name:ru" v="Тапиоселе"/>
+    <tag k="place" v="town"/>
+    <tag k="population" v="5869"/>
+    <tag k="postal_code" v="2766"/>
+    <tag k="source:population" v="KSH (www.ksh.hu)"/>
+    <tag k="source:population:date" v="2016-01-01"/>
+    <tag k="source:postal_code" v="Magyar Posta (posta.hu)"/>
+    <tag k="source:postal_code:date" v="2009-03-01"/>
+  </node>
+  <node id="492138672" lat="47.4542606" lon="19.5214828">
+    <tag k="ksh_ref" v="21713"/>
+    <tag k="name" v="Sülysáp"/>
+    <tag k="name:sk" v="Šap"/>
+    <tag k="place" v="town"/>
+    <tag k="population" v="8280"/>
+    <tag k="postal_code" v="2241"/>
+    <tag k="source:population" v="KSH (www.ksh.hu)"/>
+    <tag k="source:population:date" v="2016-01-01"/>
+    <tag k="source:postal_code" v="A Magyar Köztársaság Helységnévtára, 2009"/>
+  </node>
+  <node id="719372835" lat="47.0898193" lon="20.2343365">
+    <tag k="ksh_ref" v="14207"/>
+    <tag k="name" v="Rákóczifalva"/>
+    <tag k="name:ru" v="Ракоцифальва"/>
+    <tag k="place" v="town"/>
+    <tag k="population" v="5266"/>
+    <tag k="postal_code" v="5085"/>
+    <tag k="source:population" v="KSH (www.ksh.hu)"/>
+    <tag k="source:population:date" v="2016-01-01"/>
+    <tag k="source:postal_code" v="A Magyar Köztársaság Helységnévtára, 2009"/>
+  </node>
+  <node id="1037122686" lat="47.1887402" lon="20.0047823">
+    <tag k="ksh_ref" v="27872"/>
+    <tag k="name" v="Abony"/>
+    <tag k="name:de" v="Wabing"/>
+    <tag k="name:ru" v="Абонь"/>
+    <tag k="place" v="town"/>
+    <tag k="population" v="14508"/>
+    <tag k="postal_code" v="2740"/>
+    <tag k="source:population" v="KSH (www.ksh.hu)"/>
+    <tag k="source:population:date" v="2016-01-01"/>
+    <tag k="source:postal_code" v="A Magyar Köztársaság Helységnévtára, 2009"/>
+  </node>
+
+</osm>
