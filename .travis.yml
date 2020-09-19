@@ -36,7 +36,7 @@ jobs:
           edge: true
           file: .
           name: ${RELEASE_TITLE}
-          api_key: ${GH_TOKEN}
+          token: ${GH_TOKEN}
           on:
             tags: true
 
@@ -52,6 +52,7 @@ jobs:
             tags: true
 
         - provider: script
+          skip_cleanup: true
           script: ./github/push_to_github.sh
           on:
             tags: true
