@@ -24,5 +24,5 @@ upload_files() {
 
 setup_git
 commit_i18n_files
-commit_processing_files
+#commit_processing_files
 upload_files
