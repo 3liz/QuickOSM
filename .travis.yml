@@ -28,7 +28,9 @@ jobs:
       install:
         - pip3 install qgis-plugin-ci==1.8.4
       before_deploy:
-         - export RELEASE_TITLE="$TRAVIS_TAG"
+        - export RELEASE_TITLE="$TRAVIS_TAG"
+        - qgis-plugin-ci changelog $TRAVIS_TAG > ../release.md
+        - cat ../release.md
       script:
         - qgis-plugin-ci -v
       deploy:
@@ -36,6 +38,7 @@ jobs:
           edge: true
           file: .
           name: ${RELEASE_TITLE}
+          release_notes_file: ../release.md
           token: ${GH_TOKEN}
           on:
             tags: true
@@ -46,7 +49,6 @@ jobs:
             release ${TRAVIS_TAG}
             --transifex-token ${TX_TOKEN}
             --github-token ${GH_TOKEN}
-            --create-plugin-repo
             --allow-uncommitted-changes
           on:
             tags: true
