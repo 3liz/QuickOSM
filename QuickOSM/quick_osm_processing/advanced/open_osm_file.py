@@ -5,6 +5,7 @@ from os.path import exists
 from osgeo import gdal
 from processing.algs.qgis.QgisAlgorithm import QgisAlgorithm
 from qgis.core import (
+    Qgis,
     QgsVectorLayer,
     QgsProcessing,
     QgsProcessingAlgorithm,
@@ -61,42 +62,68 @@ class OpenOsmFile(QgisAlgorithm):
                        'custom INI file if provided.')
 
     def initAlgorithm(self, config=None):
-        self.addParameter(
-            QgsProcessingParameterFile(
-                self.FILE, self.tr('OSM file')))
+        param = QgsProcessingParameterFile(self.FILE, self.tr('OSM file'))
+        help_string = tr('The extension can be a OSM or PBF file.')
+        if Qgis.QGIS_VERSION_INT >= 31500:
+            param.setHelp(help_string)
+        else:
+            param.tooltip_3liz = help_string
+        self.addParameter(param)
 
-        self.addParameter(
-            QgsProcessingParameterFile(
-                self.OSM_CONF, self.tr('OSM configuration'), optional=True))
+        param = QgsProcessingParameterFile(self.OSM_CONF, self.tr('OSM configuration'), optional=True)
+        help_string = tr(
+            'The OGR OSM configuration file. This file is used to customize the import process about OSM tags. '
+            'You should read the OGR documentation {url}').format(url='https://gdal.org/drivers/vector/osm.html')
+        if Qgis.QGIS_VERSION_INT >= 31500:
+            param.setHelp(help_string)
+        else:
+            param.tooltip_3liz = help_string
+        self.addParameter(param)
 
-        self.addOutput(
-            QgsProcessingOutputVectorLayer(
-                self.OUTPUT_POINTS,
-                self.tr('Output points'),
-                QgsProcessing.TypeVectorPoint))
+        output = QgsProcessingOutputVectorLayer(
+            self.OUTPUT_POINTS, self.tr('Output points'), QgsProcessing.TypeVectorPoint)
+        help_string = tr('The point layer from the OGR OSM driver.')
+        if Qgis.QGIS_VERSION_INT >= 31500:
+            output.setHelp(help_string)
+        else:
+            output.tooltip_3liz = help_string
+        self.addOutput(output)
 
-        self.addOutput(
-            QgsProcessingOutputVectorLayer(
-                self.OUTPUT_LINES,
-                self.tr('Output lines'),
-                QgsProcessing.TypeVectorLine))
+        output = QgsProcessingOutputVectorLayer(
+            self.OUTPUT_LINES, self.tr('Output lines'), QgsProcessing.TypeVectorLine)
+        help_string = tr('The line layer from the OGR OSM driver.')
+        if Qgis.QGIS_VERSION_INT >= 31500:
+            output.setHelp(help_string)
+        else:
+            output.tooltip_3liz = help_string
+        self.addOutput(output)
 
-        self.addOutput(
-            QgsProcessingOutputVectorLayer(
-                self.OUTPUT_MULTILINESTRINGS,
-                self.tr('Output multilinestrings'),
-                QgsProcessing.TypeVectorLine))
+        output = QgsProcessingOutputVectorLayer(
+            self.OUTPUT_MULTILINESTRINGS, self.tr('Output multilinestrings'), QgsProcessing.TypeVectorLine)
+        help_string = tr('The multilinestrings layer from the OGR OSM driver.')
+        if Qgis.QGIS_VERSION_INT >= 31500:
+            output.setHelp(help_string)
+        else:
+            output.tooltip_3liz = help_string
+        self.addOutput(output)
 
-        self.addOutput(
-            QgsProcessingOutputVectorLayer(
-                self.OUTPUT_MULTIPOLYGONS,
-                self.tr('Output multipolygons'),
-                QgsProcessing.TypeVectorPolygon))
+        output = QgsProcessingOutputVectorLayer(
+            self.OUTPUT_MULTIPOLYGONS, self.tr('Output multipolygons'), QgsProcessing.TypeVectorPolygon)
+        help_string = tr('The multipolygon layer from the OGR OSM driver.')
+        if Qgis.QGIS_VERSION_INT >= 31500:
+            output.setHelp(help_string)
+        else:
+            output.tooltip_3liz = help_string
+        self.addOutput(output)
 
-        self.addOutput(
-            QgsProcessingOutputVectorLayer(
-                self.OUTPUT_OTHER_RELATIONS,
-                self.tr('Output other relations'), QgsProcessing.TypeVector))
+        output = QgsProcessingOutputVectorLayer(
+            self.OUTPUT_OTHER_RELATIONS, self.tr('Output other relations'), QgsProcessing.TypeVector)
+        help_string = tr('The relation layer from the OGR OSM driver.')
+        if Qgis.QGIS_VERSION_INT >= 31500:
+            output.setHelp(help_string)
+        else:
+            output.tooltip_3liz = help_string
+        self.addOutput(output)
 
     def processAlgorithm(self, parameters, context, feedback):
         self.feedback = feedback

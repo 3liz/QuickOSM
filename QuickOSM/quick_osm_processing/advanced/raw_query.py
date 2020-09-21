@@ -2,6 +2,7 @@
 
 from processing.algs.qgis.QgisAlgorithm import QgisAlgorithm
 from qgis.core import (
+    Qgis,
     QgsProcessingAlgorithm,
     QgsProcessingParameterDefinition,
     QgsProcessingParameterString,
@@ -48,46 +49,75 @@ class RawQueryAlgorithm(QgisAlgorithm):
     def displayName():
         return tr('Build raw query')
 
+    def shortHelpString(self):
+        return 'A XML or OQL query to send to a Overpass API server.'
+
     def flags(self):
         return super().flags() | QgsProcessingAlgorithm.FlagHideFromToolbox
 
     def initAlgorithm(self, config=None):
-        self.addParameter(
-            QgsProcessingParameterString(
-                self.QUERY, tr('Query'), optional=False, multiLine=True))
+        param = QgsProcessingParameterString(self.QUERY, tr('Query'), optional=False, multiLine=True)
+        help_string = tr('A XML or OQL query to be send to the Overpass API. It can contains some {{}} tokens.')
+        if Qgis.QGIS_VERSION_INT >= 31500:
+            param.setHelp(help_string)
+        else:
+            param.tooltip_3liz = help_string
+        self.addParameter(param)
 
-        self.addParameter(
-            QgsProcessingParameterExtent(
-                self.EXTENT,
-                tr('Extent, if "{{bbox}}" in the query'),
-                optional=True))
+        param = QgsProcessingParameterExtent(self.EXTENT, tr('Extent, if "{{bbox}}" in the query'), optional=True)
+        help_string = tr('If the query has a {{bbox}} token, this extent will be used for replacement.')
+        if Qgis.QGIS_VERSION_INT >= 31500:
+            param.setHelp(help_string)
+        else:
+            param.tooltip_3liz = help_string
+        self.addParameter(param)
 
         server = get_setting(
             'defaultOAPI', OVERPASS_SERVERS[0]) + 'interpreter'
-        parameter = QgsProcessingParameterString(
+        param = QgsProcessingParameterString(
             self.SERVER,
             tr('Overpass server'),
             optional=False,
             defaultValue=server)
-        parameter.setFlags(
-            parameter.flags() | QgsProcessingParameterDefinition.FlagAdvanced)
-        self.addParameter(parameter)
+        param.setFlags(
+            param.flags() | QgsProcessingParameterDefinition.FlagAdvanced)
+        help_string = tr('The Overpass API server to use to build the encoded URL.')
+        if Qgis.QGIS_VERSION_INT >= 31500:
+            param.setHelp(help_string)
+        else:
+            param.tooltip_3liz = help_string
+        self.addParameter(param)
 
-        parameter = QgsProcessingParameterString(
+        param = QgsProcessingParameterString(
             self.AREA,
             tr('Area (if you want to override {{geocodeArea}} in the query)'),
             optional=True)
-        parameter.setFlags(
-            parameter.flags() | QgsProcessingParameterDefinition.FlagAdvanced)
-        self.addParameter(parameter)
+        param.setFlags(
+            param.flags() | QgsProcessingParameterDefinition.FlagAdvanced)
+        help_string = tr('{{geocodeArea}} can be overridden on runtime.')
+        if Qgis.QGIS_VERSION_INT >= 31500:
+            param.setHelp(help_string)
+        else:
+            param.tooltip_3liz = help_string
+        self.addParameter(param)
 
-        self.addOutput(
-            QgsProcessingOutputString(
-                self.OUTPUT_URL, tr('Query as encoded URL')))
+        output = QgsProcessingOutputString(self.OUTPUT_URL, tr('Query as encoded URL'))
+        help_string = tr(
+            'The query is generated and encoded with the Overpass API URL. This output should be used in the File '
+            'Downloader algorithm.')
+        if Qgis.QGIS_VERSION_INT >= 31500:
+            param.setHelp(help_string)
+        else:
+            param.tooltip_3liz = help_string
+        self.addOutput(output)
 
-        self.addOutput(
-            QgsProcessingOutputString(
-                self.OUTPUT_OQL_QUERY, tr('Raw query as OQL')))
+        output = QgsProcessingOutputString(self.OUTPUT_OQL_QUERY, tr('Raw query as OQL'))
+        help_string = tr('The query is generated in the OQL format.')
+        if Qgis.QGIS_VERSION_INT >= 31500:
+            param.setHelp(help_string)
+        else:
+            param.tooltip_3liz = help_string
+        self.addOutput(output)
 
     def processAlgorithm(self, parameters, context, feedback):
         raw_query = self.parameterAsString(parameters, self.QUERY, context)

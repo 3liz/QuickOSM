@@ -20,20 +20,20 @@ This algorithm builds a query and then encode it into the Overpass API URL. The 
 
 | ID | Description | Type | Info | Required | Advanced |
 |:-:|:-:|:-:|:-:|:-:|:-:|
-KEY|Key, default to all keys|String||||
-VALUE|Value, default to all values|String||||
-AREA|Around the area (Point WKT accepted)|String||✓||
-DISTANCE|Distance (meters)|Number||✓||
-TIMEOUT|Timeout|Number||✓|✓|
-SERVER|Overpass server|String||✓|✓|
+KEY|Key, default to all keys|String|The OSM key to use. It can be empty and it will default to all keys.|||
+VALUE|Value, default to all values|String|The OSM value to use. It can be empty and it will default to all values.|||
+AREA|Around the area|String|The name of a place, a first query to the Nominatim API will be executed to fetch the OSM ID. A WKT Point string is accepted as well.|✓||
+DISTANCE|Distance (meters)|Number|The distance to use when doing the buffering around the named area. The distance must be in meters.|✓||
+TIMEOUT|Timeout|Number|The timeout to use for the Overpass API.|✓|✓|
+SERVER|Overpass server|String|The Overpass API server to use to build the encoded URL.|✓|✓|
 
 
 #### Outputs
 
 | ID | Description | Type | Info |
 |:-:|:-:|:-:|:-:|
-OUTPUT_URL|Query as encoded URL|String||
-OUTPUT_OQL_QUERY|Raw query as OQL|String||
+OUTPUT_URL|Query as encoded URL|String|The query is generated and encoded with the Overpass API URL. This output should be used in the File Downloader algorithm.|
+OUTPUT_OQL_QUERY|Raw query as OQL|String|The query is generated in the OQL format.|
 
 
 ***
@@ -49,18 +49,18 @@ This algorithm builds a query and then encode it into the Overpass API URL. The 
 
 | ID | Description | Type | Info | Required | Advanced |
 |:-:|:-:|:-:|:-:|:-:|:-:|
-KEY|Key, default to all keys|String||||
-VALUE|Value, default to all values|String||||
-TIMEOUT|Timeout|Number||✓|✓|
-SERVER|Overpass server|String||✓|✓|
+KEY|Key, default to all keys|String|The OSM key to use. It can be empty and it will default to all keys.|||
+VALUE|Value, default to all values|String|The OSM value to use. It can be empty and it will default to all values.|||
+TIMEOUT|Timeout|Number|The timeout to use for the Overpass API.|✓|✓|
+SERVER|Overpass server|String|The Overpass API server to use to build the encoded URL.|✓|✓|
 
 
 #### Outputs
 
 | ID | Description | Type | Info |
 |:-:|:-:|:-:|:-:|
-OUTPUT_URL|Query as encoded URL|String||
-OUTPUT_OQL_QUERY|Raw query as OQL|String||
+OUTPUT_URL|Query as encoded URL|String|The query is generated and encoded with the Overpass API URL. This output should be used in the File Downloader algorithm.|
+OUTPUT_OQL_QUERY|Raw query as OQL|String|The query is generated in the OQL format.|
 
 
 ***
@@ -76,19 +76,19 @@ This algorithm builds a query and then encode it into the Overpass API URL. The 
 
 | ID | Description | Type | Info | Required | Advanced |
 |:-:|:-:|:-:|:-:|:-:|:-:|
-KEY|Key, default to all keys|String||||
-VALUE|Value, default to all values|String||||
-EXTENT|Extent|Extent||✓||
-TIMEOUT|Timeout|Number||✓|✓|
-SERVER|Overpass server|String||✓|✓|
+KEY|Key, default to all keys|String|The OSM key to use. It can be empty and it will default to all keys.|||
+VALUE|Value, default to all values|String|The OSM value to use. It can be empty and it will default to all values.|||
+EXTENT|Extent|Extent|The extent as a rectangle to use when building the query.|✓||
+TIMEOUT|Timeout|Number|The timeout to use for the Overpass API.|✓|✓|
+SERVER|Overpass server|String|The Overpass API server to use to build the encoded URL.|✓|✓|
 
 
 #### Outputs
 
 | ID | Description | Type | Info |
 |:-:|:-:|:-:|:-:|
-OUTPUT_URL|Query as encoded URL|String||
-OUTPUT_OQL_QUERY|Raw query as OQL|String||
+OUTPUT_URL|Query as encoded URL|String|The query is generated and encoded with the Overpass API URL. This output should be used in the File Downloader algorithm.|
+OUTPUT_OQL_QUERY|Raw query as OQL|String|The query is generated in the OQL format.|
 
 
 ***
@@ -104,19 +104,19 @@ This algorithm builds a query and then encode it into the Overpass API URL. The 
 
 | ID | Description | Type | Info | Required | Advanced |
 |:-:|:-:|:-:|:-:|:-:|:-:|
-KEY|Key, default to all keys|String||||
-VALUE|Value, default to all values|String||||
-AREA|Inside the area|String||✓||
-TIMEOUT|Timeout|Number||✓|✓|
-SERVER|Overpass server|String||✓|✓|
+KEY|Key, default to all keys|String|The OSM key to use. It can be empty and it will default to all keys.|||
+VALUE|Value, default to all values|String|The OSM value to use. It can be empty and it will default to all values.|||
+AREA|Inside the area|String|The name of the area. This will make a first query to the Nominatim API to fetch the OSM ID.|✓||
+TIMEOUT|Timeout|Number|The timeout to use for the Overpass API.|✓|✓|
+SERVER|Overpass server|String|The Overpass API server to use to build the encoded URL.|✓|✓|
 
 
 #### Outputs
 
 | ID | Description | Type | Info |
 |:-:|:-:|:-:|:-:|
-OUTPUT_URL|Query as encoded URL|String||
-OUTPUT_OQL_QUERY|Raw query as OQL|String||
+OUTPUT_URL|Query as encoded URL|String|The query is generated and encoded with the Overpass API URL. This output should be used in the File Downloader algorithm.|
+OUTPUT_OQL_QUERY|Raw query as OQL|String|The query is generated in the OQL format.|
 
 
 ***
@@ -124,7 +124,7 @@ OUTPUT_OQL_QUERY|Raw query as OQL|String||
 
 ### Build raw query
 
-None
+A XML or OQL query to send to a Overpass API server.
 
 ![algo_id](./quickosm-buildrawquery.png)
 
@@ -132,10 +132,10 @@ None
 
 | ID | Description | Type | Info | Required | Advanced |
 |:-:|:-:|:-:|:-:|:-:|:-:|
-QUERY|Query|String||✓||
-EXTENT|Extent, if "{{bbox}}" in the query|Extent||||
-SERVER|Overpass server|String||✓|✓|
-AREA|Area (if you want to override {{geocodeArea}} in the query)|String|||✓|
+QUERY|Query|String|A XML or OQL query to be send to the Overpass API. It can contains some {{}} tokens.|✓||
+EXTENT|Extent, if "{{bbox}}" in the query|Extent|If the query has a {{bbox}} token, this extent will be used for replacement.|||
+SERVER|Overpass server|String|The Overpass API server to use to build the encoded URL.|✓|✓|
+AREA|Area (if you want to override {{geocodeArea}} in the query)|String|The query is generated in the OQL format.||✓|
 
 
 #### Outputs
@@ -159,19 +159,19 @@ Open all sublayers from an OSM file. A custom OSM configuration file can be spec
 
 | ID | Description | Type | Info | Required | Advanced |
 |:-:|:-:|:-:|:-:|:-:|:-:|
-FILE|OSM file|File||✓||
-OSM_CONF|OSM configuration|File||||
+FILE|OSM file|File|The extension can be a OSM or PBF file.|✓||
+OSM_CONF|OSM configuration|File|The OGR OSM configuration file. This file is used to customize the import process about OSM tags. You should read the OGR documentation https://gdal.org/drivers/vector/osm.html|||
 
 
 #### Outputs
 
 | ID | Description | Type | Info |
 |:-:|:-:|:-:|:-:|
-OUTPUT_POINTS|Output points|VectorLayer||
-OUTPUT_LINES|Output lines|VectorLayer||
-OUTPUT_MULTILINESTRINGS|Output multilinestrings|VectorLayer||
-OUTPUT_MULTIPOLYGONS|Output multipolygons|VectorLayer||
-OUTPUT_OTHER_RELATIONS|Output other relations|VectorLayer||
+OUTPUT_POINTS|Output points|VectorLayer|The point layer from the OGR OSM driver.|
+OUTPUT_LINES|Output lines|VectorLayer|The line layer from the OGR OSM driver.|
+OUTPUT_MULTILINESTRINGS|Output multilinestrings|VectorLayer|The multilinestrings layer from the OGR OSM driver.|
+OUTPUT_MULTIPOLYGONS|Output multipolygons|VectorLayer|The multipolygon layer from the OGR OSM driver.|
+OUTPUT_OTHER_RELATIONS|Output other relations|VectorLayer|The relation layer from the OGR OSM driver.|
 
 
 ***

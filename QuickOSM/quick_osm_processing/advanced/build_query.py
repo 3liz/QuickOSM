@@ -2,6 +2,7 @@
 
 from processing.algs.qgis.QgisAlgorithm import QgisAlgorithm
 from qgis.core import (
+    Qgis,
     QgsProcessingAlgorithm,
     QgsProcessingParameterDefinition,
     QgsProcessingParameterString,
@@ -64,39 +65,68 @@ class BuildQueryBasedAlgorithm(QgisAlgorithm):
         return super().flags() | QgsProcessingAlgorithm.FlagHideFromToolbox
 
     def add_top_parameters(self):
-        self.addParameter(
-            QgsProcessingParameterString(
-                self.KEY, tr('Key, default to all keys'), optional=True))
+        param = QgsProcessingParameterString(self.KEY, tr('Key, default to all keys'), optional=True)
+        help_string = tr('The OSM key to use. It can be empty and it will default to all keys.')
+        if Qgis.QGIS_VERSION_INT >= 31500:
+            param.setHelp(help_string)
+        else:
+            param.tooltip_3liz = help_string
+        self.addParameter(param)
 
-        self.addParameter(
-            QgsProcessingParameterString(
-                self.VALUE, tr('Value, default to all values'), optional=True))
+        param = QgsProcessingParameterString(self.VALUE, tr('Value, default to all values'), optional=True)
+        help_string = tr('The OSM value to use. It can be empty and it will default to all values.')
+        if Qgis.QGIS_VERSION_INT >= 31500:
+            param.setHelp(help_string)
+        else:
+            param.tooltip_3liz = help_string
+        self.addParameter(param)
 
     def add_bottom_parameters(self):
-        parameter = QgsProcessingParameterNumber(
+        param = QgsProcessingParameterNumber(
             self.TIMEOUT, tr('Timeout'), defaultValue=25, minValue=5)
-        parameter.setFlags(
-            parameter.flags() | QgsProcessingParameterDefinition.FlagAdvanced)
-        self.addParameter(parameter)
+        param.setFlags(param.flags() | QgsProcessingParameterDefinition.FlagAdvanced)
+        help_string = tr('The timeout to use for the Overpass API.')
+        if Qgis.QGIS_VERSION_INT >= 31500:
+            param.setHelp(help_string)
+        else:
+            param.tooltip_3liz = help_string
+        self.addParameter(param)
 
-        server = get_setting(
-            'defaultOAPI', OVERPASS_SERVERS[0]) + 'interpreter'
-        parameter = QgsProcessingParameterString(
+        server = get_setting('defaultOAPI', OVERPASS_SERVERS[0]) + 'interpreter'
+        param = QgsProcessingParameterString(
             self.SERVER,
             tr('Overpass server'),
             optional=False,
             defaultValue=server)
-        parameter.setFlags(
-            parameter.flags() | QgsProcessingParameterDefinition.FlagAdvanced)
-        self.addParameter(parameter)
+        param.setFlags(param.flags() | QgsProcessingParameterDefinition.FlagAdvanced)
+        help_string = tr('The Overpass API server to use to build the encoded URL.')
+        if Qgis.QGIS_VERSION_INT >= 31500:
+            param.setHelp(help_string)
+        else:
+            param.tooltip_3liz = help_string
+        self.addParameter(param)
 
-        self.addOutput(
-            QgsProcessingOutputString(
-                self.OUTPUT_URL, tr('Query as encoded URL')))
+        output = QgsProcessingOutputString(self.OUTPUT_URL, tr('Query as encoded URL'))
+        help_string = tr(
+            'The query is generated and encoded with the Overpass API URL. This output should be used in the File '
+            'Downloader algorithm.')
+        if Qgis.QGIS_VERSION_INT >= 31500:
+            output.setHelp(help_string)
+        else:
+            output.tooltip_3liz = help_string
+        self.addOutput(output)
 
-        self.addOutput(
-            QgsProcessingOutputString(
-                self.OUTPUT_OQL_QUERY, tr('Raw query as OQL')))
+        output = QgsProcessingOutputString(self.OUTPUT_OQL_QUERY, tr('Raw query as OQL'))
+        help_string = tr('The query is generated in the OQL format.')
+        if Qgis.QGIS_VERSION_INT >= 31500:
+            output.setHelp(help_string)
+        else:
+            output.tooltip_3liz = help_string
+        if Qgis.QGIS_VERSION_INT >= 31500:
+            output.setHelp(help_string)
+        else:
+            output.tooltip_3liz = help_string
+        self.addOutput(output)
 
     def fetch_based_parameters(self, parameters, context):
         self.key = self.parameterAsString(parameters, self.KEY, context)
@@ -167,9 +197,15 @@ class BuildQueryInAreaAlgorithm(BuildQueryBasedAlgorithm):
 
     def initAlgorithm(self, config=None):
         self.add_top_parameters()
-        self.addParameter(
-            QgsProcessingParameterString(
-                self.AREA, tr('Inside the area'), optional=False))
+
+        param = QgsProcessingParameterString(self.AREA, tr('Inside the area'), optional=False)
+        help_string = tr('The name of the area. This will make a first query to the Nominatim API to fetch the OSM ID.')
+        if Qgis.QGIS_VERSION_INT >= 31500:
+            param.setHelp(help_string)
+        else:
+            param.tooltip_3liz = help_string
+        self.addParameter(param)
+
         self.add_bottom_parameters()
 
     def processAlgorithm(self, parameters, context, feedback):
@@ -195,17 +231,26 @@ class BuildQueryAroundAreaAlgorithm(BuildQueryBasedAlgorithm):
 
     def initAlgorithm(self, config=None):
         self.add_top_parameters()
-        self.addParameter(
-            QgsProcessingParameterString(
-                self.AREA,
-                tr('Around the area (Point WKT accepted)'),
-                optional=False))
-        self.addParameter(
-            QgsProcessingParameterNumber(
-                self.DISTANCE,
-                tr('Distance (meters)'),
-                defaultValue=1000,
-                minValue=1))
+
+        param = QgsProcessingParameterString(self.AREA, tr('Around the area'), optional=False)
+        help_string = tr(
+            'The name of a place, a first query to the Nominatim API will be executed to fetch the OSM ID. '
+            'A WKT Point string is accepted as well.')
+        if Qgis.QGIS_VERSION_INT >= 31500:
+            param.setHelp(help_string)
+        else:
+            param.tooltip_3liz = help_string
+        self.addParameter(param)
+
+        param = QgsProcessingParameterNumber(self.DISTANCE, tr('Distance (meters)'), defaultValue=1000, minValue=1)
+        help_string = tr(
+            'The distance to use when doing the buffering around the named area. The distance must be in meters.')
+        if Qgis.QGIS_VERSION_INT >= 31500:
+            param.setHelp(help_string)
+        else:
+            param.tooltip_3liz = help_string
+        self.addParameter(param)
+
         self.add_bottom_parameters()
 
     def processAlgorithm(self, parameters, context, feedback):
@@ -231,9 +276,15 @@ class BuildQueryExtentAlgorithm(BuildQueryBasedAlgorithm):
 
     def initAlgorithm(self, config=None):
         self.add_top_parameters()
-        self.addParameter(
-            QgsProcessingParameterExtent(
-                self.EXTENT, tr('Extent'), optional=False))
+
+        param = QgsProcessingParameterExtent(self.EXTENT, tr('Extent'), optional=False)
+        help_string = tr('The extent as a rectangle to use when building the query.')
+        if Qgis.QGIS_VERSION_INT >= 31500:
+            param.setHelp(help_string)
+        else:
+            param.tooltip_3liz = help_string
+        self.addParameter(param)
+
         self.add_bottom_parameters()
 
     def processAlgorithm(self, parameters, context, feedback):

@@ -75,7 +75,7 @@
 <td align="center">KEY</td>
 <td align="center">Key, default to all keys</td>
 <td align="center">String</td>
-<td align="center"></td>
+<td align="center">The OSM key to use. It can be empty and it will default to all keys.</td>
 <td align="center"></td>
 <td align="center"></td>
 </tr>
@@ -83,15 +83,15 @@
 <td align="center">VALUE</td>
 <td align="center">Value, default to all values</td>
 <td align="center">String</td>
-<td align="center"></td>
+<td align="center">The OSM value to use. It can be empty and it will default to all values.</td>
 <td align="center"></td>
 <td align="center"></td>
 </tr>
 <tr>
 <td align="center">AREA</td>
-<td align="center">Around the area (Point WKT accepted)</td>
+<td align="center">Around the area</td>
 <td align="center">String</td>
-<td align="center"></td>
+<td align="center">The name of a place, a first query to the Nominatim API will be executed to fetch the OSM ID. A WKT Point string is accepted as well.</td>
 <td align="center">✓</td>
 <td align="center"></td>
 </tr>
@@ -99,7 +99,7 @@
 <td align="center">DISTANCE</td>
 <td align="center">Distance (meters)</td>
 <td align="center">Number</td>
-<td align="center"></td>
+<td align="center">The distance to use when doing the buffering around the named area. The distance must be in meters.</td>
 <td align="center">✓</td>
 <td align="center"></td>
 </tr>
@@ -107,7 +107,7 @@
 <td align="center">TIMEOUT</td>
 <td align="center">Timeout</td>
 <td align="center">Number</td>
-<td align="center"></td>
+<td align="center">The timeout to use for the Overpass API.</td>
 <td align="center">✓</td>
 <td align="center">✓</td>
 </tr>
@@ -115,7 +115,7 @@
 <td align="center">SERVER</td>
 <td align="center">Overpass server</td>
 <td align="center">String</td>
-<td align="center"></td>
+<td align="center">The Overpass API server to use to build the encoded URL.</td>
 <td align="center">✓</td>
 <td align="center">✓</td>
 </tr>
@@ -136,13 +136,13 @@
 <td align="center">OUTPUT_URL</td>
 <td align="center">Query as encoded URL</td>
 <td align="center">String</td>
-<td align="center"></td>
+<td align="center">The query is generated and encoded with the Overpass API URL. This output should be used in the File Downloader algorithm.</td>
 </tr>
 <tr>
 <td align="center">OUTPUT_OQL_QUERY</td>
 <td align="center">Raw query as OQL</td>
 <td align="center">String</td>
-<td align="center"></td>
+<td align="center">The query is generated in the OQL format.</td>
 </tr>
 </tbody>
 </table>
@@ -167,7 +167,7 @@
 <td align="center">KEY</td>
 <td align="center">Key, default to all keys</td>
 <td align="center">String</td>
-<td align="center"></td>
+<td align="center">The OSM key to use. It can be empty and it will default to all keys.</td>
 <td align="center"></td>
 <td align="center"></td>
 </tr>
@@ -175,7 +175,7 @@
 <td align="center">VALUE</td>
 <td align="center">Value, default to all values</td>
 <td align="center">String</td>
-<td align="center"></td>
+<td align="center">The OSM value to use. It can be empty and it will default to all values.</td>
 <td align="center"></td>
 <td align="center"></td>
 </tr>
@@ -183,7 +183,7 @@
 <td align="center">TIMEOUT</td>
 <td align="center">Timeout</td>
 <td align="center">Number</td>
-<td align="center"></td>
+<td align="center">The timeout to use for the Overpass API.</td>
 <td align="center">✓</td>
 <td align="center">✓</td>
 </tr>
@@ -191,7 +191,7 @@
 <td align="center">SERVER</td>
 <td align="center">Overpass server</td>
 <td align="center">String</td>
-<td align="center"></td>
+<td align="center">The Overpass API server to use to build the encoded URL.</td>
 <td align="center">✓</td>
 <td align="center">✓</td>
 </tr>
@@ -212,13 +212,13 @@
 <td align="center">OUTPUT_URL</td>
 <td align="center">Query as encoded URL</td>
 <td align="center">String</td>
-<td align="center"></td>
+<td align="center">The query is generated and encoded with the Overpass API URL. This output should be used in the File Downloader algorithm.</td>
 </tr>
 <tr>
 <td align="center">OUTPUT_OQL_QUERY</td>
 <td align="center">Raw query as OQL</td>
 <td align="center">String</td>
-<td align="center"></td>
+<td align="center">The query is generated in the OQL format.</td>
 </tr>
 </tbody>
 </table>
@@ -243,7 +243,7 @@
 <td align="center">KEY</td>
 <td align="center">Key, default to all keys</td>
 <td align="center">String</td>
-<td align="center"></td>
+<td align="center">The OSM key to use. It can be empty and it will default to all keys.</td>
 <td align="center"></td>
 <td align="center"></td>
 </tr>
@@ -251,7 +251,7 @@
 <td align="center">VALUE</td>
 <td align="center">Value, default to all values</td>
 <td align="center">String</td>
-<td align="center"></td>
+<td align="center">The OSM value to use. It can be empty and it will default to all values.</td>
 <td align="center"></td>
 <td align="center"></td>
 </tr>
@@ -259,7 +259,7 @@
 <td align="center">EXTENT</td>
 <td align="center">Extent</td>
 <td align="center">Extent</td>
-<td align="center"></td>
+<td align="center">The extent as a rectangle to use when building the query.</td>
 <td align="center">✓</td>
 <td align="center"></td>
 </tr>
@@ -267,7 +267,7 @@
 <td align="center">TIMEOUT</td>
 <td align="center">Timeout</td>
 <td align="center">Number</td>
-<td align="center"></td>
+<td align="center">The timeout to use for the Overpass API.</td>
 <td align="center">✓</td>
 <td align="center">✓</td>
 </tr>
@@ -275,7 +275,7 @@
 <td align="center">SERVER</td>
 <td align="center">Overpass server</td>
 <td align="center">String</td>
-<td align="center"></td>
+<td align="center">The Overpass API server to use to build the encoded URL.</td>
 <td align="center">✓</td>
 <td align="center">✓</td>
 </tr>
@@ -296,13 +296,13 @@
 <td align="center">OUTPUT_URL</td>
 <td align="center">Query as encoded URL</td>
 <td align="center">String</td>
-<td align="center"></td>
+<td align="center">The query is generated and encoded with the Overpass API URL. This output should be used in the File Downloader algorithm.</td>
 </tr>
 <tr>
 <td align="center">OUTPUT_OQL_QUERY</td>
 <td align="center">Raw query as OQL</td>
 <td align="center">String</td>
-<td align="center"></td>
+<td align="center">The query is generated in the OQL format.</td>
 </tr>
 </tbody>
 </table>
@@ -327,7 +327,7 @@
 <td align="center">KEY</td>
 <td align="center">Key, default to all keys</td>
 <td align="center">String</td>
-<td align="center"></td>
+<td align="center">The OSM key to use. It can be empty and it will default to all keys.</td>
 <td align="center"></td>
 <td align="center"></td>
 </tr>
@@ -335,7 +335,7 @@
 <td align="center">VALUE</td>
 <td align="center">Value, default to all values</td>
 <td align="center">String</td>
-<td align="center"></td>
+<td align="center">The OSM value to use. It can be empty and it will default to all values.</td>
 <td align="center"></td>
 <td align="center"></td>
 </tr>
@@ -343,7 +343,7 @@
 <td align="center">AREA</td>
 <td align="center">Inside the area</td>
 <td align="center">String</td>
-<td align="center"></td>
+<td align="center">The name of the area. This will make a first query to the Nominatim API to fetch the OSM ID.</td>
 <td align="center">✓</td>
 <td align="center"></td>
 </tr>
@@ -351,7 +351,7 @@
 <td align="center">TIMEOUT</td>
 <td align="center">Timeout</td>
 <td align="center">Number</td>
-<td align="center"></td>
+<td align="center">The timeout to use for the Overpass API.</td>
 <td align="center">✓</td>
 <td align="center">✓</td>
 </tr>
@@ -359,7 +359,7 @@
 <td align="center">SERVER</td>
 <td align="center">Overpass server</td>
 <td align="center">String</td>
-<td align="center"></td>
+<td align="center">The Overpass API server to use to build the encoded URL.</td>
 <td align="center">✓</td>
 <td align="center">✓</td>
 </tr>
@@ -380,19 +380,19 @@
 <td align="center">OUTPUT_URL</td>
 <td align="center">Query as encoded URL</td>
 <td align="center">String</td>
-<td align="center"></td>
+<td align="center">The query is generated and encoded with the Overpass API URL. This output should be used in the File Downloader algorithm.</td>
 </tr>
 <tr>
 <td align="center">OUTPUT_OQL_QUERY</td>
 <td align="center">Raw query as OQL</td>
 <td align="center">String</td>
-<td align="center"></td>
+<td align="center">The query is generated in the OQL format.</td>
 </tr>
 </tbody>
 </table>
 <hr>
 <h3 id="build-raw-query">Build raw query</h3>
-<p>None</p>
+<p>A XML or OQL query to send to a Overpass API server.</p>
 <p><img alt="algo_id" src="./quickosm-buildrawquery.png"></p>
 <h4 id="parameters_4">Parameters</h4>
 <table>
@@ -411,7 +411,7 @@
 <td align="center">QUERY</td>
 <td align="center">Query</td>
 <td align="center">String</td>
-<td align="center"></td>
+<td align="center">A XML or OQL query to be send to the Overpass API. It can contains some {{}} tokens.</td>
 <td align="center">✓</td>
 <td align="center"></td>
 </tr>
@@ -419,7 +419,7 @@
 <td align="center">EXTENT</td>
 <td align="center">Extent, if "{{bbox}}" in the query</td>
 <td align="center">Extent</td>
-<td align="center"></td>
+<td align="center">If the query has a {{bbox}} token, this extent will be used for replacement.</td>
 <td align="center"></td>
 <td align="center"></td>
 </tr>
@@ -427,7 +427,7 @@
 <td align="center">SERVER</td>
 <td align="center">Overpass server</td>
 <td align="center">String</td>
-<td align="center"></td>
+<td align="center">The Overpass API server to use to build the encoded URL.</td>
 <td align="center">✓</td>
 <td align="center">✓</td>
 </tr>
@@ -435,7 +435,7 @@
 <td align="center">AREA</td>
 <td align="center">Area (if you want to override {{geocodeArea}} in the query)</td>
 <td align="center">String</td>
-<td align="center"></td>
+<td align="center">The query is generated in the OQL format.</td>
 <td align="center"></td>
 <td align="center">✓</td>
 </tr>
@@ -487,7 +487,7 @@
 <td align="center">FILE</td>
 <td align="center">OSM file</td>
 <td align="center">File</td>
-<td align="center"></td>
+<td align="center">The extension can be a OSM or PBF file.</td>
 <td align="center">✓</td>
 <td align="center"></td>
 </tr>
@@ -495,7 +495,7 @@
 <td align="center">OSM_CONF</td>
 <td align="center">OSM configuration</td>
 <td align="center">File</td>
-<td align="center"></td>
+<td align="center">The OGR OSM configuration file. This file is used to customize the import process about OSM tags. You should read the OGR documentation <a href="https://gdal.org/drivers/vector/osm.html">https://gdal.org/drivers/vector/osm.html</a></td>
 <td align="center"></td>
 <td align="center"></td>
 </tr>
@@ -516,31 +516,31 @@
 <td align="center">OUTPUT_POINTS</td>
 <td align="center">Output points</td>
 <td align="center">VectorLayer</td>
-<td align="center"></td>
+<td align="center">The point layer from the OGR OSM driver.</td>
 </tr>
 <tr>
 <td align="center">OUTPUT_LINES</td>
 <td align="center">Output lines</td>
 <td align="center">VectorLayer</td>
-<td align="center"></td>
+<td align="center">The line layer from the OGR OSM driver.</td>
 </tr>
 <tr>
 <td align="center">OUTPUT_MULTILINESTRINGS</td>
 <td align="center">Output multilinestrings</td>
 <td align="center">VectorLayer</td>
-<td align="center"></td>
+<td align="center">The multilinestrings layer from the OGR OSM driver.</td>
 </tr>
 <tr>
 <td align="center">OUTPUT_MULTIPOLYGONS</td>
 <td align="center">Output multipolygons</td>
 <td align="center">VectorLayer</td>
-<td align="center"></td>
+<td align="center">The multipolygon layer from the OGR OSM driver.</td>
 </tr>
 <tr>
 <td align="center">OUTPUT_OTHER_RELATIONS</td>
 <td align="center">Output other relations</td>
 <td align="center">VectorLayer</td>
-<td align="center"></td>
+<td align="center">The relation layer from the OGR OSM driver.</td>
 </tr>
 </tbody>
 </table>
