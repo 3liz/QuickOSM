@@ -18,14 +18,14 @@ This algorithm builds a query and then encode it into the Overpass API URL. The 
 
 #### Parameters
 
-| ID | Description | Type | Info | Required | Advanced |
-|:-:|:-:|:-:|:-:|:-:|:-:|
-KEY|Key, default to all keys|String|The OSM key to use. It can be empty and it will default to all keys.|||
-VALUE|Value, default to all values|String|The OSM value to use. It can be empty and it will default to all values.|||
-AREA|Around the area|String|The name of a place, a first query to the Nominatim API will be executed to fetch the OSM ID. A WKT Point string is accepted as well.|✓||
-DISTANCE|Distance (meters)|Number|The distance to use when doing the buffering around the named area. The distance must be in meters.|✓||
-TIMEOUT|Timeout|Number|The timeout to use for the Overpass API.|✓|✓|
-SERVER|Overpass server|String|The Overpass API server to use to build the encoded URL.|✓|✓|
+| ID | Description | Type | Info | Required | Advanced | Option |
+|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
+KEY|Key, default to all keys|String|The OSM key to use. It can be empty and it will default to all keys.||||
+VALUE|Value, default to all values|String|The OSM value to use. It can be empty and it will default to all values.||||
+AREA|Around the area|String|The name of a place, a first query to the Nominatim API will be executed to fetch the OSM ID. A WKT Point string is accepted as well.|✓|||
+DISTANCE|Distance (meters)|Number|The distance to use when doing the buffering around the named area. The distance must be in meters.|✓||Default: 1000 <br> Type: Integer<br> Min: 1.0, Max: 1.7976931348623157e+308 <br>|
+TIMEOUT|Timeout|Number|The timeout to use for the Overpass API.|✓|✓|Default: 25 <br> Type: Integer<br> Min: 5.0, Max: 1.7976931348623157e+308 <br>|
+SERVER|Overpass server|String|The Overpass API server to use to build the encoded URL.|✓|✓|Default: https://lz4.overpass-api.de/api/interpreter <br> |
 
 
 #### Outputs
@@ -47,12 +47,12 @@ This algorithm builds a query and then encode it into the Overpass API URL. The 
 
 #### Parameters
 
-| ID | Description | Type | Info | Required | Advanced |
-|:-:|:-:|:-:|:-:|:-:|:-:|
-KEY|Key, default to all keys|String|The OSM key to use. It can be empty and it will default to all keys.|||
-VALUE|Value, default to all values|String|The OSM value to use. It can be empty and it will default to all values.|||
-TIMEOUT|Timeout|Number|The timeout to use for the Overpass API.|✓|✓|
-SERVER|Overpass server|String|The Overpass API server to use to build the encoded URL.|✓|✓|
+| ID | Description | Type | Info | Required | Advanced | Option |
+|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
+KEY|Key, default to all keys|String|The OSM key to use. It can be empty and it will default to all keys.||||
+VALUE|Value, default to all values|String|The OSM value to use. It can be empty and it will default to all values.||||
+TIMEOUT|Timeout|Number|The timeout to use for the Overpass API.|✓|✓|Default: 25 <br> Type: Integer<br> Min: 5.0, Max: 1.7976931348623157e+308 <br>|
+SERVER|Overpass server|String|The Overpass API server to use to build the encoded URL.|✓|✓|Default: https://lz4.overpass-api.de/api/interpreter <br> |
 
 
 #### Outputs
@@ -74,13 +74,13 @@ This algorithm builds a query and then encode it into the Overpass API URL. The 
 
 #### Parameters
 
-| ID | Description | Type | Info | Required | Advanced |
-|:-:|:-:|:-:|:-:|:-:|:-:|
-KEY|Key, default to all keys|String|The OSM key to use. It can be empty and it will default to all keys.|||
-VALUE|Value, default to all values|String|The OSM value to use. It can be empty and it will default to all values.|||
-EXTENT|Extent|Extent|The extent as a rectangle to use when building the query.|✓||
-TIMEOUT|Timeout|Number|The timeout to use for the Overpass API.|✓|✓|
-SERVER|Overpass server|String|The Overpass API server to use to build the encoded URL.|✓|✓|
+| ID | Description | Type | Info | Required | Advanced | Option |
+|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
+KEY|Key, default to all keys|String|The OSM key to use. It can be empty and it will default to all keys.||||
+VALUE|Value, default to all values|String|The OSM value to use. It can be empty and it will default to all values.||||
+EXTENT|Extent|Extent|The extent as a rectangle to use when building the query.|✓|||
+TIMEOUT|Timeout|Number|The timeout to use for the Overpass API.|✓|✓|Default: 25 <br> Type: Integer<br> Min: 5.0, Max: 1.7976931348623157e+308 <br>|
+SERVER|Overpass server|String|The Overpass API server to use to build the encoded URL.|✓|✓|Default: https://lz4.overpass-api.de/api/interpreter <br> |
 
 
 #### Outputs
@@ -102,13 +102,13 @@ This algorithm builds a query and then encode it into the Overpass API URL. The 
 
 #### Parameters
 
-| ID | Description | Type | Info | Required | Advanced |
-|:-:|:-:|:-:|:-:|:-:|:-:|
-KEY|Key, default to all keys|String|The OSM key to use. It can be empty and it will default to all keys.|||
-VALUE|Value, default to all values|String|The OSM value to use. It can be empty and it will default to all values.|||
-AREA|Inside the area|String|The name of the area. This will make a first query to the Nominatim API to fetch the OSM ID.|✓||
-TIMEOUT|Timeout|Number|The timeout to use for the Overpass API.|✓|✓|
-SERVER|Overpass server|String|The Overpass API server to use to build the encoded URL.|✓|✓|
+| ID | Description | Type | Info | Required | Advanced | Option |
+|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
+KEY|Key, default to all keys|String|The OSM key to use. It can be empty and it will default to all keys.||||
+VALUE|Value, default to all values|String|The OSM value to use. It can be empty and it will default to all values.||||
+AREA|Inside the area|String|The name of the area. This will make a first query to the Nominatim API to fetch the OSM ID.|✓|||
+TIMEOUT|Timeout|Number|The timeout to use for the Overpass API.|✓|✓|Default: 25 <br> Type: Integer<br> Min: 5.0, Max: 1.7976931348623157e+308 <br>|
+SERVER|Overpass server|String|The Overpass API server to use to build the encoded URL.|✓|✓|Default: https://lz4.overpass-api.de/api/interpreter <br> |
 
 
 #### Outputs
@@ -130,12 +130,12 @@ A XML or OQL query to send to a Overpass API server.
 
 #### Parameters
 
-| ID | Description | Type | Info | Required | Advanced |
-|:-:|:-:|:-:|:-:|:-:|:-:|
-QUERY|Query|String|A XML or OQL query to be send to the Overpass API. It can contains some {{}} tokens.|✓||
-EXTENT|Extent, if "{{bbox}}" in the query|Extent|If the query has a {{bbox}} token, this extent will be used for replacement.|||
-SERVER|Overpass server|String|The Overpass API server to use to build the encoded URL.|✓|✓|
-AREA|Area (if you want to override {{geocodeArea}} in the query)|String|The query is generated in the OQL format.||✓|
+| ID | Description | Type | Info | Required | Advanced | Option |
+|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
+QUERY|Query|String|A XML or OQL query to be send to the Overpass API. It can contains some {{}} tokens.|✓|||
+EXTENT|Extent, if "{{bbox}}" in the query|Extent|If the query has a {{bbox}} token, this extent will be used for replacement.||||
+SERVER|Overpass server|String|The Overpass API server to use to build the encoded URL.|✓|✓|Default: https://lz4.overpass-api.de/api/interpreter <br> |
+AREA|Area (if you want to override {{geocodeArea}} in the query)|String|The query is generated in the OQL format.||✓||
 
 
 #### Outputs
@@ -157,10 +157,10 @@ Open all sublayers from an OSM file. A custom OSM configuration file can be spec
 
 #### Parameters
 
-| ID | Description | Type | Info | Required | Advanced |
-|:-:|:-:|:-:|:-:|:-:|:-:|
-FILE|OSM file|File|The extension can be a OSM or PBF file.|✓||
-OSM_CONF|OSM configuration|File|The OGR OSM configuration file. This file is used to customize the import process about OSM tags. You should read the OGR documentation https://gdal.org/drivers/vector/osm.html|||
+| ID | Description | Type | Info | Required | Advanced | Option |
+|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
+FILE|OSM file|File|The extension can be a OSM or PBF file.|✓|||
+OSM_CONF|OSM configuration|File|The OGR OSM configuration file. This file is used to customize the import process about OSM tags. You should read the OGR documentation https://gdal.org/drivers/vector/osm.html||||
 
 
 #### Outputs
