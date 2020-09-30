@@ -1030,6 +1030,35 @@ QListWidget::item::selected {
            <widget class="QWidget" name="about_page">
             <layout class="QVBoxLayout" name="verticalLayout_4">
              <item>
+              <widget class="QGroupBox" name="groupBox_5">
+               <property name="title">
+                <string>Help</string>
+               </property>
+               <layout class="QVBoxLayout" name="verticalLayout_15">
+                <item>
+                 <widget class="QLabel" name="label_14">
+                  <property name="text">
+                   <string>A quick tutorial and how to use QuickOSM within the Processing model or in a Python script is available on line.</string>
+                  </property>
+                  <property name="wordWrap">
+                   <bool>true</bool>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLabel" name="label_46">
+                  <property name="text">
+                   <string notr="true">&lt;a href=&quot;https://docs.3liz.org/QuickOSM&quot; style=&quot;color:#7BA11A;text-decoration:none;&quot;&gt;https://docs.3liz.org/QuickOSM&lt;/a&gt;</string>
+                  </property>
+                  <property name="openExternalLinks">
+                   <bool>true</bool>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </widget>
+             </item>
+             <item>
               <widget class="QGroupBox" name="groupBox_2">
                <property name="title">
                 <string>Realization</string>
@@ -1050,16 +1079,6 @@ QListWidget::item::selected {
                     </property>
                     <property name="scaledContents">
                      <bool>false</bool>
-                    </property>
-                    <property name="openExternalLinks">
-                     <bool>true</bool>
-                    </property>
-                   </widget>
-                  </item>
-                  <item>
-                   <widget class="QLabel" name="label_14">
-                    <property name="text">
-                     <string notr="true">&lt;a href=&quot;mailto:etienne@trimaille.eu?subject=Plugin QuickOSM - About&quot; style=&quot;color:#7BA11A;text-decoration:none;&quot;&gt;etienne@trimaille.eu&lt;/a&gt;</string>
                     </property>
                     <property name="openExternalLinks">
                      <bool>true</bool>
@@ -1116,6 +1135,9 @@ QListWidget::item::selected {
                    <bool>true</bool>
                   </property>
                   <property name="wordWrap">
+                   <bool>true</bool>
+                  </property>
+                  <property name="openExternalLinks">
                    <bool>true</bool>
                   </property>
                  </widget>
