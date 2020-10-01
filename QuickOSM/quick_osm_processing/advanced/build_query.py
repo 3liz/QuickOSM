@@ -111,7 +111,8 @@ class BuildQueryBasedAlgorithm(QgisAlgorithm):
             'The query is generated and encoded with the Overpass API URL. This output should be used in the File '
             'Downloader algorithm.')
         if Qgis.QGIS_VERSION_INT >= 31500:
-            output.setHelp(help_string)
+            pass
+            # output.setHelp(help_string)
         else:
             output.tooltip_3liz = help_string
         self.addOutput(output)
@@ -119,11 +120,8 @@ class BuildQueryBasedAlgorithm(QgisAlgorithm):
         output = QgsProcessingOutputString(self.OUTPUT_OQL_QUERY, tr('Raw query as OQL'))
         help_string = tr('The query is generated in the OQL format.')
         if Qgis.QGIS_VERSION_INT >= 31500:
-            output.setHelp(help_string)
-        else:
-            output.tooltip_3liz = help_string
-        if Qgis.QGIS_VERSION_INT >= 31500:
-            output.setHelp(help_string)
+            pass
+            # output.setHelp(help_string)
         else:
             output.tooltip_3liz = help_string
         self.addOutput(output)

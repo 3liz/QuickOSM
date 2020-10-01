@@ -84,7 +84,8 @@ class OpenOsmFile(QgisAlgorithm):
             self.OUTPUT_POINTS, self.tr('Output points'), QgsProcessing.TypeVectorPoint)
         help_string = tr('The point layer from the OGR OSM driver.')
         if Qgis.QGIS_VERSION_INT >= 31500:
-            output.setHelp(help_string)
+            pass
+            # output.setHelp(help_string)
         else:
             output.tooltip_3liz = help_string
         self.addOutput(output)
@@ -93,7 +94,8 @@ class OpenOsmFile(QgisAlgorithm):
             self.OUTPUT_LINES, self.tr('Output lines'), QgsProcessing.TypeVectorLine)
         help_string = tr('The line layer from the OGR OSM driver.')
         if Qgis.QGIS_VERSION_INT >= 31500:
-            output.setHelp(help_string)
+            pass
+            # output.setHelp(help_string)
         else:
             output.tooltip_3liz = help_string
         self.addOutput(output)
@@ -102,7 +104,8 @@ class OpenOsmFile(QgisAlgorithm):
             self.OUTPUT_MULTILINESTRINGS, self.tr('Output multilinestrings'), QgsProcessing.TypeVectorLine)
         help_string = tr('The multilinestrings layer from the OGR OSM driver.')
         if Qgis.QGIS_VERSION_INT >= 31500:
-            output.setHelp(help_string)
+            pass
+            # output.setHelp(help_string)
         else:
             output.tooltip_3liz = help_string
         self.addOutput(output)
@@ -111,7 +114,8 @@ class OpenOsmFile(QgisAlgorithm):
             self.OUTPUT_MULTIPOLYGONS, self.tr('Output multipolygons'), QgsProcessing.TypeVectorPolygon)
         help_string = tr('The multipolygon layer from the OGR OSM driver.')
         if Qgis.QGIS_VERSION_INT >= 31500:
-            output.setHelp(help_string)
+            pass
+            # output.setHelp(help_string)
         else:
             output.tooltip_3liz = help_string
         self.addOutput(output)
@@ -120,7 +124,8 @@ class OpenOsmFile(QgisAlgorithm):
             self.OUTPUT_OTHER_RELATIONS, self.tr('Output other relations'), QgsProcessing.TypeVector)
         help_string = tr('The relation layer from the OGR OSM driver.')
         if Qgis.QGIS_VERSION_INT >= 31500:
-            output.setHelp(help_string)
+            pass
+            # output.setHelp(help_string)
         else:
             output.tooltip_3liz = help_string
         self.addOutput(output)

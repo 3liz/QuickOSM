@@ -106,7 +106,8 @@ class RawQueryAlgorithm(QgisAlgorithm):
             'The query is generated and encoded with the Overpass API URL. This output should be used in the File '
             'Downloader algorithm.')
         if Qgis.QGIS_VERSION_INT >= 31500:
-            param.setHelp(help_string)
+            pass
+            # param.setHelp(help_string)
         else:
             param.tooltip_3liz = help_string
         self.addOutput(output)
@@ -114,7 +115,8 @@ class RawQueryAlgorithm(QgisAlgorithm):
         output = QgsProcessingOutputString(self.OUTPUT_OQL_QUERY, tr('Raw query as OQL'))
         help_string = tr('The query is generated in the OQL format.')
         if Qgis.QGIS_VERSION_INT >= 31500:
-            param.setHelp(help_string)
+            pass
+            # param.setHelp(help_string)
         else:
             param.tooltip_3liz = help_string
         self.addOutput(output)
