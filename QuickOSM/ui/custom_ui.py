@@ -1,8 +1,13 @@
 """File for custom UI widgets."""
 
-from qgis.PyQt.QtWidgets import (
-    QStyledItemDelegate, QComboBox, QCompleter, QTableView, QLineEdit)
 from qgis.PyQt.QtCore import QStringListModel
+from qgis.PyQt.QtWidgets import (
+    QComboBox,
+    QCompleter,
+    QLineEdit,
+    QStyledItemDelegate,
+    QTableView,
+)
 
 __copyright__ = 'Copyright 2019, 3Liz'
 __license__ = 'GPL version 3'

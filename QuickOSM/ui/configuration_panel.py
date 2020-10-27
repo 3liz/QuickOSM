@@ -4,15 +4,14 @@ import logging
 
 from json import load
 
-from .base_panel import BasePanel
-from ..core.utilities.tools import (
+from QuickOSM.core.utilities.tools import (
+    custom_config_file,
     get_setting,
     set_setting,
-    custom_config_file,
 )
-from ..definitions.gui import Panels
-from ..definitions.overpass import OVERPASS_SERVERS
-
+from QuickOSM.definitions.gui import Panels
+from QuickOSM.definitions.overpass import OVERPASS_SERVERS
+from QuickOSM.ui.base_panel import BasePanel
 
 __copyright__ = 'Copyright 2019, 3Liz'
 __license__ = 'GPL version 3'

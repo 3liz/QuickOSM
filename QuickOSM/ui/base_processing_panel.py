@@ -6,11 +6,15 @@ from qgis.gui import QgsFileWidget
 from qgis.PyQt.QtCore import Qt
 from qgis.PyQt.QtWidgets import QApplication
 
-from .base_panel import BasePanel
-from ..core.exceptions import QuickOsmException, OutPutGeomTypesException, DirectoryOutPutException
-from ..definitions.gui import Panels
-from ..definitions.osm import LayerType
-from ..qgis_plugin_tools.tools.i18n import tr
+from QuickOSM.core.exceptions import (
+    DirectoryOutPutException,
+    OutPutGeomTypesException,
+    QuickOsmException,
+)
+from QuickOSM.definitions.gui import Panels
+from QuickOSM.definitions.osm import LayerType
+from QuickOSM.qgis_plugin_tools.tools.i18n import tr
+from QuickOSM.ui.base_panel import BasePanel
 
 __copyright__ = 'Copyright 2019, 3Liz'
 __license__ = 'GPL version 3'

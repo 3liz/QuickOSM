@@ -4,16 +4,15 @@ import logging
 
 from os.path import isfile
 
-from qgis.core import QgsProject, Qgis
+from qgis.core import Qgis, QgsProject
 
-from .base_processing_panel import BaseProcessingPanel
-from ..core.exceptions import FileDoesntExistException
-from ..core.parser.osm_parser import OsmParser
-from ..core.process import open_file
-from ..definitions.gui import Panels
-from ..qgis_plugin_tools.tools.i18n import tr
-from ..qgis_plugin_tools.tools.resources import resources_path
-
+from QuickOSM.core.exceptions import FileDoesntExistException
+from QuickOSM.core.parser.osm_parser import OsmParser
+from QuickOSM.core.process import open_file
+from QuickOSM.definitions.gui import Panels
+from QuickOSM.qgis_plugin_tools.tools.i18n import tr
+from QuickOSM.qgis_plugin_tools.tools.resources import resources_path
+from QuickOSM.ui.base_processing_panel import BaseProcessingPanel
 
 __copyright__ = 'Copyright 2019, 3Liz'
 __license__ = 'GPL version 3'

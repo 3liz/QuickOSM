@@ -3,23 +3,22 @@
 import re
 
 from qgis.PyQt.QtGui import QIcon
-from qgis.PyQt.QtWidgets import (
-    QDialogButtonBox,
-    QMenu,
-    QAction,
-)
+from qgis.PyQt.QtWidgets import QAction, QDialogButtonBox, QMenu
 
-from .base_overpass_panel import BaseOverpassPanel
-from .xml_highlighter import XMLHighlighter
-from ..core.exceptions import MissingParameterException
-from ..core.process import process_query
-from ..core.query_preparation import QueryPreparation
-from ..core.utilities.utilities_qgis import (
-    open_map_features, open_doc_overpass, open_overpass_turbo)
-from ..definitions.gui import Panels
-from ..definitions.osm import LayerType
-from ..qgis_plugin_tools.tools.i18n import tr
-from ..qgis_plugin_tools.tools.resources import resources_path
+from QuickOSM.core.exceptions import MissingParameterException
+from QuickOSM.core.process import process_query
+from QuickOSM.core.query_preparation import QueryPreparation
+from QuickOSM.core.utilities.utilities_qgis import (
+    open_doc_overpass,
+    open_map_features,
+    open_overpass_turbo,
+)
+from QuickOSM.definitions.gui import Panels
+from QuickOSM.definitions.osm import LayerType
+from QuickOSM.qgis_plugin_tools.tools.i18n import tr
+from QuickOSM.qgis_plugin_tools.tools.resources import resources_path
+from QuickOSM.ui.base_overpass_panel import BaseOverpassPanel
+from QuickOSM.ui.xml_highlighter import XMLHighlighter
 
 __copyright__ = 'Copyright 2019, 3Liz'
 __license__ = 'GPL version 3'

@@ -1,6 +1,6 @@
 """XML Highlighter class."""
 
-from qgis.PyQt.QtCore import Qt, QRegExp
+from qgis.PyQt.QtCore import QRegExp, Qt
 from qgis.PyQt.QtGui import QColor, QFont, QSyntaxHighlighter, QTextCharFormat
 
 __copyright__ = 'Copyright 2019, 3Liz'
@@ -19,8 +19,10 @@ class XMLHighlighter(QSyntaxHighlighter):
 
         keyword_patterns = ["\\b?xml\\b", "/>", ">", "<"]
 
-        self.highlightingRules = [(QRegExp(pattern), keyword_format)
-                                  for pattern in keyword_patterns]
+        self.highlightingRules = [
+            (QRegExp(pattern), keyword_format)
+            for pattern in keyword_patterns
+        ]
 
         xml_element_format = QTextCharFormat()
         xml_element_format.setForeground(QColor("#117700"))

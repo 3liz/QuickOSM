@@ -1,20 +1,20 @@
 """OSM Parser file."""
 
-from os.path import dirname, realpath, join, isfile, basename
+from os.path import basename, dirname, isfile, join, realpath
 
 from osgeo import gdal
-from qgis.PyQt.QtCore import QObject, pyqtSignal, QVariant
 from qgis.core import (
-    QgsVectorLayer,
-    QgsFields,
-    QgsField,
     QgsFeature,
-    QgsMemoryProviderUtils,
+    QgsField,
+    QgsFields,
     QgsHstoreUtils,
+    QgsMemoryProviderUtils,
+    QgsVectorLayer,
 )
+from qgis.PyQt.QtCore import QObject, QVariant, pyqtSignal
 
-from ..exceptions import QuickOsmException
-from ...qgis_plugin_tools.tools.i18n import tr
+from QuickOSM.core.exceptions import QuickOsmException
+from QuickOSM.qgis_plugin_tools.tools.i18n import tr
 
 __copyright__ = 'Copyright 2019, 3Liz'
 __license__ = 'GPL version 3'
@@ -45,7 +45,8 @@ class OsmParser(QObject):
         'multilinestrings': None,
         'points': None,
         'lines': None,
-        'multipolygons': None}
+        'multipolygons': None
+    }
 
     def __init__(
             self,
@@ -63,7 +64,8 @@ class OsmParser(QObject):
                 'multilinestrings': None,
                 'points': None,
                 'lines': None,
-                'multipolygons': None}
+                'multipolygons': None
+            }
 
         self.__whiteListColumn = white_list_column
         self.__deleteEmptyLayers = delete_empty_layers

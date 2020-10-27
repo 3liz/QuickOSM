@@ -1,19 +1,20 @@
 """Processing QuickOSM provider."""
 
-from qgis.PyQt.QtGui import QIcon
 from qgis.core import QgsProcessingProvider
+from qgis.PyQt.QtGui import QIcon
 
-from .advanced.build_query import (
-    BuildQueryInAreaAlgorithm,
+from QuickOSM.qgis_plugin_tools.tools.resources import resources_path
+from QuickOSM.quick_osm_processing.advanced.build_query import (
     BuildQueryAroundAreaAlgorithm,
     BuildQueryExtentAlgorithm,
+    BuildQueryInAreaAlgorithm,
     BuildQueryNotSpatialAlgorithm,
 )
+
 # from .advanced.download_overpass import (
 #   DownloadOverpassUrl)
-from .advanced.open_osm_file import OpenOsmFile
-from .advanced.raw_query import RawQueryAlgorithm
-from ..qgis_plugin_tools.tools.resources import resources_path
+from QuickOSM.quick_osm_processing.advanced.open_osm_file import OpenOsmFile
+from QuickOSM.quick_osm_processing.advanced.raw_query import RawQueryAlgorithm
 
 __copyright__ = 'Copyright 2019, 3Liz'
 __license__ = 'GPL version 3'
@@ -23,7 +24,7 @@ __revision__ = '$Format:%H$'
 
 class Provider(QgsProcessingProvider):
 
-    def id(self, *args, **kwargs):
+    def id(self, *args, **kwargs):  # NOQA
         return 'quickosm'
 
     def name(self, *args, **kwargs):

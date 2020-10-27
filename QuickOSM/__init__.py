@@ -8,7 +8,7 @@ __revision__ = '$Format:%H$'
 
 # noinspection PyDocstring,PyPep8Naming
 def classFactory(iface):
-    from .quick_osm import QuickOSMPlugin
+    from QuickOSM.quick_osm import QuickOSMPlugin
     return QuickOSMPlugin(iface)
 
 

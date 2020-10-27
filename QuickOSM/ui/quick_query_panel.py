@@ -3,18 +3,17 @@
 from json import load
 from os.path import isfile
 
-from qgis.PyQt.QtWidgets import QDialogButtonBox, QCompleter
+from qgis.PyQt.QtWidgets import QCompleter, QDialogButtonBox
 
-from .base_overpass_panel import BaseOverpassPanel
-from ..core.exceptions import OsmObjectsException, QuickOsmException
-from ..core.process import process_quick_query
-from ..core.query_factory import QueryFactory
-from ..core.utilities.utilities_qgis import open_map_features
-from ..definitions.gui import Panels
-from ..definitions.osm import QueryType, OsmType
-from ..qgis_plugin_tools.tools.i18n import tr
-from ..qgis_plugin_tools.tools.resources import resources_path
-
+from QuickOSM.core.exceptions import OsmObjectsException, QuickOsmException
+from QuickOSM.core.process import process_quick_query
+from QuickOSM.core.query_factory import QueryFactory
+from QuickOSM.core.utilities.utilities_qgis import open_map_features
+from QuickOSM.definitions.gui import Panels
+from QuickOSM.definitions.osm import OsmType, QueryType
+from QuickOSM.qgis_plugin_tools.tools.i18n import tr
+from QuickOSM.qgis_plugin_tools.tools.resources import resources_path
+from QuickOSM.ui.base_overpass_panel import BaseOverpassPanel
 
 __copyright__ = 'Copyright 2019, 3Liz'
 __license__ = 'GPL version 3'
@@ -237,7 +236,7 @@ class QuickQueryPanel(BaseOverpassPanel):
             msg = query_factory.friendly_message()
         except QuickOsmException as e:
             self.dialog.label_qq_friendly.setStyleSheet('QLabel { color : red; }')
-            self.dialog.label_qq_friendly.setText(e.message)
+            self.dialog.label_qq_friendly.setText(str(e))
         except Exception as e:
             self.dialog.display_critical_exception(e)
             self.dialog.label_qq_friendly.setText('')

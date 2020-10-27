@@ -4,21 +4,15 @@ import logging
 import os
 import re
 
-from qgis.PyQt.QtCore import (
-    QUrl,
-    QEventLoop,
-    QTemporaryFile,
-    QDir,
-    QFileInfo,
-)
 from qgis.core import QgsFileDownloader
+from qgis.PyQt.QtCore import QDir, QEventLoop, QFileInfo, QTemporaryFile, QUrl
 
-from ..exceptions import (
-    OverpassBadRequestException,
-    OverpassTimeoutException,
+from QuickOSM.core.exceptions import (
     NetWorkErrorException,
-    OverpassRuntimeError,
+    OverpassBadRequestException,
     OverpassMemoryException,
+    OverpassRuntimeError,
+    OverpassTimeoutException,
 )
 
 __copyright__ = 'Copyright 2019, 3Liz'
@@ -109,14 +103,14 @@ class ConnexionOAPI:
         def last_lines(file_path, line_count):
             bufsize = 8192
             fsize = os.stat(file_path).st_size
-            iter = 0
+            iteration = 0
             with open(file_path) as f:
                 if bufsize > fsize:
                     bufsize = fsize - 1
                     data = []
                     while True:
-                        iter += 1
-                        seek_size = fsize - bufsize * iter
+                        iteration += 1
+                        seek_size = fsize - bufsize * iteration
                         if seek_size < 0:
                             seek_size = 0
                         f.seek(seek_size)

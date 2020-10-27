@@ -4,7 +4,7 @@ from qgis.testing import unittest
 
 from QuickOSM.core.exceptions import QueryFactoryException
 from QuickOSM.core.query_factory import QueryFactory
-from QuickOSM.definitions.osm import QueryType, OsmType
+from QuickOSM.definitions.osm import OsmType, QueryType
 
 __copyright__ = 'Copyright 2019, 3Liz'
 __license__ = 'GPL version 3'
@@ -205,7 +205,8 @@ class TestQueryFactory(unittest.TestCase):
             '<recurse type="down"/>'
             '</union>'
             '<print mode="body" />'
-            '</osm-script>')
+            '</osm-script>'
+        )
         expected_xml_with_template = (
             '<osm-script output="xml" timeout="25">'
             '<id-query {{geocodeArea:paris}} into="area_0"/>'
@@ -467,7 +468,8 @@ class TestQueryFactory(unittest.TestCase):
             '</union>'
             '<union>'
             '<item /><recurse type="down"/>'
-            '</union><print mode="meta" /></osm-script>')
+            '</union><print mode="meta" /></osm-script>'
+        )
         expected_xml_with_template = (
             '<osm-script output="xml" timeout="25">'
             '<union>'
@@ -590,7 +592,8 @@ class TestQueryFactory(unittest.TestCase):
             '<bbox-query {{bbox}}/>\n        </query>\n    '
             '</union>\n    <union>\n        <item/>\n        '
             '<recurse type="down"/>\n    </union>\n    '
-            '<print mode="body"/>\n</osm-script>\n')
+            '<print mode="body"/>\n</osm-script>\n'
+        )
         self.assertEqual(query.make(), expected)
 
 

@@ -4,10 +4,7 @@
 # import re
 # import processing
 from processing.algs.qgis.QgisAlgorithm import QgisAlgorithm
-from qgis.core import (
-    QgsProcessingParameterString,
-    QgsProcessingOutputFile,
-)
+from qgis.core import QgsProcessingOutputFile, QgsProcessingParameterString
 
 __copyright__ = 'Copyright 2019, 3Liz'
 __license__ = 'GPL version 3'

@@ -3,18 +3,15 @@
 import logging
 import re
 
-from qgis.PyQt.QtCore import QUrl, QUrlQuery
 from qgis.core import QgsGeometry
+from qgis.PyQt.QtCore import QUrl, QUrlQuery
 
-from .api.nominatim import Nominatim
-from .exceptions import (
-    QueryNotSupported,
-    QueryFactoryException,
-)
-from .utilities.tools import get_setting
-from ..definitions.overpass import OVERPASS_SERVERS
-from ..qgis_plugin_tools.tools.i18n import tr
-from ..qgis_plugin_tools.tools.resources import plugin_name
+from QuickOSM.core.api.nominatim import Nominatim
+from QuickOSM.core.exceptions import QueryFactoryException, QueryNotSupported
+from QuickOSM.core.utilities.tools import get_setting
+from QuickOSM.definitions.overpass import OVERPASS_SERVERS
+from QuickOSM.qgis_plugin_tools.tools.i18n import tr
+from QuickOSM.qgis_plugin_tools.tools.resources import plugin_name
 
 __copyright__ = 'Copyright 2019, 3Liz'
 __license__ = 'GPL version 3'
@@ -311,11 +308,11 @@ class QueryPreparation:
         if self._output_format:
             query = re.sub(
                 r'output="[a-z]*"',
-                'output="%s"' % self._output_format,
+                'output="{}"'.format(self._output_format),
                 self._query_prepared)
             query = re.sub(
                 r'\[out:[a-z]*',
-                '[out:%s' % self._output_format,
+                '[out:{}'.format(self._output_format),
                 query)
         else:
             query = self._query_prepared

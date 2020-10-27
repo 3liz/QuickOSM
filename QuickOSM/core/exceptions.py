@@ -2,8 +2,8 @@
 
 from qgis.core import Qgis
 
-from ..definitions.osm import OsmType
-from ..qgis_plugin_tools.tools.i18n import tr
+from QuickOSM.definitions.osm import OsmType
+from QuickOSM.qgis_plugin_tools.tools.i18n import tr
 
 __copyright__ = 'Copyright 2019, 3Liz'
 __license__ = 'GPL version 3'

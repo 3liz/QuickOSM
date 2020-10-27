@@ -1,14 +1,14 @@
 """Tests for Overpass API requests."""
 
-from qgis.testing import unittest
 from qgis.PyQt.QtCore import QUrl, QUrlQuery
+from qgis.testing import unittest
 
 from QuickOSM.core.api.connexion_oapi import ConnexionOAPI
 from QuickOSM.core.exceptions import (
     OverpassBadRequestException,
-    OverpassTimeoutException,
     OverpassMemoryException,
     OverpassRuntimeError,
+    OverpassTimeoutException,
 )
 from QuickOSM.definitions.overpass import OVERPASS_SERVERS
 from QuickOSM.qgis_plugin_tools.tools.resources import plugin_test_data_path
@@ -61,7 +61,8 @@ class TestOverpass(unittest.TestCase):
             '22/%3E%0A %3Carea-query from%3D%22area_0%22/%3E%0A %3C/query%3E%'
             '0A %3C/union%3E%0A %3Cunion%3E%0A %3Citem/%3E%0A %3Crecurse type'
             '%3D%22down%22/%3E%0A %3C/union%3E%0A %3Cprint mode%3D%22body%22/'
-            '%3E%0A%3C/osm-script%3E&info=QgisQuickOSMPlugin timed out')
+            '%3E%0A%3C/osm-script%3E&info=QgisQuickOSMPlugin timed out'
+        )
         try:
             ConnexionOAPI.is_query_timed_out(string)
         except OverpassTimeoutException:
@@ -82,7 +83,7 @@ class TestOverpass(unittest.TestCase):
             ConnexionOAPI.check_file(timeout_file)
         except OverpassTimeoutException as e:
             self.assertEqual(
-                e.message,
+                str(e),
                 'OverpassAPI timeout, try again later or a smaller query.')
         else:
             self.assertFalse(True)
@@ -92,7 +93,7 @@ class TestOverpass(unittest.TestCase):
             ConnexionOAPI.check_file(run_out_memory)
         except OverpassMemoryException as e:
             self.assertEqual(
-                e.message,
+                str(e),
                 'OverpassAPI is out of memory, try another query or a smaller area.')
             self.assertEqual(
                 e.more_details,
@@ -104,6 +105,6 @@ class TestOverpass(unittest.TestCase):
         try:
             ConnexionOAPI.check_file(generic_error)
         except OverpassRuntimeError as e:
-            self.assertEqual(e.message, 'Overpass error: FAKE error that I do not know')
+            self.assertEqual(str(e), 'Overpass error: FAKE error that I do not know')
         else:
             self.assertFalse(True)

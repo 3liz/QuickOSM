@@ -6,15 +6,15 @@ from osgeo import gdal
 from processing.algs.qgis.QgisAlgorithm import QgisAlgorithm
 from qgis.core import (
     Qgis,
-    QgsVectorLayer,
     QgsProcessing,
     QgsProcessingAlgorithm,
     QgsProcessingException,
-    QgsProcessingParameterFile,
     QgsProcessingOutputVectorLayer,
+    QgsProcessingParameterFile,
+    QgsVectorLayer,
 )
 
-from ...qgis_plugin_tools.tools.i18n import tr
+from QuickOSM.qgis_plugin_tools.tools.i18n import tr
 
 __copyright__ = 'Copyright 2019, 3Liz'
 __license__ = 'GPL version 3'

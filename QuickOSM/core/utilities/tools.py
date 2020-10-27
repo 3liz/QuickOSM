@@ -3,10 +3,11 @@
 import io
 import platform
 import sys
-from os.path import join, abspath, isfile
 
-from qgis.PyQt.QtCore import QDir
+from os.path import abspath, isfile, join
+
 from qgis.core import QgsApplication, QgsSettings
+from qgis.PyQt.QtCore import QDir
 
 __copyright__ = 'Copyright 2019, 3Liz'
 __license__ = 'GPL version 3'

@@ -3,20 +3,23 @@
 import logging
 import urllib.request
 
-from qgis.PyQt.QtCore import QTranslator, QCoreApplication
-from qgis.PyQt.QtGui import QIcon
-from qgis.PyQt.QtWidgets import QMenu, QAction
 from qgis.core import (
     QgsApplication,
-    QgsCoordinateTransform,
     QgsCoordinateReferenceSystem,
+    QgsCoordinateTransform,
     QgsProject,
 )
+from qgis.PyQt.QtCore import QCoreApplication, QTranslator
+from qgis.PyQt.QtGui import QIcon
+from qgis.PyQt.QtWidgets import QAction, QMenu
 
-from .qgis_plugin_tools.tools.custom_logging import setup_logger
-from .qgis_plugin_tools.tools.i18n import setup_translation, tr
-from .qgis_plugin_tools.tools.resources import plugin_name, resources_path
-from .quick_osm_processing.provider import Provider
+from QuickOSM.qgis_plugin_tools.tools.custom_logging import setup_logger
+from QuickOSM.qgis_plugin_tools.tools.i18n import setup_translation, tr
+from QuickOSM.qgis_plugin_tools.tools.resources import (
+    plugin_name,
+    resources_path,
+)
+from QuickOSM.quick_osm_processing.provider import Provider
 
 __copyright__ = 'Copyright 2019, 3Liz'
 __license__ = 'GPL version 3'
@@ -118,7 +121,7 @@ class QuickOSMPlugin:
             extent = transform.transform(extent)
 
         url = 'http://localhost:8111/load_and_zoom?'
-        query_string = 'left=%f&right=%f&top=%f&bottom=%f' % (
+        query_string = 'left={}&right={}&top={}&bottom={}'.format(
             extent.xMinimum(), extent.xMaximum(), extent.yMaximum(),
             extent.yMinimum())
         url += query_string
@@ -139,7 +142,7 @@ class QuickOSMPlugin:
 
     def open_dialog(self):
         """Create and open the main dialog."""
-        from .ui.dialog import Dialog
+        from QuickOSM.ui.dialog import Dialog
         dialog = Dialog(self.iface)
         dialog.exec_()
 
@@ -147,8 +150,11 @@ class QuickOSMPlugin:
     def run_tests():
         """Run the test inside QGIS."""
         try:
-            from qgis_plugin_tools.infrastructure.test_runner import test_package
             from pathlib import Path
+
+            from qgis_plugin_tools.infrastructure.test_runner import (
+                test_package,
+            )
             test_package('{}.__init__'.format(Path(__file__).parent.name))
         except (AttributeError, ModuleNotFoundError):
             message = 'Could not load tests. Are you using a production package?'

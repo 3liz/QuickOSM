@@ -4,8 +4,8 @@ import unittest
 
 from qgis.core import QgsRectangle
 
-from QuickOSM.core.query_preparation import QueryPreparation
 from QuickOSM.core.api.nominatim import Nominatim
+from QuickOSM.core.query_preparation import QueryPreparation
 
 __copyright__ = 'Copyright 2019, 3Liz'
 __license__ = 'GPL version 3'
@@ -150,10 +150,12 @@ class TestQueryPreparation(unittest.TestCase):
         # Test with Paris and Montpellier.
         query = (
             'foo{{geocodeCoords:Paris,France}}bar'
-            'foo{{geocodeCoords:Montpellier}}bar')
+            'foo{{geocodeCoords:Montpellier}}bar'
+        )
         expected = (
             'foolat="Paris,France" lon="Paris,France"bar'
-            'foolat="Montpellier" lon="Montpellier"bar')
+            'foolat="Montpellier" lon="Montpellier"bar'
+        )
         test(query, expected)
 
     def test_replace_geocode_area(self):
@@ -196,10 +198,12 @@ class TestQueryPreparation(unittest.TestCase):
         # and bar_FOO.
         query = (
             'foo{{geocodeArea:foo_BAR}}bar'
-            'foo{{geocodeArea:bar_FOO}}bar')
+            'foo{{geocodeArea:bar_FOO}}bar'
+        )
         expected = (
             'fooref="3600012345" type="area"bar'
-            'fooref="3600054321" type="area"bar')
+            'fooref="3600054321" type="area"bar'
+        )
         test(query, expected)
 
     def test_clean_query(self):

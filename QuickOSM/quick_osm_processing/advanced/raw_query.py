@@ -3,20 +3,20 @@
 from processing.algs.qgis.QgisAlgorithm import QgisAlgorithm
 from qgis.core import (
     Qgis,
-    QgsProcessingAlgorithm,
-    QgsProcessingParameterDefinition,
-    QgsProcessingParameterString,
-    QgsProcessingParameterExtent,
-    QgsProcessingOutputString,
-    QgsCoordinateTransform,
-    QgsProject,
     QgsCoordinateReferenceSystem,
+    QgsCoordinateTransform,
+    QgsProcessingAlgorithm,
+    QgsProcessingOutputString,
+    QgsProcessingParameterDefinition,
+    QgsProcessingParameterExtent,
+    QgsProcessingParameterString,
+    QgsProject,
 )
 
-from ...core.query_preparation import QueryPreparation
-from ...core.utilities.tools import get_setting
-from ...definitions.overpass import OVERPASS_SERVERS
-from ...qgis_plugin_tools.tools.i18n import tr
+from QuickOSM.core.query_preparation import QueryPreparation
+from QuickOSM.core.utilities.tools import get_setting
+from QuickOSM.definitions.overpass import OVERPASS_SERVERS
+from QuickOSM.qgis_plugin_tools.tools.i18n import tr
 
 __copyright__ = 'Copyright 2019, 3Liz'
 __license__ = 'GPL version 3'

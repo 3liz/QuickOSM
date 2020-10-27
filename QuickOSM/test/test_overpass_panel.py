@@ -1,4 +1,4 @@
-from qgis.testing import unittest, start_app
+from qgis.testing import start_app, unittest
 from qgis.testing.mocked import get_iface
 
 from QuickOSM.definitions.gui import Panels

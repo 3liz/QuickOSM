@@ -10,8 +10,11 @@ __email__ = 'info@3liz.org'
 __revision__ = '$Format:%H$'
 
 
-from ...definitions.urls import (
-    MAP_FEATURES_URL, DOC_OVERPASS_URL, OVERPASS_TURBO_URL)
+from QuickOSM.definitions.urls import (
+    DOC_OVERPASS_URL,
+    MAP_FEATURES_URL,
+    OVERPASS_TURBO_URL,
+)
 
 
 def open_log_panel():

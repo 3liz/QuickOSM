@@ -2,27 +2,23 @@
 
 import logging
 import traceback
+
 from os.path import split
 from sys import exc_info
 
-from qgis.PyQt.QtGui import QPixmap, QIcon
-from qgis.PyQt.QtWidgets import (
-    QDialog,
-    QApplication,
-    QPushButton,
-    QMessageBox,
-)
 from qgis.core import Qgis
+from qgis.PyQt.QtGui import QIcon, QPixmap
+from qgis.PyQt.QtWidgets import QApplication, QDialog, QMessageBox, QPushButton
 
-from .configuration_panel import ConfigurationPanel
-from .osm_file_panel import OsmFilePanel
-from .query_panel import QueryPanel
-from .quick_query_panel import QuickQueryPanel
-from ..core.exceptions import QuickOsmException
-from ..core.utilities.utilities_qgis import open_log_panel
-from ..definitions.gui import Panels
-from ..qgis_plugin_tools.tools.i18n import tr
-from ..qgis_plugin_tools.tools.resources import load_ui, resources_path
+from QuickOSM.core.exceptions import QuickOsmException
+from QuickOSM.core.utilities.utilities_qgis import open_log_panel
+from QuickOSM.definitions.gui import Panels
+from QuickOSM.qgis_plugin_tools.tools.i18n import tr
+from QuickOSM.qgis_plugin_tools.tools.resources import load_ui, resources_path
+from QuickOSM.ui.configuration_panel import ConfigurationPanel
+from QuickOSM.ui.osm_file_panel import OsmFilePanel
+from QuickOSM.ui.query_panel import QueryPanel
+from QuickOSM.ui.quick_query_panel import QuickQueryPanel
 
 __copyright__ = 'Copyright 2019, 3Liz'
 __license__ = 'GPL version 3'

@@ -2,24 +2,28 @@
 
 import logging
 import time
-from os.path import dirname, abspath, join, isfile
 
-from qgis.PyQt.QtWidgets import QApplication
+from os.path import abspath, dirname, isfile, join
+
 from qgis.core import (
-    QgsVectorLayer, QgsVectorFileWriter, QgsProject, QgsWkbTypes,
     QgsExpressionContextUtils,
+    QgsProject,
+    QgsVectorFileWriter,
+    QgsVectorLayer,
+    QgsWkbTypes,
 )
+from qgis.PyQt.QtWidgets import QApplication
 
-from .actions import add_actions
-from .api.connexion_oapi import ConnexionOAPI
-from .exceptions import FileOutPutException
-from .parser.osm_parser import OsmParser
-from .query_factory import QueryFactory
-from .query_preparation import QueryPreparation
-from .utilities.tools import get_setting, get_default_encoding
-from ..definitions.osm import LayerType
-from ..definitions.overpass import OVERPASS_SERVERS
-from ..qgis_plugin_tools.tools.i18n import tr
+from QuickOSM.core.actions import add_actions
+from QuickOSM.core.api.connexion_oapi import ConnexionOAPI
+from QuickOSM.core.exceptions import FileOutPutException
+from QuickOSM.core.parser.osm_parser import OsmParser
+from QuickOSM.core.query_factory import QueryFactory
+from QuickOSM.core.query_preparation import QueryPreparation
+from QuickOSM.core.utilities.tools import get_default_encoding, get_setting
+from QuickOSM.definitions.osm import LayerType
+from QuickOSM.definitions.overpass import OVERPASS_SERVERS
+from QuickOSM.qgis_plugin_tools.tools.i18n import tr
 
 __copyright__ = 'Copyright 2019, 3Liz'
 __license__ = 'GPL version 3'
@@ -111,7 +115,8 @@ def open_file(
                     'points': QgsWkbTypes.Point,
                     'lines': QgsWkbTypes.LineString,
                     'multilinestrings': QgsWkbTypes.MultiLineString,
-                    'multipolygons': QgsWkbTypes.MultiPolygon}
+                    'multipolygons': QgsWkbTypes.MultiPolygon
+                }
                 memory_layer = item['vector_layer']
 
                 encoding = get_default_encoding()

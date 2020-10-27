@@ -4,20 +4,19 @@ import io
 
 from qgis.core import (
     Qgis,
-    QgsGeometry,
     QgsCoordinateReferenceSystem,
     QgsCoordinateTransform,
+    QgsGeometry,
     QgsProject,
 )
 from qgis.PyQt.QtWidgets import QCompleter
 
-from .base_processing_panel import BaseProcessingPanel
-from ..core.exceptions import MissingLayerUI
-from ..core.utilities.tools import nominatim_file
-from ..definitions.gui import Panels
-from ..definitions.osm import QueryType
-from ..qgis_plugin_tools.tools.i18n import tr
-
+from QuickOSM.core.exceptions import MissingLayerUI
+from QuickOSM.core.utilities.tools import nominatim_file
+from QuickOSM.definitions.gui import Panels
+from QuickOSM.definitions.osm import QueryType
+from QuickOSM.qgis_plugin_tools.tools.i18n import tr
+from QuickOSM.ui.base_processing_panel import BaseProcessingPanel
 
 __copyright__ = 'Copyright 2019, 3Liz'
 __license__ = 'GPL version 3'

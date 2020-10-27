@@ -4,20 +4,14 @@ import json
 import logging
 import os
 
-from qgis.PyQt.QtCore import (
-    QUrl,
-    QUrlQuery,
-    QEventLoop,
-    QTemporaryFile,
-    QDir,
-)
 from qgis.core import QgsFileDownloader
+from qgis.PyQt.QtCore import QDir, QEventLoop, QTemporaryFile, QUrl, QUrlQuery
 
-from ..exceptions import (
+from QuickOSM.core.exceptions import (
     NetWorkErrorException,
-    NominatimAreaException
+    NominatimAreaException,
 )
-from ...definitions.osm import OsmType
+from QuickOSM.definitions.osm import OsmType
 
 __copyright__ = 'Copyright 2019, 3Liz'
 __license__ = 'GPL version 3'

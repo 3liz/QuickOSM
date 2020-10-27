@@ -3,9 +3,9 @@
 from qgis.core import Qgis, QgsAction
 from qgis.utils import iface, plugins
 
-from .utilities.utilities_qgis import open_webpage
-from ..qgis_plugin_tools.tools.i18n import tr
-from ..qgis_plugin_tools.tools.resources import resources_path
+from QuickOSM.core.utilities.utilities_qgis import open_webpage
+from QuickOSM.qgis_plugin_tools.tools.i18n import tr
+from QuickOSM.qgis_plugin_tools.tools.resources import resources_path
 
 __copyright__ = 'Copyright 2019, 3Liz'
 __license__ = 'GPL version 3'
@@ -110,8 +110,10 @@ def add_actions(layer, keys):
         sketch_line = QgsAction(
             QgsAction.GenericPython,
             tr('Sketchline'),
-            (ACTIONS_PATH +
-             'Actions.run_sketch_line("[% "network" %]","[% "ref" %]")'),
+            (
+                ACTIONS_PATH +
+                'Actions.run_sketch_line("[% "network" %]","[% "ref" %]")'
+            ),
             '',
             False,
             '',
@@ -170,9 +172,9 @@ class Actions:
                     open_webpage(url)
 
             elif field == 'josm':
-                import urllib.request
                 import urllib.error
                 import urllib.parse
+                import urllib.request
                 try:
                     url = 'http://localhost:8111/load_object?objects=' + value
                     urllib.request.urlopen(url).read()
