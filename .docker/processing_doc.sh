@@ -13,8 +13,8 @@ docker run -d \
 sleep 10
 
 echo "Setting up"
-docker exec -it qgis-testing-environment sh -c "qgis_setup.sh ${PLUGIN_NAME}"
-docker exec -it qgis-testing-environment sh \
+docker exec -t qgis-testing-environment sh -c "qgis_setup.sh ${PLUGIN_NAME}"
+docker exec -t qgis-testing-environment sh \
   -c "qgis_testrunner.sh ${PLUGIN_NAME}.qgis_plugin_tools.infrastructure.doc_processing.generate_processing_doc"
 
 docker kill qgis-testing-environment

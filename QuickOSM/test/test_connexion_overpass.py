@@ -79,32 +79,24 @@ class TestOverpass(unittest.TestCase):
         """Test we can parse Overpass error within a file."""
 
         timeout_file = plugin_test_data_path('overpass', 'query_timed_out.xml')
-        try:
+        with self.assertRaises(OverpassTimeoutException) as e:
             ConnexionOAPI.check_file(timeout_file)
-        except OverpassTimeoutException as e:
-            self.assertEqual(
-                str(e),
-                'OverpassAPI timeout, try again later or a smaller query.')
-        else:
-            self.assertFalse(True)
+
+        self.assertEqual(
+            str(e.exception),
+            'OverpassAPI timeout, try again later or a smaller query.')
 
         run_out_memory = plugin_test_data_path('overpass', 'run_out_memory.xml')
-        try:
+        with self.assertRaises(OverpassMemoryException) as e:
             ConnexionOAPI.check_file(run_out_memory)
-        except OverpassMemoryException as e:
-            self.assertEqual(
-                str(e),
-                'OverpassAPI is out of memory, try another query or a smaller area.')
-            self.assertEqual(
-                e.more_details,
-                'The server would need more or less 513 MB of RAM.')
-        else:
-            self.assertFalse(True)
+
+        self.assertEqual(
+            str(e.exception),
+            "('OverpassAPI is out of memory, try another query or a smaller area.', 'The server would need "
+            "more or less 513 MB of RAM.')")
 
         generic_error = plugin_test_data_path('overpass', 'generic_error.xml')
-        try:
+        with self.assertRaises(OverpassRuntimeError) as e:
             ConnexionOAPI.check_file(generic_error)
-        except OverpassRuntimeError as e:
-            self.assertEqual(str(e), 'Overpass error: FAKE error that I do not know')
-        else:
-            self.assertFalse(True)
+
+        self.assertEqual(str(e.exception), 'Overpass error: FAKE error that I do not know')

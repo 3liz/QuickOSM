@@ -6,9 +6,13 @@ on:
       - master
     tags:
       - '^\d+\.\d+\.\d+$'
+    paths:
+      - '**.py'
   pull_request:
     branches:
       - master
+    paths:
+      - '**.py'
 
 jobs:
 
