@@ -1,0 +1,24 @@
+name: Transifex 🗺
+
+on:
+  push:
+    paths:
+      - '**.py'
+
+jobs:
+  push-transifex:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Set up Python 3.8
+      uses: actions/setup-python@v1
+      with:
+        python-version: 3.8
+
+    - name: Install qgis-plugin-ci
+      run: pip3 install qgis-plugin-ci==1.8.4
+
+    - name: Push to Transifex
+      run: qgis-plugin-ci push-translation ${{ secrets.TRANSIFEX_TOKEN }}

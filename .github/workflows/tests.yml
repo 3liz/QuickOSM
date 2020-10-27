@@ -1,0 +1,28 @@
+name: Tests 🎳
+
+on:
+  push:
+    branches:
+      - master
+    tags:
+      - '^\d+\.\d+\.\d+$'
+  pull_request:
+    branches:
+      - master
+
+jobs:
+
+  test-qgis:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: .docker
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v2
+        with:
+          submodules: 'true'
+      - name: Launching docker-compose
+        run: ./start.sh
+      - name: Running tests
+        run: ./exec.sh

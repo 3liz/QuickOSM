@@ -9,7 +9,7 @@ on:
       - '**.py'
 
 jobs:
-  flake8_py3:
+  flake8:
     runs-on: ubuntu-latest
     steps:
 
