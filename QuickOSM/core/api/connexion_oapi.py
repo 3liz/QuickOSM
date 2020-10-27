@@ -123,6 +123,7 @@ class ConnexionOAPI:
 
         lines = last_lines(path, 10)
 
+        # Check if we can use the static method below
         timeout = (
             '<remark> runtime error: Query timed out in "[a-z]+" at line '
             '[\d]+ after ([\d]+) seconds. </remark>')
