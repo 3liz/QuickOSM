@@ -72,8 +72,9 @@ class OpenOsmFile(QgisAlgorithm):
 
         param = QgsProcessingParameterFile(self.OSM_CONF, self.tr('OSM configuration'), optional=True)
         help_string = tr(
-            'The OGR OSM configuration file. This file is used to customize the import process about OSM tags. '
-            'You should read the OGR documentation {url}').format(url='https://gdal.org/drivers/vector/osm.html')
+            'The OGR OSM configuration file. This file is used to customize the import process about OSM '
+            'tags. You should read the OGR documentation {url}').format(
+            url='https://gdal.org/drivers/vector/osm.html')
         if Qgis.QGIS_VERSION_INT >= 31500:
             param.setHelp(help_string)
         else:

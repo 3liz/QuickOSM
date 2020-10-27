@@ -57,14 +57,17 @@ class RawQueryAlgorithm(QgisAlgorithm):
 
     def initAlgorithm(self, config=None):
         param = QgsProcessingParameterString(self.QUERY, tr('Query'), optional=False, multiLine=True)
-        help_string = tr('A XML or OQL query to be send to the Overpass API. It can contains some {{}} tokens.')
+        help_string = tr(
+            'A XML or OQL query to be send to the Overpass API. It can contains some {{}} tokens.'
+        )
         if Qgis.QGIS_VERSION_INT >= 31500:
             param.setHelp(help_string)
         else:
             param.tooltip_3liz = help_string
         self.addParameter(param)
 
-        param = QgsProcessingParameterExtent(self.EXTENT, tr('Extent, if "{{bbox}}" in the query'), optional=True)
+        param = QgsProcessingParameterExtent(
+            self.EXTENT, tr('Extent, if "{{bbox}}" in the query'), optional=True)
         help_string = tr('If the query has a {{bbox}} token, this extent will be used for replacement.')
         if Qgis.QGIS_VERSION_INT >= 31500:
             param.setHelp(help_string)
@@ -103,8 +106,8 @@ class RawQueryAlgorithm(QgisAlgorithm):
 
         output = QgsProcessingOutputString(self.OUTPUT_URL, tr('Query as encoded URL'))
         help_string = tr(
-            'The query is generated and encoded with the Overpass API URL. This output should be used in the File '
-            'Downloader algorithm.')
+            'The query is generated and encoded with the Overpass API URL. This output should be used in the '
+            'File Downloader algorithm.')
         if Qgis.QGIS_VERSION_INT >= 31500:
             pass
             # param.setHelp(help_string)

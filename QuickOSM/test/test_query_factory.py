@@ -283,7 +283,9 @@ class TestQueryFactory(unittest.TestCase):
             '<print mode="body"/>'
             '</osm-script>'
         )
-        human = 'All OSM objects with the key \'foo\' in the canvas or layer extent are going to be downloaded.'
+        human = (
+            'All OSM objects with the key \'foo\' in the canvas or layer extent are going to be downloaded.'
+        )
         test_query(query, expected_xml, expected_xml_with_template, human)
 
         # Attribute only
@@ -392,7 +394,9 @@ class TestQueryFactory(unittest.TestCase):
             area='paris;dubai;new york',
             osm_objects=[OsmType.Node],
         )
-        human = 'All OSM objects with the key \'foo\' in paris, dubai and new york are going to be downloaded.'
+        human = (
+            'All OSM objects with the key \'foo\' in paris, dubai and new york are going to be downloaded.'
+        )
         self.assertEqual(query.friendly_message(), human)
 
         # Around query with meta and one key
@@ -528,7 +532,10 @@ class TestQueryFactory(unittest.TestCase):
             '</osm-script>'
         )
         # TODO, fix many keys
-        human = 'All OSM objects with the key \'a\'=\'b\' in the canvas or layer extent are going to be downloaded.'
+        human = (
+            'All OSM objects with the key \'a\'=\'b\' in the canvas or layer extent are going to be '
+            'downloaded.'
+        )
         test_query(query, expected_xml, expected_xml_with_template, human)
 
         # Many keys with None values

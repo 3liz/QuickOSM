@@ -108,8 +108,8 @@ class BuildQueryBasedAlgorithm(QgisAlgorithm):
 
         output = QgsProcessingOutputString(self.OUTPUT_URL, tr('Query as encoded URL'))
         help_string = tr(
-            'The query is generated and encoded with the Overpass API URL. This output should be used in the File '
-            'Downloader algorithm.')
+            'The query is generated and encoded with the Overpass API URL. This output should be used in the '
+            'File Downloader algorithm.')
         if Qgis.QGIS_VERSION_INT >= 31500:
             pass
             # output.setHelp(help_string)
@@ -197,7 +197,8 @@ class BuildQueryInAreaAlgorithm(BuildQueryBasedAlgorithm):
         self.add_top_parameters()
 
         param = QgsProcessingParameterString(self.AREA, tr('Inside the area'), optional=False)
-        help_string = tr('The name of the area. This will make a first query to the Nominatim API to fetch the OSM ID.')
+        help_string = tr(
+            'The name of the area. This will make a first query to the Nominatim API to fetch the OSM ID.')
         if Qgis.QGIS_VERSION_INT >= 31500:
             param.setHelp(help_string)
         else:
@@ -240,9 +241,11 @@ class BuildQueryAroundAreaAlgorithm(BuildQueryBasedAlgorithm):
             param.tooltip_3liz = help_string
         self.addParameter(param)
 
-        param = QgsProcessingParameterNumber(self.DISTANCE, tr('Distance (meters)'), defaultValue=1000, minValue=1)
+        param = QgsProcessingParameterNumber(
+            self.DISTANCE, tr('Distance (meters)'), defaultValue=1000, minValue=1)
         help_string = tr(
-            'The distance to use when doing the buffering around the named area. The distance must be in meters.')
+            'The distance to use when doing the buffering around the named area. The distance must be in '
+            'meters.')
         if Qgis.QGIS_VERSION_INT >= 31500:
             param.setHelp(help_string)
         else:
