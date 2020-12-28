@@ -1,4 +1,22 @@
 {
+	"aeroway": [
+         "aerodrome",
+         "apron",
+         "control_tower",
+         "control_center",
+         "gate",
+         "hangar",
+         "helipad",
+         "heliport",
+         "navigationaid",
+         "beacon",
+         "runway",
+         "taxilane",
+         "taxiway",
+         "terminal",
+         "windsock",
+         "highway_strip"
+    ],
 	"admin_level": [
 		"1",
 		"2",
