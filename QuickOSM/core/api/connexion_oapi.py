@@ -104,7 +104,7 @@ class ConnexionOAPI:
             bufsize = 8192
             fsize = os.stat(file_path).st_size
             iteration = 0
-            with open(file_path) as f:
+            with open(file_path, encoding='utf8') as f:
                 if bufsize > fsize:
                     bufsize = fsize - 1
                     data = []
