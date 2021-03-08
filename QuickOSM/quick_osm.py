@@ -4,15 +4,17 @@ import logging
 import urllib.request
 
 from qgis.core import (
+    Qgis,
     QgsApplication,
     QgsCoordinateReferenceSystem,
     QgsCoordinateTransform,
     QgsProject,
 )
-from qgis.PyQt.QtCore import QCoreApplication, QTranslator
-from qgis.PyQt.QtGui import QIcon
+from qgis.PyQt.QtCore import QCoreApplication, QTranslator, QUrl
+from qgis.PyQt.QtGui import QDesktopServices, QIcon
 from qgis.PyQt.QtWidgets import QAction, QMenu
 
+from QuickOSM.definitions.urls import PLUGIN_URL
 from QuickOSM.qgis_plugin_tools.tools.custom_logging import setup_logger
 from QuickOSM.qgis_plugin_tools.tools.i18n import setup_translation, tr
 from QuickOSM.qgis_plugin_tools.tools.resources import (
@@ -56,6 +58,7 @@ class QuickOSMPlugin:
         self.provider = None
 
         self.toolbar = None
+        self.help_action = None
         self.quickosm_menu = None
         self.vector_menu = None
         self.main_window_action = None
@@ -70,22 +73,25 @@ class QuickOSMPlugin:
         """Init the user interface."""
         self.initProcessing()
 
+        icon = QIcon(resources_path('icons', 'QuickOSM.svg'))
+
+        if Qgis.QGIS_VERSION_INT >= 31000:
+            self.help_action = QAction(icon, 'QuickOSM', self.iface.mainWindow())
+            self.iface.pluginHelpMenu().addAction(self.help_action)
+            self.help_action.triggered.connect(self.show_help)
+
         # Add the toolbar
         self.toolbar = self.iface.addToolBar('QuickOSM')
         self.toolbar.setObjectName('QuickOSM')
 
         # Setup menu
         self.quickosm_menu = QMenu('QuickOSM')
-        self.quickosm_menu.setIcon(
-            QIcon(resources_path('icons', 'QuickOSM.svg')))
+        self.quickosm_menu.setIcon(icon)
         self.vector_menu = self.iface.vectorMenu()
         self.vector_menu.addMenu(self.quickosm_menu)
 
         # Main window
-        self.main_window_action = QAction(
-            QIcon(resources_path('icons', 'QuickOSM.svg')),
-            'QuickOSM…',
-            self.iface.mainWindow())
+        self.main_window_action = QAction(icon, 'QuickOSM…', self.iface.mainWindow())
         # noinspection PyUnresolvedReferences
         self.main_window_action.triggered.connect(self.open_dialog)
         self.toolbar.addAction(self.main_window_action)
@@ -107,6 +113,14 @@ class QuickOSMPlugin:
         self.iface.removePluginVectorMenu('&QuickOSM', self.main_window_action)
         self.iface.removeToolBarIcon(self.main_window_action)
         QgsApplication.processingRegistry().removeProvider(self.provider)
+
+        if Qgis.QGIS_VERSION_INT >= 31000 and self.help_action:
+            self.iface.pluginHelpMenu().removeAction(self.help_action)
+            del self.help_action
+
+    @staticmethod
+    def show_help():
+        QDesktopServices.openUrl(QUrl(PLUGIN_URL))
 
     def josm_remote(self):
         """Call the JOSM remote control using the current canvas extent."""
