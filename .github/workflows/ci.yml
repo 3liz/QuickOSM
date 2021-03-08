@@ -1,0 +1,104 @@
+name: Tests 🎳
+
+on:
+  push:
+    branches:
+      - master
+    tags:
+      - '^\d+\.\d+\.\d+$'
+    paths:
+      - 'QuickOSM/**'
+  pull_request:
+    branches:
+      - master
+    paths:
+      - 'QuickOSM/**'
+
+jobs:
+
+  flake8:
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: Setup Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+          architecture: x64
+
+      - name: Checkout
+        uses: actions/checkout@master
+
+      - uses: actions/cache@v2
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('requirements/*.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
+
+      - name: Install Python requirements
+        run: pip install -r requirements-dev.txt
+
+      - name: Run flake8
+        run: flake8
+
+  test-qgis:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: .docker
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v2
+        with:
+          submodules: 'true'
+      - name: Launching docker-compose
+        run: ./start.sh
+      - name: Running tests
+        run: ./exec.sh
+
+  release:
+    needs: [test-qgis, flake8]
+
+    runs-on: ubuntu-latest
+    if: github.repository == '3liz/QuickOSM' && contains(github.ref, 'refs/tags/')
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Install Qt lrelease
+      run: |
+        sudo apt-get update
+        sudo apt-get install qt5-default qttools5-dev-tools
+
+    - name: Set up Python 3.8
+      uses: actions/setup-python@v1
+      with:
+        python-version: 3.8
+
+    - name: Install qgis-plugin-ci
+      run: pip3 install qgis-plugin-ci==1.8.4
+
+    - name : Fetch current changelog
+      run: |
+        qgis-plugin-ci changelog ${GITHUB_REF/refs\/tags\//} >> release.md
+        cat release.md
+
+    - name: Create release on GitHub
+      id: create_release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.BOT_HUB_TOKEN }}
+      with:
+        tag_name: ${{ github.ref }}
+        release_name: ${{ github.ref }}
+        body_path: release.md
+
+    - name: Package and deploy the zip
+      run: >-
+        qgis-plugin-ci
+        release ${GITHUB_REF/refs\/tags\//}
+        --github-token ${{ secrets.BOT_HUB_TOKEN }}
+        --transifex-token ${{ secrets.TRANSIFEX_TOKEN }}
+        --osgeo-username ${{ secrets.OSGEO_USERNAME }}
+        --osgeo-password ${{ secrets.OSGEO_PASSWORD }}
