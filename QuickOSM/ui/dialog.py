@@ -23,7 +23,6 @@ from QuickOSM.ui.quick_query_panel import QuickQueryPanel
 __copyright__ = 'Copyright 2019, 3Liz'
 __license__ = 'GPL version 3'
 __email__ = 'info@3liz.org'
-__revision__ = '$Format:%H$'
 
 FORM_CLASS = load_ui('main_window.ui')
 LOGGER = logging.getLogger('QuickOSM')

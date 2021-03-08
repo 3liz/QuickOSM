@@ -10,7 +10,6 @@ from QuickOSM.qgis_plugin_tools.tools.resources import resources_path
 __copyright__ = 'Copyright 2019, 3Liz'
 __license__ = 'GPL version 3'
 __email__ = 'info@3liz.org'
-__revision__ = '$Format:%H$'
 
 
 ACTIONS_PATH = 'from QuickOSM.core.actions import Actions;'
