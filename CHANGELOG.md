@@ -1,22 +1,31 @@
 # CHANGELOG
 
-### 1.14.3 - 18/09/2020
+## 1.15.0 - 2021-03-XX
+
+* Add the OSM key "aeroway"
+* Add a button to open the online help from the QGIS help menu
+* Update the documentation with a proper website https://docs.3liz.org/QuickOSM/
+* Add an automatic documentation for QGIS Processing algorithms on the website
+* Fix QGIS Processing algorithm about GDAL parameter
+* Some Python automatic code review
+
+## 1.14.3 - 2020-09-18
 
 * Fix issue about unicode in the OSM file when reading the end of the file only #240
 
-### 1.14.2 - 30/01/2020
+## 1.14.2 - 2020-01-30
 
 * Fix railway=abandoned
 * Add a model by default in the modeler
 * Fix loading translation file
 
-### 1.14.1 - 23/11/2019
+## 1.14.1 - 2019-11-23
 
 * Update translations from Transifex
 * Fix bug #220 about loading local OSM file with custom config
 * Add section about code contributors
 
-### 1.14.0 - 11/11/2019
+## 1.14.0 - 2019-11-11
 
 * Version 1.13.X was only experimental, so all features from 1.13.X
 * Show human friendly label in the QuickQuery
