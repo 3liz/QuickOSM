@@ -1,14 +1,21 @@
-QuickOSM.zip
+# Python
+.venv
 .pytest_cache/
 *.pyc
 *.py.bak
 *.*~
-scripts/
-help/
+
+# IDE
 .idea
-.coverage
-.noseids
-venv
+
+# Data
 *.osm
+
+# QGIS-Plugin-CI
 QuickOSM/i18n/*.ts
 QuickOSM.*.zip
+
+# MkDocs
+build/
+docs/CHANGELOG.md
+docs/CONTRIBUTING.md

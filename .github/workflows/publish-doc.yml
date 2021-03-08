@@ -1,0 +1,54 @@
+name: Deploy to Github Pages
+
+on:
+  push:
+    paths:
+      - 'CHANGELOG.md'
+      - 'CONTRIBUTING.md'
+      - 'docs/**'
+      - 'mkdocs.yml'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+
+    - name: Get source code
+      uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+
+    - name: Set up Python 3.8
+      uses: actions/setup-python@v2.2.1
+      with:
+        python-version: 3.8
+
+    - name: Set up NodeJS (for search index prebuilding)
+      uses: actions/setup-node@v2.1.4
+      with:
+        node-version: '12'
+
+    - name: Cache project dependencies (pip)
+      uses: actions/cache@v2.1.3
+      with:
+        path: ~/.cache/pip
+        key: ${{ runner.os }}-pip-${{ hashFiles('requirements-doc.txt') }}
+        restore-keys: |
+          ${{ runner.os }}-pip-
+          ${{ runner.os }}-
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip setuptools wheel
+        python -m pip install -r requirements-doc.txt
+
+    - name: Copy CHANGELOG.md and CONTRIBUTING.md
+      run: |
+        cp CHANGELOG.md docs/
+        cp CONTRIBUTING.md docs/
+
+    - name: Deploy to Github Pages
+      run: |
+        git config --global user.name "${{ secrets.BOT_NAME }}"
+        git config --global user.email "${{ secrets.BOT_MAIL }}"
+        mkdocs gh-deploy --clean --force --verbose

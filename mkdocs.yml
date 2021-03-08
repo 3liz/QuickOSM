@@ -1,0 +1,71 @@
+site_name: QuickOSM
+site_author: 3Liz
+site_description: Download OSM data within QGIS with the Overpass
+site_url: https://docs.3liz.org/QuickOSM/
+repo_url: https://github.com/3liz/QuickOSM
+copyright: '<span class="copyleft">&copy;</span> 3Liz'
+
+docs_dir: docs
+site_dir: build
+
+nav:
+    - docs.3liz.org: '../'
+    - Home: index.md
+    - User guide:
+        - 'End user': 'user-guide/end-user.md'
+        - 'Processing': 'user-guide/processing.md'
+    - Processing: processing/README.md
+    - Changelog: changelog.md
+    - Contributing: contributing.md
+
+markdown_extensions:
+  # - git-revision-date:
+  - toc:
+      permalink: "#"
+  - meta:
+  - pymdownx.highlight:
+      linenums: true
+      linenums_style: pymdownx.inline
+  - pymdownx.superfences:
+  - pymdownx.tabbed:
+  - pymdownx.magiclink:
+  - pymdownx.tasklist:
+  - pymdownx.snippets:
+  - pymdownx.keys:
+  - attr_list:
+  - admonition:
+
+extra_javascript:
+  - https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js
+extra_css:
+  - https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/default.min.css
+
+theme:
+  name: material
+  font: false
+  icon:
+    repo: fontawesome/brands/github-alt
+  language: 'en'
+  logo: media/icon.png
+  favicon: media/icon.png
+  palette:
+    accent: deep-orange
+    primary: green
+    scheme: preference
+  features:
+    - navigation.tabs
+    - navigation.tabs.sticky
+
+extra:
+  social:
+    - icon: fontawesome/brands/twitter
+      link: https://twitter.com/3LIZ_news
+
+    - icon: fontawesome/brands/linkedin
+      link: https://www.linkedin.com/company/3liz
+
+    - icon: fontawesome/brands/github
+      link: https://github.com/3liz/
+
+    - icon: fontawesome/brands/docker
+      link: https://hub.docker.com/u/3liz

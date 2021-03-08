@@ -1,11 +1,9 @@
 ---
-Title: QuickOSM
-Favicon: ../icon.png
-...
+hide:
+  - navigation
+---
 
-[TOC]
-
-# QuickOSM
+# Processing
 
 ## Advanced
 
