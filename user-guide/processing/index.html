@@ -20,7 +20,7 @@
     
     
       
-        <title>Processing - QuickOSM</title>
+        <title>QGIS Model and Python API - QuickOSM</title>
       
     
     
@@ -98,7 +98,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Processing
+              QGIS Model and Python API
             
           </span>
         </div>
@@ -242,6 +242,18 @@
   </li>
 
       
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../../references/" class="md-tabs__link">
+      References
+    </a>
+  </li>
+
+      
     </ul>
   </div>
 </nav>
@@ -369,7 +381,7 @@
       
       
       <a href="./" class="md-nav__link md-nav__link--active">
-        Processing
+        QGIS Model and Python API
       </a>
       
     </li>
@@ -427,6 +439,21 @@
   
 
     
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../references/" class="md-nav__link">
+        References
+      </a>
+    </li>
+  
+
+    
   </ul>
 </nav>
                   </div>
@@ -461,9 +488,11 @@
                 
                 
                 <h1 id="using-qgis-processing">Using QGIS Processing<a class="headerlink" href="#using-qgis-processing" title="Permanent link">#</a></h1>
-<p>For the documentation about Processing algorithm, read <a href="./processing/">Processing</a>.</p>
-<p>Since QGIS 3.4, QuickOSM is available in the Processing modeler.
-Here some useful algorithms in an appropriate order:</p>
+<p>For the list of algorithms, read the <a href="./processing/">Processing</a> section.</p>
+<p>Since QGIS 3.4, QuickOSM is available in the
+<a href="https://docs.qgis.org/latest/en/docs/user_manual/processing/modeler.html">Processing modeler</a>.</p>
+<p><img alt="QGIS Model" src="../../media/model.png" /></p>
+<p>Here some useful algorithms in an appropriate order:</p>
 <ul>
 <li><strong>QuickOSM</strong> → <strong>Advanced</strong>, one of the <strong>Build query</strong> algorithms.</li>
 <li><strong>File Tools</strong> → <strong>Download file</strong>, by using the <code>Encoded URL</code> as a input parameter from the previous algorithm.</li>
@@ -484,9 +513,10 @@ Useful to concatenate the downloaded filepath with</li>
 <li><strong>Vector Table</strong> → <strong>Explode HStore field</strong> (QGIS ≥ 3.6)</li>
 <li><strong>Vector Table</strong> → <strong>Feature filter</strong></li>
 </ul>
-<p>Since QGIS 3.6, you can export your Processing model as a Python script.</p>
+<p>Since QGIS 3.6, you can export your Processing model as a Python script. You can
+also call these algorithms individually from the QGIS Python Processing framework.</p>
 <p>As an example, you can download <a href="https://github.com/3liz/QuickOSM/blob/master/QuickOSM/resources/model/osm_download_style.model3">this model</a> and
-<a href="https://docs.qgis.org/3.10/en/docs/user_manual/processing/modeler.html#saving-and-loading-models">load it in your QGIS</a>.
+<a href="https://docs.qgis.org/latest/en/docs/user_manual/processing/modeler.html#saving-and-loading-models">load it in your QGIS</a>.
 Additionally, you can download example QGIS style files for OSM from <a href="https://github.com/anitagraser/QGIS-resources/tree/master/qgis2/osm_spatialite">here</a>.
 The model will download and style OSM data from an extent and packages it in one Geopackage.</p>
                 
@@ -606,6 +636,8 @@ The model will download and style OSM data from an extent and packages it in one
       <script src="../../assets/javascripts/bundle.5cf3e710.min.js"></script>
       
         <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js"></script>
+      
+        <script src="https://unpkg.com/mermaid@8.6.4/dist/mermaid.min.js"></script>
       
     
   </body>

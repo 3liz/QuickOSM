@@ -242,6 +242,18 @@
   </li>
 
       
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../../references/" class="md-tabs__link">
+      References
+    </a>
+  </li>
+
+      
     </ul>
   </div>
 </nav>
@@ -356,9 +368,59 @@
         
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          End user
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         End user
       </a>
+      
+        
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#map-features" class="md-nav__link">
+    Map features
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#video" class="md-nav__link">
+    Video
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quick-how-to" class="md-nav__link">
+    Quick how to
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#custom-overpass-server" class="md-nav__link">
+    Custom overpass server
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -370,7 +432,7 @@
   
     <li class="md-nav__item">
       <a href="../processing/" class="md-nav__link">
-        Processing
+        QGIS Model and Python API
       </a>
     </li>
   
@@ -427,6 +489,21 @@
   
 
     
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../references/" class="md-nav__link">
+        References
+      </a>
+    </li>
+  
+
+    
   </ul>
 </nav>
                   </div>
@@ -445,6 +522,42 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#map-features" class="md-nav__link">
+    Map features
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#video" class="md-nav__link">
+    Video
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quick-how-to" class="md-nav__link">
+    Quick how to
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#custom-overpass-server" class="md-nav__link">
+    Custom overpass server
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -461,7 +574,21 @@
                 
                 
                 <h1 id="using-the-gui">Using the GUI<a class="headerlink" href="#using-the-gui" title="Permanent link">#</a></h1>
+<h2 id="map-features">Map features<a class="headerlink" href="#map-features" title="Permanent link">#</a></h2>
+<p>To have an overview of all keys and values, have a look to the OpenStreetMap
+<a href="https://wiki.openstreetmap.org/wiki/Map_features">wiki page</a>.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>You can write what ever you want in the <code>Key</code> and <code>Value</code> fields. OSM data
+model doesn't restrict any keys or values.</p>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>If you want to query <strong>all</strong> data, you can let key and value empty.</p>
+</div>
+<h2 id="video">Video<a class="headerlink" href="#video" title="Permanent link">#</a></h2>
 <p>Watch the <a href="https://vimeo.com/108737868">Video tutorial</a></p>
+<h2 id="quick-how-to">Quick how to<a class="headerlink" href="#quick-how-to" title="Permanent link">#</a></h2>
 <p><strong>Install the QuickOSM plugin</strong> :</p>
 <ul>
 <li>QGIS <code>Plugins</code> menu → <code>Manage and Install Plugins…</code></li>
@@ -470,7 +597,7 @@
 </ul>
 <p><strong>Try a quick query</strong> :</p>
 <ul>
-<li><code>Vector</code> menu → <code>QuickOSM</code> -&gt; <code>QuickOSM</code></li>
+<li><code>Vector</code> menu → <code>QuickOSM</code> → <code>QuickOSM</code></li>
 <li>In the <code>key</code> field enter <code>amenity</code></li>
 <li>In the <code>value</code> field enter <code>toilets</code></li>
 <li>Set the name of the town/village to <code>London</code></li>
@@ -479,6 +606,29 @@
 <p>The Overpass API takes a few seconds to respond, and after that you should get new
 point and polygon layers for the toilets of London! (nodes and ways in OpenStreetMap
 with the <code>amenity</code>=<code>toilet</code> tag on them)</p>
+<h2 id="custom-overpass-server">Custom overpass server<a class="headerlink" href="#custom-overpass-server" title="Permanent link">#</a></h2>
+<p>If you want to add some customs servers, add a file called <code>custom_config.json</code>
+in your <code>profile_name/QuickOSM</code> folder and add this template in it :
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="p">{</span>
+    <span class="nt">&quot;overpass_servers&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="s2">&quot;http://your_custom_url.com/api/&quot;</span>
+    <span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div>
+</td></tr></table>
+QuickOSM will add your custom list to the list below.</p>
+<p>To find the profile folder, go in <strong>Settings → Profile → Open active profile folder</strong>.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Do not change any files in <code>profile_name/python/plugins/QuickOSM</code> for
+adding a server. Your changes will be lost everytime the plugin is upgraded.</p>
+</div>
+<p>A pull request is more than welcome if you want to add your server in QuickOSM
+core by updating this list below.</p>
                 
               
               
@@ -517,7 +667,7 @@ with the <code>amenity</code>=<code>toilet</code> tag on them)</p>
               <span class="md-footer__direction">
                 Next
               </span>
-              Processing
+              QGIS Model and Python API
             </div>
           </div>
           <div class="md-footer__button md-icon">
@@ -596,6 +746,8 @@ with the <code>amenity</code>=<code>toilet</code> tag on them)</p>
       <script src="../../assets/javascripts/bundle.5cf3e710.min.js"></script>
       
         <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js"></script>
+      
+        <script src="https://unpkg.com/mermaid@8.6.4/dist/mermaid.min.js"></script>
       
     
   </body>
