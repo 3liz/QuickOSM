@@ -13,10 +13,11 @@ nav:
     - Home: index.md
     - User guide:
         - 'End user': 'user-guide/end-user.md'
-        - 'Processing': 'user-guide/processing.md'
+        - 'QGIS Model and Python API': 'user-guide/processing.md'
     - Processing: processing/README.md
     - Changelog: changelog.md
     - Contributing: contributing.md
+    - References: references.md
 
 markdown_extensions:
   # - git-revision-date:
@@ -27,6 +28,8 @@ markdown_extensions:
       linenums: true
       linenums_style: pymdownx.inline
   - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
   - pymdownx.tabbed:
   - pymdownx.magiclink:
   - pymdownx.tasklist:
@@ -37,6 +40,7 @@ markdown_extensions:
 
 extra_javascript:
   - https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js
+  - https://unpkg.com/mermaid@8.6.4/dist/mermaid.min.js
 extra_css:
   - https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/default.min.css
 

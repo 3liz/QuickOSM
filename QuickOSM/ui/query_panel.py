@@ -10,8 +10,8 @@ from QuickOSM.core.process import process_query
 from QuickOSM.core.query_preparation import QueryPreparation
 from QuickOSM.core.utilities.utilities_qgis import (
     open_doc_overpass,
-    open_map_features,
     open_overpass_turbo,
+    open_plugin_documentation,
 )
 from QuickOSM.definitions.gui import Panels
 from QuickOSM.definitions.osm import LayerType
@@ -58,7 +58,7 @@ class QueryPanel(BaseOverpassPanel):
         map_features_action = QAction(
             'Map Features', self.dialog.button_documentation)
         # noinspection PyUnresolvedReferences
-        map_features_action.triggered.connect(open_map_features)
+        map_features_action.triggered.connect(open_plugin_documentation)
         popup_menu.addAction(map_features_action)
         overpass_action = QAction('Overpass', self.dialog.button_documentation)
         # noinspection PyUnresolvedReferences

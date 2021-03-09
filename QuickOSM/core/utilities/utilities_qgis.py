@@ -11,7 +11,7 @@ __email__ = 'info@3liz.org'
 
 from QuickOSM.definitions.urls import (
     DOC_OVERPASS_URL,
-    MAP_FEATURES_URL,
+    DOC_PLUGIN_URL,
     OVERPASS_TURBO_URL,
 )
 
@@ -33,9 +33,9 @@ def open_doc_overpass():
     open_webpage(DOC_OVERPASS_URL)
 
 
-def open_map_features():
+def open_plugin_documentation():
     """Open the map features webpage."""
-    open_webpage(MAP_FEATURES_URL)
+    open_webpage(DOC_PLUGIN_URL)
 
 
 def open_webpage(url):

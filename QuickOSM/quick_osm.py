@@ -14,7 +14,7 @@ from qgis.PyQt.QtCore import QCoreApplication, QTranslator, QUrl
 from qgis.PyQt.QtGui import QDesktopServices, QIcon
 from qgis.PyQt.QtWidgets import QAction, QMenu
 
-from QuickOSM.definitions.urls import PLUGIN_URL
+from QuickOSM.definitions.urls import DOC_PLUGIN_URL
 from QuickOSM.qgis_plugin_tools.tools.custom_logging import setup_logger
 from QuickOSM.qgis_plugin_tools.tools.i18n import setup_translation, tr
 from QuickOSM.qgis_plugin_tools.tools.resources import (
@@ -120,7 +120,7 @@ class QuickOSMPlugin:
 
     @staticmethod
     def show_help():
-        QDesktopServices.openUrl(QUrl(PLUGIN_URL))
+        QDesktopServices.openUrl(QUrl(DOC_PLUGIN_URL))
 
     def josm_remote(self):
         """Call the JOSM remote control using the current canvas extent."""

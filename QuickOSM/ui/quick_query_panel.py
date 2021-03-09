@@ -8,7 +8,7 @@ from qgis.PyQt.QtWidgets import QCompleter, QDialogButtonBox
 from QuickOSM.core.exceptions import OsmObjectsException, QuickOsmException
 from QuickOSM.core.process import process_quick_query
 from QuickOSM.core.query_factory import QueryFactory
-from QuickOSM.core.utilities.utilities_qgis import open_map_features
+from QuickOSM.core.utilities.utilities_qgis import open_plugin_documentation
 from QuickOSM.definitions.gui import Panels
 from QuickOSM.definitions.osm import OsmType, QueryType
 from QuickOSM.qgis_plugin_tools.tools.i18n import tr
@@ -58,7 +58,7 @@ class QuickQueryPanel(BaseOverpassPanel):
         self.dialog.button_run_query_qq.clicked.connect(self.run)
         self.dialog.button_show_query.clicked.connect(self.show_query)
         self.dialog.combo_key.editTextChanged.connect(self.key_edited)
-        self.dialog.button_map_features.clicked.connect(open_map_features)
+        self.dialog.button_map_features.clicked.connect(open_plugin_documentation)
         self.dialog.button_box_qq.button(QDialogButtonBox.Reset).clicked.connect(
             self.dialog.reset_form)
 
