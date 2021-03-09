@@ -122,8 +122,8 @@ class QueryPanel(BaseOverpassPanel):
         query = self.dialog.text_query.toPlainText()
         area = self.dialog.places_edits[Panels.Query].text()
         self.write_nominatim_file(Panels.Query)
-        bbox = self.dialog.get_bounding_box()
-        query = QueryPreparation(query, bbox, area)
+        properties = self.gather_values()
+        query = QueryPreparation(query, properties['bbox'], area)
         query_string = query.prepare_query()
         self.dialog.text_query.setPlainText(query_string)
 
