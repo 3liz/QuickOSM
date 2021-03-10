@@ -2,10 +2,10 @@ name: Tests 🎳
 
 on:
   push:
+    tags:
+      - "*"
     branches:
       - master
-    tags:
-      - '^\d+\.\d+\.\d+$'
 #    paths:
 #      - 'QuickOSM/**'
   pull_request:
