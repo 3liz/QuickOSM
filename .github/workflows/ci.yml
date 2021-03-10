@@ -6,13 +6,13 @@ on:
       - master
     tags:
       - '^\d+\.\d+\.\d+$'
-    paths:
-      - 'QuickOSM/**'
+#    paths:
+#      - 'QuickOSM/**'
   pull_request:
     branches:
       - master
-    paths:
-      - 'QuickOSM/**'
+#    paths:
+#      - 'QuickOSM/**'
 
 jobs:
 
