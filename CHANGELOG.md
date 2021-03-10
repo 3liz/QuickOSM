@@ -1,12 +1,13 @@
 # CHANGELOG
 
-## 1.15.0 - 2021-03-XX
+## 1.15.0 - 2021-03-10
 
+* Fix the button to "show the query"
+* Fix QGIS Processing algorithm about GDAL parameter
 * Add the OSM key "aeroway"
 * Add a button to open the online help from the QGIS help menu
 * Update the documentation with a proper website https://docs.3liz.org/QuickOSM/
 * Add an automatic documentation for QGIS Processing algorithms on the website
-* Fix QGIS Processing algorithm about GDAL parameter
 * Some Python automatic code review
 
 ## 1.14.3 - 2020-09-18
