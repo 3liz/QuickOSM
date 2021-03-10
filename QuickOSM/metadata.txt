@@ -20,7 +20,7 @@ changelog=changelog
 # Tags are comma separated with spaces allowed
 tags=osm,openstreetmap,overpass,download,osmdownload,josm,remote,pbf,processing,modeler
 
-homepage=https://github.com/3liz/QuickOSM
+homepage=https://docs.3liz.org/QuickOSM/
 tracker=https://github.com/3liz/QuickOSM/issues
 repository=https://github.com/3liz/QuickOSM
 icon=resources/icons/QuickOSM.svg

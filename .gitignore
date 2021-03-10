@@ -12,7 +12,7 @@
 *.osm
 
 # QGIS-Plugin-CI
-QuickOSM/i18n/*.ts
+QuickOSM/i18n/
 QuickOSM.*.zip
 
 # MkDocs
