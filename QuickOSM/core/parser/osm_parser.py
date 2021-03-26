@@ -108,8 +108,6 @@ class OsmParser(QObject):
 
             return layers
 
-        gdal.SetConfigOption('OSM_CONFIG_FILE', None)
-
         # Foreach layers
         for layer in self.__layers:
             self.signalText.emit(tr('Parsing layer : {layer}').format(layer=layer))
