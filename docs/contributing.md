@@ -12,6 +12,40 @@ On your local, make a symlink with ln -s
 
 ## Architecture
 
-![diagram](./media/panels_diagram.png)
-
-[Edit diagram](https://www.lucidchart.com/invitations/accept/b247e2b6-65b8-4200-ac85-ed3adc4dccb7)
+```mermaid
+classDiagram
+BasePanel
+BaseProcessingPanel
+ConfigurationPanel
+BaseOverpassPanel
+OsmFilePanel
+QueryPanel
+QuickQueryPanel
+BasePanel <|-- BaseProcessingPanel
+BasePanel <|-- ConfigurationPanel
+BaseProcessingPanel <|-- BaseOverpassPanel
+BaseProcessingPanel <|-- OsmFilePanel
+BaseOverpassPanel <|-- QueryPanel
+BaseOverpassPanel <|-- QuickQueryPanel
+class BasePanel{
+  <<abstract>>
+  +Panel
+  +Dialog
+}
+class BaseProcessingPanel{
+  <<abstract>>
+  run()
+  _run()
+  setup_panel()
+  _start_process()
+  _end_process()
+  gather_values()
+}
+class BaseOverpassPanel{
+  <<abstract>>
+  last_places
+  nominatim()
+  end_query()
+  gather_values()
+}
+```
