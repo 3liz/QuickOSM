@@ -1,5 +1,11 @@
 # CHANGELOG
 
+# 1.16.0 - 2021-03-26
+
+* Changelog from 1.15.0 which has been unapproved
+* Avoid regression from 1.15.0 about empty attribute table
+* Always check to open file with UTF8
+
 ## 1.15.0 - 2021-03-10
 
 * Fix the button to "show the query"
