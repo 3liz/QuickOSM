@@ -71,7 +71,7 @@ class QuickQueryPanel(BaseOverpassPanel):
         # Setup auto completion
         map_features_json_file = resources_path('json', 'map_features.json')
         if isfile(map_features_json_file):
-            with open(map_features_json_file) as f:
+            with open(map_features_json_file, encoding='utf8') as f:
                 self.osm_keys = load(f)
                 keys = list(self.osm_keys.keys())
                 keys.append('')  # All keys request #118

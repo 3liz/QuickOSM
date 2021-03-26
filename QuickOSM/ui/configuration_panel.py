@@ -38,7 +38,7 @@ class ConfigurationPanel(BasePanel):
         # Read the config file
         custom_config = custom_config_file()
         if custom_config:
-            with open(custom_config) as f:
+            with open(custom_config, encoding='utf8') as f:
                 config_json = load(f)
                 for server in config_json.get('overpass_servers'):
                     if server not in OVERPASS_SERVERS:
