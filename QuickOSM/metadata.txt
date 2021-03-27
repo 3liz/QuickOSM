@@ -8,8 +8,7 @@ version=master
 author=Etienne Trimaille
 email=etienne@trimaille.eu
 hasProcessingProvider=yes
-# For QGIS WPS
-server=True
+server=False
 
 # End of mandatory metadata
 
@@ -29,4 +28,3 @@ experimental=False
 
 # deprecated flag (applies to the whole plugin, not just a single version)
 deprecated=False
-

@@ -9,10 +9,3 @@ __email__ = 'info@3liz.org'
 def classFactory(iface):
     from QuickOSM.quick_osm import QuickOSMPlugin
     return QuickOSMPlugin(iface)
-
-
-# noinspection PyDocstring,PyPep8Naming
-# def serverClassFactory(serverIface):
-    # noinspection PyUnresolvedReferences
-    # from .quick_osm_processing.provider import Provider
-    # pass
