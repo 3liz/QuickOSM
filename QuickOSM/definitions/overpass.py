@@ -30,4 +30,5 @@ OVERPASS_SERVERS = [
     'https://overpass.nchc.org.tw/api/',
     'https://overpass.openstreetmap.fr/api/',
     'http://overpass.osm.ch/api/',
+    'https://overpass-api.openhistoricalmap.org/api/'
 ]
