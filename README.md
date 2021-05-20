@@ -2,7 +2,9 @@
 
 ![Logo of QuickOSM](QuickOSM/resources/icons/QuickOSM.svg)
 
-[![Build Status](https://api.travis-ci.org/3liz/QuickOSM.svg?branch=master)](https://travis-ci.org/3liz/QuickOSM)
+[![Documentation 📚](https://github.com/3liz/QuickOSM/actions/workflows/publish-doc.yml/badge.svg)](https://github.com/3liz/QuickOSM/actions/workflows/publish-doc.yml)
+[![Tests 🎳](https://github.com/3liz/QuickOSM/actions/workflows/ci.yml/badge.svg)](https://github.com/3liz/QuickOSM/actions/workflows/ci.yml)
+[![Transifex 🗺](https://github.com/3liz/QuickOSM/actions/workflows/transifex.yml/badge.svg)](https://github.com/3liz/QuickOSM/actions/workflows/transifex.yml)
 
 ## Versions
 
