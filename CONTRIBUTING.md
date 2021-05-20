@@ -50,6 +50,8 @@ plugins['QuickOSM'].run_tests()
 
 ## Documentation
 
+[![Documentation 📚](https://github.com/3liz/QuickOSM/actions/workflows/publish-doc.yml/badge.svg)](https://github.com/3liz/QuickOSM/actions/workflows/publish-doc.yml)
+
 The documentation is using [MkDocs](https://www.mkdocs.org/) with [Material](https://squidfunk.github.io/mkdocs-material/) :
 
 ```bash
