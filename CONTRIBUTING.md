@@ -6,7 +6,7 @@ This project is hosted on GitHub.
 
 ## Scripts
 
-We provide a [Makefile](./Makefile) which helps the developers to:
+We provide a Makefile which helps the developers to:
 
 * run tests,
 * build the documentation (Processing algorithms)
