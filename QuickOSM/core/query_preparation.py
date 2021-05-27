@@ -9,6 +9,7 @@ from qgis.PyQt.QtCore import QUrl, QUrlQuery
 from QuickOSM.core.api.nominatim import Nominatim
 from QuickOSM.core.exceptions import QueryFactoryException, QueryNotSupported
 from QuickOSM.core.utilities.tools import get_setting
+from QuickOSM.definitions.nominatim import NOMINATIM_SERVERS
 from QuickOSM.definitions.overpass import OVERPASS_SERVERS
 from QuickOSM.qgis_plugin_tools.tools.i18n import tr
 from QuickOSM.qgis_plugin_tools.tools.resources import plugin_name
@@ -202,7 +203,8 @@ class QueryPreparation:
 
             if lat is None and lon is None:
                 if not self._nominatim:
-                    self._nominatim = Nominatim()
+                    server = get_setting('defaultNominatimAPI', NOMINATIM_SERVERS[0])
+                    self._nominatim = Nominatim(server)
                 lon, lat = self._nominatim.get_first_point_from_query(search)
 
             if self.is_oql_query():
@@ -236,7 +238,8 @@ class QueryPreparation:
             else:
                 # We perform a nominatim query
                 if not self._nominatim:
-                    self._nominatim = Nominatim()
+                    server = get_setting('defaultNominatimAPI', NOMINATIM_SERVERS[0])
+                    self._nominatim = Nominatim(server)
                 osm_id = self._nominatim.get_first_polygon_from_query(search)
 
             # HACK when running in test.
