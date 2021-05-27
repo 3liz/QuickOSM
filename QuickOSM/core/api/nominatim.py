@@ -31,7 +31,7 @@ class Nominatim:
         :type url: basestring
         """
         if url is None:
-            url = 'https://nominatim.openstreetmap.org/search?format=json'
+            url = 'https://nominatim.openstreetmap.org/search?'
 
         self.__url = url
         temporary = QTemporaryFile(
