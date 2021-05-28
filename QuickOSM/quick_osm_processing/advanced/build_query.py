@@ -1,5 +1,7 @@
 """Processing algorithm for building a query."""
 
+from typing import Dict
+
 from processing.algs.qgis.QgisAlgorithm import QgisAlgorithm
 from qgis.core import (
     Qgis,
@@ -47,14 +49,14 @@ class BuildQueryBasedAlgorithm(QgisAlgorithm):
         self.server = None
 
     @staticmethod
-    def group():
+    def group() -> str:
         return tr('Advanced')
 
     @staticmethod
-    def groupId():
+    def groupId() -> str:
         return 'advanced'
 
-    def shortHelpString(self):
+    def shortHelpString(self) -> str:
         return self.tr(
             'This algorithm builds a query and then encode it into the '
             'Overpass API URL. The "Download File" algorithm might be used '
@@ -131,7 +133,7 @@ class BuildQueryBasedAlgorithm(QgisAlgorithm):
         self.timeout = self.parameterAsInt(parameters, self.TIMEOUT, context)
         self.server = self.parameterAsString(parameters, self.SERVER, context)
 
-    def build_query(self):
+    def build_query(self) -> Dict[str, str]:
         query_factory = QueryFactory(
             query_type=self.QUERY_TYPE,
             key=self.key,
@@ -162,18 +164,18 @@ class BuildQueryNotSpatialAlgorithm(BuildQueryBasedAlgorithm):
     QUERY_TYPE = QueryType.NotSpatial
 
     @staticmethod
-    def name():
+    def name() -> str:
         return 'buildquerybyattributeonly'
 
     @staticmethod
-    def displayName():
+    def displayName() -> str:
         return tr('Build query by attribute only')
 
     def initAlgorithm(self, config=None):
         self.add_top_parameters()
         self.add_bottom_parameters()
 
-    def processAlgorithm(self, parameters, context, feedback):
+    def processAlgorithm(self, parameters, context, feedback) -> Dict[str, str]:
         self.feedback = feedback
         self.fetch_based_parameters(parameters, context)
         return self.build_query()
@@ -185,11 +187,11 @@ class BuildQueryInAreaAlgorithm(BuildQueryBasedAlgorithm):
     AREA = 'AREA'
 
     @staticmethod
-    def name():
+    def name() -> str:
         return 'buildqueryinsidearea'
 
     @staticmethod
-    def displayName():
+    def displayName() -> str:
         return tr('Build query inside an area')
 
     def initAlgorithm(self, config=None):
@@ -206,7 +208,7 @@ class BuildQueryInAreaAlgorithm(BuildQueryBasedAlgorithm):
 
         self.add_bottom_parameters()
 
-    def processAlgorithm(self, parameters, context, feedback):
+    def processAlgorithm(self, parameters, context, feedback) -> Dict[str, str]:
         self.feedback = feedback
         self.fetch_based_parameters(parameters, context)
         self.area = self.parameterAsString(parameters, self.AREA, context)
@@ -220,11 +222,11 @@ class BuildQueryAroundAreaAlgorithm(BuildQueryBasedAlgorithm):
     DISTANCE = 'DISTANCE'
 
     @staticmethod
-    def name():
+    def name() -> str:
         return 'buildqueryaroundarea'
 
     @staticmethod
-    def displayName():
+    def displayName() -> str:
         return tr('Build query around an area')
 
     def initAlgorithm(self, config=None):
@@ -253,7 +255,7 @@ class BuildQueryAroundAreaAlgorithm(BuildQueryBasedAlgorithm):
 
         self.add_bottom_parameters()
 
-    def processAlgorithm(self, parameters, context, feedback):
+    def processAlgorithm(self, parameters, context, feedback) -> Dict[str, str]:
         self.feedback = feedback
         self.fetch_based_parameters(parameters, context)
         self.area = self.parameterAsString(parameters, self.AREA, context)
@@ -267,11 +269,11 @@ class BuildQueryExtentAlgorithm(BuildQueryBasedAlgorithm):
     EXTENT = 'EXTENT'
 
     @staticmethod
-    def name():
+    def name() -> str:
         return 'buildqueryextent'
 
     @staticmethod
-    def displayName():
+    def displayName() -> str:
         return tr('Build query inside an extent')
 
     def initAlgorithm(self, config=None):
@@ -287,7 +289,7 @@ class BuildQueryExtentAlgorithm(BuildQueryBasedAlgorithm):
 
         self.add_bottom_parameters()
 
-    def processAlgorithm(self, parameters, context, feedback):
+    def processAlgorithm(self, parameters, context, feedback) -> Dict[str, str]:
         self.feedback = feedback
         self.fetch_based_parameters(parameters, context)
 

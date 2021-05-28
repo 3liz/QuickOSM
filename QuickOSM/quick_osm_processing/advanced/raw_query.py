@@ -1,5 +1,7 @@
 """Generate a raw query."""
 
+from typing import Dict
+
 from processing.algs.qgis.QgisAlgorithm import QgisAlgorithm
 from qgis.core import (
     Qgis,
@@ -33,22 +35,22 @@ class RawQueryAlgorithm(QgisAlgorithm):
     OUTPUT_OQL_QUERY = 'OUTPUT_OQL_QUERY'
 
     @staticmethod
-    def group():
+    def group() -> str:
         return tr('Advanced')
 
     @staticmethod
-    def groupId():
+    def groupId() -> str:
         return 'advanced'
 
     @staticmethod
-    def name():
+    def name() -> str:
         return 'buildrawquery'
 
     @staticmethod
-    def displayName():
+    def displayName() -> str:
         return tr('Build raw query')
 
-    def shortHelpString(self):
+    def shortHelpString(self) -> str:
         return 'A XML or OQL query to send to a Overpass API server.'
 
     def flags(self):
@@ -123,7 +125,7 @@ class RawQueryAlgorithm(QgisAlgorithm):
             param.tooltip_3liz = help_string
         self.addOutput(output)
 
-    def processAlgorithm(self, parameters, context, feedback):
+    def processAlgorithm(self, parameters, context, feedback) -> Dict[str, str]:
         raw_query = self.parameterAsString(parameters, self.QUERY, context)
         server = self.parameterAsString(parameters, self.SERVER, context)
         nominatim = self.parameterAsString(parameters, self.AREA, context)

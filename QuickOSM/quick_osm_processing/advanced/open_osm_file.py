@@ -1,6 +1,7 @@
 """Simple Processing algorithm to open a OSM file with sub layers."""
 
 from os.path import exists
+from typing import Dict
 
 from osgeo import gdal
 from processing.algs.qgis.QgisAlgorithm import QgisAlgorithm
@@ -36,24 +37,24 @@ class OpenOsmFile(QgisAlgorithm):
         self.feedback = None
 
     @staticmethod
-    def group():
+    def group() -> str:
         return tr('Advanced')
 
     @staticmethod
-    def groupId():
+    def groupId() -> str:
         return 'advanced'
 
     def flags(self):
         return super().flags() | QgsProcessingAlgorithm.FlagHideFromToolbox
 
     @staticmethod
-    def name():
+    def name() -> str:
         return 'openosmfile'
 
-    def displayName(self):
+    def displayName(self) -> str:
         return self.tr('Open sublayers from an OSM file')
 
-    def shortHelpString(self):
+    def shortHelpString(self) -> str:
         return self.tr('Open all sublayers from an OSM file. A custom OSM '
                        'configuration file can be specified following the OGR '
                        'documentation. This algorithm will not make a copy of '
@@ -130,7 +131,7 @@ class OpenOsmFile(QgisAlgorithm):
             output.tooltip_3liz = help_string
         self.addOutput(output)
 
-    def processAlgorithm(self, parameters, context, feedback):
+    def processAlgorithm(self, parameters, context, feedback) -> Dict[str, any]:
         self.feedback = feedback
         file = self.parameterAsString(parameters, self.FILE, context)
         osm_configuration = self.parameterAsString(

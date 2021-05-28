@@ -20,24 +20,24 @@ class DownloadOverpassUrl(QgisAlgorithm):
         super(DownloadOverpassUrl, self).__init__()
         self.feedback = None
 
-    def group(self):
+    def group(self) -> str:
         return self.tr('Advanced')
 
     @staticmethod
-    def groupId():
+    def groupId() -> str:
         return 'advanced'
 
     @staticmethod
-    def name():
+    def name() -> str:
         return 'downloadoverpassquery'
 
-    def displayName(self):
+    def displayName(self) -> str:
         return self.tr('Download from Overpass')
 
     def flags(self):
         return super().flags()  # | QgsProcessingAlgorithm.FlagHideFromToolbox
 
-    def shortHelpString(self):
+    def shortHelpString(self) -> str:
         return self.tr(
             'Like the native QGIS File Downloader algorithm, this algorithm '
             'will download an URL but it will also perform a OSM integrity '
@@ -52,7 +52,7 @@ class DownloadOverpassUrl(QgisAlgorithm):
             QgsProcessingOutputFile(
                 self.OUTPUT, self.tr('Output')))
 
-    def processAlgorithm(self, parameters, context, feedback):
+    def processAlgorithm(self, parameters, context, feedback) -> dict:
         self.feedback = feedback
         # url = self.parameterAsString(parameters, self.URL, context)
         output = self.parameterAsFileOutput(parameters, self.OUTPUT, context)

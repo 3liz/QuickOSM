@@ -4,9 +4,10 @@ import logging
 import os
 import re
 
+from typing import List
+
 from qgis.core import QgsFileDownloader
 from qgis.PyQt.QtCore import QDir, QEventLoop, QFileInfo, QTemporaryFile, QUrl
-from typing import List
 
 from QuickOSM.core.exceptions import (
     NetWorkErrorException,
