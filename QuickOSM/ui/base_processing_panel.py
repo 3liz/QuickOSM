@@ -4,7 +4,7 @@ from os.path import isdir
 
 from qgis.gui import QgsFileWidget
 from qgis.PyQt.QtCore import Qt
-from qgis.PyQt.QtWidgets import QApplication
+from qgis.PyQt.QtWidgets import QApplication, QDialog
 
 from QuickOSM.core.exceptions import (
     DirectoryOutPutException,
@@ -30,7 +30,7 @@ class BaseProcessingPanel(BasePanel):
     This is a kind of virtual class.
     """
 
-    def __init__(self, dialog):
+    def __init__(self, dialog: QDialog):
         super().__init__(dialog)
 
     def run(self):

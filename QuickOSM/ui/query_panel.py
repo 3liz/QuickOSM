@@ -3,7 +3,7 @@
 import re
 
 from qgis.PyQt.QtGui import QIcon
-from qgis.PyQt.QtWidgets import QAction, QDialogButtonBox, QMenu
+from qgis.PyQt.QtWidgets import QAction, QDialog, QDialogButtonBox, QMenu
 
 from QuickOSM.core.exceptions import MissingParameterException
 from QuickOSM.core.process import process_query
@@ -29,7 +29,7 @@ class QueryPanel(BaseOverpassPanel):
 
     """Final implementation for the panel."""
 
-    def __init__(self, dialog):
+    def __init__(self, dialog: QDialog):
         super().__init__(dialog)
         self.panel = Panels.Query
 
@@ -74,7 +74,7 @@ class QueryPanel(BaseOverpassPanel):
         self.allow_nominatim_or_extent()
         self.query_type_updated()
 
-    def gather_values(self):
+    def gather_values(self) -> dict:
         properties = super().gather_values()
 
         properties['query'] = self.dialog.text_query.toPlainText()
