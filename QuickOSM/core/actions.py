@@ -40,19 +40,6 @@ def add_actions(layer, keys):
     )
     actions.addAction(osm_browser)
 
-    title = 'Mapillary'
-    mapillary = QgsAction(
-        QgsAction.GenericPython,
-        title,
-        ACTIONS_PATH + 'Actions.run("mapillary","[% "mapillary" %]")',
-        resources_path('icons', 'mapillary_logo.svg'),
-        False,
-        title,
-        ACTIONS_VISIBILITY,
-        ''
-    )
-    actions.addAction(mapillary)
-
     title = 'JOSM'
     josm = QgsAction(
         QgsAction.GenericPython,
@@ -79,7 +66,7 @@ def add_actions(layer, keys):
     )
     actions.addAction(default_editor)
 
-    for link in ['url', 'website', 'wikipedia', 'wikidata', 'ref:UAI']:
+    for link in ['mapillary', 'url', 'website', 'wikipedia', 'wikidata', 'ref:UAI']:
         if link in keys:
 
             # Add an image to the action if available
@@ -90,6 +77,8 @@ def add_actions(layer, keys):
                 image = resources_path('icons', 'wikidata.png')
             elif link in ['url', 'website']:
                 image = resources_path('icons', 'external_link.png')
+            elif link == 'mapillary':
+                image = resources_path('icons', 'mapillary_logo.svg')
 
             link = link.replace(":", "_")
             generic = QgsAction(
