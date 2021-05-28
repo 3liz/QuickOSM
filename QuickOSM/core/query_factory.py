@@ -2,9 +2,8 @@
 
 import re
 
-from xml.dom.minidom import parseString
-
 from typing import List
+from xml.dom.minidom import parseString
 
 from QuickOSM.core.exceptions import QueryFactoryException
 from QuickOSM.definitions.osm import OsmType, QueryType
