@@ -14,7 +14,7 @@ __license__ = 'GPL version 3'
 __email__ = 'info@3liz.org'
 
 
-def custom_config_file():
+def custom_config_file() -> str:
     """Get the custom config file or None."""
     filepath = join(quickosm_user_folder(), 'custom_config.json')
     if isfile(filepath):
@@ -23,7 +23,7 @@ def custom_config_file():
         return None
 
 
-def nominatim_file():
+def nominatim_file() -> str:
     path = join(quickosm_user_folder(), 'nominatim.txt')
     if not path or not isfile(path):
         io.open(path, 'a').close()
@@ -31,14 +31,14 @@ def nominatim_file():
     return path
 
 
-def get_default_encoding():
+def get_default_encoding() -> str:
     if platform.system() == 'Windows':
         return sys.getdefaultencoding()
     else:
         return 'UTF-8'
 
 
-def quickosm_user_folder():
+def quickosm_user_folder() -> str:
     """
     Get the QuickOSM user folder.
 
@@ -57,7 +57,7 @@ def quickosm_user_folder():
     return path
 
 
-def get_setting(key, default=None):
+def get_setting(key: str, default: str = None) -> str:
     """Get a value in the QgsSettings.
 
     :param key: The key to fetch in the QgsSettings
@@ -79,7 +79,7 @@ def get_setting(key, default=None):
         return default
 
 
-def set_setting(key, value):
+def set_setting(key: str, value: str) -> bool:
     """
     Set a value in the QgsSettings
     @param key: key
