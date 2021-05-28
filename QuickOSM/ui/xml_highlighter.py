@@ -52,7 +52,7 @@ class XMLHighlighter(QSyntaxHighlighter):
         self.highlightingRules.append(
             (QRegExp("<!--[^\n]*-->"), single_line_comment_format))
 
-    def highlightBlock(self, text):
+    def highlightBlock(self, text: str):
         # for every pattern
         for pattern, char_format in self.highlightingRules:
 

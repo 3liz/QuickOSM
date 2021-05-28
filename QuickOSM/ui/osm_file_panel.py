@@ -5,6 +5,7 @@ import logging
 from os.path import isfile
 
 from qgis.core import Qgis, QgsProject
+from qgis.PyQt.QtWidgets import QDialog
 
 from QuickOSM.core.exceptions import FileDoesntExistException
 from QuickOSM.core.parser.osm_parser import OsmParser
@@ -25,7 +26,7 @@ class OsmFilePanel(BaseProcessingPanel):
 
     """Final implementation for the panel."""
 
-    def __init__(self, dialog):
+    def __init__(self, dialog: QDialog):
         super().__init__(dialog)
         self.panel = Panels.File
 
@@ -67,7 +68,7 @@ class OsmFilePanel(BaseProcessingPanel):
             self.dialog.osm_conf.setEnabled(False)
             self.dialog.run_buttons[self.panel].setEnabled(True)
 
-    def gather_values(self):
+    def gather_values(self) -> dict:
         properties = super().gather_values()
 
         properties['osm_file'] = self.dialog.osm_file.filePath()

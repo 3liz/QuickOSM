@@ -9,7 +9,7 @@ from qgis.core import (
     QgsGeometry,
     QgsProject,
 )
-from qgis.PyQt.QtWidgets import QCompleter
+from qgis.PyQt.QtWidgets import QCompleter, QDialog
 
 from QuickOSM.core.exceptions import MissingLayerUI
 from QuickOSM.core.utilities.tools import nominatim_file
@@ -32,7 +32,7 @@ class BaseOverpassPanel(BaseProcessingPanel):
     This is a kind of virtual class.
     """
 
-    def __init__(self, dialog):
+    def __init__(self, dialog: QDialog):
         super().__init__(dialog)
         self.last_places = []
 
@@ -61,7 +61,7 @@ class BaseOverpassPanel(BaseProcessingPanel):
                     QCompleter.PopupCompletion)
 
     @staticmethod
-    def sort_nominatim_places(existing_places, place):
+    def sort_nominatim_places(existing_places: list, place: str) -> list:
         """Helper to sort and limit results of saved nominatim places."""
         if place in existing_places:
             existing_places.pop(existing_places.index(place))

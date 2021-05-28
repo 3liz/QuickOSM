@@ -130,7 +130,7 @@ class Dialog(QDialog, FORM_CLASS):
             panel.setup_panel()
         self.menu_widget.setCurrentRow(0)
 
-    def display_quickosm_exception(self, exception):
+    def display_quickosm_exception(self, exception: QuickOsmException):
         """Display QuickOSM exceptions.
 
         These exceptions are been raised by QuickOSM itself.
@@ -151,7 +151,7 @@ class Dialog(QDialog, FORM_CLASS):
             # Should not happen, just in case
             self.display_critical_exception(exception)
 
-    def display_critical_exception(self, exception):
+    def display_critical_exception(self, exception: BaseException):
         """Display others exceptions, these are criticals.
 
         They are not managed by QuickOSM so it's a bug from the plugin.
@@ -179,12 +179,12 @@ class Dialog(QDialog, FORM_CLASS):
 
     def display_message_bar(
             self,
-            title,
-            message=None,
+            title: str,
+            message: str = None,
             level=Qgis.Info,
-            duration=5,
-            more_details=None,
-            open_logs=False):
+            duration: int = 5,
+            more_details: str = None,
+            open_logs: bool = False):
         """Display a message.
 
         :param title: Title of the message.
@@ -265,12 +265,12 @@ class Dialog(QDialog, FORM_CLASS):
         for edit in self.prefix_edits.values():
             edit.setText('')
 
-    def set_progress_percentage(self, percent):
+    def set_progress_percentage(self, percent: int):
         """Slot to update percentage during process."""
         self.progress_bar.setValue(percent)
         QApplication.processEvents()
 
-    def set_progress_text(self, text):
+    def set_progress_text(self, text: str):
         """Slot to update text during process."""
         self.progress_text.setText(text)
         QApplication.processEvents()

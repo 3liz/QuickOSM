@@ -79,7 +79,7 @@ class OsmParser(QObject):
 
         QObject.__init__(self)
 
-    def parse(self):
+    def parse(self) -> dict:
         """
         Start parsing the osm file.
         """

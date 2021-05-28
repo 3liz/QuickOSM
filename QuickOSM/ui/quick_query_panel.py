@@ -3,7 +3,7 @@
 from json import load
 from os.path import isfile
 
-from qgis.PyQt.QtWidgets import QCompleter, QDialogButtonBox
+from qgis.PyQt.QtWidgets import QCompleter, QDialog, QDialogButtonBox
 
 from QuickOSM.core.exceptions import OsmObjectsException, QuickOsmException
 from QuickOSM.core.process import process_quick_query
@@ -24,7 +24,7 @@ class QuickQueryPanel(BaseOverpassPanel):
 
     """Final implementation for the panel."""
 
-    def __init__(self, dialog):
+    def __init__(self, dialog: QDialog):
         super().__init__(dialog)
         self.panel = Panels.QuickQuery
         self.osm_keys = None
@@ -123,7 +123,7 @@ class QuickQueryPanel(BaseOverpassPanel):
         self.dialog.combo_value.addItems(current_values)
         self.update_friendly()
 
-    def gather_values(self):
+    def gather_values(self) -> dict:
         properties = super().gather_values()
         osm_objects = []
         if self.dialog.checkbox_node.isChecked():

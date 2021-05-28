@@ -19,7 +19,7 @@ class TableKeyValue(QTableView):
         super(TableKeyValue, self).__init__(parent)
         self.osm_keys = None
 
-    def set_osm_keys(self, keys):
+    def set_osm_keys(self, keys: dict):
         self.osm_keys = keys
 
     def add_new_row(self):
@@ -54,7 +54,7 @@ class TableKeyValue(QTableView):
 
 class QueryItemDelegate(QStyledItemDelegate):
 
-    def __init__(self, osm_keys):
+    def __init__(self, osm_keys: dict):
         super(QueryItemDelegate, self).__init__()
         self.osm_keys = osm_keys
 
