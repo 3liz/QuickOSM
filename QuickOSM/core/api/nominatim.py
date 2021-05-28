@@ -24,7 +24,7 @@ class Nominatim:
 
     """Manage connexion to Nominatim."""
 
-    def __init__(self, url=None):
+    def __init__(self, url: str = None):
         """Constructor.
 
         :param url: URL of Nominatim server.
@@ -41,7 +41,7 @@ class Nominatim:
         temporary.close()
 
     @staticmethod
-    def error(messages):
+    def error(messages: str):
         for message in messages:
             LOGGER.error(message)
         raise NetWorkErrorException('Nominatim API', ', '.join(messages))
@@ -55,7 +55,7 @@ class Nominatim:
     def completed():
         LOGGER.info('Request completed')
 
-    def query(self, query):
+    def query(self, query: str) -> dict:
         """Perform a nominatim query.
 
         :param query: Query to execute on the nominatim server.
@@ -88,7 +88,7 @@ class Nominatim:
             data = json.load(json_file)
             return data
 
-    def get_first_polygon_from_query(self, query):
+    def get_first_polygon_from_query(self, query: str) -> str:
         """Get first OSM_ID of a Nominatim area.
 
         :param query: Query to execute.
@@ -109,7 +109,7 @@ class Nominatim:
         # If no result has been return
         raise NominatimAreaException(OsmType.Relation, query)
 
-    def get_first_point_from_query(self, query):
+    def get_first_point_from_query(self, query: str) -> (str, str):
         """Get first longitude, latitude of a Nominatim point.
 
         :param query: Query to execute.

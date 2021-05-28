@@ -3,7 +3,7 @@
 import logging
 import re
 
-from qgis.core import QgsGeometry
+from qgis.core import QgsGeometry, QgsRectangle
 from qgis.PyQt.QtCore import QUrl, QUrlQuery
 
 from QuickOSM.core.api.nominatim import Nominatim
@@ -25,8 +25,8 @@ class QueryPreparation:
     """Prepare the query before sending it to Overpass."""
 
     def __init__(
-            self, query, extent=None, area=None,
-            overpass=None, output_format='xml'):
+            self, query: str, extent: QgsRectangle = None, area=None,
+            overpass: str = None, output_format: str = 'xml'):
         """Constructor.
 
         :param query: The query to prepare.
@@ -56,7 +56,7 @@ class QueryPreparation:
         self._query_is_ready = False
 
     @property
-    def query(self):
+    def query(self) -> str:
         """The original query.
 
         :return: The original query.
@@ -65,7 +65,7 @@ class QueryPreparation:
         return self._query
 
     @property
-    def final_query(self):
+    def final_query(self) -> str:
         """The generated query or None if it's not yet generated.
 
         :return: The final query.
@@ -76,7 +76,7 @@ class QueryPreparation:
         else:
             return None
 
-    def is_oql_query(self):
+    def is_oql_query(self) -> bool:
         """Return if the query is written in OQL or not.
 
         :return: If the it's OQL query.
@@ -84,7 +84,7 @@ class QueryPreparation:
         """
         return self._query[-1] == ';'
 
-    def is_compatible(self):
+    def is_compatible(self) -> (bool, str):
         """The plugin doesn't support all special tags like Overpass Turbo.
 
         :return: A tuple (bool, reason).
@@ -293,7 +293,7 @@ class QueryPreparation:
         self._query_is_ready = True
         return self._query_prepared
 
-    def prepare_url(self):
+    def prepare_url(self) -> str:
         """Prepare a query to be as an URL.
 
         if the query is not ready to be URL prepared, a None is returned.

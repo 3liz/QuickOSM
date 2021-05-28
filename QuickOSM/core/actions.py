@@ -1,6 +1,6 @@
 """Actions definitions."""
 
-from qgis.core import Qgis, QgsAction
+from qgis.core import Qgis, QgsAction, QgsVectorLayer
 from qgis.utils import iface, plugins
 
 from QuickOSM.core.utilities.utilities_qgis import open_webpage
@@ -16,7 +16,7 @@ ACTIONS_PATH = 'from QuickOSM.core.actions import Actions;'
 ACTIONS_VISIBILITY = ['Canvas', 'Feature', 'Field']
 
 
-def add_actions(layer, keys):
+def add_actions(layer: QgsVectorLayer, keys: list):
     """Add actions on layer.
 
     :param layer: The layer.
@@ -128,7 +128,7 @@ class Actions:
     """
 
     @staticmethod
-    def run(field, value):
+    def run(field: str, value: str):
         """
         Run an action with only one value as parameter
 
@@ -192,7 +192,7 @@ class Actions:
                 pass
 
     @staticmethod
-    def run_sketch_line(network, ref):
+    def run_sketch_line(network: str, ref: str):
         """
         Run an action with two values for sketchline
 

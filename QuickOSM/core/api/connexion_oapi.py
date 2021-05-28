@@ -6,6 +6,7 @@ import re
 
 from qgis.core import QgsFileDownloader
 from qgis.PyQt.QtCore import QDir, QEventLoop, QFileInfo, QTemporaryFile, QUrl
+from typing import List
 
 from QuickOSM.core.exceptions import (
     NetWorkErrorException,
@@ -28,7 +29,7 @@ class ConnexionOAPI:
     Manage connexion to the overpass API.
     """
 
-    def __init__(self, url):
+    def __init__(self, url: str):
         """Constructor of query.
 
         :param url:Full URL of OverPass Query with the query encoded in it.
@@ -94,12 +95,12 @@ class ConnexionOAPI:
         return self.result_path
 
     @staticmethod
-    def check_file(path):
+    def check_file(path: str):
         # The download is done, checking for not complete OSM file.
         # Overpass might aborted the request with HTTP 200.
         LOGGER.info('Checking OSM file content {}'.format(path))
 
-        def last_lines(file_path, line_count):
+        def last_lines(file_path: str, line_count: int) -> List[str]:
             bufsize = 8192
             fsize = os.stat(file_path).st_size
             iteration = 0
@@ -144,14 +145,14 @@ class ConnexionOAPI:
             raise OverpassRuntimeError(search.group(1))
 
     @staticmethod
-    def is_query_timed_out(string):
+    def is_query_timed_out(string: str):
         text = 'Network request (.*) timed out'
         search = re.search(text, string)
         if search:
             raise OverpassTimeoutException
 
     @staticmethod
-    def is_bad_request(string):
+    def is_bad_request(string: str):
         text = '(.*)server replied: Bad Request'
         search = re.search(text, string)
         if search:

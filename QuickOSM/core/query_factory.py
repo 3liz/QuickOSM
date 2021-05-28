@@ -4,6 +4,8 @@ import re
 
 from xml.dom.minidom import parseString
 
+from typing import List
+
 from QuickOSM.core.exceptions import QueryFactoryException
 from QuickOSM.definitions.osm import OsmType, QueryType
 from QuickOSM.qgis_plugin_tools.tools.i18n import tr
@@ -32,15 +34,15 @@ class QueryFactory:
 
     def __init__(
             self,
-            query_type=None,
-            key=None,
-            value=None,
-            area=None,
-            around_distance=None,
-            osm_objects=None,
-            output='xml',
-            timeout=25,
-            print_mode='body',
+            query_type: QueryType = None,
+            key: str = None,
+            value: str = None,
+            area: str = None,
+            around_distance: int = None,
+            osm_objects: List[OsmType] = None,
+            output: str = 'xml',
+            timeout: int = 25,
+            print_mode: str = 'body',
     ):
         """
         Query Factory constructor according to Overpass API.
@@ -114,7 +116,7 @@ class QueryFactory:
         self._checked = False
 
     @property
-    def area(self):
+    def area(self) -> list:
         """Return the area defined for the query.
 
         Either None if no area or a list of areas.
@@ -123,7 +125,7 @@ class QueryFactory:
         """
         return self._area
 
-    def _check_parameters(self):
+    def _check_parameters(self) -> bool:
         """Internal function to check that the query can be built.
 
         :raise QueryFactoryException
@@ -200,7 +202,7 @@ class QueryFactory:
         query = query.replace(' bbox="custom"', ' {{bbox}}')
         return query
 
-    def generate_xml(self):
+    def generate_xml(self) -> str:
         """Generate the XML.
 
         The query will not be valid because of Overpass templates !
@@ -255,7 +257,7 @@ class QueryFactory:
 
         return query
 
-    def make(self):
+    def make(self) -> str:
         """Make the query.
 
         @return: query
@@ -276,7 +278,7 @@ class QueryFactory:
 
         return query
 
-    def _make_for_test(self):
+    def _make_for_test(self) -> str:
         """Helper for tests only!
 
         Without indentation and lines.
@@ -285,7 +287,7 @@ class QueryFactory:
         query = query.replace(SPACE_INDENT, '').replace('\n', '')
         return query
 
-    def friendly_message(self):
+    def friendly_message(self) -> str:
         """Create a friendly/human message about what the query will do.
 
         @return: The message

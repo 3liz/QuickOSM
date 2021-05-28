@@ -14,7 +14,7 @@ class QuickOsmException(Exception):
 
     """These exceptions are created by QuickOSM during a process."""
 
-    def __init__(self, message=None, more_details=None):
+    def __init__(self, message: str = None, more_details: str = None):
         """Constructor.
 
         :param message: The base message to display in the message bar.
@@ -43,21 +43,21 @@ Overpass or network
 
 # TODO, not used, but need to be fixed
 class OverpassBadRequestException(QuickOsmException):
-    def __init__(self, message=None):
+    def __init__(self, message: str = None):
         if not message:
             message = tr('Bad request OverpassAPI.')
         super().__init__(message)
 
 
 class OverpassTimeoutException(QuickOsmException):
-    def __init__(self, message=None):
+    def __init__(self, message: str = None):
         if not message:
             message = tr('OverpassAPI timeout, try again later or a smaller query.')
         super().__init__(message)
 
 
 class OverpassMemoryException(QuickOsmException):
-    def __init__(self, amount_memory, unit):
+    def __init__(self, amount_memory: int, unit: str):
         message = tr(
             'OverpassAPI is out of memory, try another query or a smaller area.')
         details = tr(
@@ -68,13 +68,13 @@ class OverpassMemoryException(QuickOsmException):
 
 
 class OverpassRuntimeError(QuickOsmException):
-    def __init__(self, message):
+    def __init__(self, message: str):
         message = tr('Overpass error: {message}').format(message=message)
         super().__init__(message)
 
 
 class NetWorkErrorException(QuickOsmException):
-    def __init__(self, service, details=None):
+    def __init__(self, service: str, details: str = None):
         if details:
             service = service + ' : ' + details
         super().__init__(service)
@@ -86,7 +86,7 @@ QueryFactory
 
 
 class QueryFactoryException(QuickOsmException):
-    def __init__(self, message=None, suffix=None):
+    def __init__(self, message: str = None, suffix: str = None):
         if not message:
             message = tr('Error while building the query')
         if suffix:
@@ -95,7 +95,7 @@ class QueryFactoryException(QuickOsmException):
 
 
 class QueryNotSupported(QuickOsmException):
-    def __init__(self, key):
+    def __init__(self, key: str):
         message = tr(
             'The query is not supported by the plugin because of : {key}').format(key=key)
         super().__init__(message)
@@ -110,7 +110,7 @@ class NominatimAreaException(QuickOsmException):
 
     """Raised when no Nominatim area has been found."""
 
-    def __init__(self, osm_type, query):
+    def __init__(self, osm_type: OsmType, query: str):
         """Raised when no Nominatim area has been found.
 
         :param osm_type: Name of the OSM type object we were looking for.
@@ -138,7 +138,7 @@ File and directory
 
 
 class FileDoesntExistException(QuickOsmException):
-    def __init__(self, message=None, suffix=None):
+    def __init__(self, message: str = None, suffix: str = None):
         if not message:
             message = tr('The file does not exist.')
         if suffix:
@@ -147,14 +147,14 @@ class FileDoesntExistException(QuickOsmException):
 
 
 class DirectoryOutPutException(QuickOsmException):
-    def __init__(self, message=None):
+    def __init__(self, message: str = None):
         if not message:
             message = tr('The output directory does not exist.')
         super().__init__(message)
 
 
 class FileOutPutException(QuickOsmException):
-    def __init__(self, message=None, suffix=None):
+    def __init__(self, message: str = None, suffix: str = None):
         if not message:
             message = tr('The output file already exist, set a prefix.')
         if suffix:
@@ -174,7 +174,7 @@ class MissingLayerUI(QuickOsmException):
 
 
 class MissingParameterException(QuickOsmException):
-    def __init__(self, message=None, suffix=None):
+    def __init__(self, message: str = None, suffix: str = None):
         if not message:
             message = tr('A parameter is missing :')
         if suffix:
@@ -183,14 +183,14 @@ class MissingParameterException(QuickOsmException):
 
 
 class OsmObjectsException(QuickOsmException):
-    def __init__(self, message=None):
+    def __init__(self, message: str = None):
         if not message:
             message = tr('No osm objects selected. Please select one.')
         super().__init__(message)
 
 
 class OutPutGeomTypesException(QuickOsmException):
-    def __init__(self, message=None):
+    def __init__(self, message: str = None):
         if not message:
             message = tr('No outputs selected. Please select one.')
         super().__init__(message)
