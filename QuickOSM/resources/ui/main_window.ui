@@ -157,7 +157,7 @@ QListWidget::item::selected {
          <item>
           <widget class="QStackedWidget" name="stacked_panels_widget">
            <property name="currentIndex">
-            <number>3</number>
+            <number>1</number>
            </property>
            <widget class="QWidget" name="quickquery_page">
             <property name="sizePolicy">
@@ -545,7 +545,14 @@ QListWidget::item::selected {
                <item>
                 <widget class="QPushButton" name="button_show_query">
                  <property name="text">
-                  <string>Show query</string>
+                  <string>Show query in XML</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QPushButton" name="button_show_query_oql">
+                 <property name="text">
+                  <string>Show query in OQL</string>
                  </property>
                 </widget>
                </item>

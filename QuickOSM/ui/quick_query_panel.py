@@ -56,7 +56,8 @@ class QuickQueryPanel(BaseOverpassPanel):
         self.dialog.line_file_prefix_qq.setDisabled(True)
 
         self.dialog.button_run_query_qq.clicked.connect(self.run)
-        self.dialog.button_show_query.clicked.connect(self.show_query)
+        self.dialog.button_show_query.clicked.connect(self.query_xml)
+        self.dialog.button_show_query_oql.clicked.connect(self.query_oql)
         self.dialog.combo_key.editTextChanged.connect(self.key_edited)
         self.dialog.button_map_features.clicked.connect(open_plugin_documentation)
         self.dialog.button_box_qq.button(QDialogButtonBox.Reset).clicked.connect(
@@ -165,7 +166,13 @@ class QuickQueryPanel(BaseOverpassPanel):
             output_geometry_types=properties['outputs'])
         self.end_query(num_layers)
 
-    def show_query(self):
+    def query_xml(self):
+        self.show_query(True)
+
+    def query_oql(self):
+        self.show_query(False)
+
+    def show_query(self, wantXML: bool = True):
         """Show the query in the main window."""
         try:
             p = self.gather_values()
@@ -200,7 +207,7 @@ class QuickQueryPanel(BaseOverpassPanel):
             timeout=p['timeout']
         )
         try:
-            query = query_factory.make()
+            query = query_factory.make(wantXML)
         except QuickOsmException as e:
             self.dialog.display_quickosm_exception(e)
         except Exception as e:

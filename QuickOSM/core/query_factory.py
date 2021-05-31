@@ -256,21 +256,76 @@ class QueryFactory:
 
         return query
 
-    def make(self) -> str:
+    def generate_oql(self) -> str:
+        """Generate the OQL.
+
+        The query will not be valid because of Overpass templates !
+        """
+        query = '[out:{}] [timeout:{}];\n'.format(
+            self._output, self._timeout)
+
+        if self._area:
+            nominatim = self._area
+        else:
+            nominatim = None
+
+        if nominatim and self._query_type != QueryType.AroundArea:
+
+            for i, one_place in enumerate(nominatim):
+                query += ' area="{}" -> .area_{};\n'.format(
+                    one_place, i)
+
+        query += '(\n'
+
+        loop = 1 if not nominatim else len(nominatim)
+
+        for osm_object in self._osm_objects:
+            for i in range(0, loop):
+                query += '      {}['.format(osm_object.value.lower())
+                for j, key in enumerate(self._key):
+                    query += '"{}"='.format(key)
+                    if j < len(self._value) and self._value[j] is not None:
+                        query += '"{}"'.format(self._value[j])
+
+                    query += ']'
+
+                if self._area and self._query_type != QueryType.AroundArea:
+                    query += '(area.area_{})'.format(i)
+
+                elif self._area and self._query_type == QueryType.AroundArea:
+                    query += '(around:{}, {})'.format(
+                        self._distance_around, nominatim[i])
+
+                elif self._query_type == QueryType.BBox:
+                    query = '({})'.format(query)
+
+                query += ';\n'
+
+        query += ');\n'
+        query += '(._;>;);\n'
+        query += 'out {};'.format(self._print_mode)
+
+        return query
+
+    def make(self, wantXML: bool = True) -> str:
         """Make the query.
 
         @return: query
         @rtype: str
         """
         self._check_parameters()
-        query = self.generate_xml()
 
-        # get_pretty_xml works only with a valid XML, no template {{}}
-        # So we replace fake XML after
-        query = QueryFactory.get_pretty_xml(query)
+        if wantXML:
+            query = self.generate_xml()
 
-        # get_pretty_xml add on XML header, let's remove the first line
-        query = '\n'.join(query.split('\n')[1:])
+            # get_pretty_xml works only with a valid XML, no template {{}}
+            # So we replace fake XML after
+            query = QueryFactory.get_pretty_xml(query)
+
+            # get_pretty_xml add on XML header, let's remove the first line
+            query = '\n'.join(query.split('\n')[1:])
+        else:
+            query = self.generate_oql()
 
         query = QueryFactory.replace_template(query)
         query = query.replace('	', SPACE_INDENT)
