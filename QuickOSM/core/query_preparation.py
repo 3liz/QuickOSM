@@ -3,6 +3,8 @@
 import logging
 import re
 
+from typing import List, Union
+
 from qgis.core import QgsGeometry, QgsRectangle
 from qgis.PyQt.QtCore import QUrl, QUrlQuery
 
@@ -25,7 +27,7 @@ class QueryPreparation:
     """Prepare the query before sending it to Overpass."""
 
     def __init__(
-            self, query: str, extent: QgsRectangle = None, area=None,
+            self, query: str, extent: QgsRectangle = None, area: Union[str, List[str]] = None,
             overpass: str = None, output_format: str = 'xml'):
         """Constructor.
 
