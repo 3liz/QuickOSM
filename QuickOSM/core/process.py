@@ -4,6 +4,7 @@ import logging
 import time
 
 from os.path import abspath, dirname, isfile, join
+from typing import List, Union
 
 from qgis.core import (
     QgsExpressionContextUtils,
@@ -22,7 +23,7 @@ from QuickOSM.core.parser.osm_parser import OsmParser
 from QuickOSM.core.query_factory import QueryFactory
 from QuickOSM.core.query_preparation import QueryPreparation
 from QuickOSM.core.utilities.tools import get_default_encoding, get_setting
-from QuickOSM.definitions.osm import LayerType, QueryType
+from QuickOSM.definitions.osm import LayerType, OsmType, QueryType
 from QuickOSM.definitions.overpass import OVERPASS_SERVERS
 from QuickOSM.qgis_plugin_tools.tools.i18n import tr
 
@@ -37,10 +38,10 @@ LOGGER = logging.getLogger('QuickOSM')
 def open_file(
         dialog: QDialog = None,
         osm_file: str = None,
-        output_geom_types=None,
-        white_list_column=None,
+        output_geom_types: list = None,
+        white_list_column: dict = None,
         layer_name: str = "OsmFile",
-        config_outputs=None,
+        config_outputs: dict = None,
         output_dir: str = None,
         final_query: str = None,
         prefix_file: str = None) -> int:
@@ -168,14 +169,14 @@ def open_file(
 def process_query(
         dialog: QDialog = None,
         query: str = None,
-        area=None,
+        area: Union[str, List[str]] = None,
         bbox: QgsRectangle = None,
         output_dir: str = None,
         prefix_file: str = None,
-        output_geometry_types=None,
+        output_geometry_types: list = None,
         layer_name: str = "OsmQuery",
-        white_list_values=None,
-        config_outputs=None) -> int:
+        white_list_values: dict = None,
+        config_outputs: dict = None) -> int:
     """execute a query and send the result file to open_file."""
 
     # Prepare outputs
@@ -210,16 +211,16 @@ def process_query(
 def process_quick_query(
         dialog: QDialog = None,
         query_type: QueryType = None,
-        key=None,
-        value=None,
+        key: str = None,
+        value: str = None,
         bbox: QgsRectangle = None,
-        area=None,
+        area: str = None,
         distance: int = None,
-        osm_objects=None,
+        osm_objects: List[OsmType] = None,
         timeout: int = 25,
         output_directory: str = None,
         prefix_file: str = None,
-        output_geometry_types=None) -> int:
+        output_geometry_types: list = None) -> int:
     """
     Generate a query and send it to process_query.
     """

@@ -181,7 +181,7 @@ class Dialog(QDialog, FORM_CLASS):
             self,
             title: str,
             message: str = None,
-            level=Qgis.Info,
+            level: Qgis.MessageLevel = Qgis.Info,
             duration: int = 5,
             more_details: str = None,
             open_logs: bool = False):

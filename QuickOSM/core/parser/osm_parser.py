@@ -1,6 +1,7 @@
 """OSM Parser file."""
 
 from os.path import basename, dirname, isfile, join, realpath
+from typing import List
 
 from osgeo import gdal
 from qgis.core import (
@@ -49,12 +50,12 @@ class OsmParser(QObject):
 
     def __init__(
             self,
-            osm_file,
-            layers=OSM_LAYERS,
-            white_list_column=WHITE_LIST,
-            delete_empty_layers=False,
-            load_only=False,
-            osm_conf=None):
+            osm_file: str,
+            layers: List[str] = OSM_LAYERS,
+            white_list_column: dict = WHITE_LIST,
+            delete_empty_layers: bool = False,
+            load_only: bool = False,
+            osm_conf: str = None):
         self.__osmFile = osm_file
         self.__layers = layers
 
