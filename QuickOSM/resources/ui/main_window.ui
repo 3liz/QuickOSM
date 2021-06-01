@@ -157,7 +157,7 @@ QListWidget::item::selected {
          <item>
           <widget class="QStackedWidget" name="stacked_panels_widget">
            <property name="currentIndex">
-            <number>1</number>
+            <number>0</number>
            </property>
            <widget class="QWidget" name="quickquery_page">
             <property name="sizePolicy">
@@ -543,18 +543,28 @@ QListWidget::item::selected {
              <item>
               <layout class="QHBoxLayout" name="horizontalLayout">
                <item>
-                <widget class="QPushButton" name="button_show_query">
-                 <property name="text">
-                  <string>Show query in XML</string>
-                 </property>
-                </widget>
-               </item>
-               <item>
-                <widget class="QPushButton" name="button_show_query_oql">
-                 <property name="text">
-                  <string>Show query in OQL</string>
-                 </property>
-                </widget>
+                <layout class="QHBoxLayout" name="horizontalLayout_11">
+                 <item>
+                  <widget class="QPushButton" name="button_show_query">
+                   <property name="text">
+                    <string>Show query in</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QComboBox" name="combo_query_language_qq">
+                   <property name="maximumSize">
+                    <size>
+                     <width>100</width>
+                     <height>16777215</height>
+                    </size>
+                   </property>
+                   <property name="editable">
+                    <bool>false</bool>
+                   </property>
+                  </widget>
+                 </item>
+                </layout>
                </item>
                <item>
                 <widget class="QPushButton" name="button_run_query_qq">
@@ -816,11 +826,25 @@ QListWidget::item::selected {
                 <enum>QLayout::SetMinimumSize</enum>
                </property>
                <item>
-                <widget class="QPushButton" name="button_generate_query">
-                 <property name="text">
-                  <string>Generate query</string>
-                 </property>
-                </widget>
+                <layout class="QHBoxLayout" name="horizontalLayout_12">
+                 <item>
+                  <widget class="QPushButton" name="button_generate_query">
+                   <property name="text">
+                    <string>Generate query in</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QComboBox" name="combo_query_language_q">
+                   <property name="maximumSize">
+                    <size>
+                     <width>100</width>
+                     <height>16777215</height>
+                    </size>
+                   </property>
+                  </widget>
+                 </item>
+                </layout>
                </item>
                <item>
                 <widget class="QPushButton" name="button_run_query_q">
@@ -1503,7 +1527,6 @@ QListWidget::item::selected {
   <tabstop>checkbox_multipolygons_qq</tabstop>
   <tabstop>spin_timeout</tabstop>
   <tabstop>line_file_prefix_qq</tabstop>
-  <tabstop>button_show_query</tabstop>
   <tabstop>button_run_query_qq</tabstop>
   <tabstop>text_query</tabstop>
   <tabstop>advanced_q</tabstop>
@@ -1519,7 +1542,6 @@ QListWidget::item::selected {
   <tabstop>checkbox_multipolygons_q</tabstop>
   <tabstop>edit_csv_multipolygons</tabstop>
   <tabstop>line_file_prefix_q</tabstop>
-  <tabstop>button_generate_query</tabstop>
   <tabstop>button_run_query_q</tabstop>
   <tabstop>button_overpass_turbo</tabstop>
   <tabstop>button_documentation</tabstop>

@@ -130,7 +130,7 @@ class TestQueryFactory(unittest.TestCase):
             self.assertTrue(q._check_parameters())
             self.assertEqual(q.generate_xml(), xml)
             self.assertEqual(q.friendly_message(), human_label)
-            self.assertEqual(q._make_for_test(), xml_with_template)
+            self.assertEqual(q._make_for_test(False), xml_with_template)
 
         # All keys in extent
         query = QueryFactory(
@@ -581,7 +581,7 @@ class TestQueryFactory(unittest.TestCase):
         test_query(query, expected_xml, expected_xml_with_template, human)
 
     def test_make(self):
-        """Test make query wuth valid indentation and lines."""
+        """Test make query with valid indentation and lines."""
         query = QueryFactory(
             query_type=QueryType.BBox, key='foo', value='bar')
         self.assertIsNone(query.area)
@@ -600,7 +600,22 @@ class TestQueryFactory(unittest.TestCase):
             '<recurse type="down"/>\n    </union>\n    '
             '<print mode="body"/>\n</osm-script>\n'
         )
-        self.assertEqual(query.make(), expected)
+        self.assertEqual(query.make(False), expected)
+
+        query = QueryFactory(
+            query_type=QueryType.BBox, key='foo', value='bar')
+        self.assertIsNone(query.area)
+        expected = (
+            '[out:xml] [timeout:25];\n'
+            '(\n'
+            '      node["foo"="bar"]( {{bbox}});\n'
+            '      way["foo"="bar"]( {{bbox}});\n'
+            '      relation["foo"="bar"]( {{bbox}});\n'
+            ');\n'
+            '(._;>;);\n'
+            'out body;'
+        )
+        self.assertEqual(query.make(True), expected)
 
 
 if __name__ == '__main__':

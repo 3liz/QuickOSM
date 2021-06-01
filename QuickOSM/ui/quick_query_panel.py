@@ -1,5 +1,6 @@
 """Panel OSM base class."""
 
+from functools import partial
 from json import load
 from os.path import isfile
 
@@ -55,9 +56,15 @@ class QuickQueryPanel(BaseOverpassPanel):
 
         self.dialog.line_file_prefix_qq.setDisabled(True)
 
+        self.dialog.combo_query_language_qq.addItem(tr('OQL'), 'oql')
+        self.dialog.combo_query_language_qq.addItem(tr('XML'), 'xml')
+        self.dialog.combo_query_language_qq.currentIndexChanged.connect(
+            self.query_language_updated)
+
+        query_oql = partial(self.show_query, True)
+
         self.dialog.button_run_query_qq.clicked.connect(self.run)
-        self.dialog.button_show_query.clicked.connect(self.query_xml)
-        self.dialog.button_show_query_oql.clicked.connect(self.query_oql)
+        self.dialog.button_show_query.clicked.connect(query_oql)
         self.dialog.combo_key.editTextChanged.connect(self.key_edited)
         self.dialog.button_map_features.clicked.connect(open_plugin_documentation)
         self.dialog.button_box_qq.button(QDialogButtonBox.Reset).clicked.connect(
@@ -98,6 +105,16 @@ class QuickQueryPanel(BaseOverpassPanel):
             self.dialog.stacked_query_type,
             self.dialog.spin_place_qq)
         self.update_friendly()
+
+    def query_language_updated(self):
+        current = self.dialog.combo_query_language_qq.currentData()
+
+        if current == "oql":
+            query_oql = partial(self.show_query, True)
+            self.dialog.button_show_query.clicked.connect(query_oql)
+        elif current == "xml":
+            query_xml = partial(self.show_query, False)
+            self.dialog.button_show_query.clicked.connect(query_xml)
 
     def key_edited(self):
         """Add values to the combobox according to the key."""
@@ -166,13 +183,7 @@ class QuickQueryPanel(BaseOverpassPanel):
             output_geometry_types=properties['outputs'])
         self.end_query(num_layers)
 
-    def query_xml(self):
-        self.show_query(True)
-
-    def query_oql(self):
-        self.show_query(False)
-
-    def show_query(self, wantXML: bool = True):
+    def show_query(self, oql_output: bool = True):
         """Show the query in the main window."""
         try:
             p = self.gather_values()
@@ -207,7 +218,7 @@ class QuickQueryPanel(BaseOverpassPanel):
             timeout=p['timeout']
         )
         try:
-            query = query_factory.make(wantXML)
+            query = query_factory.make(oql_output)
         except QuickOsmException as e:
             self.dialog.display_quickosm_exception(e)
         except Exception as e:

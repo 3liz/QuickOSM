@@ -297,7 +297,7 @@ class QueryFactory:
                         self._distance_around, nominatim[i])
 
                 elif self._query_type == QueryType.BBox:
-                    query = '({})'.format(query)
+                    query += '( bbox="custom")'
 
                 query += ';\n'
 
@@ -307,7 +307,7 @@ class QueryFactory:
 
         return query
 
-    def make(self, wantXML: bool = True) -> str:
+    def make(self, oql_output: bool = True) -> str:
         """Make the query.
 
         @return: query
@@ -315,7 +315,10 @@ class QueryFactory:
         """
         self._check_parameters()
 
-        if wantXML:
+        if oql_output:
+            query = self.generate_oql()
+
+        else:
             query = self.generate_xml()
 
             # get_pretty_xml works only with a valid XML, no template {{}}
@@ -324,20 +327,18 @@ class QueryFactory:
 
             # get_pretty_xml add on XML header, let's remove the first line
             query = '\n'.join(query.split('\n')[1:])
-        else:
-            query = self.generate_oql()
 
         query = QueryFactory.replace_template(query)
         query = query.replace('	', SPACE_INDENT)
 
         return query
 
-    def _make_for_test(self) -> str:
+    def _make_for_test(self, oql_output: bool = True) -> str:
         """Helper for tests only!
 
         Without indentation and lines.
         """
-        query = self.make()
+        query = self.make(oql_output)
         query = query.replace(SPACE_INDENT, '').replace('\n', '')
         return query
 
