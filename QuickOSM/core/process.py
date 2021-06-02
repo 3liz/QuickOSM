@@ -23,7 +23,12 @@ from QuickOSM.core.parser.osm_parser import OsmParser
 from QuickOSM.core.query_factory import QueryFactory
 from QuickOSM.core.query_preparation import QueryPreparation
 from QuickOSM.core.utilities.tools import get_default_encoding, get_setting
-from QuickOSM.definitions.osm import LayerType, OsmType, QueryType
+from QuickOSM.definitions.osm import (
+    LayerType,
+    OsmType,
+    QueryLanguage,
+    QueryType,
+)
 from QuickOSM.definitions.overpass import OVERPASS_SERVERS
 from QuickOSM.qgis_plugin_tools.tools.i18n import tr
 
@@ -234,7 +239,7 @@ def process_quick_query(
         osm_objects=osm_objects,
         timeout=timeout
     )
-    query = query_factory.make()
+    query = query_factory.make(QueryLanguage.Oql)
     LOGGER.info(query_factory.friendly_message())
 
     # Generate layer name as following (if defined)

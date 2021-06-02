@@ -11,7 +11,7 @@ from QuickOSM.core.process import process_quick_query
 from QuickOSM.core.query_factory import QueryFactory
 from QuickOSM.core.utilities.utilities_qgis import open_plugin_documentation
 from QuickOSM.definitions.gui import Panels
-from QuickOSM.definitions.osm import OsmType, QueryType
+from QuickOSM.definitions.osm import OsmType, QueryLanguage, QueryType
 from QuickOSM.qgis_plugin_tools.tools.i18n import tr
 from QuickOSM.qgis_plugin_tools.tools.resources import resources_path
 from QuickOSM.ui.base_overpass_panel import BaseOverpassPanel
@@ -56,12 +56,10 @@ class QuickQueryPanel(BaseOverpassPanel):
 
         self.dialog.line_file_prefix_qq.setDisabled(True)
 
-        self.dialog.combo_query_language_qq.addItem(tr('OQL'), 'oql')
-        self.dialog.combo_query_language_qq.addItem(tr('XML'), 'xml')
         self.dialog.combo_query_language_qq.currentIndexChanged.connect(
             self.query_language_updated)
 
-        query_oql = partial(self.show_query, True)
+        query_oql = partial(self.show_query, QueryLanguage.Oql)
 
         self.dialog.button_run_query_qq.clicked.connect(self.run)
         self.dialog.button_show_query.clicked.connect(query_oql)
@@ -109,11 +107,11 @@ class QuickQueryPanel(BaseOverpassPanel):
     def query_language_updated(self):
         current = self.dialog.combo_query_language_qq.currentData()
 
-        if current == "oql":
-            query_oql = partial(self.show_query, True)
+        if current == QueryLanguage.OQL.value:
+            query_oql = partial(self.show_query, QueryLanguage.Oql)
             self.dialog.button_show_query.clicked.connect(query_oql)
-        elif current == "xml":
-            query_xml = partial(self.show_query, False)
+        elif current == QueryLanguage.XML.value:
+            query_xml = partial(self.show_query, QueryLanguage.Xml)
             self.dialog.button_show_query.clicked.connect(query_xml)
 
     def key_edited(self):
@@ -183,7 +181,7 @@ class QuickQueryPanel(BaseOverpassPanel):
             output_geometry_types=properties['outputs'])
         self.end_query(num_layers)
 
-    def show_query(self, oql_output: bool = True):
+    def show_query(self, output: QueryLanguage):
         """Show the query in the main window."""
         try:
             p = self.gather_values()
@@ -200,6 +198,11 @@ class QuickQueryPanel(BaseOverpassPanel):
             self.dialog.output_buttons[Panels.Query])
         for couple in check_boxes:
             couple[1].setChecked(couple[0].isChecked())
+
+        # Transfer the language of the query
+        current = self.dialog.combo_query_language_qq.currentData()
+        index = self.dialog.combo_query_language_qq.findData(current)
+        self.dialog.combo_query_language_q.setCurrentIndex(index)
 
         # Transfer the output
         self.dialog.output_directory_q.setFilePath(p['output_directory'])
@@ -218,7 +221,7 @@ class QuickQueryPanel(BaseOverpassPanel):
             timeout=p['timeout']
         )
         try:
-            query = query_factory.make(oql_output)
+            query = query_factory.make(output)
         except QuickOsmException as e:
             self.dialog.display_quickosm_exception(e)
         except Exception as e:

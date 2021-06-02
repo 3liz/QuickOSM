@@ -216,6 +216,7 @@ class TestQueryPreparation(unittest.TestCase):
         test('  foo;;   ', 'foo;')
         test('	foo;	', 'foo;')
         test('   	foo	   ', 'foo')
+        test('   	foo;\n	   ', 'foo;')
 
     def test_prepare_query(self):
         """Test we can prepare a query."""

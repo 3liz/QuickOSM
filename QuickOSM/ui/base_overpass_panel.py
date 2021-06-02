@@ -14,7 +14,7 @@ from qgis.PyQt.QtWidgets import QCompleter, QDialog
 from QuickOSM.core.exceptions import MissingLayerUI
 from QuickOSM.core.utilities.tools import nominatim_file
 from QuickOSM.definitions.gui import Panels
-from QuickOSM.definitions.osm import QueryType
+from QuickOSM.definitions.osm import QueryLanguage, QueryType
 from QuickOSM.qgis_plugin_tools.tools.i18n import tr
 from QuickOSM.ui.base_processing_panel import BaseProcessingPanel
 
@@ -41,6 +41,12 @@ class BaseOverpassPanel(BaseProcessingPanel):
         super().setup_panel()
         self.dialog.advanced_panels[self.panel].setSaveCollapsedState(False)
         self.dialog.advanced_panels[self.panel].setCollapsed(True)
+
+        query_oql = QueryLanguage.OQL
+        query_xml = QueryLanguage.XML
+
+        self.dialog.query_language_buttons[self.panel].addItem(query_oql.name, query_oql.value)
+        self.dialog.query_language_buttons[self.panel].addItem(query_xml.name, query_xml.value)
 
     def init_nominatim_autofill(self):
         """Open the nominatim file and start setting up the auto-completion."""

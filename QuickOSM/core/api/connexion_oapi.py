@@ -73,9 +73,7 @@ class ConnexionOAPI:
         loop.exec_()
 
         with open(self.result_path, encoding='utf8') as txt_file:
-            text = ""
-            for line in txt_file.readlines():
-                text += line
+            text = txt_file.read()
             query = re.findall("<pre>\\n(.*?)</pre>", text)[0]
 
         return query

@@ -65,6 +65,10 @@ class Dialog(QDialog, FORM_CLASS):
             Panels.QuickQuery: self.combo_extent_layer_qq,
             Panels.Query: self.combo_extent_layer_q,
         }
+        self.query_language_buttons = {
+            Panels.QuickQuery: self.combo_query_language_qq,
+            Panels.Query: self.combo_query_language_q,
+        }
         self.run_buttons = {
             Panels.QuickQuery: self.button_run_query_qq,
             Panels.Query: self.button_run_query_q,

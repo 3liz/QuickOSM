@@ -18,7 +18,7 @@ from QuickOSM.core.utilities.utilities_qgis import (
     open_plugin_documentation,
 )
 from QuickOSM.definitions.gui import Panels
-from QuickOSM.definitions.osm import LayerType
+from QuickOSM.definitions.osm import LayerType, QueryOverpassLanguage
 from QuickOSM.definitions.overpass import OVERPASS_SERVERS
 from QuickOSM.qgis_plugin_tools.tools.i18n import tr
 from QuickOSM.qgis_plugin_tools.tools.resources import resources_path
@@ -50,9 +50,6 @@ class QueryPanel(BaseOverpassPanel):
         self.dialog.combo_query_type_q.addItem(tr('Layer Extent'), 'layer')
         self.dialog.combo_query_type_q.currentIndexChanged.connect(
             self.query_type_updated)
-
-        self.dialog.combo_query_language_q.addItem(tr('OQL'), 'oql')
-        self.dialog.combo_query_language_q.addItem(tr('XML'), 'xml')
 
         self.highlighter = XMLHighlighter(self.dialog.text_query.document())
         self.dialog.text_query.cursorPositionChanged.connect(
@@ -138,7 +135,7 @@ class QueryPanel(BaseOverpassPanel):
         query = QueryPreparation(query, properties['bbox'], area, server)
         query_string = query.prepare_query()
         if query.is_oql_query():
-            url = query.prepare_url(True, "xml")
+            url = query.prepare_url(QueryOverpassLanguage.Xml)
             connexion_overpass_api = ConnexionOAPI(url)
             LOGGER.debug('Encoded URL: {}'.format(url))
             query_string = connexion_overpass_api.run_convert()
@@ -156,7 +153,7 @@ class QueryPanel(BaseOverpassPanel):
         query_string = query.prepare_query()
         if not query.is_oql_query():
             query.prepare_query()
-            url = query.prepare_url(True, "mapql")
+            url = query.prepare_url(QueryOverpassLanguage.Oql)
             connexion_overpass_api = ConnexionOAPI(url)
             LOGGER.debug('Encoded URL: {}'.format(url))
             query_string = connexion_overpass_api.run_convert()

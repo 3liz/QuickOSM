@@ -6,7 +6,7 @@ from typing import List
 from xml.dom.minidom import parseString
 
 from QuickOSM.core.exceptions import QueryFactoryException
-from QuickOSM.definitions.osm import OsmType, QueryType
+from QuickOSM.definitions.osm import OsmType, QueryLanguage, QueryType
 from QuickOSM.qgis_plugin_tools.tools.i18n import tr
 
 __copyright__ = 'Copyright 2019, 3Liz'
@@ -281,25 +281,41 @@ class QueryFactory:
 
         for osm_object in self._osm_objects:
             for i in range(0, loop):
-                query += '      {}['.format(osm_object.value.lower())
-                for j, key in enumerate(self._key):
-                    query += '"{}"='.format(key)
-                    if j < len(self._value) and self._value[j] is not None:
-                        query += '"{}"'.format(self._value[j])
+                if self._key:
+                    for j, key in enumerate(self._key):
+                        query += '    {}'.format(osm_object.value.lower())
+                        query += '["{}"'.format(key)
+                        if j < len(self._value) and self._value[j] is not None:
+                            query += '="{}"'.format(self._value[j])
 
-                    query += ']'
+                        query += ']'
 
-                if self._area and self._query_type != QueryType.AroundArea:
-                    query += '(area.area_{})'.format(i)
+                        if self._area and self._query_type != QueryType.AroundArea:
+                            query += '(area.area_{})'.format(i)
 
-                elif self._area and self._query_type == QueryType.AroundArea:
-                    query += '(around:{}, {})'.format(
-                        self._distance_around, nominatim[i])
+                        elif self._area and self._query_type == QueryType.AroundArea:
+                            query += '(around:{}, area_coords="{}")'.format(
+                                self._distance_around, nominatim[i])
 
-                elif self._query_type == QueryType.BBox:
-                    query += '( bbox="custom")'
+                        elif self._query_type == QueryType.BBox:
+                            query += '( bbox="custom")'
 
-                query += ';\n'
+                        query += ';\n'
+
+                else:
+                    query += '    {}'.format(osm_object.value.lower())
+
+                    if self._area and self._query_type != QueryType.AroundArea:
+                        query += '(area.area_{})'.format(i)
+
+                    elif self._area and self._query_type == QueryType.AroundArea:
+                        query += '(around:{}, area_coords="{}")'.format(
+                            self._distance_around, nominatim[i])
+
+                    elif self._query_type == QueryType.BBox:
+                        query += '( bbox="custom")'
+
+                    query += ';\n'
 
         query += ');\n'
         query += '(._;>;);\n'
@@ -307,18 +323,17 @@ class QueryFactory:
 
         return query
 
-    def make(self, oql_output: bool = True) -> str:
+    def make(self, output: QueryLanguage) -> str:
         """Make the query.
 
         @return: query
         @rtype: str
         """
         self._check_parameters()
-
-        if oql_output:
+        if output == QueryLanguage.Oql:
             query = self.generate_oql()
 
-        else:
+        elif output == QueryLanguage.Xml:
             query = self.generate_xml()
 
             # get_pretty_xml works only with a valid XML, no template {{}}
@@ -333,12 +348,12 @@ class QueryFactory:
 
         return query
 
-    def _make_for_test(self, oql_output: bool = True) -> str:
+    def _make_for_test(self, output: QueryLanguage) -> str:
         """Helper for tests only!
 
         Without indentation and lines.
         """
-        query = self.make(oql_output)
+        query = self.make(output)
         query = query.replace(SPACE_INDENT, '').replace('\n', '')
         return query
 

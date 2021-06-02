@@ -4,7 +4,7 @@ from qgis.testing import unittest
 
 from QuickOSM.core.exceptions import QueryFactoryException
 from QuickOSM.core.query_factory import QueryFactory
-from QuickOSM.definitions.osm import OsmType, QueryType
+from QuickOSM.definitions.osm import OsmType, QueryLanguage, QueryType
 
 __copyright__ = 'Copyright 2019, 3Liz'
 __license__ = 'GPL version 3'
@@ -125,12 +125,14 @@ class TestQueryFactory(unittest.TestCase):
     def test_possible_queries(self):
         """Test queries which are possible and must return a XML query."""
 
-        def test_query(q, xml, xml_with_template, human_label):
+        def test_query(q, xml, xml_with_template, oql, oql_with_template, human_label):
             """Internal helper for testing queries."""
             self.assertTrue(q._check_parameters())
             self.assertEqual(q.generate_xml(), xml)
+            self.assertEqual(q.generate_oql(), oql)
             self.assertEqual(q.friendly_message(), human_label)
-            self.assertEqual(q._make_for_test(False), xml_with_template)
+            self.assertEqual(q._make_for_test(QueryLanguage.Xml), xml_with_template)
+            self.assertEqual(q._make_for_test(QueryLanguage.Oql), oql_with_template)
 
         # All keys in extent
         query = QueryFactory(
@@ -175,8 +177,29 @@ class TestQueryFactory(unittest.TestCase):
             '<print mode="body"/>'
             '</osm-script>'
         )
+        expected_oql = (
+            '[out:xml] [timeout:25];\n'
+            '(\n'
+            '    node( bbox="custom");\n'
+            '    way( bbox="custom");\n'
+            '    relation( bbox="custom");\n'
+            ');\n'
+            '(._;>;);\n'
+            'out body;'
+        )
+        expected_oql_with_template = (
+            '[out:xml] [timeout:25];'
+            '('
+            'node( {{bbox}});'
+            'way( {{bbox}});'
+            'relation( {{bbox}});'
+            ');'
+            '(._;>;);'
+            'out body;'
+        )
         human = 'All OSM objects in the canvas or layer extent are going to be downloaded.'
-        test_query(query, expected_xml, expected_xml_with_template, human)
+        test_query(query, expected_xml, expected_xml_with_template,
+                   expected_oql, expected_oql_with_template, human)
 
         # Key value and named place
         query = QueryFactory(
@@ -230,8 +253,31 @@ class TestQueryFactory(unittest.TestCase):
             '<print mode="body"/>'
             '</osm-script>'
         )
+        expected_oql = (
+            '[out:xml] [timeout:25];\n'
+            ' area="paris" -> .area_0;\n'
+            '(\n'
+            '    node["foo"="bar"](area.area_0);\n'
+            '    way["foo"="bar"](area.area_0);\n'
+            '    relation["foo"="bar"](area.area_0);\n'
+            ');\n'
+            '(._;>;);\n'
+            'out body;'
+        )
+        expected_oql_with_template = (
+            '[out:xml] [timeout:25];'
+            ' {{geocodeArea:paris}} -> .area_0;'
+            '('
+            'node["foo"="bar"](area.area_0);'
+            'way["foo"="bar"](area.area_0);'
+            'relation["foo"="bar"](area.area_0);'
+            ');'
+            '(._;>;);'
+            'out body;'
+        )
         human = 'All OSM objects with the key \'foo\'=\'bar\' in paris are going to be downloaded.'
-        test_query(query, expected_xml, expected_xml_with_template, human)
+        test_query(query, expected_xml, expected_xml_with_template,
+                   expected_oql, expected_oql_with_template, human)
 
         # Key in bbox
         query = QueryFactory(query_type=QueryType.BBox, key='foo', timeout=35)
@@ -282,10 +328,31 @@ class TestQueryFactory(unittest.TestCase):
             '<print mode="body"/>'
             '</osm-script>'
         )
+        expected_oql = (
+            '[out:xml] [timeout:35];\n'
+            '(\n'
+            '    node["foo"]( bbox="custom");\n'
+            '    way["foo"]( bbox="custom");\n'
+            '    relation["foo"]( bbox="custom");\n'
+            ');\n'
+            '(._;>;);\n'
+            'out body;'
+        )
+        expected_oql_with_template = (
+            '[out:xml] [timeout:35];'
+            '('
+            'node["foo"]( {{bbox}});'
+            'way["foo"]( {{bbox}});'
+            'relation["foo"]( {{bbox}});'
+            ');'
+            '(._;>;);'
+            'out body;'
+        )
         human = (
             'All OSM objects with the key \'foo\' in the canvas or layer extent are going to be downloaded.'
         )
-        test_query(query, expected_xml, expected_xml_with_template, human)
+        test_query(query, expected_xml, expected_xml_with_template,
+                   expected_oql, expected_oql_with_template, human)
 
         # Attribute only
         query = QueryFactory(query_type=QueryType.NotSpatial, key='foo', timeout=35)
@@ -330,8 +397,29 @@ class TestQueryFactory(unittest.TestCase):
             '<print mode="body"/>'
             '</osm-script>'
         )
+        expected_oql = (
+            '[out:xml] [timeout:35];\n'
+            '(\n'
+            '    node["foo"];\n'
+            '    way["foo"];\n'
+            '    relation["foo"];\n'
+            ');\n'
+            '(._;>;);\n'
+            'out body;'
+        )
+        expected_oql_with_template = (
+            '[out:xml] [timeout:35];'
+            '('
+            'node["foo"];'
+            'way["foo"];'
+            'relation["foo"];'
+            ');'
+            '(._;>;);'
+            'out body;'
+        )
         human = 'All OSM objects with the key \'foo\' are going to be downloaded.'
-        test_query(query, expected_xml, expected_xml_with_template, human)
+        test_query(query, expected_xml, expected_xml_with_template,
+                   expected_oql, expected_oql_with_template, human)
 
         # Double place name, with node only
         query = QueryFactory(
@@ -383,8 +471,31 @@ class TestQueryFactory(unittest.TestCase):
             '<print mode="body"/>'
             '</osm-script>'
         )
+        expected_oql = (
+            '[out:xml] [timeout:25];\n'
+            ' area="paris" -> .area_0;\n'
+            ' area="dubai" -> .area_1;\n'
+            '(\n'
+            '    node["foo"](area.area_0);\n'
+            '    node["foo"](area.area_1);\n'
+            ');\n'
+            '(._;>;);\n'
+            'out body;'
+        )
+        expected_oql_with_template = (
+            '[out:xml] [timeout:25];'
+            ' {{geocodeArea:paris}} -> .area_0;'
+            ' {{geocodeArea:dubai}} -> .area_1;'
+            '('
+            'node["foo"](area.area_0);'
+            'node["foo"](area.area_1);'
+            ');'
+            '(._;>;);'
+            'out body;'
+        )
         human = 'All OSM objects with the key \'foo\' in paris and dubai are going to be downloaded.'
-        test_query(query, expected_xml, expected_xml_with_template, human)
+        test_query(query, expected_xml, expected_xml_with_template,
+                   expected_oql, expected_oql_with_template, human)
 
         # Not testing the XML or OQL
         query = QueryFactory(
@@ -452,8 +563,29 @@ class TestQueryFactory(unittest.TestCase):
             '<print mode="meta"/>'
             '</osm-script>'
         )
+        expected_oql = (
+            '[out:xml] [timeout:25];\n'
+            '(\n'
+            '    node["foo"](around:1000, area_coords="a");\n'
+            '    way["foo"](around:1000, area_coords="a");\n'
+            '    relation["foo"](around:1000, area_coords="a");\n'
+            ');\n'
+            '(._;>;);\n'
+            'out meta;'
+        )
+        expected_oql_with_template = (
+            '[out:xml] [timeout:25];'
+            '('
+            'node["foo"](around:1000, {{geocodeCoords:a}});'
+            'way["foo"](around:1000, {{geocodeCoords:a}});'
+            'relation["foo"](around:1000, {{geocodeCoords:a}});'
+            ');'
+            '(._;>;);'
+            'out meta;'
+        )
         human = 'All OSM objects with the key \'foo\' in 1000 meters of a are going to be downloaded.'
-        test_query(query, expected_xml, expected_xml_with_template, human)
+        test_query(query, expected_xml, expected_xml_with_template,
+                   expected_oql, expected_oql_with_template, human)
 
         # No key, no value, one object
         query = QueryFactory(
@@ -487,8 +619,25 @@ class TestQueryFactory(unittest.TestCase):
             '<print mode="meta"/>'
             '</osm-script>'
         )
+        expected_oql = (
+            '[out:xml] [timeout:25];\n'
+            '(\n'
+            '    node(around:1000, area_coords="a");\n'
+            ');\n'
+            '(._;>;);\n'
+            'out meta;'
+        )
+        expected_oql_with_template = (
+            '[out:xml] [timeout:25];'
+            '('
+            'node(around:1000, {{geocodeCoords:a}});'
+            ');'
+            '(._;>;);'
+            'out meta;'
+        )
         human = 'All OSM objects in 1000 meters of a are going to be downloaded.'
-        test_query(query, expected_xml, expected_xml_with_template, human)
+        test_query(query, expected_xml, expected_xml_with_template,
+                   expected_oql, expected_oql_with_template, human)
 
         # Many keys with many values
         query = QueryFactory(
@@ -530,12 +679,31 @@ class TestQueryFactory(unittest.TestCase):
             '<print mode="body"/>'
             '</osm-script>'
         )
+        expected_oql = (
+            '[out:xml] [timeout:25];\n'
+            '(\n'
+            '    node["a"="b"]( bbox="custom");\n'
+            '    node["c"="d"]( bbox="custom");\n'
+            ');\n'
+            '(._;>;);\n'
+            'out body;'
+        )
+        expected_oql_with_template = (
+            '[out:xml] [timeout:25];'
+            '('
+            'node["a"="b"]( {{bbox}});'
+            'node["c"="d"]( {{bbox}});'
+            ');'
+            '(._;>;);'
+            'out body;'
+        )
         # TODO, fix many keys
         human = (
             'All OSM objects with the key \'a\'=\'b\' in the canvas or layer extent are going to be '
             'downloaded.'
         )
-        test_query(query, expected_xml, expected_xml_with_template, human)
+        test_query(query, expected_xml, expected_xml_with_template,
+                   expected_oql, expected_oql_with_template, human)
 
         # Many keys with None values
         query = QueryFactory(
@@ -577,8 +745,27 @@ class TestQueryFactory(unittest.TestCase):
             '<print mode="body"/>'
             '</osm-script>'
         )
+        expected_oql = (
+            '[out:xml] [timeout:25];\n'
+            '(\n'
+            '    node["a"]( bbox="custom");\n'
+            '    node["c"]( bbox="custom");\n'
+            ');\n'
+            '(._;>;);\n'
+            'out body;'
+        )
+        expected_oql_with_template = (
+            '[out:xml] [timeout:25];'
+            '('
+            'node["a"]( {{bbox}});'
+            'node["c"]( {{bbox}});'
+            ');'
+            '(._;>;);'
+            'out body;'
+        )
         human = 'All OSM objects with the key \'a\' in the canvas or layer extent are going to be downloaded.'
-        test_query(query, expected_xml, expected_xml_with_template, human)
+        test_query(query, expected_xml, expected_xml_with_template,
+                   expected_oql, expected_oql_with_template, human)
 
     def test_make(self):
         """Test make query with valid indentation and lines."""
@@ -600,7 +787,7 @@ class TestQueryFactory(unittest.TestCase):
             '<recurse type="down"/>\n    </union>\n    '
             '<print mode="body"/>\n</osm-script>\n'
         )
-        self.assertEqual(query.make(False), expected)
+        self.assertEqual(query.make(QueryLanguage.Xml), expected)
 
         query = QueryFactory(
             query_type=QueryType.BBox, key='foo', value='bar')
@@ -608,14 +795,14 @@ class TestQueryFactory(unittest.TestCase):
         expected = (
             '[out:xml] [timeout:25];\n'
             '(\n'
-            '      node["foo"="bar"]( {{bbox}});\n'
-            '      way["foo"="bar"]( {{bbox}});\n'
-            '      relation["foo"="bar"]( {{bbox}});\n'
+            '    node["foo"="bar"]( {{bbox}});\n'
+            '    way["foo"="bar"]( {{bbox}});\n'
+            '    relation["foo"="bar"]( {{bbox}});\n'
             ');\n'
             '(._;>;);\n'
             'out body;'
         )
-        self.assertEqual(query.make(True), expected)
+        self.assertEqual(query.make(QueryLanguage.Oql), expected)
 
 
 if __name__ == '__main__':
