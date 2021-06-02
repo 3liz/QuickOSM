@@ -10,6 +10,7 @@ from qgis.PyQt.QtCore import QDir, QEventLoop, QTemporaryFile, QUrl, QUrlQuery
 from QuickOSM.core.exceptions import (
     NetWorkErrorException,
     NominatimAreaException,
+    NominatimBadRequest,
 )
 from QuickOSM.definitions.osm import OsmType
 
@@ -86,6 +87,8 @@ class Nominatim:
 
         with open(self.result_path, encoding='utf8') as json_file:
             data = json.load(json_file)
+            if not data:
+                raise NominatimBadRequest(query)
             return data
 
     def get_first_polygon_from_query(self, query: str) -> str:
@@ -107,7 +110,7 @@ class Nominatim:
                     return osm_id
 
         # If no result has been return
-        raise NominatimAreaException(OsmType.Relation, query)
+        raise NominatimAreaException(query)
 
     def get_first_point_from_query(self, query: str) -> (str, str):
         """Get first longitude, latitude of a Nominatim point.
@@ -122,11 +125,7 @@ class Nominatim:
         """
         data = self.query(query)
         for result in data:
-            if result.get('osm_type') == OsmType.Node.name.lower():
-                lon = result.get('lon')
-                lat = result.get('lat')
-                if lon and lat:
-                    return lon, lat
-
-        # If no result has been return
-        raise NominatimAreaException(OsmType.Node, query)
+            lon = result.get('lon')
+            lat = result.get('lat')
+            if lon and lat:
+                return lon, lat
