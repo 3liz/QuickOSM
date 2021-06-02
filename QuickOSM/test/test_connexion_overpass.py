@@ -23,7 +23,7 @@ class TestOverpass(unittest.TestCase):
     def test_real_wrong_request(self):
         """Test wrong request.
 
-        This is test is using internet.
+        This test is using internet.
         """
         url = QUrl(OVERPASS_SERVERS[0])
         query_string = QUrlQuery()
@@ -34,14 +34,8 @@ class TestOverpass(unittest.TestCase):
         self.assertListEqual(overpass.errors, [])
 
         # We don't want the FileNotFoundError
-        try:
+        with self.assertRaises(OverpassBadRequestException):
             overpass.run()
-        except OverpassBadRequestException:
-            self.assertTrue(True)
-        except FileNotFoundError:
-            self.assertFalse(True)
-        else:
-            self.assertFalse(True)
 
         self.assertEqual(len(overpass.errors), 1)
 

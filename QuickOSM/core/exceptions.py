@@ -106,29 +106,41 @@ Nominatim
 """
 
 
+class NominatimBadRequest(QuickOsmException):
+
+    """Raised when no Nominatim data has been downloaded."""
+
+    def __init__(self, query: str):
+        """Raised when no Nominatim area has been found.
+
+        :param query: Name of the place.
+        :type query: basestring
+        """
+        message = tr(
+            'Nominatim hasn\'t found any data for an area called "{place_name}".')
+        message = message.format(place_name=query)
+
+        super().__init__(message)
+
+
 class NominatimAreaException(QuickOsmException):
 
     """Raised when no Nominatim area has been found."""
 
-    def __init__(self, osm_type: OsmType, query: str):
+    def __init__(self, query: str):
         """Raised when no Nominatim area has been found.
-
-        :param osm_type: Name of the OSM type object we were looking for.
-        :type osm_type: OsmType
 
         :param query: Name of the place.
         :type query: basestring
         """
         message = tr(
             'No named area found for OSM {osm_type} called "{place_name}".')
-        message = message.format(osm_type=osm_type.name.lower(), place_name=query)
+        message = message.format(osm_type=OsmType.Relation.name.lower(), place_name=query)
 
-        more_details = None
-        if osm_type == OsmType.Relation:
-            # No polygon has been found, we propose the "around" query.
-            more_details = tr(
-                'No OSM polygon (relation) has been found, you should try the '
-                '"Around" query which will search for a point (node).')
+        # No polygon has been found, we propose the "around" query.
+        more_details = tr(
+            'No OSM polygon (relation) has been found, you should try the '
+            '"Around" query which will search for other OSM type.')
         super().__init__(message, more_details)
 
 
