@@ -152,31 +152,34 @@ class BaseOverpassPanel(BaseProcessingPanel):
 
         query_type = self.dialog.query_type_buttons[self.panel].currentData()
 
-        if not properties['place']:
-            if query_type in ['canvas', 'layer']:
-                if query_type == 'canvas':
-                    geom_extent = self.dialog.iface.mapCanvas().extent()
-                    source_crs = self.dialog.iface.mapCanvas().mapSettings().destinationCrs()
-                elif query_type == 'layer':
-                    # Else if a layer is checked
-                    layer = self.dialog.layers_buttons[self.panel].currentLayer()
-                    if not layer:
-                        raise MissingLayerUI
-                    geom_extent = layer.extent()
-                    source_crs = layer.crs()
-                else:
-                    raise NotImplementedError
+        if query_type in ['in', 'around']:
+            place = self.dialog.places_edits[self.panel].text()
+            properties['place'] = place
+            properties['bbox'] = None
 
-                # noinspection PyArgumentList
-                geom_extent = QgsGeometry.fromRect(geom_extent)
-                epsg_4326 = QgsCoordinateReferenceSystem('EPSG:4326')
-                # noinspection PyArgumentList
-                crs_transform = QgsCoordinateTransform(
-                    source_crs, epsg_4326, QgsProject.instance())
-                geom_extent.transform(crs_transform)
-                properties['bbox'] = geom_extent.boundingBox()
+        elif query_type in ['canvas', 'layer']:
+            if query_type == 'canvas':
+                geom_extent = self.dialog.iface.mapCanvas().extent()
+                source_crs = self.dialog.iface.mapCanvas().mapSettings().destinationCrs()
+            elif query_type == 'layer':
+                # Else if a layer is checked
+                layer = self.dialog.layers_buttons[self.panel].currentLayer()
+                if not layer:
+                    raise MissingLayerUI
+                geom_extent = layer.extent()
+                source_crs = layer.crs()
             else:
-                properties['bbox'] = None
+                raise NotImplementedError
+
+            # noinspection PyArgumentList
+            geom_extent = QgsGeometry.fromRect(geom_extent)
+            epsg_4326 = QgsCoordinateReferenceSystem('EPSG:4326')
+            # noinspection PyArgumentList
+            crs_transform = QgsCoordinateTransform(
+                source_crs, epsg_4326, QgsProject.instance())
+            geom_extent.transform(crs_transform)
+            properties['bbox'] = geom_extent.boundingBox()
+            properties['place'] = None
         else:
             properties['bbox'] = None
 
