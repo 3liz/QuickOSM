@@ -4,8 +4,10 @@ import html
 import logging
 import re
 
+from PyQt5.QtCore import Qt
 from qgis.PyQt.QtGui import QIcon
 from qgis.PyQt.QtWidgets import QAction, QDialog, QDialogButtonBox, QMenu
+from qgis.utils import OverrideCursor
 
 from QuickOSM.core.api.connexion_oapi import ConnexionOAPI
 from QuickOSM.core.exceptions import MissingParameterException
@@ -196,7 +198,8 @@ class QueryPanel(BaseOverpassPanel):
     def query_language_check(self):
         current = self.dialog.combo_query_language_q.currentData()
 
-        if current == QueryLanguage.OQL:
-            self.generate_query_oql()
-        elif current == QueryLanguage.XML:
-            self.generate_query_xml()
+        with OverrideCursor(Qt.WaitCursor):
+            if current == QueryLanguage.OQL:
+                self.generate_query_oql()
+            elif current == QueryLanguage.XML:
+                self.generate_query_xml()
