@@ -56,12 +56,8 @@ class TestOverpass(unittest.TestCase):
             '%3D%22down%22/%3E%0A %3C/union%3E%0A %3Cprint mode%3D%22body%22/'
             '%3E%0A%3C/osm-script%3E&info=QgisQuickOSMPlugin timed out'
         )
-        try:
+        with self.assertRaises(OverpassTimeoutException):
             ConnexionOAPI.is_query_timed_out(string)
-        except OverpassTimeoutException:
-            self.assertTrue(True)
-        else:
-            self.assertFalse(True)
 
     def test_read_xml_encoding(self):
         """ Test #240 related to encoding. """

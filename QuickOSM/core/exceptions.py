@@ -56,6 +56,13 @@ class OverpassTimeoutException(QuickOsmException):
         super().__init__(message)
 
 
+class OverpassManyRequestException(QuickOsmException):
+    def __init__(self, message: str = None):
+        if not message:
+            message = tr('OverpassAPI has received too many requests, try again later or a smaller query.')
+        super().__init__(message)
+
+
 class OverpassMemoryException(QuickOsmException):
     def __init__(self, amount_memory: int, unit: str):
         message = tr(
