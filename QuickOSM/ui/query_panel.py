@@ -4,7 +4,7 @@ import html
 import logging
 import re
 
-from PyQt5.QtCore import Qt
+from qgis.PyQt.QtCore import Qt
 from qgis.PyQt.QtGui import QIcon
 from qgis.PyQt.QtWidgets import QAction, QDialog, QDialogButtonBox, QMenu
 from qgis.utils import OverrideCursor
