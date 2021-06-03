@@ -24,17 +24,8 @@ class QueryType(Enum):
 
 
 @unique
-class QueryOverpassLanguage(Enum):
-    """Language of query that QuickOSM can generate."""
-    Xml = 'xml'
-    Oql = 'mapql'
-
-
-@unique
 class QueryLanguage(Enum):
     """Language of query that QuickOSM can generate."""
-    Xml = False
-    Oql = True
     XML = "xml"
     OQL = "oql"
 

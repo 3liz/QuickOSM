@@ -330,10 +330,10 @@ class QueryFactory:
         @rtype: str
         """
         self._check_parameters()
-        if output == QueryLanguage.Oql:
+        if output == QueryLanguage.OQL:
             query = self.generate_oql()
 
-        elif output == QueryLanguage.Xml:
+        elif output == QueryLanguage.XML:
             query = self.generate_xml()
 
             # get_pretty_xml works only with a valid XML, no template {{}}

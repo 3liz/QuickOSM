@@ -59,7 +59,7 @@ class QuickQueryPanel(BaseOverpassPanel):
         self.dialog.combo_query_language_qq.currentIndexChanged.connect(
             self.query_language_updated)
 
-        query_oql = partial(self.show_query, QueryLanguage.Oql)
+        query_oql = partial(self.show_query, QueryLanguage.OQL)
 
         self.dialog.button_run_query_qq.clicked.connect(self.run)
         self.dialog.button_show_query.clicked.connect(query_oql)
@@ -107,11 +107,11 @@ class QuickQueryPanel(BaseOverpassPanel):
     def query_language_updated(self):
         current = self.dialog.combo_query_language_qq.currentData()
 
-        if current == QueryLanguage.OQL.value:
-            query_oql = partial(self.show_query, QueryLanguage.Oql)
+        if current == QueryLanguage.OQL:
+            query_oql = partial(self.show_query, QueryLanguage.OQL)
             self.dialog.button_show_query.clicked.connect(query_oql)
-        elif current == QueryLanguage.XML.value:
-            query_xml = partial(self.show_query, QueryLanguage.Xml)
+        elif current == QueryLanguage.XML:
+            query_xml = partial(self.show_query, QueryLanguage.XML)
             self.dialog.button_show_query.clicked.connect(query_xml)
 
     def key_edited(self):

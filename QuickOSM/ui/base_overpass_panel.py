@@ -45,8 +45,8 @@ class BaseOverpassPanel(BaseProcessingPanel):
         query_oql = QueryLanguage.OQL
         query_xml = QueryLanguage.XML
 
-        self.dialog.query_language_buttons[self.panel].addItem(query_oql.name, query_oql.value)
-        self.dialog.query_language_buttons[self.panel].addItem(query_xml.name, query_xml.value)
+        self.dialog.query_language_buttons[self.panel].addItem(query_oql.name, query_oql)
+        self.dialog.query_language_buttons[self.panel].addItem(query_xml.name, query_xml)
 
     def init_nominatim_autofill(self):
         """Open the nominatim file and start setting up the auto-completion."""

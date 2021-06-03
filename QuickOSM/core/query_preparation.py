@@ -12,7 +12,7 @@ from QuickOSM.core.api.nominatim import Nominatim
 from QuickOSM.core.exceptions import QueryFactoryException, QueryNotSupported
 from QuickOSM.core.utilities.tools import get_setting
 from QuickOSM.definitions.nominatim import NOMINATIM_SERVERS
-from QuickOSM.definitions.osm import QueryOverpassLanguage
+from QuickOSM.definitions.osm import QueryLanguage
 from QuickOSM.definitions.overpass import OVERPASS_SERVERS
 from QuickOSM.qgis_plugin_tools.tools.i18n import tr
 from QuickOSM.qgis_plugin_tools.tools.resources import plugin_name
@@ -300,7 +300,7 @@ class QueryPreparation:
         self._query_is_ready = True
         return self._query_prepared
 
-    def prepare_url(self, output: QueryOverpassLanguage = None) -> str:
+    def prepare_url(self, output: QueryLanguage = None) -> str:
         """Prepare a query to be as an URL.
 
         if the query is not ready to be URL prepared, a None is returned.
@@ -326,10 +326,10 @@ class QueryPreparation:
         url_query = QUrl(self._overpass)
         query_string = QUrlQuery()
         query_string.addQueryItem('data', query)
-        if output == QueryOverpassLanguage.Xml:
-            query_string.addQueryItem('target', output.value)
-        elif output == QueryOverpassLanguage.Oql:
-            query_string.addQueryItem('target', output.value)
+        if output == QueryLanguage.XML:
+            query_string.addQueryItem('target', "xml")
+        elif output == QueryLanguage.OQL:
+            query_string.addQueryItem('target', "mapql")
         query_string.addQueryItem('info', 'QgisQuickOSMPlugin')
         url_query.setQuery(query_string)
         return url_query.toString()

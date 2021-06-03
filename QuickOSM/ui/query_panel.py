@@ -18,7 +18,7 @@ from QuickOSM.core.utilities.utilities_qgis import (
     open_plugin_documentation,
 )
 from QuickOSM.definitions.gui import Panels
-from QuickOSM.definitions.osm import LayerType, QueryOverpassLanguage
+from QuickOSM.definitions.osm import LayerType, QueryLanguage
 from QuickOSM.definitions.overpass import OVERPASS_SERVERS
 from QuickOSM.qgis_plugin_tools.tools.i18n import tr
 from QuickOSM.qgis_plugin_tools.tools.resources import resources_path
@@ -135,7 +135,7 @@ class QueryPanel(BaseOverpassPanel):
         query = QueryPreparation(query, properties['bbox'], area, server)
         query_string = query.prepare_query()
         if query.is_oql_query():
-            url = query.prepare_url(QueryOverpassLanguage.Xml)
+            url = query.prepare_url(QueryLanguage.XML)
             connexion_overpass_api = ConnexionOAPI(url)
             LOGGER.debug('Encoded URL: {}'.format(url))
             query_string = connexion_overpass_api.run_convert()
@@ -153,7 +153,7 @@ class QueryPanel(BaseOverpassPanel):
         query_string = query.prepare_query()
         if not query.is_oql_query():
             query.prepare_query()
-            url = query.prepare_url(QueryOverpassLanguage.Oql)
+            url = query.prepare_url(QueryLanguage.OQL)
             connexion_overpass_api = ConnexionOAPI(url)
             LOGGER.debug('Encoded URL: {}'.format(url))
             query_string = connexion_overpass_api.run_convert()
@@ -196,7 +196,7 @@ class QueryPanel(BaseOverpassPanel):
     def query_language_check(self):
         current = self.dialog.combo_query_language_q.currentData()
 
-        if current == "oql":
+        if current == QueryLanguage.OQL:
             self.generate_query_oql()
-        elif current == "xml":
+        elif current == QueryLanguage.XML:
             self.generate_query_xml()

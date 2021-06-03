@@ -2,6 +2,7 @@ from qgis.testing import start_app, unittest
 from qgis.testing.mocked import get_iface
 
 from QuickOSM.definitions.gui import Panels
+from QuickOSM.definitions.osm import QueryLanguage
 from QuickOSM.ui.dialog import Dialog
 
 start_app()
@@ -40,7 +41,7 @@ class TestUiMainWindow(unittest.TestCase):
         dialog.combo_key.lineEdit().setText('amenity')
         dialog.combo_value.lineEdit().setText('value')
         dialog.places_edits[Panels.QuickQuery].setText('foo')
-        index = dialog.combo_query_language_qq.findData('oql')
+        index = dialog.combo_query_language_qq.findData(QueryLanguage.OQL)
         dialog.combo_query_language_qq.setCurrentIndex(index)
         dialog.button_show_query.click()
         expected_index = dialog.stacked_panels_widget.indexOf(dialog.query_page)
@@ -54,7 +55,7 @@ class TestUiMainWindow(unittest.TestCase):
         dialog.combo_key.lineEdit().setText('amenity')
         dialog.combo_value.lineEdit().setText('value')
         dialog.places_edits[Panels.QuickQuery].setText('foo')
-        index = dialog.combo_query_language_qq.findData('xml')
+        index = dialog.combo_query_language_qq.findData(QueryLanguage.XML)
         dialog.combo_query_language_qq.setCurrentIndex(index)
         dialog.button_show_query.click()
         expected_index = dialog.stacked_panels_widget.indexOf(dialog.query_page)

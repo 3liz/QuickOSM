@@ -131,8 +131,8 @@ class TestQueryFactory(unittest.TestCase):
             self.assertEqual(q.generate_xml(), xml)
             self.assertEqual(q.generate_oql(), oql)
             self.assertEqual(q.friendly_message(), human_label)
-            self.assertEqual(q._make_for_test(QueryLanguage.Xml), xml_with_template)
-            self.assertEqual(q._make_for_test(QueryLanguage.Oql), oql_with_template)
+            self.assertEqual(q._make_for_test(QueryLanguage.XML), xml_with_template)
+            self.assertEqual(q._make_for_test(QueryLanguage.OQL), oql_with_template)
 
         # All keys in extent
         query = QueryFactory(
@@ -787,7 +787,7 @@ class TestQueryFactory(unittest.TestCase):
             '<recurse type="down"/>\n    </union>\n    '
             '<print mode="body"/>\n</osm-script>\n'
         )
-        self.assertEqual(query.make(QueryLanguage.Xml), expected)
+        self.assertEqual(query.make(QueryLanguage.XML), expected)
 
         query = QueryFactory(
             query_type=QueryType.BBox, key='foo', value='bar')
@@ -802,7 +802,7 @@ class TestQueryFactory(unittest.TestCase):
             '(._;>;);\n'
             'out body;'
         )
-        self.assertEqual(query.make(QueryLanguage.Oql), expected)
+        self.assertEqual(query.make(QueryLanguage.OQL), expected)
 
 
 if __name__ == '__main__':
