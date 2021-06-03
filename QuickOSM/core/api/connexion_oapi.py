@@ -12,6 +12,7 @@ from qgis.PyQt.QtCore import QDir, QEventLoop, QFileInfo, QTemporaryFile, QUrl
 from QuickOSM.core.exceptions import (
     NetWorkErrorException,
     OverpassBadRequestException,
+    OverpassManyRequestException,
     OverpassMemoryException,
     OverpassRuntimeError,
     OverpassTimeoutException,
@@ -78,6 +79,7 @@ class ConnexionOAPI:
 
         for message in self.errors:
             self.is_query_timed_out(message)
+            self.too_many_request(message)
             self.is_bad_request(message)
             LOGGER.error(message)
 
@@ -151,6 +153,13 @@ class ConnexionOAPI:
         search = re.search(text, string)
         if search:
             raise OverpassTimeoutException
+
+    @staticmethod
+    def too_many_request(string: str):
+        text = '(.*)server replied: Too Many Requests'
+        search = re.search(text, string)
+        if search:
+            raise OverpassManyRequestException
 
     @staticmethod
     def is_bad_request(string: str):
