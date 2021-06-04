@@ -135,7 +135,7 @@ class QueryPanel(BaseOverpassPanel):
             bbox=properties['bbox'])
         self.end_query(num_layers)
 
-    def generate_query_xml(self):
+    def generate_query(self, oql_output: bool = True):
         query = self.dialog.text_query.toPlainText()
         area = self.dialog.places_edits[Panels.Query].text()
         self.write_nominatim_file(Panels.Query)
@@ -143,26 +143,9 @@ class QueryPanel(BaseOverpassPanel):
         server = get_setting('defaultOAPI', OVERPASS_SERVERS[0]) + 'convert'
         query = QueryPreparation(query, properties['bbox'], area, server)
         query_string = query.prepare_query()
-        if query.is_oql_query():
-            url = query.prepare_url(QueryLanguage.XML)
-            connexion_overpass_api = ConnexionOAPI(url)
-            LOGGER.debug('Encoded URL: {}'.format(url))
-            query_string = connexion_overpass_api.run_convert()
-            query_string = html.unescape(query_string)
-
-        self.dialog.text_query.setPlainText(query_string)
-
-    def generate_query_oql(self):
-        query = self.dialog.text_query.toPlainText()
-        area = self.dialog.places_edits[Panels.Query].text()
-        self.write_nominatim_file(Panels.Query)
-        properties = self.gather_values()
-        server = get_setting('defaultOAPI', OVERPASS_SERVERS[0]) + 'convert'
-        query = QueryPreparation(query, properties['bbox'], area, server)
-        query_string = query.prepare_query()
-        if not query.is_oql_query():
+        if (oql_output and not query.is_oql_query()) or (not oql_output and query.is_oql_query()):
             query.prepare_query()
-            url = query.prepare_url(QueryLanguage.OQL)
+            url = query.prepare_url(QueryLanguage.OQL if oql_output else QueryLanguage.XML)
             connexion_overpass_api = ConnexionOAPI(url)
             LOGGER.debug('Encoded URL: {}'.format(url))
             query_string = connexion_overpass_api.run_convert()
@@ -206,6 +189,6 @@ class QueryPanel(BaseOverpassPanel):
 
         with OverrideCursor(Qt.WaitCursor):
             if self.dialog.query_language[Panels.Query] == QueryLanguage.OQL:
-                self.generate_query_oql()
+                self.generate_query(oql_output=True)
             elif self.dialog.query_language[Panels.Query] == QueryLanguage.XML:
-                self.generate_query_xml()
+                self.generate_query(oql_output=False)
