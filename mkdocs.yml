@@ -15,6 +15,13 @@ nav:
         - 'End user': 'user-guide/end-user.md'
         - 'QGIS Model and Python API': 'user-guide/processing.md'
     - Processing: processing/README.md
+    - Documentation:
+        - 'Developer documentation': 'code-documentation/developer.md'
+        - 'Definition files': 'code-documentation/definitions.md'
+        - 'Processing files': 'code-documentation/processing.md'
+        - 'Core files': 'code-documentation/core.md'
+        - 'Ui files': 'code-documentation/ui.md'
+        - 'Tests files': 'code-documentation/tests.md'
     - Changelog: changelog.md
     - Contributing: contributing.md
     - Translation: translation-stats.md
@@ -23,6 +30,23 @@ nav:
 plugins:
   - search
   - git-revision-date-localized
+  - mkdocstrings:
+      default-handler: python
+      handlers:
+        python:
+#          setup_commands:
+#            - import sys
+#            - sys.path.append('QuickOSM/QuickOSM')
+          selection:
+            filters:
+              - "!^doc_processing.py"
+            docstring_style: restructured-text
+          rendering:
+            show_root_heading: true
+            show_source: false
+            show_signature_annotations: true
+      watch:
+        - QuickOSM
 
 markdown_extensions:
   - admonition:
@@ -51,6 +75,7 @@ extra_javascript:
   - https://unpkg.com/mermaid@8.6.4/dist/mermaid.min.js
 extra_css:
   - https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/default.min.css
+  - media/code.css
   - media/progress_bar.css
 
 theme:

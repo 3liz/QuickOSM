@@ -157,8 +157,9 @@ class QueryFactory:
     def _check_parameters(self) -> bool:
         """Internal function to check that the query can be built.
 
-        :raise QueryFactoryException
-        :return True if everything went fine.
+        :return: True if everything went fine.
+
+        :raise QueryFactoryException:
         """
         if type(self._query_type) != QueryType:
             raise QueryFactoryException(tr('Wrong query type.'))
@@ -401,8 +402,8 @@ class QueryFactory:
     def make(self, output: QueryLanguage = QueryLanguage.OQL) -> str:
         """Make the query.
 
-        @return: query
-        @rtype: str
+        :return: query
+        :rtype: str
         """
         self._check_parameters()
         if output == QueryLanguage.OQL:
@@ -435,8 +436,8 @@ class QueryFactory:
     def friendly_message(self) -> str:
         """Create a friendly/human message about what the query will do.
 
-        @return: The message
-        @rtype: str
+        return: The message
+        rtype: str
         """
         self._check_parameters()
 

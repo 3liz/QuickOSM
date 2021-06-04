@@ -56,7 +56,7 @@ class Nominatim(Downloader):
         :return: The result of the query as a dictionary.
         :rtype: dict
 
-        :raise NetWorkErrorException
+        :raise NetWorkErrorException:
         """
 
         query_string = QUrlQuery()

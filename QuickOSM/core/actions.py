@@ -156,10 +156,11 @@ class Actions:
         """
         Run an action with only one value as parameter
 
-        @param field:Type of the action
-        @type field:str
-        @param value:Value of the field for one entity
-        @type value:str
+        :param field:Type of the action
+        :type field:str
+
+        :param value:Value of the field for one entity
+        :type value:str
         """
 
         if value == '':
@@ -220,10 +221,11 @@ class Actions:
         """
         Run an action with two values for sketchline
 
-        @param network:network of the bus
-        @type network:str
-        @param ref:ref of the bus
-        @type ref:str
+        :param network:network of the bus
+        :type network:str
+
+        :param ref:ref of the bus
+        :type ref:str
         """
         if network == '' or ref == '':
             iface.messageBar().pushMessage(
