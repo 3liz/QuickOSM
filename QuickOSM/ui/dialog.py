@@ -8,11 +8,18 @@ from sys import exc_info
 
 from qgis.core import Qgis
 from qgis.PyQt.QtGui import QIcon, QPixmap
-from qgis.PyQt.QtWidgets import QApplication, QDialog, QMessageBox, QPushButton
+from qgis.PyQt.QtWidgets import (
+    QAction,
+    QApplication,
+    QDialog,
+    QMessageBox,
+    QPushButton,
+)
 
 from QuickOSM.core.exceptions import QuickOsmException
 from QuickOSM.core.utilities.utilities_qgis import open_log_panel
 from QuickOSM.definitions.gui import Panels
+from QuickOSM.definitions.osm import QueryLanguage
 from QuickOSM.qgis_plugin_tools.tools.i18n import tr
 from QuickOSM.qgis_plugin_tools.tools.resources import load_ui, resources_path
 from QuickOSM.ui.configuration_panel import ConfigurationPanel
@@ -65,10 +72,6 @@ class Dialog(QDialog, FORM_CLASS):
             Panels.QuickQuery: self.combo_extent_layer_qq,
             Panels.Query: self.combo_extent_layer_q,
         }
-        self.query_language_buttons = {
-            Panels.QuickQuery: self.combo_query_language_qq,
-            Panels.Query: self.combo_query_language_q,
-        }
         self.run_buttons = {
             Panels.QuickQuery: self.button_run_query_qq,
             Panels.Query: self.button_run_query_q,
@@ -107,6 +110,22 @@ class Dialog(QDialog, FORM_CLASS):
         self.advanced_panels = {
             Panels.QuickQuery: self.advanced_qq,
             Panels.Query: self.advanced_q,
+        }
+        self.query_language = {
+            Panels.QuickQuery: QueryLanguage.OQL,
+            Panels.Query: QueryLanguage.OQL,
+        }
+        self.action_oql_qq = QAction('OQL')
+        self.action_oql_q = QAction('OQL')
+        self.action_oql = {
+            Panels.QuickQuery: self.action_oql_qq,
+            Panels.Query: self.action_oql_q,
+        }
+        self.action_xml_qq = QAction('XML')
+        self.action_xml_q = QAction('XML')
+        self.action_xml = {
+            Panels.QuickQuery: self.action_xml_qq,
+            Panels.Query: self.action_xml_q,
         }
 
         item = self.menu_widget.item(0)

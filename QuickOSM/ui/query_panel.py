@@ -76,6 +76,13 @@ class QueryPanel(BaseOverpassPanel):
         popup_menu.addAction(overpass_action)
         self.dialog.button_documentation.setMenu(popup_menu)
 
+        self.dialog.button_generate_query.setMenu(QMenu())
+
+        self.dialog.action_oql_q.triggered.connect(self.query_language_oql)
+        self.dialog.action_xml_q.triggered.connect(self.query_language_xml)
+        self.dialog.button_generate_query.menu().addAction(self.dialog.action_oql_q)
+        self.dialog.button_generate_query.menu().addAction(self.dialog.action_xml_q)
+
         self.dialog.run_buttons[self.panel].clicked.connect(self.run)
         self.dialog.button_generate_query.clicked.connect(self.query_language_check)
         self.dialog.button_box_q.button(QDialogButtonBox.Reset).clicked.connect(
@@ -196,10 +203,9 @@ class QueryPanel(BaseOverpassPanel):
             self.dialog.combo_extent_layer_q)
 
     def query_language_check(self):
-        current = self.dialog.combo_query_language_q.currentData()
 
         with OverrideCursor(Qt.WaitCursor):
-            if current == QueryLanguage.OQL:
+            if self.dialog.query_language[Panels.Query] == QueryLanguage.OQL:
                 self.generate_query_oql()
-            elif current == QueryLanguage.XML:
+            elif self.dialog.query_language[Panels.Query] == QueryLanguage.XML:
                 self.generate_query_xml()

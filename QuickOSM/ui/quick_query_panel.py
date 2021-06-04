@@ -4,7 +4,7 @@ from functools import partial
 from json import load
 from os.path import isfile
 
-from qgis.PyQt.QtWidgets import QCompleter, QDialog, QDialogButtonBox
+from qgis.PyQt.QtWidgets import QCompleter, QDialog, QDialogButtonBox, QMenu
 
 from QuickOSM.core.exceptions import OsmObjectsException, QuickOsmException
 from QuickOSM.core.process import process_quick_query
@@ -56,13 +56,17 @@ class QuickQueryPanel(BaseOverpassPanel):
 
         self.dialog.line_file_prefix_qq.setDisabled(True)
 
-        self.dialog.combo_query_language_qq.currentIndexChanged.connect(
-            self.query_language_updated)
+        self.dialog.button_show_query.setMenu(QMenu())
+
+        self.dialog.action_oql_qq.triggered.connect(self.query_language_oql)
+        self.dialog.action_xml_qq.triggered.connect(self.query_language_xml)
+        self.dialog.button_show_query.menu().addAction(self.dialog.action_oql_qq)
+        self.dialog.button_show_query.menu().addAction(self.dialog.action_xml_qq)
 
         query_oql = partial(self.show_query, QueryLanguage.OQL)
+        self.dialog.button_show_query.clicked.connect(query_oql)
 
         self.dialog.button_run_query_qq.clicked.connect(self.run)
-        self.dialog.button_show_query.clicked.connect(query_oql)
         self.dialog.combo_key.editTextChanged.connect(self.key_edited)
         self.dialog.button_map_features.clicked.connect(open_plugin_documentation)
         self.dialog.button_box_qq.button(QDialogButtonBox.Reset).clicked.connect(
@@ -104,15 +108,15 @@ class QuickQueryPanel(BaseOverpassPanel):
             self.dialog.spin_place_qq)
         self.update_friendly()
 
-    def query_language_updated(self):
-        current = self.dialog.combo_query_language_qq.currentData()
+    def query_language_oql(self):
+        super().query_language_oql()
+        query_oql = partial(self.show_query, QueryLanguage.OQL)
+        self.dialog.button_show_query.clicked.connect(query_oql)
 
-        if current == QueryLanguage.OQL:
-            query_oql = partial(self.show_query, QueryLanguage.OQL)
-            self.dialog.button_show_query.clicked.connect(query_oql)
-        elif current == QueryLanguage.XML:
-            query_xml = partial(self.show_query, QueryLanguage.XML)
-            self.dialog.button_show_query.clicked.connect(query_xml)
+    def query_language_xml(self):
+        super().query_language_xml()
+        query_xml = partial(self.show_query, QueryLanguage.XML)
+        self.dialog.button_show_query.clicked.connect(query_xml)
 
     def key_edited(self):
         """Add values to the combobox according to the key."""
@@ -200,9 +204,7 @@ class QuickQueryPanel(BaseOverpassPanel):
             couple[1].setChecked(couple[0].isChecked())
 
         # Transfer the language of the query
-        current = self.dialog.combo_query_language_qq.currentData()
-        index = self.dialog.combo_query_language_qq.findData(current)
-        self.dialog.combo_query_language_q.setCurrentIndex(index)
+        self.query_language_updated()
 
         # Transfer the output
         self.dialog.output_directory_q.setFilePath(p['output_directory'])

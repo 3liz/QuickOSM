@@ -42,11 +42,27 @@ class BaseOverpassPanel(BaseProcessingPanel):
         self.dialog.advanced_panels[self.panel].setSaveCollapsedState(False)
         self.dialog.advanced_panels[self.panel].setCollapsed(True)
 
-        query_oql = QueryLanguage.OQL
-        query_xml = QueryLanguage.XML
+        self.dialog.action_oql[self.panel].setEnabled(False)
 
-        self.dialog.query_language_buttons[self.panel].addItem(query_oql.name, query_oql)
-        self.dialog.query_language_buttons[self.panel].addItem(query_xml.name, query_xml)
+    def query_language_xml(self):
+        self.dialog.query_language[self.panel] = QueryLanguage.XML
+        self.dialog.action_oql[self.panel].setEnabled(True)
+        self.dialog.action_xml[self.panel].setEnabled(False)
+
+    def query_language_oql(self):
+        self.dialog.query_language[self.panel] = QueryLanguage.OQL
+        self.dialog.action_xml[self.panel].setEnabled(True)
+        self.dialog.action_oql[self.panel].setEnabled(False)
+
+    def query_language_updated(self):
+        if self.dialog.query_language[Panels.Query] != self.dialog.query_language[Panels.QuickQuery]:
+            self.dialog.query_language[Panels.Query] = self.dialog.query_language[Panels.QuickQuery]
+        if self.dialog.query_language[Panels.Query] == QueryLanguage.OQL:
+            self.dialog.action_xml[Panels.Query].setEnabled(True)
+            self.dialog.action_oql[Panels.Query].setEnabled(False)
+        elif self.dialog.query_language[Panels.Query] == QueryLanguage.XML:
+            self.dialog.action_oql[Panels.Query].setEnabled(True)
+            self.dialog.action_xml[Panels.Query].setEnabled(False)
 
     def init_nominatim_autofill(self):
         """Open the nominatim file and start setting up the auto-completion."""
