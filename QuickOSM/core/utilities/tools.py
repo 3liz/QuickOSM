@@ -65,8 +65,8 @@ def quickosm_user_folder() -> str:
 
     On Linux: .local/share/QGIS/QGIS3/profiles/default/QuickOSM
 
-    @rtype: str
-    @return: path
+    :rtype: str
+    :return: path
     """
     path = abspath(join(QgsApplication.qgisSettingsDirPath(), 'QuickOSM'))
 
@@ -101,14 +101,14 @@ def get_setting(key: str, default: str = None) -> str:
 def set_setting(key: str, value: str) -> bool:
     """
     Set a value in the QgsSettings
-    @param key: key
-    @type key: str
+    :param key: key
+    :type key: str
 
-    @param value: value
-    @type value: str
+    :param value: value
+    :type value: str
 
-    @return: result
-    @rtype: bool
+    :return: result
+    :rtype: bool
     """
     q_setting = QgsSettings()
     prefix = '/QuickOSM/'

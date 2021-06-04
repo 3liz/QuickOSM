@@ -66,11 +66,12 @@ class ConnexionOAPI(Downloader):
     def run(self) -> str:
         """Run the query.
 
-        @raise OverpassBadRequestException,NetWorkErrorException,
-        OverpassTimeoutException
+        :return: The result of the query.
+        :rtype: str
 
-        @return: The result of the query.
-        @rtype: str
+        :raise OverpassBadRequestException:
+        :raise NetWorkErrorException:
+        :raise OverpassTimeoutException:
         """
         self.download()
 

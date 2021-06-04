@@ -14,3 +14,6 @@ tests: start_tests run_tests stop_tests
 
 processing-doc:
 	cd .docker && ./processing_doc.sh
+
+code-doc:
+	cd .docker && ./code_doc.sh
