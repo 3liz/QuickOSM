@@ -14,7 +14,7 @@ from qgis.PyQt.QtWidgets import QCompleter, QDialog
 from QuickOSM.core.exceptions import MissingLayerUI
 from QuickOSM.core.utilities.tools import nominatim_file
 from QuickOSM.definitions.gui import Panels
-from QuickOSM.definitions.osm import QueryType
+from QuickOSM.definitions.osm import QueryLanguage, QueryType
 from QuickOSM.qgis_plugin_tools.tools.i18n import tr
 from QuickOSM.ui.base_processing_panel import BaseProcessingPanel
 
@@ -41,6 +41,28 @@ class BaseOverpassPanel(BaseProcessingPanel):
         super().setup_panel()
         self.dialog.advanced_panels[self.panel].setSaveCollapsedState(False)
         self.dialog.advanced_panels[self.panel].setCollapsed(True)
+
+        self.dialog.action_oql[self.panel].setEnabled(False)
+
+    def query_language_xml(self):
+        self.dialog.query_language[self.panel] = QueryLanguage.XML
+        self.dialog.action_oql[self.panel].setEnabled(True)
+        self.dialog.action_xml[self.panel].setEnabled(False)
+
+    def query_language_oql(self):
+        self.dialog.query_language[self.panel] = QueryLanguage.OQL
+        self.dialog.action_xml[self.panel].setEnabled(True)
+        self.dialog.action_oql[self.panel].setEnabled(False)
+
+    def query_language_updated(self):
+        if self.dialog.query_language[Panels.Query] != self.dialog.query_language[Panels.QuickQuery]:
+            self.dialog.query_language[Panels.Query] = self.dialog.query_language[Panels.QuickQuery]
+        if self.dialog.query_language[Panels.Query] == QueryLanguage.OQL:
+            self.dialog.action_xml[Panels.Query].setEnabled(True)
+            self.dialog.action_oql[Panels.Query].setEnabled(False)
+        elif self.dialog.query_language[Panels.Query] == QueryLanguage.XML:
+            self.dialog.action_oql[Panels.Query].setEnabled(True)
+            self.dialog.action_xml[Panels.Query].setEnabled(False)
 
     def init_nominatim_autofill(self):
         """Open the nominatim file and start setting up the auto-completion."""

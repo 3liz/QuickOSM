@@ -24,6 +24,13 @@ class QueryType(Enum):
 
 
 @unique
+class QueryLanguage(Enum):
+    """Language of query that QuickOSM can generate."""
+    XML = "xml"
+    OQL = "oql"
+
+
+@unique
 class OsmType(Enum):
     """OSM objects."""
     Node = 'Node'

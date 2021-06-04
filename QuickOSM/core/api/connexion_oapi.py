@@ -31,7 +31,7 @@ class ConnexionOAPI:
     Manage connexion to the overpass API.
     """
 
-    def __init__(self, url: str):
+    def __init__(self, url: str, convert: bool = False):
         """Constructor of query.
 
         :param url:Full URL of OverPass Query with the query encoded in it.
@@ -39,8 +39,12 @@ class ConnexionOAPI:
         """
         self._url = QUrl(url)
 
-        temporary = QTemporaryFile(
-            os.path.join(QDir.tempPath(), 'request-XXXXXX.osm'))
+        if convert:
+            temporary = QTemporaryFile(
+                os.path.join(QDir.tempPath(), 'request-XXXXXX.txt'))
+        else:
+            temporary = QTemporaryFile(
+                os.path.join(QDir.tempPath(), 'request-XXXXXX.osm'))
         temporary.open()
         self.result_path = temporary.fileName()
         temporary.close()
@@ -57,6 +61,23 @@ class ConnexionOAPI:
     @staticmethod
     def completed():
         LOGGER.info('Request completed')
+
+    def run_convert(self):
+        loop = QEventLoop()
+        downloader = QgsFileDownloader(
+            self._url, self.result_path, delayStart=True)
+        downloader.downloadExited.connect(loop.quit)
+        downloader.downloadError.connect(self.error)
+        downloader.downloadCanceled.connect(self.canceled)
+        downloader.downloadCompleted.connect(self.completed)
+        downloader.startDownload()
+        loop.exec_()
+
+        with open(self.result_path, encoding='utf8') as txt_file:
+            text = txt_file.read()
+            query = re.findall("<pre>\\n(.*?)</pre>", text)[0]
+
+        return query
 
     def run(self):
         """Run the query.

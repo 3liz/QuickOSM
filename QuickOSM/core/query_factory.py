@@ -6,7 +6,7 @@ from typing import List
 from xml.dom.minidom import parseString
 
 from QuickOSM.core.exceptions import QueryFactoryException
-from QuickOSM.definitions.osm import OsmType, QueryType
+from QuickOSM.definitions.osm import OsmType, QueryLanguage, QueryType
 from QuickOSM.qgis_plugin_tools.tools.i18n import tr
 
 __copyright__ = 'Copyright 2019, 3Liz'
@@ -256,33 +256,104 @@ class QueryFactory:
 
         return query
 
-    def make(self) -> str:
+    def generate_oql(self) -> str:
+        """Generate the OQL.
+
+        The query will not be valid because of Overpass templates !
+        """
+        query = '[out:{}] [timeout:{}];\n'.format(
+            self._output, self._timeout)
+
+        if self._area:
+            nominatim = self._area
+        else:
+            nominatim = None
+
+        if nominatim and self._query_type != QueryType.AroundArea:
+
+            for i, one_place in enumerate(nominatim):
+                query += ' area="{}" -> .area_{};\n'.format(
+                    one_place, i)
+
+        query += '(\n'
+
+        loop = 1 if not nominatim else len(nominatim)
+
+        for osm_object in self._osm_objects:
+            for i in range(0, loop):
+                if self._key:
+                    for j, key in enumerate(self._key):
+                        query += '    {}'.format(osm_object.value.lower())
+                        query += '["{}"'.format(key)
+                        if j < len(self._value) and self._value[j] is not None:
+                            query += '="{}"'.format(self._value[j])
+
+                        query += ']'
+
+                        if self._area and self._query_type != QueryType.AroundArea:
+                            query += '(area.area_{})'.format(i)
+
+                        elif self._area and self._query_type == QueryType.AroundArea:
+                            query += '(around:{}, area_coords="{}")'.format(
+                                self._distance_around, nominatim[i])
+
+                        elif self._query_type == QueryType.BBox:
+                            query += '( bbox="custom")'
+
+                        query += ';\n'
+
+                else:
+                    query += '    {}'.format(osm_object.value.lower())
+
+                    if self._area and self._query_type != QueryType.AroundArea:
+                        query += '(area.area_{})'.format(i)
+
+                    elif self._area and self._query_type == QueryType.AroundArea:
+                        query += '(around:{}, area_coords="{}")'.format(
+                            self._distance_around, nominatim[i])
+
+                    elif self._query_type == QueryType.BBox:
+                        query += '( bbox="custom")'
+
+                    query += ';\n'
+
+        query += ');\n'
+        query += '(._;>;);\n'
+        query += 'out {};'.format(self._print_mode)
+
+        return query
+
+    def make(self, output: QueryLanguage) -> str:
         """Make the query.
 
         @return: query
         @rtype: str
         """
         self._check_parameters()
-        query = self.generate_xml()
+        if output == QueryLanguage.OQL:
+            query = self.generate_oql()
 
-        # get_pretty_xml works only with a valid XML, no template {{}}
-        # So we replace fake XML after
-        query = QueryFactory.get_pretty_xml(query)
+        elif output == QueryLanguage.XML:
+            query = self.generate_xml()
 
-        # get_pretty_xml add on XML header, let's remove the first line
-        query = '\n'.join(query.split('\n')[1:])
+            # get_pretty_xml works only with a valid XML, no template {{}}
+            # So we replace fake XML after
+            query = QueryFactory.get_pretty_xml(query)
+
+            # get_pretty_xml add on XML header, let's remove the first line
+            query = '\n'.join(query.split('\n')[1:])
 
         query = QueryFactory.replace_template(query)
         query = query.replace('	', SPACE_INDENT)
 
         return query
 
-    def _make_for_test(self) -> str:
+    def _make_for_test(self, output: QueryLanguage) -> str:
         """Helper for tests only!
 
         Without indentation and lines.
         """
-        query = self.make()
+        query = self.make(output)
         query = query.replace(SPACE_INDENT, '').replace('\n', '')
         return query
 

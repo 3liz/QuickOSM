@@ -1,20 +1,27 @@
 """Panel OSM base class."""
 
+import html
+import logging
 import re
 
+from qgis.PyQt.QtCore import Qt
 from qgis.PyQt.QtGui import QIcon
 from qgis.PyQt.QtWidgets import QAction, QDialog, QDialogButtonBox, QMenu
+from qgis.utils import OverrideCursor
 
+from QuickOSM.core.api.connexion_oapi import ConnexionOAPI
 from QuickOSM.core.exceptions import MissingParameterException
 from QuickOSM.core.process import process_query
 from QuickOSM.core.query_preparation import QueryPreparation
+from QuickOSM.core.utilities.tools import get_setting
 from QuickOSM.core.utilities.utilities_qgis import (
     open_doc_overpass,
     open_overpass_turbo,
     open_plugin_documentation,
 )
 from QuickOSM.definitions.gui import Panels
-from QuickOSM.definitions.osm import LayerType
+from QuickOSM.definitions.osm import LayerType, QueryLanguage
+from QuickOSM.definitions.overpass import OVERPASS_SERVERS
 from QuickOSM.qgis_plugin_tools.tools.i18n import tr
 from QuickOSM.qgis_plugin_tools.tools.resources import resources_path
 from QuickOSM.ui.base_overpass_panel import BaseOverpassPanel
@@ -23,6 +30,9 @@ from QuickOSM.ui.xml_highlighter import XMLHighlighter
 __copyright__ = 'Copyright 2019, 3Liz'
 __license__ = 'GPL version 3'
 __email__ = 'info@3liz.org'
+
+
+LOGGER = logging.getLogger('QuickOSM')
 
 
 class QueryPanel(BaseOverpassPanel):
@@ -66,8 +76,15 @@ class QueryPanel(BaseOverpassPanel):
         popup_menu.addAction(overpass_action)
         self.dialog.button_documentation.setMenu(popup_menu)
 
+        self.dialog.button_generate_query.setMenu(QMenu())
+
+        self.dialog.action_oql_q.triggered.connect(self.query_language_oql)
+        self.dialog.action_xml_q.triggered.connect(self.query_language_xml)
+        self.dialog.button_generate_query.menu().addAction(self.dialog.action_oql_q)
+        self.dialog.button_generate_query.menu().addAction(self.dialog.action_xml_q)
+
         self.dialog.run_buttons[self.panel].clicked.connect(self.run)
-        self.dialog.button_generate_query.clicked.connect(self.generate_query)
+        self.dialog.button_generate_query.clicked.connect(self.query_language_check)
         self.dialog.button_box_q.button(QDialogButtonBox.Reset).clicked.connect(
             self.dialog.reset_form)
 
@@ -118,13 +135,22 @@ class QueryPanel(BaseOverpassPanel):
             bbox=properties['bbox'])
         self.end_query(num_layers)
 
-    def generate_query(self):
+    def generate_query(self, oql_output: bool = True):
         query = self.dialog.text_query.toPlainText()
         area = self.dialog.places_edits[Panels.Query].text()
         self.write_nominatim_file(Panels.Query)
         properties = self.gather_values()
-        query = QueryPreparation(query, properties['bbox'], area)
+        server = get_setting('defaultOAPI', OVERPASS_SERVERS[0]) + 'convert'
+        query = QueryPreparation(query, properties['bbox'], area, server)
         query_string = query.prepare_query()
+        if (oql_output and not query.is_oql_query()) or (not oql_output and query.is_oql_query()):
+            query.prepare_query()
+            url = query.prepare_url(QueryLanguage.OQL if oql_output else QueryLanguage.XML)
+            connexion_overpass_api = ConnexionOAPI(url)
+            LOGGER.debug('Encoded URL: {}'.format(url))
+            query_string = connexion_overpass_api.run_convert()
+            query_string = html.unescape(query_string)
+
         self.dialog.text_query.setPlainText(query_string)
 
     def allow_nominatim_or_extent(self):
@@ -158,3 +184,11 @@ class QueryPanel(BaseOverpassPanel):
         self._core_query_type_updated(
             self.dialog.combo_query_type_q,
             self.dialog.combo_extent_layer_q)
+
+    def query_language_check(self):
+
+        with OverrideCursor(Qt.WaitCursor):
+            if self.dialog.query_language[Panels.Query] == QueryLanguage.OQL:
+                self.generate_query(oql_output=True)
+            elif self.dialog.query_language[Panels.Query] == QueryLanguage.XML:
+                self.generate_query(oql_output=False)

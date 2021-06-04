@@ -33,3 +33,29 @@ class TestUiMainWindow(unittest.TestCase):
         expected_index = dialog.stacked_panels_widget.indexOf(dialog.query_page)
         self.assertEqual(dialog.stacked_panels_widget.currentIndex(), expected_index)
         self.assertNotEqual(dialog.text_query.toPlainText(), '')
+
+    def test_show_query_oql(self):
+        """Test we can show a query in OQL by switching tab."""
+        dialog = Dialog(get_iface())
+        dialog.combo_key.lineEdit().setText('amenity')
+        dialog.combo_value.lineEdit().setText('value')
+        dialog.places_edits[Panels.QuickQuery].setText('foo')
+        dialog.action_oql_qq.trigger()
+        dialog.button_show_query.click()
+        expected_index = dialog.stacked_panels_widget.indexOf(dialog.query_page)
+        self.assertEqual(dialog.stacked_panels_widget.currentIndex(), expected_index)
+        self.assertNotEqual(dialog.text_query.toPlainText(), '')
+        self.assertEqual(dialog.text_query.toPlainText()[-1], ';')
+
+    def test_show_query_xml(self):
+        """Test we can show a query in XML by switching tab."""
+        dialog = Dialog(get_iface())
+        dialog.combo_key.lineEdit().setText('amenity')
+        dialog.combo_value.lineEdit().setText('value')
+        dialog.places_edits[Panels.QuickQuery].setText('foo')
+        dialog.action_xml_qq.trigger()
+        dialog.button_show_query.click()
+        expected_index = dialog.stacked_panels_widget.indexOf(dialog.query_page)
+        self.assertEqual(dialog.stacked_panels_widget.currentIndex(), expected_index)
+        self.assertNotEqual(dialog.text_query.toPlainText(), '')
+        self.assertEqual(dialog.text_query.toPlainText()[-2], '>')

@@ -157,7 +157,7 @@ QListWidget::item::selected {
          <item>
           <widget class="QStackedWidget" name="stacked_panels_widget">
            <property name="currentIndex">
-            <number>3</number>
+            <number>0</number>
            </property>
            <widget class="QWidget" name="quickquery_page">
             <property name="sizePolicy">
@@ -543,9 +543,30 @@ QListWidget::item::selected {
              <item>
               <layout class="QHBoxLayout" name="horizontalLayout">
                <item>
-                <widget class="QPushButton" name="button_show_query">
+                <widget class="QToolButton" name="button_show_query">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
+                 <property name="layoutDirection">
+                  <enum>Qt::LeftToRight</enum>
+                 </property>
                  <property name="text">
                   <string>Show query</string>
+                 </property>
+                 <property name="checkable">
+                  <bool>false</bool>
+                 </property>
+                 <property name="popupMode">
+                  <enum>QToolButton::MenuButtonPopup</enum>
+                 </property>
+                 <property name="toolButtonStyle">
+                  <enum>Qt::ToolButtonTextOnly</enum>
+                 </property>
+                 <property name="arrowType">
+                  <enum>Qt::NoArrow</enum>
                  </property>
                 </widget>
                </item>
@@ -809,9 +830,21 @@ QListWidget::item::selected {
                 <enum>QLayout::SetMinimumSize</enum>
                </property>
                <item>
-                <widget class="QPushButton" name="button_generate_query">
+                <widget class="QToolButton" name="button_generate_query">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
                  <property name="text">
                   <string>Generate query</string>
+                 </property>
+                 <property name="popupMode">
+                  <enum>QToolButton::MenuButtonPopup</enum>
+                 </property>
+                 <property name="toolButtonStyle">
+                  <enum>Qt::ToolButtonTextOnly</enum>
                  </property>
                 </widget>
                </item>
@@ -1496,7 +1529,6 @@ QListWidget::item::selected {
   <tabstop>checkbox_multipolygons_qq</tabstop>
   <tabstop>spin_timeout</tabstop>
   <tabstop>line_file_prefix_qq</tabstop>
-  <tabstop>button_show_query</tabstop>
   <tabstop>button_run_query_qq</tabstop>
   <tabstop>text_query</tabstop>
   <tabstop>advanced_q</tabstop>
@@ -1512,7 +1544,6 @@ QListWidget::item::selected {
   <tabstop>checkbox_multipolygons_q</tabstop>
   <tabstop>edit_csv_multipolygons</tabstop>
   <tabstop>line_file_prefix_q</tabstop>
-  <tabstop>button_generate_query</tabstop>
   <tabstop>button_run_query_q</tabstop>
   <tabstop>button_overpass_turbo</tabstop>
   <tabstop>button_documentation</tabstop>
