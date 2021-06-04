@@ -201,6 +201,14 @@ class MissingParameterException(QuickOsmException):
         super().__init__(message)
 
 
+class NoSelectedFeatures(QuickOsmException):
+    def __init__(self):
+        message = tr(
+            'No selected features have been found in the layer.'
+            ' Please select some features or uncheck the option.')
+        super().__init__(message)
+
+
 class OsmObjectsException(QuickOsmException):
     def __init__(self, message: str = None):
         if not message:

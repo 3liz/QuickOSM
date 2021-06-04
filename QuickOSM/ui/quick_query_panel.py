@@ -76,7 +76,7 @@ class QuickQueryPanel(BaseOverpassPanel):
         self.dialog.combo_value.editTextChanged.connect(self.update_friendly)
         self.dialog.line_place_qq.textChanged.connect(self.update_friendly)
         self.dialog.spin_place_qq.valueChanged.connect(self.update_friendly)
-        self.dialog.combo_extent_layer_qq.layerChanged.connect(self.update_friendly)
+        self.dialog.combo_extent_layer_qq.layerChanged.connect(self.query_type_updated)
 
         # Setup auto completion
         map_features_json_file = resources_path('json', 'map_features.json')
@@ -105,7 +105,8 @@ class QuickQueryPanel(BaseOverpassPanel):
         self._core_query_type_updated(
             self.dialog.combo_query_type_qq,
             self.dialog.stacked_query_type,
-            self.dialog.spin_place_qq)
+            self.dialog.spin_place_qq,
+            self.dialog.checkbox_selection_qq)
         self.update_friendly()
 
     def query_language_oql(self):

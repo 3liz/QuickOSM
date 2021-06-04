@@ -280,7 +280,7 @@ QListWidget::item::selected {
                   <number>0</number>
                  </property>
                  <property name="currentIndex">
-                  <number>0</number>
+                  <number>1</number>
                  </property>
                  <widget class="QWidget" name="nominatim">
                   <layout class="QHBoxLayout" name="horizontalLayout_25">
@@ -333,7 +333,7 @@ QListWidget::item::selected {
                  <widget class="QWidget" name="layerExtent">
                   <layout class="QHBoxLayout" name="horizontalLayout_26">
                    <property name="spacing">
-                    <number>0</number>
+                    <number>5</number>
                    </property>
                    <property name="leftMargin">
                     <number>0</number>
@@ -354,6 +354,13 @@ QListWidget::item::selected {
                        <horstretch>0</horstretch>
                        <verstretch>0</verstretch>
                       </sizepolicy>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <widget class="QCheckBox" name="checkbox_selection_qq">
+                     <property name="text">
+                      <string>Only selected features</string>
                      </property>
                     </widget>
                    </item>
@@ -683,6 +690,13 @@ QListWidget::item::selected {
                         <horstretch>0</horstretch>
                         <verstretch>0</verstretch>
                        </sizepolicy>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QCheckBox" name="checkbox_selection_q">
+                      <property name="text">
+                       <string>Only selected features</string>
                       </property>
                      </widget>
                     </item>
