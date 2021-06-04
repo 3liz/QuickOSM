@@ -73,6 +73,10 @@ class Dialog(QDialog, FORM_CLASS):
             Panels.QuickQuery: self.combo_extent_layer_qq,
             Panels.Query: self.combo_extent_layer_q,
         }
+        self.selection_features = {
+            Panels.QuickQuery: self.checkbox_selection_qq,
+            Panels.Query: self.checkbox_selection_q,
+        }
         self.run_buttons = {
             Panels.QuickQuery: self.button_run_query_qq,
             Panels.Query: self.button_run_query_q,

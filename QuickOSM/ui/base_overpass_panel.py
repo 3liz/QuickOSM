@@ -8,10 +8,12 @@ from qgis.core import (
     QgsCoordinateTransform,
     QgsGeometry,
     QgsProject,
+    QgsRectangle,
+    QgsVectorLayer,
 )
 from qgis.PyQt.QtWidgets import QCompleter, QDialog
 
-from QuickOSM.core.exceptions import MissingLayerUI
+from QuickOSM.core.exceptions import MissingLayerUI, NoSelectedFeatures
 from QuickOSM.core.utilities.tools import nominatim_file
 from QuickOSM.definitions.gui import Panels
 from QuickOSM.definitions.osm import QueryLanguage, QueryType
@@ -116,14 +118,24 @@ class BaseOverpassPanel(BaseProcessingPanel):
 
         self.init_nominatim_autofill()
 
-    @staticmethod
-    def _core_query_type_updated(combo_query_type, widget, spinbox=None):
+    def _core_query_type_updated(self, combo_query_type, widget, spinbox=None, checkbox=None):
         """Enable/disable the extent/layer widget."""
         current = combo_query_type.currentData()
 
         if combo_query_type.count() == 2:
             # Query tab, widget is the layer selector
-            widget.setVisible(current == 'layer')
+            if current == 'layer':
+                widget.setVisible(True)
+                layer = self.dialog.layers_buttons[self.panel].currentLayer()
+                if isinstance(layer, QgsVectorLayer):
+                    checkbox.setVisible(True)
+                else:
+                    checkbox.setVisible(False)
+                    checkbox.setChecked(False)
+            else:
+                widget.setVisible(False)
+                checkbox.setVisible(False)
+                checkbox.setChecked(False)
         else:
             # Quick query tab, widget is the stacked widget
             if current in ['in', 'around']:
@@ -131,6 +143,12 @@ class BaseOverpassPanel(BaseProcessingPanel):
                 spinbox.setVisible(current == 'around')
             elif current in ['layer']:
                 widget.setCurrentIndex(1)
+                layer = self.dialog.layers_buttons[self.panel].currentLayer()
+                if isinstance(layer, QgsVectorLayer):
+                    checkbox.setVisible(True)
+                else:
+                    checkbox.setVisible(False)
+                    checkbox.setChecked(False)
             elif current in ['canvas', 'attributes']:
                 widget.setCurrentIndex(2)
 
@@ -190,7 +208,13 @@ class BaseOverpassPanel(BaseProcessingPanel):
                 layer = self.dialog.layers_buttons[self.panel].currentLayer()
                 if not layer:
                     raise MissingLayerUI
-                geom_extent = layer.extent()
+                if self.dialog.selection_features[self.panel].isChecked() \
+                        and isinstance(layer, QgsVectorLayer):
+                    geom_extent = layer.boundingBoxOfSelected()
+                    if geom_extent == QgsRectangle(0, 0, 0, 0):
+                        raise NoSelectedFeatures
+                else:
+                    geom_extent = layer.extent()
                 source_crs = layer.crs()
             else:
                 raise NotImplementedError

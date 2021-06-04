@@ -8,7 +8,9 @@ from qgis.core import (
 )
 from qgis.testing import unittest
 
+from QuickOSM.core.exceptions import NoSelectedFeatures
 from QuickOSM.definitions.gui import Panels
+from QuickOSM.definitions.osm import QueryType
 from QuickOSM.ui.dialog import Dialog
 
 __copyright__ = 'Copyright 2019, 3Liz'
@@ -52,10 +54,13 @@ class TestQuickOSMWidget(unittest.TestCase):
         expected = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10']
         self.assertListEqual(expected, new_list)
 
-    def test_layer(self):
-        """ Test when we have a layer in the map canvas. """
-        # Maxime, you can edit/remove this test. It's just for demo purpose.
-        layer = QgsVectorLayer('Point?crs=epsg:4326&field=id:integer&index=yes', 'test_layer', 'memory')
+    @staticmethod
+    def selected_features_set_up() -> (Dialog, QgsVectorLayer):
+        dialog = Dialog()
+        QgsProject.instance().clear()
+
+        # Creating a new layer
+        layer = QgsVectorLayer('Point?crs=epsg:4326&field=id:integer&index=yes', 'layer', 'memory')
         with edit(layer):
             f1 = QgsFeature()
             f1.setGeometry(QgsGeometry.fromPointXY(QgsPointXY(10, 10)))
@@ -63,11 +68,36 @@ class TestQuickOSMWidget(unittest.TestCase):
             f2 = QgsFeature()
             f2.setGeometry(QgsGeometry.fromPointXY(QgsPointXY(5, 15)))
             f2.setAttributes([2])
-            layer.addFeatures([f1, f2])
+            f3 = QgsFeature()
+            f3.setGeometry(QgsGeometry.fromPointXY(QgsPointXY(25, 40)))
+            f3.setAttributes([3])
+            layer.addFeatures([f1, f2, f3])
         QgsProject.instance().addMapLayer(layer)
 
-        layer = QgsProject.instance().mapLayersByName('test_layer')[0]
-        self.assertIsInstance(layer, QgsVectorLayer)
+        index = dialog.combo_query_type_qq.findData('layer')
+        dialog.combo_query_type_qq.setCurrentIndex(index)
+        dialog.selection_features[Panels.QuickQuery].setChecked(True)
+
+        return dialog, layer
+
+    def test_no_selected_features(self):
+        """ Test the exception of the selected features option """
+        dialog, layer = self.selected_features_set_up()
+
+        with self.assertRaises(NoSelectedFeatures):
+            dialog.external_panels[Panels.QuickQuery].gather_values()
+
+    def test_selected_features(self):
+        """ Test the selected features option """
+        dialog, layer = self.selected_features_set_up()
+        layer.select(1)
+        layer.select(2)
+        properties_select = dialog.external_panels[Panels.QuickQuery].gather_values()
+        self.assertEqual(properties_select['query_type'], QueryType.BBox)
+
+        dialog.selection_features[Panels.QuickQuery].setChecked(False)
+        properties_all = dialog.external_panels[Panels.QuickQuery].gather_values()
+        self.assertNotEqual(properties_select['bbox'], properties_all['bbox'])
 
 
 if __name__ == '__main__':

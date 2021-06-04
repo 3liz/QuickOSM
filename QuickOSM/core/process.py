@@ -239,7 +239,7 @@ def process_quick_query(
         osm_objects=osm_objects,
         timeout=timeout
     )
-    query = query_factory.make(QueryLanguage.Oql)
+    query = query_factory.make(QueryLanguage.OQL)
     LOGGER.info(query_factory.friendly_message())
 
     # Generate layer name as following (if defined)
