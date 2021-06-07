@@ -129,6 +129,7 @@ class QueryPanel(BaseOverpassPanel):
             dialog=self.dialog,
             query=properties['query'],
             output_dir=properties['output_directory'],
+            output_format=properties['output_format'],
             prefix_file=properties['prefix_file'],
             output_geometry_types=properties['outputs'],
             white_list_values=properties['expected_csv'],

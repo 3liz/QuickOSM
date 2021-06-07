@@ -45,3 +45,6 @@ class LayerType(Enum):
     Lines = 'Lines'
     Multilinestrings = 'Multilinestrings'
     Multipolygons = 'Multipolygons'
+
+
+Osm_Layers = [LayerType.Points, LayerType.Lines, LayerType.Multilinestrings, LayerType.Multipolygons]
