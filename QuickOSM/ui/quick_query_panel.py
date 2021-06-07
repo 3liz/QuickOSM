@@ -187,6 +187,7 @@ class QuickQueryPanel(BaseOverpassPanel):
 
     def show_query(self, output: QueryLanguage):
         """Show the query in the main window."""
+        self.write_nominatim_file(self.panel)
         try:
             p = self.gather_values()
         except QuickOsmException as e:
