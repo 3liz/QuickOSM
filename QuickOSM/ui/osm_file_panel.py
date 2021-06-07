@@ -111,6 +111,7 @@ class OsmFilePanel(BaseProcessingPanel):
                 osm_file=properties['osm_file'],
                 output_geom_types=properties['outputs'],
                 output_dir=properties['output_directory'],
+                output_format=properties['output_format'],
                 prefix_file=properties['prefix_file'])
             self.dialog.display_message_bar(
                 tr('Successful query'),

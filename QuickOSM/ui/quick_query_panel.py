@@ -223,6 +223,7 @@ class QuickQueryPanel(BaseOverpassPanel):
             osm_objects=properties['osm_objects'],
             timeout=properties['timeout'],
             output_directory=properties['output_directory'],
+            output_format=properties['output_format'],
             prefix_file=properties['prefix_file'],
             output_geometry_types=properties['outputs'])
         self.end_query(num_layers)
@@ -251,6 +252,8 @@ class QuickQueryPanel(BaseOverpassPanel):
 
         # Transfer the output
         self.dialog.output_directory_q.setFilePath(p['output_directory'])
+        index_format = self.dialog.combo_format_q.findData(p['output_format'])
+        self.dialog.combo_format_q.setCurrentIndex(index_format)
         if p['prefix_file']:
             self.dialog.line_file_prefix_q.setText(p['prefix_file'])
             self.dialog.line_file_prefix_q.setEnabled(True)

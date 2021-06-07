@@ -3,10 +3,11 @@
 import logging
 import traceback
 
+from functools import partial
 from os.path import split
 from sys import exc_info
 
-from qgis.core import Qgis
+from qgis.core import Qgis, QgsMapLayer
 from qgis.PyQt.QtGui import QIcon, QPixmap
 from qgis.PyQt.QtWidgets import (
     QAction,
@@ -17,6 +18,7 @@ from qgis.PyQt.QtWidgets import (
 )
 from qgis.utils import iface as iface_import
 
+from QuickOSM.core.actions import Actions
 from QuickOSM.core.exceptions import QuickOsmException
 from QuickOSM.core.utilities.utilities_qgis import open_log_panel
 from QuickOSM.definitions.gui import Panels
@@ -107,6 +109,11 @@ class Dialog(QDialog, FORM_CLASS):
             Panels.Query: self.output_directory_q,
             Panels.File: self.output_directory_f
         }
+        self.output_format = {
+            Panels.QuickQuery: self.combo_format_qq,
+            Panels.Query: self.combo_format_q,
+            Panels.File: self.output_directory_f
+        }
         self.prefix_edits = {
             Panels.QuickQuery: self.line_file_prefix_qq,
             Panels.Query: self.line_file_prefix_q,
@@ -132,6 +139,12 @@ class Dialog(QDialog, FORM_CLASS):
             Panels.QuickQuery: self.action_xml_qq,
             Panels.Query: self.action_xml_q,
         }
+        icon = QIcon(resources_path('icons', 'QuickOSM.svg'))
+        self.reload_action = QAction(icon, tr("Reload the query in a new file"), self.iface)
+        actions = Actions(self)
+        reloader = partial(actions.pre_run_reload)
+        self.reload_action.triggered.connect(reloader)
+        self.iface.addCustomActionForLayerType(self.reload_action, "", QgsMapLayer.VectorLayer, False)
 
         item = self.menu_widget.item(0)
         item.setIcon(QIcon(resources_path('icons', 'quick.png')))
