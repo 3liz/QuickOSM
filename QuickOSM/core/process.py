@@ -16,7 +16,7 @@ from qgis.core import (
 )
 from qgis.PyQt.QtWidgets import QApplication, QDialog
 
-from QuickOSM.core.actions import add_actions
+from QuickOSM.core import actions
 from QuickOSM.core.api.connexion_oapi import ConnexionOAPI
 from QuickOSM.core.exceptions import FileOutPutException
 from QuickOSM.core.parser.osm_parser import OsmParser
@@ -25,6 +25,7 @@ from QuickOSM.core.query_preparation import QueryPreparation
 from QuickOSM.core.utilities.tools import get_default_encoding, get_setting
 from QuickOSM.definitions.osm import (
     LayerType,
+    Osm_Layers,
     OsmType,
     QueryLanguage,
     QueryType,
@@ -43,7 +44,7 @@ LOGGER = logging.getLogger('QuickOSM')
 def open_file(
         dialog: QDialog = None,
         osm_file: str = None,
-        output_geom_types: list = None,
+        output_geom_types: list = Osm_Layers,
         white_list_column: dict = None,
         layer_name: str = "OsmFile",
         config_outputs: dict = None,
@@ -89,8 +90,9 @@ def open_file(
         layers=output_geom_legacy,
         white_list_column=white_list_legacy)
 
-    osm_parser.signalText.connect(dialog.set_progress_text)
-    osm_parser.signalPercentage.connect(dialog.set_progress_percentage)
+    if dialog:
+        osm_parser.signalText.connect(dialog.set_progress_text)
+        osm_parser.signalPercentage.connect(dialog.set_progress_percentage)
 
     start_time = time.time()
     layers = osm_parser.parse()
@@ -102,7 +104,8 @@ def open_file(
     num_layers = 0
 
     for i, (layer, item) in enumerate(layers.items()):
-        dialog.set_progress_percentage(i / len(layers) * 100)
+        if dialog:
+            dialog.set_progress_percentage(i / len(layers) * 100)
         QApplication.processEvents()
         if item['featureCount'] and (
                 LayerType(layer.capitalize()) in output_geom_types):
@@ -159,16 +162,45 @@ def open_file(
                                  layer + "_colour.qml"))
 
             # Add action about OpenStreetMap
-            add_actions(new_layer, item['tags'])
+            actions.add_actions(new_layer, item['tags'])
+
+            QgsProject.instance().addMapLayer(new_layer)
 
             if final_query:
                 QgsExpressionContextUtils.setLayerVariable(
                     new_layer, 'quickosm_query', final_query)
+                actions.add_relaunch_action(new_layer, final_layer_name)
+                if dialog:
+                    dialog.iface.addCustomActionForLayer(dialog.reload_action, new_layer)
 
-            QgsProject.instance().addMapLayer(new_layer)
             num_layers += 1
 
     return num_layers
+
+
+def reload_query(
+        query: str,
+        layer_name: str = 'Reloaded_query',
+        dialog: QDialog = None,
+        new_file: bool = True):
+    """ Reload a query with only the query """
+    # Getting the default overpass api and running the query
+    server = get_setting('defaultOAPI', OVERPASS_SERVERS[0]) + 'interpreter'
+
+    query = QueryPreparation(query, overpass=server)
+    final_query = query.prepare_query()
+    url = query.prepare_url()
+    connexion_overpass_api = ConnexionOAPI(url)
+    LOGGER.debug('Encoded URL: {}'.format(url))
+    osm_file = connexion_overpass_api.run()
+
+    if new_file:
+        layer_name += "_reloaded"
+        return open_file(
+            dialog=dialog,
+            osm_file=osm_file,
+            layer_name=layer_name,
+            final_query=final_query,)
 
 
 def process_query(

@@ -1,9 +1,18 @@
 """Actions definitions."""
+from qgis.core import (
+    Qgis,
+    QgsAction,
+    QgsExpressionContextUtils,
+    QgsProject,
+    QgsVectorLayer,
+)
+from qgis.PyQt.QtCore import Qt
+from qgis.PyQt.QtWidgets import QDialog
+from qgis.utils import OverrideCursor, iface, plugins
 
-from qgis.core import Qgis, QgsAction, QgsVectorLayer
-from qgis.utils import iface, plugins
-
+from QuickOSM.core import process
 from QuickOSM.core.utilities.utilities_qgis import open_webpage
+from QuickOSM.definitions.action import Visibility
 from QuickOSM.qgis_plugin_tools.tools.i18n import tr
 from QuickOSM.qgis_plugin_tools.tools.resources import resources_path
 
@@ -13,7 +22,11 @@ __email__ = 'info@3liz.org'
 
 
 ACTIONS_PATH = 'from QuickOSM.core.actions import Actions;'
-ACTIONS_VISIBILITY = ['Canvas', 'Feature', 'Field']
+ACTIONS_VISIBILITY = [
+    Visibility.Canvas.value,
+    Visibility.Feature.value,
+    Visibility.Field.value
+]
 
 
 def add_actions(layer: QgsVectorLayer, keys: list):
@@ -111,10 +124,32 @@ def add_actions(layer: QgsVectorLayer, keys: list):
         actions.addAction(sketch_line)
 
 
+def add_relaunch_action(layer: QgsVectorLayer, layer_name: str = ""):
+    """ Add the relaunch action """
+    actions = layer.actions()
+
+    title = tr('Reload the query in a new file')
+    reload = QgsAction(
+        QgsAction.GenericPython,
+        title,
+        ACTIONS_PATH + 'Actions.run_reload(layer_name="{layer_name}")'.format(
+            layer_name=layer_name),
+        '',
+        False,
+        title,
+        [Visibility.Layer.value],
+        ''
+    )
+    actions.addAction(reload)
+
+
 class Actions:
     """
     Manage actions available on layers
     """
+
+    def __init__(self, dialog: QDialog):
+        self.dialog = dialog
 
     @staticmethod
     def run(field: str, value: str):
@@ -200,3 +235,24 @@ class Actions:
                 'http://www.overpass-api.de/api/sketch-line?'
                 'network={network}&ref={ref}').format(network=network, ref=ref)
             open_webpage(url)
+
+    @staticmethod
+    def run_reload(layer_name: str = "", layer: QgsVectorLayer = None, dialog: QDialog = None):
+        """ Reload the query """
+
+        if not layer:
+            layer = QgsProject.instance().mapLayersByName(layer_name)[0]
+
+        if not layer_name:
+            layer_name = QgsExpressionContextUtils.layerScope(layer).variable('layer_name')
+
+        query = QgsExpressionContextUtils.layerScope(layer).variable('quickosm_query')
+
+        with OverrideCursor(Qt.WaitCursor):
+            process.reload_query(query, layer_name, dialog)
+
+    def pre_run_reload(self):
+        """ Prepare the reload"""
+
+        layer = self.dialog.iface.layerTreeView().currentLayer()
+        self.run_reload(layer=layer, dialog=self.dialog)
