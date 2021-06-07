@@ -73,6 +73,7 @@ class BaseOverpassPanel(BaseProcessingPanel):
         user_file = nominatim_file()
 
         with io.open(user_file, 'r', encoding='utf8') as f:
+            self.last_places = []
             for line in f:
                 self.last_places.append(line.rstrip('\n'))
 
@@ -88,6 +89,7 @@ class BaseOverpassPanel(BaseProcessingPanel):
         if place in existing_places:
             existing_places.pop(existing_places.index(place))
         existing_places.insert(0, place)
+        existing_places = list(dict.fromkeys(existing_places))
         return existing_places[:10]
 
     def write_nominatim_file(self, panel: Panels):
