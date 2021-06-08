@@ -19,8 +19,11 @@ nav:
     - Contributing: contributing.md
     - References: references.md
 
+plugins:
+  - search
+  - git-revision-date-localized
+
 markdown_extensions:
-  # - git-revision-date:
   - toc:
       permalink: "#"
   - meta:
@@ -39,6 +42,7 @@ markdown_extensions:
   - pymdownx.keys:
   - attr_list:
   - admonition:
+  - pymdownx.details:
 
 extra_javascript:
   - https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js
@@ -61,6 +65,7 @@ theme:
   features:
     - navigation.tabs
     - navigation.tabs.sticky
+    - navigation.top
 
 extra:
   social:
@@ -75,3 +80,6 @@ extra:
 
     - icon: fontawesome/brands/docker
       link: https://hub.docker.com/u/3liz
+
+    - icon: fontawesome/brands/youtube
+      link: https://www.youtube.com/channel/UCYYW2CTWR_84kB6pt2zCWbQ

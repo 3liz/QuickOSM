@@ -2,12 +2,18 @@ name: Transifex 🗺
 
 on:
   push:
+    branches:
+      - master
     paths:
       - '**.py'
+      - '**.ui'
+
 
 jobs:
-  push-transifex:
+  push:
+    name: Push to Transifex
     runs-on: ubuntu-latest
+    if: github.repository == '3liz/QuickOSM'
 
     steps:
     - uses: actions/checkout@v2
@@ -17,8 +23,15 @@ jobs:
       with:
         python-version: 3.8
 
-    - name: Install qgis-plugin-ci
-      run: pip3 install qgis-plugin-ci==1.8.4
+    - uses: actions/cache@v2
+      with:
+        path: ~/.cache/pip
+        key: ${{ runner.os }}-pip-${{ hashFiles('requirements/packaging.txt') }}
+        restore-keys: |
+          ${{ runner.os }}-pip-
+
+    - name: Install Python requirements
+      run: pip install -r requirements/packaging.txt
 
     - name: Push to Transifex
       run: qgis-plugin-ci push-translation ${{ secrets.TRANSIFEX_TOKEN }}

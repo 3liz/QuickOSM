@@ -2,11 +2,14 @@ name: Documentation 📚
 
 on:
   push:
+    branches:
+      - master
     paths:
       - 'CHANGELOG.md'
       - 'CONTRIBUTING.md'
       - 'docs/**'
       - 'mkdocs.yml'
+      - '.github/workflow/publish-doc.yml'
 
 jobs:
   deploy:
@@ -32,7 +35,7 @@ jobs:
       uses: actions/cache@v2.1.3
       with:
         path: ~/.cache/pip
-        key: ${{ runner.os }}-pip-${{ hashFiles('requirements-doc.txt') }}
+        key: ${{ runner.os }}-pip-${{ hashFiles('requirements/doc.txt') }}
         restore-keys: |
           ${{ runner.os }}-pip-
           ${{ runner.os }}-
@@ -40,7 +43,7 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip setuptools wheel
-        python -m pip install -r requirements-doc.txt
+        python -m pip install -r requirements/doc.txt
 
     - name: Copy CHANGELOG.md and CONTRIBUTING.md
       run: |

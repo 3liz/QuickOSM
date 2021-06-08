@@ -23,7 +23,7 @@ SQL and Python are covered by unittests with Docker.
 [![Tests 🎳](https://github.com/3liz/QuickOSM/actions/workflows/ci.yml/badge.svg)](https://github.com/3liz/QuickOSM/actions/workflows/ci.yml)
 
 ```bash
-pip install -r requirements-dev.txt
+pip install -r requirements/dev.txt
 flake8
 make tests
 ```
@@ -55,7 +55,7 @@ plugins['QuickOSM'].run_tests()
 The documentation is using [MkDocs](https://www.mkdocs.org/) with [Material](https://squidfunk.github.io/mkdocs-material/) :
 
 ```bash
-pip install -r requirements-doc.txt
+pip install -r requirements/doc.txt
 mkdocs serve
 ```
 

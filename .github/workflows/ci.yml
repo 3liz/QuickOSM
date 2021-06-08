@@ -6,13 +6,13 @@ on:
       - "*"
     branches:
       - master
-#    paths:
-#      - 'QuickOSM/**'
+    paths:
+      - 'QuickOSM/**'
   pull_request:
     branches:
       - master
-#    paths:
-#      - 'QuickOSM/**'
+    paths:
+      - 'QuickOSM/**'
 
 jobs:
 
@@ -32,12 +32,12 @@ jobs:
       - uses: actions/cache@v2
         with:
           path: ~/.cache/pip
-          key: ${{ runner.os }}-pip-${{ hashFiles('requirements/*.txt') }}
+          key: ${{ runner.os }}-pip-${{ hashFiles('requirements/dev.txt') }}
           restore-keys: |
             ${{ runner.os }}-pip-
 
       - name: Install Python requirements
-        run: pip install -r requirements-dev.txt
+        run: pip install -r requirements/dev.txt
 
       - name: Run flake8
         run: flake8
@@ -64,41 +64,63 @@ jobs:
     if: github.repository == '3liz/QuickOSM' && contains(github.ref, 'refs/tags/')
 
     steps:
-    - uses: actions/checkout@v2
+      - name: Set env
+        run: echo "RELEASE_VERSION=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
 
-    - name: Install Qt lrelease
-      run: |
-        sudo apt-get update
-        sudo apt-get install qt5-default qttools5-dev-tools
+      - uses: actions/checkout@v2
 
-    - name: Set up Python 3.8
-      uses: actions/setup-python@v1
-      with:
-        python-version: 3.8
+      - name: Set up Python 3.8
+        uses: actions/setup-python@v1
+        with:
+          python-version: 3.8
 
-    - name: Install qgis-plugin-ci
-      run: pip3 install qgis-plugin-ci==1.8.4
+      - name: Install Qt lrelease
+        run: |
+          sudo apt-get update
+          sudo apt-get install qt5-default qttools5-dev-tools
 
-    - name : Fetch current changelog
-      run: |
-        qgis-plugin-ci changelog ${GITHUB_REF/refs\/tags\//} >> release.md
-        cat release.md
+      - uses: actions/cache@v2
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('requirements/release.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
 
-    - name: Create release on GitHub
-      id: create_release
-      uses: actions/create-release@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.BOT_HUB_TOKEN }}
-      with:
-        tag_name: ${{ github.ref }}
-        release_name: ${{ github.ref }}
-        body_path: release.md
+      - name: Install Python requirements
+        run: pip install -r requirements/release.txt
 
-    - name: Package and deploy the zip
-      run: >-
-        qgis-plugin-ci
-        release ${GITHUB_REF/refs\/tags\//}
-        --github-token ${{ secrets.BOT_HUB_TOKEN }}
-        --transifex-token ${{ secrets.TRANSIFEX_TOKEN }}
-        --osgeo-username ${{ secrets.OSGEO_USERNAME }}
-        --osgeo-password ${{ secrets.OSGEO_PASSWORD }}
+      - name : Fetch current changelog
+        run: qgis-plugin-ci changelog ${{ env.RELEASE_VERSION }} >> release.md
+
+      - name: Create release on GitHub
+        uses: ncipollo/release-action@v1.8.6
+        with:
+          bodyFile: release.md
+          token: ${{ secrets.BOT_HUB_TOKEN }}
+
+      - name: Package and deploy the zip
+        run: >-
+          qgis-plugin-ci
+          release ${GITHUB_REF/refs\/tags\//}
+          --github-token ${{ secrets.BOT_HUB_TOKEN }}
+          --transifex-token ${{ secrets.TRANSIFEX_TOKEN }}
+          --osgeo-username ${{ secrets.OSGEO_USERNAME }}
+          --osgeo-password ${{ secrets.OSGEO_PASSWORD }}
+          --create-plugin-repo
+
+      - name: Tweet
+        uses: mugi111/tweet-trigger-release@v1.2
+        with:
+          consumer_key: ${{ secrets.TWITTER_CONSUMER_KEY }}
+          consumer_secret: ${{ secrets.TWITTER_CONSUMER_SECRET }}
+          access_token_key: ${{ secrets.TWITTER_ACCESS_TOKEN_KEY }}
+          access_token_secret: ${{ secrets.TWITTER_ACCESS_TOKEN_SECRET }}
+          tweet_body: "New version of #QuickOSM ${{ env.RELEASE_VERSION }} 🔎 for #QGIS https://github.com/3liz/QuickOSM/releases"
+
+      - name: Repository Dispatch
+        uses: peter-evans/repository-dispatch@v1
+        with:
+          token: ${{ secrets.BOT_HUB_TOKEN }}
+          repository: 3liz/3liz.github.io
+          event-type: merge-plugins
+          client-payload: '{"name": "QuickOSM", "version": "${{ env.RELEASE_VERSION }}", "url": "https://github.com/3liz/QuickOSM/releases/latest/download/plugins.xml"}'
