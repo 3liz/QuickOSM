@@ -2,6 +2,14 @@
 
 ## Unreleased
 
+* Option selected features for a layer choice
+* Generation of the query in OQL
+* Choice of the nominatim server in the configuration panel
+* Add tests
+* Add python annotation
+* Fix place historic
+* Fix 'Around' query type
+
 ## 1.16.0 - 2021-03-26
 
 * Changelog from 1.15.0 which has been unapproved
