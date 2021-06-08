@@ -15,6 +15,7 @@ from qgis.PyQt.QtWidgets import (
     QMessageBox,
     QPushButton,
 )
+from qgis.utils import iface as iface_import
 
 from QuickOSM.core.exceptions import QuickOsmException
 from QuickOSM.core.utilities.utilities_qgis import open_log_panel
@@ -39,11 +40,11 @@ class Dialog(QDialog, FORM_CLASS):
 
     """Main class about the dialog of the plugin"""
 
-    def __init__(self, iface, parent=None):
+    def __init__(self, iface=None, parent=None):
         """Constructor."""
         QDialog.__init__(self, parent)
         self.setupUi(self)
-        self.iface = iface
+        self._iface = iface
 
         self.query_menu_index = 1
 
@@ -152,6 +153,13 @@ class Dialog(QDialog, FORM_CLASS):
         for panel in self.external_panels.values():
             panel.setup_panel()
         self.menu_widget.setCurrentRow(0)
+
+    @property
+    def iface(self):
+        if self._iface:
+            return self._iface
+        else:
+            return iface_import
 
     def display_quickosm_exception(self, exception: QuickOsmException):
         """Display QuickOSM exceptions.
