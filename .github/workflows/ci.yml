@@ -82,12 +82,12 @@ jobs:
       - uses: actions/cache@v2
         with:
           path: ~/.cache/pip
-          key: ${{ runner.os }}-pip-${{ hashFiles('requirements/release.txt') }}
+          key: ${{ runner.os }}-pip-${{ hashFiles('requirements/packaging.txt') }}
           restore-keys: |
             ${{ runner.os }}-pip-
 
       - name: Install Python requirements
-        run: pip install -r requirements/release.txt
+        run: pip install -r requirements/packaging.txt
 
       - name : Fetch current changelog
         run: qgis-plugin-ci changelog ${{ env.RELEASE_VERSION }} >> release.md
