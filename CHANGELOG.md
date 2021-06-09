@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+## 1.17.0 - 2021-06-09
+
 * Add OpenHistoricalMap overpass server, linked to https://www.openhistoricalmap.org
 * Add an option to use the extent of selected features
 * Add Overpass Query Language (OQL) generator by default instead of legacy XML
