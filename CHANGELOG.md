@@ -2,13 +2,16 @@
 
 ## Unreleased
 
-* Option selected features for a layer choice
-* Generation of the query in OQL
-* Choice of the nominatim server in the configuration panel
-* Add tests
-* Add python annotation
-* Fix place historic
-* Fix 'Around' query type
+* Add OpenHistoricalMap overpass server, linked to https://www.openhistoricalmap.org
+* Add an option to use the extent of selected features
+* Add Overpass Query Language (OQL) generator by default instead of legacy XML
+* Add the possibility to choose the Nominatim server, by default the one from qgis.org
+* Add one check from the Overpass API if too many requests from the user
+* Fix the Mapillary action in the attribute table
+* Fix some user experience issue about the place name
+* Fix user experience about the named area drop-down menu
+* Fix 'Around' query type to fetch any OSM object instead of only OSM nodes.  
+* In the source code, add some Python annotations and more tests
 
 ## 1.16.0 - 2021-03-26
 
