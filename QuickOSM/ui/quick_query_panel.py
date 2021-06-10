@@ -1,19 +1,18 @@
 """Panel OSM base class."""
 
 from functools import partial
-from json import load
-from os.path import isfile
 
+from qgis.PyQt.QtCore import Qt
 from qgis.PyQt.QtWidgets import QCompleter, QDialog, QDialogButtonBox, QMenu
 
 from QuickOSM.core.exceptions import OsmObjectsException, QuickOsmException
+from QuickOSM.core.parser.preset_parser import PresetsParser
 from QuickOSM.core.process import process_quick_query
 from QuickOSM.core.query_factory import QueryFactory
 from QuickOSM.core.utilities.utilities_qgis import open_plugin_documentation
 from QuickOSM.definitions.gui import Panels
 from QuickOSM.definitions.osm import OsmType, QueryLanguage, QueryType
 from QuickOSM.qgis_plugin_tools.tools.i18n import tr
-from QuickOSM.qgis_plugin_tools.tools.resources import resources_path
 from QuickOSM.ui.base_overpass_panel import BaseOverpassPanel
 
 __copyright__ = 'Copyright 2019, 3Liz'
@@ -29,6 +28,7 @@ class QuickQueryPanel(BaseOverpassPanel):
         super().__init__(dialog)
         self.panel = Panels.QuickQuery
         self.osm_keys = None
+        self.preset_data = None
 
     def setup_panel(self):
         super().setup_panel()
@@ -67,6 +67,7 @@ class QuickQueryPanel(BaseOverpassPanel):
         self.dialog.button_show_query.clicked.connect(query_oql)
 
         self.dialog.button_run_query_qq.clicked.connect(self.run)
+        self.dialog.combo_preset.activated.connect(self.choice_preset)
         self.dialog.combo_key.editTextChanged.connect(self.key_edited)
         self.dialog.button_map_features.clicked.connect(open_plugin_documentation)
         self.dialog.button_box_qq.button(QDialogButtonBox.Reset).clicked.connect(
@@ -78,20 +79,39 @@ class QuickQueryPanel(BaseOverpassPanel):
         self.dialog.spin_place_qq.valueChanged.connect(self.update_friendly)
         self.dialog.combo_extent_layer_qq.layerChanged.connect(self.query_type_updated)
 
-        # Setup auto completion
-        map_features_json_file = resources_path('json', 'map_features.json')
-        if isfile(map_features_json_file):
-            with open(map_features_json_file, encoding='utf8') as f:
-                self.osm_keys = load(f)
-                keys = list(self.osm_keys.keys())
-                keys.append('')  # All keys request #118
-                keys.sort()
-                keys_completer = QCompleter(keys)
-                self.dialog.combo_key.addItems(keys)
-                self.dialog.combo_key.setCompleter(keys_completer)
-                self.dialog.combo_key.completer().setCompletionMode(
-                    QCompleter.PopupCompletion)
+        # Setup presets auto completion
+        parser = PresetsParser()
+        self.preset_data = parser.parser()
+        keys_preset = list(self.preset_data.elements.keys())
+        keys_preset.append('')
+        keys_preset.sort()
+        keys_preset_completer = QCompleter(keys_preset)
+        self.dialog.combo_preset.addItems(keys_preset)
+        self.dialog.combo_preset.setCompleter(keys_preset_completer)
+        self.dialog.combo_preset.completer().setCompletionMode(
+            QCompleter.PopupCompletion)
+        self.dialog.combo_preset.completer().setFilterMode(
+            Qt.MatchContains
+        )
+        self.dialog.combo_preset.completer().setCaseSensitivity(
+            Qt.CaseInsensitive
+        )
 
+        # Setup key auto completion
+        self.osm_keys = parser.osm_keys_values()
+        keys = list(self.osm_keys.keys())
+        keys.append('')
+        keys.sort()
+        while keys[1] == '':
+            keys.pop(1)
+        keys_completer = QCompleter(keys)
+        self.dialog.combo_key.addItems(keys)
+        self.dialog.combo_key.setCompleter(keys_completer)
+        self.dialog.combo_key.completer().setCompletionMode(
+            QCompleter.PopupCompletion)
+
+        self.dialog.combo_preset.lineEdit().setPlaceholderText(
+            tr('Write the preset you want'))
         self.dialog.combo_key.lineEdit().setPlaceholderText(
             tr('Query on all keys'))
         self.dialog.combo_value.lineEdit().setPlaceholderText(
@@ -119,6 +139,26 @@ class QuickQueryPanel(BaseOverpassPanel):
         query_xml = partial(self.show_query, QueryLanguage.XML)
         self.dialog.button_show_query.clicked.connect(query_xml)
 
+    def choice_preset(self):
+        choice = self.dialog.combo_preset.currentText()
+        element_chosen = self.preset_data.elements[choice]
+
+        keys, values = [], []
+        for item in element_chosen.heirs:
+            item_chosen = self.preset_data.items[item]
+            item_keys = list(item_chosen.keys())
+            for key in item_keys:
+                keys.append(key)
+                value = item_chosen[key]
+                if isinstance(value, list):
+                    for v in value:
+                        values.append(v)
+                elif isinstance(value, str):
+                    values.append(value)
+
+        self.dialog.combo_key.setCurrentText(str(keys))
+        self.dialog.combo_value.setCurrentText(str(values))
+
     def key_edited(self):
         """Add values to the combobox according to the key."""
         self.dialog.combo_value.clear()
@@ -138,6 +178,7 @@ class QuickQueryPanel(BaseOverpassPanel):
 
         if len(current_values) > 1 and current_values[0] != '':
             current_values.insert(0, '')
+            current_values.sort()
 
         values_completer = QCompleter(current_values)
         self.dialog.combo_value.setCompleter(values_completer)
