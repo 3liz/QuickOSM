@@ -19,6 +19,7 @@ from QuickOSM.qgis_plugin_tools.tools.custom_logging import setup_logger
 from QuickOSM.qgis_plugin_tools.tools.i18n import setup_translation, tr
 from QuickOSM.qgis_plugin_tools.tools.resources import (
     plugin_name,
+    plugin_path,
     resources_path,
 )
 from QuickOSM.quick_osm_processing.provider import Provider
@@ -45,7 +46,8 @@ class QuickOSMPlugin:
 
         setup_logger(plugin_name())
 
-        locale, file_path = setup_translation()
+        locale, file_path = setup_translation(
+            folder=plugin_path("i18n"), file_pattern="quickosm_{}.qm")
         if file_path:
             # LOGGER.info('Translation to {}'.format(file_path))
             self.translator = QTranslator()
