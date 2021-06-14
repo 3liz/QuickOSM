@@ -278,8 +278,6 @@ class Dialog(QDialog, FORM_CLASS):
         LOGGER.info('Dialog has been reset')
 
         # Quickquery
-        self.combo_key.setCurrentIndex(0)
-        self.combo_value.setCurrentIndex(0)
         self.checkbox_node.setChecked(True)
         self.checkbox_way.setChecked(True)
         self.checkbox_relation.setChecked(True)
