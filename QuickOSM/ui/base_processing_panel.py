@@ -98,7 +98,7 @@ class BaseProcessingPanel(BasePanel):
         if self.panel == Panels.Query:
             self.dialog.button_generate_query.setDisabled(False)
 
-        self.dialog.output_directories[self.panel].setDisabled(True)
+        self.dialog.output_directories[self.panel].setDisabled(False)
         self.dialog.run_buttons[self.panel].setDisabled(False)
         self.dialog.run_buttons[self.panel].setText(self.dialog.run_buttons[self.panel].initial_text)
         self.dialog.progress_bar.setMinimum(0)
