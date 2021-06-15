@@ -8,6 +8,7 @@ from typing import List, Union
 
 from qgis.core import (
     QgsExpressionContextUtils,
+    QgsLayerMetadata,
     QgsProject,
     QgsRectangle,
     QgsVectorFileWriter,
@@ -165,6 +166,10 @@ def open_file(
                 QgsExpressionContextUtils.setLayerVariable(
                     new_layer, 'quickosm_query', final_query)
 
+            metadata = QgsLayerMetadata()
+            metadata.setRights([tr("© OpenStreetMap contributors")])
+            metadata.setLicenses(['https://openstreetmap.org/copyright'])
+            new_layer.setMetadata(metadata)
             QgsProject.instance().addMapLayer(new_layer)
             num_layers += 1
 
