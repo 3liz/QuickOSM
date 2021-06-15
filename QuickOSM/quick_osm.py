@@ -12,8 +12,16 @@ from qgis.core import (
 )
 from qgis.PyQt.QtCore import QCoreApplication, QTranslator, QUrl
 from qgis.PyQt.QtGui import QDesktopServices, QIcon
-from qgis.PyQt.QtWidgets import QAction, QMenu
+from qgis.PyQt.QtWidgets import (
+    QAction,
+    QDialog,
+    QMenu,
+    QMessageBox,
+    QPushButton,
+)
 
+from QuickOSM.core.utilities.tools import get_setting, set_setting
+from QuickOSM.core.utilities.utilities_qgis import open_webpage
 from QuickOSM.definitions.urls import DOC_PLUGIN_URL
 from QuickOSM.qgis_plugin_tools.tools.custom_logging import setup_logger
 from QuickOSM.qgis_plugin_tools.tools.i18n import setup_translation, tr
@@ -159,7 +167,43 @@ class QuickOSMPlugin:
         """Create and open the main dialog."""
         from QuickOSM.ui.dialog import Dialog
         dialog = Dialog()
+        self.open_copyright_message(dialog)
         dialog.exec_()
+
+    @staticmethod
+    def open_copyright_message(dialog: QDialog):
+
+        def read_copyright():
+            open_webpage('https://www.openstreetmap.org/copyright')
+            set_setting("copyright_dialog", "OpenStreetMap")
+
+        def know_copyright():
+            set_setting("copyright_dialog", "OpenStreetMap")
+
+        if not get_setting("copyright_dialog"):
+
+            message = QMessageBox(dialog)
+            text = tr(
+                'OpenStreetMap® is open data, licensed under the'
+                ' Open Data Commons Open Database License (ODbL) '
+                'by the OpenStreetMap Foundation.'
+            ) + '\n'
+            text += tr(
+                'The Foundation requires that you use the credit '
+                '“© OpenStreetMap contributors” on any product using OSM data.'
+            ) + '\n'
+            text += tr(
+                'You should read https://www.openstreetmap.org/copyright'
+            )
+            message.setText(text)
+            message.setIcon(QMessageBox.Question)
+            no_button = QPushButton(tr('I understand the copyrights, access to the plugin'), message)
+            yes_button = QPushButton(tr('I want to read the copyrights'), message)
+            message.addButton(no_button, QMessageBox.NoRole)
+            message.addButton(yes_button, QMessageBox.YesRole)
+            yes_button.clicked.connect(read_copyright)
+            no_button.clicked.connect(know_copyright)
+            message.exec()
 
     @staticmethod
     def run_tests():
