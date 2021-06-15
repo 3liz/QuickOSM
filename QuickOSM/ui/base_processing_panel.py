@@ -11,6 +11,7 @@ from QuickOSM.core.exceptions import (
     OutPutGeomTypesException,
     QuickOsmException,
 )
+from QuickOSM.definitions.format import Format
 from QuickOSM.definitions.gui import Panels
 from QuickOSM.definitions.osm import LayerType
 from QuickOSM.qgis_plugin_tools.tools.i18n import tr
@@ -54,6 +55,11 @@ class BaseProcessingPanel(BasePanel):
         self.dialog.output_directories[self.panel].setStorageMode(
             QgsFileWidget.GetDirectory)
         self.dialog.output_directories[self.panel].setDialogTitle(tr('Select a directory'))
+
+        self.dialog.output_format[self.panel].addItem(Format.GeoPackage.value.label, Format.GeoPackage)
+        self.dialog.output_format[self.panel].addItem(Format.GeoJSON.value.label, Format.GeoJSON)
+        self.dialog.output_format[self.panel].addItem(Format.Shapefile.value.label, Format.Shapefile)
+        self.dialog.output_format[self.panel].addItem(Format.Kml.value.label, Format.Kml)
 
         # def disable_prefix_file():
         #     # TODO
@@ -99,6 +105,7 @@ class BaseProcessingPanel(BasePanel):
             self.dialog.button_generate_query.setDisabled(False)
 
         self.dialog.output_directories[self.panel].setDisabled(False)
+        self.dialog.output_format[self.panel].setDisabled(False)
         self.dialog.run_buttons[self.panel].setDisabled(False)
         self.dialog.run_buttons[self.panel].setText(self.dialog.run_buttons[self.panel].initial_text)
         self.dialog.progress_bar.setMinimum(0)
@@ -129,6 +136,8 @@ class BaseProcessingPanel(BasePanel):
 
         properties['output_directory'] = (
             self.dialog.output_directories[self.panel].filePath())
+        properties['output_format'] = (
+            self.dialog.output_format[self.panel].currentData())
         properties['prefix_file'] = self.dialog.prefix_edits[self.panel].text()
 
         if properties['output_directory'] and not (
