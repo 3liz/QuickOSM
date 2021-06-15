@@ -263,9 +263,12 @@ class QuickQueryPanel(BaseOverpassPanel):
             return
 
         row = selection[0].row()
-        self.dialog.table_keys_values.clearSelection()
-        self.dialog.table_keys_values.removeRow(row)
-        self.update_friendly()
+        if self.dialog.table_keys_values.rowCount() > 1:
+            if row == 0:
+                self.dialog.table_keys_values.setCellWidget(1, 0, None)
+            self.dialog.table_keys_values.clearSelection()
+            self.dialog.table_keys_values.removeRow(row)
+            self.update_friendly()
 
     def query_type_updated(self):
         """Update the ui when the query type is modified."""
