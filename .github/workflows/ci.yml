@@ -6,11 +6,13 @@ on:
       - "*"
     branches:
       - master
+      - dev
     paths:
       - 'QuickOSM/**'
   pull_request:
     branches:
       - master
+      - dev
     paths:
       - 'QuickOSM/**'
 
