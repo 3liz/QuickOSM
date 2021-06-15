@@ -1,18 +1,19 @@
 """The full process of opening a query, an OSM file."""
 
 import logging
+import os
 import time
 
 from os.path import abspath, dirname, isfile, join
 from typing import List, Union
 
 from qgis.core import (
+    Qgis,
     QgsExpressionContextUtils,
     QgsProject,
     QgsRectangle,
     QgsVectorFileWriter,
     QgsVectorLayer,
-    QgsWkbTypes,
 )
 from qgis.PyQt.QtWidgets import QApplication, QDialog
 
@@ -22,7 +23,8 @@ from QuickOSM.core.exceptions import FileOutPutException
 from QuickOSM.core.parser.osm_parser import OsmParser
 from QuickOSM.core.query_factory import QueryFactory
 from QuickOSM.core.query_preparation import QueryPreparation
-from QuickOSM.core.utilities.tools import get_default_encoding, get_setting
+from QuickOSM.core.utilities.tools import get_setting
+from QuickOSM.definitions.format import Format
 from QuickOSM.definitions.osm import (
     LayerType,
     Osm_Layers,
@@ -49,6 +51,7 @@ def open_file(
         layer_name: str = "OsmFile",
         config_outputs: dict = None,
         output_dir: str = None,
+        output_format: Format = None,
         final_query: str = None,
         prefix_file: str = None) -> int:
     """
@@ -67,8 +70,14 @@ def open_file(
             if not prefix_file:
                 prefix_file = layer_name
 
-            outputs[layer] = join(
-                output_dir, prefix_file + "_" + layer + ".geojson")
+            if output_format in [Format.GeoPackage, Format.Kml]:
+                outputs[layer] = join(
+                    output_dir, prefix_file + "." + output_format.value.extension)
+            elif output_format in [Format.GeoJSON, Format.Shapefile]:
+                outputs[layer] = join(
+                    output_dir, prefix_file + "_" + layer + "." + output_format.value.extension)
+            else:
+                raise NotImplementedError
 
             if isfile(outputs[layer]):
                 raise FileOutPutException(suffix='(' + outputs[layer] + ')')
@@ -100,7 +109,7 @@ def open_file(
     parser_time = time.strftime("%Hh %Mm %Ss", time.gmtime(elapsed_time))
     LOGGER.info('The OSM parser took: {}'.format(parser_time))
 
-    # Finishing the process with geojson or memory layer
+    # Finishing the process with an output format or memory layer
     num_layers = 0
 
     for i, (layer, item) in enumerate(layers.items()):
@@ -118,31 +127,34 @@ def open_file(
 
             if output_dir:
                 dialog.set_progress_text(
-                    tr('From memory layer to GeoJSON: ' + layer))
+                    tr('From memory layer to file: ' + layer))
                 # Transforming the vector file
-                osm_geometries = {
-                    'points': QgsWkbTypes.Point,
-                    'lines': QgsWkbTypes.LineString,
-                    'multilinestrings': QgsWkbTypes.MultiLineString,
-                    'multipolygons': QgsWkbTypes.MultiPolygon
-                }
                 memory_layer = item['vector_layer']
 
-                encoding = get_default_encoding()
-                writer = QgsVectorFileWriter(
-                    outputs[layer],
-                    encoding,
-                    memory_layer.fields(),
-                    osm_geometries[layer],
-                    memory_layer.crs(),
-                    "GeoJSON")
-
-                for f in memory_layer.getFeatures():
-                    writer.addFeature(f)
-
-                del writer
+                options = QgsVectorFileWriter.SaveVectorOptions()
+                if output_format in [Format.GeoPackage, Format.Kml]:
+                    final_layer_name += '_' + layer
+                options.layerName = final_layer_name
+                options.driverName = output_format.value.driver_name
+                if os.path.exists(outputs[layer]):
+                    options.actionOnExistingFile = QgsVectorFileWriter.CreateOrOverwriteLayer
+                else:
+                    options.actionOnExistingFile = QgsVectorFileWriter.CreateOrOverwriteFile
+                if Qgis.QGIS_VERSION_INT >= 32000:
+                    context = QgsProject.instance().transformContext()
+                    QgsVectorFileWriter.writeAsVectorFormatV3(
+                        memory_layer, outputs[layer], context, options)
+                elif Qgis.QGIS_VERSION_INT >= 31003:
+                    context = QgsProject.instance().transformContext()
+                    QgsVectorFileWriter.writeAsVectorFormatV2(
+                        memory_layer, outputs[layer], context, options)
+                else:
+                    QgsVectorFileWriter.writeAsVectorFormat(
+                        memory_layer, outputs[layer], options)
 
                 # Loading the final vector file
+                if output_format in [Format.GeoPackage, Format.Kml]:
+                    outputs[layer] += '|layername=' + final_layer_name
                 new_layer = QgsVectorLayer(
                     outputs[layer], final_layer_name, "ogr")
             else:
@@ -209,6 +221,7 @@ def process_query(
         area: Union[str, List[str]] = None,
         bbox: QgsRectangle = None,
         output_dir: str = None,
+        output_format: Format = None,
         prefix_file: str = None,
         output_geometry_types: list = None,
         layer_name: str = "OsmQuery",
@@ -240,6 +253,7 @@ def process_query(
         white_list_column=white_list_values,
         layer_name=layer_name,
         output_dir=output_dir,
+        output_format=output_format,
         prefix_file=prefix_file,
         final_query=final_query,
         config_outputs=config_outputs)
@@ -256,6 +270,7 @@ def process_quick_query(
         osm_objects: List[OsmType] = None,
         timeout: int = 25,
         output_directory: str = None,
+        output_format: Format = None,
         prefix_file: str = None,
         output_geometry_types: list = None) -> int:
     """
@@ -291,6 +306,7 @@ def process_quick_query(
         area=area,
         bbox=bbox,
         output_dir=output_directory,
+        output_format=output_format,
         prefix_file=prefix_file,
         output_geometry_types=output_geometry_types,
         layer_name=layer_name)
