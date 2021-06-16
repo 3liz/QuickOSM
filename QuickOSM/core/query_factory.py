@@ -469,7 +469,7 @@ class QueryFactory:
         if len(val) == 0:
             val = ['']
 
-        multi_keys = len(key) > 1 or len(val) > 1
+        multi_keys = len(key) > 1
 
         if key:
 
@@ -480,7 +480,35 @@ class QueryFactory:
                 else:
                     keys.append('\'{k}\''.format(k=k))
 
-            key_lbl = ', '.join(keys)
+            if multi_keys:
+                type_multi = self._type_multi_request
+                key_lbl = ''
+                index = 0
+                for k in range(len(type_multi)):
+                    if index == k:
+                        if type_multi[k] == 'and':
+                            i = 1
+                            key_and = keys[k] + ' and ' + keys[k + i]
+
+                            while (k + i) < len(type_multi) and type_multi[k + i] == 'and':
+                                i += 1
+                                key_and += ' and ' + keys[k + i]
+
+                            key_lbl += '({})'.format(key_and)
+                            index = k + i
+                        elif type_multi[k] == 'or':
+                            if k == 0:
+                                key_lbl += keys[k]
+                            key_lbl += ' or '
+                            i = 1
+                            while (k + i) < len(type_multi) and type_multi[k + i] == 'or':
+                                key_lbl += keys[k + i] + ' or '
+                                i += 1
+                            index = k + i
+                            if k + i == len(type_multi):
+                                key_lbl += keys[k + i]
+            else:
+                key_lbl = keys[0]
 
             if attrib_only and multi_keys:
                 return ATTRIBUTES_ONLY.format(keys=key_lbl)

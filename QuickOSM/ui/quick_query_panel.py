@@ -170,14 +170,15 @@ class QuickQueryPanel(BaseOverpassPanel):
 
         return add_row, remove_row, preset
 
-    @staticmethod
-    def prepare_type_multi_request() -> QComboBox:
+    def prepare_type_multi_request(self) -> QComboBox:
         type_operation = QComboBox()
         type_operation.setToolTip(
             tr('Set the type of multi-request. '
                 '"And" verify both conditions. "Or" verify either of the conditions.'))
         type_operation.addItem(tr('And'), 'and')
         type_operation.addItem(tr('Or'), 'or')
+
+        type_operation.currentIndexChanged.connect(self.update_friendly)
 
         return type_operation
 
@@ -472,6 +473,7 @@ class QuickQueryPanel(BaseOverpassPanel):
 
         # Make the query, in order to create the friendly message
         query_factory = QueryFactory(
+            type_multi_request=properties['type_multi_request'],
             query_type=properties['query_type'],
             key=properties['key'],
             value=properties['value'],
