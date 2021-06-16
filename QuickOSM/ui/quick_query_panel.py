@@ -163,7 +163,7 @@ class QuickQueryPanel(BaseOverpassPanel):
         remove_row.setIcon(QIcon(QgsApplication.iconPath('symbologyRemove.svg')))
         remove_row.setText('')
         preset = QPushButton()
-        preset.setText(tr('Use Preset'))
+        preset.setText(tr('Wizard'))
 
         add_row.clicked.connect(self.add_row_to_table)
         remove_row.clicked.connect(self.remove_selection)
@@ -360,6 +360,7 @@ class QuickQueryPanel(BaseOverpassPanel):
             raise OsmObjectsException
 
         rows = self.dialog.table_keys_values.rowCount()
+        key_added = False
         properties['key'] = []
         properties['value'] = []
         properties['type_multi_request'] = []
