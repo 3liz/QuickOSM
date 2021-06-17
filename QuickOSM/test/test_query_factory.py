@@ -704,9 +704,9 @@ class TestQueryFactory(unittest.TestCase):
         )
         # TODO, fix many keys
         human = (
-            'All OSM objects with keys \'a\'=\'b\','
-            ' \'c\'=\'d\' in the canvas or layer extent'
-            ' are going to be downloaded.'
+            'All OSM objects with keys (\'a\'=\'b\' and'
+            ' \'c\'=\'d\') in the canvas or layer extent '
+            'are going to be downloaded.'
         )
         test_query(query, expected_xml, expected_xml_with_template,
                    expected_oql, expected_oql_with_template, human)
@@ -778,7 +778,7 @@ class TestQueryFactory(unittest.TestCase):
         )
         # TODO, fix many keys
         human = (
-            'All OSM objects with keys \'a\'=\'b\','
+            'All OSM objects with keys \'a\'=\'b\' or'
             ' \'c\'=\'d\' in the canvas or layer extent '
             'are going to be downloaded.'
         )
@@ -843,8 +843,8 @@ class TestQueryFactory(unittest.TestCase):
             'out body;'
         )
         human = (
-            'All OSM objects with keys \'a\','
-            ' \'c\' in the canvas or layer extent '
+            'All OSM objects with keys (\'a\' and'
+            ' \'c\') in the canvas or layer extent '
             'are going to be downloaded.'
         )
         test_query(query, expected_xml, expected_xml_with_template,

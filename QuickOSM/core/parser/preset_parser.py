@@ -54,7 +54,8 @@ class PresetsParser:
                     for ancestor in ancestors_name[1:]:
                         name_completion += '/' + ancestor
                 ancestors_name.pop(-1)
-                data_group = data('group', ancestors_name, heirs_item_name)
+                icon = group.getAttribute('icon')
+                data_group = data('group', icon, ancestors_name, heirs_item_name)
                 elements[name_completion] = data_group
 
                 heirs_name += heirs_item_name
@@ -88,8 +89,8 @@ class PresetsParser:
                     name_completion += ancestor + '/'
                     ancestors.append(ancestor)
                 name_completion += name
-
-                data_item = data('item', ancestors, [name])
+                icon = item.getAttribute('icon')
+                data_item = data('item', icon, ancestors, [name])
                 elements[name_completion] = data_item
 
             return heirs_name
@@ -98,7 +99,7 @@ class PresetsParser:
         items = {}
         items_combo = {}
 
-        data = col.namedtuple('data', ['type', 'ancestors', 'heirs'])
+        data = col.namedtuple('data', ['type', 'icon', 'ancestors', 'heirs'])
 
         root = self.file.firstChild
         children = filter(lambda child: self.node_filter(child), root.childNodes)
@@ -110,7 +111,8 @@ class PresetsParser:
             heirs_name = fetch_keys(group, [])
 
             name_completion = group.getAttribute('name')
-            data_group = data('group', ancestors_name[:-1], heirs_name)
+            icon = group.getAttribute('icon')
+            data_group = data('group', icon, ancestors_name[:-1], heirs_name)
             elements[name_completion] = data_group
 
         results = col.namedtuple('results', ['elements', 'items'])

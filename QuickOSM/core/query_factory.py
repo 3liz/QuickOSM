@@ -511,7 +511,7 @@ class QueryFactory:
                 key_lbl = keys[0]
 
             if attrib_only and multi_keys:
-                return ATTRIBUTES_ONLY.format(keys=key_lbl)
+                return ATTRIBUTES_ONLY.format(key=key_lbl)
             elif attrib_only:
                 return ATTRIBUTE_ONLY.format(key=key_lbl)
 

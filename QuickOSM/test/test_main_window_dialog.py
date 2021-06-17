@@ -23,24 +23,26 @@ class TestUiMainWindow(unittest.TestCase):
         self.assertEqual(dialog.stacked_panels_widget.currentIndex(), expected_index)
         self.assertNotEqual(dialog.text_query.toPlainText(), '')
 
-    @unittest.skip("Bug first setText l.27")
     def test_show_query_key_value_in(self):
         """Test we can show a query by switching tab with key value in params."""
         dialog = Dialog()
-        dialog.table_keys_values.cellWidget(0, 1).lineEdit().setText('amenity')
-        dialog.table_keys_values.cellWidget(0, 2).lineEdit().setText('value')
+        index = dialog.table_keys_values.cellWidget(0, 1).findData('amenity')
+        dialog.table_keys_values.cellWidget(0, 1).setCurrentIndex(index)
+        index = dialog.table_keys_values.cellWidget(0, 2).findData('bench')
+        dialog.table_keys_values.cellWidget(0, 2).setCurrentIndex(index)
         dialog.places_edits[Panels.QuickQuery].setText('foo')
         dialog.button_show_query.click()
         expected_index = dialog.stacked_panels_widget.indexOf(dialog.query_page)
         self.assertEqual(dialog.stacked_panels_widget.currentIndex(), expected_index)
         self.assertNotEqual(dialog.text_query.toPlainText(), '')
 
-    @unittest.skip("Bug first setText l.39")
     def test_show_query_oql(self):
         """Test we can show a query in OQL by switching tab."""
         dialog = Dialog()
-        dialog.table_keys_values.cellWidget(0, 1).lineEdit().setText('amenity')
-        dialog.table_keys_values.cellWidget(0, 2).lineEdit().setText('value')
+        index = dialog.table_keys_values.cellWidget(0, 1).findData('amenity')
+        dialog.table_keys_values.cellWidget(0, 1).setCurrentIndex(index)
+        index = dialog.table_keys_values.cellWidget(0, 2).findData('bench')
+        dialog.table_keys_values.cellWidget(0, 2).setCurrentIndex(index)
         dialog.places_edits[Panels.QuickQuery].setText('foo')
         dialog.action_oql_qq.trigger()
         dialog.button_show_query.click()
@@ -49,12 +51,13 @@ class TestUiMainWindow(unittest.TestCase):
         self.assertNotEqual(dialog.text_query.toPlainText(), '')
         self.assertEqual(dialog.text_query.toPlainText()[-1], ';')
 
-    @unittest.skip("Bug first setText l.53")
     def test_show_query_xml(self):
         """Test we can show a query in XML by switching tab."""
         dialog = Dialog()
-        dialog.table_keys_values.cellWidget(0, 1).lineEdit().setText('amenity')
-        dialog.table_keys_values.cellWidget(0, 1).lineEdit().setText('value')
+        index = dialog.table_keys_values.cellWidget(0, 1).findData('amenity')
+        dialog.table_keys_values.cellWidget(0, 1).setCurrentIndex(index)
+        index = dialog.table_keys_values.cellWidget(0, 2).findData('bench')
+        dialog.table_keys_values.cellWidget(0, 2).setCurrentIndex(index)
         dialog.places_edits[Panels.QuickQuery].setText('foo')
         dialog.action_xml_qq.trigger()
         dialog.button_show_query.click()

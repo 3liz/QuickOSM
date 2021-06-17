@@ -17,7 +17,7 @@ class TestQuickOSMWidget(unittest.TestCase):
     def setUp(self):
         self.maxDiff = None
         self.parser = PresetsParser()
-        self.data = col.namedtuple('data', ['type', 'ancestors', 'heirs'])
+        self.data = col.namedtuple('data', ['type', 'icons', 'ancestors', 'heirs'])
 
     def test_parser_simple_files(self):
         """ Test if the parser return the format expected"""
@@ -34,8 +34,14 @@ class TestQuickOSMWidget(unittest.TestCase):
         )
         expected_dict_item = {'route': {'foo': 'bar'}}
         expected_dict_element = {
-            'Highways/route': self.data(type='item', ancestors=['Highways'], heirs=['route']),
-            'Highways': self.data(type='group', ancestors=[], heirs=['route'])
+            'Highways/route': self.data(
+                type='item', icons='',
+                ancestors=['Highways'], heirs=['route']
+            ),
+            'Highways': self.data(
+                type='group', icons='',
+                ancestors=[], heirs=['route']
+            )
         }
         self.parser.file = xml.parseString(xml_template)
         result = self.parser.parser()
@@ -60,9 +66,18 @@ class TestQuickOSMWidget(unittest.TestCase):
             'railway': {'bar': 'foo'}
         }
         expected_dict_element = {
-            'Highways/route': self.data(type='item', ancestors=['Highways'], heirs=['route']),
-            'Highways/railway': self.data(type='item', ancestors=['Highways'], heirs=['railway']),
-            'Highways': self.data(type='group', ancestors=[], heirs=['route', 'railway'])
+            'Highways/route': self.data(
+                type='item', icons='',
+                ancestors=['Highways'], heirs=['route']
+            ),
+            'Highways/railway': self.data(
+                type='item', icons='',
+                ancestors=['Highways'], heirs=['railway']
+            ),
+            'Highways': self.data(
+                type='group', icons='',
+                ancestors=[], heirs=['route', 'railway']
+            )
         }
         self.parser.file = xml.parseString(xml_template)
         result = self.parser.parser()
@@ -99,22 +114,22 @@ class TestQuickOSMWidget(unittest.TestCase):
         }
         expected_dict_element = {
             'country/Highways/route': self.data(
-                type='item', ancestors=['country', 'Highways'], heirs=['route']
+                type='item', icons='', ancestors=['country', 'Highways'], heirs=['route']
             ),
             'country/Highways/railway': self.data(
-                type='item', ancestors=['country', 'Highways'], heirs=['railway']
+                type='item', icons='', ancestors=['country', 'Highways'], heirs=['railway']
             ),
             'country/Highways': self.data(
-                type='group', ancestors=['country'], heirs=['route', 'railway']
+                type='group', icons='', ancestors=['country'], heirs=['route', 'railway']
             ),
             'country/Road/tramway': self.data(
-                type='item', ancestors=['country', 'Road'], heirs=['tramway']
+                type='item', icons='', ancestors=['country', 'Road'], heirs=['tramway']
             ),
             'country/Road': self.data(
-                type='group', ancestors=['country'], heirs=['tramway']
+                type='group', icons='', ancestors=['country'], heirs=['tramway']
             ),
             'country': self.data(
-                type='group', ancestors=[], heirs=['route', 'railway', 'tramway']
+                type='group', icons='', ancestors=[], heirs=['route', 'railway', 'tramway']
             )
         }
         self.parser.file = xml.parseString(xml_template)
@@ -156,28 +171,28 @@ class TestQuickOSMWidget(unittest.TestCase):
         }
         expected_dict_element = {
             'country/Highways/route': self.data(
-                type='item', ancestors=['country', 'Highways'], heirs=['route']
+                type='item', icons='', ancestors=['country', 'Highways'], heirs=['route']
             ),
             'country/Highways/railway': self.data(
-                type='item', ancestors=['country', 'Highways'], heirs=['railway']
+                type='item', icons='', ancestors=['country', 'Highways'], heirs=['railway']
             ),
             'country/Highways': self.data(
-                type='group', ancestors=['country'], heirs=['route', 'railway']
+                type='group', icons='', ancestors=['country'], heirs=['route', 'railway']
             ),
             'country/Road/tramway': self.data(
-                type='item', ancestors=['country', 'Road'], heirs=['tramway']
+                type='item', icons='', ancestors=['country', 'Road'], heirs=['tramway']
             ),
             'country/Road': self.data(
-                type='group', ancestors=['country'], heirs=['tramway']
+                type='group', icons='', ancestors=['country'], heirs=['tramway']
             ),
             'country': self.data(
-                type='group', ancestors=[], heirs=['route', 'railway', 'tramway']
+                type='group', icons='', ancestors=[], heirs=['route', 'railway', 'tramway']
             ),
             'River/boat': self.data(
-                type='item', ancestors=['River'], heirs=['boat']
+                type='item', icons='', ancestors=['River'], heirs=['boat']
             ),
             'River': self.data(
-                type='group', ancestors=[], heirs=['boat']
+                type='group', icons='', ancestors=[], heirs=['boat']
             )
         }
         self.parser.file = xml.parseString(xml_template)
