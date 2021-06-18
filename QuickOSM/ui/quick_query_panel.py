@@ -13,6 +13,7 @@ from qgis.PyQt.QtWidgets import (
     QDialog,
     QDialogButtonBox,
     QHeaderView,
+    QListWidgetItem,
     QMenu,
     QPushButton,
 )
@@ -47,6 +48,8 @@ class QuickQueryPanel(BaseOverpassPanel):
         self.keys = None
         self.all_keys_placeholder = tr('Query on all keys')
         self.all_values_placeholder = tr('Query on all values')
+        self.preset_data = None
+        self.preset_items = []
 
     def setup_panel(self):
         super().setup_panel()
@@ -54,16 +57,17 @@ class QuickQueryPanel(BaseOverpassPanel):
 
         # Setup presets auto completion
         parser = PresetsParser()
-        self.dialog.preset_data = parser.parser()
-        self.dialog.keys_preset = list(self.dialog.preset_data.elements.keys())
-        self.dialog.keys_preset.append('')
-        self.dialog.keys_preset.sort()
-        keys_preset_completer = QCompleter(self.dialog.keys_preset)
-        self.dialog.combo_preset.addItem(self.dialog.keys_preset.pop(0))
-        for key in self.dialog.keys_preset:
-            icon_path = self.dialog.preset_data.elements[key].icon
+        self.preset_data = parser.parser()
+        keys_preset = list(self.preset_data.elements.keys())
+        keys_preset.append('')
+        keys_preset.sort()
+        keys_preset_completer = QCompleter(keys_preset)
+        self.dialog.combo_preset.addItem(keys_preset.pop(0))
+        for key in keys_preset:
+            icon_path = self.preset_data.elements[key].icon
             icon_path = resources_path('icons', icon_path)
             icon = QIcon(icon_path)
+            self.preset_items.append(QListWidgetItem(icon, key))
             self.dialog.combo_preset.addItem(icon, key)
         self.dialog.combo_preset.setCompleter(keys_preset_completer)
         self.dialog.combo_preset.completer().setCompletionMode(
@@ -221,7 +225,10 @@ class QuickQueryPanel(BaseOverpassPanel):
 
         if not row:
             selection = table.selectedIndexes()
-            row = selection[0].row()
+            if selection:
+                row = selection[0].row()
+            else:
+                row = 0
         index_value = table.cellWidget(row, 2).currentIndex()
 
         type_operation = self.prepare_type_multi_request()
@@ -300,16 +307,16 @@ class QuickQueryPanel(BaseOverpassPanel):
     def select_preset(self):
         wizard = Wizard(self.dialog)
         wizard.exec()
-        wizard.destroyed.connect(self.choice_preset)
 
-    def choice_preset(self):
+    def choice_preset(self, choice: str = None):
         """Fill the table with the keys/values from the preset."""
-        choice = self.dialog.combo_preset.currentText()
-        element_chosen = self.dialog.preset_data.elements[choice]
+        if not isinstance(choice, str):
+            choice = self.dialog.combo_preset.currentText()
+        element_chosen = self.preset_data.elements[choice]
 
         keys, values = [], []
         for item in element_chosen.heirs:
-            item_chosen = self.dialog.preset_data.items[item]
+            item_chosen = self.preset_data.items[item]
             item_keys = list(item_chosen.keys())
             for key in item_keys:
                 value = item_chosen[key]
@@ -336,22 +343,26 @@ class QuickQueryPanel(BaseOverpassPanel):
             index = table.cellWidget(row + num, 2).findText(values[num])
             table.cellWidget(row + num, 2).setCurrentIndex(index)
             self.add_row_to_table(row + num)
-
         num = len(keys) - 1
-        row += num
-        if table.cellWidget(row, 0) and num != 0:
-            table.cellWidget(row, 0).setCurrentIndex(1)
-        index = table.cellWidget(row, 1).findText(keys[-1])
-        table.cellWidget(row, 1).setCurrentIndex(index)
-        self.key_edited(row)
-        index = table.cellWidget(row, 2).findText(values[-1])
+        if table.cellWidget(row + num, 0) and num != 0:
+            table.cellWidget(row + num, 0).setCurrentIndex(1)
+        index = table.cellWidget(row + num, 1).findText(keys[-1])
+        table.cellWidget(row + num, 1).setCurrentIndex(index)
+        self.key_edited(row + num)
+        index = table.cellWidget(row + num, 2).findText(values[-1])
+        table.cellWidget(row + num, 2).setCurrentIndex(index)
+
+        index = table.cellWidget(row, 2).findText(values[0])
         table.cellWidget(row, 2).setCurrentIndex(index)
 
     def key_edited(self, row: int = None):
         """Add values to the combobox according to the key."""
         if row is None:
             selection = self.dialog.table_keys_values.selectedIndexes()
-            row = selection[0].row()
+            if selection:
+                row = selection[0].row()
+            else:
+                row = 0
         key_field = self.dialog.table_keys_values.cellWidget(row, 1)
         value_field = self.dialog.table_keys_values.cellWidget(row, 2)
 

@@ -164,8 +164,6 @@ class Dialog(QDialog, FORM_CLASS):
             self.menu_widget.sizeHintForColumn(0) + 10)
 
         self.progress_text.setText('')
-        self.keys_preset = None
-        self.preset_data = None
 
         self.menu_widget.currentRowChanged['int'].connect(
             self.stacked_panels_widget.setCurrentIndex)
