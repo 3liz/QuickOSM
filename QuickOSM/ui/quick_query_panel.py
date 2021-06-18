@@ -50,6 +50,7 @@ class QuickQueryPanel(BaseOverpassPanel):
         self.all_values_placeholder = tr('Query on all values')
         self.preset_data = None
         self.preset_items = []
+        self.wizard = None
 
     def setup_panel(self):
         super().setup_panel()
@@ -305,8 +306,11 @@ class QuickQueryPanel(BaseOverpassPanel):
         self.dialog.button_show_query.clicked.connect(query_xml)
 
     def select_preset(self):
-        wizard = Wizard(self.dialog)
-        wizard.exec()
+        if self.wizard:
+            self.wizard.activateWindow()
+        else:
+            self.wizard = Wizard(self.dialog)
+            self.wizard.show()
 
     def choice_preset(self, choice: str = None):
         """Fill the table with the keys/values from the preset."""
