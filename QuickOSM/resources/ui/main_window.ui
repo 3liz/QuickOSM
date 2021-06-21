@@ -375,11 +375,6 @@ QListWidget::item::selected {
                  </column>
                  <column>
                   <property name="text">
-                   <string>Preset</string>
-                  </property>
-                 </column>
-                 <column>
-                  <property name="text">
                    <string> Add </string>
                   </property>
                  </column>

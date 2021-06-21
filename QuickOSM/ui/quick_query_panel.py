@@ -94,14 +94,12 @@ class QuickQueryPanel(BaseOverpassPanel):
         header.setSectionResizeMode(0, QHeaderView.ResizeToContents)
         header.setSectionResizeMode(3, QHeaderView.ResizeToContents)
         header.setSectionResizeMode(4, QHeaderView.ResizeToContents)
-        header.setSectionResizeMode(5, QHeaderView.ResizeToContents)
         header.setMinimumSectionSize(50)
 
-        add_row, remove_row, preset = self.prepare_button()
+        add_row, remove_row = self.prepare_button()
 
-        self.dialog.table_keys_values.setCellWidget(0, 3, preset)
-        self.dialog.table_keys_values.setCellWidget(0, 4, add_row)
-        self.dialog.table_keys_values.setCellWidget(0, 5, remove_row)
+        self.dialog.table_keys_values.setCellWidget(0, 3, add_row)
+        self.dialog.table_keys_values.setCellWidget(0, 4, remove_row)
 
         key_field = self.prepare_key_field()
         value_field = self.prepare_value_field()
@@ -154,7 +152,7 @@ class QuickQueryPanel(BaseOverpassPanel):
         self.dialog.combo_extent_layer_qq.layerChanged.connect(self.query_type_updated)
 
         self.dialog.combo_preset.lineEdit().setPlaceholderText(
-            tr('Write the preset you want'))
+            tr('Ex: bakery'))
         self.query_type_updated()
         self.init_nominatim_autofill()
         self.update_friendly()
@@ -163,17 +161,16 @@ class QuickQueryPanel(BaseOverpassPanel):
         add_row = QPushButton()
         add_row.setIcon(QIcon(QgsApplication.iconPath('symbologyAdd.svg')))
         add_row.setText('')
+        add_row.setToolTip(tr('Add a line below.'))
         remove_row = QPushButton()
         remove_row.setIcon(QIcon(QgsApplication.iconPath('symbologyRemove.svg')))
         remove_row.setText('')
-        preset = QPushButton()
-        preset.setText(tr('Wizard'))
+        remove_row.setToolTip(tr('Remove the line.'))
 
         add_row.clicked.connect(self.add_row_to_table)
         remove_row.clicked.connect(self.remove_selection)
-        preset.clicked.connect(self.select_preset)
 
-        return add_row, remove_row, preset
+        return add_row, remove_row
 
     def prepare_type_multi_request(self) -> QComboBox:
         type_operation = QComboBox()
@@ -242,11 +239,10 @@ class QuickQueryPanel(BaseOverpassPanel):
         table.setCellWidget(nb_row, 1, key_field)
         table.setCellWidget(nb_row, 2, value_field)
 
-        add_row, remove_row, preset = self.prepare_button()
+        add_row, remove_row = self.prepare_button()
 
-        table.setCellWidget(nb_row, 3, preset)
-        table.setCellWidget(nb_row, 4, add_row)
-        table.setCellWidget(nb_row, 5, remove_row)
+        table.setCellWidget(nb_row, 3, add_row)
+        table.setCellWidget(nb_row, 4, remove_row)
 
         if nb_row - 1 != row:
             for line in range(1, nb_row - row):
@@ -283,6 +279,8 @@ class QuickQueryPanel(BaseOverpassPanel):
             self.dialog.table_keys_values.clearSelection()
             self.dialog.table_keys_values.removeRow(row)
             self.update_friendly()
+        elif self.dialog.table_keys_values.rowCount() == 1:
+            self.dialog.table_keys_values.cellWidget(0, 1).setCurrentIndex(0)
 
     def query_type_updated(self):
         """Update the ui when the query type is modified."""
@@ -344,8 +342,9 @@ class QuickQueryPanel(BaseOverpassPanel):
             index = table.cellWidget(row + num, 1).findText(keys[num])
             table.cellWidget(row + num, 1).setCurrentIndex(index)
             self.key_edited(row + num)
-            index = table.cellWidget(row + num, 2).findText(values[num])
-            table.cellWidget(row + num, 2).setCurrentIndex(index)
+            if values[num]:
+                index = table.cellWidget(row + num, 2).findText(values[num])
+                table.cellWidget(row + num, 2).setCurrentIndex(index)
             self.add_row_to_table(row + num)
         num = len(keys) - 1
         if table.cellWidget(row + num, 0) and num != 0:
@@ -353,8 +352,9 @@ class QuickQueryPanel(BaseOverpassPanel):
         index = table.cellWidget(row + num, 1).findText(keys[-1])
         table.cellWidget(row + num, 1).setCurrentIndex(index)
         self.key_edited(row + num)
-        index = table.cellWidget(row + num, 2).findText(values[-1])
-        table.cellWidget(row + num, 2).setCurrentIndex(index)
+        if values[-1]:
+            index = table.cellWidget(row + num, 2).findText(values[-1])
+            table.cellWidget(row + num, 2).setCurrentIndex(index)
 
         index = table.cellWidget(row, 2).findText(values[0])
         table.cellWidget(row, 2).setCurrentIndex(index)
