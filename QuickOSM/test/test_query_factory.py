@@ -4,7 +4,12 @@ from qgis.testing import unittest
 
 from QuickOSM.core.exceptions import QueryFactoryException
 from QuickOSM.core.query_factory import QueryFactory
-from QuickOSM.definitions.osm import OsmType, QueryLanguage, QueryType
+from QuickOSM.definitions.osm import (
+    MultiType,
+    OsmType,
+    QueryLanguage,
+    QueryType,
+)
 
 __copyright__ = 'Copyright 2019, 3Liz'
 __license__ = 'GPL version 3'
@@ -647,7 +652,7 @@ class TestQueryFactory(unittest.TestCase):
 
         # Many keys with many values, request 'and'
         query = QueryFactory(
-            type_multi_request=[None, 'and'],
+            type_multi_request=[None, MultiType.AND],
             query_type=QueryType.BBox,
             osm_objects=[OsmType.Node],
             key=['a', 'c'],
@@ -713,7 +718,7 @@ class TestQueryFactory(unittest.TestCase):
 
         # Many keys with many values, request 'or'
         query = QueryFactory(
-            type_multi_request=[None, 'or'],
+            type_multi_request=[None, MultiType.OR],
             query_type=QueryType.BBox,
             osm_objects=[OsmType.Node],
             key=['a', 'c'],
@@ -787,7 +792,7 @@ class TestQueryFactory(unittest.TestCase):
 
         # Many keys with None values
         query = QueryFactory(
-            type_multi_request=[None, 'and'],
+            type_multi_request=[None, MultiType.AND],
             query_type=QueryType.BBox,
             osm_objects=[OsmType.Node],
             key=['a', 'c'],
@@ -845,6 +850,97 @@ class TestQueryFactory(unittest.TestCase):
         human = (
             'All OSM objects with keys (\'a\' and'
             ' \'c\') in the canvas or layer extent '
+            'are going to be downloaded.'
+        )
+        test_query(query, expected_xml, expected_xml_with_template,
+                   expected_oql, expected_oql_with_template, human)
+
+        # Many keys with values, complex query
+        query = QueryFactory(
+            type_multi_request=[
+                None, MultiType.AND, MultiType.OR,
+                MultiType.OR, MultiType.AND
+            ],
+            query_type=QueryType.BBox,
+            osm_objects=[OsmType.Node],
+            key=['a', 'c', 'e', 'g', 'i'],
+            value=['b', 'd', 'f', 'h', 'j']
+        )
+        self.assertIsNone(query.area)
+        expected_xml = (
+            '<osm-script output="xml" timeout="25">'
+            '<union>'
+            '<query type="node">'
+            '<has-kv k="a" v="b"/>'
+            '<has-kv k="c" v="d"/>'
+            '<bbox-query bbox="custom" />'
+            '</query>'
+            '<query type="node">'
+            '<has-kv k="e" v="f"/>'
+            '<bbox-query bbox="custom" />'
+            '</query>'
+            '<query type="node">'
+            '<has-kv k="g" v="h"/>'
+            '<has-kv k="i" v="j"/>'
+            '<bbox-query bbox="custom" />'
+            '</query>'
+            '</union>'
+            '<union>'
+            '<item />'
+            '<recurse type="down"/>'
+            '</union>'
+            '<print mode="body" />'
+            '</osm-script>'
+        )
+        expected_xml_with_template = (
+            '<osm-script output="xml" timeout="25">'
+            '<union>'
+            '<query type="node">'
+            '<has-kv k="a" v="b"/>'
+            '<has-kv k="c" v="d"/>'
+            '<bbox-query {{bbox}}/>'
+            '</query>'
+            '<query type="node">'
+            '<has-kv k="e" v="f"/>'
+            '<bbox-query {{bbox}}/>'
+            '</query>'
+            '<query type="node">'
+            '<has-kv k="g" v="h"/>'
+            '<has-kv k="i" v="j"/>'
+            '<bbox-query {{bbox}}/>'
+            '</query>'
+            '</union>'
+            '<union>'
+            '<item/>'
+            '<recurse type="down"/>'
+            '</union>'
+            '<print mode="body"/>'
+            '</osm-script>'
+        )
+        expected_oql = (
+            '[out:xml] [timeout:25];\n'
+            '(\n'
+            '    node["a"="b"]["c"="d"]( bbox="custom");\n'
+            '    node["e"="f"]( bbox="custom");\n'
+            '    node["g"="h"]["i"="j"]( bbox="custom");\n'
+            ');\n'
+            '(._;>;);\n'
+            'out body;'
+        )
+        expected_oql_with_template = (
+            '[out:xml] [timeout:25];'
+            '('
+            'node["a"="b"]["c"="d"]( {{bbox}});'
+            'node["e"="f"]( {{bbox}});'
+            'node["g"="h"]["i"="j"]( {{bbox}});'
+            ');'
+            '(._;>;);'
+            'out body;'
+        )
+        human = (
+            'All OSM objects with keys (\'a\'=\'b\' and'
+            ' \'c\'=\'d\') or \'e\'=\'f\' or (\'g\'=\'h\' '
+            'and \'i\'=\'j\') in the canvas or layer extent '
             'are going to be downloaded.'
         )
         test_query(query, expected_xml, expected_xml_with_template,

@@ -65,13 +65,14 @@ class PresetsParser:
                 data_item = {}
                 name = item.getAttribute('name')
 
-                for keys in item.getElementsByTagName('key'):
+                children = filter(lambda child: self.node_filter(child, 'key'), item.childNodes)
+                for keys in children:
                     key = keys.getAttribute('key')
                     value = keys.getAttribute('value')
 
                     data_item[key] = value
 
-                items[name] = data_item
+                items[name] = data_item.copy()
 
                 children = filter(lambda child: self.node_filter(child, 'combo'), item.childNodes)
                 for combo in children:

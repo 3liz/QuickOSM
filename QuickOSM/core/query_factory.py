@@ -7,7 +7,12 @@ from typing import List
 from xml.dom.minidom import parseString
 
 from QuickOSM.core.exceptions import QueryFactoryException
-from QuickOSM.definitions.osm import OsmType, QueryLanguage, QueryType
+from QuickOSM.definitions.osm import (
+    MultiType,
+    OsmType,
+    QueryLanguage,
+    QueryType,
+)
 from QuickOSM.qgis_plugin_tools.tools.i18n import tr
 
 __copyright__ = 'Copyright 2019, 3Liz'
@@ -60,6 +65,9 @@ class QueryFactory:
     ):
         """
         Query Factory constructor according to Overpass API.
+
+        :param type_multi_request: The type of query to build.
+        :type type_multi_request: list(MultiType)
 
         :param query_type: The type of query to build.
         :type query_type: QueryType
@@ -245,7 +253,7 @@ class QueryFactory:
         query += '<union>'
 
         loop = 1 if not nominatim else len(nominatim)
-        nb_query = self._type_multi_request.count('or') + 1
+        nb_query = self._type_multi_request.count(MultiType.OR) + 1
 
         for osm_object in self._osm_objects:
             for i in range(0, loop):
@@ -263,7 +271,7 @@ class QueryFactory:
 
                         query += '/>'
 
-                        while type_request and type_request.pop(0) == 'and':
+                        while type_request and type_request.pop(0) == MultiType.AND:
                             query += '<has-kv k="{}" '.format(keys.pop(0))
                             if len(values) != 0 and values[0] is not None:
                                 query += 'v="{}"'.format(values.pop(0))
@@ -330,7 +338,7 @@ class QueryFactory:
         query += '(\n'
 
         loop = 1 if not nominatim else len(nominatim)
-        nb_query = self._type_multi_request.count('or') + 1
+        nb_query = self._type_multi_request.count(MultiType.OR) + 1
 
         for osm_object in self._osm_objects:
             for i in range(0, loop):
@@ -348,7 +356,7 @@ class QueryFactory:
 
                         query += ']'
 
-                        while type_request and type_request.pop(0) == 'and':
+                        while type_request and type_request.pop(0) == MultiType.AND:
                             query += '["{}"'.format(keys.pop(0))
                             if len(values) != 0 and values[0] is not None:
                                 query += '="{}"'.format(values.pop(0))
@@ -486,22 +494,22 @@ class QueryFactory:
                 index = 0
                 for k in range(len(type_multi)):
                     if index == k:
-                        if type_multi[k] == 'and':
+                        if type_multi[k] == MultiType.AND:
                             i = 1
                             key_and = keys[k] + ' and ' + keys[k + i]
 
-                            while (k + i) < len(type_multi) and type_multi[k + i] == 'and':
+                            while (k + i) < len(type_multi) and type_multi[k + i] == MultiType.AND:
                                 i += 1
                                 key_and += ' and ' + keys[k + i]
 
                             key_lbl += '({})'.format(key_and)
                             index = k + i
-                        elif type_multi[k] == 'or':
+                        elif type_multi[k] == MultiType.OR:
                             if k == 0:
                                 key_lbl += keys[k]
                             key_lbl += ' or '
                             i = 1
-                            while (k + i) < len(type_multi) and type_multi[k + i] == 'or':
+                            while (k + i) < len(type_multi) and type_multi[k + i] == MultiType.OR:
                                 key_lbl += keys[k + i] + ' or '
                                 i += 1
                             index = k + i

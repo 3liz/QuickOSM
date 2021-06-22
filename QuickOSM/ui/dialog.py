@@ -8,6 +8,7 @@ from os.path import split
 from sys import exc_info
 
 from qgis.core import Qgis, QgsMapLayer
+from qgis.PyQt.QtCore import QEvent, QObject
 from qgis.PyQt.QtGui import QIcon, QPixmap
 from qgis.PyQt.QtWidgets import (
     QAction,
@@ -178,6 +179,12 @@ class Dialog(QDialog, FORM_CLASS):
         if self._iface:
             return self._iface
         return iface_import
+
+    def eventFilter(self, obj: QObject, e: QEvent) -> bool:
+        if e.type() == QEvent.Wheel:
+            return True
+        else:
+            return False
 
     def display_quickosm_exception(self, exception: QuickOsmException):
         """Display QuickOSM exceptions.

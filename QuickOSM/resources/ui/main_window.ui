@@ -354,6 +354,9 @@ QListWidget::item::selected {
                  <property name="sizeAdjustPolicy">
                   <enum>QAbstractScrollArea::AdjustToContents</enum>
                  </property>
+                 <property name="editTriggers">
+                  <set>QAbstractItemView::NoEditTriggers</set>
+                 </property>
                  <property name="rowCount">
                   <number>1</number>
                  </property>

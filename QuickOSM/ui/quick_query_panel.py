@@ -24,7 +24,12 @@ from QuickOSM.core.process import process_quick_query
 from QuickOSM.core.query_factory import QueryFactory
 from QuickOSM.core.utilities.utilities_qgis import open_plugin_documentation
 from QuickOSM.definitions.gui import Panels
-from QuickOSM.definitions.osm import OsmType, QueryLanguage, QueryType
+from QuickOSM.definitions.osm import (
+    MultiType,
+    OsmType,
+    QueryLanguage,
+    QueryType,
+)
 from QuickOSM.qgis_plugin_tools.tools.i18n import tr
 from QuickOSM.qgis_plugin_tools.tools.resources import resources_path
 from QuickOSM.ui.base_overpass_panel import BaseOverpassPanel
@@ -152,7 +157,7 @@ class QuickQueryPanel(BaseOverpassPanel):
         self.dialog.combo_extent_layer_qq.layerChanged.connect(self.query_type_updated)
 
         self.dialog.combo_preset.lineEdit().setPlaceholderText(
-            tr('Ex: bakery'))
+            tr('Not mandatory. Ex: bakery'))
         self.query_type_updated()
         self.init_nominatim_autofill()
         self.update_friendly()
@@ -177,8 +182,8 @@ class QuickQueryPanel(BaseOverpassPanel):
         type_operation.setToolTip(
             tr('Set the type of multi-request. '
                 '"And" verify both conditions. "Or" verify either of the conditions.'))
-        type_operation.addItem(tr('And'), 'and')
-        type_operation.addItem(tr('Or'), 'or')
+        type_operation.addItem(MultiType.AND.value, MultiType.AND)
+        type_operation.addItem(MultiType.OR.value, MultiType.OR)
 
         type_operation.currentIndexChanged.connect(self.update_friendly)
 
@@ -188,6 +193,7 @@ class QuickQueryPanel(BaseOverpassPanel):
         key_field = QComboBox()
         key_field.setEditable(True)
         key_field.setToolTip(tr('An OSM key to fetch. If empty, all keys will be fetched.'))
+        key_field.installEventFilter(self.dialog)
 
         keys_completer = QCompleter(self.keys)
         key_field.addItems(self.keys)
@@ -207,6 +213,7 @@ class QuickQueryPanel(BaseOverpassPanel):
         value_field = QComboBox()
         value_field.setEditable(True)
         value_field.setToolTip(tr('An OSM value to fetch. If empty, all values will be fetched.'))
+        value_field.installEventFilter(self.dialog)
 
         value_field.lineEdit().setPlaceholderText(
             self.all_values_placeholder)
@@ -270,9 +277,10 @@ class QuickQueryPanel(BaseOverpassPanel):
         """Remove the selected row from the table."""
         selection = self.dialog.table_keys_values.selectedIndexes()
         if len(selection) <= 0:
-            return
+            row = 0
+        else:
+            row = selection[0].row()
 
-        row = selection[0].row()
         if self.dialog.table_keys_values.rowCount() > 1:
             if row == 0:
                 self.dialog.table_keys_values.setCellWidget(1, 0, None)
