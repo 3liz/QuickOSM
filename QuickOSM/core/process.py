@@ -4,17 +4,22 @@ import logging
 import os
 import time
 
-from os.path import abspath, dirname, isfile, join
+from os.path import isfile, join
 from typing import List, Union
 
 from qgis.core import (
     Qgis,
+    QgsCategorizedSymbolRenderer,
     QgsExpressionContextUtils,
     QgsProject,
     QgsRectangle,
+    QgsRendererCategory,
+    QgsSymbol,
     QgsVectorFileWriter,
     QgsVectorLayer,
+    QgsWkbTypes,
 )
+from qgis.PyQt.QtGui import QColor
 from qgis.PyQt.QtWidgets import QApplication, QDialog
 
 from QuickOSM.core import actions
@@ -165,13 +170,23 @@ def open_file(
             if config_outputs and config_outputs[layer]['style']:
                 new_layer.loadNamedStyle(config_outputs[layer]['style'])
             else:
-                # Loading default styles
-                if layer == "multilinestrings" or layer == "lines":
-                    if "colour" in item['tags']:
-                        new_layer.loadNamedStyle(
-                            join(dirname(dirname(abspath(__file__))),
-                                 "styles",
-                                 layer + "_colour.qml"))
+                if "colour" in item['tags']:
+                    index = item['tags'].index('colour')
+                    colors = new_layer.uniqueValues(index)
+                    categories = []
+                    for value in colors:
+                        if layer in ['lines', 'multilinestrings']:
+                            symbol = QgsSymbol.defaultSymbol(QgsWkbTypes.LineGeometry)
+                        elif layer == "points":
+                            symbol = QgsSymbol.defaultSymbol(QgsWkbTypes.PointGeometry)
+                        elif layer == "multipolygons":
+                            symbol = QgsSymbol.defaultSymbol(QgsWkbTypes.MultiPolygon)
+                        symbol.setColor(QColor(value))
+                        category = QgsRendererCategory(value, symbol, value)
+                        categories.append(category)
+
+                    renderer = QgsCategorizedSymbolRenderer("colour", categories)
+                    new_layer.setRenderer(renderer)
 
             # Add action about OpenStreetMap
             actions.add_actions(new_layer, item['tags'])
