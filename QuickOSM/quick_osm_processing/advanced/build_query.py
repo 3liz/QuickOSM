@@ -19,7 +19,7 @@ from qgis.core import (
 from QuickOSM.core.query_factory import QueryFactory
 from QuickOSM.core.query_preparation import QueryPreparation
 from QuickOSM.core.utilities.tools import get_setting
-from QuickOSM.definitions.osm import QueryType
+from QuickOSM.definitions.osm import QueryLanguage, QueryType
 from QuickOSM.definitions.overpass import OVERPASS_SERVERS
 from QuickOSM.qgis_plugin_tools.tools.i18n import tr
 
@@ -141,7 +141,7 @@ class BuildQueryBasedAlgorithm(QgisAlgorithm):
             area=self.area,
             around_distance=self.distance,
             timeout=self.timeout)
-        raw_query = query_factory.make()
+        raw_query = query_factory.make(QueryLanguage.OQL)
         self.feedback.pushInfo(query_factory.friendly_message())
         query_preparation = QueryPreparation(
             raw_query,
