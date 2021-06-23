@@ -1,12 +1,13 @@
 """Panel OSM base class."""
 
 import logging
+import os
 
 from functools import partial
 
 from qgis.core import QgsApplication
 from qgis.PyQt.QtCore import Qt
-from qgis.PyQt.QtGui import QIcon
+from qgis.PyQt.QtGui import QIcon, QPixmap
 from qgis.PyQt.QtWidgets import (
     QComboBox,
     QCompleter,
@@ -22,6 +23,10 @@ from QuickOSM.core.exceptions import OsmObjectsException, QuickOsmException
 from QuickOSM.core.parser.preset_parser import PresetsParser
 from QuickOSM.core.process import process_quick_query
 from QuickOSM.core.query_factory import QueryFactory
+from QuickOSM.core.utilities.completer_free import (
+    DiacriticFreeCompleter,
+    DiactricFreeStringListModel,
+)
 from QuickOSM.core.utilities.utilities_qgis import open_plugin_documentation
 from QuickOSM.definitions.gui import Panels
 from QuickOSM.definitions.osm import (
@@ -67,14 +72,26 @@ class QuickQueryPanel(BaseOverpassPanel):
         keys_preset = list(self.preset_data.elements.keys())
         keys_preset.append('')
         keys_preset.sort()
-        keys_preset_completer = QCompleter(keys_preset)
+        keys_preset_completer = DiacriticFreeCompleter()
+        completer_model = DiactricFreeStringListModel()
+        keys_preset_completer.setModel(completer_model)
+        keys_preset_completer.setCompletionRole(completer_model.diactricFreeRole())
+        completer_model.setStringList(keys_preset)
+        self.dialog.combo_preset.addItems(keys_preset)
         self.dialog.combo_preset.addItem(keys_preset.pop(0))
-        for key in keys_preset:
+        for k, key in enumerate(keys_preset):
             icon_path = self.preset_data.elements[key].icon
-            icon_path = resources_path('icons', icon_path)
-            icon = QIcon(icon_path)
-            self.preset_items.append(QListWidgetItem(icon, key))
-            self.dialog.combo_preset.addItem(icon, key)
+            widget_item = QListWidgetItem(key)
+            if icon_path:
+                icon_path = resources_path('icons', "josm", icon_path)
+                if os.path.exists(icon_path):
+                    icon = QPixmap(icon_path)
+                    widget_item.setData(Qt.DecorationRole, icon.scaled(20, 20, Qt.KeepAspectRatio))
+                    self.dialog.combo_preset.setItemData(
+                        k + 1, icon.scaled(20, 20, Qt.KeepAspectRatio),
+                        Qt.DecorationRole
+                    )
+            self.preset_items.append(widget_item)
         self.dialog.combo_preset.setCompleter(keys_preset_completer)
         self.dialog.combo_preset.completer().setCompletionMode(
             QCompleter.PopupCompletion)
@@ -354,18 +371,19 @@ class QuickQueryPanel(BaseOverpassPanel):
                 index = table.cellWidget(row + num, 2).findText(values[num])
                 table.cellWidget(row + num, 2).setCurrentIndex(index)
             self.add_row_to_table(row + num)
-        num = len(keys) - 1
-        if table.cellWidget(row + num, 0) and num != 0:
-            table.cellWidget(row + num, 0).setCurrentIndex(1)
-        index = table.cellWidget(row + num, 1).findText(keys[-1])
-        table.cellWidget(row + num, 1).setCurrentIndex(index)
-        self.key_edited(row + num)
-        if values[-1]:
-            index = table.cellWidget(row + num, 2).findText(values[-1])
-            table.cellWidget(row + num, 2).setCurrentIndex(index)
+        if len(keys) > 0:
+            num = len(keys) - 1
+            if table.cellWidget(row + num, 0) and num != 0:
+                table.cellWidget(row + num, 0).setCurrentIndex(1)
+            index = table.cellWidget(row + num, 1).findText(keys[-1])
+            table.cellWidget(row + num, 1).setCurrentIndex(index)
+            self.key_edited(row + num)
+            if values[-1]:
+                index = table.cellWidget(row + num, 2).findText(values[-1])
+                table.cellWidget(row + num, 2).setCurrentIndex(index)
 
-        index = table.cellWidget(row, 2).findText(values[0])
-        table.cellWidget(row, 2).setCurrentIndex(index)
+            index = table.cellWidget(row, 2).findText(values[0])
+            table.cellWidget(row, 2).setCurrentIndex(index)
 
     def key_edited(self, row: int = None):
         """Add values to the combobox according to the key."""
