@@ -2,7 +2,12 @@
 
 ## Unreleased
 
+## 1.17.1 - 2021-06-23
+
+* Add a reminder of the copyrights
 * Fix loading of translations files
+* Fix an error triggered when there was no layer in the project that prevented the generation functionality
+* Fix an error when using QuickOSM in a Processing model
 
 ## 1.17.0 - 2021-06-09
 
