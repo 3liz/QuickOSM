@@ -323,7 +323,7 @@ class QueryFactory:
 
         return query
 
-    def make(self, output: QueryLanguage) -> str:
+    def make(self, output: QueryLanguage = QueryLanguage.OQL) -> str:
         """Make the query.
 
         @return: query
