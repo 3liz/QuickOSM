@@ -52,7 +52,6 @@ class QueryPanel(BaseOverpassPanel):
         self.dialog.combo_query_type_q.addItem(tr('Layer Extent'), 'layer')
         self.dialog.combo_query_type_q.currentIndexChanged.connect(
             self.query_type_updated)
-        self.dialog.combo_query_type_q.setCurrentIndex(1)
         self.dialog.combo_extent_layer_q.layerChanged.connect(self.query_type_updated)
 
         self.highlighter = XMLHighlighter(self.dialog.text_query.document())
