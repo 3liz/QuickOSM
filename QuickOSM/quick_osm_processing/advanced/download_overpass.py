@@ -43,7 +43,7 @@ class DownloadOverpassUrl(QgisAlgorithm):
             'will download an URL but it will also perform a OSM integrity '
             'check at the end of the download.')
 
-    def initAlgorithm(self, config=None):
+    def initAlgorithm(self):
         self.addParameter(
             QgsProcessingParameterString(
                 self.URL, self.tr('URL, with the query encoded')))
