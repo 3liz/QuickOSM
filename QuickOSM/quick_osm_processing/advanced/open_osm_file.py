@@ -61,7 +61,7 @@ class OpenOsmFile(QgisAlgorithm):
                        'the input file, it will only open it using OGR and '
                        'custom INI file if provided.')
 
-    def initAlgorithm(self, config=None):
+    def initAlgorithm(self):
         param = QgsProcessingParameterFile(self.FILE, self.tr('OSM file'))
         help_string = tr('The extension can be a OSM or PBF file.')
         if Qgis.QGIS_VERSION_INT >= 31500:
