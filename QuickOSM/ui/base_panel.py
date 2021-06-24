@@ -22,6 +22,7 @@ class BasePanel:
 
     @property
     def panel(self) -> Panels:
+        """Return the panel."""
         if self._panel:
             return self._panel
         else:

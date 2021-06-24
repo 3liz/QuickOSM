@@ -1,4 +1,4 @@
-"""XML Highlighter class."""
+"""Query Highlighter class."""
 
 from qgis.PyQt.QtCore import QRegExp, Qt
 from qgis.PyQt.QtGui import QColor, QFont, QSyntaxHighlighter, QTextCharFormat
@@ -8,10 +8,11 @@ __license__ = 'GPL version 3'
 __email__ = 'info@3liz.org'
 
 
-class XMLHighlighter(QSyntaxHighlighter):
+class QueryHighlighter(QSyntaxHighlighter):
+    """Query Highlighter class."""
 
     def __init__(self, parent=None):
-        super(XMLHighlighter, self).__init__(parent)
+        super(QueryHighlighter, self).__init__(parent)
 
         keyword_format = QTextCharFormat()
         keyword_format.setForeground(Qt.darkMagenta)
@@ -114,6 +115,7 @@ class XMLHighlighter(QSyntaxHighlighter):
             return False
 
     def highlightBlock(self, text: str):
+        """Highlight of a comment block"""
         # for every pattern
         for pattern, char_format in self.highlightingRules:
 

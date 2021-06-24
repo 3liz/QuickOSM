@@ -25,7 +25,7 @@ from QuickOSM.definitions.overpass import OVERPASS_SERVERS
 from QuickOSM.qgis_plugin_tools.tools.i18n import tr
 from QuickOSM.qgis_plugin_tools.tools.resources import resources_path
 from QuickOSM.ui.base_overpass_panel import BaseOverpassPanel
-from QuickOSM.ui.xml_highlighter import XMLHighlighter
+from QuickOSM.ui.xml_highlighter import QueryHighlighter
 
 __copyright__ = 'Copyright 2019, 3Liz'
 __license__ = 'GPL version 3'
@@ -54,7 +54,7 @@ class QueryPanel(BaseOverpassPanel):
             self.query_type_updated)
         self.dialog.combo_extent_layer_q.layerChanged.connect(self.query_type_updated)
 
-        self.highlighter = XMLHighlighter(self.dialog.text_query.document())
+        self.highlighter = QueryHighlighter(self.dialog.text_query.document())
         self.dialog.text_query.cursorPositionChanged.connect(
             self.highlighter.rehighlight)
         self.dialog.text_query.cursorPositionChanged.connect(
@@ -93,6 +93,7 @@ class QueryPanel(BaseOverpassPanel):
         self.query_type_updated()
 
     def gather_values(self) -> dict:
+        """Retrieval of the values set by the user."""
         properties = super().gather_values()
 
         properties['query'] = self.dialog.text_query.toPlainText()
@@ -138,6 +139,7 @@ class QueryPanel(BaseOverpassPanel):
         self.end_query(num_layers)
 
     def generate_query(self, oql_output: bool = True):
+        """Generate the query as final."""
         query = self.dialog.text_query.toPlainText()
         area = self.dialog.places_edits[Panels.Query].text()
         self.write_nominatim_file(Panels.Query)
@@ -183,12 +185,14 @@ class QueryPanel(BaseOverpassPanel):
             self.dialog.combo_query_type_q.setEnabled(False)
 
     def query_type_updated(self):
+        """Update the ui when the query type is modified."""
         self._core_query_type_updated(
             self.dialog.combo_query_type_q,
             self.dialog.combo_extent_layer_q,
             checkbox=self.dialog.checkbox_selection_q)
 
     def query_language_check(self):
+        """Check the wanted language."""
 
         with OverrideCursor(Qt.WaitCursor):
             if self.dialog.query_language[Panels.Query] == QueryLanguage.OQL:

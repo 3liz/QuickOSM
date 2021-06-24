@@ -174,6 +174,7 @@ class Dialog(QDialog, FORM_CLASS):
 
     @property
     def iface(self):
+        """Get iface."""
         if self._iface:
             return self._iface
         else:
