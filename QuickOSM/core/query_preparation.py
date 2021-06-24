@@ -77,8 +77,6 @@ class QueryPreparation:
         """
         if self._query_is_ready:
             return self._query_prepared
-        else:
-            return None
 
     def is_oql_query(self) -> bool:
         """Return if the query is written in OQL or not.
@@ -119,9 +117,8 @@ class QueryPreparation:
         template = r'{{center}}'
         if not re.search(template, self._query_prepared):
             return
-        else:
-            if self._extent is None:
-                raise QueryFactoryException(tr('Missing extent parameter.'))
+        elif self._extent is None:
+            raise QueryFactoryException(tr('Missing extent parameter.'))
 
         coord_y = self._extent.center().y()
         coord_x = self._extent.center().x()
@@ -141,9 +138,8 @@ class QueryPreparation:
         template = r'{{bbox}}'
         if not re.search(template, self._query_prepared):
             return
-        else:
-            if self._extent is None:
-                raise QueryFactoryException(tr('Missing extent parameter.'))
+        elif self._extent is None:
+            raise QueryFactoryException(tr('Missing extent parameter.'))
 
         y_min = self._extent.yMinimum()
         y_max = self._extent.yMaximum()
