@@ -25,32 +25,38 @@ class TestQuickOSMWidget(unittest.TestCase):
         dialog = Dialog()
 
         existing_places = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10']
-        new_list = dialog.external_panels[Panels.QuickQuery].sort_nominatim_places(existing_places, '3')
+        new_list = dialog.external_panels[Panels.QuickQuery].sort_nominatim_places(
+            existing_places, '3')
         expected = ['3', '1', '2', '4', '5', '6', '7', '8', '9', '10']
         self.assertListEqual(expected, new_list)
 
         existing_places = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10']
-        new_list = dialog.external_panels[Panels.QuickQuery].sort_nominatim_places(existing_places, '11')
+        new_list = dialog.external_panels[Panels.QuickQuery].sort_nominatim_places(
+            existing_places, '11')
         expected = ['11', '1', '2', '3', '4', '5', '6', '7', '8', '9']
         self.assertListEqual(expected, new_list)
 
         existing_places = ['1', '2', '3', '4', '5']
-        new_list = dialog.external_panels[Panels.QuickQuery].sort_nominatim_places(existing_places, '3')
+        new_list = dialog.external_panels[Panels.QuickQuery].sort_nominatim_places(
+            existing_places, '3')
         expected = ['3', '1', '2', '4', '5']
         self.assertListEqual(expected, new_list)
 
         existing_places = ['1', '2', '3', '4', '5']
-        new_list = dialog.external_panels[Panels.QuickQuery].sort_nominatim_places(existing_places, '6')
+        new_list = dialog.external_panels[Panels.QuickQuery].sort_nominatim_places(
+            existing_places, '6')
         expected = ['6', '1', '2', '3', '4', '5']
         self.assertListEqual(expected, new_list)
 
         existing_places = ['1', '2', '3', '4', '5']
-        new_list = dialog.external_panels[Panels.QuickQuery].sort_nominatim_places(existing_places, '1')
+        new_list = dialog.external_panels[Panels.QuickQuery].sort_nominatim_places(
+            existing_places, '1')
         expected = ['1', '2', '3', '4', '5']
         self.assertListEqual(expected, new_list)
 
         existing_places = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10']
-        new_list = dialog.external_panels[Panels.QuickQuery].sort_nominatim_places(existing_places, '1')
+        new_list = dialog.external_panels[Panels.QuickQuery].sort_nominatim_places(
+            existing_places, '1')
         expected = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10']
         self.assertListEqual(expected, new_list)
 
