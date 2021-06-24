@@ -66,7 +66,9 @@ class BuildQueryBasedAlgorithm(QgisAlgorithm):
         return super().flags() | QgsProcessingAlgorithm.FlagHideFromToolbox
 
     def add_top_parameters(self):
-        param = QgsProcessingParameterString(self.KEY, tr('Key, default to all keys'), optional=True)
+        param = QgsProcessingParameterString(
+            self.KEY, tr('Key, default to all keys'), optional=True
+        )
         help_string = tr('The OSM key to use. It can be empty and it will default to all keys.')
         if Qgis.QGIS_VERSION_INT >= 31500:
             param.setHelp(help_string)
@@ -74,7 +76,9 @@ class BuildQueryBasedAlgorithm(QgisAlgorithm):
             param.tooltip_3liz = help_string
         self.addParameter(param)
 
-        param = QgsProcessingParameterString(self.VALUE, tr('Value, default to all values'), optional=True)
+        param = QgsProcessingParameterString(
+            self.VALUE, tr('Value, default to all values'), optional=True
+        )
         help_string = tr('The OSM value to use. It can be empty and it will default to all values.')
         if Qgis.QGIS_VERSION_INT >= 31500:
             param.setHelp(help_string)
@@ -109,8 +113,9 @@ class BuildQueryBasedAlgorithm(QgisAlgorithm):
 
         output = QgsProcessingOutputString(self.OUTPUT_URL, tr('Query as encoded URL'))
         help_string = tr(
-            'The query is generated and encoded with the Overpass API URL. This output should be used in the '
-            'File Downloader algorithm.')
+            'The query is generated and encoded with the Overpass API URL. '
+            'This output should be used in the File Downloader algorithm.'
+        )
         if Qgis.QGIS_VERSION_INT >= 31500:
             pass
             # output.setHelp(help_string)
@@ -171,7 +176,7 @@ class BuildQueryNotSpatialAlgorithm(BuildQueryBasedAlgorithm):
     def displayName() -> str:
         return tr('Build query by attribute only')
 
-    def initAlgorithm(self):
+    def initAlgorithm(self, config=None):
         self.add_top_parameters()
         self.add_bottom_parameters()
 
@@ -194,12 +199,14 @@ class BuildQueryInAreaAlgorithm(BuildQueryBasedAlgorithm):
     def displayName() -> str:
         return tr('Build query inside an area')
 
-    def initAlgorithm(self):
+    def initAlgorithm(self, config=None):
         self.add_top_parameters()
 
         param = QgsProcessingParameterString(self.AREA, tr('Inside the area'), optional=False)
         help_string = tr(
-            'The name of the area. This will make a first query to the Nominatim API to fetch the OSM ID.')
+            'The name of the area. '
+            'This will make a first query to the Nominatim API to fetch the OSM ID.'
+        )
         if Qgis.QGIS_VERSION_INT >= 31500:
             param.setHelp(help_string)
         else:
@@ -229,13 +236,14 @@ class BuildQueryAroundAreaAlgorithm(BuildQueryBasedAlgorithm):
     def displayName() -> str:
         return tr('Build query around an area')
 
-    def initAlgorithm(self):
+    def initAlgorithm(self, config=None):
         self.add_top_parameters()
 
         param = QgsProcessingParameterString(self.AREA, tr('Around the area'), optional=False)
         help_string = tr(
-            'The name of a place, a first query to the Nominatim API will be executed to fetch the OSM ID. '
-            'A WKT Point string is accepted as well.')
+            'The name of a place, a first query to the Nominatim API will be executed '
+            'to fetch the OSM ID. A WKT Point string is accepted as well.'
+        )
         if Qgis.QGIS_VERSION_INT >= 31500:
             param.setHelp(help_string)
         else:
@@ -245,8 +253,9 @@ class BuildQueryAroundAreaAlgorithm(BuildQueryBasedAlgorithm):
         param = QgsProcessingParameterNumber(
             self.DISTANCE, tr('Distance (meters)'), defaultValue=1000, minValue=1)
         help_string = tr(
-            'The distance to use when doing the buffering around the named area. The distance must be in '
-            'meters.')
+            'The distance to use when doing the buffering around the named area. '
+            'The distance must be in meters.'
+        )
         if Qgis.QGIS_VERSION_INT >= 31500:
             param.setHelp(help_string)
         else:
@@ -276,7 +285,7 @@ class BuildQueryExtentAlgorithm(BuildQueryBasedAlgorithm):
     def displayName() -> str:
         return tr('Build query inside an extent')
 
-    def initAlgorithm(self):
+    def initAlgorithm(self, config=None):
         self.add_top_parameters()
 
         param = QgsProcessingParameterExtent(self.EXTENT, tr('Extent'), optional=False)

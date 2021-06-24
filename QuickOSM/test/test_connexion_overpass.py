@@ -81,8 +81,8 @@ class TestOverpass(unittest.TestCase):
 
         self.assertEqual(
             str(e.exception),
-            "('OverpassAPI is out of memory, try another query or a smaller area.', 'The server would need "
-            "more or less 513 MB of RAM.')")
+            "('OverpassAPI is out of memory, try another query or a smaller area.',"
+            " 'The server would need more or less 513 MB of RAM.')")
 
         generic_error = plugin_test_data_path('overpass', 'generic_error.xml')
         with self.assertRaises(OverpassRuntimeError) as e:
