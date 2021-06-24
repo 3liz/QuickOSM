@@ -111,8 +111,7 @@ class QueryHighlighter(QSyntaxHighlighter):
         # Return True if still inside a multi-line string, False otherwise
         if self.currentBlockState() == in_state:
             return True
-        else:
-            return False
+        return False
 
     def highlightBlock(self, text: str):
         """Highlight of a comment block"""
