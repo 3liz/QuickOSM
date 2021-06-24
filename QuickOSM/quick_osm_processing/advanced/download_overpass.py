@@ -18,7 +18,7 @@ class DownloadOverpassUrl(QgisAlgorithm):
     OUTPUT = 'OUTPUT'
 
     def __init__(self):
-        super(DownloadOverpassUrl, self).__init__()
+        super().__init__()
         self.feedback = None
 
     def group(self) -> str:

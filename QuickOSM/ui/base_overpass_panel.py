@@ -189,6 +189,7 @@ class BaseOverpassPanel(BaseProcessingPanel):
                 level=Qgis.Warning, duration=7)
 
     def gather_values(self):
+        """Retrieval of the values set by the user."""
         properties = super().gather_values()
 
         place = self.dialog.places_edits[self.panel].text()

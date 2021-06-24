@@ -11,7 +11,6 @@ __email__ = 'info@3liz.org'
 
 
 class QuickOsmException(Exception):
-
     """These exceptions are created by QuickOSM during a process."""
 
     def __init__(self, message: str = None, more_details: str = None):
@@ -36,14 +35,13 @@ class QuickOsmException(Exception):
             super(Exception, self).__init__(message)
 
 
-"""
-Overpass or network
-"""
+# Overpass or network
 
 
 # TODO, not used, but need to be fixed
 class OverpassBadRequestException(QuickOsmException):
     """Bad request exception."""
+
     def __init__(self, message: str = None):
         if not message:
             message = tr('Bad request OverpassAPI.')
@@ -52,6 +50,7 @@ class OverpassBadRequestException(QuickOsmException):
 
 class OverpassTimeoutException(QuickOsmException):
     """Time out exception"""
+
     def __init__(self, message: str = None):
         if not message:
             message = tr('OverpassAPI timeout, try again later or a smaller query.')
@@ -60,6 +59,7 @@ class OverpassTimeoutException(QuickOsmException):
 
 class OverpassManyRequestException(QuickOsmException):
     """Too many request exception."""
+
     def __init__(self, message: str = None):
         if not message:
             message = tr(
@@ -70,6 +70,7 @@ class OverpassManyRequestException(QuickOsmException):
 
 class OverpassMemoryException(QuickOsmException):
     """Out of memory exception."""
+
     def __init__(self, amount_memory: int, unit: str):
         message = tr(
             'OverpassAPI is out of memory, try another query or a smaller area.')
@@ -82,6 +83,7 @@ class OverpassMemoryException(QuickOsmException):
 
 class OverpassRuntimeError(QuickOsmException):
     """Runtime exceeded exception."""
+
     def __init__(self, message: str):
         message = tr('Overpass error: {message}').format(message=message)
         super().__init__(message)
@@ -89,19 +91,19 @@ class OverpassRuntimeError(QuickOsmException):
 
 class NetWorkErrorException(QuickOsmException):
     """Network error exception."""
+
     def __init__(self, service: str, details: str = None):
         if details:
             service = service + ' : ' + details
         super().__init__(service)
 
 
-"""
-QueryFactory
-"""
+# QueryFactory
 
 
 class QueryFactoryException(QuickOsmException):
     """Query can't be build exception."""
+
     def __init__(self, message: str = None, suffix: str = None):
         if not message:
             message = tr('Error while building the query')
@@ -112,19 +114,17 @@ class QueryFactoryException(QuickOsmException):
 
 class QueryNotSupported(QuickOsmException):
     """Query not supported exception."""
+
     def __init__(self, key: str):
         message = tr(
             'The query is not supported by the plugin because of : {key}').format(key=key)
         super().__init__(message)
 
 
-"""
-Nominatim
-"""
+# Nominatim
 
 
 class NominatimBadRequest(QuickOsmException):
-
     """Raised when no Nominatim data has been downloaded."""
 
     def __init__(self, query: str):
@@ -141,7 +141,6 @@ class NominatimBadRequest(QuickOsmException):
 
 
 class NominatimAreaException(QuickOsmException):
-
     """Raised when no Nominatim area has been found."""
 
     def __init__(self, query: str):
@@ -161,13 +160,12 @@ class NominatimAreaException(QuickOsmException):
         super().__init__(message, more_details)
 
 
-"""
-File and directory
-"""
+# File and directory
 
 
 class FileDoesntExistException(QuickOsmException):
     """File doesn't exist exception."""
+
     def __init__(self, message: str = None, suffix: str = None):
         if not message:
             message = tr('The file does not exist.')
@@ -178,6 +176,7 @@ class FileDoesntExistException(QuickOsmException):
 
 class DirectoryOutPutException(QuickOsmException):
     """Directory doesn't exist exception."""
+
     def __init__(self, message: str = None):
         if not message:
             message = tr('The output directory does not exist.')
@@ -186,6 +185,7 @@ class DirectoryOutPutException(QuickOsmException):
 
 class FileOutPutException(QuickOsmException):
     """File already exist exception."""
+
     def __init__(self, message: str = None, suffix: str = None):
         if not message:
             message = tr('The output file already exist, set a prefix.')
@@ -194,13 +194,12 @@ class FileOutPutException(QuickOsmException):
         super().__init__(message)
 
 
-"""
-Forms
-"""
+# Forms
 
 
 class MissingLayerUI(QuickOsmException):
     """No layer exception."""
+
     def __init__(self):
         message = tr('The layer combobox is empty.')
         super().__init__(message)
@@ -208,6 +207,7 @@ class MissingLayerUI(QuickOsmException):
 
 class MissingParameterException(QuickOsmException):
     """Missing parameter exception."""
+
     def __init__(self, message: str = None, suffix: str = None):
         if not message:
             message = tr('A parameter is missing :')
@@ -218,6 +218,7 @@ class MissingParameterException(QuickOsmException):
 
 class NoSelectedFeatures(QuickOsmException):
     """No selected features exception."""
+
     def __init__(self):
         message = tr(
             'No selected features have been found in the layer.'
@@ -227,6 +228,7 @@ class NoSelectedFeatures(QuickOsmException):
 
 class OsmObjectsException(QuickOsmException):
     """No OSM objects selected exception."""
+
     def __init__(self, message: str = None):
         if not message:
             message = tr('No osm objects selected. Please select one.')
@@ -235,6 +237,7 @@ class OsmObjectsException(QuickOsmException):
 
 class OutPutGeomTypesException(QuickOsmException):
     """No outputs geometries selected exception."""
+
     def __init__(self, message: str = None):
         if not message:
             message = tr('No outputs selected. Please select one.')
