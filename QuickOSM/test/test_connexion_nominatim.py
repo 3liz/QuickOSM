@@ -22,11 +22,11 @@ class TestNominatim(unittest.TestCase):
         """
         nominatim = Nominatim(NOMINATIM_SERVERS[0])
 
-        with self.assertRaises(NominatimBadRequest) as e:
+        with self.assertRaises(NominatimBadRequest) as error:
             nominatim.query('')
 
         self.assertEqual(
-            str(e.exception), 'Nominatim hasn\'t found any data for an area called "".'
+            str(error.exception), 'Nominatim hasn\'t found any data for an area called "".'
         )
 
     def test_wrong_request_area(self):
@@ -36,11 +36,11 @@ class TestNominatim(unittest.TestCase):
         """
         nominatim = Nominatim(NOMINATIM_SERVERS[0])
 
-        with self.assertRaises(NominatimAreaException) as e:
+        with self.assertRaises(NominatimAreaException) as error:
             nominatim.get_first_polygon_from_query('CosWos')
 
         self.assertEqual(
-            str(e.exception),
+            str(error.exception),
             '(\'No named area found for OSM relation called "CosWos".\', '
             '\'No OSM polygon (relation) has been found, you should try the '
             '"Around" query which will search for other OSM type.\')')
@@ -63,11 +63,11 @@ class TestNominatim(unittest.TestCase):
         """
         nominatim = Nominatim(NOMINATIM_SERVERS[0])
 
-        with self.assertRaises(NominatimBadRequest) as e:
+        with self.assertRaises(NominatimBadRequest) as error:
             nominatim.get_first_point_from_query('fake_query')
 
         self.assertEqual(
-            str(e.exception),
+            str(error.exception),
             'Nominatim hasn\'t found any data for an area called "fake_query".')
 
     def test_request_coord(self):

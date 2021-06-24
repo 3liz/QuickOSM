@@ -151,8 +151,8 @@ class QuickQueryPanel(BaseOverpassPanel):
                 keys.append(key)
                 value = item_chosen[key]
                 if isinstance(value, list):
-                    for v in value:
-                        values.append(v)
+                    for val in value:
+                        values.append(val)
                 elif isinstance(value, str):
                     values.append(value)
 
@@ -232,12 +232,12 @@ class QuickQueryPanel(BaseOverpassPanel):
         """Show the query in the main window."""
         self.write_nominatim_file(self.panel)
         try:
-            p = self.gather_values()
-        except QuickOsmException as e:
-            self.dialog.display_quickosm_exception(e)
+            properties = self.gather_values()
+        except QuickOsmException as error:
+            self.dialog.display_quickosm_exception(error)
             return
-        except Exception as e:
-            self.dialog.display_critical_exception(e)
+        except Exception as error:
+            self.dialog.display_critical_exception(error)
             return
 
         # Transfer each output with zip
@@ -251,29 +251,29 @@ class QuickQueryPanel(BaseOverpassPanel):
         self.query_language_updated()
 
         # Transfer the output
-        self.dialog.output_directory_q.setFilePath(p['output_directory'])
-        index_format = self.dialog.combo_format_q.findData(p['output_format'])
+        self.dialog.output_directory_q.setFilePath(properties['output_directory'])
+        index_format = self.dialog.combo_format_q.findData(properties['output_format'])
         self.dialog.combo_format_q.setCurrentIndex(index_format)
-        if p['prefix_file']:
-            self.dialog.line_file_prefix_q.setText(p['prefix_file'])
+        if properties['prefix_file']:
+            self.dialog.line_file_prefix_q.setText(properties['prefix_file'])
             self.dialog.line_file_prefix_q.setEnabled(True)
 
         # Make the query
         query_factory = QueryFactory(
-            query_type=p['query_type'],
-            key=p['key'],
-            value=p['value'],
-            area=p['place'],
-            around_distance=p['distance'],
-            osm_objects=p['osm_objects'],
-            timeout=p['timeout']
+            query_type=properties['query_type'],
+            key=properties['key'],
+            value=properties['value'],
+            area=properties['place'],
+            around_distance=properties['distance'],
+            osm_objects=properties['osm_objects'],
+            timeout=properties['timeout']
         )
         try:
             query = query_factory.make(output)
-        except QuickOsmException as e:
-            self.dialog.display_quickosm_exception(e)
-        except Exception as e:
-            self.dialog.display_critical_exception(e)
+        except QuickOsmException as error:
+            self.dialog.display_quickosm_exception(error)
+        except Exception as error:
+            self.dialog.display_critical_exception(error)
         else:
             self.dialog.text_query.setPlainText(query)
             item = self.dialog.menu_widget.item(self.dialog.query_menu_index)
@@ -282,31 +282,31 @@ class QuickQueryPanel(BaseOverpassPanel):
     def update_friendly(self):
         """Updates the QuickQuery friendly label (label_qq_friendly)."""
         try:
-            p = self.gather_values()
-        except QuickOsmException as e:
-            self.dialog.display_quickosm_exception(e)
+            properties = self.gather_values()
+        except QuickOsmException as error:
+            self.dialog.display_quickosm_exception(error)
             return
-        except Exception as e:
-            self.dialog.display_critical_exception(e)
+        except Exception as error:
+            self.dialog.display_critical_exception(error)
             return
 
         # Make the query, in order to create the friendly message
         query_factory = QueryFactory(
-            query_type=p['query_type'],
-            key=p['key'],
-            value=p['value'],
-            area=p['place'],
-            around_distance=p['distance'],
-            osm_objects=p['osm_objects'],
-            timeout=p['timeout']
+            query_type=properties['query_type'],
+            key=properties['key'],
+            value=properties['value'],
+            area=properties['place'],
+            around_distance=properties['distance'],
+            osm_objects=properties['osm_objects'],
+            timeout=properties['timeout']
         )
         try:
             msg = query_factory.friendly_message()
-        except QuickOsmException as e:
+        except QuickOsmException as error:
             self.dialog.label_qq_friendly.setStyleSheet('QLabel { color : red; }')
-            self.dialog.label_qq_friendly.setText(str(e))
-        except Exception as e:
-            self.dialog.display_critical_exception(e)
+            self.dialog.label_qq_friendly.setText(str(error))
+        except Exception as error:
+            self.dialog.display_critical_exception(error)
             self.dialog.label_qq_friendly.setText('')
         else:
             self.dialog.label_qq_friendly.setStyleSheet('')

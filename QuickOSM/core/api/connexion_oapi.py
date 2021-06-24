@@ -128,7 +128,7 @@ class ConnexionOAPI:
             bufsize = 8192
             fsize = os.stat(file_path).st_size
             iteration = 0
-            with open(file_path, encoding='utf8') as f:
+            with open(file_path, encoding='utf8') as file:
                 if bufsize > fsize:
                     bufsize = fsize - 1
                     data = []
@@ -137,13 +137,13 @@ class ConnexionOAPI:
                         seek_size = fsize - bufsize * iteration
                         if seek_size < 0:
                             seek_size = 0
-                        f.seek(seek_size)
-                        data.extend(f.readlines())
-                        if len(data) >= line_count or f.tell() == 0:
+                        file.seek(seek_size)
+                        data.extend(file.readlines())
+                        if len(data) >= line_count or file.tell() == 0:
                             line_content = data[-line_count:]
                             return line_content
                 else:
-                    return list(f.readlines())
+                    return list(file.readlines())
 
         lines = last_lines(path, 10)
 
