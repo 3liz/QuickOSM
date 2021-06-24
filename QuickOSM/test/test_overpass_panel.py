@@ -1,3 +1,5 @@
+"""Tests for the overpass panel file."""
+
 from qgis.core import (
     QgsFeature,
     QgsGeometry,
@@ -19,6 +21,7 @@ __email__ = 'info@3liz.org'
 
 
 class TestQuickOSMWidget(unittest.TestCase):
+    """Tests for the overpass panel file."""
 
     def test_sort_nominatim_places(self):
         """Test if reorder last nominatim places works."""
@@ -62,6 +65,7 @@ class TestQuickOSMWidget(unittest.TestCase):
 
     @staticmethod
     def selected_features_set_up() -> (Dialog, QgsVectorLayer):
+        """Set the tests about the selected features."""
         dialog = Dialog()
         QgsProject.instance().clear()
 

@@ -26,6 +26,7 @@ __email__ = 'info@3liz.org'
 
 
 class RawQueryAlgorithm(QgisAlgorithm):
+    """Processing algorithm to generate a raw query."""
 
     SERVER = 'SERVER'
     QUERY = 'QUERY'
@@ -36,27 +37,34 @@ class RawQueryAlgorithm(QgisAlgorithm):
 
     @staticmethod
     def group() -> str:
+        """Return the group of the algorithm."""
         return tr('Advanced')
 
     @staticmethod
     def groupId() -> str:
+        """Return the id of the group."""
         return 'advanced'
 
     @staticmethod
     def name() -> str:
+        """Return the name of the algorithm."""
         return 'buildrawquery'
 
     @staticmethod
     def displayName() -> str:
+        """Return the display name of the algorithm."""
         return tr('Build raw query')
 
     def shortHelpString(self) -> str:
+        """Return an helper for the algorithm."""
         return 'A XML or OQL query to send to a Overpass API server.'
 
     def flags(self):
+        """Return the flags."""
         return super().flags() | QgsProcessingAlgorithm.FlagHideFromToolbox
 
     def initAlgorithm(self, config=None):
+        """Set up of the algorithm."""
         param = QgsProcessingParameterString(
             self.QUERY, tr('Query'), optional=False, multiLine=True
         )
@@ -130,6 +138,7 @@ class RawQueryAlgorithm(QgisAlgorithm):
         self.addOutput(output)
 
     def processAlgorithm(self, parameters, context) -> Dict[str, str]:
+        """Run the algorithm."""
         raw_query = self.parameterAsString(parameters, self.QUERY, context)
         server = self.parameterAsString(parameters, self.SERVER, context)
         nominatim = self.parameterAsString(parameters, self.AREA, context)
