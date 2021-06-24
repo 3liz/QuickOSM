@@ -4,9 +4,9 @@ import json
 import logging
 import os
 
-from qgis.core import QgsFileDownloader
-from qgis.PyQt.QtCore import QDir, QEventLoop, QTemporaryFile, QUrl, QUrlQuery
+from qgis.PyQt.QtCore import QDir, QTemporaryFile, QUrlQuery
 
+from QuickOSM.core.api.downloader import Downloader
 from QuickOSM.core.exceptions import (
     NetWorkErrorException,
     NominatimAreaException,
@@ -21,7 +21,7 @@ __email__ = 'info@3liz.org'
 LOGGER = logging.getLogger('QuickOSM')
 
 
-class Nominatim:
+class Nominatim(Downloader):
 
     """Manage connexion to Nominatim."""
 
@@ -31,33 +31,19 @@ class Nominatim:
         :param url: URL of Nominatim server.
         :type url: basestring
         """
-        if url is None:
-            url = 'https://nominatim.openstreetmap.org/search?'
+        super().__init__(url)
 
-        self.__url = url
         temporary = QTemporaryFile(
             os.path.join(QDir.tempPath(), 'request-XXXXXX.json'))
         temporary.open()
         self.result_path = temporary.fileName()
         temporary.close()
 
-    @staticmethod
-    def error(messages: str):
+    def error(self, messages: str):
         """Display the status in logger"""
         for message in messages:
             LOGGER.error(message)
         raise NetWorkErrorException('Nominatim API', ', '.join(messages))
-
-    @staticmethod
-    def canceled():
-        """Display the status in logger"""
-        LOGGER.info('Request canceled')
-        # TODO, need to handle this to stop the process.
-
-    @staticmethod
-    def completed():
-        """Display the status in logger"""
-        LOGGER.info('Request completed')
 
     def query(self, query: str) -> dict:
         """Perform a nominatim query.
@@ -70,23 +56,14 @@ class Nominatim:
 
         :raise NetWorkErrorException
         """
-        url_query = QUrl(self.__url)
 
         query_string = QUrlQuery()
         query_string.addQueryItem('q', query)
         query_string.addQueryItem('format', 'json')
         query_string.addQueryItem('info', 'QgisQuickOSMPlugin')
-        url_query.setQuery(query_string)
+        self._url.setQuery(query_string)
 
-        loop = QEventLoop()
-        downloader = QgsFileDownloader(
-            url_query, self.result_path, delayStart=True)
-        downloader.downloadExited.connect(loop.quit)
-        downloader.downloadError.connect(self.error)
-        downloader.downloadCanceled.connect(self.canceled)
-        downloader.downloadCompleted.connect(self.completed)
-        downloader.startDownload()
-        loop.exec_()
+        self.download()
 
         with open(self.result_path, encoding='utf8') as json_file:
             data = json.load(json_file)
