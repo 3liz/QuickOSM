@@ -349,7 +349,8 @@ class TestQueryFactory(unittest.TestCase):
             'out body;'
         )
         human = (
-            'All OSM objects with the key \'foo\' in the canvas or layer extent are going to be downloaded.'
+            'All OSM objects with the key \'foo\' in the canvas or '
+            'layer extent are going to be downloaded.'
         )
         test_query(query, expected_xml, expected_xml_with_template,
                    expected_oql, expected_oql_with_template, human)
@@ -493,7 +494,8 @@ class TestQueryFactory(unittest.TestCase):
             '(._;>;);'
             'out body;'
         )
-        human = 'All OSM objects with the key \'foo\' in paris and dubai are going to be downloaded.'
+        human = 'All OSM objects with the key \'foo\' in paris and dubai ' \
+                'are going to be downloaded.'
         test_query(query, expected_xml, expected_xml_with_template,
                    expected_oql, expected_oql_with_template, human)
 
@@ -505,7 +507,8 @@ class TestQueryFactory(unittest.TestCase):
             osm_objects=[OsmType.Node],
         )
         human = (
-            'All OSM objects with the key \'foo\' in paris, dubai and new york are going to be downloaded.'
+            'All OSM objects with the key \'foo\' in paris, dubai and new york '
+            'are going to be downloaded.'
         )
         self.assertEqual(query.friendly_message(), human)
 
@@ -583,7 +586,8 @@ class TestQueryFactory(unittest.TestCase):
             '(._;>;);'
             'out meta;'
         )
-        human = 'All OSM objects with the key \'foo\' in 1000 meters of a are going to be downloaded.'
+        human = 'All OSM objects with the key \'foo\' in 1000 meters of a ' \
+                'are going to be downloaded.'
         test_query(query, expected_xml, expected_xml_with_template,
                    expected_oql, expected_oql_with_template, human)
 
@@ -699,8 +703,8 @@ class TestQueryFactory(unittest.TestCase):
         )
         # TODO, fix many keys
         human = (
-            'All OSM objects with the key \'a\'=\'b\' in the canvas or layer extent are going to be '
-            'downloaded.'
+            'All OSM objects with the key \'a\'=\'b\' in the canvas or layer extent '
+            'are going to be downloaded.'
         )
         test_query(query, expected_xml, expected_xml_with_template,
                    expected_oql, expected_oql_with_template, human)
@@ -763,7 +767,8 @@ class TestQueryFactory(unittest.TestCase):
             '(._;>;);'
             'out body;'
         )
-        human = 'All OSM objects with the key \'a\' in the canvas or layer extent are going to be downloaded.'
+        human = 'All OSM objects with the key \'a\' in the canvas or layer extent ' \
+                'are going to be downloaded.'
         test_query(query, expected_xml, expected_xml_with_template,
                    expected_oql, expected_oql_with_template, human)
 

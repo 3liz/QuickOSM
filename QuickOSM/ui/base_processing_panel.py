@@ -56,10 +56,14 @@ class BaseProcessingPanel(BasePanel):
             QgsFileWidget.GetDirectory)
         self.dialog.output_directories[self.panel].setDialogTitle(tr('Select a directory'))
 
-        self.dialog.output_format[self.panel].addItem(Format.GeoPackage.value.label, Format.GeoPackage)
-        self.dialog.output_format[self.panel].addItem(Format.GeoJSON.value.label, Format.GeoJSON)
-        self.dialog.output_format[self.panel].addItem(Format.Shapefile.value.label, Format.Shapefile)
-        self.dialog.output_format[self.panel].addItem(Format.Kml.value.label, Format.Kml)
+        self.dialog.output_format[self.panel].addItem(
+            Format.GeoPackage.value.label, Format.GeoPackage)
+        self.dialog.output_format[self.panel].addItem(
+            Format.GeoJSON.value.label, Format.GeoJSON)
+        self.dialog.output_format[self.panel].addItem(
+            Format.Shapefile.value.label, Format.Shapefile)
+        self.dialog.output_format[self.panel].addItem(
+            Format.Kml.value.label, Format.Kml)
 
         # def disable_prefix_file():
         #     # TODO
@@ -85,7 +89,8 @@ class BaseProcessingPanel(BasePanel):
             self.dialog.button_generate_query.setDisabled(True)
 
         self.dialog.run_buttons[self.panel].setDisabled(True)
-        self.dialog.run_buttons[self.panel].initial_text = self.dialog.run_buttons[self.panel].text()
+        self.dialog.run_buttons[self.panel].initial_text = \
+            self.dialog.run_buttons[self.panel].text()
         self.dialog.run_buttons[self.panel].setText(tr('Running query…'))
         self.dialog.output_directories[self.panel].setDisabled(True)
         self.dialog.progress_bar.setMinimum(0)
@@ -107,7 +112,8 @@ class BaseProcessingPanel(BasePanel):
         self.dialog.output_directories[self.panel].setDisabled(False)
         self.dialog.output_format[self.panel].setDisabled(False)
         self.dialog.run_buttons[self.panel].setDisabled(False)
-        self.dialog.run_buttons[self.panel].setText(self.dialog.run_buttons[self.panel].initial_text)
+        self.dialog.run_buttons[self.panel].setText(
+            self.dialog.run_buttons[self.panel].initial_text)
         self.dialog.progress_bar.setMinimum(0)
         self.dialog.progress_bar.setMaximum(100)
         self.dialog.progress_bar.setValue(100)

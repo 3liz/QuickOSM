@@ -57,7 +57,8 @@ class BaseOverpassPanel(BaseProcessingPanel):
         self.dialog.action_oql[self.panel].setEnabled(False)
 
     def query_language_updated(self):
-        if self.dialog.query_language[Panels.Query] != self.dialog.query_language[Panels.QuickQuery]:
+        if self.dialog.query_language[Panels.Query] != \
+                self.dialog.query_language[Panels.QuickQuery]:
             self.dialog.query_language[Panels.Query] = self.dialog.query_language[Panels.QuickQuery]
         if self.dialog.query_language[Panels.Query] == QueryLanguage.OQL:
             self.dialog.action_xml[Panels.Query].setEnabled(True)

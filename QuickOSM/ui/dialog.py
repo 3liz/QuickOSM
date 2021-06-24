@@ -144,7 +144,8 @@ class Dialog(QDialog, FORM_CLASS):
         actions = Actions(self)
         reloader = partial(actions.pre_run_reload)
         self.reload_action.triggered.connect(reloader)
-        self.iface.addCustomActionForLayerType(self.reload_action, "", QgsMapLayer.VectorLayer, False)
+        self.iface.addCustomActionForLayerType(
+            self.reload_action, "", QgsMapLayer.VectorLayer, False)
 
         item = self.menu_widget.item(0)
         item.setIcon(QIcon(resources_path('icons', 'quick.png')))
