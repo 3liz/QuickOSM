@@ -75,9 +75,9 @@ class BaseOverpassPanel(BaseProcessingPanel):
 
         user_file = nominatim_file()
 
-        with io.open(user_file, 'r', encoding='utf8') as f:
+        with io.open(user_file, 'r', encoding='utf8') as file:
             self.last_places = []
-            for line in f:
+            for line in file:
                 self.last_places.append(line.rstrip('\n'))
 
             nominatim_completer = QCompleter(self.last_places)
@@ -107,15 +107,15 @@ class BaseOverpassPanel(BaseProcessingPanel):
         user_file = nominatim_file()
 
         try:
-            with io.open(user_file, 'w', encoding='utf8') as f:
+            with io.open(user_file, 'w', encoding='utf8') as file:
                 for item in new_list:
                     if item:
-                        f.write('{}\n'.format(item))
+                        file.write('{}\n'.format(item))
         except UnicodeDecodeError:
             # The file is corrupted ?
             # Remove all old places
-            with io.open(user_file, 'w', encoding='utf8') as f:
-                f.write('\n')
+            with io.open(user_file, 'w', encoding='utf8') as file:
+                file.write('\n')
 
         self.init_nominatim_autofill()
 

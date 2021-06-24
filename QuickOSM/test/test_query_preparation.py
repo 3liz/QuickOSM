@@ -43,10 +43,10 @@ class TestQueryPreparation(unittest.TestCase):
         """Test we can replace {{center}} in a query."""
         extent = QgsRectangle(10.00, 0.5, 20.00, 1.5)
 
-        def test(data, result, e=None):
-            q = QueryPreparation(data, extent=e)
-            q._replace_center()
-            self.assertEqual(q._query_prepared, result)
+        def test(data, result, bbox=None):
+            query = QueryPreparation(data, extent=bbox)
+            query._replace_center()
+            self.assertEqual(query._query_prepared, result)
 
         # No center.
         query = 'foobar{{bbox}}foobar'
@@ -78,18 +78,18 @@ class TestQueryPreparation(unittest.TestCase):
         extent = QgsRectangle(-181, -91, 181, 91)
         query = 'foobar{{bbox}}foobar'
         expected = 'foobare="180" n="90" s="-90" w="-180"foobar'
-        q = QueryPreparation(query, extent=extent)
-        q.replace_bbox()
-        self.assertEqual(expected, q._query_prepared)
+        query = QueryPreparation(query, extent=extent)
+        query.replace_bbox()
+        self.assertEqual(expected, query._query_prepared)
 
     def test_replace_bbox(self):
         """Test we can replace {{bbox}} in a query."""
         extent = QgsRectangle(10.00, 0.5, 20.00, 1.5)
 
-        def test(data, result, e=None):
-            q = QueryPreparation(data, extent=e)
-            q.replace_bbox()
-            self.assertEqual(q._query_prepared, result)
+        def test(data, result, bbox=None):
+            query = QueryPreparation(data, extent=bbox)
+            query.replace_bbox()
+            self.assertEqual(query._query_prepared, result)
 
         # One bbox.
         query = 'foobar{{bbox}}foobar'
@@ -116,10 +116,10 @@ class TestQueryPreparation(unittest.TestCase):
         """Test we can replace {{geocodeCoords:}} in a query."""
 
         def test(data, result, nominatim=None):
-            q = QueryPreparation(data, area=nominatim)
-            q._nominatim = FakeNominatim()
-            q._replace_geocode_coords()
-            self.assertEqual(q._query_prepared, result)
+            query = QueryPreparation(data, area=nominatim)
+            query._nominatim = FakeNominatim()
+            query._replace_geocode_coords()
+            self.assertEqual(query._query_prepared, result)
 
         # Test with another area instead of Paris in XML
         query = 'foobar{{geocodeCoords:Paris,France}}foobar'
@@ -163,10 +163,10 @@ class TestQueryPreparation(unittest.TestCase):
         # There is a HACK in the code to return 12345 and 54321 in the code.
 
         def test(data, result, nominatim=None):
-            q = QueryPreparation(data, area=nominatim)
-            q._nominatim = FakeNominatim()
-            q._replace_geocode_area()
-            self.assertEqual(q._query_prepared, result)
+            query = QueryPreparation(data, area=nominatim)
+            query._nominatim = FakeNominatim()
+            query._replace_geocode_area()
+            self.assertEqual(query._query_prepared, result)
 
         # Test with another place.
         query = 'foobar{{geocodeArea:foo_BAR}}foobar'
@@ -209,9 +209,9 @@ class TestQueryPreparation(unittest.TestCase):
         """Test we can clean a query."""
 
         def test(data, result):
-            q = QueryPreparation(data)
-            q.clean_query()
-            self.assertEqual(q._query_prepared, result)
+            query = QueryPreparation(data)
+            query.clean_query()
+            self.assertEqual(query._query_prepared, result)
 
         test('  foo;;   ', 'foo;')
         test('	foo;	', 'foo;')
@@ -249,9 +249,9 @@ class TestQueryPreparation(unittest.TestCase):
             '<union>        <item/>        <recurse type="down"/>    '
             '</union>   <print mode="body"/></osm-script>'
         )
-        q = QueryPreparation(query)
-        q._nominatim = FakeNominatim()
-        self.assertEqual(q.prepare_query(), expected)
+        query = QueryPreparation(query)
+        query._nominatim = FakeNominatim()
+        self.assertEqual(query.prepare_query(), expected)
 
 
 if __name__ == '__main__':

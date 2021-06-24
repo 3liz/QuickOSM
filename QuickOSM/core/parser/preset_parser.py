@@ -139,9 +139,9 @@ class PresetsParser:
                 value = self.items[item][k]
                 if k in key:
                     if isinstance(value, list):
-                        for v in value:
-                            if v not in couple[k]:
-                                couple[k].append(v)
+                        for val in value:
+                            if val not in couple[k]:
+                                couple[k].append(val)
                     elif value not in couple[k]:
                         couple[k].append(value)
                 elif isinstance(value, str):
@@ -149,7 +149,7 @@ class PresetsParser:
                     couple[k] = [value]
                 elif isinstance(value, list):
                     couple[k] = [value[0]]
-                    for v in value[1:]:
-                        couple[k].append(v)
+                    for val in value[1:]:
+                        couple[k].append(val)
 
         return couple

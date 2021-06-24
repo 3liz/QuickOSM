@@ -38,10 +38,10 @@ class BaseProcessingPanel(BasePanel):
         self._start_process()
         try:
             self._run()
-        except QuickOsmException as e:
-            self.dialog.display_quickosm_exception(e)
-        except Exception as e:
-            self.dialog.display_critical_exception(e)
+        except QuickOsmException as error:
+            self.dialog.display_quickosm_exception(error)
+        except Exception as error:
+            self.dialog.display_critical_exception(error)
         finally:
             self._end_process()
 
