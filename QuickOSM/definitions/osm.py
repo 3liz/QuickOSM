@@ -47,4 +47,7 @@ class LayerType(Enum):
     Multipolygons = 'Multipolygons'
 
 
-Osm_Layers = [LayerType.Points, LayerType.Lines, LayerType.Multilinestrings, LayerType.Multipolygons]
+Osm_Layers = [
+    LayerType.Points, LayerType.Lines,
+    LayerType.Multilinestrings, LayerType.Multipolygons
+]

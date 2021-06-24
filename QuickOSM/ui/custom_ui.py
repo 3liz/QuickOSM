@@ -42,14 +42,14 @@ class TableKeyValue(QTableView):
         self.model().setItem(row, 0, key_editor)
         self.model().setItem(row, 1, QComboBox())
 
-    def dataChanged(self, top_left, bottom_right, roles):
-        print(top_left.data())
-        if top_left.data() == 'a':
+    def dataChanged(self, topLeft, bottomRight, roles) -> None:
+        print(topLeft.data())
+        if topLeft.data() == 'a':
             widget = QLineEdit()
             widget.setPlaceholderText('ahhhhhhhh')
-            self.setIndexWidget(top_left, widget)
+            self.setIndexWidget(topLeft, widget)
         else:
-            self.setIndexWidget(top_left, None)
+            self.setIndexWidget(topLeft, None)
 
 
 class QueryItemDelegate(QStyledItemDelegate):

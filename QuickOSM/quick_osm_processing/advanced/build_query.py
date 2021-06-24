@@ -171,7 +171,7 @@ class BuildQueryNotSpatialAlgorithm(BuildQueryBasedAlgorithm):
     def displayName() -> str:
         return tr('Build query by attribute only')
 
-    def initAlgorithm(self, config=None):
+    def initAlgorithm(self):
         self.add_top_parameters()
         self.add_bottom_parameters()
 
@@ -194,7 +194,7 @@ class BuildQueryInAreaAlgorithm(BuildQueryBasedAlgorithm):
     def displayName() -> str:
         return tr('Build query inside an area')
 
-    def initAlgorithm(self, config=None):
+    def initAlgorithm(self):
         self.add_top_parameters()
 
         param = QgsProcessingParameterString(self.AREA, tr('Inside the area'), optional=False)
@@ -229,7 +229,7 @@ class BuildQueryAroundAreaAlgorithm(BuildQueryBasedAlgorithm):
     def displayName() -> str:
         return tr('Build query around an area')
 
-    def initAlgorithm(self, config=None):
+    def initAlgorithm(self):
         self.add_top_parameters()
 
         param = QgsProcessingParameterString(self.AREA, tr('Around the area'), optional=False)
@@ -276,7 +276,7 @@ class BuildQueryExtentAlgorithm(BuildQueryBasedAlgorithm):
     def displayName() -> str:
         return tr('Build query inside an extent')
 
-    def initAlgorithm(self, config=None):
+    def initAlgorithm(self):
         self.add_top_parameters()
 
         param = QgsProcessingParameterExtent(self.EXTENT, tr('Extent'), optional=False)
