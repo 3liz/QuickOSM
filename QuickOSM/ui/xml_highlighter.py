@@ -109,9 +109,7 @@ class QueryHighlighter(QSyntaxHighlighter):
             start = end_delimiter.indexIn(text, start + length)
 
         # Return True if still inside a multi-line string, False otherwise
-        if self.currentBlockState() == in_state:
-            return True
-        return False
+        return self.currentBlockState() == in_state
 
     def highlightBlock(self, text: str):
         """Highlight of a comment block"""
