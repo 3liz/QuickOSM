@@ -52,7 +52,7 @@ LOGGER = logging.getLogger('QuickOSM')
 def open_file(
         dialog: QDialog = None,
         osm_file: str = None,
-        output_geom_types: list = Osm_Layers,
+        output_geom_types: list = None,
         white_list_column: dict = None,
         layer_name: str = "OsmFile",
         config_outputs: dict = None,
@@ -88,6 +88,8 @@ def open_file(
             if isfile(outputs[layer]):
                 raise FileOutPutException(suffix='(' + outputs[layer] + ')')
 
+    if output_geom_types is None:
+        output_geom_types = Osm_Layers
     # Legacy, waiting to remove the OsmParser for QGIS >= 3.6
     # Change in osm_file_dialog.py L131 too
     output_geom_legacy = [geom.value.lower() for geom in output_geom_types]

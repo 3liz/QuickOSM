@@ -56,7 +56,7 @@ class RawQueryAlgorithm(QgisAlgorithm):
     def flags(self):
         return super().flags() | QgsProcessingAlgorithm.FlagHideFromToolbox
 
-    def initAlgorithm(self, config=None):
+    def initAlgorithm(self):
         param = QgsProcessingParameterString(self.QUERY, tr('Query'), optional=False, multiLine=True)
         help_string = tr(
             'A XML or OQL query to be send to the Overpass API. It can contains some {{}} tokens.'
@@ -125,7 +125,7 @@ class RawQueryAlgorithm(QgisAlgorithm):
             param.tooltip_3liz = help_string
         self.addOutput(output)
 
-    def processAlgorithm(self, parameters, context, feedback) -> Dict[str, str]:
+    def processAlgorithm(self, parameters, context) -> Dict[str, str]:
         raw_query = self.parameterAsString(parameters, self.QUERY, context)
         server = self.parameterAsString(parameters, self.SERVER, context)
         nominatim = self.parameterAsString(parameters, self.AREA, context)

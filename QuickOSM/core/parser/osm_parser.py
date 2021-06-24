@@ -52,13 +52,16 @@ class OsmParser(QObject):
     def __init__(
             self,
             osm_file: str,
-            layers: List[str] = OSM_LAYERS,
-            white_list_column: dict = WHITE_LIST,
+            layers: List[str] = None,
+            white_list_column: dict = None,
             delete_empty_layers: bool = False,
             load_only: bool = False,
             osm_conf: str = None):
         self.__osmFile = osm_file
-        self.__layers = layers
+        if layers is None:
+            self.__layers = self.OSM_LAYERS
+        else:
+            self.__layers = layers
 
         if not white_list_column:
             white_list_column = {
@@ -68,7 +71,10 @@ class OsmParser(QObject):
                 'multipolygons': None
             }
 
-        self.__whiteListColumn = white_list_column
+        if white_list_column is None:
+            self.__whiteListColumn = white_list_column
+        else:
+            self.__whiteListColumn = self.WHITE_LIST
         self.__deleteEmptyLayers = delete_empty_layers
         self.__loadOnly = load_only
 
