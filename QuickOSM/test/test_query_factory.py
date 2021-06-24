@@ -125,14 +125,14 @@ class TestQueryFactory(unittest.TestCase):
     def test_possible_queries(self):
         """Test queries which are possible and must return a XML query."""
 
-        def test_query(q, xml, xml_with_template, oql, oql_with_template, human_label):
+        def test_query(query, xml, xml_with_template, oql, oql_with_template, human_label):
             """Internal helper for testing queries."""
-            self.assertTrue(q._check_parameters())
-            self.assertEqual(q.generate_xml(), xml)
-            self.assertEqual(q.generate_oql(), oql)
-            self.assertEqual(q.friendly_message(), human_label)
-            self.assertEqual(q._make_for_test(QueryLanguage.XML), xml_with_template)
-            self.assertEqual(q._make_for_test(QueryLanguage.OQL), oql_with_template)
+            self.assertTrue(query._check_parameters())
+            self.assertEqual(query.generate_xml(), xml)
+            self.assertEqual(query.generate_oql(), oql)
+            self.assertEqual(query.friendly_message(), human_label)
+            self.assertEqual(query._make_for_test(QueryLanguage.XML), xml_with_template)
+            self.assertEqual(query._make_for_test(QueryLanguage.OQL), oql_with_template)
 
         # All keys in extent
         query = QueryFactory(

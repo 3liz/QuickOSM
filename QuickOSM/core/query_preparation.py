@@ -123,12 +123,12 @@ class QueryPreparation:
             if self._extent is None:
                 raise QueryFactoryException(tr('Missing extent parameter.'))
 
-        y = self._extent.center().y()
-        x = self._extent.center().x()
+        coord_y = self._extent.center().y()
+        coord_x = self._extent.center().x()
         if self.is_oql_query():
-            new_string = '{},{}'.format(y, x)
+            new_string = '{},{}'.format(coord_y, coord_x)
         else:
-            new_string = 'lat="{}" lon="{}"'.format(y, x)
+            new_string = 'lat="{}" lon="{}"'.format(coord_y, coord_x)
 
         self._query_prepared = (
             re.sub(template, new_string, self._query_prepared))
