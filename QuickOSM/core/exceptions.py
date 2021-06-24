@@ -30,9 +30,9 @@ class QuickOsmException(Exception):
         self.level = Qgis.Critical
         self.duration = 7
         if more_details:
-            super(Exception, self).__init__(message, more_details)
+            super().__init__(message, more_details)
         else:
-            super(Exception, self).__init__(message)
+            super().__init__(message)
 
 
 # Overpass or network
