@@ -69,9 +69,9 @@ def get_setting(key: str, default: str = None) -> str:
     :return: The value or the default value.
     :rtype: basestring
     """
-    qs = QgsSettings()
+    q_setting = QgsSettings()
     prefix = '/QuickOSM/'
-    value = qs.value(prefix + key)
+    value = q_setting.value(prefix + key)
 
     if value:
         return value
@@ -91,6 +91,6 @@ def set_setting(key: str, value: str) -> bool:
     @return: result
     @rtype: bool
     """
-    qs = QgsSettings()
+    q_setting = QgsSettings()
     prefix = '/QuickOSM/'
-    return qs.setValue(prefix + key, value)
+    return q_setting.setValue(prefix + key, value)
