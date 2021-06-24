@@ -24,6 +24,7 @@ def custom_config_file() -> str:
 
 
 def nominatim_file() -> str:
+    """Get the nominatim history file."""
     path = join(quickosm_user_folder(), 'nominatim.txt')
     if not path or not isfile(path):
         io.open(path, 'a').close()
@@ -32,6 +33,7 @@ def nominatim_file() -> str:
 
 
 def get_default_encoding() -> str:
+    """Get the default encoding."""
     if platform.system() == 'Windows':
         return sys.getdefaultencoding()
     else:

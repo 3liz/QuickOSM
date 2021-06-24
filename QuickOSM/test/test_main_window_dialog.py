@@ -1,3 +1,5 @@
+"""Tests for the main window."""
+
 from qgis.testing import unittest
 
 from QuickOSM.definitions.gui import Panels
@@ -9,6 +11,7 @@ __email__ = 'info@3liz.org'
 
 
 class TestUiMainWindow(unittest.TestCase):
+    """Tests for the main window."""
 
     def test_show_query_empty(self):
         """Test we can show a query by switching tab with all params."""

@@ -1,3 +1,5 @@
+"""Test for the configuration panel."""
+
 from qgis.testing import unittest
 
 from QuickOSM.core.utilities.tools import get_setting, set_setting
@@ -11,8 +13,10 @@ __email__ = 'info@3liz.org'
 
 
 class TestUiMainWindow(unittest.TestCase):
+    """Test for the configuration panel."""
 
     def setUp(self) -> None:
+        """Set up the test for the configuration panel."""
         set_setting('defaultOAPI', OVERPASS_SERVERS[0])
         set_setting('defaultNominatimAPI', NOMINATIM_SERVERS[0])
 

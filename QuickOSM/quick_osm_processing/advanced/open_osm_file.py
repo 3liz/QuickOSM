@@ -23,6 +23,7 @@ __email__ = 'info@3liz.org'
 
 
 class OpenOsmFile(QgisAlgorithm):
+    """Simple Processing algorithm to open a OSM file with sub layers."""
 
     FILE = 'FILE'
     OSM_CONF = 'OSM_CONF'
@@ -38,23 +39,29 @@ class OpenOsmFile(QgisAlgorithm):
 
     @staticmethod
     def group() -> str:
+        """Return the group of the algorithm."""
         return tr('Advanced')
 
     @staticmethod
     def groupId() -> str:
+        """Return the id of the group."""
         return 'advanced'
 
     def flags(self):
+        """Return the flags."""
         return super().flags() | QgsProcessingAlgorithm.FlagHideFromToolbox
 
     @staticmethod
     def name() -> str:
+        """Return the name of the algorithm."""
         return 'openosmfile'
 
     def displayName(self) -> str:
+        """Return the display name of the algorithm."""
         return self.tr('Open sublayers from an OSM file')
 
     def shortHelpString(self) -> str:
+        """Return an helper for the algorithm."""
         return self.tr('Open all sublayers from an OSM file. A custom OSM '
                        'configuration file can be specified following the OGR '
                        'documentation. This algorithm will not make a copy of '
@@ -62,6 +69,7 @@ class OpenOsmFile(QgisAlgorithm):
                        'custom INI file if provided.')
 
     def initAlgorithm(self, config=None):
+        """Set up of the algorithm."""
         param = QgsProcessingParameterFile(self.FILE, self.tr('OSM file'))
         help_string = tr('The extension can be a OSM or PBF file.')
         if Qgis.QGIS_VERSION_INT >= 31500:
@@ -141,6 +149,7 @@ class OpenOsmFile(QgisAlgorithm):
         self.addOutput(output)
 
     def processAlgorithm(self, parameters, context, feedback) -> Dict[str, any]:
+        """Run the algorithm."""
         self.feedback = feedback
         file = self.parameterAsString(parameters, self.FILE, context)
         osm_configuration = self.parameterAsString(

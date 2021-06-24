@@ -47,16 +47,19 @@ class BaseOverpassPanel(BaseProcessingPanel):
         self.dialog.action_oql[self.panel].setEnabled(False)
 
     def query_language_xml(self):
+        """Update the wanted language."""
         self.dialog.query_language[self.panel] = QueryLanguage.XML
         self.dialog.action_oql[self.panel].setEnabled(True)
         self.dialog.action_xml[self.panel].setEnabled(False)
 
     def query_language_oql(self):
+        """Update the wanted language."""
         self.dialog.query_language[self.panel] = QueryLanguage.OQL
         self.dialog.action_xml[self.panel].setEnabled(True)
         self.dialog.action_oql[self.panel].setEnabled(False)
 
     def query_language_updated(self):
+        """Transfer the wanted language through panels."""
         if self.dialog.query_language[Panels.Query] != \
                 self.dialog.query_language[Panels.QuickQuery]:
             self.dialog.query_language[Panels.Query] = self.dialog.query_language[Panels.QuickQuery]

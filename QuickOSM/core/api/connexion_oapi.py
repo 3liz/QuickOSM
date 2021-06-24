@@ -51,18 +51,26 @@ class ConnexionOAPI:
         self.errors = []
 
     def error(self, messages):
+        """Store the messages error"""
         self.errors = messages
 
     @staticmethod
     def canceled():
+        """Display the status in logger"""
         LOGGER.info('Request canceled')
         # TODO, need to handle this to stop the process.
 
     @staticmethod
     def completed():
+        """Display the status in logger"""
         LOGGER.info('Request completed')
 
-    def run_convert(self):
+    def run_convert(self) -> str:
+        """Run the query converter
+
+        :return: The converted query
+        :rtype: str
+        """
         loop = QEventLoop()
         downloader = QgsFileDownloader(
             self._url, self.result_path, delayStart=True)
@@ -79,7 +87,7 @@ class ConnexionOAPI:
 
         return query
 
-    def run(self):
+    def run(self) -> str:
         """Run the query.
 
         @raise OverpassBadRequestException,NetWorkErrorException,
@@ -120,11 +128,13 @@ class ConnexionOAPI:
 
     @staticmethod
     def check_file(path: str):
+        """Verify the file provided by the Overpass API"""
         # The download is done, checking for not complete OSM file.
         # Overpass might aborted the request with HTTP 200.
         LOGGER.info('Checking OSM file content {}'.format(path))
 
         def last_lines(file_path: str, line_count: int) -> List[str]:
+            """Select the last lines"""
             bufsize = 8192
             fsize = os.stat(file_path).st_size
             iteration = 0
@@ -170,6 +180,7 @@ class ConnexionOAPI:
 
     @staticmethod
     def is_query_timed_out(string: str):
+        """Check the time out exception"""
         text = 'Network request (.*) timed out'
         search = re.search(text, string)
         if search:
@@ -177,6 +188,7 @@ class ConnexionOAPI:
 
     @staticmethod
     def too_many_request(string: str):
+        """Check the too many request exception"""
         text = '(.*)server replied: Too Many Requests'
         search = re.search(text, string)
         if search:
@@ -184,6 +196,7 @@ class ConnexionOAPI:
 
     @staticmethod
     def is_bad_request(string: str):
+        """Check the bad request exception"""
         text = '(.*)server replied: Bad Request'
         search = re.search(text, string)
         if search:

@@ -22,20 +22,26 @@ __email__ = 'info@3liz.org'
 
 
 class Provider(QgsProcessingProvider):
+    """Processing QuickOSM provider."""
 
     def id(self) -> str:  # NOQA
+        """Return the id."""
         return 'quickosm'
 
     def name(self) -> str:
+        """Return the name."""
         return 'QuickOSM'
 
     def icon(self):
+        """Return the icon."""
         return QIcon(resources_path('icons', 'QuickOSM.svg'))
 
     def svgIconPath(self) -> str:
+        """Return the icon path."""
         return resources_path('icons', 'QuickOSM.svg')
 
     def loadAlgorithms(self):
+        """Load the algorithms"""
         self.addAlgorithm(BuildQueryInAreaAlgorithm())
         self.addAlgorithm(BuildQueryAroundAreaAlgorithm())
         self.addAlgorithm(BuildQueryExtentAlgorithm())
