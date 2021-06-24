@@ -29,6 +29,7 @@ __email__ = 'info@3liz.org'
 
 
 class BuildQueryBasedAlgorithm(QgisAlgorithm):
+    """Processing algorithm for building a query."""
 
     SERVER = 'SERVER'
     KEY = 'KEY'
@@ -50,22 +51,27 @@ class BuildQueryBasedAlgorithm(QgisAlgorithm):
 
     @staticmethod
     def group() -> str:
+        """Return the group of the algorithm."""
         return tr('Advanced')
 
     @staticmethod
     def groupId() -> str:
+        """Return the id of the group."""
         return 'advanced'
 
     def shortHelpString(self) -> str:
+        """Return an helper for the algorithm."""
         return self.tr(
             'This algorithm builds a query and then encode it into the '
             'Overpass API URL. The "Download File" algorithm might be used '
             'after that to fetch the result.')
 
     def flags(self):
+        """Return the flags."""
         return super().flags() | QgsProcessingAlgorithm.FlagHideFromToolbox
 
     def add_top_parameters(self):
+        """Set up the parameters."""
         param = QgsProcessingParameterString(
             self.KEY, tr('Key, default to all keys'), optional=True
         )
@@ -87,6 +93,7 @@ class BuildQueryBasedAlgorithm(QgisAlgorithm):
         self.addParameter(param)
 
     def add_bottom_parameters(self):
+        """Set up the advanced parameters."""
         param = QgsProcessingParameterNumber(
             self.TIMEOUT, tr('Timeout'), defaultValue=25, minValue=5)
         param.setFlags(param.flags() | QgsProcessingParameterDefinition.FlagAdvanced)
@@ -133,12 +140,14 @@ class BuildQueryBasedAlgorithm(QgisAlgorithm):
         self.addOutput(output)
 
     def fetch_based_parameters(self, parameters, context):
+        """Get the parameters."""
         self.key = self.parameterAsString(parameters, self.KEY, context)
         self.value = self.parameterAsString(parameters, self.VALUE, context)
         self.timeout = self.parameterAsInt(parameters, self.TIMEOUT, context)
         self.server = self.parameterAsString(parameters, self.SERVER, context)
 
     def build_query(self) -> Dict[str, str]:
+        """Build the query requested."""
         query_factory = QueryFactory(
             query_type=self.QUERY_TYPE,
             key=self.key,
@@ -165,41 +174,50 @@ class BuildQueryBasedAlgorithm(QgisAlgorithm):
 
 
 class BuildQueryNotSpatialAlgorithm(BuildQueryBasedAlgorithm):
+    """Processing algorithm for building a 'not spatial' query."""
 
     QUERY_TYPE = QueryType.NotSpatial
 
     @staticmethod
     def name() -> str:
+        """Return the name of the algorithm."""
         return 'buildquerybyattributeonly'
 
     @staticmethod
     def displayName() -> str:
+        """Return the display name of the algorithm."""
         return tr('Build query by attribute only')
 
     def initAlgorithm(self, config=None):
+        """Set up of the algorithm."""
         self.add_top_parameters()
         self.add_bottom_parameters()
 
     def processAlgorithm(self, parameters, context, feedback) -> Dict[str, str]:
+        """Run the algorithm."""
         self.feedback = feedback
         self.fetch_based_parameters(parameters, context)
         return self.build_query()
 
 
 class BuildQueryInAreaAlgorithm(BuildQueryBasedAlgorithm):
+    """Processing algorithm for building a 'in area' query."""
 
     QUERY_TYPE = QueryType.InArea
     AREA = 'AREA'
 
     @staticmethod
     def name() -> str:
+        """Return the name of the algorithm."""
         return 'buildqueryinsidearea'
 
     @staticmethod
     def displayName() -> str:
+        """Return the display name of the algorithm."""
         return tr('Build query inside an area')
 
     def initAlgorithm(self, config=None):
+        """Set up of the algorithm."""
         self.add_top_parameters()
 
         param = QgsProcessingParameterString(self.AREA, tr('Inside the area'), optional=False)
@@ -216,6 +234,7 @@ class BuildQueryInAreaAlgorithm(BuildQueryBasedAlgorithm):
         self.add_bottom_parameters()
 
     def processAlgorithm(self, parameters, context, feedback) -> Dict[str, str]:
+        """Run the algorithm."""
         self.feedback = feedback
         self.fetch_based_parameters(parameters, context)
         self.area = self.parameterAsString(parameters, self.AREA, context)
@@ -223,6 +242,7 @@ class BuildQueryInAreaAlgorithm(BuildQueryBasedAlgorithm):
 
 
 class BuildQueryAroundAreaAlgorithm(BuildQueryBasedAlgorithm):
+    """Processing algorithm for building a 'around' query."""
 
     QUERY_TYPE = QueryType.AroundArea
     AREA = 'AREA'
@@ -230,13 +250,16 @@ class BuildQueryAroundAreaAlgorithm(BuildQueryBasedAlgorithm):
 
     @staticmethod
     def name() -> str:
+        """Return the name of the algorithm."""
         return 'buildqueryaroundarea'
 
     @staticmethod
     def displayName() -> str:
+        """Return the display name of the algorithm."""
         return tr('Build query around an area')
 
     def initAlgorithm(self, config=None):
+        """Set up of the algorithm."""
         self.add_top_parameters()
 
         param = QgsProcessingParameterString(self.AREA, tr('Around the area'), optional=False)
@@ -265,6 +288,7 @@ class BuildQueryAroundAreaAlgorithm(BuildQueryBasedAlgorithm):
         self.add_bottom_parameters()
 
     def processAlgorithm(self, parameters, context, feedback) -> Dict[str, str]:
+        """Run the algorithm."""
         self.feedback = feedback
         self.fetch_based_parameters(parameters, context)
         self.area = self.parameterAsString(parameters, self.AREA, context)
@@ -273,19 +297,23 @@ class BuildQueryAroundAreaAlgorithm(BuildQueryBasedAlgorithm):
 
 
 class BuildQueryExtentAlgorithm(BuildQueryBasedAlgorithm):
+    """Processing algorithm for building a 'extent' query."""
 
     QUERY_TYPE = QueryType.BBox
     EXTENT = 'EXTENT'
 
     @staticmethod
     def name() -> str:
+        """Return the name of the algorithm."""
         return 'buildqueryextent'
 
     @staticmethod
     def displayName() -> str:
+        """Return the display name of the algorithm."""
         return tr('Build query inside an extent')
 
     def initAlgorithm(self, config=None):
+        """Set up of the algorithm."""
         self.add_top_parameters()
 
         param = QgsProcessingParameterExtent(self.EXTENT, tr('Extent'), optional=False)
@@ -299,6 +327,7 @@ class BuildQueryExtentAlgorithm(BuildQueryBasedAlgorithm):
         self.add_bottom_parameters()
 
     def processAlgorithm(self, parameters, context, feedback) -> Dict[str, str]:
+        """Run the algorithm."""
         self.feedback = feedback
         self.fetch_based_parameters(parameters, context)
 

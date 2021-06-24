@@ -40,6 +40,7 @@ LOGGER = logging.getLogger(plugin_name())
 
 
 class QuickOSMPlugin:
+    """Plugin QuickOSM."""
 
     def __init__(self, iface):
         """Constructor.
@@ -130,6 +131,7 @@ class QuickOSMPlugin:
 
     @staticmethod
     def show_help():
+        """Open the help web page"""
         QDesktopServices.openUrl(QUrl(DOC_PLUGIN_URL))
 
     def josm_remote(self):

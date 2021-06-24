@@ -12,8 +12,10 @@ __email__ = 'info@3liz.org'
 
 
 class TestQueryFactory(unittest.TestCase):
+    """Tests for Query factory."""
 
     def setUp(self):
+        """Set up the tests about the query factory."""
         self.maxDiff = None
 
     def test_impossible_queries(self):

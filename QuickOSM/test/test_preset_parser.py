@@ -1,3 +1,5 @@
+"""Tests for the parser of the presets."""
+
 import collections as col
 import unittest
 import xml.dom.minidom as xml
@@ -10,6 +12,7 @@ __email__ = 'info@3liz.org'
 
 
 class TestQuickOSMWidget(unittest.TestCase):
+    """Tests for the parser of the presets."""
 
     def setUp(self):
         self.maxDiff = None

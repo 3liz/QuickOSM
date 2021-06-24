@@ -122,6 +122,7 @@ class QuickQueryPanel(BaseOverpassPanel):
         self.update_friendly()
 
     def query_type_updated(self):
+        """Update the ui when the query type is modified."""
         self._core_query_type_updated(
             self.dialog.combo_query_type_qq,
             self.dialog.stacked_query_type,
@@ -130,16 +131,19 @@ class QuickQueryPanel(BaseOverpassPanel):
         self.update_friendly()
 
     def query_language_oql(self):
+        """Update the wanted language."""
         super().query_language_oql()
         query_oql = partial(self.show_query, QueryLanguage.OQL)
         self.dialog.button_show_query.clicked.connect(query_oql)
 
     def query_language_xml(self):
+        """Update the wanted language."""
         super().query_language_xml()
         query_xml = partial(self.show_query, QueryLanguage.XML)
         self.dialog.button_show_query.clicked.connect(query_xml)
 
     def choice_preset(self):
+        """Fill the table with the keys/values from the preset."""
         choice = self.dialog.combo_preset.currentText()
         element_chosen = self.preset_data.elements[choice]
 
@@ -186,6 +190,7 @@ class QuickQueryPanel(BaseOverpassPanel):
         self.update_friendly()
 
     def gather_values(self) -> dict:
+        """Retrieval of the values set by the user."""
         properties = super().gather_values()
         osm_objects = []
         if self.dialog.checkbox_node.isChecked():

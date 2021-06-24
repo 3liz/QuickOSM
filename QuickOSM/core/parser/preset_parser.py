@@ -1,4 +1,4 @@
-""" Parser of the default presets file. """
+""" Parser of the presets file. """
 
 import collections as col
 import xml.dom.minidom as xml
@@ -13,6 +13,7 @@ __email__ = 'info@3liz.org'
 
 
 class PresetsParser:
+    """Management of the presets file."""
 
     def __init__(self):
 

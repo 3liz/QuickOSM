@@ -15,6 +15,8 @@ __email__ = 'info@3liz.org'
 
 
 class TestNominatim(unittest.TestCase):
+    """Tests for Nominatim API requests."""
+
     def test_wrong_request(self):
         """Test wrong request.
 

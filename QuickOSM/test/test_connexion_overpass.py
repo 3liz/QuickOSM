@@ -19,6 +19,7 @@ __email__ = 'info@3liz.org'
 
 
 class TestOverpass(unittest.TestCase):
+    """Tests for Overpass API requests."""
 
     def test_real_wrong_request(self):
         """Test wrong request.

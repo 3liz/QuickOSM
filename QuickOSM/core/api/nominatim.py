@@ -43,17 +43,20 @@ class Nominatim:
 
     @staticmethod
     def error(messages: str):
+        """Display the status in logger"""
         for message in messages:
             LOGGER.error(message)
         raise NetWorkErrorException('Nominatim API', ', '.join(messages))
 
     @staticmethod
     def canceled():
+        """Display the status in logger"""
         LOGGER.info('Request canceled')
         # TODO, need to handle this to stop the process.
 
     @staticmethod
     def completed():
+        """Display the status in logger"""
         LOGGER.info('Request completed')
 
     def query(self, query: str) -> dict:

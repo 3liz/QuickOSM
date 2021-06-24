@@ -12,6 +12,7 @@ __email__ = 'info@3liz.org'
 
 
 class DownloadOverpassUrl(QgisAlgorithm):
+    """Processing algorithm to download a Overpass query."""
 
     URL = 'URL'
     OUTPUT = 'OUTPUT'
@@ -21,29 +22,36 @@ class DownloadOverpassUrl(QgisAlgorithm):
         self.feedback = None
 
     def group(self) -> str:
+        """Return the group of the algorithm."""
         return self.tr('Advanced')
 
     @staticmethod
     def groupId() -> str:
+        """Return the id of the group."""
         return 'advanced'
 
     @staticmethod
     def name() -> str:
+        """Return the name of the algorithm."""
         return 'downloadoverpassquery'
 
     def displayName(self) -> str:
+        """Return the display name of the algorithm."""
         return self.tr('Download from Overpass')
 
     def flags(self):
+        """Return the flags."""
         return super().flags()  # | QgsProcessingAlgorithm.FlagHideFromToolbox
 
     def shortHelpString(self) -> str:
+        """Return an helper for the algorithm."""
         return self.tr(
             'Like the native QGIS File Downloader algorithm, this algorithm '
             'will download an URL but it will also perform a OSM integrity '
             'check at the end of the download.')
 
     def initAlgorithm(self, config=None):
+        """Set up of the algorithm."""
         self.addParameter(
             QgsProcessingParameterString(
                 self.URL, self.tr('URL, with the query encoded')))
@@ -53,6 +61,7 @@ class DownloadOverpassUrl(QgisAlgorithm):
                 self.OUTPUT, self.tr('Output')))
 
     def processAlgorithm(self, parameters, context, feedback) -> dict:
+        """Run the algorithm."""
         self.feedback = feedback
         # url = self.parameterAsString(parameters, self.URL, context)
         output = self.parameterAsFileOutput(parameters, self.OUTPUT, context)

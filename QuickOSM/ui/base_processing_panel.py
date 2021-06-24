@@ -35,6 +35,7 @@ class BaseProcessingPanel(BasePanel):
         super().__init__(dialog)
 
     def run(self):
+        """Run the process"""
         self._start_process()
         try:
             self._run()
@@ -120,6 +121,7 @@ class BaseProcessingPanel(BasePanel):
         QApplication.processEvents()
 
     def gather_values(self):
+        """Retrieval of the values set by the user."""
         properties = dict()
 
         # For all queries
