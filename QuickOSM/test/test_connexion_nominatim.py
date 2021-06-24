@@ -25,7 +25,9 @@ class TestNominatim(unittest.TestCase):
         with self.assertRaises(NominatimBadRequest) as e:
             nominatim.query('')
 
-        self.assertEqual(str(e.exception), 'Nominatim hasn\'t found any data for an area called "".')
+        self.assertEqual(
+            str(e.exception), 'Nominatim hasn\'t found any data for an area called "".'
+        )
 
     def test_wrong_request_area(self):
         """Test wrong osm_id request.
