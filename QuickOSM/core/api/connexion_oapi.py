@@ -6,9 +6,9 @@ import re
 
 from typing import List
 
-from qgis.core import QgsFileDownloader
-from qgis.PyQt.QtCore import QDir, QEventLoop, QFileInfo, QTemporaryFile, QUrl
+from qgis.PyQt.QtCore import QDir, QFileInfo, QTemporaryFile
 
+from QuickOSM.core.api.downloader import Downloader
 from QuickOSM.core.exceptions import (
     NetWorkErrorException,
     OverpassBadRequestException,
@@ -25,7 +25,7 @@ __email__ = 'info@3liz.org'
 LOGGER = logging.getLogger('QuickOSM')
 
 
-class ConnexionOAPI:
+class ConnexionOAPI(Downloader):
 
     """
     Manage connexion to the overpass API.
@@ -37,7 +37,7 @@ class ConnexionOAPI:
         :param url:Full URL of OverPass Query with the query encoded in it.
         :type url:str
         """
-        self._url = QUrl(url)
+        super().__init__(url)
 
         if convert:
             temporary = QTemporaryFile(
@@ -48,22 +48,6 @@ class ConnexionOAPI:
         temporary.open()
         self.result_path = temporary.fileName()
         temporary.close()
-        self.errors = []
-
-    def error(self, messages):
-        """Store the messages error"""
-        self.errors = messages
-
-    @staticmethod
-    def canceled():
-        """Display the status in logger"""
-        LOGGER.info('Request canceled')
-        # TODO, need to handle this to stop the process.
-
-    @staticmethod
-    def completed():
-        """Display the status in logger"""
-        LOGGER.info('Request completed')
 
     def run_convert(self) -> str:
         """Run the query converter
@@ -71,15 +55,7 @@ class ConnexionOAPI:
         :return: The converted query
         :rtype: str
         """
-        loop = QEventLoop()
-        downloader = QgsFileDownloader(
-            self._url, self.result_path, delayStart=True)
-        downloader.downloadExited.connect(loop.quit)
-        downloader.downloadError.connect(self.error)
-        downloader.downloadCanceled.connect(self.canceled)
-        downloader.downloadCompleted.connect(self.completed)
-        downloader.startDownload()
-        loop.exec_()
+        self.download()
 
         with open(self.result_path, encoding='utf8') as txt_file:
             text = txt_file.read()
@@ -96,15 +72,7 @@ class ConnexionOAPI:
         @return: The result of the query.
         @rtype: str
         """
-        loop = QEventLoop()
-        downloader = QgsFileDownloader(
-            self._url, self.result_path, delayStart=True)
-        downloader.downloadExited.connect(loop.quit)
-        downloader.downloadError.connect(self.error)
-        downloader.downloadCanceled.connect(self.canceled)
-        downloader.downloadCompleted.connect(self.completed)
-        downloader.startDownload()
-        loop.exec_()
+        self.download()
 
         for message in self.errors:
             self.is_query_timed_out(message)
