@@ -177,8 +177,7 @@ class Dialog(QDialog, FORM_CLASS):
         """Get iface."""
         if self._iface:
             return self._iface
-        else:
-            return iface_import
+        return iface_import
 
     def display_quickosm_exception(self, exception: QuickOsmException):
         """Display QuickOSM exceptions.
