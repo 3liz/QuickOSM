@@ -8,3 +8,4 @@ flake8-multiline-containers
 flake8-pep3101
 flake8-isort
 isort
+pylint
