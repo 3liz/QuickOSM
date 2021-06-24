@@ -31,8 +31,8 @@ class QuickQueryPanel(BaseOverpassPanel):
         self.preset_data = None
 
     def setup_panel(self):
-        super().setup_panel()
         """Setup the UI for the QuickQuery."""
+        super().setup_panel()
         # Query type
         self.dialog.combo_query_type_qq.addItem(tr('In'), 'in')
         self.dialog.combo_query_type_qq.addItem(tr('Around'), 'around')

@@ -39,7 +39,7 @@ class BuildQueryBasedAlgorithm(QgisAlgorithm):
     OUTPUT_OQL_QUERY = 'OUTPUT_OQL_QUERY'
 
     def __init__(self):
-        super(BuildQueryBasedAlgorithm, self).__init__()
+        super().__init__()
         self.feedback = None
         self.key = None
         self.value = None

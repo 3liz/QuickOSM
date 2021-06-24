@@ -12,7 +12,7 @@ class QueryHighlighter(QSyntaxHighlighter):
     """Query Highlighter class."""
 
     def __init__(self, parent=None):
-        super(QueryHighlighter, self).__init__(parent)
+        super().__init__(parent)
 
         keyword_format = QTextCharFormat()
         keyword_format.setForeground(Qt.darkMagenta)
