@@ -34,7 +34,7 @@ class OpenOsmFile(QgisAlgorithm):
     OUTPUT_OTHER_RELATIONS = 'OUTPUT_OTHER_RELATIONS'
 
     def __init__(self):
-        super(OpenOsmFile, self).__init__()
+        super().__init__()
         self.feedback = None
 
     @staticmethod
