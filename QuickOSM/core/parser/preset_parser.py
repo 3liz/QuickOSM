@@ -127,8 +127,6 @@ class PresetsParser:
         """
         if isinstance(node, xml.Element):
             return node.tagName == search
-        else:
-            return False
 
     def osm_keys_values(self) -> dict:
         """ Retrieval of key/value couple """

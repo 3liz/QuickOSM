@@ -25,8 +25,7 @@ class BasePanel:
         """Return the panel."""
         if self._panel:
             return self._panel
-        else:
-            raise NotImplementedError
+        raise NotImplementedError
 
     @panel.setter
     def panel(self, panel: str):

@@ -19,8 +19,6 @@ def custom_config_file() -> str:
     filepath = join(quickosm_user_folder(), 'custom_config.json')
     if isfile(filepath):
         return filepath
-    else:
-        return None
 
 
 def nominatim_file() -> str:
@@ -36,8 +34,8 @@ def get_default_encoding() -> str:
     """Get the default encoding."""
     if platform.system() == 'Windows':
         return sys.getdefaultencoding()
-    else:
-        return 'UTF-8'
+
+    return 'UTF-8'
 
 
 def quickosm_user_folder() -> str:
@@ -77,8 +75,8 @@ def get_setting(key: str, default: str = None) -> str:
 
     if value:
         return value
-    else:
-        return default
+
+    return default
 
 
 def set_setting(key: str, value: str) -> bool:
