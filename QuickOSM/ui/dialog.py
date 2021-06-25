@@ -8,6 +8,7 @@ from os.path import split
 from sys import exc_info
 
 from qgis.core import Qgis, QgsMapLayer
+from qgis.PyQt.QtCore import QEvent, QObject
 from qgis.PyQt.QtGui import QIcon, QPixmap
 from qgis.PyQt.QtWidgets import (
     QAction,
@@ -179,6 +180,12 @@ class Dialog(QDialog, FORM_CLASS):
             return self._iface
         return iface_import
 
+    def eventFilter(self, obj: QObject, e: QEvent) -> bool:
+        if e.type() == QEvent.Wheel:
+            return True
+        else:
+            return False
+
     def display_quickosm_exception(self, exception: QuickOsmException):
         """Display QuickOSM exceptions.
 
@@ -278,8 +285,9 @@ class Dialog(QDialog, FORM_CLASS):
         LOGGER.info('Dialog has been reset')
 
         # Quickquery
-        self.combo_key.setCurrentIndex(0)
-        self.combo_value.setCurrentIndex(0)
+        self.combo_preset.setCurrentIndex(0)
+        self.table_keys_values.setRowCount(1)
+        self.table_keys_values.cellWidget(0, 1).setCurrentIndex(0)
         self.checkbox_node.setChecked(True)
         self.checkbox_way.setChecked(True)
         self.checkbox_relation.setChecked(True)

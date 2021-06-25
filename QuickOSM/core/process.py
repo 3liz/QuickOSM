@@ -283,6 +283,7 @@ def process_query(
 
 def process_quick_query(
         dialog: QDialog = None,
+        type_multi_request: list = None,
         query_type: QueryType = None,
         key: str = None,
         value: str = None,
@@ -300,6 +301,7 @@ def process_quick_query(
     """
     # Building the query
     query_factory = QueryFactory(
+        type_multi_request=type_multi_request,
         query_type=query_type,
         key=key,
         value=value,
@@ -317,7 +319,15 @@ def process_quick_query(
     distance_string = None
     if distance:
         distance_string = '{}'.format(distance)
-    expected_name = [key, value, area, distance_string]
+    if isinstance(key, list):
+        expected_name = []
+        for k in range(len(key)):
+            expected_name.append(key[k])
+            expected_name.append(value[k])
+        expected_name.append(area)
+        expected_name.append(distance_string)
+    else:
+        expected_name = [key, value, area, distance_string]
     layer_name = '_'.join([f for f in expected_name if f])
     LOGGER.info('Query: {}'.format(layer_name))
 
