@@ -1,26 +1,25 @@
 """OSM Parser file."""
+import logging
 
 from os.path import basename, dirname, isfile, join, realpath
 from typing import List
 
+import processing
+
 from osgeo import gdal
-from qgis.core import (
-    QgsFeature,
-    QgsField,
-    QgsFields,
-    QgsHstoreUtils,
-    QgsMemoryProviderUtils,
-    QgsVectorLayer,
-)
+from qgis.core import QgsField, QgsVectorLayer
 from qgis.PyQt.QtCore import QObject, QVariant, pyqtSignal
 
-from QuickOSM.core.exceptions import QuickOsmException
+from QuickOSM.core.exceptions import FileOutPutException, QuickOsmException
+from QuickOSM.definitions.format import Format
 from QuickOSM.definitions.osm import Osm_Layers
 from QuickOSM.qgis_plugin_tools.tools.i18n import tr
 
 __copyright__ = 'Copyright 2019, 3Liz'
 __license__ = 'GPL version 3'
 __email__ = 'info@3liz.org'
+
+LOGGER = logging.getLogger('QuickOSM')
 
 
 class OsmParser(QObject):
@@ -53,7 +52,12 @@ class OsmParser(QObject):
             self,
             osm_file: str,
             layers: List[str] = None,
+            output_format: Format = None,
+            output_dir: str = None,
+            prefix_file: str = None,
+            layer_name: str = None,
             white_list_column: dict = None,
+            key: List[str] = None,
             delete_empty_layers: bool = False,
             load_only: bool = False,
             osm_conf: str = None):
@@ -71,10 +75,16 @@ class OsmParser(QObject):
                 'multipolygons': None
             }
 
+        self.__output_format = output_format
+        self.__output_dir = output_dir
+        self.__prefix_file = prefix_file
+        self.__layer_name = layer_name
+
         if white_list_column is None:
             self.__whiteListColumn = white_list_column
         else:
             self.__whiteListColumn = self.WHITE_LIST
+        self.__key = key if key is not None else []
         self.__deleteEmptyLayers = delete_empty_layers
         self.__loadOnly = load_only
 
@@ -87,9 +97,9 @@ class OsmParser(QObject):
 
         QObject.__init__(self)
 
-    def parse(self) -> dict:
+    def processing_parse(self):
         """
-        Start parsing the osm file.
+        Start parsing the osm file with processing.
         """
 
         # Configuration for OGR
@@ -131,83 +141,47 @@ class OsmParser(QObject):
 
             layers[layer]['vectorLayer'].setProviderEncoding('UTF-8')
 
-            # Set some default tags
-            layers[layer]['tags'] = ['full_id', 'osm_id', 'osm_type']
-
             # Save the geometry type of the layer
             layers[layer]['geomType'] = layers[layer]['vectorLayer'].wkbType()
 
             # Set a featureCount
             layers[layer]['featureCount'] = 0
 
+            # Set expected fields
+            expected_fields = self.__whiteListColumn[layer] if self.__whiteListColumn[layer] else ''
+
             # Get the other_tags
-            fields = layers[layer]['vectorLayer'].fields()
-            field_names = [field.name() for field in fields]
-            other_tags_index = field_names.index('other_tags')
+            layers[layer]['vector_layer'] = processing.run(
+                "native:explodehstorefield", {
+                    'INPUT': layers[layer]['vectorLayer'],
+                    'FIELD': 'other_tags', 'EXPECTED_FIELDS': expected_fields,
+                    'OUTPUT': 'TEMPORARY_OUTPUT'
+                }
+            )['OUTPUT']
 
-            features = layers[layer]['vectorLayer'].getFeatures()
-            for i, feature in enumerate(features):
-                layers[layer]['featureCount'] += 1
-
-                # Improve the parsing if comma in whitelist,
-                # we skip the parsing of tags, but featureCount is needed
-                if self.__whiteListColumn[layer] == ',':
-                    continue
-
-                # Get the 'others_tags' field
-                attributes = str(feature.attributes()[other_tags_index])
-
-                if attributes:
-                    h_store = QgsHstoreUtils.parse(attributes)
-                    for key in h_store.keys():
-                        if key not in layers[layer]['tags']:
-                            # If the key in OSM is not already in the table
-                            if self.__whiteListColumn[layer]:
-                                if key in self.__whiteListColumn[layer]:
-                                    layers[layer]['tags'].append(key)
-                            else:
-                                layers[layer]['tags'].append(key)
-
-                percent = int(100 / len(self.__layers) * (i + 1))
-                self.signalPercentage.emit(percent)
-
-        # Delete empty layers if this option is set to True
-        if self.__deleteEmptyLayers:
-            delete_layers = []
-            for keys, values in layers.items():
-                if values['featureCount'] < 1:
-                    delete_layers.append(keys)
-            for layer in delete_layers:
-                del layers[layer]
-
-        # Creating GeoJSON files for each layers
-        for layer in self.__layers:
-            message = tr('Creating memory layer : {layer}').format(layer=layer)
-            self.signalText.emit(message)
-            self.signalPercentage.emit(0)
-
-            # Adding the attribute table
-            fields = QgsFields()
-            for key in layers[layer]['tags']:
-                fields.append(QgsField(key, QVariant.String))
-
-            layers[layer]['vector_layer'] = (
-                QgsMemoryProviderUtils.createMemoryLayer(
-                    layer,
-                    fields,
-                    layers[layer]['geomType'],
-                    layers[layer]['vectorLayer'].crs()))
             layers[layer]['vector_layer'].startEditing()
+            layer_provider = layers[layer]['vector_layer'].dataProvider()
 
-            # Foreach feature in the layer
-            features = layers[layer]['vectorLayer'].getFeatures()
-            for i, feature in enumerate(features):
-                fet = QgsFeature()
-                fet.setGeometry(feature.geometry())
+            fields = layers[layer]['vector_layer'].fields()
+            layer_provider.deleteAttributes([fields.indexOf('other_tags')])
+            layer_provider.addAttributes([QgsField('osm_type', QVariant.String)])
+            layer_provider.addAttributes([QgsField('full_id', QVariant.String)])
+            layers[layer]['vector_layer'].updateFields()
 
-                new_attributes = []
+            fields = layers[layer]['vector_layer'].fields()
+            features = layers[layer]['vector_layer'].getFeatures()
+            meta = False
+            for feature in features:
+                layers[layer]['featureCount'] += 1
                 attributes = feature.attributes()
+                index_version = fields.indexOf('osm_version')
+                if attributes[index_version]:
+                    meta = True
 
+                id_f = feature.id()
+                index = fields.indexOf('osm_id')
+                index_ot = fields.indexOf('osm_type')
+                index_fi = fields.indexOf('full_id')
                 if layer in ['points', 'lines', 'multilinestrings']:
                     if layer == 'points':
                         osm_type = 'node'
@@ -215,48 +189,100 @@ class OsmParser(QObject):
                         osm_type = 'way'
                     elif layer == 'multilinestrings':
                         osm_type = 'relation'
-
-                    new_attributes.append(
-                        self.DIC_OSM_TYPE[osm_type] + str(attributes[0]))
-                    new_attributes.append(attributes[0])
-                    new_attributes.append(osm_type)
-
-                    if attributes[1]:
-                        h_store = QgsHstoreUtils.parse(str(attributes[1]))
-                        for tag in layers[layer]['tags'][3:]:
-                            if str(tag) in h_store:
-                                new_attributes.append(h_store[tag])
-                            else:
-                                new_attributes.append("")
-                        fet.setAttributes(new_attributes)
-                        layers[layer]['vector_layer'].addFeature(fet)
-
+                    attr_value_fi = {index_fi: self.DIC_OSM_TYPE[osm_type] + str(attributes[index])}
                 elif layer == 'multipolygons':
-                    if attributes[0]:
+                    if attributes[index]:
                         osm_type = 'relation'
-                        new_attributes.append(
-                            self.DIC_OSM_TYPE[osm_type] + str(attributes[0]))
-                        new_attributes.append(str(attributes[0]))
+                        attr_value_fi = {index_fi: self.DIC_OSM_TYPE[osm_type] + str(attributes[index])}
                     else:
                         osm_type = 'way'
-                        new_attributes.append(
-                            self.DIC_OSM_TYPE[osm_type] + str(attributes[1]))
-                        new_attributes.append(attributes[1])
-                    new_attributes.append(osm_type)
+                        index_way = fields.indexOf('osm_way_id')
+                        attr_value_fi = {index_fi: self.DIC_OSM_TYPE[osm_type] + str(attributes[index_way])}
+                        layer_provider.changeAttributeValues(
+                            {id_f: {index: str(attributes[index_way])}}
+                        )
+                attr_value_ot = {index_ot: osm_type}
+                layer_provider.changeAttributeValues({id_f: attr_value_ot})
 
-                    h_store = QgsHstoreUtils.parse(str(attributes[2]))
-                    for tag in layers[layer]['tags'][3:]:
-                        if str(tag) in h_store:
-                            new_attributes.append(h_store[tag])
-                        else:
-                            new_attributes.append("")
-                    fet.setAttributes(new_attributes)
-                    layers[layer]['vector_layer'].addFeature(fet)
-
-                    percentage = int(
-                        100 / layers[layer]['featureCount'] * (i + 1))
-                    self.signalPercentage.emit(percentage)
+                layer_provider.changeAttributeValues({id_f: attr_value_fi})
 
             layers[layer]['vector_layer'].commitChanges()
+
+            if layers[layer]['featureCount']:
+                if self.__output_dir:
+                    if not self.__prefix_file:
+                        self.__prefix_file = self.__layer_name
+
+                    if self.__output_format in [Format.GeoPackage, Format.Kml]:
+                        output_file = join(
+                            self.__output_dir,
+                            self.__prefix_file + "." + self.__output_format.value.extension)
+                        final_name = self.__prefix_file + '_' + layer
+                        layers[layer]['layer_name'] = 'ogr:dbname=\'{path}\' table=\"{layer}\" (geom)'.format(
+                            path=output_file, layer=final_name
+                        )
+                    elif self.__output_format in [Format.GeoJSON, Format.Shapefile]:
+                        layers[layer]['layer_name'] = join(
+                            self.__output_dir,
+                            self.__prefix_file + "_" + layer + "." + self.__output_format.value.extension)
+                    else:
+                        raise NotImplementedError
+
+                    if isfile(layers[layer]['layer_name']):
+                        raise FileOutPutException(suffix='(' + layers[layer]['layer_name'] + ')')
+                else:
+                    layers[layer]['layer_name'] = 'TEMPORARY_OUTPUT'
+
+                tags = layers[layer]['vector_layer'].fields().names()
+
+                fields_mapping = [
+                    {'expression': '\"full_id\"', 'length': 0, 'name': 'full_id', 'precision': 0, 'type': 10},
+                    {'expression': '\"osm_id\"', 'length': 0, 'name': 'osm_id', 'precision': 0, 'type': 10},
+                ]
+                begin = 1
+                if layer == 'multipolygons':
+                    begin += 1
+                fields_mapping.append({
+                    'expression': '\"osm_type\"', 'length': 0,
+                    'name': 'osm_type', 'precision': 0, 'type': 10
+                })
+                if meta:
+                    for name in tags[begin:begin + 5]:
+                        fields_mapping.append({
+                            'expression': '\"' + name + '\"',
+                            'length': 0, 'name': name,
+                            'precision': 0, 'type': 10
+                        })
+                begin += 5
+
+                for key in self.__key:
+                    if key in tags:
+                        fields_mapping.append({
+                            'expression': '\"' + key + '\"',
+                            'length': 0, 'name': key,
+                            'precision': 0, 'type': 10
+                        })
+
+                for name in tags[begin:-2]:
+                    if name not in self.__key:
+                        fields_mapping.append({
+                            'expression': '\"' + name + '\"',
+                            'length': 0, 'name': name,
+                            'precision': 0, 'type': 10
+                        })
+
+                layers[layer]['vector_layer'] = processing.run("qgis:refactorfields", {
+                    'INPUT': layers[layer]['vector_layer'],
+                    'FIELDS_MAPPING': fields_mapping,
+                    'OUTPUT': layers[layer]['layer_name']
+                })['OUTPUT']
+
+                if self.__output_dir:
+                    layers[layer]['vector_layer'] = QgsVectorLayer(
+                        layers[layer]['vector_layer'], self.__prefix_file + "_" + layer, 'ogr'
+                    )
+
+                fields = layers[layer]['vector_layer'].fields()
+                layers[layer]['tags'] = fields.names()
 
         return layers

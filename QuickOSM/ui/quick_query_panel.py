@@ -79,19 +79,20 @@ class QuickQueryPanel(BaseOverpassPanel):
         completer_model.setStringList(keys_preset)
         self.dialog.combo_preset.addItems(keys_preset)
         self.dialog.combo_preset.addItem(keys_preset.pop(0))
-        for k, key in enumerate(keys_preset):
-            icon_path = self.preset_data.elements[key].icon
-            widget_item = QListWidgetItem(key)
-            if icon_path:
-                icon_path = resources_path('icons', "josm", icon_path)
-                if os.path.exists(icon_path):
-                    icon = QPixmap(icon_path)
-                    widget_item.setData(Qt.DecorationRole, icon.scaled(20, 20, Qt.KeepAspectRatio))
-                    self.dialog.combo_preset.setItemData(
-                        k + 1, icon.scaled(20, 20, Qt.KeepAspectRatio),
-                        Qt.DecorationRole
-                    )
-            self.preset_items.append(widget_item)
+        if not os.getenv('CI'):
+            for k, key in enumerate(keys_preset):
+                icon_path = self.preset_data.elements[key].icon
+                widget_item = QListWidgetItem(key)
+                if icon_path:
+                    icon_path = resources_path('icons', "josm", icon_path)
+                    if os.path.exists(icon_path):
+                        icon = QPixmap(icon_path)
+                        widget_item.setData(Qt.DecorationRole, icon.scaled(20, 20, Qt.KeepAspectRatio))
+                        self.dialog.combo_preset.setItemData(
+                            k + 1, icon.scaled(20, 20, Qt.KeepAspectRatio),
+                            Qt.DecorationRole
+                        )
+                self.preset_items.append(widget_item)
         self.dialog.combo_preset.setCompleter(keys_preset_completer)
         self.dialog.combo_preset.completer().setCompletionMode(
             QCompleter.PopupCompletion)
@@ -435,6 +436,8 @@ class QuickQueryPanel(BaseOverpassPanel):
         if not properties['osm_objects']:
             raise OsmObjectsException
 
+        properties['metadata'] = 'meta' if self.dialog.checkbox_meta.isChecked() else 'body'
+
         rows = self.dialog.table_keys_values.rowCount()
         key_added = False
         properties['key'] = []
@@ -476,6 +479,7 @@ class QuickQueryPanel(BaseOverpassPanel):
             distance=properties['distance'],
             bbox=properties['bbox'],
             osm_objects=properties['osm_objects'],
+            metadata=properties['metadata'],
             timeout=properties['timeout'],
             output_directory=properties['output_directory'],
             output_format=properties['output_format'],
@@ -522,7 +526,8 @@ class QuickQueryPanel(BaseOverpassPanel):
             area=properties['place'],
             around_distance=properties['distance'],
             osm_objects=properties['osm_objects'],
-            timeout=properties['timeout']
+            timeout=properties['timeout'],
+            print_mode=properties['metadata']
         )
         try:
             query = query_factory.make(output)

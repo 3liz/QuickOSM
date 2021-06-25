@@ -1,14 +1,11 @@
 """The full process of opening a query, an OSM file."""
 
 import logging
-import os
 import time
 
-from os.path import isfile, join
 from typing import List, Union
 
 from qgis.core import (
-    Qgis,
     QgsCategorizedSymbolRenderer,
     QgsExpressionContextUtils,
     QgsLayerMetadata,
@@ -16,8 +13,6 @@ from qgis.core import (
     QgsRectangle,
     QgsRendererCategory,
     QgsSymbol,
-    QgsVectorFileWriter,
-    QgsVectorLayer,
     QgsWkbTypes,
 )
 from qgis.PyQt.QtGui import QColor
@@ -25,7 +20,6 @@ from qgis.PyQt.QtWidgets import QApplication, QDialog
 
 from QuickOSM.core import actions
 from QuickOSM.core.api.connexion_oapi import ConnexionOAPI
-from QuickOSM.core.exceptions import FileOutPutException
 from QuickOSM.core.parser.osm_parser import OsmParser
 from QuickOSM.core.query_factory import QueryFactory
 from QuickOSM.core.query_preparation import QueryPreparation
@@ -54,6 +48,7 @@ def open_file(
         osm_file: str = None,
         output_geom_types: list = None,
         white_list_column: dict = None,
+        key: Union[str, List[str]] = None,
         layer_name: str = "OsmFile",
         config_outputs: dict = None,
         output_dir: str = None,
@@ -70,23 +65,6 @@ def open_file(
     it's a local OSM file.
     :type final_query: basestring
     """
-    outputs = {}
-    if output_dir:
-        for layer in ['points', 'lines', 'multilinestrings', 'multipolygons']:
-            if not prefix_file:
-                prefix_file = layer_name
-
-            if output_format in [Format.GeoPackage, Format.Kml]:
-                outputs[layer] = join(
-                    output_dir, prefix_file + "." + output_format.value.extension)
-            elif output_format in [Format.GeoJSON, Format.Shapefile]:
-                outputs[layer] = join(
-                    output_dir, prefix_file + "_" + layer + "." + output_format.value.extension)
-            else:
-                raise NotImplementedError
-
-            if isfile(outputs[layer]):
-                raise FileOutPutException(suffix='(' + outputs[layer] + ')')
 
     if output_geom_types is None:
         output_geom_types = Osm_Layers
@@ -105,6 +83,11 @@ def open_file(
     osm_parser = OsmParser(
         osm_file=osm_file,
         layers=output_geom_legacy,
+        output_format=output_format,
+        output_dir=output_dir,
+        prefix_file=prefix_file,
+        layer_name=layer_name,
+        key=key,
         white_list_column=white_list_legacy)
 
     if dialog:
@@ -112,7 +95,7 @@ def open_file(
         osm_parser.signalPercentage.connect(dialog.set_progress_percentage)
 
     start_time = time.time()
-    layers = osm_parser.parse()
+    layers = osm_parser.processing_parse()
     elapsed_time = time.time() - start_time
     parser_time = time.strftime("%Hh %Mm %Ss", time.gmtime(elapsed_time))
     LOGGER.info('The OSM parser took: {}'.format(parser_time))
@@ -133,41 +116,8 @@ def open_file(
                 if config_outputs[layer]['namelayer']:
                     final_layer_name = config_outputs[layer]['namelayer']
 
-            if output_dir:
-                dialog.set_progress_text(
-                    tr('From memory layer to file: ' + layer))
-                # Transforming the vector file
-                memory_layer = item['vector_layer']
-
-                options = QgsVectorFileWriter.SaveVectorOptions()
-                if output_format in [Format.GeoPackage, Format.Kml]:
-                    final_layer_name += '_' + layer
-                options.layerName = final_layer_name
-                options.driverName = output_format.value.driver_name
-                if os.path.exists(outputs[layer]):
-                    options.actionOnExistingFile = QgsVectorFileWriter.CreateOrOverwriteLayer
-                else:
-                    options.actionOnExistingFile = QgsVectorFileWriter.CreateOrOverwriteFile
-                if Qgis.QGIS_VERSION_INT >= 32000:
-                    context = QgsProject.instance().transformContext()
-                    QgsVectorFileWriter.writeAsVectorFormatV3(
-                        memory_layer, outputs[layer], context, options)
-                elif Qgis.QGIS_VERSION_INT >= 31003:
-                    context = QgsProject.instance().transformContext()
-                    QgsVectorFileWriter.writeAsVectorFormatV2(
-                        memory_layer, outputs[layer], context, options)
-                else:
-                    QgsVectorFileWriter.writeAsVectorFormat(
-                        memory_layer, outputs[layer], options)
-
-                # Loading the final vector file
-                if output_format in [Format.GeoPackage, Format.Kml]:
-                    outputs[layer] += '|layername=' + final_layer_name
-                new_layer = QgsVectorLayer(
-                    outputs[layer], final_layer_name, "ogr")
-            else:
-                new_layer = item['vector_layer']
-                new_layer.setName(final_layer_name)
+            new_layer = item['vector_layer']
+            new_layer.setName(final_layer_name)
 
             # Try to set styling if defined
             if config_outputs and config_outputs[layer]['style']:
@@ -176,6 +126,7 @@ def open_file(
                 if "colour" in item['tags']:
                     index = item['tags'].index('colour')
                     colors = new_layer.uniqueValues(index)
+                    LOGGER.debug('colour: {}'.format(colors))
                     categories = []
                     for value in colors:
                         if layer in ['lines', 'multilinestrings']:
@@ -183,9 +134,9 @@ def open_file(
                         elif layer == "points":
                             symbol = QgsSymbol.defaultSymbol(QgsWkbTypes.PointGeometry)
                         elif layer == "multipolygons":
-                            symbol = QgsSymbol.defaultSymbol(QgsWkbTypes.MultiPolygon)
+                            symbol = QgsSymbol.defaultSymbol(QgsWkbTypes.PolygonGeometry)
                         symbol.setColor(QColor(value))
-                        category = QgsRendererCategory(value, symbol, value)
+                        category = QgsRendererCategory(str(value), symbol, str(value))
                         categories.append(category)
 
                     renderer = QgsCategorizedSymbolRenderer("colour", categories)
@@ -241,6 +192,7 @@ def process_query(
         dialog: QDialog = None,
         query: str = None,
         area: Union[str, List[str]] = None,
+        key: Union[str, List[str]] = None,
         bbox: QgsRectangle = None,
         output_dir: str = None,
         output_format: Format = None,
@@ -273,6 +225,7 @@ def process_query(
         osm_file=osm_file,
         output_geom_types=output_geometry_types,
         white_list_column=white_list_values,
+        key=key,
         layer_name=layer_name,
         output_dir=output_dir,
         output_format=output_format,
@@ -285,12 +238,13 @@ def process_quick_query(
         dialog: QDialog = None,
         type_multi_request: list = None,
         query_type: QueryType = None,
-        key: str = None,
-        value: str = None,
+        key: Union[str, List[str]] = None,
+        value: Union[str, List[str]] = None,
         bbox: QgsRectangle = None,
         area: str = None,
         distance: int = None,
         osm_objects: List[OsmType] = None,
+        metadata: str = None,
         timeout: int = 25,
         output_directory: str = None,
         output_format: Format = None,
@@ -308,7 +262,8 @@ def process_quick_query(
         area=area,
         around_distance=distance,
         osm_objects=osm_objects,
-        timeout=timeout
+        timeout=timeout,
+        print_mode=metadata
     )
     query = query_factory.make(QueryLanguage.OQL)
     LOGGER.info(query_factory.friendly_message())
@@ -335,6 +290,7 @@ def process_quick_query(
     return process_query(
         dialog=dialog,
         query=query,
+        key=key,
         area=area,
         bbox=bbox,
         output_dir=output_directory,
