@@ -10,3 +10,4 @@ services:
     environment:
       # - DISPLAY=unix$DISPLAY
       - DISPLAY=:99
+      - CI=true

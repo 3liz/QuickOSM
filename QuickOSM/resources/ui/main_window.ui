@@ -163,7 +163,7 @@ QListWidget::item::selected {
             </sizepolicy>
            </property>
            <property name="currentIndex">
-            <number>2</number>
+            <number>0</number>
            </property>
            <widget class="QWidget" name="quickquery_page">
             <property name="sizePolicy">
@@ -465,6 +465,13 @@ QListWidget::item::selected {
                       </property>
                       <property name="checked">
                        <bool>true</bool>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="3" column="1">
+                     <widget class="QCheckBox" name="checkbox_meta">
+                      <property name="text">
+                       <string>Metadata</string>
                       </property>
                      </widget>
                     </item>
