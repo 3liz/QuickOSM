@@ -1,23 +1,50 @@
 """Panel OSM base class."""
 
+import logging
+import os
+
 from functools import partial
 
+from qgis.core import QgsApplication
 from qgis.PyQt.QtCore import Qt
-from qgis.PyQt.QtWidgets import QCompleter, QDialog, QDialogButtonBox, QMenu
+from qgis.PyQt.QtGui import QIcon, QPixmap
+from qgis.PyQt.QtWidgets import (
+    QComboBox,
+    QCompleter,
+    QDialog,
+    QDialogButtonBox,
+    QHeaderView,
+    QListWidgetItem,
+    QMenu,
+    QPushButton,
+)
 
 from QuickOSM.core.exceptions import OsmObjectsException, QuickOsmException
 from QuickOSM.core.parser.preset_parser import PresetsParser
 from QuickOSM.core.process import process_quick_query
 from QuickOSM.core.query_factory import QueryFactory
+from QuickOSM.core.utilities.completer_free import (
+    DiacriticFreeCompleter,
+    DiactricFreeStringListModel,
+)
 from QuickOSM.core.utilities.utilities_qgis import open_plugin_documentation
 from QuickOSM.definitions.gui import Panels
-from QuickOSM.definitions.osm import OsmType, QueryLanguage, QueryType
+from QuickOSM.definitions.osm import (
+    MultiType,
+    OsmType,
+    QueryLanguage,
+    QueryType,
+)
 from QuickOSM.qgis_plugin_tools.tools.i18n import tr
+from QuickOSM.qgis_plugin_tools.tools.resources import resources_path
 from QuickOSM.ui.base_overpass_panel import BaseOverpassPanel
+from QuickOSM.ui.wizard import Wizard
 
 __copyright__ = 'Copyright 2019, 3Liz'
 __license__ = 'GPL version 3'
 __email__ = 'info@3liz.org'
+
+LOGGER = logging.getLogger('QuickOSM')
 
 
 class QuickQueryPanel(BaseOverpassPanel):
@@ -28,11 +55,80 @@ class QuickQueryPanel(BaseOverpassPanel):
         super().__init__(dialog)
         self.panel = Panels.QuickQuery
         self.osm_keys = None
+        self.keys = None
+        self.all_keys_placeholder = tr('Query on all keys')
+        self.all_values_placeholder = tr('Query on all values')
         self.preset_data = None
+        self.preset_items = []
+        self.wizard = None
 
     def setup_panel(self):
-        """Setup the UI for the QuickQuery."""
         super().setup_panel()
+        """Setup the UI for the QuickQuery."""
+
+        # Setup presets auto completion
+        parser = PresetsParser()
+        self.preset_data = parser.parser()
+        keys_preset = list(self.preset_data.elements.keys())
+        keys_preset.append('')
+        keys_preset.sort()
+        keys_preset_completer = DiacriticFreeCompleter()
+        completer_model = DiactricFreeStringListModel()
+        keys_preset_completer.setModel(completer_model)
+        keys_preset_completer.setCompletionRole(completer_model.diactricFreeRole())
+        completer_model.setStringList(keys_preset)
+        self.dialog.combo_preset.addItems(keys_preset)
+        self.dialog.combo_preset.addItem(keys_preset.pop(0))
+        for k, key in enumerate(keys_preset):
+            icon_path = self.preset_data.elements[key].icon
+            widget_item = QListWidgetItem(key)
+            if icon_path:
+                icon_path = resources_path('icons', "josm", icon_path)
+                if os.path.exists(icon_path):
+                    icon = QPixmap(icon_path)
+                    widget_item.setData(Qt.DecorationRole, icon.scaled(20, 20, Qt.KeepAspectRatio))
+                    self.dialog.combo_preset.setItemData(
+                        k + 1, icon.scaled(20, 20, Qt.KeepAspectRatio),
+                        Qt.DecorationRole
+                    )
+            self.preset_items.append(widget_item)
+        self.dialog.combo_preset.setCompleter(keys_preset_completer)
+        self.dialog.combo_preset.completer().setCompletionMode(
+            QCompleter.PopupCompletion)
+        self.dialog.combo_preset.completer().setFilterMode(
+            Qt.MatchContains
+        )
+        self.dialog.combo_preset.completer().setCaseSensitivity(
+            Qt.CaseInsensitive
+        )
+
+        # Setup key auto completion
+        self.osm_keys = parser.osm_keys_values()
+        self.keys = list(self.osm_keys.keys())
+        self.keys.append('')
+        self.keys.sort()
+        while self.keys[1] == '':
+            self.keys.pop(1)
+
+        # Table Keys/Values
+        header = self.dialog.table_keys_values.horizontalHeader()
+        header.setSectionResizeMode(QHeaderView.Stretch)
+        header.setSectionResizeMode(0, QHeaderView.ResizeToContents)
+        header.setSectionResizeMode(3, QHeaderView.ResizeToContents)
+        header.setSectionResizeMode(4, QHeaderView.ResizeToContents)
+        header.setMinimumSectionSize(50)
+
+        add_row, remove_row = self.prepare_button()
+
+        self.dialog.table_keys_values.setCellWidget(0, 3, add_row)
+        self.dialog.table_keys_values.setCellWidget(0, 4, remove_row)
+
+        key_field = self.prepare_key_field()
+        value_field = self.prepare_value_field()
+
+        self.dialog.table_keys_values.setCellWidget(0, 1, key_field)
+        self.dialog.table_keys_values.setCellWidget(0, 2, value_field)
+
         # Query type
         self.dialog.combo_query_type_qq.addItem(tr('In'), 'in')
         self.dialog.combo_query_type_qq.addItem(tr('Around'), 'around')
@@ -68,58 +164,148 @@ class QuickQueryPanel(BaseOverpassPanel):
 
         self.dialog.button_run_query_qq.clicked.connect(self.run)
         self.dialog.combo_preset.activated.connect(self.choice_preset)
-        self.dialog.combo_key.editTextChanged.connect(self.key_edited)
         self.dialog.button_map_features.clicked.connect(open_plugin_documentation)
         self.dialog.button_box_qq.button(QDialogButtonBox.Reset).clicked.connect(
             self.dialog.reset_form)
 
         # setup callbacks for friendly-label-update only
-        self.dialog.combo_value.editTextChanged.connect(self.update_friendly)
         self.dialog.line_place_qq.textChanged.connect(self.update_friendly)
         self.dialog.spin_place_qq.valueChanged.connect(self.update_friendly)
         self.dialog.combo_extent_layer_qq.layerChanged.connect(self.query_type_updated)
 
-        # Setup presets auto completion
-        parser = PresetsParser()
-        self.preset_data = parser.parser()
-        keys_preset = list(self.preset_data.elements.keys())
-        keys_preset.append('')
-        keys_preset.sort()
-        keys_preset_completer = QCompleter(keys_preset)
-        self.dialog.combo_preset.addItems(keys_preset)
-        self.dialog.combo_preset.setCompleter(keys_preset_completer)
-        self.dialog.combo_preset.completer().setCompletionMode(
-            QCompleter.PopupCompletion)
-        self.dialog.combo_preset.completer().setFilterMode(
-            Qt.MatchContains
-        )
-        self.dialog.combo_preset.completer().setCaseSensitivity(
-            Qt.CaseInsensitive
-        )
-
-        # Setup key auto completion
-        self.osm_keys = parser.osm_keys_values()
-        keys = list(self.osm_keys.keys())
-        keys.append('')
-        keys.sort()
-        while keys[1] == '':
-            keys.pop(1)
-        keys_completer = QCompleter(keys)
-        self.dialog.combo_key.addItems(keys)
-        self.dialog.combo_key.setCompleter(keys_completer)
-        self.dialog.combo_key.completer().setCompletionMode(
-            QCompleter.PopupCompletion)
-
         self.dialog.combo_preset.lineEdit().setPlaceholderText(
-            tr('Write the preset you want'))
-        self.dialog.combo_key.lineEdit().setPlaceholderText(
-            tr('Query on all keys'))
-        self.dialog.combo_value.lineEdit().setPlaceholderText(
-            tr('Query on all values'))
-        self.key_edited()
+            tr('Not mandatory. Ex: bakery'))
         self.query_type_updated()
         self.init_nominatim_autofill()
         self.update_friendly()
+
+    def prepare_button(self) -> (QPushButton, QPushButton, QPushButton):
+        add_row = QPushButton()
+        add_row.setIcon(QIcon(QgsApplication.iconPath('symbologyAdd.svg')))
+        add_row.setText('')
+        add_row.setToolTip(tr('Add a line below.'))
+        remove_row = QPushButton()
+        remove_row.setIcon(QIcon(QgsApplication.iconPath('symbologyRemove.svg')))
+        remove_row.setText('')
+        remove_row.setToolTip(tr('Remove the line.'))
+
+        add_row.clicked.connect(self.add_row_to_table)
+        remove_row.clicked.connect(self.remove_selection)
+
+        return add_row, remove_row
+
+    def prepare_type_multi_request(self) -> QComboBox:
+        type_operation = QComboBox()
+        type_operation.setToolTip(
+            tr('Set the type of multi-request. '
+                '"And" verify both conditions. "Or" verify either of the conditions.'))
+        type_operation.addItem(MultiType.AND.value, MultiType.AND)
+        type_operation.addItem(MultiType.OR.value, MultiType.OR)
+
+        type_operation.currentIndexChanged.connect(self.update_friendly)
+
+        return type_operation
+
+    def prepare_key_field(self) -> QComboBox:
+        key_field = QComboBox()
+        key_field.setEditable(True)
+        key_field.setToolTip(tr('An OSM key to fetch. If empty, all keys will be fetched.'))
+        key_field.installEventFilter(self.dialog)
+
+        keys_completer = QCompleter(self.keys)
+        key_field.addItems(self.keys)
+        key_field.setCompleter(keys_completer)
+        key_field.completer().setCompletionMode(
+            QCompleter.PopupCompletion)
+
+        key_field.lineEdit().setPlaceholderText(
+            self.all_keys_placeholder)
+
+        row = partial(self.key_edited, None)
+        key_field.editTextChanged.connect(row)
+
+        return key_field
+
+    def prepare_value_field(self) -> QComboBox:
+        value_field = QComboBox()
+        value_field.setEditable(True)
+        value_field.setToolTip(tr('An OSM value to fetch. If empty, all values will be fetched.'))
+        value_field.installEventFilter(self.dialog)
+
+        value_field.lineEdit().setPlaceholderText(
+            self.all_values_placeholder)
+
+        value_field.editTextChanged.connect(self.update_friendly)
+
+        return value_field
+
+    def add_row_to_table(self, row: int = None):
+        # noinspection PyCallingNonCallable
+        table = self.dialog.table_keys_values
+        nb_row = table.rowCount()
+        table.setRowCount(nb_row + 1)
+
+        if not row:
+            selection = table.selectedIndexes()
+            if selection:
+                row = selection[0].row()
+            else:
+                row = 0
+        index_value = table.cellWidget(row, 2).currentIndex()
+
+        type_operation = self.prepare_type_multi_request()
+
+        self.dialog.table_keys_values.setCellWidget(nb_row, 0, type_operation)
+
+        key_field = self.prepare_key_field()
+        value_field = self.prepare_value_field()
+
+        table.setCellWidget(nb_row, 1, key_field)
+        table.setCellWidget(nb_row, 2, value_field)
+
+        add_row, remove_row = self.prepare_button()
+
+        table.setCellWidget(nb_row, 3, add_row)
+        table.setCellWidget(nb_row, 4, remove_row)
+
+        if nb_row - 1 != row:
+            for line in range(1, nb_row - row):
+                key = table.cellWidget(nb_row - line, 1).currentText()
+                value = table.cellWidget(nb_row - line, 2).currentText()
+
+                index = table.cellWidget(nb_row - line + 1, 1).findText(key)
+                table.cellWidget(nb_row - line + 1, 1).setCurrentIndex(index)
+                self.key_edited(int(nb_row - line + 1))
+                index = table.cellWidget(nb_row - line + 1, 2).findText(value)
+                table.cellWidget(nb_row - line + 1, 2).setCurrentIndex(index)
+
+                and_or = table.cellWidget(nb_row - line, 0).currentIndex()
+                table.cellWidget(nb_row - line + 1, 0).setCurrentIndex(and_or)
+
+                table.cellWidget(nb_row - line, 0).setCurrentIndex(0)
+                table.cellWidget(nb_row - line, 1).setCurrentIndex(0)
+                self.key_edited(int(nb_row - line))
+
+            table.cellWidget(row, 2).setCurrentIndex(index_value)
+
+        self.update_friendly()
+
+    def remove_selection(self):
+        """Remove the selected row from the table."""
+        selection = self.dialog.table_keys_values.selectedIndexes()
+        if len(selection) <= 0:
+            row = 0
+        else:
+            row = selection[0].row()
+
+        if self.dialog.table_keys_values.rowCount() > 1:
+            if row == 0:
+                self.dialog.table_keys_values.setCellWidget(1, 0, None)
+            self.dialog.table_keys_values.clearSelection()
+            self.dialog.table_keys_values.removeRow(row)
+            self.update_friendly()
+        elif self.dialog.table_keys_values.rowCount() == 1:
+            self.dialog.table_keys_values.cellWidget(0, 1).setCurrentIndex(0)
 
     def query_type_updated(self):
         """Update the ui when the query type is modified."""
@@ -142,9 +328,17 @@ class QuickQueryPanel(BaseOverpassPanel):
         query_xml = partial(self.show_query, QueryLanguage.XML)
         self.dialog.button_show_query.clicked.connect(query_xml)
 
-    def choice_preset(self):
+    def select_preset(self):
+        if self.wizard:
+            self.wizard.activateWindow()
+        else:
+            self.wizard = Wizard(self.dialog)
+            self.wizard.show()
+
+    def choice_preset(self, choice: str = None):
         """Fill the table with the keys/values from the preset."""
-        choice = self.dialog.combo_preset.currentText()
+        if not isinstance(choice, str):
+            choice = self.dialog.combo_preset.currentText()
         element_chosen = self.preset_data.elements[choice]
 
         keys, values = [], []
@@ -152,24 +346,61 @@ class QuickQueryPanel(BaseOverpassPanel):
             item_chosen = self.preset_data.items[item]
             item_keys = list(item_chosen.keys())
             for key in item_keys:
-                keys.append(key)
                 value = item_chosen[key]
                 if isinstance(value, list):
                     for val in value:
+                        keys.append(key)
                         values.append(val)
                 elif isinstance(value, str):
+                    keys.append(key)
                     values.append(value)
 
-        self.dialog.combo_key.setCurrentText(str(keys))
-        self.dialog.combo_value.setCurrentText(str(values))
+        table = self.dialog.table_keys_values
+        selection = table.selectedIndexes()
+        if selection:
+            row = selection[0].row()
+        else:
+            row = 0
+        for num in range(len(keys) - 1):
+            if table.cellWidget(row + num, 0):
+                table.cellWidget(row + num, 0).setCurrentIndex(1)
+            index = table.cellWidget(row + num, 1).findText(keys[num])
+            table.cellWidget(row + num, 1).setCurrentIndex(index)
+            self.key_edited(row + num)
+            if values[num]:
+                index = table.cellWidget(row + num, 2).findText(values[num])
+                table.cellWidget(row + num, 2).setCurrentIndex(index)
+            self.add_row_to_table(row + num)
+        if len(keys) > 0:
+            num = len(keys) - 1
+            if table.cellWidget(row + num, 0) and num != 0:
+                table.cellWidget(row + num, 0).setCurrentIndex(1)
+            index = table.cellWidget(row + num, 1).findText(keys[-1])
+            table.cellWidget(row + num, 1).setCurrentIndex(index)
+            self.key_edited(row + num)
+            if values[-1]:
+                index = table.cellWidget(row + num, 2).findText(values[-1])
+                table.cellWidget(row + num, 2).setCurrentIndex(index)
 
-    def key_edited(self):
+            index = table.cellWidget(row, 2).findText(values[0])
+            table.cellWidget(row, 2).setCurrentIndex(index)
+
+    def key_edited(self, row: int = None):
         """Add values to the combobox according to the key."""
-        self.dialog.combo_value.clear()
-        self.dialog.combo_value.setCompleter(None)
+        if row is None:
+            selection = self.dialog.table_keys_values.selectedIndexes()
+            if selection:
+                row = selection[0].row()
+            else:
+                row = 0
+        key_field = self.dialog.table_keys_values.cellWidget(row, 1)
+        value_field = self.dialog.table_keys_values.cellWidget(row, 2)
+
+        value_field.clear()
+        value_field.setCompleter(None)
 
         try:
-            current_values = self.osm_keys[self.dialog.combo_key.currentText()]
+            current_values = self.osm_keys[key_field.currentText()]
         except KeyError:
             self.update_friendly()
             return
@@ -185,8 +416,8 @@ class QuickQueryPanel(BaseOverpassPanel):
             current_values.sort()
 
         values_completer = QCompleter(current_values)
-        self.dialog.combo_value.setCompleter(values_completer)
-        self.dialog.combo_value.addItems(current_values)
+        value_field.setCompleter(values_completer)
+        value_field.addItems(current_values)
         self.update_friendly()
 
     def gather_values(self) -> dict:
@@ -204,8 +435,26 @@ class QuickQueryPanel(BaseOverpassPanel):
         if not properties['osm_objects']:
             raise OsmObjectsException
 
-        properties['key'] = self.dialog.combo_key.currentText()
-        properties['value'] = self.dialog.combo_value.currentText()
+        rows = self.dialog.table_keys_values.rowCount()
+        key_added = False
+        properties['key'] = []
+        properties['value'] = []
+        properties['type_multi_request'] = []
+        for row in range(rows):
+            keys = self.dialog.table_keys_values.cellWidget(row, 1)
+            if keys:
+                values = self.dialog.table_keys_values.cellWidget(row, 2)
+                type_request = self.dialog.table_keys_values.cellWidget(row, 0)
+                properties['key'].append(keys.currentText())
+                properties['value'].append(values.currentText())
+                if type_request:
+                    properties['type_multi_request'].append(type_request.currentData())
+                key_added = True
+        if not key_added:
+            properties['key'] = None
+            properties['value'] = None
+            properties['type_multi_request'] = None
+
         properties['timeout'] = self.dialog.spin_timeout.value()
 
         properties['distance'] = self.dialog.spin_place_qq.value()
@@ -219,6 +468,7 @@ class QuickQueryPanel(BaseOverpassPanel):
         properties = self.gather_values()
         num_layers = process_quick_query(
             dialog=self.dialog,
+            type_multi_request=properties['type_multi_request'],
             query_type=properties['query_type'],
             key=properties['key'],
             value=properties['value'],
@@ -265,6 +515,7 @@ class QuickQueryPanel(BaseOverpassPanel):
 
         # Make the query
         query_factory = QueryFactory(
+            type_multi_request=properties['type_multi_request'],
             query_type=properties['query_type'],
             key=properties['key'],
             value=properties['value'],
@@ -297,6 +548,7 @@ class QuickQueryPanel(BaseOverpassPanel):
 
         # Make the query, in order to create the friendly message
         query_factory = QueryFactory(
+            type_multi_request=properties['type_multi_request'],
             query_type=properties['query_type'],
             key=properties['key'],
             value=properties['value'],

@@ -180,6 +180,9 @@ QListWidget::item::selected {
                  <property name="text">
                   <string>Help with key/value</string>
                  </property>
+                 <property name="autoDefault">
+                  <bool>false</bool>
+                 </property>
                 </widget>
                </item>
                <item>
@@ -215,78 +218,20 @@ QListWidget::item::selected {
                <property name="sizeConstraint">
                 <enum>QLayout::SetDefaultConstraint</enum>
                </property>
-               <item row="1" column="0">
-                <widget class="QLabel" name="label_41">
-                 <property name="toolTip">
-                  <string>An OSM key to fetch. If empty, all keys will be fetched.</string>
-                 </property>
-                 <property name="text">
-                  <string>Key</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="1" column="1">
-                <widget class="QComboBox" name="combo_key">
-                 <property name="sizePolicy">
-                  <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-                   <horstretch>0</horstretch>
-                   <verstretch>0</verstretch>
-                  </sizepolicy>
-                 </property>
-                 <property name="toolTip">
-                  <string>An OSM key to fetch. If empty, all keys will be fetched.</string>
-                 </property>
-                 <property name="editable">
-                  <bool>true</bool>
-                 </property>
-                 <property name="sizeAdjustPolicy">
-                  <enum>QComboBox::AdjustToContents</enum>
-                 </property>
-                </widget>
-               </item>
                <item row="2" column="0">
-                <widget class="QLabel" name="label_42">
-                 <property name="toolTip">
-                  <string>An OSM value to fetch. If empty, all values will be fetched.</string>
-                 </property>
-                 <property name="text">
-                  <string>Value</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="2" column="1">
-                <widget class="QComboBox" name="combo_value">
-                 <property name="sizePolicy">
-                  <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-                   <horstretch>0</horstretch>
-                   <verstretch>0</verstretch>
-                  </sizepolicy>
-                 </property>
-                 <property name="toolTip">
-                  <string>An OSM value to fetch. If empty, all values will be fetched.</string>
-                 </property>
-                 <property name="editable">
-                  <bool>true</bool>
-                 </property>
-                 <property name="sizeAdjustPolicy">
-                  <enum>QComboBox::AdjustToContents</enum>
-                 </property>
-                </widget>
-               </item>
-               <item row="3" column="0">
                 <widget class="QComboBox" name="combo_query_type_qq">
                  <property name="toolTip">
                   <string>The spatial extent to use for the query.</string>
                  </property>
                 </widget>
                </item>
-               <item row="3" column="1">
+               <item row="2" column="1">
                 <widget class="QStackedWidget" name="stacked_query_type">
                  <property name="lineWidth">
                   <number>0</number>
                  </property>
                  <property name="currentIndex">
-                  <number>1</number>
+                  <number>0</number>
                  </property>
                  <widget class="QWidget" name="nominatim">
                   <layout class="QHBoxLayout" name="horizontalLayout_25">
@@ -402,6 +347,45 @@ QListWidget::item::selected {
                  <property name="text">
                   <string>Preset</string>
                  </property>
+                </widget>
+               </item>
+               <item row="1" column="0" colspan="2">
+                <widget class="QTableWidget" name="table_keys_values">
+                 <property name="sizeAdjustPolicy">
+                  <enum>QAbstractScrollArea::AdjustToContents</enum>
+                 </property>
+                 <property name="editTriggers">
+                  <set>QAbstractItemView::NoEditTriggers</set>
+                 </property>
+                 <property name="rowCount">
+                  <number>1</number>
+                 </property>
+                 <row/>
+                 <column>
+                  <property name="text">
+                   <string/>
+                  </property>
+                 </column>
+                 <column>
+                  <property name="text">
+                   <string>Key</string>
+                  </property>
+                 </column>
+                 <column>
+                  <property name="text">
+                   <string>Value</string>
+                  </property>
+                 </column>
+                 <column>
+                  <property name="text">
+                   <string> Add </string>
+                  </property>
+                 </column>
+                 <column>
+                  <property name="text">
+                   <string>Delete</string>
+                  </property>
+                 </column>
                 </widget>
                </item>
               </layout>
@@ -1618,8 +1602,6 @@ QListWidget::item::selected {
  <tabstops>
   <tabstop>main_scroll</tabstop>
   <tabstop>button_map_features</tabstop>
-  <tabstop>combo_key</tabstop>
-  <tabstop>combo_value</tabstop>
   <tabstop>combo_query_type_qq</tabstop>
   <tabstop>line_place_qq</tabstop>
   <tabstop>spin_place_qq</tabstop>
