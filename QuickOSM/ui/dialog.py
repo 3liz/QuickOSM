@@ -112,7 +112,7 @@ class Dialog(QDialog, FORM_CLASS):
         self.output_format = {
             Panels.QuickQuery: self.combo_format_qq,
             Panels.Query: self.combo_format_q,
-            Panels.File: self.output_directory_f
+            Panels.File: self.combo_format_f
         }
         self.prefix_edits = {
             Panels.QuickQuery: self.line_file_prefix_qq,

@@ -31,6 +31,7 @@ class OsmFilePanel(BaseProcessingPanel):
         self.panel = Panels.File
 
     def setup_panel(self):
+        super().setup_panel()
         self.dialog.radio_osm_conf.setChecked(False)
         self.dialog.osm_conf.setEnabled(False)
         # TODO self.edit_file_prefix_f.setDisabled(True)
