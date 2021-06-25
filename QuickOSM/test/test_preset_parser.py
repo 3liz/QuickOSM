@@ -11,7 +11,7 @@ __license__ = 'GPL version 3'
 __email__ = 'info@3liz.org'
 
 
-class TestQuickOSMWidget(unittest.TestCase):
+class TestPresetParser(unittest.TestCase):
     """Tests for the parser of the presets."""
 
     def setUp(self):
