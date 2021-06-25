@@ -4,7 +4,12 @@ from qgis.testing import unittest
 
 from QuickOSM.core.exceptions import QueryFactoryException
 from QuickOSM.core.query_factory import QueryFactory
-from QuickOSM.definitions.osm import OsmType, QueryLanguage, QueryType
+from QuickOSM.definitions.osm import (
+    MultiType,
+    OsmType,
+    QueryLanguage,
+    QueryType,
+)
 
 __copyright__ = 'Copyright 2019, 3Liz'
 __license__ = 'GPL version 3'
@@ -38,18 +43,18 @@ class TestQueryFactory(unittest.TestCase):
         self.assertEqual(3, len(query._osm_objects))
         query = QueryFactory(QueryType.BBox, osm_objects=[OsmType.Node])
         self.assertEqual(1, len(query._osm_objects))
-        query = QueryFactory(QueryType.BBox, osm_objects=['foo'])
+        query = QueryFactory(query_type=QueryType.BBox, osm_objects=['foo'])
         msg = 'Wrong OSM object.'
         with self.assertRaisesRegex(QueryFactoryException, msg):
             query._check_parameters()
 
         # Query type with distance
-        query = QueryFactory(QueryType.AroundArea)
+        query = QueryFactory(query_type=QueryType.AroundArea)
         msg = 'No distance provided with the "around" query.'
         with self.assertRaisesRegex(QueryFactoryException, msg):
             query._check_parameters()
 
-        query = QueryFactory(QueryType.AroundArea, around_distance='foo')
+        query = QueryFactory(query_type=QueryType.AroundArea, around_distance='foo')
         msg = 'Wrong distance parameter.'
         with self.assertRaisesRegex(QueryFactoryException, msg):
             query._check_parameters()
@@ -74,11 +79,11 @@ class TestQueryFactory(unittest.TestCase):
             query._check_parameters()
 
         # Query with named area
-        query = QueryFactory(QueryType.InArea)
+        query = QueryFactory(query_type=QueryType.InArea)
         msg = 'Named area is required when the query is "In".'
         with self.assertRaisesRegex(QueryFactoryException, msg):
             query._check_parameters()
-        query = QueryFactory(QueryType.InArea, around_distance=500)
+        query = QueryFactory(query_type=QueryType.InArea, around_distance=500)
         msg = 'Distance parameter is incompatible with this query.'
         with self.assertRaisesRegex(QueryFactoryException, msg):
             query._check_parameters()
@@ -645,8 +650,9 @@ class TestQueryFactory(unittest.TestCase):
         test_query(query, expected_xml, expected_xml_with_template,
                    expected_oql, expected_oql_with_template, human)
 
-        # Many keys with many values
+        # Many keys with many values, request 'and'
         query = QueryFactory(
+            type_multi_request=[None, MultiType.AND],
             query_type=QueryType.BBox,
             osm_objects=[OsmType.Node],
             key=['a', 'c'],
@@ -688,6 +694,78 @@ class TestQueryFactory(unittest.TestCase):
         expected_oql = (
             '[out:xml] [timeout:25];\n'
             '(\n'
+            '    node["a"="b"]["c"="d"]( bbox="custom");\n'
+            ');\n'
+            '(._;>;);\n'
+            'out body;'
+        )
+        expected_oql_with_template = (
+            '[out:xml] [timeout:25];'
+            '('
+            'node["a"="b"]["c"="d"]( {{bbox}});'
+            ');'
+            '(._;>;);'
+            'out body;'
+        )
+        # TODO, fix many keys
+        human = (
+            'All OSM objects with keys (\'a\'=\'b\' and'
+            ' \'c\'=\'d\') in the canvas or layer extent '
+            'are going to be downloaded.'
+        )
+        test_query(query, expected_xml, expected_xml_with_template,
+                   expected_oql, expected_oql_with_template, human)
+
+        # Many keys with many values, request 'or'
+        query = QueryFactory(
+            type_multi_request=[None, MultiType.OR],
+            query_type=QueryType.BBox,
+            osm_objects=[OsmType.Node],
+            key=['a', 'c'],
+            value=['b', 'd']
+        )
+        self.assertIsNone(query.area)
+        expected_xml = (
+            '<osm-script output="xml" timeout="25">'
+            '<union>'
+            '<query type="node">'
+            '<has-kv k="a" v="b"/>'
+            '<bbox-query bbox="custom" />'
+            '</query>'
+            '<query type="node">'
+            '<has-kv k="c" v="d"/>'
+            '<bbox-query bbox="custom" />'
+            '</query>'
+            '</union>'
+            '<union>'
+            '<item />'
+            '<recurse type="down"/>'
+            '</union>'
+            '<print mode="body" />'
+            '</osm-script>'
+        )
+        expected_xml_with_template = (
+            '<osm-script output="xml" timeout="25">'
+            '<union>'
+            '<query type="node">'
+            '<has-kv k="a" v="b"/>'
+            '<bbox-query {{bbox}}/>'
+            '</query>'
+            '<query type="node">'
+            '<has-kv k="c" v="d"/>'
+            '<bbox-query {{bbox}}/>'
+            '</query>'
+            '</union>'
+            '<union>'
+            '<item/>'
+            '<recurse type="down"/>'
+            '</union>'
+            '<print mode="body"/>'
+            '</osm-script>'
+        )
+        expected_oql = (
+            '[out:xml] [timeout:25];\n'
+            '(\n'
             '    node["a"="b"]( bbox="custom");\n'
             '    node["c"="d"]( bbox="custom");\n'
             ');\n'
@@ -705,7 +783,8 @@ class TestQueryFactory(unittest.TestCase):
         )
         # TODO, fix many keys
         human = (
-            'All OSM objects with the key \'a\'=\'b\' in the canvas or layer extent '
+            'All OSM objects with keys \'a\'=\'b\' or'
+            ' \'c\'=\'d\' in the canvas or layer extent '
             'are going to be downloaded.'
         )
         test_query(query, expected_xml, expected_xml_with_template,
@@ -713,6 +792,7 @@ class TestQueryFactory(unittest.TestCase):
 
         # Many keys with None values
         query = QueryFactory(
+            type_multi_request=[None, MultiType.AND],
             query_type=QueryType.BBox,
             osm_objects=[OsmType.Node],
             key=['a', 'c'],
@@ -754,8 +834,7 @@ class TestQueryFactory(unittest.TestCase):
         expected_oql = (
             '[out:xml] [timeout:25];\n'
             '(\n'
-            '    node["a"]( bbox="custom");\n'
-            '    node["c"]( bbox="custom");\n'
+            '    node["a"]["c"]( bbox="custom");\n'
             ');\n'
             '(._;>;);\n'
             'out body;'
@@ -763,14 +842,107 @@ class TestQueryFactory(unittest.TestCase):
         expected_oql_with_template = (
             '[out:xml] [timeout:25];'
             '('
-            'node["a"]( {{bbox}});'
-            'node["c"]( {{bbox}});'
+            'node["a"]["c"]( {{bbox}});'
             ');'
             '(._;>;);'
             'out body;'
         )
-        human = 'All OSM objects with the key \'a\' in the canvas or layer extent ' \
-                'are going to be downloaded.'
+        human = (
+            'All OSM objects with keys (\'a\' and'
+            ' \'c\') in the canvas or layer extent '
+            'are going to be downloaded.'
+        )
+        test_query(query, expected_xml, expected_xml_with_template,
+                   expected_oql, expected_oql_with_template, human)
+
+        # Many keys with values, complex query
+        query = QueryFactory(
+            type_multi_request=[
+                None, MultiType.AND, MultiType.OR,
+                MultiType.OR, MultiType.AND
+            ],
+            query_type=QueryType.BBox,
+            osm_objects=[OsmType.Node],
+            key=['a', 'c', 'e', 'g', 'i'],
+            value=['b', 'd', 'f', 'h', 'j']
+        )
+        self.assertIsNone(query.area)
+        expected_xml = (
+            '<osm-script output="xml" timeout="25">'
+            '<union>'
+            '<query type="node">'
+            '<has-kv k="a" v="b"/>'
+            '<has-kv k="c" v="d"/>'
+            '<bbox-query bbox="custom" />'
+            '</query>'
+            '<query type="node">'
+            '<has-kv k="e" v="f"/>'
+            '<bbox-query bbox="custom" />'
+            '</query>'
+            '<query type="node">'
+            '<has-kv k="g" v="h"/>'
+            '<has-kv k="i" v="j"/>'
+            '<bbox-query bbox="custom" />'
+            '</query>'
+            '</union>'
+            '<union>'
+            '<item />'
+            '<recurse type="down"/>'
+            '</union>'
+            '<print mode="body" />'
+            '</osm-script>'
+        )
+        expected_xml_with_template = (
+            '<osm-script output="xml" timeout="25">'
+            '<union>'
+            '<query type="node">'
+            '<has-kv k="a" v="b"/>'
+            '<has-kv k="c" v="d"/>'
+            '<bbox-query {{bbox}}/>'
+            '</query>'
+            '<query type="node">'
+            '<has-kv k="e" v="f"/>'
+            '<bbox-query {{bbox}}/>'
+            '</query>'
+            '<query type="node">'
+            '<has-kv k="g" v="h"/>'
+            '<has-kv k="i" v="j"/>'
+            '<bbox-query {{bbox}}/>'
+            '</query>'
+            '</union>'
+            '<union>'
+            '<item/>'
+            '<recurse type="down"/>'
+            '</union>'
+            '<print mode="body"/>'
+            '</osm-script>'
+        )
+        expected_oql = (
+            '[out:xml] [timeout:25];\n'
+            '(\n'
+            '    node["a"="b"]["c"="d"]( bbox="custom");\n'
+            '    node["e"="f"]( bbox="custom");\n'
+            '    node["g"="h"]["i"="j"]( bbox="custom");\n'
+            ');\n'
+            '(._;>;);\n'
+            'out body;'
+        )
+        expected_oql_with_template = (
+            '[out:xml] [timeout:25];'
+            '('
+            'node["a"="b"]["c"="d"]( {{bbox}});'
+            'node["e"="f"]( {{bbox}});'
+            'node["g"="h"]["i"="j"]( {{bbox}});'
+            ');'
+            '(._;>;);'
+            'out body;'
+        )
+        human = (
+            'All OSM objects with keys (\'a\'=\'b\' and'
+            ' \'c\'=\'d\') or \'e\'=\'f\' or (\'g\'=\'h\' '
+            'and \'i\'=\'j\') in the canvas or layer extent '
+            'are going to be downloaded.'
+        )
         test_query(query, expected_xml, expected_xml_with_template,
                    expected_oql, expected_oql_with_template, human)
 
