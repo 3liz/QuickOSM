@@ -174,6 +174,7 @@ class QuickOSMPlugin:
 
     @staticmethod
     def open_copyright_message(dialog: QDialog):
+        """Display a window to bring a reminder of the OSM copyrights."""
 
         def read_copyright():
             open_webpage('https://www.openstreetmap.org/copyright')

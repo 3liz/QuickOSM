@@ -117,7 +117,7 @@ class QueryPreparation:
         template = r'{{center}}'
         if not re.search(template, self._query_prepared):
             return
-        elif self._extent is None:
+        if self._extent is None:
             raise QueryFactoryException(tr('Missing extent parameter.'))
 
         coord_y = self._extent.center().y()
@@ -138,7 +138,7 @@ class QueryPreparation:
         template = r'{{bbox}}'
         if not re.search(template, self._query_prepared):
             return
-        elif self._extent is None:
+        if self._extent is None:
             raise QueryFactoryException(tr('Missing extent parameter.'))
 
         y_min = self._extent.yMinimum()
