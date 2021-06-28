@@ -172,7 +172,7 @@ class Actions:
             if field in ['url', 'website', 'wikipedia', 'wikidata']:
                 url = None
 
-                if field == 'url' or field == 'website':
+                if field in ('url', 'website'):
                     url = value
 
                 if field == 'ref_UAI':
