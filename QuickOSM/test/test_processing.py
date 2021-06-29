@@ -16,8 +16,10 @@ class TestProcessing(unittest.TestCase):
     """Tests for processing algorithms."""
 
     def setUp(self) -> None:
-        self.provider = Provider()
-        QgsApplication.processingRegistry().addProvider(self.provider)
+        """Set up the processing tests."""
+        if not QgsApplication.processingRegistry().providers():
+            self.provider = Provider()
+            QgsApplication.processingRegistry().addProvider(self.provider)
         self.maxDiff = None
 
     def test_build_not_spatial_query(self):
@@ -26,14 +28,14 @@ class TestProcessing(unittest.TestCase):
             'quickosm:buildquerybyattributeonly',
             {
                 'KEY': 'amenity',
-                'SERVER': 'https://lz4.overpass-api.de/api/interpreter',
+                'SERVER': 'https://z.overpass-api.de/api/interpreter',
                 'TIMEOUT': 25,
                 'VALUE': 'bench'
             }
         )
 
         result_expected = {
-            'OUTPUT_URL': 'https://lz4.overpass-api.de/api/interpreter?data=[out:xml]'
+            'OUTPUT_URL': 'https://z.overpass-api.de/api/interpreter?data=[out:xml]'
                           ' [timeout:25];%0A(%0A    node[%22amenity%22%3D%22bench%22];%0A'
                           '    way[%22amenity%22%3D%22bench%22];%0A    '
                           'relation[%22amenity%22%3D%22bench%22];%0A);%0A(._;%3E;);'
@@ -53,7 +55,7 @@ class TestProcessing(unittest.TestCase):
             {
                 'AREA': 'La Souterraine',
                 'KEY': 'amenity',
-                'SERVER': 'https://lz4.overpass-api.de/api/interpreter',
+                'SERVER': 'https://z.overpass-api.de/api/interpreter',
                 'TIMEOUT': 25,
                 'VALUE': 'bench'
             }
@@ -61,7 +63,7 @@ class TestProcessing(unittest.TestCase):
 
         result_expected = {
             'OUTPUT_URL':
-                'https://lz4.overpass-api.de/api/interpreter?data=[out:xml]'
+                'https://z.overpass-api.de/api/interpreter?data=[out:xml]'
                 ' [timeout:25];%0A area(3600118810) -%3E .area_0;%0A(%0A    '
                 'node[%22amenity%22%3D%22bench%22](area.area_0);%0A    '
                 'way[%22amenity%22%3D%22bench%22](area.area_0);%0A    '
@@ -196,6 +198,102 @@ class TestProcessing(unittest.TestCase):
         self.assertIn('|layername=multipolygons', result['OUTPUT_MULTIPOLYGONS'].source())
         self.assertIsInstance(result['OUTPUT_OTHER_RELATIONS'], QgsVectorLayer)
         self.assertIn('|layername=other_relations', result['OUTPUT_OTHER_RELATIONS'].source())
+
+    def test_process_raw_query(self):
+        """Test for the process algorithm from a raw query."""
+        result = processing.run(
+            'quickosm:downloadosmdatarawquery',
+            {
+                'QUERY':
+                    '[out:xml] [timeout:25];\n area(3600028722) -> .area_0;\n'
+                    '(\n    node[\"amenity\"=\"bench\"](area.area_0);\n    '
+                    'way[\"amenity\"=\"bench\"](area.area_0);\n    '
+                    'relation[\"amenity\"=\"bench\"](area.area_0);\n);\n'
+                    '(._;>;);\nout body;',
+                'TIMEOUT': 25,
+                'SERVER': 'https://overpass.openstreetmap.fr/api/interpreter',
+                'EXTENT': '3.809971100,3.963647400,43.557942300,43.654612100 [EPSG:4326]',
+                'AREA': '',
+                'FILE': ''
+            }
+        )
+
+        self.assertIsInstance(result['OUTPUT_POINTS'], QgsVectorLayer)
+        self.assertIsInstance(result['OUTPUT_LINES'], QgsVectorLayer)
+        self.assertIsInstance(result['OUTPUT_MULTILINESTRINGS'], QgsVectorLayer)
+        self.assertIsInstance(result['OUTPUT_MULTIPOLYGONS'], QgsVectorLayer)
+
+    def test_process_not_spacial_query(self):
+        """Test for the process algorithm from a not spacial query."""
+        result = processing.run(
+            'quickosm:downloadosmdatanotspatialquery',
+            {
+                'KEY': 'amenity',
+                'SERVER': 'https://z.overpass-api.de/api/interpreter',
+                'TIMEOUT': 25,
+                'VALUE': 'foo'
+            }
+        )
+
+        self.assertIsInstance(result['OUTPUT_POINTS'], QgsVectorLayer)
+        self.assertIsInstance(result['OUTPUT_LINES'], QgsVectorLayer)
+        self.assertIsInstance(result['OUTPUT_MULTILINESTRINGS'], QgsVectorLayer)
+        self.assertIsInstance(result['OUTPUT_MULTIPOLYGONS'], QgsVectorLayer)
+
+    def test_process_in_query(self):
+        """Test for the process algorithm from an 'in' query."""
+        result = processing.run(
+            'quickosm:downloadosmdatainareaquery',
+            {
+                'AREA': 'La Souterraine',
+                'KEY': 'amenity',
+                'SERVER': 'https://lz4.overpass-api.de/api/interpreter',
+                'TIMEOUT': 25,
+                'VALUE': 'bench'
+            }
+        )
+
+        self.assertIsInstance(result['OUTPUT_POINTS'], QgsVectorLayer)
+        self.assertIsInstance(result['OUTPUT_LINES'], QgsVectorLayer)
+        self.assertIsInstance(result['OUTPUT_MULTILINESTRINGS'], QgsVectorLayer)
+        self.assertIsInstance(result['OUTPUT_MULTIPOLYGONS'], QgsVectorLayer)
+
+    def test_process_around_query(self):
+        """Test for the process algorithm from an 'around' query."""
+        result = processing.run(
+            'quickosm:downloadosmdataaroundareaquery',
+            {
+                'AREA': 'La Souterraine',
+                'DISTANCE': 1500,
+                'KEY': 'amenity',
+                'SERVER': 'https://lz4.overpass-api.de/api/interpreter',
+                'TIMEOUT': 25,
+                'VALUE': 'bench'
+            }
+        )
+
+        self.assertIsInstance(result['OUTPUT_POINTS'], QgsVectorLayer)
+        self.assertIsInstance(result['OUTPUT_LINES'], QgsVectorLayer)
+        self.assertIsInstance(result['OUTPUT_MULTILINESTRINGS'], QgsVectorLayer)
+        self.assertIsInstance(result['OUTPUT_MULTIPOLYGONS'], QgsVectorLayer)
+
+    def test_process_extent_query(self):
+        """Test for the process algorithm from an 'extent' query."""
+        result = processing.run(
+            'quickosm:downloadosmdataextentquery',
+            {
+                'EXTENT': '3.809971100,3.963647400,43.557942300,43.654612100 [EPSG:4326]',
+                'KEY': 'amenity',
+                'SERVER': 'https://z.overpass-api.de/api/interpreter',
+                'TIMEOUT': 25,
+                'VALUE': 'bench'
+            }
+        )
+
+        self.assertIsInstance(result['OUTPUT_POINTS'], QgsVectorLayer)
+        self.assertIsInstance(result['OUTPUT_LINES'], QgsVectorLayer)
+        self.assertIsInstance(result['OUTPUT_MULTILINESTRINGS'], QgsVectorLayer)
+        self.assertIsInstance(result['OUTPUT_MULTIPOLYGONS'], QgsVectorLayer)
 
 
 if __name__ == '__main__':

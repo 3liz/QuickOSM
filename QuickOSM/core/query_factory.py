@@ -104,7 +104,7 @@ class QueryFactory:
         self._query_type = query_type
 
         if isinstance(key, str):
-            key = [key]
+            key = key.split(',')
         elif key is None:
             key = []
 
@@ -115,7 +115,7 @@ class QueryFactory:
             if value == '':
                 value = []
             else:
-                value = [value]
+                value = value.split(',')
         elif value is None:
             value = []
         elif value == ['']:
