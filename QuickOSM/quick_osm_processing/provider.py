@@ -13,8 +13,18 @@ from QuickOSM.quick_osm_processing.advanced.build_query import (
 
 # from .advanced.download_overpass import (
 #   DownloadOverpassUrl)
+from QuickOSM.quick_osm_processing.advanced.decorate_output import (
+    DecorateLayerAlgorithm,
+)
 from QuickOSM.quick_osm_processing.advanced.open_osm_file import OpenOsmFile
 from QuickOSM.quick_osm_processing.advanced.raw_query import RawQueryAlgorithm
+from QuickOSM.quick_osm_processing.quickosm_process import (
+    DownloadOSMDataAroundAreaQuery,
+    DownloadOSMDataExtentQuery,
+    DownloadOSMDataInAreaQuery,
+    DownloadOSMDataNotSpatialQuery,
+    DownloadOSMDataRawQuery,
+)
 
 __copyright__ = 'Copyright 2019, 3Liz'
 __license__ = 'GPL version 3'
@@ -49,3 +59,9 @@ class Provider(QgsProcessingProvider):
         self.addAlgorithm(RawQueryAlgorithm())
         # self.addAlgorithm(DownloadOverpassUrl())
         self.addAlgorithm(OpenOsmFile())
+        self.addAlgorithm(DownloadOSMDataRawQuery())
+        self.addAlgorithm(DecorateLayerAlgorithm())
+        self.addAlgorithm(DownloadOSMDataNotSpatialQuery())
+        self.addAlgorithm(DownloadOSMDataInAreaQuery())
+        self.addAlgorithm(DownloadOSMDataAroundAreaQuery())
+        self.addAlgorithm(DownloadOSMDataExtentQuery())

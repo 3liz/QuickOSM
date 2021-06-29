@@ -7,7 +7,7 @@ from typing import List
 import processing
 
 from osgeo import gdal
-from qgis.core import QgsField, QgsVectorLayer
+from qgis.core import QgsField, QgsProcessingFeedback, QgsVectorLayer
 from qgis.PyQt.QtCore import QObject, QVariant, pyqtSignal
 
 from QuickOSM.core.exceptions import FileOutPutException, QuickOsmException
@@ -60,7 +60,8 @@ class OsmParser(QObject):
             key: List[str] = None,
             delete_empty_layers: bool = False,
             load_only: bool = False,
-            osm_conf: str = None):
+            osm_conf: str = None,
+            feedback: QgsProcessingFeedback = None):
         self.__osmFile = osm_file
         if layers is None:
             self.__layers = self.OSM_LAYERS
@@ -95,6 +96,8 @@ class OsmParser(QObject):
         else:
             self._osm_conf = osm_conf
 
+        self.feedback = feedback
+
         QObject.__init__(self)
 
     def processing_parse(self):
@@ -127,7 +130,7 @@ class OsmParser(QObject):
             return layers
 
         # Foreach layers
-        for layer in self.__layers:
+        for k, layer in enumerate(self.__layers):
             self.signalText.emit(tr('Parsing layer : {layer}').format(layer=layer))
             layers[layer] = {}
 
@@ -151,12 +154,17 @@ class OsmParser(QObject):
             expected_fields = self.__whiteListColumn[layer] if self.__whiteListColumn[layer] else ''
 
             # Get the other_tags
+            if self.feedback:
+                self.feedback.setCurrentStep(2 + k)
+                self.feedback.pushInfo('Explode the other_tags field in layer {}.'.format(layer))
+                if self.feedback.isCanceled():
+                    return None
             layers[layer]['vector_layer'] = processing.run(
                 "native:explodehstorefield", {
                     'INPUT': layers[layer]['vectorLayer'],
                     'FIELD': 'other_tags', 'EXPECTED_FIELDS': expected_fields,
                     'OUTPUT': 'TEMPORARY_OUTPUT'
-                }
+                }, feedback=self.feedback
             )['OUTPUT']
 
             layers[layer]['vector_layer'].startEditing()
@@ -172,6 +180,11 @@ class OsmParser(QObject):
             features = layers[layer]['vector_layer'].getFeatures()
             meta = False
             for feature in features:
+                if self.feedback:
+                    self.feedback.setCurrentStep(2)
+                    if self.feedback.isCanceled():
+                        return None
+
                 layers[layer]['featureCount'] += 1
                 attributes = feature.attributes()
                 index_version = fields.indexOf('osm_version')
@@ -240,6 +253,7 @@ class OsmParser(QObject):
                     {'expression': '\"osm_id\"', 'length': 0, 'name': 'osm_id', 'precision': 0, 'type': 10},
                 ]
                 begin = 1
+                nb_metadata = 5
                 if layer == 'multipolygons':
                     begin += 1
                 fields_mapping.append({
@@ -247,13 +261,13 @@ class OsmParser(QObject):
                     'name': 'osm_type', 'precision': 0, 'type': 10
                 })
                 if meta:
-                    for name in tags[begin:begin + 5]:
+                    for name in tags[begin:begin + nb_metadata]:
                         fields_mapping.append({
                             'expression': '\"' + name + '\"',
                             'length': 0, 'name': name,
                             'precision': 0, 'type': 10
                         })
-                begin += 5
+                begin += nb_metadata
 
                 for key in self.__key:
                     if key in tags:
@@ -275,7 +289,7 @@ class OsmParser(QObject):
                     'INPUT': layers[layer]['vector_layer'],
                     'FIELDS_MAPPING': fields_mapping,
                     'OUTPUT': layers[layer]['layer_name']
-                })['OUTPUT']
+                }, feedback=self.feedback)['OUTPUT']
 
                 if self.__output_dir:
                     layers[layer]['vector_layer'] = QgsVectorLayer(
