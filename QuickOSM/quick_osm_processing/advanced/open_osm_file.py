@@ -79,7 +79,7 @@ class OpenOsmFile(QgisAlgorithm):
         self.addParameter(param)
 
         param = QgsProcessingParameterFile(
-            self.OSM_CONF, self.tr('OSM configuration'), optional=True
+            self.OSM_CONF, tr('OSM configuration'), optional=True
         )
         help_string = tr(
             'The OGR OSM configuration file. This file is used to customize the import process '
@@ -93,7 +93,7 @@ class OpenOsmFile(QgisAlgorithm):
         self.addParameter(param)
 
         output = QgsProcessingOutputVectorLayer(
-            self.OUTPUT_POINTS, self.tr('Output points'), QgsProcessing.TypeVectorPoint)
+            self.OUTPUT_POINTS, tr('Output points'), QgsProcessing.TypeVectorPoint)
         help_string = tr('The point layer from the OGR OSM driver.')
         if Qgis.QGIS_VERSION_INT >= 31500:
             pass
@@ -103,7 +103,7 @@ class OpenOsmFile(QgisAlgorithm):
         self.addOutput(output)
 
         output = QgsProcessingOutputVectorLayer(
-            self.OUTPUT_LINES, self.tr('Output lines'), QgsProcessing.TypeVectorLine)
+            self.OUTPUT_LINES, tr('Output lines'), QgsProcessing.TypeVectorLine)
         help_string = tr('The line layer from the OGR OSM driver.')
         if Qgis.QGIS_VERSION_INT >= 31500:
             pass
@@ -113,7 +113,7 @@ class OpenOsmFile(QgisAlgorithm):
         self.addOutput(output)
 
         output = QgsProcessingOutputVectorLayer(
-            self.OUTPUT_MULTILINESTRINGS, self.tr('Output multilinestrings'),
+            self.OUTPUT_MULTILINESTRINGS, tr('Output multilinestrings'),
             QgsProcessing.TypeVectorLine
         )
         help_string = tr('The multilinestrings layer from the OGR OSM driver.')
@@ -125,7 +125,7 @@ class OpenOsmFile(QgisAlgorithm):
         self.addOutput(output)
 
         output = QgsProcessingOutputVectorLayer(
-            self.OUTPUT_MULTIPOLYGONS, self.tr('Output multipolygons'),
+            self.OUTPUT_MULTIPOLYGONS, tr('Output multipolygons'),
             QgsProcessing.TypeVectorPolygon
         )
         help_string = tr('The multipolygon layer from the OGR OSM driver.')
@@ -137,7 +137,7 @@ class OpenOsmFile(QgisAlgorithm):
         self.addOutput(output)
 
         output = QgsProcessingOutputVectorLayer(
-            self.OUTPUT_OTHER_RELATIONS, self.tr('Output other relations'),
+            self.OUTPUT_OTHER_RELATIONS, tr('Output other relations'),
             QgsProcessing.TypeVector
         )
         help_string = tr('The relation layer from the OGR OSM driver.')

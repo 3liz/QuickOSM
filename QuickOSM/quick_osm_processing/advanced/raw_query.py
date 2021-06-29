@@ -2,36 +2,28 @@
 
 from typing import Dict
 
-from processing.algs.qgis.QgisAlgorithm import QgisAlgorithm
 from qgis.core import (
     Qgis,
     QgsCoordinateReferenceSystem,
     QgsCoordinateTransform,
     QgsProcessingAlgorithm,
     QgsProcessingOutputString,
-    QgsProcessingParameterDefinition,
-    QgsProcessingParameterExtent,
-    QgsProcessingParameterString,
     QgsProject,
 )
 
 from QuickOSM.core.query_preparation import QueryPreparation
-from QuickOSM.core.utilities.tools import get_setting
-from QuickOSM.definitions.overpass import OVERPASS_SERVERS
 from QuickOSM.qgis_plugin_tools.tools.i18n import tr
 
 __copyright__ = 'Copyright 2019, 3Liz'
 __license__ = 'GPL version 3'
 __email__ = 'info@3liz.org'
 
+from QuickOSM.quick_osm_processing.build_input import BuildRaw
 
-class RawQueryAlgorithm(QgisAlgorithm):
+
+class RawQueryAlgorithm(BuildRaw):
     """Processing algorithm to generate a raw query."""
 
-    SERVER = 'SERVER'
-    QUERY = 'QUERY'
-    EXTENT = 'EXTENT'
-    AREA = 'AREA'
     OUTPUT_URL = 'OUTPUT_URL'
     OUTPUT_OQL_QUERY = 'OUTPUT_OQL_QUERY'
 
@@ -65,57 +57,8 @@ class RawQueryAlgorithm(QgisAlgorithm):
 
     def initAlgorithm(self, config=None):
         """Set up of the algorithm."""
-        param = QgsProcessingParameterString(
-            self.QUERY, tr('Query'), optional=False, multiLine=True
-        )
-        help_string = tr(
-            'A XML or OQL query to be send to the Overpass API. It can contains some {{}} tokens.'
-        )
-        if Qgis.QGIS_VERSION_INT >= 31500:
-            param.setHelp(help_string)
-        else:
-            param.tooltip_3liz = help_string
-        self.addParameter(param)
-
-        param = QgsProcessingParameterExtent(
-            self.EXTENT, tr('Extent, if "{{bbox}}" in the query'), optional=True)
-        help_string = tr(
-            'If the query has a {{bbox}} token, this extent will be used for replacement.'
-        )
-        if Qgis.QGIS_VERSION_INT >= 31500:
-            param.setHelp(help_string)
-        else:
-            param.tooltip_3liz = help_string
-        self.addParameter(param)
-
-        server = get_setting(
-            'defaultOAPI', OVERPASS_SERVERS[0]) + 'interpreter'
-        param = QgsProcessingParameterString(
-            self.SERVER,
-            tr('Overpass server'),
-            optional=False,
-            defaultValue=server)
-        param.setFlags(
-            param.flags() | QgsProcessingParameterDefinition.FlagAdvanced)
-        help_string = tr('The Overpass API server to use to build the encoded URL.')
-        if Qgis.QGIS_VERSION_INT >= 31500:
-            param.setHelp(help_string)
-        else:
-            param.tooltip_3liz = help_string
-        self.addParameter(param)
-
-        param = QgsProcessingParameterString(
-            self.AREA,
-            tr('Area (if you want to override {{geocodeArea}} in the query)'),
-            optional=True)
-        param.setFlags(
-            param.flags() | QgsProcessingParameterDefinition.FlagAdvanced)
-        help_string = tr('{{geocodeArea}} can be overridden on runtime.')
-        if Qgis.QGIS_VERSION_INT >= 31500:
-            param.setHelp(help_string)
-        else:
-            param.tooltip_3liz = help_string
-        self.addParameter(param)
+        self.add_top_parameters()
+        self.add_bottom_parameters()
 
         output = QgsProcessingOutputString(self.OUTPUT_URL, tr('Query as encoded URL'))
         help_string = tr(
@@ -125,7 +68,7 @@ class RawQueryAlgorithm(QgisAlgorithm):
             pass
             # param.setHelp(help_string)
         else:
-            param.tooltip_3liz = help_string
+            output.tooltip_3liz = help_string
         self.addOutput(output)
 
         output = QgsProcessingOutputString(self.OUTPUT_OQL_QUERY, tr('Raw query as OQL'))
@@ -134,27 +77,26 @@ class RawQueryAlgorithm(QgisAlgorithm):
             pass
             # param.setHelp(help_string)
         else:
-            param.tooltip_3liz = help_string
+            output.tooltip_3liz = help_string
         self.addOutput(output)
 
     def processAlgorithm(self, parameters, context, feedback) -> Dict[str, str]:
         """Run the algorithm."""
-        raw_query = self.parameterAsString(parameters, self.QUERY, context)
-        server = self.parameterAsString(parameters, self.SERVER, context)
-        nominatim = self.parameterAsString(parameters, self.AREA, context)
-        extent = self.parameterAsExtent(parameters, self.EXTENT, context)
-        crs = self.parameterAsExtentCrs(parameters, self.EXTENT, context)
+        self.feedback = feedback
+        self.fetch_based_parameters(parameters, context)
 
         crs_4326 = QgsCoordinateReferenceSystem(4326)
         transform = QgsCoordinateTransform(
-            crs, crs_4326, QgsProject.instance())
-        extent = transform.transform(extent)
+            self.crs, crs_4326, QgsProject.instance())
+        self.extent = transform.transform(self.extent)
+
+        self.feedback.pushInfo('Prepare the url.')
 
         query_preparation = QueryPreparation(
-            raw_query,
-            extent=extent,
-            area=nominatim,
-            overpass=server
+            self.query,
+            extent=self.extent,
+            area=self.area,
+            overpass=self.server
         )
         raw_query = query_preparation.prepare_query()
         url = query_preparation.prepare_url()
