@@ -181,16 +181,21 @@ class TestProcessing(unittest.TestCase):
         result = processing.run(
             'quickosm:openosmfile',
             {
-                'FILE': 'D:\\3Liz\\data\\map.osm',
+                'FILE': '\\path\\to\\a\\file.osm',
                 'OSM_CONF': ''
             }
         )
 
         self.assertIsInstance(result['OUTPUT_POINTS'], QgsVectorLayer)
+        self.assertIn('|layername=points', result['OUTPUT_POINTS'].source())
         self.assertIsInstance(result['OUTPUT_LINES'], QgsVectorLayer)
+        self.assertIn('|layername=lines', result['OUTPUT_LINES'].source())
         self.assertIsInstance(result['OUTPUT_MULTILINESTRINGS'], QgsVectorLayer)
+        self.assertIn('|layername=multilinestrings', result['OUTPUT_MULTILINESTRINGS'].source())
         self.assertIsInstance(result['OUTPUT_MULTIPOLYGONS'], QgsVectorLayer)
+        self.assertIn('|layername=multipolygons', result['OUTPUT_MULTIPOLYGONS'].source())
         self.assertIsInstance(result['OUTPUT_OTHER_RELATIONS'], QgsVectorLayer)
+        self.assertIn('|layername=other_relations', result['OUTPUT_OTHER_RELATIONS'].source())
 
 
 if __name__ == '__main__':
