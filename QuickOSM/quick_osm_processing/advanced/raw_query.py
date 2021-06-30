@@ -137,7 +137,7 @@ class RawQueryAlgorithm(QgisAlgorithm):
             param.tooltip_3liz = help_string
         self.addOutput(output)
 
-    def processAlgorithm(self, parameters, context) -> Dict[str, str]:
+    def processAlgorithm(self, parameters, context, feedback) -> Dict[str, str]:
         """Run the algorithm."""
         raw_query = self.parameterAsString(parameters, self.QUERY, context)
         server = self.parameterAsString(parameters, self.SERVER, context)

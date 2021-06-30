@@ -54,7 +54,7 @@ class TestNominatim(unittest.TestCase):
         """
         nominatim = Nominatim(NOMINATIM_SERVERS[0])
 
-        osm_id = nominatim.get_first_polygon_from_query('Montpellier')
+        osm_id = nominatim.get_first_polygon_from_query('Montpellier', True)
 
         self.assertEqual(osm_id, 28722)
 
@@ -79,7 +79,7 @@ class TestNominatim(unittest.TestCase):
         """
         nominatim = Nominatim(NOMINATIM_SERVERS[0])
 
-        coord = nominatim.get_first_point_from_query('Montpellier')
+        coord = nominatim.get_first_point_from_query('Montpellier', True)
 
         self.assertTupleEqual(coord, ("3.8767337", "43.6112422"))
 
