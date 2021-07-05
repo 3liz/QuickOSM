@@ -20,7 +20,7 @@ from QuickOSM.core.utilities.utilities_qgis import (
     open_plugin_documentation,
 )
 from QuickOSM.definitions.gui import Panels
-from QuickOSM.definitions.osm import LayerType, QueryLanguage
+from QuickOSM.definitions.osm import WHITE_LIST, LayerType, QueryLanguage
 from QuickOSM.definitions.overpass import OVERPASS_SERVERS
 from QuickOSM.qgis_plugin_tools.tools.i18n import tr
 from QuickOSM.qgis_plugin_tools.tools.resources import resources_path
@@ -98,18 +98,18 @@ class QueryPanel(BaseOverpassPanel):
 
         properties['query'] = self.dialog.text_query.toPlainText()
 
-        properties['expected_csv'] = dict()
+        properties['expected_csv'] = WHITE_LIST
         if self.dialog.checkbox_points_q.isChecked():
-            properties['expected_csv'][LayerType.Points] = (
+            properties['expected_csv'][LayerType.Points.value.lower()] = (
                 self.dialog.edit_csv_points.text())
         if self.dialog.checkbox_lines_q.isChecked():
-            properties['expected_csv'][LayerType.Lines] = (
+            properties['expected_csv'][LayerType.Lines.value.lower()] = (
                 self.dialog.edit_csv_lines.text())
         if self.dialog.checkbox_multilinestrings_q.isChecked():
-            properties['expected_csv'][LayerType.Multilinestrings] = (
+            properties['expected_csv'][LayerType.Multilinestrings.value.lower()] = (
                 self.dialog.edit_csv_multilinestrings.text())
         if self.dialog.checkbox_multipolygons_q.isChecked():
-            properties['expected_csv'][LayerType.Multipolygons] = (
+            properties['expected_csv'][LayerType.Multipolygons.value.lower()] = (
                 self.dialog.edit_csv_multipolygons.text())
 
         # TODO check this regex

@@ -12,7 +12,7 @@ from qgis.PyQt.QtCore import QObject, QVariant, pyqtSignal
 
 from QuickOSM.core.exceptions import FileOutPutException, QuickOsmException
 from QuickOSM.definitions.format import Format
-from QuickOSM.definitions.osm import Osm_Layers
+from QuickOSM.definitions.osm import WHITE_LIST, Osm_Layers
 from QuickOSM.qgis_plugin_tools.tools.i18n import tr
 
 __copyright__ = 'Copyright 2019, 3Liz'
@@ -33,20 +33,8 @@ class OsmParser(QObject):
     # Signal text
     signalText = pyqtSignal(str, name='signalText')
 
-    # Layers available in the OGR, other_relations is useless.
-    OSM_LAYERS = [Osm_Layers[k].value.lower() for k in range(len(Osm_Layers))]
-
     # Dict to build the full ID of an object
     DIC_OSM_TYPE = {'node': 'n', 'way': 'w', 'relation': 'r'}
-
-    # White list for the attribute table
-    # if set to None all the keys will be keep
-    WHITE_LIST = {
-        'multilinestrings': None,
-        'points': None,
-        'lines': None,
-        'multipolygons': None
-    }
 
     def __init__(
             self,
@@ -63,17 +51,9 @@ class OsmParser(QObject):
             osm_conf: str = None):
         self.__osmFile = osm_file
         if layers is None:
-            self.__layers = self.OSM_LAYERS
+            self.__layers = Osm_Layers
         else:
             self.__layers = layers
-
-        if not white_list_column:
-            white_list_column = {
-                'multilinestrings': None,
-                'points': None,
-                'lines': None,
-                'multipolygons': None
-            }
 
         self.__output_format = output_format
         self.__output_dir = output_dir
@@ -81,9 +61,9 @@ class OsmParser(QObject):
         self.__layer_name = layer_name
 
         if white_list_column is None:
-            self.__whiteListColumn = white_list_column
+            self.__whiteListColumn = WHITE_LIST
         else:
-            self.__whiteListColumn = self.WHITE_LIST
+            self.__whiteListColumn = white_list_column
         self.__key = key if key is not None else []
         self.__deleteEmptyLayers = delete_empty_layers
         self.__loadOnly = load_only

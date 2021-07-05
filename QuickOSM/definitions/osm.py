@@ -49,10 +49,25 @@ class LayerType(Enum):
     Multipolygons = 'Multipolygons'
 
 
-Osm_Layers = [
+# Layers available in the OGR, other_relations is useless.
+OSM_LAYERS = [
     LayerType.Points, LayerType.Lines,
     LayerType.Multilinestrings, LayerType.Multipolygons
 ]
+
+# Layers available in the OGR, other_relations is useless.
+Osm_Layers = [
+    OSM_LAYERS[k].value.lower() for k in range(len(OSM_LAYERS))
+]
+
+# White list for the attribute table
+# if set to None all the keys will be keep
+WHITE_LIST = {
+    'multilinestrings': None,
+    'points': None,
+    'lines': None,
+    'multipolygons': None
+}
 
 
 @unique
