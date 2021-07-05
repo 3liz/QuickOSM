@@ -4,7 +4,8 @@ import io
 import platform
 import sys
 
-from os.path import abspath, isfile, join
+from os import mkdir
+from os.path import abspath, isdir, isfile, join
 
 from qgis.core import QgsApplication, QgsSettings
 from qgis.PyQt.QtCore import QDir
@@ -26,6 +27,24 @@ def nominatim_file() -> str:
     path = join(quickosm_user_folder(), 'nominatim.txt')
     if not path or not isfile(path):
         io.open(path, 'a').close()
+
+    return path
+
+
+def query_historic() -> str:
+    """Get the query history folder"""
+    path = join(quickosm_user_folder(), 'query_history')
+    if not isdir(path):
+        mkdir(path)
+
+    return path
+
+
+def query_bookmark() -> str:
+    """Get the query bookmark folder"""
+    path = join(quickosm_user_folder(), 'query_bookmark')
+    if not isdir(path):
+        mkdir(path)
 
     return path
 

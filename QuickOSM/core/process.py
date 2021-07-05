@@ -23,11 +23,12 @@ from QuickOSM.core.api.connexion_oapi import ConnexionOAPI
 from QuickOSM.core.parser.osm_parser import OsmParser
 from QuickOSM.core.query_factory import QueryFactory
 from QuickOSM.core.query_preparation import QueryPreparation
+from QuickOSM.core.utilities.query_saved import QueryManagement
 from QuickOSM.core.utilities.tools import get_setting
 from QuickOSM.definitions.format import Format
 from QuickOSM.definitions.osm import (
+    OSM_LAYERS,
     LayerType,
-    Osm_Layers,
     OsmType,
     QueryLanguage,
     QueryType,
@@ -67,15 +68,12 @@ def open_file(
     """
 
     if output_geom_types is None:
-        output_geom_types = Osm_Layers
+        output_geom_types = OSM_LAYERS
     # Legacy, waiting to remove the OsmParser for QGIS >= 3.6
     # Change in osm_file_dialog.py L131 too
     output_geom_legacy = [geom.value.lower() for geom in output_geom_types]
     if not white_list_column:
         white_list_column = {}
-    white_list_legacy = (
-        {cols.value.lower(): csv for cols, csv in white_list_column.items()}
-    )
 
     LOGGER.info('The OSM file is: {}'.format(osm_file))
 
@@ -88,7 +86,7 @@ def open_file(
         prefix_file=prefix_file,
         layer_name=layer_name,
         key=key,
-        white_list_column=white_list_legacy)
+        white_list_column=white_list_column)
 
     if dialog:
         osm_parser.signalText.connect(dialog.set_progress_text)
@@ -126,7 +124,6 @@ def open_file(
                 if "colour" in item['tags']:
                     index = item['tags'].index('colour')
                     colors = new_layer.uniqueValues(index)
-                    LOGGER.debug('colour: {}'.format(colors))
                     categories = []
                     for value in colors:
                         if layer in ['lines', 'multilinestrings']:
@@ -191,6 +188,7 @@ def reload_query(
 def process_query(
         dialog: QDialog = None,
         query: str = None,
+        description: str = None,
         area: Union[str, List[str]] = None,
         key: Union[str, List[str]] = None,
         bbox: QgsRectangle = None,
@@ -202,6 +200,17 @@ def process_query(
         white_list_values: dict = None,
         config_outputs: dict = None) -> int:
     """execute a query and send the result file to open_file."""
+    # Save the query in the historic
+    q_manage = QueryManagement(
+        query=query,
+        name=prefix_file if prefix_file else layer_name,
+        description=description,
+        area=area,
+        bbox=bbox,
+        output_geometry_types=output_geometry_types,
+        white_list_column=white_list_values
+    )
+    q_manage.write_query_historic()
 
     # Prepare outputs
     dialog.set_progress_text(tr('Prepare outputs'))
@@ -249,6 +258,7 @@ def process_quick_query(
         output_directory: str = None,
         output_format: Format = None,
         prefix_file: str = None,
+        layer_name: str = None,
         output_geometry_types: list = None) -> int:
     """
     Generate a query and send it to process_query.
@@ -266,30 +276,16 @@ def process_quick_query(
         print_mode=metadata
     )
     query = query_factory.make(QueryLanguage.OQL)
-    LOGGER.info(query_factory.friendly_message())
+    description = query_factory.friendly_message()
+    LOGGER.info(description)
 
-    # Generate layer name as following (if defined)
-    if not key:
-        key = tr('allKeys')
-    distance_string = None
-    if distance:
-        distance_string = '{}'.format(distance)
-    if isinstance(key, list):
-        expected_name = []
-        for k in range(len(key)):
-            expected_name.append(key[k])
-            expected_name.append(value[k])
-        expected_name.append(area)
-        expected_name.append(distance_string)
-    else:
-        expected_name = [key, value, area, distance_string]
-    layer_name = '_'.join([f for f in expected_name if f])
     LOGGER.info('Query: {}'.format(layer_name))
 
     # Call process_query with the new query
     return process_query(
         dialog=dialog,
         query=query,
+        description=description,
         key=key,
         area=area,
         bbox=bbox,
