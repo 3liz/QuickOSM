@@ -2,7 +2,7 @@ version: '2'
 
 services:
   qgis:
-    image: qgis/qgis:release-3_10
+    image: qgis/qgis:release-3_16
     container_name: qgis
     volumes:
       # - /tmp/.X11-unix:/tmp/.X11-unix

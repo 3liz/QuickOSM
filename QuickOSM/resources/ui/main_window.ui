@@ -130,9 +130,9 @@ QListWidget::item::selected {
         <property name="geometry">
          <rect>
           <x>0</x>
-          <y>0</y>
-          <width>827</width>
-          <height>809</height>
+          <y>-114</y>
+          <width>810</width>
+          <height>923</height>
          </rect>
         </property>
         <property name="minimumSize">
@@ -218,6 +218,74 @@ QListWidget::item::selected {
                <property name="sizeConstraint">
                 <enum>QLayout::SetDefaultConstraint</enum>
                </property>
+               <item row="0" column="0">
+                <widget class="QLabel" name="label_47">
+                 <property name="toolTip">
+                  <string>A preset to fetch.</string>
+                 </property>
+                 <property name="text">
+                  <string>Preset</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="0" column="1">
+                <widget class="QComboBox" name="combo_preset">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
+                 <property name="toolTip">
+                  <string>A preset to fetch.</string>
+                 </property>
+                 <property name="editable">
+                  <bool>true</bool>
+                 </property>
+                 <property name="sizeAdjustPolicy">
+                  <enum>QComboBox::AdjustToContents</enum>
+                 </property>
+                </widget>
+               </item>
+               <item row="1" column="0" colspan="2">
+                <widget class="QTableWidget" name="table_keys_values">
+                 <property name="sizeAdjustPolicy">
+                  <enum>QAbstractScrollArea::AdjustToContents</enum>
+                 </property>
+                 <property name="editTriggers">
+                  <set>QAbstractItemView::NoEditTriggers</set>
+                 </property>
+                 <property name="rowCount">
+                  <number>1</number>
+                 </property>
+                 <row/>
+                 <column>
+                  <property name="text">
+                   <string/>
+                  </property>
+                 </column>
+                 <column>
+                  <property name="text">
+                   <string>Key</string>
+                  </property>
+                 </column>
+                 <column>
+                  <property name="text">
+                   <string>Value</string>
+                  </property>
+                 </column>
+                 <column>
+                  <property name="text">
+                   <string> Add </string>
+                  </property>
+                 </column>
+                 <column>
+                  <property name="text">
+                   <string>Delete</string>
+                  </property>
+                 </column>
+                </widget>
+               </item>
                <item row="2" column="0">
                 <widget class="QComboBox" name="combo_query_type_qq">
                  <property name="toolTip">
@@ -320,74 +388,6 @@ QListWidget::item::selected {
                  <widget class="QWidget" name="nothingDisplayed"/>
                 </widget>
                </item>
-               <item row="0" column="1">
-                <widget class="QComboBox" name="combo_preset">
-                 <property name="sizePolicy">
-                  <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-                   <horstretch>0</horstretch>
-                   <verstretch>0</verstretch>
-                  </sizepolicy>
-                 </property>
-                 <property name="toolTip">
-                  <string>A preset to fetch.</string>
-                 </property>
-                 <property name="editable">
-                  <bool>true</bool>
-                 </property>
-                 <property name="sizeAdjustPolicy">
-                  <enum>QComboBox::AdjustToContents</enum>
-                 </property>
-                </widget>
-               </item>
-               <item row="0" column="0">
-                <widget class="QLabel" name="label_47">
-                 <property name="toolTip">
-                  <string>A preset to fetch.</string>
-                 </property>
-                 <property name="text">
-                  <string>Preset</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="1" column="0" colspan="2">
-                <widget class="QTableWidget" name="table_keys_values">
-                 <property name="sizeAdjustPolicy">
-                  <enum>QAbstractScrollArea::AdjustToContents</enum>
-                 </property>
-                 <property name="editTriggers">
-                  <set>QAbstractItemView::NoEditTriggers</set>
-                 </property>
-                 <property name="rowCount">
-                  <number>1</number>
-                 </property>
-                 <row/>
-                 <column>
-                  <property name="text">
-                   <string/>
-                  </property>
-                 </column>
-                 <column>
-                  <property name="text">
-                   <string>Key</string>
-                  </property>
-                 </column>
-                 <column>
-                  <property name="text">
-                   <string>Value</string>
-                  </property>
-                 </column>
-                 <column>
-                  <property name="text">
-                   <string> Add </string>
-                  </property>
-                 </column>
-                 <column>
-                  <property name="text">
-                   <string>Delete</string>
-                  </property>
-                 </column>
-                </widget>
-               </item>
               </layout>
              </item>
              <item>
@@ -409,6 +409,184 @@ QListWidget::item::selected {
                 </widget>
                </item>
               </layout>
+             </item>
+             <item>
+              <widget class="QgsCollapsibleGroupBox" name="query_historic">
+               <property name="title">
+                <string>Query history</string>
+               </property>
+               <layout class="QVBoxLayout" name="verticalLayout_19">
+                <property name="leftMargin">
+                 <number>5</number>
+                </property>
+                <property name="topMargin">
+                 <number>5</number>
+                </property>
+                <property name="rightMargin">
+                 <number>2</number>
+                </property>
+                <property name="bottomMargin">
+                 <number>5</number>
+                </property>
+                <item>
+                 <widget class="QListWidget" name="list_historic">
+                  <property name="palette">
+                   <palette>
+                    <active>
+                     <colorrole role="Base">
+                      <brush brushstyle="SolidPattern">
+                       <color alpha="255">
+                        <red>240</red>
+                        <green>240</green>
+                        <blue>240</blue>
+                       </color>
+                      </brush>
+                     </colorrole>
+                    </active>
+                    <inactive>
+                     <colorrole role="Base">
+                      <brush brushstyle="SolidPattern">
+                       <color alpha="255">
+                        <red>240</red>
+                        <green>240</green>
+                        <blue>240</blue>
+                       </color>
+                      </brush>
+                     </colorrole>
+                    </inactive>
+                    <disabled>
+                     <colorrole role="Base">
+                      <brush brushstyle="SolidPattern">
+                       <color alpha="255">
+                        <red>240</red>
+                        <green>240</green>
+                        <blue>240</blue>
+                       </color>
+                      </brush>
+                     </colorrole>
+                    </disabled>
+                   </palette>
+                  </property>
+                  <property name="frameShape">
+                   <enum>QFrame::NoFrame</enum>
+                  </property>
+                  <property name="editTriggers">
+                   <set>QAbstractItemView::NoEditTriggers</set>
+                  </property>
+                  <property name="verticalScrollMode">
+                   <enum>QAbstractItemView::ScrollPerPixel</enum>
+                  </property>
+                  <property name="horizontalScrollMode">
+                   <enum>QAbstractItemView::ScrollPerPixel</enum>
+                  </property>
+                  <property name="wordWrap">
+                   <bool>true</bool>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </widget>
+             </item>
+             <item>
+              <widget class="QgsCollapsibleGroupBox" name="bookmark">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="title">
+                <string>Query bookmark</string>
+               </property>
+               <property name="collapsed" stdset="0">
+                <bool>true</bool>
+               </property>
+               <layout class="QVBoxLayout" name="verticalLayout_17">
+                <property name="leftMargin">
+                 <number>5</number>
+                </property>
+                <property name="topMargin">
+                 <number>5</number>
+                </property>
+                <property name="rightMargin">
+                 <number>2</number>
+                </property>
+                <property name="bottomMargin">
+                 <number>5</number>
+                </property>
+                <item>
+                 <widget class="QListWidget" name="list_bookmark">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="palette">
+                   <palette>
+                    <active>
+                     <colorrole role="Base">
+                      <brush brushstyle="SolidPattern">
+                       <color alpha="255">
+                        <red>240</red>
+                        <green>240</green>
+                        <blue>240</blue>
+                       </color>
+                      </brush>
+                     </colorrole>
+                    </active>
+                    <inactive>
+                     <colorrole role="Base">
+                      <brush brushstyle="SolidPattern">
+                       <color alpha="255">
+                        <red>240</red>
+                        <green>240</green>
+                        <blue>240</blue>
+                       </color>
+                      </brush>
+                     </colorrole>
+                    </inactive>
+                    <disabled>
+                     <colorrole role="Base">
+                      <brush brushstyle="SolidPattern">
+                       <color alpha="255">
+                        <red>240</red>
+                        <green>240</green>
+                        <blue>240</blue>
+                       </color>
+                      </brush>
+                     </colorrole>
+                    </disabled>
+                   </palette>
+                  </property>
+                  <property name="frameShape">
+                   <enum>QFrame::NoFrame</enum>
+                  </property>
+                  <property name="lineWidth">
+                   <number>1</number>
+                  </property>
+                  <property name="autoScrollMargin">
+                   <number>16</number>
+                  </property>
+                  <property name="editTriggers">
+                   <set>QAbstractItemView::NoEditTriggers</set>
+                  </property>
+                  <property name="verticalScrollMode">
+                   <enum>QAbstractItemView::ScrollPerPixel</enum>
+                  </property>
+                  <property name="horizontalScrollMode">
+                   <enum>QAbstractItemView::ScrollPerPixel</enum>
+                  </property>
+                  <property name="spacing">
+                   <number>5</number>
+                  </property>
+                  <property name="wordWrap">
+                   <bool>true</bool>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </widget>
              </item>
              <item>
               <widget class="QgsCollapsibleGroupBox" name="advanced_qq">
@@ -489,7 +667,7 @@ QListWidget::item::selected {
                       </property>
                      </widget>
                     </item>
-                    <item row="1" column="1">
+                    <item row="2" column="1">
                      <widget class="QCheckBox" name="checkbox_lines_qq">
                       <property name="text">
                        <string>Lines</string>
@@ -499,7 +677,7 @@ QListWidget::item::selected {
                       </property>
                      </widget>
                     </item>
-                    <item row="3" column="1">
+                    <item row="4" column="1">
                      <widget class="QCheckBox" name="checkbox_multipolygons_qq">
                       <property name="text">
                        <string>Multipolygons</string>
@@ -509,7 +687,7 @@ QListWidget::item::selected {
                       </property>
                      </widget>
                     </item>
-                    <item row="2" column="1">
+                    <item row="3" column="1">
                      <widget class="QCheckBox" name="checkbox_multilinestrings_qq">
                       <property name="text">
                        <string>Multilinestrings</string>
@@ -589,6 +767,13 @@ QListWidget::item::selected {
              </item>
              <item>
               <layout class="QHBoxLayout" name="horizontalLayout">
+               <item>
+                <widget class="QPushButton" name="save_query">
+                 <property name="text">
+                  <string>Save query</string>
+                 </property>
+                </widget>
+               </item>
                <item>
                 <widget class="QToolButton" name="button_show_query">
                  <property name="sizePolicy">
@@ -1583,15 +1768,15 @@ QListWidget::item::selected {
  </widget>
  <customwidgets>
   <customwidget>
-   <class>QgsCollapsibleGroupBox</class>
-   <extends>QGroupBox</extends>
-   <header>qgscollapsiblegroupbox.h</header>
-   <container>1</container>
-  </customwidget>
-  <customwidget>
    <class>QgsFileWidget</class>
    <extends>QWidget</extends>
    <header>qgsfilewidget.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>QgsCollapsibleGroupBox</class>
+   <extends>QGroupBox</extends>
+   <header>qgscollapsiblegroupbox.h</header>
    <container>1</container>
   </customwidget>
   <customwidget>

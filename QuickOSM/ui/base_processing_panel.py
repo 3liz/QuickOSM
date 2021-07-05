@@ -46,7 +46,22 @@ class BaseProcessingPanel(BasePanel):
         finally:
             self._end_process()
 
+    def run_saved_query(self, data: dict):
+        """Run the process from a saved query."""
+        self._start_process()
+        try:
+            self._run_saved_query(data)
+        except QuickOsmException as error:
+            self.dialog.display_quickosm_exception(error)
+        except Exception as error:
+            self.dialog.display_critical_exception(error)
+        finally:
+            self._end_process()
+
     def _run(self):
+        raise NotImplementedError
+
+    def _run_saved_query(self, data: dict):
         raise NotImplementedError
 
     def setup_panel(self):
