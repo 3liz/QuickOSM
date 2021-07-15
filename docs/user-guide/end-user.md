@@ -36,7 +36,7 @@ The Overpass API takes a few seconds to respond, and after that you should get n
 point and polygon layers for the toilets of London! (nodes and ways in OpenStreetMap
 with the `amenity`=`toilet` tag on them)
 
-## Custom overpass server
+## Custom API server
 
 If you want to add some customs servers, add a file called `custom_config.json`
 in your `profile_name/QuickOSM` folder and add this template in it :
@@ -44,6 +44,9 @@ in your `profile_name/QuickOSM` folder and add this template in it :
 {
     "overpass_servers": [
         "http://your_custom_url.com/api/"
+    ],
+    "nominatim_servers": [
+        "http://your_custom_url.com/search?"
     ]
 }
 ```
