@@ -181,10 +181,8 @@ class Dialog(QDialog, FORM_CLASS):
         return iface_import
 
     def eventFilter(self, obj: QObject, e: QEvent) -> bool:
-        if e.type() == QEvent.Wheel:
-            return True
-        else:
-            return False
+        """Set up a custom event to avoid scroll"""
+        return e.type() == QEvent.Wheel
 
     def display_quickosm_exception(self, exception: QuickOsmException):
         """Display QuickOSM exceptions.

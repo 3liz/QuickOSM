@@ -1,3 +1,5 @@
+"""Wizard of the preset."""
+
 from qgis.PyQt.QtWidgets import QDialog
 
 from QuickOSM.definitions.gui import Panels
@@ -7,6 +9,7 @@ FORM_CLASS = load_ui('wizard_preset.ui')
 
 
 class Wizard(QDialog, FORM_CLASS):
+    """Dialog that help with the preset"""
 
     def __init__(self, parent=None):
         """Constructor."""
@@ -35,6 +38,7 @@ class Wizard(QDialog, FORM_CLASS):
                 item.setHidden(True)
 
     def end_search(self):
+        """Process the end of the dialog"""
         if self.list_preset.selectedItems():
             preset = self.list_preset.selectedItems()[0].text()
             self.parent().external_panels[Panels.QuickQuery].choice_preset(preset)
