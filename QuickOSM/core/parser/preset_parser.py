@@ -203,6 +203,7 @@ class PresetsParser:
 
     @staticmethod
     def preset_translate(file: str) -> dict:
+        """Translate the preset in the language define in QGIS"""
         translate_dict = {}
 
         with open(file, encoding='utf8') as f:

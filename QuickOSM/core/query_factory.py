@@ -492,9 +492,9 @@ class QueryFactory:
                 type_multi = self._type_multi_request
                 key_lbl = ''
                 index = 0
-                for k in range(len(type_multi)):
+                for k, type_multi_k in enumerate(type_multi):
                     if index == k:
-                        if type_multi[k] == MultiType.AND:
+                        if type_multi_k == MultiType.AND:
                             i = 1
                             key_and = keys[k] + ' and ' + keys[k + i]
 
@@ -504,7 +504,7 @@ class QueryFactory:
 
                             key_lbl += '({})'.format(key_and)
                             index = k + i
-                        elif type_multi[k] == MultiType.OR:
+                        elif type_multi_k == MultiType.OR:
                             if k == 0:
                                 key_lbl += keys[k]
                             key_lbl += ' or '
@@ -520,20 +520,17 @@ class QueryFactory:
 
             if attrib_only and multi_keys:
                 return ATTRIBUTES_ONLY.format(key=key_lbl)
-            elif attrib_only:
+            if attrib_only:
                 return ATTRIBUTE_ONLY.format(key=key_lbl)
 
             if use_with_dist and multi_keys:
                 return ALL_MULTI_WITH_DISTANCE.format(key=key_lbl, dist=dist_lbl, extent=extent_lbl)
-            elif use_with_dist:
-                return ALL_VALUES_WITH_DISTANCE.format(key=key_lbl, dist=dist_lbl, extent=extent_lbl)
-            elif multi_keys:
-                return ALL_MULTI.format(key=key_lbl, extent=extent_lbl)
-            else:
-                return ALL_VALUES.format(key=key_lbl, extent=extent_lbl)
-
-        else:
             if use_with_dist:
-                return NO_KEY_WITH_DISTANCE.format(dist=dist_lbl, extent=extent_lbl)
-            else:
-                return NO_KEY.format(extent=extent_lbl)
+                return ALL_VALUES_WITH_DISTANCE.format(key=key_lbl, dist=dist_lbl, extent=extent_lbl)
+            if multi_keys:
+                return ALL_MULTI.format(key=key_lbl, extent=extent_lbl)
+            return ALL_VALUES.format(key=key_lbl, extent=extent_lbl)
+
+        if use_with_dist:
+            return NO_KEY_WITH_DISTANCE.format(dist=dist_lbl, extent=extent_lbl)
+        return NO_KEY.format(extent=extent_lbl)
