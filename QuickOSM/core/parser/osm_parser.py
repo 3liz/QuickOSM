@@ -122,6 +122,29 @@ class OsmParser(QObject):
                 message = 'Error on the layer : {layer}'.format(layer=layer)
                 raise QuickOsmException(message)
 
+            if self.feedback:
+                self.feedback.pushInfo('Checking the validity of the geometry of the layer {}.'.format(layer))
+            validity = processing.run(
+                "qgis:checkvalidity", {
+                    'INPUT_LAYER': layers[layer]['vectorLayer'],
+                    'METHOD': 2,  # GEOS
+                    'IGNORE_RING_SELF_INTERSECTION': False,
+                    'VALID_OUTPUT': 'TEMPORARY_OUTPUT',
+                    'INVALID_OUTPUT': 'TEMPORARY_OUTPUT',
+                    'ERROR_OUTPUT': 'TEMPORARY_OUTPUT'
+                }, feedback=self.feedback
+            )
+            if validity['INVALID_COUNT'] > 0:
+                LOGGER.info('Fixing geometries in layer: {}'.format(layer))
+                if self.feedback:
+                    self.feedback.pushInfo('Fixing the geometry of the layer {}.'.format(layer))
+                layers[layer]['vectorLayer'] = processing.run(
+                    "native:fixgeometries", {
+                        'INPUT': layers[layer]['vectorLayer'],
+                        'OUTPUT': 'TEMPORARY_OUTPUT'
+                    }, feedback=self.feedback
+                )['OUTPUT']
+
             layers[layer]['vectorLayer'].setProviderEncoding('UTF-8')
 
             # Save the geometry type of the layer

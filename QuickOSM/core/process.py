@@ -73,7 +73,7 @@ def open_file(
     # Change in osm_file_dialog.py L131 too
     output_geom_legacy = [geom.value.lower() for geom in output_geom_types]
     if not white_list_column:
-        white_list_column = {}
+        white_list_column = None
 
     LOGGER.info('The OSM file is: {}'.format(osm_file))
 
