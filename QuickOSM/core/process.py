@@ -126,6 +126,8 @@ def open_file(
                     colors = new_layer.uniqueValues(index)
                     categories = []
                     for value in colors:
+                        if str(value) == 'None':
+                            value = ''
                         if layer in ['lines', 'multilinestrings']:
                             symbol = QgsSymbol.defaultSymbol(QgsWkbTypes.LineGeometry)
                         elif layer == "points":
