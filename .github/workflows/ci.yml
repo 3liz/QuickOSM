@@ -68,7 +68,7 @@ jobs:
         run: pip install -r requirements/dev.txt
 
       - name: Run pylint
-        run: pylint --rcfile=setup.cfg .\QuickOSM
+        run: pylint --rcfile=setup.cfg ./QuickOSM
 
   test-qgis:
     runs-on: ubuntu-latest
@@ -86,7 +86,7 @@ jobs:
         run: ./exec.sh
 
   release:
-    needs: [test-qgis, flake8]
+    needs: [test-qgis, flake8, pylint]
 
     runs-on: ubuntu-latest
     if: github.repository == '3liz/QuickOSM' && contains(github.ref, 'refs/tags/')
