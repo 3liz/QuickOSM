@@ -49,6 +49,8 @@ class OsmParser(QObject):
             delete_empty_layers: bool = False,
             load_only: bool = False,
             osm_conf: str = None,
+            subset: bool = False,
+            subset_query: str = None,
             feedback_alg: bool = False,
             feedback: QgsProcessingFeedback = None):
         self.__osmFile = osm_file
@@ -77,6 +79,8 @@ class OsmParser(QObject):
         else:
             self._osm_conf = osm_conf
 
+        self.__subset = subset
+        self.__subset_query = subset_query
         self.feedback_alg = feedback_alg
         self.feedback = feedback
 
@@ -172,6 +176,9 @@ class OsmParser(QObject):
                     'OUTPUT': 'TEMPORARY_OUTPUT'
                 }, feedback=self.feedback if self.feedback_alg else None
             )['OUTPUT']
+            if self.__subset:
+                LOGGER.debug('Subset filter: {}'.format(self.__subset_query))
+                layers[layer]['vector_layer'].setSubsetString(self.__subset_query)
 
             layers[layer]['vector_layer'].startEditing()
             layer_provider = layers[layer]['vector_layer'].dataProvider()
@@ -183,6 +190,8 @@ class OsmParser(QObject):
             layers[layer]['vector_layer'].updateFields()
 
             fields = layers[layer]['vector_layer'].fields()
+            if self.__subset:
+                null_fields = fields.names()[:-2]
             features = layers[layer]['vector_layer'].getFeatures()
             meta = False
             for feature in features:
@@ -225,6 +234,18 @@ class OsmParser(QObject):
                 layer_provider.changeAttributeValues({id_f: attr_value_ot})
 
                 layer_provider.changeAttributeValues({id_f: attr_value_fi})
+
+                if self.__subset:
+                    for field in null_fields:
+                        index = fields.indexOf(field)
+                        if attributes[index]:
+                            index = null_fields.index(field)
+                            null_fields.pop(index)
+
+            if self.__subset:
+                null_index = [fields.indexOf(field) for field in null_fields]
+                layer_provider.deleteAttributes(null_index)
+                layers[layer]['vector_layer'].updateFields()
 
             layers[layer]['vector_layer'].commitChanges()
 

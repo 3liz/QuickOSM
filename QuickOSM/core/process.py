@@ -57,6 +57,8 @@ def open_file(
         output_format: Format = None,
         final_query: str = None,
         prefix_file: str = None,
+        subset: bool = False,
+        subset_query: str = None,
         feedback: QgsFeedback = None) -> int:
     """
     Open an osm file.
@@ -92,6 +94,8 @@ def open_file(
         layer_name=layer_name,
         key=key,
         white_list_column=white_list_column,
+        subset=subset,
+        subset_query=subset_query,
         feedback=feedback)
 
     if dialog:

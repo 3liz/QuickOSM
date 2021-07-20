@@ -235,7 +235,7 @@ QListWidget::item::selected {
                 </widget>
                </item>
                <item row="0" column="1">
-                <widget class="QComboBox" name="combo_preset">
+                <widget class="QComboBox" name="combo_preset_qq">
                  <property name="sizePolicy">
                   <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
                    <horstretch>0</horstretch>
@@ -254,7 +254,7 @@ QListWidget::item::selected {
                 </widget>
                </item>
                <item row="1" column="0" colspan="2">
-                <widget class="QTableWidget" name="table_keys_values">
+                <widget class="QTableWidget" name="table_keys_values_qq">
                  <property name="sizeAdjustPolicy">
                   <enum>QAbstractScrollArea::AdjustToContents</enum>
                  </property>
@@ -305,7 +305,7 @@ QListWidget::item::selected {
                   <number>0</number>
                  </property>
                  <property name="currentIndex">
-                  <number>0</number>
+                  <number>1</number>
                  </property>
                  <widget class="QWidget" name="nominatim">
                   <layout class="QHBoxLayout" name="horizontalLayout_25">
@@ -1402,7 +1402,81 @@ QListWidget::item::selected {
                  </item>
                 </layout>
                </item>
-               <item row="6" column="0">
+               <item row="6" column="1">
+                <layout class="QVBoxLayout" name="verticalLayout_18">
+                 <item>
+                  <layout class="QHBoxLayout" name="horizontalLayout_12">
+                   <item>
+                    <widget class="QLabel" name="label_41">
+                     <property name="sizePolicy">
+                      <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+                       <horstretch>0</horstretch>
+                       <verstretch>0</verstretch>
+                      </sizepolicy>
+                     </property>
+                     <property name="text">
+                      <string>Preset</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <widget class="QComboBox" name="combo_preset_f">
+                     <property name="sizePolicy">
+                      <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                       <horstretch>0</horstretch>
+                       <verstretch>0</verstretch>
+                      </sizepolicy>
+                     </property>
+                     <property name="toolTip">
+                      <string>A preset to fetch</string>
+                     </property>
+                     <property name="editable">
+                      <bool>true</bool>
+                     </property>
+                    </widget>
+                   </item>
+                  </layout>
+                 </item>
+                 <item>
+                  <widget class="QTableWidget" name="table_keys_values_f">
+                   <row>
+                    <property name="text">
+                     <string>1</string>
+                    </property>
+                   </row>
+                   <column>
+                    <property name="text">
+                     <string/>
+                    </property>
+                   </column>
+                   <column>
+                    <property name="text">
+                     <string>Key</string>
+                    </property>
+                   </column>
+                   <column>
+                    <property name="text">
+                     <string>Value</string>
+                    </property>
+                   </column>
+                   <column>
+                    <property name="text">
+                     <string>Add</string>
+                    </property>
+                   </column>
+                   <column>
+                    <property name="text">
+                     <string>Delete</string>
+                    </property>
+                   </column>
+                  </widget>
+                 </item>
+                </layout>
+               </item>
+               <item row="8" column="1">
+                <widget class="QgsFileWidget" name="osm_conf" native="true"/>
+               </item>
+               <item row="8" column="0">
                 <widget class="QRadioButton" name="radio_osm_conf">
                  <property name="text">
                   <string>OSMConf</string>
@@ -1412,8 +1486,12 @@ QListWidget::item::selected {
                  </property>
                 </widget>
                </item>
-               <item row="6" column="1">
-                <widget class="QgsFileWidget" name="osm_conf" native="true"/>
+               <item row="6" column="0">
+                <widget class="QRadioButton" name="radio_selection_keys">
+                 <property name="text">
+                  <string>Select tags</string>
+                 </property>
+                </widget>
                </item>
               </layout>
              </item>
