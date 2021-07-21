@@ -219,7 +219,7 @@ class DownloadOSMData(QgisAlgorithm):
                     context.project(),
                     OUTPUT[layer]
                 )
-                if 'colour' in layers[layer]['tags'] and False:
+                if 'colour' in layers[layer]['tags']:
                     layer_details.setPostProcessor(
                         SetColoringPostProcessor.create(layers[layer]['tags'])
                     )
