@@ -5,6 +5,136 @@ hide:
 
 # Processing
 
+### Run QuickOSM process with a raw query
+
+This algorithm launches all the QuickOSM process from a raw query. The url is built with the parameters, the file is downloaded and treated.
+
+![algo_id](./quickosm-downloadosmdatarawquery.png)
+
+#### Parameters
+
+| ID | Description | Type | Info | Required | Advanced | Option |
+|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
+QUERY|Query|String|A XML or OQL query to be sent to the Overpass API. It can contain some {{}} tokens.|✓|||
+TIMEOUT|Timeout|Integer|The timeout to use for the overpass api connexion|✓|✓|Default: 25 <br> Type: Integer<br> Min: 5.0, Max: 1.7976931348623157e+308 <br>|
+EXTENT|Extent, if "{{bbox}}" in the query|Extent|If the query has a {{bbox}} token, this extent will be used for replacement.||✓||
+SERVER|Overpass server|String|The Overpass API server to use to build the encoded URL.|✓|✓|Default: https://lz4.overpass-api.de/api/interpreter <br> |
+AREA|Area (if you want to override {{geocodeArea}} in the query)|String|The query is generated in the OQL format.||✓||
+FILE|Output file|String|Path to a geoPackage where the result will be saved|||| 
+
+#### Outputs
+
+| ID | Description | Type | Info |
+|:-:|:-:|:-:|:-:|
+OUTPUT_POINTS|Layer with a point geometry|QgsVectorLayer||
+OUTPUT_LINES|Layer with a line geometry|QgsVectorLayer||
+OUTPUT_MULTILINESTRINGS|Layer with a multi line geometry|QgsVectorLayer||
+OUTPUT_MULTIPOLYGONS|Layer with a polygon geometry|QgsVectorLayer||
+
+### Run QuickOSM process with a not spatial query
+
+This algorithm launches all the QuickOSM process from a not spatial query. The url is built with the parameters, the file is downloaded and treated.
+
+![algo_id](./quickosm-downloadosmdatanotspatialquery.png)
+
+#### Parameters
+
+| ID | Description | Type | Info | Required | Advanced | Option |
+|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
+KEY|Key, default to all keys|String|The OSM key to use. It can be empty and it will default to all keys.||||
+VALUE|Value, default to all values|String|The OSM value to use. It can be empty and it will default to all values.||||
+TIMEOUT|Timeout|Integer|The timeout to use for the overpass api connexion|✓|✓|Default: 25 <br> Type: Integer<br> Min: 5.0, Max: 1.7976931348623157e+308 <br>|
+SERVER|Overpass server|String|The Overpass API server to use to build the encoded URL.|✓|✓|Default: https://lz4.overpass-api.de/api/interpreter <br> |
+FILE|Output file|String|Path to a geoPackage where the result will be saved||||
+
+#### Outputs
+
+| ID | Description | Type | Info |
+|:-:|:-:|:-:|:-:|
+OUTPUT_POINTS|Layer with a point geometry|QgsVectorLayer||
+OUTPUT_LINES|Layer with a line geometry|QgsVectorLayer||
+OUTPUT_MULTILINESTRINGS|Layer with a multi line geometry|QgsVectorLayer||
+OUTPUT_MULTIPOLYGONS|Layer with a polygon geometry|QgsVectorLayer||
+
+### Run QuickOSM process with an 'in area' query
+
+This algorithm launches all the QuickOSM process from an 'in area' query. The url is built with the parameters, the file is downloaded and treated.
+
+![algo_id](./quickosm-downloadosmdatainareaquery.png)
+
+#### Parameters
+
+| ID | Description | Type | Info | Required | Advanced | Option |
+|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
+KEY|Key, default to all keys|String|The OSM key to use. It can be empty and it will default to all keys.||||
+VALUE|Value, default to all values|String|The OSM value to use. It can be empty and it will default to all values.||||
+AREA|Around the area|String|The name of a place, a first query to the Nominatim API will be executed to fetch the OSM ID. A WKT Point string is accepted as well.|✓|||
+TIMEOUT|Timeout|Integer|The timeout to use for the overpass api connexion|✓|✓|Default: 25 <br> Type: Integer<br> Min: 5.0, Max: 1.7976931348623157e+308 <br>|
+SERVER|Overpass server|String|The Overpass API server to use to build the encoded URL.|✓|✓|Default: https://lz4.overpass-api.de/api/interpreter <br> |
+FILE|Output file|String|Path to a geoPackage where the result will be saved|||| 
+
+#### Outputs
+
+| ID | Description | Type | Info |
+|:-:|:-:|:-:|:-:|
+OUTPUT_POINTS|Layer with a point geometry|QgsVectorLayer||
+OUTPUT_LINES|Layer with a line geometry|QgsVectorLayer||
+OUTPUT_MULTILINESTRINGS|Layer with a multi line geometry|QgsVectorLayer||
+OUTPUT_MULTIPOLYGONS|Layer with a polygon geometry|QgsVectorLayer||
+
+### Run QuickOSM process with an 'around area' query
+
+This algorithm launches all the QuickOSM process from an 'around area' query. The url is built with the parameters, the file is downloaded and treated.
+
+![algo_id](./quickosm-downloadosmdataaroundareaquery.png)
+
+#### Parameters
+
+| ID | Description | Type | Info | Required | Advanced | Option |
+|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
+KEY|Key, default to all keys|String|The OSM key to use. It can be empty and it will default to all keys.||||
+VALUE|Value, default to all values|String|The OSM value to use. It can be empty and it will default to all values.||||
+AREA|Around the area|String|The name of a place, a first query to the Nominatim API will be executed to fetch the OSM ID. A WKT Point string is accepted as well.|✓|||
+DISTANCE|Distance (meters)|Number|The distance to use when doing the buffering around the named area. The distance must be in meters.|✓||Default: 1000 <br> Type: Integer<br> Min: 1.0, Max: 1.7976931348623157e+308 <br>|
+TIMEOUT|Timeout|Integer|The timeout to use for the overpass api connexion|✓|✓|Default: 25 <br> Type: Integer<br> Min: 5.0, Max: 1.7976931348623157e+308 <br>|
+SERVER|Overpass server|String|The Overpass API server to use to build the encoded URL.|✓|✓|Default: https://lz4.overpass-api.de/api/interpreter <br> |
+FILE|Output file|String|Path to a geoPackage where the result will be saved|||| 
+
+#### Outputs
+
+| ID | Description | Type | Info |
+|:-:|:-:|:-:|:-:|
+OUTPUT_POINTS|Layer with a point geometry|QgsVectorLayer||
+OUTPUT_LINES|Layer with a line geometry|QgsVectorLayer||
+OUTPUT_MULTILINESTRINGS|Layer with a multi line geometry|QgsVectorLayer||
+OUTPUT_MULTIPOLYGONS|Layer with a polygon geometry|QgsVectorLayer||
+
+### Run QuickOSM process with an 'extent' query
+
+This algorithm launches all the QuickOSM process from an 'extent' query. The url is built with the parameters, the file is downloaded and treated.
+
+![algo_id](./quickosm-downloadosmdataextentquery.png)
+
+#### Parameters
+
+| ID | Description | Type | Info | Required | Advanced | Option |
+|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
+KEY|Key, default to all keys|String|The OSM key to use. It can be empty and it will default to all keys.||||
+VALUE|Value, default to all values|String|The OSM value to use. It can be empty and it will default to all values.||||
+EXTENT|Extent|Extent|The extent as a rectangle to use when building the query.|✓|||
+TIMEOUT|Timeout|Integer|The timeout to use for the overpass api connexion|✓|✓|Default: 25 <br> Type: Integer<br> Min: 5.0, Max: 1.7976931348623157e+308 <br>|
+SERVER|Overpass server|String|The Overpass API server to use to build the encoded URL.|✓|✓|Default: https://lz4.overpass-api.de/api/interpreter <br> |
+FILE|Output file|String|Path to a geoPackage where the result will be saved|||| 
+
+#### Outputs
+
+| ID | Description | Type | Info |
+|:-:|:-:|:-:|:-:|
+OUTPUT_POINTS|Layer with a point geometry|QgsVectorLayer||
+OUTPUT_LINES|Layer with a line geometry|QgsVectorLayer||
+OUTPUT_MULTILINESTRINGS|Layer with a multi line geometry|QgsVectorLayer||
+OUTPUT_MULTIPOLYGONS|Layer with a polygon geometry|QgsVectorLayer||
+
 ## Advanced
 
 
@@ -130,7 +260,7 @@ A XML or OQL query to send to a Overpass API server.
 
 | ID | Description | Type | Info | Required | Advanced | Option |
 |:-:|:-:|:-:|:-:|:-:|:-:|:-:|
-QUERY|Query|String|A XML or OQL query to be send to the Overpass API. It can contains some {{}} tokens.|✓|||
+QUERY|Query|String|A XML or OQL query to be sent to the Overpass API. It can contains some {{}} tokens.|✓|||
 EXTENT|Extent, if "{{bbox}}" in the query|Extent|If the query has a {{bbox}} token, this extent will be used for replacement.||||
 SERVER|Overpass server|String|The Overpass API server to use to build the encoded URL.|✓|✓|Default: https://lz4.overpass-api.de/api/interpreter <br> |
 AREA|Area (if you want to override {{geocodeArea}} in the query)|String|The query is generated in the OQL format.||✓||
