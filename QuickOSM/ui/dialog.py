@@ -7,7 +7,7 @@ from functools import partial
 from os.path import split
 from sys import exc_info
 
-from qgis.core import Qgis, QgsMapLayer
+from qgis.core import Qgis, QgsFeedback, QgsMapLayer
 from qgis.PyQt.QtCore import QEvent, QObject
 from qgis.PyQt.QtGui import QIcon, QPixmap
 from qgis.PyQt.QtWidgets import (
@@ -85,6 +85,16 @@ class Dialog(QDialog, FORM_CLASS):
             Panels.Query: self.button_run_query_q,
             Panels.File: self.button_run_file,
         }
+        self.cancel_buttons = {
+            Panels.QuickQuery: self.button_cancel_query_qq,
+            Panels.Query: self.button_cancel_query_q,
+            Panels.File: self.button_cancel_file,
+        }
+        self.execute_buttons = {
+            Panels.QuickQuery: self.stacked_execute_query_qq,
+            Panels.Query: self.stacked_execute_query_q,
+            Panels.File: self.stacked_execute_file,
+        }
         self.output_buttons = {
             Panels.QuickQuery: [
                 self.checkbox_points_qq,
@@ -147,6 +157,8 @@ class Dialog(QDialog, FORM_CLASS):
         self.reload_action.triggered.connect(reloader)
         self.iface.addCustomActionForLayerType(
             self.reload_action, "", QgsMapLayer.VectorLayer, False)
+
+        self.feedback_process = QgsFeedback()
 
         item = self.menu_widget.item(0)
         item.setIcon(QIcon(resources_path('icons', 'quick.png')))

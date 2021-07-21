@@ -151,6 +151,7 @@ class DownloadOSMData(QgisAlgorithm):
             output_format=Format.GeoPackage,
             output_dir=out_dir,
             prefix_file=out_file,
+            feedback_alg=True,
             feedback=self.feedback
         )
 
