@@ -49,6 +49,7 @@ class OsmParser(QObject):
             delete_empty_layers: bool = False,
             load_only: bool = False,
             osm_conf: str = None,
+            feedback_alg: bool = False,
             feedback: QgsProcessingFeedback = None):
         self.__osmFile = osm_file
         if layers is None:
@@ -76,6 +77,7 @@ class OsmParser(QObject):
         else:
             self._osm_conf = osm_conf
 
+        self.feedback_alg = feedback_alg
         self.feedback = feedback
 
         QObject.__init__(self)
@@ -122,7 +124,7 @@ class OsmParser(QObject):
                 message = 'Error on the layer : {layer}'.format(layer=layer)
                 raise QuickOsmException(message)
 
-            if self.feedback:
+            if self.feedback_alg:
                 self.feedback.pushInfo('Checking the validity of the geometry of the layer {}.'.format(layer))
             validity = processing.run(
                 "qgis:checkvalidity", {
@@ -132,7 +134,7 @@ class OsmParser(QObject):
                     'VALID_OUTPUT': 'TEMPORARY_OUTPUT',
                     'INVALID_OUTPUT': 'TEMPORARY_OUTPUT',
                     'ERROR_OUTPUT': 'TEMPORARY_OUTPUT'
-                }, feedback=self.feedback
+                }, feedback=self.feedback if self.feedback_alg else None
             )
             if validity['INVALID_COUNT'] > 0:
                 LOGGER.info('Fixing geometries in layer: {}'.format(layer))
@@ -142,7 +144,7 @@ class OsmParser(QObject):
                     "native:fixgeometries", {
                         'INPUT': layers[layer]['vectorLayer'],
                         'OUTPUT': 'TEMPORARY_OUTPUT'
-                    }, feedback=self.feedback
+                    }, feedback=self.feedback if self.feedback_alg else None
                 )['OUTPUT']
 
             layers[layer]['vectorLayer'].setProviderEncoding('UTF-8')
@@ -157,9 +159,10 @@ class OsmParser(QObject):
             expected_fields = self.__whiteListColumn[layer] if self.__whiteListColumn[layer] else ''
 
             # Get the other_tags
-            if self.feedback:
+            if self.feedback_alg:
                 self.feedback.setCurrentStep(2 + k)
                 self.feedback.pushInfo('Explode the other_tags field in layer {}.'.format(layer))
+            if self.feedback:
                 if self.feedback.isCanceled():
                     return None
             layers[layer]['vector_layer'] = processing.run(
@@ -167,7 +170,7 @@ class OsmParser(QObject):
                     'INPUT': layers[layer]['vectorLayer'],
                     'FIELD': 'other_tags', 'EXPECTED_FIELDS': expected_fields,
                     'OUTPUT': 'TEMPORARY_OUTPUT'
-                }, feedback=self.feedback
+                }, feedback=self.feedback if self.feedback_alg else None
             )['OUTPUT']
 
             layers[layer]['vector_layer'].startEditing()
@@ -183,8 +186,9 @@ class OsmParser(QObject):
             features = layers[layer]['vector_layer'].getFeatures()
             meta = False
             for feature in features:
-                if self.feedback:
+                if self.feedback_alg:
                     self.feedback.setCurrentStep(2)
+                if self.feedback:
                     if self.feedback.isCanceled():
                         return None
 
@@ -292,7 +296,7 @@ class OsmParser(QObject):
                     'INPUT': layers[layer]['vector_layer'],
                     'FIELDS_MAPPING': fields_mapping,
                     'OUTPUT': layers[layer]['layer_name']
-                }, feedback=self.feedback)['OUTPUT']
+                }, feedback=self.feedback if self.feedback_alg else None)['OUTPUT']
 
                 if self.__output_dir:
                     layers[layer]['vector_layer'] = QgsVectorLayer(

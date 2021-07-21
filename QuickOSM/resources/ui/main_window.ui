@@ -13,6 +13,12 @@
     <height>867</height>
    </rect>
   </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
+  </property>
   <property name="windowTitle">
    <string notr="true">QuickOSM</string>
   </property>
@@ -130,9 +136,9 @@ QListWidget::item::selected {
         <property name="geometry">
          <rect>
           <x>0</x>
-          <y>-114</y>
+          <y>-108</y>
           <width>810</width>
-          <height>923</height>
+          <height>917</height>
          </rect>
         </property>
         <property name="minimumSize">
@@ -769,6 +775,12 @@ QListWidget::item::selected {
               <layout class="QHBoxLayout" name="horizontalLayout">
                <item>
                 <widget class="QPushButton" name="save_query">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
                  <property name="text">
                   <string>Save query</string>
                  </property>
@@ -777,7 +789,7 @@ QListWidget::item::selected {
                <item>
                 <widget class="QToolButton" name="button_show_query">
                  <property name="sizePolicy">
-                  <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+                  <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
                    <horstretch>0</horstretch>
                    <verstretch>0</verstretch>
                   </sizepolicy>
@@ -803,13 +815,77 @@ QListWidget::item::selected {
                 </widget>
                </item>
                <item>
-                <widget class="QPushButton" name="button_run_query_qq">
-                 <property name="text">
-                  <string>Run query</string>
+                <widget class="QStackedWidget" name="stacked_execute_query_qq">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
                  </property>
-                 <property name="default">
-                  <bool>true</bool>
+                 <property name="currentIndex">
+                  <number>0</number>
                  </property>
+                 <widget class="QWidget" name="page">
+                  <layout class="QHBoxLayout" name="horizontalLayout_12">
+                   <property name="spacing">
+                    <number>0</number>
+                   </property>
+                   <property name="leftMargin">
+                    <number>0</number>
+                   </property>
+                   <property name="topMargin">
+                    <number>0</number>
+                   </property>
+                   <property name="rightMargin">
+                    <number>0</number>
+                   </property>
+                   <property name="bottomMargin">
+                    <number>0</number>
+                   </property>
+                   <item>
+                    <widget class="QPushButton" name="button_run_query_qq">
+                     <property name="sizePolicy">
+                      <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                       <horstretch>0</horstretch>
+                       <verstretch>0</verstretch>
+                      </sizepolicy>
+                     </property>
+                     <property name="text">
+                      <string>Run query</string>
+                     </property>
+                     <property name="default">
+                      <bool>true</bool>
+                     </property>
+                    </widget>
+                   </item>
+                  </layout>
+                 </widget>
+                 <widget class="QWidget" name="page_2">
+                  <layout class="QHBoxLayout" name="horizontalLayout_13">
+                   <property name="spacing">
+                    <number>0</number>
+                   </property>
+                   <property name="leftMargin">
+                    <number>0</number>
+                   </property>
+                   <property name="topMargin">
+                    <number>0</number>
+                   </property>
+                   <property name="rightMargin">
+                    <number>0</number>
+                   </property>
+                   <property name="bottomMargin">
+                    <number>0</number>
+                   </property>
+                   <item>
+                    <widget class="QPushButton" name="button_cancel_query_qq">
+                     <property name="text">
+                      <string>Cancel running query</string>
+                     </property>
+                    </widget>
+                   </item>
+                  </layout>
+                 </widget>
                 </widget>
                </item>
               </layout>
@@ -1091,7 +1167,7 @@ QListWidget::item::selected {
                <item>
                 <widget class="QToolButton" name="button_generate_query">
                  <property name="sizePolicy">
-                  <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                  <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
                    <horstretch>0</horstretch>
                    <verstretch>0</verstretch>
                   </sizepolicy>
@@ -1108,13 +1184,80 @@ QListWidget::item::selected {
                 </widget>
                </item>
                <item>
-                <widget class="QPushButton" name="button_run_query_q">
-                 <property name="text">
-                  <string>Run query</string>
+                <widget class="QStackedWidget" name="stacked_execute_query_q">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
                  </property>
-                 <property name="default">
-                  <bool>true</bool>
-                 </property>
+                 <widget class="QWidget" name="page_3">
+                  <layout class="QHBoxLayout" name="horizontalLayout_14">
+                   <property name="spacing">
+                    <number>0</number>
+                   </property>
+                   <property name="leftMargin">
+                    <number>0</number>
+                   </property>
+                   <property name="topMargin">
+                    <number>0</number>
+                   </property>
+                   <property name="rightMargin">
+                    <number>0</number>
+                   </property>
+                   <property name="bottomMargin">
+                    <number>0</number>
+                   </property>
+                   <item>
+                    <widget class="QPushButton" name="button_run_query_q">
+                     <property name="text">
+                      <string>Run query</string>
+                     </property>
+                     <property name="default">
+                      <bool>true</bool>
+                     </property>
+                    </widget>
+                   </item>
+                  </layout>
+                 </widget>
+                 <widget class="QWidget" name="page_4">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <layout class="QHBoxLayout" name="horizontalLayout_15">
+                   <property name="spacing">
+                    <number>0</number>
+                   </property>
+                   <property name="leftMargin">
+                    <number>0</number>
+                   </property>
+                   <property name="topMargin">
+                    <number>0</number>
+                   </property>
+                   <property name="rightMargin">
+                    <number>0</number>
+                   </property>
+                   <property name="bottomMargin">
+                    <number>0</number>
+                   </property>
+                   <item>
+                    <widget class="QPushButton" name="button_cancel_query_q">
+                     <property name="sizePolicy">
+                      <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                       <horstretch>0</horstretch>
+                       <verstretch>0</verstretch>
+                      </sizepolicy>
+                     </property>
+                     <property name="text">
+                      <string>Cancel running query</string>
+                     </property>
+                    </widget>
+                   </item>
+                  </layout>
+                 </widget>
                 </widget>
                </item>
               </layout>
@@ -1275,10 +1418,38 @@ QListWidget::item::selected {
               </layout>
              </item>
              <item>
-              <widget class="QPushButton" name="button_run_file">
-               <property name="text">
-                <string>Open</string>
+              <widget class="QStackedWidget" name="stacked_execute_file">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
                </property>
+               <property name="currentIndex">
+                <number>0</number>
+               </property>
+               <widget class="QWidget" name="page_5">
+                <layout class="QHBoxLayout" name="horizontalLayout_24">
+                 <item>
+                  <widget class="QPushButton" name="button_run_file">
+                   <property name="text">
+                    <string>Open</string>
+                   </property>
+                  </widget>
+                 </item>
+                </layout>
+               </widget>
+               <widget class="QWidget" name="page_6">
+                <layout class="QHBoxLayout" name="horizontalLayout_16">
+                 <item>
+                  <widget class="QPushButton" name="button_cancel_file">
+                   <property name="text">
+                    <string>Cancel</string>
+                   </property>
+                  </widget>
+                 </item>
+                </layout>
+               </widget>
               </widget>
              </item>
             </layout>
@@ -1807,7 +1978,6 @@ QListWidget::item::selected {
   <tabstop>checkbox_multipolygons_qq</tabstop>
   <tabstop>spin_timeout</tabstop>
   <tabstop>line_file_prefix_qq</tabstop>
-  <tabstop>button_run_query_qq</tabstop>
   <tabstop>text_query</tabstop>
   <tabstop>advanced_q</tabstop>
   <tabstop>line_place_q</tabstop>
@@ -1822,7 +1992,6 @@ QListWidget::item::selected {
   <tabstop>checkbox_multipolygons_q</tabstop>
   <tabstop>edit_csv_multipolygons</tabstop>
   <tabstop>line_file_prefix_q</tabstop>
-  <tabstop>button_run_query_q</tabstop>
   <tabstop>button_overpass_turbo</tabstop>
   <tabstop>button_documentation</tabstop>
   <tabstop>checkbox_points_f</tabstop>
@@ -1832,7 +2001,6 @@ QListWidget::item::selected {
   <tabstop>radio_all_tags</tabstop>
   <tabstop>line_file_prefix_file</tabstop>
   <tabstop>radio_osm_conf</tabstop>
-  <tabstop>button_run_file</tabstop>
   <tabstop>combo_default_overpass</tabstop>
   <tabstop>combo_extent_layer_qq</tabstop>
   <tabstop>menu_widget</tabstop>

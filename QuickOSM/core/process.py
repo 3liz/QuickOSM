@@ -8,6 +8,7 @@ from typing import List, Union
 from qgis.core import (
     QgsCategorizedSymbolRenderer,
     QgsExpressionContextUtils,
+    QgsFeedback,
     QgsLayerMetadata,
     QgsProject,
     QgsRectangle,
@@ -55,7 +56,8 @@ def open_file(
         output_dir: str = None,
         output_format: Format = None,
         final_query: str = None,
-        prefix_file: str = None) -> int:
+        prefix_file: str = None,
+        feedback: QgsFeedback = None) -> int:
     """
     Open an osm file.
 
@@ -76,6 +78,9 @@ def open_file(
         white_list_column = None
 
     LOGGER.info('The OSM file is: {}'.format(osm_file))
+    if feedback:
+        if feedback.isCanceled():
+            return None
 
     # Parsing the file
     osm_parser = OsmParser(
@@ -86,7 +91,8 @@ def open_file(
         prefix_file=prefix_file,
         layer_name=layer_name,
         key=key,
-        white_list_column=white_list_column)
+        white_list_column=white_list_column,
+        feedback=feedback)
 
     if dialog:
         osm_parser.signalText.connect(dialog.set_progress_text)
@@ -97,6 +103,10 @@ def open_file(
     elapsed_time = time.time() - start_time
     parser_time = time.strftime("%Hh %Mm %Ss", time.gmtime(elapsed_time))
     LOGGER.info('The OSM parser took: {}'.format(parser_time))
+
+    if feedback:
+        if feedback.isCanceled():
+            return None
 
     # Finishing the process with an output format or memory layer
     num_layers = 0
@@ -214,6 +224,9 @@ def process_query(
     )
     q_manage.write_query_historic()
 
+    if dialog.feedback_process.isCanceled():
+        return None
+
     # Prepare outputs
     dialog.set_progress_text(tr('Prepare outputs'))
 
@@ -242,7 +255,8 @@ def process_query(
         output_format=output_format,
         prefix_file=prefix_file,
         final_query=final_query,
-        config_outputs=config_outputs)
+        config_outputs=config_outputs,
+        feedback=dialog.feedback_process)
 
 
 def process_quick_query(
@@ -265,6 +279,9 @@ def process_quick_query(
     """
     Generate a query and send it to process_query.
     """
+    if dialog.feedback_process.isCanceled():
+        return None
+
     # Building the query
     query_factory = QueryFactory(
         type_multi_request=type_multi_request,
