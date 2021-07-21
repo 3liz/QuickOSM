@@ -1,7 +1,7 @@
 """Panel OSM Processing base class."""
-
 from os.path import isdir
 
+from qgis.core import QgsFeedback
 from qgis.gui import QgsFileWidget
 from qgis.PyQt.QtCore import Qt
 from qgis.PyQt.QtWidgets import QApplication, QDialog
@@ -81,6 +81,8 @@ class BaseProcessingPanel(BasePanel):
         self.dialog.output_format[self.panel].addItem(
             Format.Kml.value.label, Format.Kml)
 
+        self.dialog.cancel_buttons[self.panel].clicked.connect(self.cancel_process)
+
         # def disable_prefix_file():
         #     # TODO
         #     def disable_prefix_file(directory, file_prefix):
@@ -98,16 +100,15 @@ class BaseProcessingPanel(BasePanel):
         """Make some stuff before launching the process."""
         QApplication.setOverrideCursor(Qt.WaitCursor)
 
+        self.dialog.feedback_process = QgsFeedback()
+
         if self.panel == Panels.QuickQuery:
             self.dialog.button_show_query.setDisabled(True)
 
         if self.panel == Panels.Query:
             self.dialog.button_generate_query.setDisabled(True)
 
-        self.dialog.run_buttons[self.panel].setDisabled(True)
-        self.dialog.run_buttons[self.panel].initial_text = \
-            self.dialog.run_buttons[self.panel].text()
-        self.dialog.run_buttons[self.panel].setText(tr('Running query…'))
+        self.dialog.execute_buttons[self.panel].setCurrentIndex(1)
         self.dialog.output_directories[self.panel].setDisabled(True)
         self.dialog.progress_bar.setMinimum(0)
         self.dialog.progress_bar.setMaximum(0)
@@ -127,13 +128,15 @@ class BaseProcessingPanel(BasePanel):
 
         self.dialog.output_directories[self.panel].setDisabled(False)
         self.dialog.output_format[self.panel].setDisabled(False)
-        self.dialog.run_buttons[self.panel].setDisabled(False)
-        self.dialog.run_buttons[self.panel].setText(
-            self.dialog.run_buttons[self.panel].initial_text)
+        self.dialog.execute_buttons[self.panel].setCurrentIndex(0)
         self.dialog.progress_bar.setMinimum(0)
         self.dialog.progress_bar.setMaximum(100)
         self.dialog.progress_bar.setValue(100)
         QApplication.processEvents()
+
+    def cancel_process(self):
+        """Cancel the process"""
+        self.dialog.feedback_process.cancel()
 
     def gather_values(self):
         """Retrieval of the values set by the user."""
