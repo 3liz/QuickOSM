@@ -177,7 +177,7 @@ class OsmParser(QObject):
                 }, feedback=self.feedback if self.feedback_alg else None
             )['OUTPUT']
             if self.__subset:
-                LOGGER.debug('Subset filter: {}'.format(self.__subset_query))
+                LOGGER.info('Subset filter: {}'.format(self.__subset_query))
                 layers[layer]['vector_layer'].setSubsetString(self.__subset_query)
 
             layers[layer]['vector_layer'].startEditing()

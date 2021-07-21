@@ -18,12 +18,13 @@ class TestOsmParser(unittest.TestCase):
     def setUp(self):
         self.maxDiff = None
 
+        self.file = plugin_test_data_path('osm_parser', 'map.osm')
+
     def test_parser(self):
         """Test if the osm parser output is as expected."""
-        file = plugin_test_data_path('osm_parser', 'map.osm')
 
         parser = OsmParser(
-            osm_file=file,
+            osm_file=self.file,
             layers=['points'],
             layer_name='layer_name',
         )
@@ -49,6 +50,32 @@ class TestOsmParser(unittest.TestCase):
             'barrier'
         ]
         features_expected = 52
+        geom_type_expected = QgsWkbTypes.Point
+
+        self.assertEqual(layers['points']['tags'], tags_expected)
+        self.assertEqual(layers['points']['featureCount'], features_expected)
+        self.assertEqual(layers['points']['geomType'], geom_type_expected)
+
+    def test_subset_parser(self):
+        """Test if we can select a subset of a file."""
+
+        parser = OsmParser(
+            osm_file=self.file,
+            layers=['points'],
+            layer_name='layer_name',
+            key=['highway'],
+            subset=True,
+            subset_query='highway=\'bus_stop\''
+        )
+
+        layers = parser.processing_parse()
+
+        tags_expected = [
+            'full_id', 'osm_id', 'osm_type', 'osm_version', 'osm_timestamp',
+            'osm_uid', 'osm_user', 'osm_changeset', 'highway',
+            'shelter', 'covered', 'public_transport', 'name', 'bus'
+        ]
+        features_expected = 3
         geom_type_expected = QgsWkbTypes.Point
 
         self.assertEqual(layers['points']['tags'], tags_expected)
