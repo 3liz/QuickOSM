@@ -2,7 +2,6 @@
 
 from processing.algs.qgis.QgisAlgorithm import QgisAlgorithm
 from qgis.core import (
-    Qgis,
     QgsProcessingParameterDefinition,
     QgsProcessingParameterExtent,
     QgsProcessingParameterNumber,
@@ -49,10 +48,7 @@ class BuildBased(QgisAlgorithm):
             self.TIMEOUT, tr('Timeout'), defaultValue=25, minValue=5)
         param.setFlags(param.flags() | QgsProcessingParameterDefinition.FlagAdvanced)
         help_string = tr('The timeout to use for the Overpass API.')
-        if Qgis.QGIS_VERSION_INT >= 31500:
-            param.setHelp(help_string)
-        else:
-            param.tooltip_3liz = help_string
+        param.setHelp(help_string)
         self.addParameter(param)
 
         server = get_setting('defaultOAPI', OVERPASS_SERVERS[0]) + 'interpreter'
@@ -63,10 +59,7 @@ class BuildBased(QgisAlgorithm):
             defaultValue=server)
         param.setFlags(param.flags() | QgsProcessingParameterDefinition.FlagAdvanced)
         help_string = tr('The Overpass API server to use to build the encoded URL.')
-        if Qgis.QGIS_VERSION_INT >= 31500:
-            param.setHelp(help_string)
-        else:
-            param.tooltip_3liz = help_string
+        param.setHelp(help_string)
         self.addParameter(param)
 
 
@@ -101,10 +94,7 @@ class BuildRaw(BuildBased):
         help_string = tr(
             'A XML or OQL query to be send to the Overpass API. It can contains some {{}} tokens.'
         )
-        if Qgis.QGIS_VERSION_INT >= 31500:
-            param.setHelp(help_string)
-        else:
-            param.tooltip_3liz = help_string
+        param.setHelp(help_string)
         self.addParameter(param)
 
     def add_bottom_parameters(self):
@@ -121,10 +111,7 @@ class BuildRaw(BuildBased):
         help_string = tr(
             'If the query has a {{bbox}} token, this extent will be used for replacement.'
         )
-        if Qgis.QGIS_VERSION_INT >= 31500:
-            param.setHelp(help_string)
-        else:
-            param.tooltip_3liz = help_string
+        param.setHelp(help_string)
         self.addParameter(param)
 
         param = QgsProcessingParameterString(
@@ -136,10 +123,7 @@ class BuildRaw(BuildBased):
             param.flags() | QgsProcessingParameterDefinition.FlagAdvanced
         )
         help_string = tr('If the query has a {{geocodeArea}} token, this place will be used.')
-        if Qgis.QGIS_VERSION_INT >= 31500:
-            param.setHelp(help_string)
-        else:
-            param.tooltip_3liz = help_string
+        param.setHelp(help_string)
         self.addParameter(param)
 
 
@@ -173,10 +157,7 @@ class BuildBasedQuery(BuildBased):
             'Multiple keys can be be ask by adding the separator \',\' between each key.'
             'In this case make sure the number of keys match the number of values'
         )
-        if Qgis.QGIS_VERSION_INT >= 31500:
-            param.setHelp(help_string)
-        else:
-            param.tooltip_3liz = help_string
+        param.setHelp(help_string)
         self.addParameter(param)
 
         param = QgsProcessingParameterString(
@@ -187,10 +168,7 @@ class BuildBasedQuery(BuildBased):
             'Multiple values can be be ask by adding the separator \',\' between each value.'
             'In this case make sure the number of values match the number of keys'
         )
-        if Qgis.QGIS_VERSION_INT >= 31500:
-            param.setHelp(help_string)
-        else:
-            param.tooltip_3liz = help_string
+        param.setHelp(help_string)
         self.addParameter(param)
 
 
@@ -220,10 +198,7 @@ class BuildBasedInAreaQuery(BuildBasedQuery):
             'The name of the area. '
             'This will make a first query to the Nominatim API to fetch the OSM ID.'
         )
-        if Qgis.QGIS_VERSION_INT >= 31500:
-            param.setHelp(help_string)
-        else:
-            param.tooltip_3liz = help_string
+        param.setHelp(help_string)
         self.addParameter(param)
 
 
@@ -252,10 +227,7 @@ class BuildBasedAroundAreaQuery(BuildBasedInAreaQuery):
             'The distance to use when doing the buffering around the named area. '
             'The distance must be in meters.'
         )
-        if Qgis.QGIS_VERSION_INT >= 31500:
-            param.setHelp(help_string)
-        else:
-            param.tooltip_3liz = help_string
+        param.setHelp(help_string)
         self.addParameter(param)
 
 
@@ -276,8 +248,5 @@ class BuildBasedExtentQuery(BuildBasedQuery):
 
         param = QgsProcessingParameterExtent(self.EXTENT, tr('Extent'), optional=False)
         help_string = tr('The extent as a rectangle to use when building the query.')
-        if Qgis.QGIS_VERSION_INT >= 31500:
-            param.setHelp(help_string)
-        else:
-            param.tooltip_3liz = help_string
+        param.setHelp(help_string)
         self.addParameter(param)
