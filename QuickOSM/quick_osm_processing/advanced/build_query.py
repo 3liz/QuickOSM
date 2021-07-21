@@ -4,7 +4,6 @@ from typing import Dict
 
 from processing.algs.qgis.QgisAlgorithm import QgisAlgorithm
 from qgis.core import (
-    Qgis,
     QgsCoordinateReferenceSystem,
     QgsCoordinateTransform,
     QgsProcessingAlgorithm,
@@ -62,24 +61,9 @@ class BuildQueryBasedAlgorithm(QgisAlgorithm):
     def add_outputs(self):
         """Set up the advanced parameters."""
         output = QgsProcessingOutputString(self.OUTPUT_URL, tr('Query as encoded URL'))
-        help_string = tr(
-            'The query is generated and encoded with the Overpass API URL. '
-            'This output should be used in the File Downloader algorithm.'
-        )
-        if Qgis.QGIS_VERSION_INT >= 31500:
-            pass
-            # output.setHelp(help_string)
-        else:
-            output.tooltip_3liz = help_string
         self.addOutput(output)
 
         output = QgsProcessingOutputString(self.OUTPUT_OQL_QUERY, tr('Raw query as OQL'))
-        help_string = tr('The query is generated in the OQL format.')
-        if Qgis.QGIS_VERSION_INT >= 31500:
-            pass
-            # output.setHelp(help_string)
-        else:
-            output.tooltip_3liz = help_string
         self.addOutput(output)
 
     def initAlgorithm(self, config=None):
