@@ -2,7 +2,6 @@
 
 from processing.algs.qgis.QgisAlgorithm import QgisAlgorithm
 from qgis.core import (
-    Qgis,
     QgsCategorizedSymbolRenderer,
     QgsLayerMetadata,
     QgsProcessingAlgorithm,
@@ -69,10 +68,7 @@ class DecorateLayerAlgorithm(QgisAlgorithm):
             self.LAYER, tr('Layer')
         )
         help_string = tr('Path where the file will be download.')
-        if Qgis.QGIS_VERSION_INT >= 31500:
-            param.setHelp(help_string)
-        else:
-            param.tooltip_3liz = help_string
+        param.setHelp(help_string)
         self.addParameter(param)
 
     def add_outputs(self):
@@ -80,12 +76,6 @@ class DecorateLayerAlgorithm(QgisAlgorithm):
         output = QgsProcessingOutputVectorLayer(
             self.OUTPUT_LAYER, tr('Output layer')
         )
-        help_string = tr('The layer with metadata, actions and maybe style.')
-        if Qgis.QGIS_VERSION_INT >= 31500:
-            pass
-            # output.setHelp(help_string)
-        else:
-            output.tooltip_3liz = help_string
         self.addOutput(output)
 
     def fetch_based_parameters(self, parameters, context):

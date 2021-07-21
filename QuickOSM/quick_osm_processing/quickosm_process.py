@@ -5,7 +5,6 @@ import processing
 
 from processing.algs.qgis.QgisAlgorithm import QgisAlgorithm
 from qgis.core import (
-    Qgis,
     QgsProcessing,
     QgsProcessingAlgorithm,
     QgsProcessingContext,
@@ -91,56 +90,29 @@ class DownloadOSMData(QgisAlgorithm):
             optional=True)
         param.setFileFilter('*.gpkg')
         help_string = tr('Path where the file will be download.')
-        if Qgis.QGIS_VERSION_INT >= 31500:
-            param.setHelp(help_string)
-        else:
-            param.tooltip_3liz = help_string
+        param.setHelp(help_string)
         self.addParameter(param)
 
     def add_outputs(self):
         """Set up the outputs of the algorithm."""
         output = QgsProcessingOutputVectorLayer(
             self.OUTPUT_POINTS, tr('Output points'), QgsProcessing.TypeVectorPoint)
-        help_string = tr('The point layer from the OGR OSM driver.')
-        if Qgis.QGIS_VERSION_INT >= 31500:
-            pass
-            # output.setHelp(help_string)
-        else:
-            output.tooltip_3liz = help_string
         self.addOutput(output)
 
         output = QgsProcessingOutputVectorLayer(
             self.OUTPUT_LINES, tr('Output lines'), QgsProcessing.TypeVectorLine)
-        help_string = tr('The line layer from the OGR OSM driver.')
-        if Qgis.QGIS_VERSION_INT >= 31500:
-            pass
-            # output.setHelp(help_string)
-        else:
-            output.tooltip_3liz = help_string
         self.addOutput(output)
 
         output = QgsProcessingOutputVectorLayer(
             self.OUTPUT_MULTILINESTRINGS, tr('Output multilinestrings'),
             QgsProcessing.TypeVectorLine
         )
-        help_string = tr('The multilinestrings layer from the OGR OSM driver.')
-        if Qgis.QGIS_VERSION_INT >= 31500:
-            pass
-            # output.setHelp(help_string)
-        else:
-            output.tooltip_3liz = help_string
         self.addOutput(output)
 
         output = QgsProcessingOutputVectorLayer(
             self.OUTPUT_MULTIPOLYGONS, tr('Output multipolygons'),
             QgsProcessing.TypeVectorPolygon
         )
-        help_string = tr('The multipolygon layer from the OGR OSM driver.')
-        if Qgis.QGIS_VERSION_INT >= 31500:
-            pass
-            # output.setHelp(help_string)
-        else:
-            output.tooltip_3liz = help_string
         self.addOutput(output)
 
     def initAlgorithm(self, config=None):

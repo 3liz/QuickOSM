@@ -86,10 +86,9 @@ class QuickOSMPlugin:
 
         icon = QIcon(resources_path('icons', 'QuickOSM.svg'))
 
-        if Qgis.QGIS_VERSION_INT >= 31000:
-            self.help_action = QAction(icon, 'QuickOSM', self.iface.mainWindow())
-            self.iface.pluginHelpMenu().addAction(self.help_action)
-            self.help_action.triggered.connect(self.show_help)
+        self.help_action = QAction(icon, 'QuickOSM', self.iface.mainWindow())
+        self.iface.pluginHelpMenu().addAction(self.help_action)
+        self.help_action.triggered.connect(self.show_help)
 
         # Add the toolbar
         self.toolbar = self.iface.addToolBar('QuickOSM')
