@@ -50,6 +50,7 @@ in your `profile_name/QuickOSM` folder and add this template in it :
     ]
 }
 ```
+Both `overpass_servers` et `nominatim_servers` are optionals. If you want to add only one of them, you don't need to write the other.
 QuickOSM will add your custom list to the list below.
 
 To find the profile folder, go in **Settings → Profile → Open active profile folder**.
