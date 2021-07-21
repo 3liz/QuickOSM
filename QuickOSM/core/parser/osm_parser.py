@@ -191,6 +191,7 @@ class OsmParser(QObject):
 
             fields = layers[layer]['vector_layer'].fields()
             if self.__subset:
+                # null_fields is a list of the empty field
                 null_fields = fields.names()[:-2]
             features = layers[layer]['vector_layer'].getFeatures()
             meta = False
@@ -243,6 +244,7 @@ class OsmParser(QObject):
                             null_fields.pop(index)
 
             if self.__subset:
+                # delete empty fields
                 null_index = [fields.indexOf(field) for field in null_fields]
                 layer_provider.deleteAttributes(null_index)
                 layers[layer]['vector_layer'].updateFields()
