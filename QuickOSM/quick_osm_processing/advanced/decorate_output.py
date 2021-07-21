@@ -142,6 +142,8 @@ class SetColoringPostProcessor(QgsProcessingLayerPostProcessorInterface):
             colors = layer.uniqueValues(index)
             categories = []
             for value in colors:
+                if str(value) == 'None':
+                    value = ''
                 if layer_type in [self.layer_type_dict['lines'], self.layer_type_dict['multilinestrings']]:
                     symbol = QgsSymbol.defaultSymbol(QgsWkbTypes.LineGeometry)
                 elif layer_type == self.layer_type_dict['point']:
@@ -153,9 +155,6 @@ class SetColoringPostProcessor(QgsProcessingLayerPostProcessorInterface):
                 symbol.setColor(QColor(value))
                 category = QgsRendererCategory(str(value), symbol, str(value))
                 categories.append(category)
-
-            category = QgsRendererCategory()
-            categories.append(category)
 
             renderer = QgsCategorizedSymbolRenderer("colour", categories)
             layer.setRenderer(renderer)
