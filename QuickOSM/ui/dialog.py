@@ -295,9 +295,10 @@ class Dialog(QDialog, FORM_CLASS):
         LOGGER.info('Dialog has been reset')
 
         # Quickquery
-        self.combo_preset.setCurrentIndex(0)
-        self.table_keys_values.setRowCount(1)
-        self.table_keys_values.cellWidget(0, 1).setCurrentIndex(0)
+        self.combo_preset_qq.setCurrentIndex(0)
+        self.table_keys_values_qq.setRowCount(1)
+        self.table_keys_values_qq.cellWidget(0, 1).setCurrentIndex(0)
+        self.table_keys_values_qq.cellWidget(0, 2).lineEdit().setText('')
         self.checkbox_node.setChecked(True)
         self.checkbox_way.setChecked(True)
         self.checkbox_relation.setChecked(True)
@@ -314,6 +315,10 @@ class Dialog(QDialog, FORM_CLASS):
         # OSM File
         self.osm_file.lineEdit().setText('')
         self.osm_conf.lineEdit().setText('')
+        self.combo_preset_f.setCurrentIndex(0)
+        self.table_keys_values_f.setRowCount(1)
+        self.table_keys_values_f.cellWidget(0, 1).setCurrentIndex(0)
+        self.table_keys_values_f.cellWidget(0, 2).lineEdit().setText('')
 
         # Place nominatim
         for edit in self.places_edits.values():
