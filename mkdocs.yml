@@ -17,6 +17,7 @@ nav:
     - Processing: processing/README.md
     - Changelog: changelog.md
     - Contributing: contributing.md
+    - Translation: translation_stats.md
     - References: references.md
 
 plugins:
@@ -24,31 +25,33 @@ plugins:
   - git-revision-date-localized
 
 markdown_extensions:
-  - toc:
-      permalink: "#"
+  - admonition:
+  - attr_list:
   - meta:
+  - pymdownx.details:
   - pymdownx.highlight:
       linenums: true
       linenums_style: pymdownx.inline
+  - pymdownx.keys:
+  - pymdownx.magiclink:
+  - pymdownx.progressbar:
   - pymdownx.superfences:
       custom_fences:
         - name: mermaid
           class: mermaid
           format: !!python/name:pymdownx.superfences.fence_div_format
   - pymdownx.tabbed:
-  - pymdownx.magiclink:
   - pymdownx.tasklist:
   - pymdownx.snippets:
-  - pymdownx.keys:
-  - attr_list:
-  - admonition:
-  - pymdownx.details:
+  - toc:
+      permalink: "#"
 
 extra_javascript:
   - https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js
   - https://unpkg.com/mermaid@8.6.4/dist/mermaid.min.js
 extra_css:
   - https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/default.min.css
+  - media/progress_bar.css
 
 theme:
   name: material

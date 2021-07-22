@@ -1,0 +1,55 @@
+{
+    "zh_CN": {
+        "name": "Chinese (China)",
+        "percentage": 0.0
+    },
+    "zh_TW": {
+        "name": "Chinese (Taiwan)",
+        "percentage": 57.93
+    },
+    "nl": {
+        "name": "Dutch",
+        "percentage": 100.0
+    },
+    "fi": {
+        "name": "Finnish",
+        "percentage": 3.79
+    },
+    "fr": {
+        "name": "French",
+        "percentage": 100.0
+    },
+    "de": {
+        "name": "German",
+        "percentage": 3.1
+    },
+    "id": {
+        "name": "Indonesian",
+        "percentage": 51.38
+    },
+    "it": {
+        "name": "Italian",
+        "percentage": 100.0
+    },
+    "pl": {
+        "name": "Polish",
+        "percentage": 63.79
+    },
+    "pt_BR": {
+        "name": "Portuguese (Brazil)",
+        "percentage": 88.62
+    },
+    "ru": {
+        "name": "Russian",
+        "percentage": 55.17
+    },
+    "es": {
+        "name": "Spanish",
+        "percentage": 53.45
+    },
+    "en": {
+        "nb_languages": 12,
+        "stringcount": 290,
+        "percentage": 56.44
+    }
+}
