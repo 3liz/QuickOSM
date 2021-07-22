@@ -27,10 +27,10 @@ class TestBookmarkQuery(unittest.TestCase):
 
         self.dialog = Dialog()
 
-        index = self.dialog.table_keys_values.cellWidget(0, 1).findText('amenity')
-        self.dialog.table_keys_values.cellWidget(0, 1).setCurrentIndex(index)
-        index = self.dialog.table_keys_values.cellWidget(0, 2).findText('bench')
-        self.dialog.table_keys_values.cellWidget(0, 2).setCurrentIndex(index)
+        index = self.dialog.table_keys_values_qq.cellWidget(0, 1).findText('amenity')
+        self.dialog.table_keys_values_qq.cellWidget(0, 1).setCurrentIndex(index)
+        index = self.dialog.table_keys_values_qq.cellWidget(0, 2).findText('bench')
+        self.dialog.table_keys_values_qq.cellWidget(0, 2).setCurrentIndex(index)
         self.dialog.places_edits[Panels.QuickQuery].setText('foo')
         self.dialog.save_query.click()
 
