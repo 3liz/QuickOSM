@@ -41,10 +41,11 @@ class BaseOverpassPanel(BaseProcessingPanel):
     def setup_panel(self):
         """Function to set custom UI for some panels."""
         super().setup_panel()
-        self.dialog.advanced_panels[self.panel].setSaveCollapsedState(False)
-        self.dialog.advanced_panels[self.panel].setCollapsed(True)
+        if self.dialog.advanced_panels[self.panel]:
+            self.dialog.advanced_panels[self.panel].setSaveCollapsedState(False)
+            self.dialog.advanced_panels[self.panel].setCollapsed(True)
 
-        self.dialog.action_oql[self.panel].setEnabled(False)
+            self.dialog.action_oql[self.panel].setEnabled(False)
 
     def query_language_xml(self):
         """Update the wanted language."""

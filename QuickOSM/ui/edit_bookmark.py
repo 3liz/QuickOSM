@@ -4,7 +4,7 @@ import logging
 from qgis.core import QgsCoordinateReferenceSystem
 from qgis.gui import QgsExtentWidget, QgsFileWidget
 from qgis.PyQt.QtCore import QPoint, Qt
-from qgis.PyQt.QtWidgets import QDialog, QListWidgetItem, QMenu
+from qgis.PyQt.QtWidgets import QDialog, QListWidgetItem, QMenu, QInputDialog
 
 from QuickOSM.core.utilities.query_saved import QueryManagement
 from QuickOSM.definitions.format import Format
@@ -34,7 +34,7 @@ class EditBookmark(QDialog, FORM_CLASS):
         self.nb_queries = len(data_bookmark['query'])
 
         for k in range(self.nb_queries):
-            self.list_queries.addItem(tr('Query ') + str(k + 1))
+            self.list_queries.addItem(data_bookmark['query_name'][k])
 
         self.button_add.clicked.connect(self.add_query)
         self.list_queries.currentRowChanged.connect(self.change_query)
@@ -75,15 +75,19 @@ class EditBookmark(QDialog, FORM_CLASS):
         item = self.list_queries.mapToGlobal(pos)
         submenu = QMenu()
         delete_action = submenu.addAction(tr('Delete'))
+        rename_action = submenu.addAction(tr('Rename'))
         right_click_item = submenu.exec_(item)
         if right_click_item and right_click_item == delete_action:
             index = self.list_queries.indexAt(pos).row()
             self.delete_query(index)
+        if right_click_item and right_click_item == rename_action:
+            query = self.list_queries.itemAt(pos)
+            self.rename_query(query)
 
     def data_filling_form(self, num_query: int = 0):
         """Writing the form with data from bookmark"""
 
-        self.layer_name.setText(self.data['query_name'][num_query])
+        self.layer_name.setText(self.data['query_layer_name'][num_query])
         self.query.setPlainText(self.data['query'][num_query])
 
         self.area.setText(self.data['area'][num_query])
@@ -154,6 +158,15 @@ class EditBookmark(QDialog, FORM_CLASS):
 
         self.current_query = self.list_queries.currentRow()
 
+    def rename_query(self, query: QListWidgetItem):
+        """Rename a query in the bookmark"""
+        input_dialog = QInputDialog(self)
+        new_name = input_dialog.getText(
+            self, tr("Rename the query"),
+            tr("New name:"))
+        if new_name[1] and new_name[0]:
+            query.setText(new_name[0])
+
     def show_extent_canvas(self):
         """Show the extent in the canvas"""
         if self.data['bbox'][self.current_query]:
@@ -175,10 +188,12 @@ class EditBookmark(QDialog, FORM_CLASS):
         self.data['file_name'] = self.bookmark_name.text()
         description = self.description.toPlainText().split('\\n')
         self.data['description'] = description
+        list_name_queries = [self.list_queries.item(k).text() for k in range(self.list_queries.count())]
+        self.data['query_name'] = list_name_queries
 
     def gather_parameters(self, num_query: int = 0):
         """Save the parameters."""
-        self.data['query_name'][num_query] = self.layer_name.text()
+        self.data['query_layer_name'][num_query] = self.layer_name.text()
         self.data['query'][num_query] = self.query.toPlainText()
         self.data['area'][num_query] = self.area.text()
         if self.bbox.outputExtent():
@@ -231,4 +246,5 @@ class EditBookmark(QDialog, FORM_CLASS):
             q_manage.update_bookmark(self.data)
 
         self.parent().external_panels[Panels.QuickQuery].update_bookmark_view()
+        self.parent().external_panels[Panels.MapPreset].update_bookmark_view()
         self.close()

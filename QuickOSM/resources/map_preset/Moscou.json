@@ -1,0 +1,75 @@
+{
+    "query": [
+        "[out:xml] [timeout:25];\n {{geocodeArea:Moscou}} -> .area_0;\n(\n    node[\"amenity\"=\"bar\"](area.area_0);\n    way[\"amenity\"=\"bar\"](area.area_0);\n    relation[\"amenity\"=\"bar\"](area.area_0);\n);\n(._;>;);\nout body;",
+        "[out:xml] [timeout:25];\n {{geocodeArea:Moscou}} -> .area_0;\n(\n    node[\"amenity\"=\"animal_shelter\"](area.area_0);\n    way[\"amenity\"=\"animal_shelter\"](area.area_0);\n    relation[\"amenity\"=\"animal_shelter\"](area.area_0);\n);\n(._;>;);\nout body;"
+    ],
+    "description": [
+        "Bar et refuge animalier \u00e0 Moscou"
+    ],
+    "file_name": "Moscou",
+    "query_layer_name": [
+        "amenity_bar_Moscou",
+        "amenity_animal_shelter_Moscou"
+    ],
+    "query_name": [
+        "Bar",
+        "Refuge animalier"
+    ],
+    "area": [
+        "Moscou",
+        "Moscou"
+    ],
+    "bbox": [
+        {
+            "__extent__": "0.0 0.0 0.0 0.0"
+        },
+        {
+            "__extent__": "0.0 0.0 0.0 0.0"
+        }
+    ],
+    "output_geom_type": [
+        [
+            {
+                "__enum__": "LayerType.Points"
+            }
+        ],
+        [
+            {
+                "__enum__": "LayerType.Points"
+            },
+            {
+                "__enum__": "LayerType.Lines"
+            },
+            {
+                "__enum__": "LayerType.Multilinestrings"
+            },
+            {
+                "__enum__": "LayerType.Multipolygons"
+            }
+        ]
+    ],
+    "white_list_column": [
+        {
+            "points": "amenity,name",
+            "lines": null,
+            "multilinestrings": null,
+            "multipolygons": null
+        },
+        {
+            "points": "amenity,name",
+            "lines": null,
+            "multilinestrings": null,
+            "multipolygons": null
+        }
+    ],
+    "output_directory": [
+        "",
+        ""
+    ],
+    "output_format": [
+        {
+            "__enum__": "Format.GeoPackage"
+        },
+        null
+    ]
+}

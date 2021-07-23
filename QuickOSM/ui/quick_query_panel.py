@@ -177,7 +177,8 @@ class QuickQueryPanel(BaseOverpassPanel, TableKeyValue):
             distance_string = '{}'.format(properties['distance'])
         if isinstance(properties['key'], list):
             expected_name = []
-            for k in range(len(properties['key'])):
+            nb_max = len(properties['key']) if len(properties['key']) <= 2 else 2
+            for k in range(nb_max):
                 expected_name.append(properties['key'][k])
                 expected_name.append(properties['value'][k])
             expected_name.append(properties['place'])
@@ -300,10 +301,11 @@ class QuickQueryPanel(BaseOverpassPanel, TableKeyValue):
         """Update the bookmarks displayed."""
         bookmark_folder = query_bookmark()
         files = os.listdir(bookmark_folder)
+        files_json = filter(lambda file_ext: file_ext[-5:] == '.json', files)
 
         self.dialog.list_bookmark.clear()
 
-        for file in files:
+        for file in files_json:
             file_path = join(bookmark_folder, file)
             with open(file_path, encoding='utf8') as json_file:
                 data = json.load(json_file, object_hook=as_enum)
@@ -376,9 +378,9 @@ class QuickQueryPanel(BaseOverpassPanel, TableKeyValue):
         for k, query in enumerate(data['query']):
             if data['output_directory'][k]:
                 time_str = str(datetime.datetime.now()).replace(' ', '_').replace(':', '-').split('.')[0]
-                name = time_str + '_' + data['query_name'][k]
+                name = time_str + '_' + data['query_layer_name'][k]
             else:
-                name = data['query_name'][k]
+                name = data['query_layer_name'][k]
             num_layers = process_query(
                 dialog=self.dialog,
                 query=query,

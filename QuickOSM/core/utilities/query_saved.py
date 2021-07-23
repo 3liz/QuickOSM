@@ -18,6 +18,8 @@ __copyright__ = 'Copyright 2021, 3Liz'
 __license__ = 'GPL version 3'
 __email__ = 'info@3liz.org'
 
+from QuickOSM.qgis_plugin_tools.tools.i18n import tr
+
 LOGGER = logging.getLogger('QuickOSM')
 
 
@@ -135,7 +137,8 @@ class QueryManagement:
             'query': self.query,
             'description': self.description,
             'file_name': self.name[0],
-            'query_name': self.name,
+            'query_layer_name': self.name,
+            'query_name': tr('Query 1'),
             'area': self.area,
             'bbox': self.bbox,
             'output_geom_type': self.output_geom_type,
@@ -167,7 +170,8 @@ class QueryManagement:
     def add_empty_query_in_bookmark(data: dict) -> dict:
         """Add a query in a bookmark file"""
         data['query'].append('')
-        data['query_name'].append('')
+        data['query_layer_name'].append('')
+        data['query_name'].append(tr('Query ') + len(data['query']))
         data['area'].append('')
         data['bbox'].append('')
         data['output_geom_type'].append(OSM_LAYERS)
@@ -180,6 +184,7 @@ class QueryManagement:
     @staticmethod
     def remove_query_in_bookmark(data: dict, num_query: int) -> dict:
         """Remove a query in a bookmark file."""
+        data['query_layer_name'].pop(num_query)
         data['query_name'].pop(num_query)
         data['query'].pop(num_query)
         data['area'].pop(num_query)

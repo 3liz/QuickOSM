@@ -81,7 +81,8 @@ class TestBookmarkQuery(unittest.TestCase):
             "description":
                 ["All OSM objects with the key 'amenity'='bench' in foo are going to be downloaded."],
             "file_name": "amenity_bench_foo",
-            "query_name": ["amenity_bench_foo"],
+            "query_layer_name": ["amenity_bench_foo"],
+            "query_name": ["Query 1"],
             "area": ["foo"],
             "bbox": [""],
             "output_geom_type":
@@ -111,7 +112,7 @@ class TestBookmarkQuery(unittest.TestCase):
         self.assertEqual(
             data_bookmark['description'], edit_dialog.description.toPlainText().split('\\n')
         )
-        self.assertEqual(data_bookmark['query_name'][0], edit_dialog.layer_name.text())
+        self.assertEqual(data_bookmark['query_layer_name'][0], edit_dialog.layer_name.text())
         self.assertEqual(data_bookmark['query'][0], edit_dialog.query.toPlainText())
         self.assertEqual(data_bookmark['area'][0], edit_dialog.area.text())
         self.assertFalse(edit_dialog.bbox.outputExtent().xMinimum())
@@ -187,7 +188,8 @@ class TestBookmarkQuery(unittest.TestCase):
             "description":
                 ["Be or not to be...", "Shakespear"],
             "file_name": "amenity_bench_foo",
-            "query_name": ["Misery"],
+            "query_layer_name": ["Misery"],
+            "query_name": ["Query 1"],
             "area": ["foo"],
             "bbox": [{'__extent__': '0.0 0.0 0.0 0.0'}],
             "output_geom_type":
@@ -239,7 +241,8 @@ class TestBookmarkQuery(unittest.TestCase):
             "description":
                 ["All OSM objects with the key 'amenity'='bench' in foo are going to be downloaded."],
             "file_name": "amenity_bench_foo",
-            "query_name": ["amenity_bench_foo", "Query 2"],
+            "query_layer_name": ["amenity_bench_foo", "Query 2"],
+            "query_name": ["Query 1", "Query 2"],
             "area": ["foo", ""],
             "bbox": [{'__extent__': '0.0 0.0 0.0 0.0'}, {'__extent__': '0.0 0.0 0.0 0.0'}],
             "output_geom_type":
@@ -298,7 +301,8 @@ class TestBookmarkQuery(unittest.TestCase):
             "description":
                 ["All OSM objects with the key 'amenity'='bench' in foo are going to be downloaded."],
             "file_name": "amenity_bench_foo",
-            "query_name": ["Query 2"],
+            "query_layer_name": ["Query 2"],
+            "query_name": ["Query 1"],
             "area": [""],
             "bbox": [{'__extent__': '2.71828 0.0 3.1415926 1.6180339'}],
             "output_geom_type":
