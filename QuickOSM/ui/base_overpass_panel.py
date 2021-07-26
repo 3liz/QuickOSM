@@ -189,9 +189,16 @@ class BaseOverpassPanel(BaseProcessingPanel):
                 tr('Successful query, but no result.'),
                 level=Qgis.Warning, duration=7)
 
-    def gather_values(self):
+    def gather_values(self) -> dict:
         """Retrieval of the values set by the user."""
         properties = super().gather_values()
+
+        properties = self.gather_spatial_values(properties)
+
+        return properties
+
+    def gather_spatial_values(self, properties: dict) -> dict:
+        """Retrieval of the values set by the user."""
 
         place = self.dialog.places_edits[self.panel].text()
         if place == '':

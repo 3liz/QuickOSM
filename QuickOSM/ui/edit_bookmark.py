@@ -4,7 +4,7 @@ import logging
 from qgis.core import QgsCoordinateReferenceSystem
 from qgis.gui import QgsExtentWidget, QgsFileWidget
 from qgis.PyQt.QtCore import QPoint, Qt
-from qgis.PyQt.QtWidgets import QDialog, QListWidgetItem, QMenu, QInputDialog
+from qgis.PyQt.QtWidgets import QDialog, QInputDialog, QListWidgetItem, QMenu
 
 from QuickOSM.core.utilities.query_saved import QueryManagement
 from QuickOSM.definitions.format import Format
@@ -17,17 +17,24 @@ __copyright__ = 'Copyright 2021, 3Liz'
 __license__ = 'GPL version 3'
 __email__ = 'info@3liz.org'
 
+from QuickOSM.ui.custom_table import TableKeyValue
+
 FORM_CLASS = load_ui('edit_bookmark.ui')
 LOGGER = logging.getLogger('QuickOSM')
 
 
-class EditBookmark(QDialog, FORM_CLASS):
+class EditBookmark(QDialog, FORM_CLASS, TableKeyValue):
     """Dialog that edit a bookmark"""
 
     def __init__(self, parent=None, data_bookmark: dict = None):
         """Constructor."""
         QDialog.__init__(self, parent)
         self.setupUi(self)
+        self.dialog = parent
+        self.panel = Panels.MapPreset
+        TableKeyValue.__init__(self, self.table_keys_values_eb, self.combo_preset_eb)
+        self.setup_preset()
+        self.setup_table()
 
         self.previous_name = data_bookmark['file_name']
         self.current_query = 0
@@ -65,8 +72,12 @@ class EditBookmark(QDialog, FORM_CLASS):
             self.bookmark_name.setText(self.data['file_name'])
             self.description.setPlainText('\\n'.join(self.data['description']))
 
+            if self.data['advanced']:
+                self.radio_advanced.setChecked(True)
+                self.change_type_bookmark()
             self.data_filling_form()
 
+        self.radio_advanced.toggled.connect(self.change_type_bookmark)
         self.button_validate.clicked.connect(self.validate)
         self.button_cancel.clicked.connect(self.close)
 
@@ -89,6 +100,10 @@ class EditBookmark(QDialog, FORM_CLASS):
 
         self.layer_name.setText(self.data['query_layer_name'][num_query])
         self.query.setPlainText(self.data['query'][num_query])
+        keys = self.data['keys'][num_query]
+        values = self.data['values'][num_query]
+        type_multi_request = self.data['type_multi_request'][num_query]
+        self.fill_table(keys, values, type_multi_request)
 
         self.area.setText(self.data['area'][num_query])
         if self.data['bbox'][num_query]:
@@ -126,6 +141,13 @@ class EditBookmark(QDialog, FORM_CLASS):
         self.combo_output_format.setCurrentIndex(index)
 
         self.output_directory.setFilePath(self.data['output_directory'][num_query])
+
+    def change_type_bookmark(self):
+        """Update the form according the bookmark type."""
+        if self.radio_advanced.isChecked():
+            self.stacked_parameters_bookmark.setCurrentWidget(self.advanced_parameters)
+        else:
+            self.stacked_parameters_bookmark.setCurrentWidget(self.basic_parameters)
 
     def change_query(self):
         """Display the selected query in the view."""
@@ -174,20 +196,21 @@ class EditBookmark(QDialog, FORM_CLASS):
             self.show_extent_tool.show_extent(self.data['bbox'][self.current_query])
 
             self.setVisible(False)
-            self.parent().setVisible(False)
+            self.dialog.setVisible(False)
 
     def end_show_extent(self):
         """End the show of the extent."""
         self.canvas.unsetMapTool(self.show_extent_tool)
 
         self.setVisible(True)
-        self.parent().setVisible(True)
+        self.dialog.setVisible(True)
 
     def gather_general_parameters(self):
         """Save the general parameters."""
         self.data['file_name'] = self.bookmark_name.text()
         description = self.description.toPlainText().split('\\n')
         self.data['description'] = description
+        self.data['advanced'] = self.radio_advanced.isChecked()
         list_name_queries = [self.list_queries.item(k).text() for k in range(self.list_queries.count())]
         self.data['query_name'] = list_name_queries
 
@@ -195,6 +218,10 @@ class EditBookmark(QDialog, FORM_CLASS):
         """Save the parameters."""
         self.data['query_layer_name'][num_query] = self.layer_name.text()
         self.data['query'][num_query] = self.query.toPlainText()
+        properties = self.gather_couple({})
+        self.data['keys'][num_query] = properties['key']
+        self.data['values'][num_query] = properties['value']
+        self.data['type_multi_request'][num_query] = properties['type_multi_request']
         self.data['area'][num_query] = self.area.text()
         if self.bbox.outputExtent():
             self.bbox.setOutputCrs(self.crs)
@@ -245,6 +272,6 @@ class EditBookmark(QDialog, FORM_CLASS):
         else:
             q_manage.update_bookmark(self.data)
 
-        self.parent().external_panels[Panels.QuickQuery].update_bookmark_view()
-        self.parent().external_panels[Panels.MapPreset].update_bookmark_view()
+        self.dialog.external_panels[Panels.QuickQuery].update_bookmark_view()
+        self.dialog.external_panels[Panels.MapPreset].update_bookmark_view()
         self.close()

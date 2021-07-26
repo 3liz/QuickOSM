@@ -215,6 +215,10 @@ class QuickQueryPanel(BaseOverpassPanel, TableKeyValue):
             query=query,
             name=properties['layer_name'],
             description=description,
+            advanced=False,
+            type_multi_request=properties['type_multi_request'],
+            keys=properties['key'],
+            values=properties['value'],
             area=properties['place'],
             bbox=properties['bbox'],
             output_geometry_types=properties['outputs'],
@@ -232,6 +236,10 @@ class QuickQueryPanel(BaseOverpassPanel, TableKeyValue):
             query=data['query'],
             name=data['file_name'],
             description=data['description'],
+            advanced=data['advanced'],
+            type_multi_request=data['type_multi_request'],
+            keys=data['keys'],
+            values=data['values'],
             area=data['area'],
             bbox=data['bbox'],
             output_geometry_types=data['output_geom_type'],
@@ -381,18 +389,32 @@ class QuickQueryPanel(BaseOverpassPanel, TableKeyValue):
                 name = time_str + '_' + data['query_layer_name'][k]
             else:
                 name = data['query_layer_name'][k]
-            num_layers = process_query(
-                dialog=self.dialog,
-                query=query,
-                description=data['description'],
-                layer_name=name,
-                white_list_values=data['white_list_column'][k],
-                area=data['area'][k],
-                bbox=data['bbox'][k],
-                output_geometry_types=data['output_geom_type'][k],
-                output_format=data['output_format'][k],
-                output_dir=data['output_directory'][k]
-            )
+            if data['advanced']:
+                num_layers = process_query(
+                    dialog=self.dialog,
+                    query=query,
+                    description=data['description'],
+                    layer_name=name,
+                    white_list_values=data['white_list_column'][k],
+                    area=data['area'][k],
+                    bbox=data['bbox'][k],
+                    output_geometry_types=data['output_geom_type'][k],
+                    output_format=data['output_format'][k],
+                    output_dir=data['output_directory'][k]
+                )
+            else:
+                num_layers = process_quick_query(
+                    dialog=self.dialog,
+                    type_multi_request=data['type_multi_request'][k],
+                    query_type=QueryType.InArea if data['area'][k] else QueryType.BBox,
+                    key=data['keys'][k],
+                    value=data['values'][k],
+                    area=data['area'][k],
+                    bbox=data['bbox'][k],
+                    output_directory=data['output_directory'][k],
+                    output_format=data['output_format'][k],
+                    layer_name=name,
+                    output_geometry_types=data['output_geom_type'][k])
             self.update_history_view()
             self.end_query(num_layers)
 

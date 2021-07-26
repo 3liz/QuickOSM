@@ -80,9 +80,13 @@ class TestBookmarkQuery(unittest.TestCase):
                 ],
             "description":
                 ["All OSM objects with the key 'amenity'='bench' in foo are going to be downloaded."],
+            "advanced": False,
             "file_name": "amenity_bench_foo",
             "query_layer_name": ["amenity_bench_foo"],
             "query_name": ["Query 1"],
+            "type_multi_request": [[]],
+            "keys": [["amenity"]],
+            "values": [["bench"]],
             "area": ["foo"],
             "bbox": [""],
             "output_geom_type":
@@ -187,9 +191,13 @@ class TestBookmarkQuery(unittest.TestCase):
                 ],
             "description":
                 ["Be or not to be...", "Shakespear"],
+            "advanced": False,
             "file_name": "amenity_bench_foo",
             "query_layer_name": ["Misery"],
             "query_name": ["Query 1"],
+            "type_multi_request": [[]],
+            "keys": [["amenity"]],
+            "values": [["bench"]],
             "area": ["foo"],
             "bbox": [{'__extent__': '0.0 0.0 0.0 0.0'}],
             "output_geom_type":
@@ -240,9 +248,13 @@ class TestBookmarkQuery(unittest.TestCase):
                 ],
             "description":
                 ["All OSM objects with the key 'amenity'='bench' in foo are going to be downloaded."],
+            "advanced": False,
             "file_name": "amenity_bench_foo",
             "query_layer_name": ["amenity_bench_foo", "Query 2"],
             "query_name": ["Query 1", "Query 2"],
+            "type_multi_request": [[], []],
+            "keys": [["amenity"], [""]],
+            "values": [["bench"], [""]],
             "area": ["foo", ""],
             "bbox": [{'__extent__': '0.0 0.0 0.0 0.0'}, {'__extent__': '0.0 0.0 0.0 0.0'}],
             "output_geom_type":
@@ -300,9 +312,13 @@ class TestBookmarkQuery(unittest.TestCase):
                 ],
             "description":
                 ["All OSM objects with the key 'amenity'='bench' in foo are going to be downloaded."],
+            "advanced": False,
             "file_name": "amenity_bench_foo",
             "query_layer_name": ["Query 2"],
             "query_name": ["Query 1"],
+            "type_multi_request": [[]],
+            "keys": [[""]],
+            "values": [[""]],
             "area": [""],
             "bbox": [{'__extent__': '2.71828 0.0 3.1415926 1.6180339'}],
             "output_geom_type":

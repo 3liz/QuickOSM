@@ -31,6 +31,10 @@ class QueryManagement:
             query: Union[str, List[str]] = '',
             name: str = '',
             description: Union[str, List[str]] = '',
+            advanced: bool = False,
+            type_multi_request: list = None,
+            keys: Union[str, List[str]] = None,
+            values: Union[str, List[str]] = None,
             area: Union[str, List[str]] = None,
             bbox: Union[QgsRectangle, List[QgsRectangle]] = None,
             output_geometry_types: list = None,
@@ -55,6 +59,35 @@ class QueryManagement:
             self.description = [description]
         else:
             self.description = description
+
+        self.advanced = advanced
+
+        if type_multi_request is None:
+            self.type_multi_request = [[]]
+        elif isinstance(type_multi_request, str):
+            self.type_multi_request = [[type_multi_request]]
+        elif not type_multi_request or isinstance(type_multi_request[0], str):
+            self.type_multi_request = [type_multi_request]
+        else:
+            self.keys = keys
+
+        if keys is None:
+            self.keys = [['']]
+        elif isinstance(keys, str):
+            self.keys = [[keys]]
+        elif isinstance(keys[0], str):
+            self.keys = [keys]
+        else:
+            self.keys = keys
+
+        if values is None:
+            self.values = [['']]
+        elif isinstance(values, str):
+            self.values = [[values]]
+        elif isinstance(values[0], str):
+            self.values = [values]
+        else:
+            self.values = values
 
         if area is None:
             self.area = ['']
@@ -136,9 +169,13 @@ class QueryManagement:
         data = {
             'query': self.query,
             'description': self.description,
+            'advanced': self.advanced,
             'file_name': self.name[0],
             'query_layer_name': self.name,
-            'query_name': tr('Query 1'),
+            'query_name': [tr('Query ') + '1'],
+            'type_multi_request': self.type_multi_request,
+            'keys': self.keys,
+            'values': self.values,
             'area': self.area,
             'bbox': self.bbox,
             'output_geom_type': self.output_geom_type,
@@ -171,7 +208,10 @@ class QueryManagement:
         """Add a query in a bookmark file"""
         data['query'].append('')
         data['query_layer_name'].append('')
-        data['query_name'].append(tr('Query ') + len(data['query']))
+        data['query_name'].append(tr('Query ') + str(len(data['query'])))
+        data['type_multi_request'].append([])
+        data['keys'].append([])
+        data['values'].append([])
         data['area'].append('')
         data['bbox'].append('')
         data['output_geom_type'].append(OSM_LAYERS)
@@ -187,6 +227,9 @@ class QueryManagement:
         data['query_layer_name'].pop(num_query)
         data['query_name'].pop(num_query)
         data['query'].pop(num_query)
+        data['type_multi_request'].pop(num_query)
+        data['keys'].pop(num_query)
+        data['values'].pop(num_query)
         data['area'].pop(num_query)
         data['bbox'].pop(num_query)
         data['output_geom_type'].pop(num_query)

@@ -1,10 +1,10 @@
 {
     "query": [
-        "[out:xml] [timeout:25];\n {{geocodeArea:Moscou}} -> .area_0;\n(\n    node[\"amenity\"=\"bar\"](area.area_0);\n    way[\"amenity\"=\"bar\"](area.area_0);\n    relation[\"amenity\"=\"bar\"](area.area_0);\n);\n(._;>;);\nout body;",
-        "[out:xml] [timeout:25];\n {{geocodeArea:Moscou}} -> .area_0;\n(\n    node[\"amenity\"=\"animal_shelter\"](area.area_0);\n    way[\"amenity\"=\"animal_shelter\"](area.area_0);\n    relation[\"amenity\"=\"animal_shelter\"](area.area_0);\n);\n(._;>;);\nout body;"
+        "",
+        ""
     ],
     "description": [
-        "Bar et refuge animalier \u00e0 Moscou"
+        "Bar et refuge animalier \u00e0 Moscou (par défaut)"
     ],
     "file_name": "Moscou",
     "query_layer_name": [
@@ -14,6 +14,27 @@
     "query_name": [
         "Bar",
         "Refuge animalier"
+    ],
+    "advanced": false,
+    "type_multi_request": [
+        [],
+        []
+    ],
+    "keys": [
+        [
+            "amenity"
+        ],
+        [
+            "amenity"
+        ]
+    ],
+    "values": [
+        [
+            "bar"
+        ],
+        [
+            "animal_shelter"
+        ]
     ],
     "area": [
         "Moscou",

@@ -21,12 +21,12 @@ from qgis.PyQt.QtWidgets import (
     QVBoxLayout,
 )
 
-from QuickOSM.core.process import process_query
+from QuickOSM.core.process import process_query, process_quick_query
 from QuickOSM.core.utilities.json_encoder import as_enum
 from QuickOSM.core.utilities.query_saved import QueryManagement
 from QuickOSM.core.utilities.tools import query_bookmark
 from QuickOSM.definitions.gui import Panels
-from QuickOSM.definitions.osm import Osm_Layers
+from QuickOSM.definitions.osm import Osm_Layers, QueryType
 from QuickOSM.qgis_plugin_tools.tools.i18n import tr
 from QuickOSM.qgis_plugin_tools.tools.resources import resources_path
 from QuickOSM.ui.base_overpass_panel import BaseOverpassPanel
@@ -63,10 +63,11 @@ class MapPresetPanel(BaseOverpassPanel):
         self.dialog.combo_extent_layer_mp.layerChanged.connect(self.query_type_updated)
 
         self.setup_default_preset()
-        self.dialog.list_default_mp.itemSelectionChanged.connect(
+        self.dialog.list_default_mp.itemClicked.connect(
             self.dialog.list_bookmark_mp.clearSelection)
-        self.dialog.list_bookmark_mp.itemSelectionChanged.connect(
+        self.dialog.list_bookmark_mp.itemClicked.connect(
             self.dialog.list_default_mp.clearSelection)
+        self.dialog.button_run_query_mp.clicked.connect(self.prepare_run)
 
         self.query_type_updated()
         self.init_nominatim_autofill()
@@ -156,21 +157,23 @@ class MapPresetPanel(BaseOverpassPanel):
                 real_label.setWordWrap(True)
                 vbox.addWidget(real_label)
             hbox.addItem(vbox)
-            button_run = QPushButton()
             button_edit = QPushButton()
             button_remove = QPushButton()
-            button_run.setIcon(QIcon(QgsApplication.iconPath("mActionStart.svg")))
             button_edit.setIcon(QIcon(QgsApplication.iconPath("mActionToggleEditing.svg")))
             button_remove.setIcon(QIcon(QgsApplication.iconPath('symbologyRemove.svg')))
-            button_run.setSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
             button_edit.setSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
             button_remove.setSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
-            button_run.setToolTip(tr('Run the queries in the bookmark'))
             button_edit.setToolTip(tr('Edit the bookmark'))
             button_remove.setToolTip(tr('Delete the bookmark'))
-            hbox.addWidget(button_run)
             hbox.addWidget(button_edit)
             hbox.addWidget(button_remove)
+            if data['advanced']:
+                advanced = QLabel()
+                advanced.setSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
+                icon = QIcon(QgsApplication.iconPath("mLayoutItemMarker.svg"))
+                pixmap = icon.pixmap(icon.actualSize(QSize(32, 32)))
+                advanced.setPixmap(pixmap)
+                hbox.addWidget(advanced)
             bookmark.setLayout(hbox)
 
             # Actions on click
@@ -178,8 +181,6 @@ class MapPresetPanel(BaseOverpassPanel):
             button_remove.clicked.connect(remove)
             edit = partial(self.edit_bookmark, data)
             button_edit.clicked.connect(edit)
-            run = partial(self.run_saved_query, data)
-            button_run.clicked.connect(run)
 
             item.setSizeHint(bookmark.minimumSizeHint())
             self.dialog.list_bookmark_mp.setItemWidget(item, bookmark)
@@ -197,6 +198,40 @@ class MapPresetPanel(BaseOverpassPanel):
 
         q_manage = QueryManagement()
         q_manage.remove_bookmark(name)
+
+    def prepare_run(self):
+        """Prepare the data before running the process."""
+        selection = self.dialog.list_default_mp.selectedIndexes()
+        if selection:
+            preset = self.dialog.list_default_mp.item(selection[0].row())
+            preset_widget = self.dialog.list_default_mp.itemWidget(preset)
+            preset_label = preset_widget.layout().itemAt(1).itemAt(0).widget().text()
+            preset_folder = resources_path('map_preset')
+        else:
+            selection = self.dialog.list_bookmark_mp.selectedIndexes()
+            preset = self.dialog.list_bookmark_mp.item(selection[0].row())
+            preset_widget = self.dialog.list_bookmark_mp.itemWidget(preset)
+            preset_label = preset_widget.layout().itemAt(0).itemAt(0).widget().text()
+            preset_folder = query_bookmark()
+        LOGGER.debug('Preset chosen: {}'.format(preset_label))
+        file_path = join(preset_folder, preset_label + '.json')
+        with open(file_path, encoding='utf8') as json_file:
+            data = json.load(json_file, object_hook=as_enum)
+
+        if not data['advanced']:
+            properties = self.gather_spatial_values({})
+            data['query_type'] = properties['query_type']
+            data['distance'] = self.dialog.spin_place_mp.value()
+            if data['query_type'] != QueryType.AroundArea:
+                data['distance'] = None
+            if data['query_type'] in [QueryType.InArea, QueryType.AroundArea] and properties['place']:
+                for k, _area in enumerate(data['area']):
+                    data['area'][k] = properties['place']
+            elif data['query_type'] == QueryType.BBox and properties['bbox']:
+                for k, _bbox in enumerate(data['bbox']):
+                    data['bbox'][k] = properties['bbox']
+
+        self.run_saved_query(data)
 
     def _run_saved_query(self, data: dict):
         """Run a saved query(ies)."""
@@ -223,17 +258,45 @@ class MapPresetPanel(BaseOverpassPanel):
             else:
                 config = None
 
-            num_layers = process_query(
-                dialog=self.dialog,
-                query=query,
-                description=data['description'],
-                layer_name=name,
-                white_list_values=data['white_list_column'][k],
-                area=data['area'][k],
-                bbox=data['bbox'][k],
-                output_geometry_types=data['output_geom_type'][k],
-                output_format=data['output_format'][k],
-                output_dir=data['output_directory'][k],
-                config_outputs=config
-            )
+            if data['advanced']:
+                num_layers = process_query(
+                    dialog=self.dialog,
+                    query=query,
+                    description=data['description'],
+                    layer_name=name,
+                    white_list_values=data['white_list_column'][k],
+                    type_multi_request=data['type_multi_request'][k],
+                    key=data['keys'][k],
+                    value=data['values'][k],
+                    area=data['area'][k],
+                    bbox=data['bbox'][k],
+                    output_geometry_types=data['output_geom_type'][k],
+                    output_format=data['output_format'][k],
+                    output_dir=data['output_directory'][k],
+                    config_outputs=config
+                )
+            else:
+                if 'query_type' in data:
+                    query_type = data['query_type']
+                    dist = data['distance']
+                else:
+                    query_type = QueryType.InArea if data['area'][k] else QueryType.BBox
+                    dist = None
+                num_layers = process_quick_query(
+                    dialog=self.dialog,
+                    description=data['description'],
+                    type_multi_request=data['type_multi_request'][k],
+                    query_type=query_type,
+                    key=data['keys'][k],
+                    value=data['values'][k],
+                    area=data['area'][k],
+                    bbox=data['bbox'][k],
+                    distance=dist,
+                    output_directory=data['output_directory'][k],
+                    output_format=data['output_format'][k],
+                    layer_name=name,
+                    white_list_values=data['white_list_column'][k],
+                    output_geometry_types=data['output_geom_type'][k],
+                    config_outputs=config
+                )
             self.end_query(num_layers)

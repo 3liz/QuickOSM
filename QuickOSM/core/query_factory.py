@@ -280,7 +280,7 @@ class QueryFactory:
 
                             query += '/>'
 
-                        if self._area and self._query_type != QueryType.AroundArea:
+                        if self._area and self._query_type == QueryType.InArea:
                             query += '<area-query from="area_{}" />'.format(i)
 
                         elif self._area and self._query_type == QueryType.AroundArea:
@@ -294,7 +294,7 @@ class QueryFactory:
                 else:
                     query += '<query type="{}">'.format(osm_object.value.lower())
 
-                    if self._area and self._query_type != QueryType.AroundArea:
+                    if self._area and self._query_type == QueryType.InArea:
                         query += '<area-query from="area_{}" />'.format(i)
 
                     elif self._area and self._query_type == QueryType.AroundArea:
@@ -329,7 +329,7 @@ class QueryFactory:
         else:
             nominatim = None
 
-        if nominatim and self._query_type != QueryType.AroundArea:
+        if nominatim and self._query_type == QueryType.InArea:
 
             for i, one_place in enumerate(nominatim):
                 query += ' area="{}" -> .area_{};\n'.format(
@@ -365,7 +365,7 @@ class QueryFactory:
 
                             query += ']'
 
-                        if self._area and self._query_type != QueryType.AroundArea:
+                        if self._area and self._query_type == QueryType.InArea:
                             query += '(area.area_{})'.format(i)
 
                         elif self._area and self._query_type == QueryType.AroundArea:
