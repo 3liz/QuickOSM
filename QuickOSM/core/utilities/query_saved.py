@@ -1,7 +1,9 @@
 """Manage the saved query in history or bookmark."""
 import json
 import logging
+import os
 import re
+import shutil
 
 from os import listdir, remove, rename
 from os.path import join
@@ -161,7 +163,8 @@ class QueryManagement:
         self.name[0] = name_bookmark if name_bookmark != "OsmQuery" else 'OsmQuery_{}'.format(nb_files)
         final_name = self.name[0] + '.json'
 
-        new_file = join(bookmark_folder, final_name)
+        new_file = join(bookmark_folder, self.name[0], final_name)
+        os.mkdir(join(bookmark_folder, self.name[0]))
         self.write_json(new_file)
 
     def write_json(self, file: str):
@@ -192,16 +195,30 @@ class QueryManagement:
         """Remove a bookmark query"""
         bookmark_folder = query_bookmark()
 
-        file = join(bookmark_folder, name + '.json')
-        remove(file)
-        if name.startswith('bookmark_'):
-            list_bookmark = filter(lambda query_file: query_file.startswith('OsmQuery_'), name)
-            num = re.findall('OsmQuery_(0-9)', name)[0]
+        dir_file = join(bookmark_folder, name)
+        shutil.rmtree(dir_file)
+        if name.startswith('OsmQuery_'):
+            bookmarks = os.listdir(bookmark_folder)
+            list_bookmark = filter(lambda query_file: query_file.startswith('OsmQuery_'), bookmarks)
+            num = re.findall('OsmQuery_([0-9]+)', name)[0]
             for k, file in enumerate(list_bookmark):
                 if k >= num:
-                    former_file = join(bookmark_folder, file + '.json')
-                    new_file = join(bookmark_folder, 'OsmQuery_{}.json'.format(k))
+                    former_file = join(bookmark_folder, file, file + '.json')
+                    new_name = 'OsmQuery_{}'.format(k)
+                    new_file = join(bookmark_folder, new_name, new_name + '.json')
                     rename(former_file, new_file)
+
+                    files = os.listdir(join(bookmark_folder, file))
+                    files_qml = filter(lambda file_ext: file_ext[-4:] == '.qml', files)
+                    for file_qml in files_qml:
+                        end_file_name = file_qml[len(file):]
+                        new_file_qml = join(join(bookmark_folder, new_name), new_name + end_file_name)
+                        old_file_qml = join(join(bookmark_folder, file), file + 'qml')
+                        rename(old_file_qml, new_file_qml)
+                    index = k
+
+            if index:
+                os.rmdir(join(bookmark_folder, 'OsmQuery_{}'.format(index + 1)))
 
     @staticmethod
     def add_empty_query_in_bookmark(data: dict) -> dict:
@@ -242,20 +259,33 @@ class QueryManagement:
     def rename_bookmark(self, former_name: str, new_name: str, data: dict):
         """Rename a bookmark query"""
         bookmark_folder = query_bookmark()
+        old_folder = join(bookmark_folder, former_name)
+        new_folder = join(bookmark_folder, new_name)
+        os.mkdir(new_folder)
 
-        new_file = join(bookmark_folder, new_name + '.json')
+        new_file = join(new_folder, new_name + '.json')
 
         with open(new_file, 'w', encoding='utf8') as new_json_file:
             json.dump(data, new_json_file, cls=EnumEncoder)
 
         self.remove_bookmark(former_name)
 
+        files = os.listdir(join(bookmark_folder, former_name))
+        files_qml = filter(lambda file_ext: file_ext[-4:] == '.qml', files)
+        for file in files_qml:
+            end_file_name = file[len(former_name):]
+            new_file_qml = join(new_folder, new_name + end_file_name)
+            old_file_qml = join(old_folder, file)
+            rename(old_file_qml, new_file_qml)
+
+        os.rmdir(old_folder)
+
     @staticmethod
     def update_bookmark(data: dict):
         """Rename a bookmark query"""
         bookmark_folder = query_bookmark()
 
-        bookmark_file = join(bookmark_folder, data['file_name'] + '.json')
+        bookmark_file = join(bookmark_folder, data['file_name'], data['file_name'] + '.json')
 
         with open(bookmark_file, 'w', encoding='utf8') as json_file:
             json.dump(data, json_file, cls=EnumEncoder)

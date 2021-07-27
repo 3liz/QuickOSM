@@ -10,7 +10,7 @@
     <x>0</x>
     <y>0</y>
     <width>990</width>
-    <height>867</height>
+    <height>849</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -143,7 +143,7 @@ QListWidget::item::selected {
           <x>0</x>
           <y>0</y>
           <width>827</width>
-          <height>806</height>
+          <height>788</height>
          </rect>
         </property>
         <property name="minimumSize">
@@ -174,7 +174,7 @@ QListWidget::item::selected {
             </sizepolicy>
            </property>
            <property name="currentIndex">
-            <number>0</number>
+            <number>1</number>
            </property>
            <widget class="QWidget" name="map_preset">
             <layout class="QVBoxLayout" name="verticalLayout_20">
@@ -381,6 +381,9 @@ QListWidget::item::selected {
                        <verstretch>0</verstretch>
                       </sizepolicy>
                      </property>
+                     <property name="toolTip">
+                      <string>The spatial extent to use for the query. Cannot surcharge an advanced preset.</string>
+                     </property>
                     </widget>
                    </item>
                    <item>
@@ -409,7 +412,11 @@ QListWidget::item::selected {
                         <number>0</number>
                        </property>
                        <item>
-                        <widget class="QLineEdit" name="line_place_mp"/>
+                        <widget class="QLineEdit" name="line_place_mp">
+                         <property name="toolTip">
+                          <string>The spatial extent to use for the query. Cannot surcharge an advanced preset.</string>
+                         </property>
+                        </widget>
                        </item>
                        <item>
                         <widget class="QSpinBox" name="spin_place_mp">
@@ -689,7 +696,7 @@ QListWidget::item::selected {
                  <widget class="QWidget" name="nominatim">
                   <layout class="QHBoxLayout" name="horizontalLayout_25">
                    <property name="spacing">
-                    <number>0</number>
+                    <number>6</number>
                    </property>
                    <property name="leftMargin">
                     <number>0</number>
@@ -863,107 +870,6 @@ QListWidget::item::selected {
                   </property>
                   <property name="horizontalScrollMode">
                    <enum>QAbstractItemView::ScrollPerPixel</enum>
-                  </property>
-                  <property name="wordWrap">
-                   <bool>true</bool>
-                  </property>
-                 </widget>
-                </item>
-               </layout>
-              </widget>
-             </item>
-             <item>
-              <widget class="QgsCollapsibleGroupBox" name="bookmark">
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-                 <horstretch>0</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
-               </property>
-               <property name="title">
-                <string>Query bookmark</string>
-               </property>
-               <property name="collapsed" stdset="0">
-                <bool>true</bool>
-               </property>
-               <layout class="QVBoxLayout" name="verticalLayout_17">
-                <property name="leftMargin">
-                 <number>5</number>
-                </property>
-                <property name="topMargin">
-                 <number>5</number>
-                </property>
-                <property name="rightMargin">
-                 <number>2</number>
-                </property>
-                <property name="bottomMargin">
-                 <number>5</number>
-                </property>
-                <item>
-                 <widget class="QListWidget" name="list_bookmark">
-                  <property name="sizePolicy">
-                   <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-                    <horstretch>0</horstretch>
-                    <verstretch>0</verstretch>
-                   </sizepolicy>
-                  </property>
-                  <property name="palette">
-                   <palette>
-                    <active>
-                     <colorrole role="Base">
-                      <brush brushstyle="SolidPattern">
-                       <color alpha="255">
-                        <red>240</red>
-                        <green>240</green>
-                        <blue>240</blue>
-                       </color>
-                      </brush>
-                     </colorrole>
-                    </active>
-                    <inactive>
-                     <colorrole role="Base">
-                      <brush brushstyle="SolidPattern">
-                       <color alpha="255">
-                        <red>240</red>
-                        <green>240</green>
-                        <blue>240</blue>
-                       </color>
-                      </brush>
-                     </colorrole>
-                    </inactive>
-                    <disabled>
-                     <colorrole role="Base">
-                      <brush brushstyle="SolidPattern">
-                       <color alpha="255">
-                        <red>240</red>
-                        <green>240</green>
-                        <blue>240</blue>
-                       </color>
-                      </brush>
-                     </colorrole>
-                    </disabled>
-                   </palette>
-                  </property>
-                  <property name="frameShape">
-                   <enum>QFrame::NoFrame</enum>
-                  </property>
-                  <property name="lineWidth">
-                   <number>1</number>
-                  </property>
-                  <property name="autoScrollMargin">
-                   <number>16</number>
-                  </property>
-                  <property name="editTriggers">
-                   <set>QAbstractItemView::NoEditTriggers</set>
-                  </property>
-                  <property name="verticalScrollMode">
-                   <enum>QAbstractItemView::ScrollPerPixel</enum>
-                  </property>
-                  <property name="horizontalScrollMode">
-                   <enum>QAbstractItemView::ScrollPerPixel</enum>
-                  </property>
-                  <property name="spacing">
-                   <number>5</number>
                   </property>
                   <property name="wordWrap">
                    <bool>true</bool>

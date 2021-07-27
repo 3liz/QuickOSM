@@ -34,13 +34,14 @@ class TestBookmarkQuery(unittest.TestCase):
         self.dialog.places_edits[Panels.QuickQuery].setText('foo')
         self.dialog.save_query.click()
 
-        self.bookmark = self.dialog.list_bookmark.item(0)
-        layout_label = self.dialog.list_bookmark.itemWidget(self.bookmark).layout()
+        self.bookmark = self.dialog.list_bookmark_mp.item(0)
+        layout_label = self.dialog.list_bookmark_mp.itemWidget(self.bookmark).layout()
         self.name_bookmark = layout_label.itemAt(0).itemAt(0).widget().text()
 
     def set_up_bookmark_data_text(self) -> dict:
         """Load the data save in the json file linked to the bookmark."""
-        bookmark_file = os.path.join(self.bookmark_folder, self.name_bookmark + '.json')
+        bookmark_file = os.path.join(
+            self.bookmark_folder, self.name_bookmark, self.name_bookmark + '.json')
         with open(bookmark_file, encoding='utf8') as json_file:
             data_bookmark = json.load(json_file)
 
@@ -49,7 +50,8 @@ class TestBookmarkQuery(unittest.TestCase):
     def set_up_bookmark_data(self) -> dict:
         """Load the data save in the json file linked to the bookmark."""
         bookmark_folder = query_bookmark()
-        bookmark_file = os.path.join(bookmark_folder, self.name_bookmark + '.json')
+        bookmark_file = os.path.join(
+            bookmark_folder, self.name_bookmark, self.name_bookmark + '.json')
         with open(bookmark_file, encoding='utf8') as json_file:
             data_bookmark = json.load(json_file, object_hook=as_enum)
 
@@ -57,11 +59,11 @@ class TestBookmarkQuery(unittest.TestCase):
 
     def tearDown(self):
         """End of the tests"""
-        self.dialog.external_panels[Panels.QuickQuery].remove_bookmark(self.bookmark, self.name_bookmark)
+        self.dialog.external_panels[Panels.MapPreset].remove_bookmark(self.bookmark, self.name_bookmark)
 
     def test_save_in_bookmark(self):
         """Test if the file is save in bookmark."""
-        nb_bookmark = self.dialog.list_bookmark.count()
+        nb_bookmark = self.dialog.list_bookmark_mp.count()
         self.assertEqual(nb_bookmark, 1)
         self.assertEqual(self.name_bookmark, 'amenity_bench_foo')
 
@@ -140,10 +142,10 @@ class TestBookmarkQuery(unittest.TestCase):
         edit_dialog.bookmark_name.setText('Test a new name')
         edit_dialog.button_cancel.click()
 
-        self.dialog.external_panels[Panels.QuickQuery].update_bookmark_view()
+        self.dialog.external_panels[Panels.MapPreset].update_bookmark_view()
 
-        self.bookmark = self.dialog.list_bookmark.item(0)
-        layout_label = self.dialog.list_bookmark.itemWidget(self.bookmark).layout()
+        self.bookmark = self.dialog.list_bookmark_mp.item(0)
+        layout_label = self.dialog.list_bookmark_mp.itemWidget(self.bookmark).layout()
         self.name_bookmark = layout_label.itemAt(0).itemAt(0).widget().text()
         self.assertNotEqual(self.name_bookmark, 'Test a new name')
 
@@ -155,10 +157,10 @@ class TestBookmarkQuery(unittest.TestCase):
         edit_dialog.bookmark_name.setText('Test a new name')
         edit_dialog.button_validate.click()
 
-        self.dialog.external_panels[Panels.QuickQuery].update_bookmark_view()
+        self.dialog.external_panels[Panels.MapPreset].update_bookmark_view()
 
-        self.bookmark = self.dialog.list_bookmark.item(0)
-        layout_label = self.dialog.list_bookmark.itemWidget(self.bookmark).layout()
+        self.bookmark = self.dialog.list_bookmark_mp.item(0)
+        layout_label = self.dialog.list_bookmark_mp.itemWidget(self.bookmark).layout()
         self.name_bookmark = layout_label.itemAt(0).itemAt(0).widget().text()
         self.assertEqual(self.name_bookmark, 'Test a new name')
 
@@ -180,7 +182,7 @@ class TestBookmarkQuery(unittest.TestCase):
         edit_dialog.combo_output_format.setCurrentIndex(index)
 
         edit_dialog.button_validate.click()
-        self.bookmark = self.dialog.list_bookmark.item(0)
+        self.bookmark = self.dialog.list_bookmark_mp.item(0)
 
         new_data = self.set_up_bookmark_data_text()
 
@@ -232,7 +234,7 @@ class TestBookmarkQuery(unittest.TestCase):
         edit_dialog.layer_name.setText('Query 2')
 
         edit_dialog.button_validate.click()
-        self.bookmark = self.dialog.list_bookmark.item(0)
+        self.bookmark = self.dialog.list_bookmark_mp.item(0)
 
         new_data = self.set_up_bookmark_data_text()
 
@@ -300,8 +302,14 @@ class TestBookmarkQuery(unittest.TestCase):
         rect = QgsRectangle(x_min, y_min, x_max, y_max)
         edit_dialog.bbox.setOutputExtentFromUser(rect, crs)
 
+        self.assertEqual(
+            edit_dialog.stacked_parameters_bookmark.currentWidget(), edit_dialog.basic_parameters)
+        edit_dialog.radio_advanced.setChecked(True)
+        self.assertEqual(
+            edit_dialog.stacked_parameters_bookmark.currentWidget(), edit_dialog.advanced_parameters)
+
         edit_dialog.button_validate.click()
-        self.bookmark = self.dialog.list_bookmark.item(0)
+        self.bookmark = self.dialog.list_bookmark_mp.item(0)
 
         new_data = self.set_up_bookmark_data_text()
 
@@ -312,7 +320,7 @@ class TestBookmarkQuery(unittest.TestCase):
                 ],
             "description":
                 ["All OSM objects with the key 'amenity'='bench' in foo are going to be downloaded."],
-            "advanced": False,
+            "advanced": True,
             "file_name": "amenity_bench_foo",
             "query_layer_name": ["Query 2"],
             "query_name": ["Query 1"],

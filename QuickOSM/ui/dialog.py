@@ -51,6 +51,7 @@ class Dialog(QDialog, FORM_CLASS):
         self._iface = iface
 
         self.query_menu_index = 2
+        self.preset_menu_index = 0
 
         # Table mapping
 
@@ -177,7 +178,7 @@ class Dialog(QDialog, FORM_CLASS):
         self.feedback_process = QgsFeedback()
 
         item = self.menu_widget.item(0)
-        item.setIcon(QIcon(resources_path('icons', 'QuickOSM.svg')))
+        item.setIcon(QIcon(resources_path('icons', 'map_tools.svg')))
         item = self.menu_widget.item(1)
         item.setIcon(QIcon(resources_path('icons', 'quick.png')))
         item = self.menu_widget.item(2)

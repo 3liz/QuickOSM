@@ -78,10 +78,9 @@ class MapPresetPanel(BaseOverpassPanel):
         """Setup the display of presets"""
         preset_folder = resources_path('map_preset')
         files = os.listdir(preset_folder)
-        files_json = filter(lambda file_ext: file_ext[-5:] == '.json', files)
 
-        for file in files_json:
-            file_path = join(preset_folder, file)
+        for file in files:
+            file_path = join(preset_folder, file, file + '.json')
             with open(file_path, encoding='utf8') as json_file:
                 data = json.load(json_file, object_hook=as_enum)
 
@@ -127,12 +126,11 @@ class MapPresetPanel(BaseOverpassPanel):
         """Update the bookmarks displayed."""
         bookmark_folder = query_bookmark()
         files = os.listdir(bookmark_folder)
-        files_json = filter(lambda file_ext: file_ext[-5:] == '.json', files)
 
         self.dialog.list_bookmark_mp.clear()
 
-        for file in files_json:
-            file_path = join(bookmark_folder, file)
+        for file in files:
+            file_path = join(bookmark_folder, file, file + '.json')
             with open(file_path, encoding='utf8') as json_file:
                 data = json.load(json_file, object_hook=as_enum)
             name = data['file_name']
@@ -163,8 +161,8 @@ class MapPresetPanel(BaseOverpassPanel):
             button_remove.setIcon(QIcon(QgsApplication.iconPath('symbologyRemove.svg')))
             button_edit.setSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
             button_remove.setSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
-            button_edit.setToolTip(tr('Edit the bookmark'))
-            button_remove.setToolTip(tr('Delete the bookmark'))
+            button_edit.setToolTip(tr('Edit the preset'))
+            button_remove.setToolTip(tr('Delete the preset'))
             hbox.addWidget(button_edit)
             hbox.addWidget(button_remove)
             if data['advanced']:
@@ -173,6 +171,7 @@ class MapPresetPanel(BaseOverpassPanel):
                 icon = QIcon(QgsApplication.iconPath("mLayoutItemMarker.svg"))
                 pixmap = icon.pixmap(icon.actualSize(QSize(32, 32)))
                 advanced.setPixmap(pixmap)
+                advanced.setToolTip(tr('This is an advanced preset.'))
                 hbox.addWidget(advanced)
             bookmark.setLayout(hbox)
 
@@ -214,9 +213,11 @@ class MapPresetPanel(BaseOverpassPanel):
             preset_label = preset_widget.layout().itemAt(0).itemAt(0).widget().text()
             preset_folder = query_bookmark()
         LOGGER.debug('Preset chosen: {}'.format(preset_label))
-        file_path = join(preset_folder, preset_label + '.json')
+        file_path = join(preset_folder, preset_label, preset_label + '.json')
         with open(file_path, encoding='utf8') as json_file:
             data = json.load(json_file, object_hook=as_enum)
+
+        data['folder'] = os.path.dirname(file_path)
 
         if not data['advanced']:
             properties = self.gather_spatial_values({})
@@ -241,14 +242,14 @@ class MapPresetPanel(BaseOverpassPanel):
                 name = time_str + '_' + data['query_layer_name'][k]
             else:
                 name = data['query_layer_name'][k]
-            bookmark_folder = query_bookmark()
-            files = os.listdir(bookmark_folder)
+            files = os.listdir(data['folder'])
             files_qml = filter(lambda file_ext: file_ext[-4:] == '.qml', files)
             file_name = join(data['file_name'] + '_' + data['query_name'][k])
             files_qml = filter(lambda file_ext: file_ext.startswith(file_name), files_qml)
             if list(files_qml):
                 LOGGER.debug('files: {}'.format(files_qml))
-                file_name = join(bookmark_folder, data['file_name'] + '_' + data['query_name'][k] + '_{}.qml')
+                file_name = join(
+                    data['folder'], data['file_name'] + '_' + data['query_name'][k] + '_{}.qml')
                 config = {}
                 for osm_type in Osm_Layers:
                     config[osm_type] = {

@@ -272,6 +272,5 @@ class EditBookmark(QDialog, FORM_CLASS, TableKeyValue):
         else:
             q_manage.update_bookmark(self.data)
 
-        self.dialog.external_panels[Panels.QuickQuery].update_bookmark_view()
         self.dialog.external_panels[Panels.MapPreset].update_bookmark_view()
         self.close()
