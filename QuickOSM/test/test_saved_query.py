@@ -232,6 +232,16 @@ class TestBookmarkQuery(unittest.TestCase):
         self.assertEqual(edit_dialog.layer_name.text(), '')
 
         edit_dialog.layer_name.setText('Query 2')
+        index = edit_dialog.table_keys_values_eb.cellWidget(0, 1).findText('type')
+        edit_dialog.table_keys_values_eb.cellWidget(0, 1).setCurrentIndex(index)
+        edit_dialog.table_keys_values_eb.cellWidget(0, 3).click()
+        index = edit_dialog.table_keys_values_eb.cellWidget(1, 1).findText('route')
+        edit_dialog.table_keys_values_eb.cellWidget(1, 1).setCurrentIndex(index)
+        edit_dialog.key_edited(1)
+        index = edit_dialog.table_keys_values_eb.cellWidget(1, 2).findText('bicycle')
+        edit_dialog.table_keys_values_eb.cellWidget(1, 2).setCurrentIndex(index)
+        index = edit_dialog.table_keys_values_eb.cellWidget(0, 2).findText('route')
+        edit_dialog.table_keys_values_eb.cellWidget(0, 2).setCurrentIndex(index)
 
         edit_dialog.button_validate.click()
         self.bookmark = self.dialog.list_bookmark_mp.item(0)
@@ -254,9 +264,9 @@ class TestBookmarkQuery(unittest.TestCase):
             "file_name": "amenity_bench_foo",
             "query_layer_name": ["amenity_bench_foo", "Query 2"],
             "query_name": ["Query 1", "Query 2"],
-            "type_multi_request": [[], []],
-            "keys": [["amenity"], [""]],
-            "values": [["bench"], [""]],
+            "type_multi_request": [[], [{"__enum__": "MultiType.AND"}]],
+            "keys": [["amenity"], ["type", "route"]],
+            "values": [["bench"], ["route", "bicycle"]],
             "area": ["foo", ""],
             "bbox": [{'__extent__': '0.0 0.0 0.0 0.0'}, {'__extent__': '0.0 0.0 0.0 0.0'}],
             "output_geom_type":
@@ -324,9 +334,9 @@ class TestBookmarkQuery(unittest.TestCase):
             "file_name": "amenity_bench_foo",
             "query_layer_name": ["Query 2"],
             "query_name": ["Query 1"],
-            "type_multi_request": [[]],
-            "keys": [[""]],
-            "values": [[""]],
+            "type_multi_request": [[{"__enum__": "MultiType.AND"}]],
+            "keys": [["type", "route"]],
+            "values": [["route", "bicycle"]],
             "area": [""],
             "bbox": [{'__extent__': '2.71828 0.0 3.1415926 1.6180339'}],
             "output_geom_type":

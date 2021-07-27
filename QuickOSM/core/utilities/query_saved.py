@@ -14,7 +14,7 @@ from qgis.core import QgsRectangle
 from QuickOSM.core.utilities.json_encoder import EnumEncoder
 from QuickOSM.core.utilities.tools import query_bookmark, query_historic
 from QuickOSM.definitions.format import Format
-from QuickOSM.definitions.osm import OSM_LAYERS, WHITE_LIST, LayerType
+from QuickOSM.definitions.osm import OSM_LAYERS, WHITE_LIST, LayerType, MultiType
 
 __copyright__ = 'Copyright 2021, 3Liz'
 __license__ = 'GPL version 3'
@@ -66,12 +66,12 @@ class QueryManagement:
 
         if type_multi_request is None:
             self.type_multi_request = [[]]
-        elif isinstance(type_multi_request, str):
+        elif isinstance(type_multi_request, MultiType):
             self.type_multi_request = [[type_multi_request]]
-        elif not type_multi_request or isinstance(type_multi_request[0], str):
+        elif not type_multi_request or isinstance(type_multi_request[0], MultiType):
             self.type_multi_request = [type_multi_request]
         else:
-            self.keys = keys
+            self.type_multi_request = type_multi_request
 
         if keys is None:
             self.keys = [['']]
@@ -270,7 +270,7 @@ class QueryManagement:
 
         self.remove_bookmark(former_name)
 
-        files = os.listdir(join(bookmark_folder, former_name))
+        files = os.listdir(old_folder)
         files_qml = filter(lambda file_ext: file_ext[-4:] == '.qml', files)
         for file in files_qml:
             end_file_name = file[len(former_name):]

@@ -1,0 +1,223 @@
+{
+    "query": [
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+    ],
+    "description": [
+        "All OSM objects linked to bicycle are going to be downloaded."
+    ],
+    "advanced": false,
+    "file_name": "Bicycle",
+    "query_layer_name": [
+        "bicycle_path",
+        "bicycle_parking",
+        "bicycle_route",
+        "bicycle_rental",
+        "bicycle_repair_station",
+        "bicycle_shop"
+    ],
+    "query_name": [
+        "Bicycle path",
+        "Bicycle parking",
+        "Bicycle route",
+        "Bicycle rental",
+        "Bicycle repair",
+        "Bicycle shop"
+    ],
+    "type_multi_request": [
+        [
+            {
+                "__enum__": "MultiType.OR"
+            }
+        ],
+        [],
+        [
+            {
+                "__enum__": "MultiType.AND"
+            }
+        ],
+        [],
+        [],
+        []
+    ],
+    "keys": [
+        [
+            "bicycle_road",
+            "bicycle"
+        ],
+        [
+            "amenity"
+        ],
+        [
+            "type",
+            "route"
+        ],
+        [
+            "amenity"
+        ],
+        [
+            "amenity"
+        ],
+        [
+            "shop"
+        ]
+    ],
+    "values": [
+        [
+            "yes",
+            "designated"
+        ],
+        [
+            "bicycle_parking"
+        ],
+        [
+            "route",
+            "bicycle"
+        ],
+        [
+            "bicycle_rental"
+        ],
+        [
+            "bicycle_repair_station"
+        ],
+        [
+            "bicycle"
+        ]
+    ],
+    "area": [
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+    ],
+    "bbox": [
+        {
+            "__extent__": "0.0 0.0 0.0 0.0"
+        },
+        {
+            "__extent__": "0.0 0.0 0.0 0.0"
+        },
+        {
+            "__extent__": "0.0 0.0 0.0 0.0"
+        },
+        {
+            "__extent__": "0.0 0.0 0.0 0.0"
+        },
+        {
+            "__extent__": "0.0 0.0 0.0 0.0"
+        },
+        {
+            "__extent__": "0.0 0.0 0.0 0.0"
+        }
+    ],
+    "output_geom_type": [
+        [
+            {
+                "__enum__": "LayerType.Lines"
+            },
+            {
+                "__enum__": "LayerType.Multilinestrings"
+            }
+        ],
+        [
+            {
+                "__enum__": "LayerType.Points"
+            },
+            {
+                "__enum__": "LayerType.Multipolygons"
+            }
+        ],
+        [
+            {
+                "__enum__": "LayerType.Multilinestrings"
+            }
+        ],
+        [
+            {
+                "__enum__": "LayerType.Points"
+            }
+        ],
+        [
+            {
+                "__enum__": "LayerType.Points"
+            }
+        ],
+        [
+            {
+                "__enum__": "LayerType.Points"
+            }
+        ]
+    ],
+    "white_list_column": [
+        {
+            "points": null,
+            "lines": "bicycle,name,surface,highway",
+            "multilinestrings": null,
+            "multipolygons": null
+        },
+        {
+            "points": "amenity,name,bicycle_parking,capacity,access,covered,fee,operator",
+            "lines": null,
+            "multilinestrings": null,
+            "multipolygons": "amenity,name,bicycle_parking,capacity,access,covered,fee,operator"
+        },
+        {
+            "points": null,
+            "lines": null,
+            "multilinestrings": "type,route,name,from,to,ref,network",
+            "multipolygons": null
+        },
+        {
+            "points": "amenity,name,capacity,operator,payment:credit_card,ref,network",
+            "lines": null,
+            "multilinestrings": null,
+            "multipolygons": null
+        },
+        {
+            "points": "amenity,name,description,bicycle:repair,phone,website",
+            "lines": null,
+            "multilinestrings": null,
+            "multipolygons": null
+        },
+        {
+            "points": "shop,name,description,opening_hours,phone,website,service:bicycle:repair",
+            "lines": null,
+            "multilinestrings": null,
+            "multipolygons": null
+        }
+    ],
+    "output_directory": [
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+    ],
+    "output_format": [
+        {
+            "__enum__": "Format.GeoPackage"
+        },
+        {
+            "__enum__": "Format.GeoPackage"
+        },
+        {
+            "__enum__": "Format.GeoPackage"
+        },
+        {
+            "__enum__": "Format.GeoPackage"
+        },
+        {
+            "__enum__": "Format.GeoPackage"
+        },
+        {
+            "__enum__": "Format.GeoPackage"
+        }
+    ]
+}

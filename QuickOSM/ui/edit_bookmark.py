@@ -130,12 +130,20 @@ class EditBookmark(QDialog, FORM_CLASS, TableKeyValue):
 
         if self.data['white_list_column'][num_query]['points']:
             self.white_points.setText(self.data['white_list_column'][num_query]['points'])
+        else:
+            self.white_points.setText('')
         if self.data['white_list_column'][num_query]['lines']:
             self.white_lines.setText(self.data['white_list_column'][num_query]['lines'])
+        else:
+            self.white_lines.setText('')
         if self.data['white_list_column'][num_query]['multilinestrings']:
             self.white_multilinestrings.setText(self.data['white_list_column'][num_query]['multilinestrings'])
+        else:
+            self.white_multilinestrings.setText('')
         if self.data['white_list_column'][num_query]['multipolygons']:
             self.white_multipolygons.setText(self.data['white_list_column'][num_query]['multipolygons'])
+        else:
+            self.white_multipolygons.setText('')
 
         index = self.combo_output_format.findData(self.data['output_format'][num_query])
         self.combo_output_format.setCurrentIndex(index)
