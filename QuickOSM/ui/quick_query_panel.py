@@ -1,4 +1,5 @@
 """Panel OSM base class."""
+import datetime
 import json
 import logging
 import os
@@ -22,14 +23,19 @@ from qgis.PyQt.QtWidgets import (
 )
 
 from QuickOSM.core.exceptions import OsmObjectsException, QuickOsmException
-from QuickOSM.core.process import process_quick_query
+from QuickOSM.core.process import process_query, process_quick_query
 from QuickOSM.core.query_factory import QueryFactory
 from QuickOSM.core.utilities.json_encoder import as_enum
 from QuickOSM.core.utilities.query_saved import QueryManagement
 from QuickOSM.core.utilities.tools import query_historic
 from QuickOSM.core.utilities.utilities_qgis import open_plugin_documentation
 from QuickOSM.definitions.gui import Panels
-from QuickOSM.definitions.osm import OsmType, QueryLanguage, QueryType
+from QuickOSM.definitions.osm import (
+    Osm_Layers,
+    OsmType,
+    QueryLanguage,
+    QueryType,
+)
 from QuickOSM.qgis_plugin_tools.tools.i18n import tr
 from QuickOSM.ui.base_overpass_panel import BaseOverpassPanel
 from QuickOSM.ui.custom_table import TableKeyValue
@@ -248,7 +254,9 @@ class QuickQueryPanel(BaseOverpassPanel, TableKeyValue):
         )
         q_manage.add_bookmark(data['file_name'])
 
-        self.update_bookmark_view()
+        self.dialog.external_panels[Panels.MapPreset].update_bookmark_view()
+        item = self.dialog.menu_widget.item(self.dialog.preset_menu_index)
+        self.dialog.menu_widget.setCurrentItem(item)
 
     def update_history_view(self):
         """Update the history view."""
@@ -303,6 +311,75 @@ class QuickQueryPanel(BaseOverpassPanel, TableKeyValue):
 
             item.setSizeHint(group.minimumSizeHint())
             self.dialog.list_historic.setItemWidget(item, group)
+
+    def _run_saved_query(self, data: dict):
+        """Run a saved query(ies)."""
+        for k, query in enumerate(data['query']):
+            if data['output_directory'][k]:
+                time_str = str(datetime.datetime.now()).replace(' ', '_').replace(':', '-').split('.')[0]
+                name = time_str + '_' + data['query_layer_name'][k]
+            else:
+                name = data['query_layer_name'][k]
+            historic_folder = query_historic()
+            files = os.listdir(historic_folder)
+            files_qml = filter(lambda file_ext: file_ext[-4:] == '.qml', files)
+            file_name = join(data['file_name'] + '_' + data['query_name'][k])
+            files_qml = filter(lambda file_ext: file_ext.startswith(file_name), files_qml)
+            if list(files_qml):
+                LOGGER.debug('files: {}'.format(files_qml))
+                self.join = join(historic_folder, data['file_name'] + '_' + data['query_name'][k] + '_{}.qml')
+                file_name = self.join
+                config = {}
+                for osm_type in Osm_Layers:
+                    config[osm_type] = {
+                        'namelayer': name,
+                        'style': file_name.format(osm_type)
+                    }
+            else:
+                config = None
+
+            if data['advanced']:
+                num_layers = process_query(
+                    dialog=self.dialog,
+                    query=query,
+                    description=data['description'],
+                    layer_name=name,
+                    white_list_values=data['white_list_column'][k],
+                    type_multi_request=data['type_multi_request'][k],
+                    key=data['keys'][k],
+                    value=data['values'][k],
+                    area=data['area'][k],
+                    bbox=data['bbox'][k],
+                    output_geometry_types=data['output_geom_type'][k],
+                    output_format=data['output_format'][k],
+                    output_dir=data['output_directory'][k],
+                    config_outputs=config
+                )
+            else:
+                if 'query_type' in data:
+                    query_type = data['query_type']
+                    dist = data['distance']
+                else:
+                    query_type = QueryType.InArea if data['area'][k] else QueryType.BBox
+                    dist = None
+                num_layers = process_quick_query(
+                    dialog=self.dialog,
+                    description=data['description'],
+                    type_multi_request=data['type_multi_request'][k],
+                    query_type=query_type,
+                    key=data['keys'][k],
+                    value=data['values'][k],
+                    area=data['area'][k],
+                    bbox=data['bbox'][k],
+                    distance=dist,
+                    output_directory=data['output_directory'][k],
+                    output_format=data['output_format'][k],
+                    layer_name=name,
+                    white_list_values=data['white_list_column'][k],
+                    output_geometry_types=data['output_geom_type'][k],
+                    config_outputs=config
+                )
+            self.end_query(num_layers)
 
     def _run(self):
         """Process for running the query."""

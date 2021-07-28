@@ -8,7 +8,7 @@ from functools import partial
 from os.path import join
 
 from qgis.core import QgsApplication
-from qgis.PyQt.QtCore import QSize
+from qgis.PyQt.QtCore import QSize, Qt
 from qgis.PyQt.QtGui import QIcon, QPixmap
 from qgis.PyQt.QtWidgets import (
     QDialog,
@@ -77,10 +77,10 @@ class MapPresetPanel(BaseOverpassPanel):
     def setup_default_preset(self):
         """Setup the display of presets"""
         preset_folder = resources_path('map_preset')
-        files = os.listdir(preset_folder)
+        folders = os.listdir(preset_folder)
 
-        for file in files:
-            file_path = join(preset_folder, file, file + '.json')
+        for folder_name in folders:
+            file_path = join(preset_folder, folder_name, folder_name + '.json')
             with open(file_path, encoding='utf8') as json_file:
                 data = json.load(json_file, object_hook=as_enum)
 
@@ -94,13 +94,17 @@ class MapPresetPanel(BaseOverpassPanel):
             hbox = QHBoxLayout()
             vbox = QVBoxLayout()
             picture = QLabel()
-            icon = QPixmap((resources_path('icons', 'QuickOSM.svg')))
-            icon.scaled(QSize(100, 100))
+            icon_path = resources_path('map_preset', folder_name, folder_name + '_icon.png')
+            if not os.path.isfile(icon_path):
+                icon_path = resources_path('icons', 'QuickOSM.svg')
+            icon = QPixmap(icon_path)
+            icon.scaled(QSize(150, 250), Qt.KeepAspectRatio)
             picture.setPixmap(icon)
+            picture.setStyleSheet('max-height: 150px; max-width: 250px; margin-right: 50px;')
             hbox.addWidget(picture)
             title = QLabel(data['file_name'])
             title.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Fixed)
-            title.setStyleSheet('font: bold 20px; ')
+            title.setStyleSheet('font: bold 20px; margin-bottom: 25px;')
             vbox.addWidget(title)
             for label in data['description']:
                 if not label:
@@ -125,7 +129,8 @@ class MapPresetPanel(BaseOverpassPanel):
     def update_bookmark_view(self):
         """Update the bookmarks displayed."""
         bookmark_folder = query_bookmark()
-        files = os.listdir(bookmark_folder)
+        files = filter(
+            lambda folder: os.path.isdir(join(bookmark_folder, folder)), os.listdir(bookmark_folder))
 
         self.dialog.list_bookmark_mp.clear()
 

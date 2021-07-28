@@ -142,7 +142,7 @@ class OsmParser(QObject):
             )
             if validity['INVALID_COUNT'] > 0:
                 LOGGER.info('Fixing geometries in layer: {}'.format(layer))
-                if self.feedback:
+                if self.feedback_alg:
                     self.feedback.pushInfo('Fixing the geometry of the layer {}.'.format(layer))
                 layers[layer]['vectorLayer'] = processing.run(
                     "native:fixgeometries", {
@@ -299,7 +299,7 @@ class OsmParser(QObject):
                         })
                 begin += nb_metadata
 
-                for key in self.__key:
+                for key in list(set(self.__key)):
                     if key in tags:
                         fields_mapping.append({
                             'expression': '\"' + key + '\"',
@@ -315,7 +315,7 @@ class OsmParser(QObject):
                             'precision': 0, 'type': 10
                         })
 
-                layers[layer]['vector_layer'] = processing.run("qgis:refactorfields", {
+                layers[layer]['vector_layer'] = processing.run("native:refactorfields", {
                     'INPUT': layers[layer]['vector_layer'],
                     'FIELDS_MAPPING': fields_mapping,
                     'OUTPUT': layers[layer]['layer_name']

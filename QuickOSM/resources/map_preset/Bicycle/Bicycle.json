@@ -8,7 +8,8 @@
         ""
     ],
     "description": [
-        "All OSM objects linked to bicycle are going to be downloaded."
+        "All OSM objects linked to bicycle are going to be downloaded.",
+        "No default extent or place."
     ],
     "advanced": false,
     "file_name": "Bicycle",
@@ -21,12 +22,12 @@
         "bicycle_shop"
     ],
     "query_name": [
-        "Bicycle path",
-        "Bicycle parking",
-        "Bicycle route",
-        "Bicycle rental",
-        "Bicycle repair",
-        "Bicycle shop"
+        "BicyclePath",
+        "BicycleParking",
+        "BicycleRoute",
+        "BicycleRental",
+        "BicycleRepair",
+        "BicycleShop"
     ],
     "type_multi_request": [
         [

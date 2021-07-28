@@ -14,13 +14,17 @@ from qgis.core import QgsRectangle
 from QuickOSM.core.utilities.json_encoder import EnumEncoder
 from QuickOSM.core.utilities.tools import query_bookmark, query_historic
 from QuickOSM.definitions.format import Format
-from QuickOSM.definitions.osm import OSM_LAYERS, WHITE_LIST, LayerType, MultiType
+from QuickOSM.definitions.osm import (
+    OSM_LAYERS,
+    WHITE_LIST,
+    LayerType,
+    MultiType,
+)
+from QuickOSM.qgis_plugin_tools.tools.i18n import tr
 
 __copyright__ = 'Copyright 2021, 3Liz'
 __license__ = 'GPL version 3'
 __email__ = 'info@3liz.org'
-
-from QuickOSM.qgis_plugin_tools.tools.i18n import tr
 
 LOGGER = logging.getLogger('QuickOSM')
 
@@ -268,8 +272,6 @@ class QueryManagement:
         with open(new_file, 'w', encoding='utf8') as new_json_file:
             json.dump(data, new_json_file, cls=EnumEncoder)
 
-        self.remove_bookmark(former_name)
-
         files = os.listdir(old_folder)
         files_qml = filter(lambda file_ext: file_ext[-4:] == '.qml', files)
         for file in files_qml:
@@ -278,7 +280,7 @@ class QueryManagement:
             old_file_qml = join(old_folder, file)
             rename(old_file_qml, new_file_qml)
 
-        os.rmdir(old_folder)
+        self.remove_bookmark(former_name)
 
     @staticmethod
     def update_bookmark(data: dict):
