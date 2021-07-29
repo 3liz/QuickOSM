@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>edit_bookmark</class>
- <widget class="QDialog" name="edit_bookmark">
+ <class>edit_preset</class>
+ <widget class="QDialog" name="edit_preset">
   <property name="windowModality">
    <enum>Qt::NonModal</enum>
   </property>
@@ -43,7 +43,7 @@
        </widget>
       </item>
       <item row="0" column="1">
-       <widget class="QLineEdit" name="bookmark_name">
+       <widget class="QLineEdit" name="preset_name">
         <property name="toolTip">
          <string>Set the name of the bookmark. Must be unique.</string>
         </property>
@@ -98,6 +98,9 @@
         </property>
         <item>
          <widget class="QRadioButton" name="radio_basic">
+          <property name="toolTip">
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;- Basic type -&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;The file will save all the parameters.&lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;The process will use the given parameters to build a new query as it is done from the quick query panel. Even if something is written in the raw query parameters, it will not be used.&lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;The location parameters (extent or place) can be override by the parameter in the map preset panel.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          </property>
           <property name="text">
            <string>Basic</string>
           </property>
@@ -108,6 +111,9 @@
         </item>
         <item>
          <widget class="QRadioButton" name="radio_advanced">
+          <property name="toolTip">
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;- Advanced type -&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;The file will save all the parameters.&lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;The process will use the raw query as it is done from the query panel. Even if something is written in the table about keys and values parameters, it will not be used.&lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;The location parameters (extent or place) can not be override by the parameter in the map preset panel. Althought, if there is the token {{geocodeArea}} or {{bbox}} in the raw query, it can be override by the location parameters in the edit preset window.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          </property>
           <property name="text">
            <string>Advanced</string>
           </property>
@@ -172,6 +178,14 @@
             </colorrole>
            </disabled>
           </palette>
+         </property>
+         <property name="font">
+          <font>
+           <pointsize>12</pointsize>
+          </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">QListWidget::item:selected {background: #822fd4;}</string>
          </property>
          <property name="editTriggers">
           <set>QAbstractItemView::NoEditTriggers</set>
@@ -264,7 +278,7 @@
                <layout class="QHBoxLayout" name="bbox_layout"/>
               </item>
               <item row="2" column="1">
-               <widget class="QStackedWidget" name="stacked_parameters_bookmark">
+               <widget class="QStackedWidget" name="stacked_parameters_preset">
                 <property name="sizePolicy">
                  <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
                   <horstretch>0</horstretch>
@@ -445,7 +459,11 @@
                </widget>
               </item>
               <item row="1" column="1">
-               <widget class="QLineEdit" name="white_points"/>
+               <widget class="QLineEdit" name="white_points">
+                <property name="toolTip">
+                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Choose the fields in the attributes that you want.&lt;/p&gt;&lt;p&gt;If empty all possible fields are going to be available.&lt;/p&gt;&lt;p&gt;If not empty only the chosen fields are going to be available.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                </property>
+               </widget>
               </item>
               <item row="2" column="0">
                <widget class="QCheckBox" name="checkbox_lines">
@@ -455,7 +473,11 @@
                </widget>
               </item>
               <item row="2" column="1">
-               <widget class="QLineEdit" name="white_lines"/>
+               <widget class="QLineEdit" name="white_lines">
+                <property name="toolTip">
+                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Choose the fields in the attributes that you want.&lt;/p&gt;&lt;p&gt;If empty all possible fields are going to be available.&lt;/p&gt;&lt;p&gt;If not empty only the chosen fields are going to be available.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                </property>
+               </widget>
               </item>
               <item row="3" column="0">
                <widget class="QCheckBox" name="checkbox_multilinestrings">
@@ -465,7 +487,11 @@
                </widget>
               </item>
               <item row="3" column="1">
-               <widget class="QLineEdit" name="white_multilinestrings"/>
+               <widget class="QLineEdit" name="white_multilinestrings">
+                <property name="toolTip">
+                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Choose the fields in the attributes that you want.&lt;/p&gt;&lt;p&gt;If empty all possible fields are going to be available.&lt;/p&gt;&lt;p&gt;If not empty only the chosen fields are going to be available.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                </property>
+               </widget>
               </item>
               <item row="4" column="0">
                <widget class="QCheckBox" name="checkbox_multipolygons">
@@ -475,7 +501,11 @@
                </widget>
               </item>
               <item row="4" column="1">
-               <widget class="QLineEdit" name="white_multipolygons"/>
+               <widget class="QLineEdit" name="white_multipolygons">
+                <property name="toolTip">
+                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Choose the fields in the attributes that you want.&lt;/p&gt;&lt;p&gt;If empty all possible fields are going to be available.&lt;/p&gt;&lt;p&gt;If not empty only the chosen fields are going to be available.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                </property>
+               </widget>
               </item>
               <item row="5" column="0">
                <widget class="QLabel" name="outputFormatLabel">
@@ -498,7 +528,7 @@
                <widget class="QgsFileWidget" name="output_directory" native="true"/>
               </item>
               <item row="7" column="1">
-               <widget class="QLabel" name="label_9">
+               <widget class="QLabel" name="qml_format">
                 <property name="sizePolicy">
                  <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
                   <horstretch>0</horstretch>

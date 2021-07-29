@@ -192,7 +192,7 @@ QListWidget::item::selected {
                   <x>0</x>
                   <y>0</y>
                   <width>809</width>
-                  <height>788</height>
+                  <height>770</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_21">
@@ -256,6 +256,9 @@ QListWidget::item::selected {
                         </disabled>
                        </palette>
                       </property>
+                      <property name="styleSheet">
+                       <string notr="true">QListWidget::item:selected {background: #822fd4;}</string>
+                      </property>
                       <property name="frameShape">
                        <enum>QFrame::NoFrame</enum>
                       </property>
@@ -263,13 +266,16 @@ QListWidget::item::selected {
                        <set>QAbstractItemView::SelectedClicked</set>
                       </property>
                       <property name="showDropIndicator" stdset="0">
-                       <bool>false</bool>
+                       <bool>true</bool>
                       </property>
                       <property name="dragDropMode">
                        <enum>QAbstractItemView::NoDragDrop</enum>
                       </property>
                       <property name="defaultDropAction">
-                       <enum>Qt::CopyAction</enum>
+                       <enum>Qt::IgnoreAction</enum>
+                      </property>
+                      <property name="selectionMode">
+                       <enum>QAbstractItemView::SingleSelection</enum>
                       </property>
                       <property name="verticalScrollMode">
                        <enum>QAbstractItemView::ScrollPerPixel</enum>
@@ -298,7 +304,7 @@ QListWidget::item::selected {
                    </property>
                    <layout class="QVBoxLayout" name="verticalLayout_23">
                     <item>
-                     <widget class="QListWidget" name="list_bookmark_mp">
+                     <widget class="QListWidget" name="list_personal_preset_mp">
                       <property name="sizePolicy">
                        <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                         <horstretch>0</horstretch>
@@ -341,6 +347,9 @@ QListWidget::item::selected {
                          </colorrole>
                         </disabled>
                        </palette>
+                      </property>
+                      <property name="styleSheet">
+                       <string notr="true">QListWidget::item:selected {background: #822fd4;}</string>
                       </property>
                       <property name="frameShape">
                        <enum>QFrame::NoFrame</enum>
@@ -1059,7 +1068,7 @@ QListWidget::item::selected {
              <item>
               <layout class="QHBoxLayout" name="horizontalLayout">
                <item>
-                <widget class="QPushButton" name="save_query">
+                <widget class="QToolButton" name="button_save_query">
                  <property name="sizePolicy">
                   <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
                    <horstretch>0</horstretch>
@@ -1067,7 +1076,13 @@ QListWidget::item::selected {
                   </sizepolicy>
                  </property>
                  <property name="text">
-                  <string>Save query</string>
+                  <string>Save query in a new preset</string>
+                 </property>
+                 <property name="popupMode">
+                  <enum>QToolButton::MenuButtonPopup</enum>
+                 </property>
+                 <property name="toolButtonStyle">
+                  <enum>Qt::ToolButtonTextOnly</enum>
                  </property>
                 </widget>
                </item>

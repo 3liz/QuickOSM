@@ -60,19 +60,19 @@ class OsmFilePanel(BaseProcessingPanel, TableKeyValue):
         self.dialog.osm_conf.setFilter('OSM conf (*.ini)')
         self.dialog.osm_conf.lineEdit().setPlaceholderText(default_osm_conf)
 
-        self.dialog.osm_conf.fileChanged.connect(self.disable_run_file_button)
-        self.dialog.radio_osm_conf.toggled.connect(self.disable_run_file_button)
-        self.dialog.radio_selection_keys.toggled.connect(self.disable_run_file_button)
-        # TODO
-        #  self.output_directory.fileChanged.connect(self.disable_prefix_file)
-        self.dialog.run_buttons[self.panel].clicked.connect(self.run)
+        self.dialog.osm_file.lineEdit().textChanged.connect(self.disable_enable_buttons)
+        self.dialog.osm_conf.lineEdit().textChanged.connect(self.disable_enable_buttons)
+        self.dialog.radio_osm_conf.toggled.connect(self.disable_enable_buttons)
+        self.dialog.radio_selection_keys.toggled.connect(self.disable_enable_buttons)
+        self.dialog.output_directory_f.lineEdit().textChanged.connect(self.disable_enable_format_prefix)
+        self.dialog.button_run_file.clicked.connect(self.run)
 
-        self.disable_run_file_button()
+        self.disable_enable_buttons()
 
-    def disable_run_file_button(self):
-        """If the two fields are empty or allTags."""
-        if not self.dialog.osm_file.filePath():
-            self.dialog.run_buttons[self.panel].setEnabled(False)
+    def disable_enable_buttons(self):
+        """Display enable only the suitable parameters."""
+        osm_file = not self.dialog.osm_file.lineEdit().isNull()
+        self.dialog.button_run_file.setEnabled(osm_file)
 
         if self.dialog.radio_osm_conf.isChecked():
             self.dialog.osm_conf.setEnabled(True)
@@ -81,26 +81,22 @@ class OsmFilePanel(BaseProcessingPanel, TableKeyValue):
             self.dialog.output_directory_f.setEnabled(False)
             self.dialog.combo_format_f.setEnabled(False)
             self.dialog.line_file_prefix_file.setEnabled(False)
-            if self.dialog.osm_conf.filePath() or self.dialog.osm_conf.lineEdit().placeholderText():
-                self.dialog.run_buttons[Panels.File].setEnabled(True)
-            else:
-                self.dialog.run_buttons[Panels.File].setEnabled(False)
+            run_possible = \
+                not self.dialog.osm_conf.lineEdit().isNull() or \
+                bool(self.dialog.osm_conf.lineEdit().placeholderText())
+            self.dialog.button_run_file.setEnabled(osm_file and run_possible)
         elif self.dialog.radio_selection_keys.isChecked():
             self.dialog.table_keys_values_f.setEnabled(True)
             self.dialog.combo_preset_f.setEnabled(True)
             self.dialog.output_directory_f.setEnabled(True)
-            self.dialog.combo_format_f.setEnabled(True)
-            self.dialog.line_file_prefix_file.setEnabled(True)
+            self.disable_enable_format_prefix()
             self.dialog.osm_conf.setEnabled(False)
-            self.dialog.run_buttons[self.panel].setEnabled(True)
         else:
             self.dialog.table_keys_values_f.setEnabled(False)
             self.dialog.combo_preset_f.setEnabled(False)
             self.dialog.output_directory_f.setEnabled(True)
-            self.dialog.combo_format_f.setEnabled(True)
-            self.dialog.line_file_prefix_file.setEnabled(True)
+            self.disable_enable_format_prefix()
             self.dialog.osm_conf.setEnabled(False)
-            self.dialog.run_buttons[self.panel].setEnabled(True)
 
     def gather_values(self) -> dict:
         """Retrieval of the values set by the user."""

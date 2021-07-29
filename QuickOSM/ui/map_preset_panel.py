@@ -16,6 +16,7 @@ from qgis.PyQt.QtWidgets import (
     QHBoxLayout,
     QLabel,
     QListWidgetItem,
+    QMessageBox,
     QPushButton,
     QSizePolicy,
     QVBoxLayout,
@@ -24,13 +25,13 @@ from qgis.PyQt.QtWidgets import (
 from QuickOSM.core.process import process_query, process_quick_query
 from QuickOSM.core.utilities.json_encoder import as_enum
 from QuickOSM.core.utilities.query_saved import QueryManagement
-from QuickOSM.core.utilities.tools import query_bookmark
+from QuickOSM.core.utilities.tools import query_preset
 from QuickOSM.definitions.gui import Panels
 from QuickOSM.definitions.osm import Osm_Layers, QueryType
 from QuickOSM.qgis_plugin_tools.tools.i18n import tr
 from QuickOSM.qgis_plugin_tools.tools.resources import resources_path
 from QuickOSM.ui.base_overpass_panel import BaseOverpassPanel
-from QuickOSM.ui.edit_bookmark import EditBookmark
+from QuickOSM.ui.edit_preset import EditPreset
 
 __copyright__ = 'Copyright 2021, 3Liz'
 __license__ = 'GPL version 3'
@@ -64,15 +65,15 @@ class MapPresetPanel(BaseOverpassPanel):
 
         self.setup_default_preset()
         self.dialog.list_default_mp.itemClicked.connect(
-            self.dialog.list_bookmark_mp.clearSelection)
-        self.dialog.list_bookmark_mp.itemClicked.connect(
+            self.dialog.list_personal_preset_mp.clearSelection)
+        self.dialog.list_personal_preset_mp.itemClicked.connect(
             self.dialog.list_default_mp.clearSelection)
         self.dialog.button_run_query_mp.clicked.connect(self.prepare_run)
 
         self.query_type_updated()
         self.init_nominatim_autofill()
 
-        self.update_bookmark_view()
+        self.update_personal_preset_view()
 
     def setup_default_preset(self):
         """Setup the display of presets"""
@@ -85,11 +86,12 @@ class MapPresetPanel(BaseOverpassPanel):
                 data = json.load(json_file, object_hook=as_enum)
 
             item = QListWidgetItem(self.dialog.list_default_mp)
+            item.setFlags(Qt.ItemIsSelectable | Qt.ItemIsUserCheckable | Qt.ItemIsEnabled)
             self.dialog.list_default_mp.addItem(item)
 
             widget = QFrame()
             widget.setFrameStyle(QFrame.StyledPanel)
-            widget.setStyleSheet('QFrame { margin: 3px; }')
+            widget.setStyleSheet('QFrame { margin: 3px; };')
             widget.setSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
             hbox = QHBoxLayout()
             vbox = QVBoxLayout()
@@ -126,27 +128,28 @@ class MapPresetPanel(BaseOverpassPanel):
             self.dialog.spin_place_mp,
             self.dialog.checkbox_selection_mp)
 
-    def update_bookmark_view(self):
-        """Update the bookmarks displayed."""
-        bookmark_folder = query_bookmark()
+    def update_personal_preset_view(self):
+        """Update the presets displayed."""
+        preset_folder = query_preset()
         files = filter(
-            lambda folder: os.path.isdir(join(bookmark_folder, folder)), os.listdir(bookmark_folder))
+            lambda folder: os.path.isdir(join(preset_folder, folder)), os.listdir(preset_folder))
 
-        self.dialog.list_bookmark_mp.clear()
+        self.dialog.list_personal_preset_mp.clear()
 
         for file in files:
-            file_path = join(bookmark_folder, file, file + '.json')
+            file_path = join(preset_folder, file, file + '.json')
             with open(file_path, encoding='utf8') as json_file:
                 data = json.load(json_file, object_hook=as_enum)
             name = data['file_name']
 
-            item = QListWidgetItem(self.dialog.list_bookmark_mp)
-            self.dialog.list_bookmark_mp.addItem(item)
+            item = QListWidgetItem(self.dialog.list_personal_preset_mp)
+            item.setFlags(Qt.ItemIsSelectable | Qt.ItemIsUserCheckable | Qt.ItemIsEnabled)
+            self.dialog.list_personal_preset_mp.addItem(item)
 
-            bookmark = QFrame()
-            bookmark.setFrameStyle(QFrame.StyledPanel)
-            bookmark.setStyleSheet('QFrame { margin: 3px; }')
-            bookmark.setSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
+            preset = QFrame()
+            preset.setFrameStyle(QFrame.StyledPanel)
+            preset.setStyleSheet('QFrame { margin: 3px; }')
+            preset.setSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
             hbox = QHBoxLayout()
             vbox = QVBoxLayout()
             label_name = QLabel(name)
@@ -176,32 +179,47 @@ class MapPresetPanel(BaseOverpassPanel):
                 icon = QIcon(QgsApplication.iconPath("mLayoutItemMarker.svg"))
                 pixmap = icon.pixmap(icon.actualSize(QSize(32, 32)))
                 advanced.setPixmap(pixmap)
-                advanced.setToolTip(tr('This is an advanced preset.'))
+                advanced.setToolTip(
+                    tr(
+                        'This is an advanced preset. The extent or place can\'t be surcharge. '
+                        'You must change that manually in the edit preset window.'))
                 hbox.addWidget(advanced)
-            bookmark.setLayout(hbox)
+            preset.setLayout(hbox)
 
             # Actions on click
-            remove = partial(self.remove_bookmark, item, name)
+            remove = partial(self.remove_preset, item, name)
             button_remove.clicked.connect(remove)
-            edit = partial(self.edit_bookmark, data)
+            edit = partial(self.edit_preset, data)
             button_edit.clicked.connect(edit)
 
-            item.setSizeHint(bookmark.minimumSizeHint())
-            self.dialog.list_bookmark_mp.setItemWidget(item, bookmark)
+            item.setSizeHint(preset.minimumSizeHint())
+            self.dialog.list_personal_preset_mp.setItemWidget(item, preset)
 
-    def edit_bookmark(self, data: dict):
-        """Open a dialog to edit the bookmark"""
-        edit_dialog = EditBookmark(self.dialog, data)
+    def edit_preset(self, data: dict):
+        """Open a dialog to edit the preset"""
+        edit_dialog = EditPreset(self.dialog, data)
         edit_dialog.show()
-        self.update_bookmark_view()
+        self.update_personal_preset_view()
 
-    def remove_bookmark(self, item: QListWidgetItem, name: str):
-        """Remove a bookmark."""
-        index = self.dialog.list_bookmark_mp.row(item)
-        self.dialog.list_bookmark_mp.takeItem(index)
+    def verification_remove_preset(self, item: QListWidgetItem, name: str):
+        """Verification of the removal a preset."""
+        validate_delete = QMessageBox(
+            QMessageBox.Warning, tr('Confirm preset deletion'),
+            tr('Are you sure you want to delete the preset \'{}\'?'.format(name)),
+            QMessageBox.Yes | QMessageBox.Cancel, self.dialog
+        )
+        ok = validate_delete.exec()
+
+        if ok == QMessageBox.Yes:
+            self.remove_preset(item, name)
+
+    def remove_preset(self, item: QListWidgetItem, name: str):
+        """Remove a preset."""
+        index = self.dialog.list_personal_preset_mp.row(item)
+        self.dialog.list_personal_preset_mp.takeItem(index)
 
         q_manage = QueryManagement()
-        q_manage.remove_bookmark(name)
+        q_manage.remove_preset(name)
 
     def prepare_run(self):
         """Prepare the data before running the process."""
@@ -212,11 +230,11 @@ class MapPresetPanel(BaseOverpassPanel):
             preset_label = preset_widget.layout().itemAt(1).itemAt(0).widget().text()
             preset_folder = resources_path('map_preset')
         else:
-            selection = self.dialog.list_bookmark_mp.selectedIndexes()
-            preset = self.dialog.list_bookmark_mp.item(selection[0].row())
-            preset_widget = self.dialog.list_bookmark_mp.itemWidget(preset)
+            selection = self.dialog.list_personal_preset_mp.selectedIndexes()
+            preset = self.dialog.list_personal_preset_mp.item(selection[0].row())
+            preset_widget = self.dialog.list_personal_preset_mp.itemWidget(preset)
             preset_label = preset_widget.layout().itemAt(0).itemAt(0).widget().text()
-            preset_folder = query_bookmark()
+            preset_folder = query_preset()
         LOGGER.debug('Preset chosen: {}'.format(preset_label))
         file_path = join(preset_folder, preset_label, preset_label + '.json')
         with open(file_path, encoding='utf8') as json_file:

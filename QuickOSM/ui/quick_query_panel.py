@@ -10,10 +10,12 @@ from os.path import join
 from qgis.core import QgsApplication
 from qgis.PyQt.QtGui import QIcon
 from qgis.PyQt.QtWidgets import (
+    QAction,
     QDialog,
     QDialogButtonBox,
     QFrame,
     QHBoxLayout,
+    QInputDialog,
     QLabel,
     QListWidgetItem,
     QMenu,
@@ -27,8 +29,9 @@ from QuickOSM.core.process import process_query, process_quick_query
 from QuickOSM.core.query_factory import QueryFactory
 from QuickOSM.core.utilities.json_encoder import as_enum
 from QuickOSM.core.utilities.query_saved import QueryManagement
-from QuickOSM.core.utilities.tools import query_historic
+from QuickOSM.core.utilities.tools import query_historic, query_preset
 from QuickOSM.core.utilities.utilities_qgis import open_plugin_documentation
+from QuickOSM.definitions.action import SaveType
 from QuickOSM.definitions.gui import Panels
 from QuickOSM.definitions.osm import (
     Osm_Layers,
@@ -58,6 +61,9 @@ class QuickQueryPanel(BaseOverpassPanel, TableKeyValue):
         self.panel = Panels.QuickQuery
         self.osm_keys = None
         self.preset_data = None
+        self.existing_preset = None
+        self.action_new = None
+        self.action_existing = None
         self.wizard = None
 
     def setup_panel(self):
@@ -91,9 +97,16 @@ class QuickQueryPanel(BaseOverpassPanel, TableKeyValue):
         self.dialog.combo_query_type_qq.currentIndexChanged.connect(
             self.query_type_updated)
 
-        self.dialog.line_file_prefix_qq.setDisabled(True)
+        self.dialog.button_save_query.setMenu(QMenu())
 
-        self.dialog.save_query.clicked.connect(self.save_query)
+        self.action_new = QAction(SaveType.New.value)
+        self.action_new.triggered.connect(self.save_new)
+        self.action_existing = QAction(SaveType.Existing.value)
+        self.action_existing.triggered.connect(self.save_add_existing)
+        self.dialog.button_save_query.menu().addAction(self.action_new)
+        self.dialog.button_save_query.menu().addAction(self.action_existing)
+
+        self.dialog.button_save_query.clicked.connect(self.save_query)
 
         self.dialog.button_show_query.setMenu(QMenu())
 
@@ -129,6 +142,16 @@ class QuickQueryPanel(BaseOverpassPanel, TableKeyValue):
             self.dialog.spin_place_qq,
             self.dialog.checkbox_selection_qq)
         self.update_friendly()
+
+    def save_new(self):
+        """Verify the save destination."""
+        self.existing_preset = False
+        self.dialog.button_save_query.setText(tr('Save query in a new preset'))
+
+    def save_add_existing(self):
+        """Verify and ask the save destination."""
+        self.existing_preset = True
+        self.dialog.button_save_query.setText(tr('Save and add query to an existing preset'))
 
     def query_language_oql(self):
         """Update the wanted language."""
@@ -196,7 +219,7 @@ class QuickQueryPanel(BaseOverpassPanel, TableKeyValue):
         return properties
 
     def save_query(self):
-        """Save a query in bookmark."""
+        """Save a query in a preset."""
         properties = self.gather_values()
 
         # Make the query
@@ -228,14 +251,26 @@ class QuickQueryPanel(BaseOverpassPanel, TableKeyValue):
             output_directory=properties['output_directory'],
             output_format=properties['output_format']
         )
-        q_manage.add_bookmark(properties['layer_name'])
+        if self.existing_preset:
+            preset_folder = query_preset()
+            presets = filter(
+                lambda folder: os.path.isdir(join(preset_folder, folder)), os.listdir(preset_folder))
+            chosen_preset = QInputDialog.getItem(
+                self.dialog, tr('Add in an existing preset'),
+                tr('Please select the preset in which the query will be added:'),
+                presets, editable=False
+            )
+            if chosen_preset[1]:
+                q_manage.add_query_in_preset(chosen_preset[0])
+        else:
+            q_manage.add_preset(properties['layer_name'])
 
-        self.dialog.external_panels[Panels.MapPreset].update_bookmark_view()
+        self.dialog.external_panels[Panels.MapPreset].update_personal_preset_view()
         item = self.dialog.menu_widget.item(self.dialog.preset_menu_index)
         self.dialog.menu_widget.setCurrentItem(item)
 
-    def save_history_bookmark(self, data: dict):
-        """Save an query from history to bookmark."""
+    def save_history_preset(self, data: dict):
+        """Save a query from history to preset."""
 
         q_manage = QueryManagement(
             query=data['query'],
@@ -252,9 +287,9 @@ class QuickQueryPanel(BaseOverpassPanel, TableKeyValue):
             output_directory=data['output_directory'],
             output_format=data['output_format']
         )
-        q_manage.add_bookmark(data['file_name'])
+        q_manage.add_preset(data['file_name'])
 
-        self.dialog.external_panels[Panels.MapPreset].update_bookmark_view()
+        self.dialog.external_panels[Panels.MapPreset].update_personal_preset_view()
         item = self.dialog.menu_widget.item(self.dialog.preset_menu_index)
         self.dialog.menu_widget.setCurrentItem(item)
 
@@ -298,7 +333,7 @@ class QuickQueryPanel(BaseOverpassPanel, TableKeyValue):
             button_run.setSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
             button_save.setSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
             button_run.setToolTip(tr('Run the query'))
-            button_save.setToolTip(tr('Save this query in bookmark'))
+            button_save.setToolTip(tr('Save this query in a new preset'))
             hbox.addWidget(button_run)
             hbox.addWidget(button_save)
             group.setLayout(hbox)
@@ -306,7 +341,7 @@ class QuickQueryPanel(BaseOverpassPanel, TableKeyValue):
             # Actions on click
             run = partial(self.run_saved_query, data)
             button_run.clicked.connect(run)
-            save = partial(self.save_history_bookmark, data)
+            save = partial(self.save_history_preset, data)
             button_save.clicked.connect(save)
 
             item.setSizeHint(group.minimumSizeHint())

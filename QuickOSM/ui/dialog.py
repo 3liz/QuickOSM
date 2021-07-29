@@ -167,6 +167,7 @@ class Dialog(QDialog, FORM_CLASS):
             Panels.QuickQuery: self.action_xml_qq,
             Panels.Query: self.action_xml_q,
         }
+
         icon = QIcon(resources_path('icons', 'QuickOSM.svg'))
         self.reload_action = QAction(icon, tr("Reload the query in a new file"), self.iface)
         actions = Actions(self)

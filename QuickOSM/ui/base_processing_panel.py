@@ -34,6 +34,12 @@ class BaseProcessingPanel(BasePanel):
     def __init__(self, dialog: QDialog):
         super().__init__(dialog)
 
+    def disable_enable_format_prefix(self):
+        """Enable only if the directory is set."""
+        boolean = not self.dialog.output_directories[self.panel].lineEdit().isNull()
+        self.dialog.output_format[self.panel].setEnabled(boolean)
+        self.dialog.prefix_edits[self.panel].setEnabled(boolean)
+
     def run(self):
         """Run the process"""
         self._start_process()
@@ -81,6 +87,10 @@ class BaseProcessingPanel(BasePanel):
                 Format.Shapefile.value.label, Format.Shapefile)
             self.dialog.output_format[self.panel].addItem(
                 Format.Kml.value.label, Format.Kml)
+
+            self.dialog.output_directories[self.panel].lineEdit().textChanged.connect(
+                self.disable_enable_format_prefix)
+            self.disable_enable_format_prefix()
 
         self.dialog.execute_buttons[self.panel].setCurrentIndex(0)
         self.dialog.cancel_buttons[self.panel].clicked.connect(self.cancel_process)
@@ -131,7 +141,7 @@ class BaseProcessingPanel(BasePanel):
 
         if self.dialog.output_directories[self.panel]:
             self.dialog.output_directories[self.panel].setDisabled(False)
-            self.dialog.output_format[self.panel].setDisabled(False)
+            self.disable_enable_format_prefix()
         self.dialog.execute_buttons[self.panel].setCurrentIndex(0)
         self.dialog.progress_bar.setMinimum(0)
         self.dialog.progress_bar.setMaximum(100)
