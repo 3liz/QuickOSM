@@ -1,7 +1,9 @@
-"""Manage the saved query in history or bookmark."""
+"""Manage the saved query in history or preset."""
 import json
 import logging
+import os
 import re
+import shutil
 
 from os import listdir, remove, rename
 from os.path import join
@@ -9,10 +11,16 @@ from typing import List, Union
 
 from qgis.core import QgsRectangle
 
-from QuickOSM.core.utilities.json_encoder import EnumEncoder
-from QuickOSM.core.utilities.tools import query_bookmark, query_historic
+from QuickOSM.core.utilities.json_encoder import EnumEncoder, as_enum
+from QuickOSM.core.utilities.tools import query_historic, query_preset
 from QuickOSM.definitions.format import Format
-from QuickOSM.definitions.osm import OSM_LAYERS, WHITE_LIST, LayerType
+from QuickOSM.definitions.osm import (
+    OSM_LAYERS,
+    WHITE_LIST,
+    LayerType,
+    MultiType,
+)
+from QuickOSM.qgis_plugin_tools.tools.i18n import tr
 
 __copyright__ = 'Copyright 2021, 3Liz'
 __license__ = 'GPL version 3'
@@ -22,13 +30,17 @@ LOGGER = logging.getLogger('QuickOSM')
 
 
 class QueryManagement:
-    """Manage the saved query in history or bookmark."""
+    """Manage the saved query in history or preset."""
 
     def __init__(
             self,
             query: Union[str, List[str]] = '',
             name: str = '',
             description: Union[str, List[str]] = '',
+            advanced: bool = False,
+            type_multi_request: list = None,
+            keys: Union[str, List[str]] = None,
+            values: Union[str, List[str]] = None,
             area: Union[str, List[str]] = None,
             bbox: Union[QgsRectangle, List[QgsRectangle]] = None,
             output_geometry_types: list = None,
@@ -53,6 +65,35 @@ class QueryManagement:
             self.description = [description]
         else:
             self.description = description
+
+        self.advanced = advanced
+
+        if type_multi_request is None:
+            self.type_multi_request = [[]]
+        elif isinstance(type_multi_request, MultiType):
+            self.type_multi_request = [[type_multi_request]]
+        elif not type_multi_request or isinstance(type_multi_request[0], MultiType):
+            self.type_multi_request = [type_multi_request]
+        else:
+            self.type_multi_request = type_multi_request
+
+        if keys is None:
+            self.keys = [['']]
+        elif isinstance(keys, str):
+            self.keys = [[keys]]
+        elif isinstance(keys[0], str):
+            self.keys = [keys]
+        else:
+            self.keys = keys
+
+        if values is None:
+            self.values = [['']]
+        elif isinstance(values, str):
+            self.values = [[values]]
+        elif isinstance(values[0], str):
+            self.values = [values]
+        else:
+            self.values = values
 
         if area is None:
             self.area = ['']
@@ -117,16 +158,17 @@ class QueryManagement:
 
         self.write_json(new_file)
 
-    def add_bookmark(self, name_bookmark: str):
-        """Add a new query in the bookmark folder"""
-        bookmark_folder = query_bookmark()
-        files = listdir(bookmark_folder)
+    def add_preset(self, name_preset: str):
+        """Add a new query in the preset folder"""
+        preset_folder = query_preset()
+        files = listdir(preset_folder)
         nb_files = len(files)
 
-        self.name[0] = name_bookmark if name_bookmark != "OsmQuery" else 'OsmQuery_{}'.format(nb_files)
+        self.name[0] = name_preset if name_preset != "OsmQuery" else 'OsmQuery_{}'.format(nb_files)
         final_name = self.name[0] + '.json'
 
-        new_file = join(bookmark_folder, final_name)
+        new_file = join(preset_folder, self.name[0], final_name)
+        os.mkdir(join(preset_folder, self.name[0]))
         self.write_json(new_file)
 
     def write_json(self, file: str):
@@ -134,8 +176,13 @@ class QueryManagement:
         data = {
             'query': self.query,
             'description': self.description,
+            'advanced': self.advanced,
             'file_name': self.name[0],
-            'query_name': self.name,
+            'query_layer_name': self.name,
+            'query_name': [tr('Query') + '1'],
+            'type_multi_request': self.type_multi_request,
+            'keys': self.keys,
+            'values': self.values,
             'area': self.area,
             'bbox': self.bbox,
             'output_geom_type': self.output_geom_type,
@@ -148,26 +195,44 @@ class QueryManagement:
             json.dump(data, json_file, cls=EnumEncoder)
 
     @staticmethod
-    def remove_bookmark(name: str):
-        """Remove a bookmark query"""
-        bookmark_folder = query_bookmark()
+    def remove_preset(name: str):
+        """Remove a preset."""
+        preset_folder = query_preset()
 
-        file = join(bookmark_folder, name + '.json')
-        remove(file)
-        if name.startswith('bookmark_'):
-            list_bookmark = filter(lambda query_file: query_file.startswith('OsmQuery_'), name)
-            num = re.findall('OsmQuery_(0-9)', name)[0]
-            for k, file in enumerate(list_bookmark):
+        dir_file = join(preset_folder, name)
+        shutil.rmtree(dir_file)
+        if name.startswith('OsmQuery_'):
+            presets = os.listdir(preset_folder)
+            list_preset = filter(lambda query_file: query_file.startswith('OsmQuery_'), presets)
+            num = re.findall('OsmQuery_([0-9]+)', name)[0]
+            for k, file in enumerate(list_preset):
                 if k >= num:
-                    former_file = join(bookmark_folder, file + '.json')
-                    new_file = join(bookmark_folder, 'OsmQuery_{}.json'.format(k))
+                    former_file = join(preset_folder, file, file + '.json')
+                    new_name = 'OsmQuery_{}'.format(k)
+                    new_file = join(preset_folder, new_name, new_name + '.json')
                     rename(former_file, new_file)
 
+                    files = os.listdir(join(preset_folder, file))
+                    files_qml = filter(lambda file_ext: file_ext[-4:] == '.qml', files)
+                    for file_qml in files_qml:
+                        end_file_name = file_qml[len(file):]
+                        new_file_qml = join(join(preset_folder, new_name), new_name + end_file_name)
+                        old_file_qml = join(join(preset_folder, file), file + 'qml')
+                        rename(old_file_qml, new_file_qml)
+                    index = k
+
+            if index:
+                os.rmdir(join(preset_folder, 'OsmQuery_{}'.format(index + 1)))
+
     @staticmethod
-    def add_empty_query_in_bookmark(data: dict) -> dict:
-        """Add a query in a bookmark file"""
+    def add_empty_query_in_preset(data: dict) -> dict:
+        """Add an empty query in a preset file"""
         data['query'].append('')
-        data['query_name'].append('')
+        data['query_layer_name'].append('')
+        data['query_name'].append(tr('Query') + str(len(data['query'])))
+        data['type_multi_request'].append([])
+        data['keys'].append([])
+        data['values'].append([])
         data['area'].append('')
         data['bbox'].append('')
         data['output_geom_type'].append(OSM_LAYERS)
@@ -177,11 +242,37 @@ class QueryManagement:
 
         return data
 
+    def add_query_in_preset(self, existing_preset: str):
+        """Add a query in a preset file"""
+        preset_folder = query_preset()
+        file_path = join(preset_folder, existing_preset, existing_preset + '.json')
+        with open(file_path, encoding='utf8') as json_file:
+            data = json.load(json_file, object_hook=as_enum)
+
+        data['query'].append(self.query[0])
+        data['query_layer_name'].append(self.name[0])
+        data['query_name'].append(tr('Query') + str(len(data['query'])))
+        data['type_multi_request'].append(self.type_multi_request[0])
+        data['keys'].append(self.keys[0])
+        data['values'].append(self.values[0])
+        data['area'].append(self.area[0])
+        data['bbox'].append(self.bbox[0])
+        data['output_geom_type'].append(self.output_geom_type[0])
+        data['white_list_column'].append(self.white_list[0])
+        data['output_format'].append(self.output_format[0])
+        data['output_directory'].append(self.output_directory[0])
+
+        self.update_preset(data)
+
     @staticmethod
-    def remove_query_in_bookmark(data: dict, num_query: int) -> dict:
-        """Remove a query in a bookmark file."""
+    def remove_query_in_preset(data: dict, num_query: int) -> dict:
+        """Remove a query in a preset file."""
+        data['query_layer_name'].pop(num_query)
         data['query_name'].pop(num_query)
         data['query'].pop(num_query)
+        data['type_multi_request'].pop(num_query)
+        data['keys'].pop(num_query)
+        data['values'].pop(num_query)
         data['area'].pop(num_query)
         data['bbox'].pop(num_query)
         data['output_geom_type'].pop(num_query)
@@ -191,23 +282,34 @@ class QueryManagement:
 
         return data
 
-    def rename_bookmark(self, former_name: str, new_name: str, data: dict):
-        """Rename a bookmark query"""
-        bookmark_folder = query_bookmark()
+    def rename_preset(self, former_name: str, new_name: str, data: dict):
+        """Rename a preset query"""
+        preset_folder = query_preset()
+        old_folder = join(preset_folder, former_name)
+        new_folder = join(preset_folder, new_name)
+        os.mkdir(new_folder)
 
-        new_file = join(bookmark_folder, new_name + '.json')
+        new_file = join(new_folder, new_name + '.json')
 
         with open(new_file, 'w', encoding='utf8') as new_json_file:
             json.dump(data, new_json_file, cls=EnumEncoder)
 
-        self.remove_bookmark(former_name)
+        files = os.listdir(old_folder)
+        files_qml = filter(lambda file_ext: file_ext[-4:] == '.qml', files)
+        for file in files_qml:
+            end_file_name = file[len(former_name):]
+            new_file_qml = join(new_folder, new_name + end_file_name)
+            old_file_qml = join(old_folder, file)
+            rename(old_file_qml, new_file_qml)
+
+        self.remove_preset(former_name)
 
     @staticmethod
-    def update_bookmark(data: dict):
-        """Rename a bookmark query"""
-        bookmark_folder = query_bookmark()
+    def update_preset(data: dict):
+        """Rename a preset query"""
+        preset_folder = query_preset()
 
-        bookmark_file = join(bookmark_folder, data['file_name'] + '.json')
+        preset_file = join(preset_folder, data['file_name'], data['file_name'] + '.json')
 
-        with open(bookmark_file, 'w', encoding='utf8') as json_file:
+        with open(preset_file, 'w', encoding='utf8') as json_file:
             json.dump(data, json_file, cls=EnumEncoder)

@@ -10,7 +10,7 @@
     <x>0</x>
     <y>0</y>
     <width>990</width>
-    <height>867</height>
+    <height>849</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -90,6 +90,11 @@ QListWidget::item::selected {
      </property>
      <item>
       <property name="text">
+       <string>Map preset</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
        <string>Quick query</string>
       </property>
      </item>
@@ -136,9 +141,9 @@ QListWidget::item::selected {
         <property name="geometry">
          <rect>
           <x>0</x>
-          <y>-108</y>
-          <width>810</width>
-          <height>917</height>
+          <y>0</y>
+          <width>827</width>
+          <height>788</height>
          </rect>
         </property>
         <property name="minimumSize">
@@ -171,6 +176,396 @@ QListWidget::item::selected {
            <property name="currentIndex">
             <number>0</number>
            </property>
+           <widget class="QWidget" name="map_preset">
+            <layout class="QVBoxLayout" name="verticalLayout_20">
+             <item>
+              <widget class="QScrollArea" name="scrollArea">
+               <property name="frameShape">
+                <enum>QFrame::NoFrame</enum>
+               </property>
+               <property name="widgetResizable">
+                <bool>true</bool>
+               </property>
+               <widget class="QWidget" name="scrollAreaWidgetContents">
+                <property name="geometry">
+                 <rect>
+                  <x>0</x>
+                  <y>0</y>
+                  <width>809</width>
+                  <height>770</height>
+                 </rect>
+                </property>
+                <layout class="QVBoxLayout" name="verticalLayout_21">
+                 <property name="spacing">
+                  <number>6</number>
+                 </property>
+                 <property name="leftMargin">
+                  <number>0</number>
+                 </property>
+                 <property name="topMargin">
+                  <number>0</number>
+                 </property>
+                 <property name="rightMargin">
+                  <number>0</number>
+                 </property>
+                 <property name="bottomMargin">
+                  <number>0</number>
+                 </property>
+                 <item>
+                  <widget class="QGroupBox" name="groupBox_7">
+                   <property name="title">
+                    <string>Default presets</string>
+                   </property>
+                   <layout class="QVBoxLayout" name="verticalLayout_22">
+                    <item>
+                     <widget class="QListWidget" name="list_default_mp">
+                      <property name="palette">
+                       <palette>
+                        <active>
+                         <colorrole role="Base">
+                          <brush brushstyle="SolidPattern">
+                           <color alpha="255">
+                            <red>240</red>
+                            <green>240</green>
+                            <blue>240</blue>
+                           </color>
+                          </brush>
+                         </colorrole>
+                        </active>
+                        <inactive>
+                         <colorrole role="Base">
+                          <brush brushstyle="SolidPattern">
+                           <color alpha="255">
+                            <red>240</red>
+                            <green>240</green>
+                            <blue>240</blue>
+                           </color>
+                          </brush>
+                         </colorrole>
+                        </inactive>
+                        <disabled>
+                         <colorrole role="Base">
+                          <brush brushstyle="SolidPattern">
+                           <color alpha="255">
+                            <red>240</red>
+                            <green>240</green>
+                            <blue>240</blue>
+                           </color>
+                          </brush>
+                         </colorrole>
+                        </disabled>
+                       </palette>
+                      </property>
+                      <property name="styleSheet">
+                       <string notr="true">QListWidget::item:selected {background: lightblue;}</string>
+                      </property>
+                      <property name="frameShape">
+                       <enum>QFrame::NoFrame</enum>
+                      </property>
+                      <property name="editTriggers">
+                       <set>QAbstractItemView::SelectedClicked</set>
+                      </property>
+                      <property name="showDropIndicator" stdset="0">
+                       <bool>true</bool>
+                      </property>
+                      <property name="dragDropMode">
+                       <enum>QAbstractItemView::NoDragDrop</enum>
+                      </property>
+                      <property name="defaultDropAction">
+                       <enum>Qt::IgnoreAction</enum>
+                      </property>
+                      <property name="selectionMode">
+                       <enum>QAbstractItemView::SingleSelection</enum>
+                      </property>
+                      <property name="verticalScrollMode">
+                       <enum>QAbstractItemView::ScrollPerPixel</enum>
+                      </property>
+                      <property name="horizontalScrollMode">
+                       <enum>QAbstractItemView::ScrollPerPixel</enum>
+                      </property>
+                      <property name="movement">
+                       <enum>QListView::Static</enum>
+                      </property>
+                      <property name="viewMode">
+                       <enum>QListView::ListMode</enum>
+                      </property>
+                      <property name="uniformItemSizes">
+                       <bool>true</bool>
+                      </property>
+                     </widget>
+                    </item>
+                   </layout>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QGroupBox" name="groupBox_10">
+                   <property name="title">
+                    <string>Personal presets</string>
+                   </property>
+                   <layout class="QVBoxLayout" name="verticalLayout_23">
+                    <item>
+                     <widget class="QListWidget" name="list_personal_preset_mp">
+                      <property name="sizePolicy">
+                       <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                        <horstretch>0</horstretch>
+                        <verstretch>0</verstretch>
+                       </sizepolicy>
+                      </property>
+                      <property name="palette">
+                       <palette>
+                        <active>
+                         <colorrole role="Base">
+                          <brush brushstyle="SolidPattern">
+                           <color alpha="255">
+                            <red>240</red>
+                            <green>240</green>
+                            <blue>240</blue>
+                           </color>
+                          </brush>
+                         </colorrole>
+                        </active>
+                        <inactive>
+                         <colorrole role="Base">
+                          <brush brushstyle="SolidPattern">
+                           <color alpha="255">
+                            <red>240</red>
+                            <green>240</green>
+                            <blue>240</blue>
+                           </color>
+                          </brush>
+                         </colorrole>
+                        </inactive>
+                        <disabled>
+                         <colorrole role="Base">
+                          <brush brushstyle="SolidPattern">
+                           <color alpha="255">
+                            <red>240</red>
+                            <green>240</green>
+                            <blue>240</blue>
+                           </color>
+                          </brush>
+                         </colorrole>
+                        </disabled>
+                       </palette>
+                      </property>
+                      <property name="styleSheet">
+                       <string notr="true">QListWidget::item:selected {background: lightblue;}</string>
+                      </property>
+                      <property name="frameShape">
+                       <enum>QFrame::NoFrame</enum>
+                      </property>
+                      <property name="lineWidth">
+                       <number>1</number>
+                      </property>
+                      <property name="autoScrollMargin">
+                       <number>16</number>
+                      </property>
+                      <property name="editTriggers">
+                       <set>QAbstractItemView::NoEditTriggers</set>
+                      </property>
+                      <property name="verticalScrollMode">
+                       <enum>QAbstractItemView::ScrollPerPixel</enum>
+                      </property>
+                      <property name="horizontalScrollMode">
+                       <enum>QAbstractItemView::ScrollPerPixel</enum>
+                      </property>
+                      <property name="spacing">
+                       <number>5</number>
+                      </property>
+                      <property name="wordWrap">
+                       <bool>true</bool>
+                      </property>
+                     </widget>
+                    </item>
+                   </layout>
+                  </widget>
+                 </item>
+                 <item>
+                  <layout class="QHBoxLayout" name="horizontalLayout_31">
+                   <item>
+                    <widget class="QComboBox" name="combo_query_type_mp">
+                     <property name="sizePolicy">
+                      <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                       <horstretch>0</horstretch>
+                       <verstretch>0</verstretch>
+                      </sizepolicy>
+                     </property>
+                     <property name="toolTip">
+                      <string>The spatial extent to use for the query. Cannot surcharge an advanced preset.</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <widget class="QStackedWidget" name="stacked_query_type_mp">
+                     <property name="sizePolicy">
+                      <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                       <horstretch>0</horstretch>
+                       <verstretch>0</verstretch>
+                      </sizepolicy>
+                     </property>
+                     <property name="currentIndex">
+                      <number>0</number>
+                     </property>
+                     <widget class="QWidget" name="page_10">
+                      <layout class="QHBoxLayout" name="horizontalLayout_32">
+                       <property name="leftMargin">
+                        <number>0</number>
+                       </property>
+                       <property name="topMargin">
+                        <number>0</number>
+                       </property>
+                       <property name="rightMargin">
+                        <number>0</number>
+                       </property>
+                       <property name="bottomMargin">
+                        <number>0</number>
+                       </property>
+                       <item>
+                        <widget class="QLineEdit" name="line_place_mp">
+                         <property name="toolTip">
+                          <string>The spatial extent to use for the query. Cannot surcharge an advanced preset.</string>
+                         </property>
+                        </widget>
+                       </item>
+                       <item>
+                        <widget class="QSpinBox" name="spin_place_mp">
+                         <property name="suffix">
+                          <string>m</string>
+                         </property>
+                         <property name="maximum">
+                          <number>999999999</number>
+                         </property>
+                         <property name="singleStep">
+                          <number>100</number>
+                         </property>
+                         <property name="value">
+                          <number>1000</number>
+                         </property>
+                        </widget>
+                       </item>
+                      </layout>
+                     </widget>
+                     <widget class="QWidget" name="page_12">
+                      <layout class="QHBoxLayout" name="horizontalLayout_33">
+                       <property name="leftMargin">
+                        <number>0</number>
+                       </property>
+                       <property name="topMargin">
+                        <number>0</number>
+                       </property>
+                       <property name="rightMargin">
+                        <number>0</number>
+                       </property>
+                       <property name="bottomMargin">
+                        <number>0</number>
+                       </property>
+                       <item>
+                        <widget class="QgsMapLayerComboBox" name="combo_extent_layer_mp">
+                         <property name="sizePolicy">
+                          <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                           <horstretch>0</horstretch>
+                           <verstretch>0</verstretch>
+                          </sizepolicy>
+                         </property>
+                        </widget>
+                       </item>
+                       <item>
+                        <widget class="QCheckBox" name="checkbox_selection_mp">
+                         <property name="text">
+                          <string>Only selected features</string>
+                         </property>
+                        </widget>
+                       </item>
+                      </layout>
+                     </widget>
+                     <widget class="QWidget" name="nothing_displayed"/>
+                    </widget>
+                   </item>
+                  </layout>
+                 </item>
+                 <item>
+                  <widget class="QStackedWidget" name="stacked_execute_query_mp">
+                   <property name="sizePolicy">
+                    <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                     <horstretch>0</horstretch>
+                     <verstretch>0</verstretch>
+                    </sizepolicy>
+                   </property>
+                   <property name="currentIndex">
+                    <number>0</number>
+                   </property>
+                   <widget class="QWidget" name="page_8">
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                      <horstretch>0</horstretch>
+                      <verstretch>0</verstretch>
+                     </sizepolicy>
+                    </property>
+                    <layout class="QHBoxLayout" name="horizontalLayout_28">
+                     <property name="spacing">
+                      <number>0</number>
+                     </property>
+                     <property name="leftMargin">
+                      <number>0</number>
+                     </property>
+                     <property name="topMargin">
+                      <number>0</number>
+                     </property>
+                     <property name="rightMargin">
+                      <number>0</number>
+                     </property>
+                     <property name="bottomMargin">
+                      <number>0</number>
+                     </property>
+                     <item>
+                      <widget class="QPushButton" name="button_run_query_mp">
+                       <property name="sizePolicy">
+                        <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+                         <horstretch>0</horstretch>
+                         <verstretch>0</verstretch>
+                        </sizepolicy>
+                       </property>
+                       <property name="text">
+                        <string>Run preset</string>
+                       </property>
+                      </widget>
+                     </item>
+                    </layout>
+                   </widget>
+                   <widget class="QWidget" name="page_9">
+                    <layout class="QHBoxLayout" name="horizontalLayout_30">
+                     <property name="spacing">
+                      <number>0</number>
+                     </property>
+                     <property name="leftMargin">
+                      <number>0</number>
+                     </property>
+                     <property name="topMargin">
+                      <number>0</number>
+                     </property>
+                     <property name="rightMargin">
+                      <number>0</number>
+                     </property>
+                     <property name="bottomMargin">
+                      <number>0</number>
+                     </property>
+                     <item>
+                      <widget class="QPushButton" name="button_cancel_query_mp">
+                       <property name="text">
+                        <string>Cancel running preset</string>
+                       </property>
+                      </widget>
+                     </item>
+                    </layout>
+                   </widget>
+                  </widget>
+                 </item>
+                </layout>
+               </widget>
+              </widget>
+             </item>
+            </layout>
+           </widget>
            <widget class="QWidget" name="quickquery_page">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
@@ -305,12 +700,12 @@ QListWidget::item::selected {
                   <number>0</number>
                  </property>
                  <property name="currentIndex">
-                  <number>1</number>
+                  <number>0</number>
                  </property>
                  <widget class="QWidget" name="nominatim">
                   <layout class="QHBoxLayout" name="horizontalLayout_25">
                    <property name="spacing">
-                    <number>0</number>
+                    <number>6</number>
                    </property>
                    <property name="leftMargin">
                     <number>0</number>
@@ -484,107 +879,6 @@ QListWidget::item::selected {
                   </property>
                   <property name="horizontalScrollMode">
                    <enum>QAbstractItemView::ScrollPerPixel</enum>
-                  </property>
-                  <property name="wordWrap">
-                   <bool>true</bool>
-                  </property>
-                 </widget>
-                </item>
-               </layout>
-              </widget>
-             </item>
-             <item>
-              <widget class="QgsCollapsibleGroupBox" name="bookmark">
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-                 <horstretch>0</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
-               </property>
-               <property name="title">
-                <string>Query bookmark</string>
-               </property>
-               <property name="collapsed" stdset="0">
-                <bool>true</bool>
-               </property>
-               <layout class="QVBoxLayout" name="verticalLayout_17">
-                <property name="leftMargin">
-                 <number>5</number>
-                </property>
-                <property name="topMargin">
-                 <number>5</number>
-                </property>
-                <property name="rightMargin">
-                 <number>2</number>
-                </property>
-                <property name="bottomMargin">
-                 <number>5</number>
-                </property>
-                <item>
-                 <widget class="QListWidget" name="list_bookmark">
-                  <property name="sizePolicy">
-                   <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-                    <horstretch>0</horstretch>
-                    <verstretch>0</verstretch>
-                   </sizepolicy>
-                  </property>
-                  <property name="palette">
-                   <palette>
-                    <active>
-                     <colorrole role="Base">
-                      <brush brushstyle="SolidPattern">
-                       <color alpha="255">
-                        <red>240</red>
-                        <green>240</green>
-                        <blue>240</blue>
-                       </color>
-                      </brush>
-                     </colorrole>
-                    </active>
-                    <inactive>
-                     <colorrole role="Base">
-                      <brush brushstyle="SolidPattern">
-                       <color alpha="255">
-                        <red>240</red>
-                        <green>240</green>
-                        <blue>240</blue>
-                       </color>
-                      </brush>
-                     </colorrole>
-                    </inactive>
-                    <disabled>
-                     <colorrole role="Base">
-                      <brush brushstyle="SolidPattern">
-                       <color alpha="255">
-                        <red>240</red>
-                        <green>240</green>
-                        <blue>240</blue>
-                       </color>
-                      </brush>
-                     </colorrole>
-                    </disabled>
-                   </palette>
-                  </property>
-                  <property name="frameShape">
-                   <enum>QFrame::NoFrame</enum>
-                  </property>
-                  <property name="lineWidth">
-                   <number>1</number>
-                  </property>
-                  <property name="autoScrollMargin">
-                   <number>16</number>
-                  </property>
-                  <property name="editTriggers">
-                   <set>QAbstractItemView::NoEditTriggers</set>
-                  </property>
-                  <property name="verticalScrollMode">
-                   <enum>QAbstractItemView::ScrollPerPixel</enum>
-                  </property>
-                  <property name="horizontalScrollMode">
-                   <enum>QAbstractItemView::ScrollPerPixel</enum>
-                  </property>
-                  <property name="spacing">
-                   <number>5</number>
                   </property>
                   <property name="wordWrap">
                    <bool>true</bool>
@@ -774,7 +1068,7 @@ QListWidget::item::selected {
              <item>
               <layout class="QHBoxLayout" name="horizontalLayout">
                <item>
-                <widget class="QPushButton" name="save_query">
+                <widget class="QToolButton" name="button_save_query">
                  <property name="sizePolicy">
                   <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
                    <horstretch>0</horstretch>
@@ -782,7 +1076,13 @@ QListWidget::item::selected {
                   </sizepolicy>
                  </property>
                  <property name="text">
-                  <string>Save query</string>
+                  <string>Save query in a new preset</string>
+                 </property>
+                 <property name="popupMode">
+                  <enum>QToolButton::MenuButtonPopup</enum>
+                 </property>
+                 <property name="toolButtonStyle">
+                  <enum>Qt::ToolButtonTextOnly</enum>
                  </property>
                 </widget>
                </item>
@@ -1995,6 +2295,9 @@ QListWidget::item::selected {
      </item>
      <item>
       <layout class="QVBoxLayout" name="progress_box">
+       <property name="bottomMargin">
+        <number>4</number>
+       </property>
        <item>
         <widget class="QLabel" name="progress_text">
          <property name="text">

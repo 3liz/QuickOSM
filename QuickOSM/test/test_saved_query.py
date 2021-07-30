@@ -1,4 +1,4 @@
-"""Tests for the bookmark and the history of queries."""
+"""Tests for the preset and the history of queries."""
 import json
 import os
 
@@ -6,11 +6,11 @@ from qgis.core import QgsCoordinateReferenceSystem, QgsRectangle
 from qgis.testing import unittest
 
 from QuickOSM.core.utilities.json_encoder import as_enum
-from QuickOSM.core.utilities.tools import query_bookmark
+from QuickOSM.core.utilities.tools import query_preset
 from QuickOSM.definitions.format import Format
 from QuickOSM.definitions.gui import Panels
 from QuickOSM.ui.dialog import Dialog
-from QuickOSM.ui.edit_bookmark import EditBookmark
+from QuickOSM.ui.edit_preset import EditPreset
 
 __copyright__ = 'Copyright 2021, 3Liz'
 __license__ = 'GPL version 3'
@@ -18,12 +18,12 @@ __email__ = 'info@3liz.org'
 
 
 class TestBookmarkQuery(unittest.TestCase):
-    """Tests for the bookmark and the history of queries."""
+    """Tests for the preset and the history of queries."""
 
     def setUp(self):
         """Set up the tests"""
         self.maxDiff = None
-        self.bookmark_folder = query_bookmark()
+        self.preset_folder = query_preset()
 
         self.dialog = Dialog()
 
@@ -32,42 +32,44 @@ class TestBookmarkQuery(unittest.TestCase):
         index = self.dialog.table_keys_values_qq.cellWidget(0, 2).findText('bench')
         self.dialog.table_keys_values_qq.cellWidget(0, 2).setCurrentIndex(index)
         self.dialog.places_edits[Panels.QuickQuery].setText('foo')
-        self.dialog.save_query.click()
+        self.dialog.button_save_query.click()
 
-        self.bookmark = self.dialog.list_bookmark.item(0)
-        layout_label = self.dialog.list_bookmark.itemWidget(self.bookmark).layout()
-        self.name_bookmark = layout_label.itemAt(0).itemAt(0).widget().text()
+        self.preset = self.dialog.list_personal_preset_mp.item(0)
+        layout_label = self.dialog.list_personal_preset_mp.itemWidget(self.preset).layout()
+        self.name_preset = layout_label.itemAt(0).itemAt(0).widget().text()
 
-    def set_up_bookmark_data_text(self) -> dict:
-        """Load the data save in the json file linked to the bookmark."""
-        bookmark_file = os.path.join(self.bookmark_folder, self.name_bookmark + '.json')
-        with open(bookmark_file, encoding='utf8') as json_file:
-            data_bookmark = json.load(json_file)
+    def set_up_preset_data_text(self) -> dict:
+        """Load the data save in the json file linked to the preset."""
+        preset_file = os.path.join(
+            self.preset_folder, self.name_preset, self.name_preset + '.json')
+        with open(preset_file, encoding='utf8') as json_file:
+            data_preset = json.load(json_file)
 
-        return data_bookmark
+        return data_preset
 
-    def set_up_bookmark_data(self) -> dict:
-        """Load the data save in the json file linked to the bookmark."""
-        bookmark_folder = query_bookmark()
-        bookmark_file = os.path.join(bookmark_folder, self.name_bookmark + '.json')
-        with open(bookmark_file, encoding='utf8') as json_file:
-            data_bookmark = json.load(json_file, object_hook=as_enum)
+    def set_up_preset_data(self) -> dict:
+        """Load the data save in the json file linked to the preset."""
+        preset_folder = query_preset()
+        preset_file = os.path.join(
+            preset_folder, self.name_preset, self.name_preset + '.json')
+        with open(preset_file, encoding='utf8') as json_file:
+            data_preset = json.load(json_file, object_hook=as_enum)
 
-        return data_bookmark
+        return data_preset
 
     def tearDown(self):
         """End of the tests"""
-        self.dialog.external_panels[Panels.QuickQuery].remove_bookmark(self.bookmark, self.name_bookmark)
+        self.dialog.external_panels[Panels.MapPreset].remove_preset(self.preset, self.name_preset)
 
-    def test_save_in_bookmark(self):
-        """Test if the file is save in bookmark."""
-        nb_bookmark = self.dialog.list_bookmark.count()
-        self.assertEqual(nb_bookmark, 1)
-        self.assertEqual(self.name_bookmark, 'amenity_bench_foo')
+    def test_save_in_preset(self):
+        """Test if the file is save in preset."""
+        nb_preset = self.dialog.list_personal_preset_mp.count()
+        self.assertEqual(nb_preset, 1)
+        self.assertEqual(self.name_preset, 'amenity_bench_foo')
 
-    def test_bookmark_format(self):
-        """Test if the file in bookmark is as expected."""
-        data_bookmark = self.set_up_bookmark_data_text()
+    def test_preset_format(self):
+        """Test if the file in preset is as expected."""
+        data_preset = self.set_up_preset_data_text()
 
         expected_json = {
             "query":
@@ -80,8 +82,13 @@ class TestBookmarkQuery(unittest.TestCase):
                 ],
             "description":
                 ["All OSM objects with the key 'amenity'='bench' in foo are going to be downloaded."],
+            "advanced": False,
             "file_name": "amenity_bench_foo",
-            "query_name": ["amenity_bench_foo"],
+            "query_layer_name": ["amenity_bench_foo"],
+            "query_name": ["Query1"],
+            "type_multi_request": [[]],
+            "keys": [["amenity"]],
+            "values": [["bench"]],
             "area": ["foo"],
             "bbox": [""],
             "output_geom_type":
@@ -99,21 +106,21 @@ class TestBookmarkQuery(unittest.TestCase):
             "output_format": [{"__enum__": "Format.GeoPackage"}]
         }
 
-        self.assertDictEqual(expected_json, data_bookmark)
+        self.assertDictEqual(expected_json, data_preset)
 
     def test_view_bookmark(self):
-        """Test if we can display a bookmark."""
-        data_bookmark = self.set_up_bookmark_data()
+        """Test if we can display a preset."""
+        data_preset = self.set_up_preset_data()
 
-        edit_dialog = EditBookmark(self.dialog, data_bookmark)
+        edit_dialog = EditPreset(self.dialog, data_preset)
 
-        self.assertEqual(data_bookmark['file_name'], edit_dialog.bookmark_name.text())
+        self.assertEqual(data_preset['file_name'], edit_dialog.preset_name.text())
         self.assertEqual(
-            data_bookmark['description'], edit_dialog.description.toPlainText().split('\\n')
+            data_preset['description'], edit_dialog.description.toPlainText().split('\\n')
         )
-        self.assertEqual(data_bookmark['query_name'][0], edit_dialog.layer_name.text())
-        self.assertEqual(data_bookmark['query'][0], edit_dialog.query.toPlainText())
-        self.assertEqual(data_bookmark['area'][0], edit_dialog.area.text())
+        self.assertEqual(data_preset['query_layer_name'][0], edit_dialog.layer_name.text())
+        self.assertEqual(data_preset['query'][0], edit_dialog.query.toPlainText())
+        self.assertEqual(data_preset['area'][0], edit_dialog.area.text())
         self.assertFalse(edit_dialog.bbox.outputExtent().xMinimum())
         self.assertFalse(edit_dialog.bbox.outputExtent().yMinimum())
         self.assertTrue(edit_dialog.checkbox_points.isChecked())
@@ -126,42 +133,42 @@ class TestBookmarkQuery(unittest.TestCase):
         self.assertFalse(edit_dialog.white_multipolygons.text())
         self.assertEqual(edit_dialog.combo_output_format.currentData(), Format.GeoPackage)
         self.assertEqual(
-            data_bookmark['output_directory'][0], edit_dialog.output_directory.filePath()
+            data_preset['output_directory'][0], edit_dialog.output_directory.filePath()
         )
 
         nb_queries = edit_dialog.list_queries.count()
         self.assertEqual(nb_queries, 1)
 
-        edit_dialog.bookmark_name.setText('Test a new name')
+        edit_dialog.preset_name.setText('Test a new name')
         edit_dialog.button_cancel.click()
 
-        self.dialog.external_panels[Panels.QuickQuery].update_bookmark_view()
+        self.dialog.external_panels[Panels.MapPreset].update_personal_preset_view()
 
-        self.bookmark = self.dialog.list_bookmark.item(0)
-        layout_label = self.dialog.list_bookmark.itemWidget(self.bookmark).layout()
-        self.name_bookmark = layout_label.itemAt(0).itemAt(0).widget().text()
-        self.assertNotEqual(self.name_bookmark, 'Test a new name')
+        self.preset = self.dialog.list_personal_preset_mp.item(0)
+        layout_label = self.dialog.list_personal_preset_mp.itemWidget(self.preset).layout()
+        self.name_preset = layout_label.itemAt(0).itemAt(0).widget().text()
+        self.assertNotEqual(self.name_preset, 'Test_a_new_name')
 
     def test_edit_rename_bookmark(self):
-        """Test if we can edit and rename a bookmark."""
-        data_bookmark = self.set_up_bookmark_data()
+        """Test if we can edit and rename a preset."""
+        data_preset = self.set_up_preset_data()
 
-        edit_dialog = EditBookmark(self.dialog, data_bookmark)
-        edit_dialog.bookmark_name.setText('Test a new name')
+        edit_dialog = EditPreset(self.dialog, data_preset)
+        edit_dialog.preset_name.setText('Test a new name')
         edit_dialog.button_validate.click()
 
-        self.dialog.external_panels[Panels.QuickQuery].update_bookmark_view()
+        self.dialog.external_panels[Panels.MapPreset].update_personal_preset_view()
 
-        self.bookmark = self.dialog.list_bookmark.item(0)
-        layout_label = self.dialog.list_bookmark.itemWidget(self.bookmark).layout()
-        self.name_bookmark = layout_label.itemAt(0).itemAt(0).widget().text()
-        self.assertEqual(self.name_bookmark, 'Test a new name')
+        self.preset = self.dialog.list_personal_preset_mp.item(0)
+        layout_label = self.dialog.list_personal_preset_mp.itemWidget(self.preset).layout()
+        self.name_preset = layout_label.itemAt(0).itemAt(0).widget().text()
+        self.assertEqual(self.name_preset, 'Test_a_new_name')
 
     def test_edited_bookmark_file(self):
-        """Test if we can edit a bookmark and check the edited json file."""
-        data_bookmark = self.set_up_bookmark_data()
+        """Test if we can edit a preset and check the edited json file."""
+        data_preset = self.set_up_preset_data()
 
-        edit_dialog = EditBookmark(self.dialog, data_bookmark)
+        edit_dialog = EditPreset(self.dialog, data_preset)
 
         edit_dialog.description.setPlainText('Be or not to be...\\nShakespear')
         edit_dialog.layer_name.setText('Misery')
@@ -175,9 +182,9 @@ class TestBookmarkQuery(unittest.TestCase):
         edit_dialog.combo_output_format.setCurrentIndex(index)
 
         edit_dialog.button_validate.click()
-        self.bookmark = self.dialog.list_bookmark.item(0)
+        self.preset = self.dialog.list_personal_preset_mp.item(0)
 
-        new_data = self.set_up_bookmark_data_text()
+        new_data = self.set_up_preset_data_text()
 
         expected_json = {
             "query":
@@ -186,8 +193,13 @@ class TestBookmarkQuery(unittest.TestCase):
                 ],
             "description":
                 ["Be or not to be...", "Shakespear"],
+            "advanced": False,
             "file_name": "amenity_bench_foo",
-            "query_name": ["Misery"],
+            "query_layer_name": ["Misery"],
+            "query_name": ["Query1"],
+            "type_multi_request": [[]],
+            "keys": [["amenity"]],
+            "values": [["bench"]],
             "area": ["foo"],
             "bbox": [{'__extent__': '0.0 0.0 0.0 0.0'}],
             "output_geom_type":
@@ -206,10 +218,10 @@ class TestBookmarkQuery(unittest.TestCase):
         self.assertDictEqual(expected_json, new_data)
 
     def test_bookmark_several_query(self):
-        """Test if we can manage (add and remove) several queries in a bookmark."""
-        data_bookmark = self.set_up_bookmark_data()
+        """Test if we can manage (add and remove) several queries in a preset."""
+        data_preset = self.set_up_preset_data()
 
-        edit_dialog = EditBookmark(self.dialog, data_bookmark)
+        edit_dialog = EditPreset(self.dialog, data_preset)
 
         self.assertEqual(edit_dialog.current_query, 0)
         edit_dialog.button_add.click()
@@ -219,12 +231,22 @@ class TestBookmarkQuery(unittest.TestCase):
         self.assertEqual(edit_dialog.current_query, 1)
         self.assertEqual(edit_dialog.layer_name.text(), '')
 
-        edit_dialog.layer_name.setText('Query 2')
+        edit_dialog.layer_name.setText('Query2')
+        index = edit_dialog.table_keys_values_eb.cellWidget(0, 1).findText('type')
+        edit_dialog.table_keys_values_eb.cellWidget(0, 1).setCurrentIndex(index)
+        edit_dialog.table_keys_values_eb.cellWidget(0, 3).click()
+        index = edit_dialog.table_keys_values_eb.cellWidget(1, 1).findText('route')
+        edit_dialog.table_keys_values_eb.cellWidget(1, 1).setCurrentIndex(index)
+        edit_dialog.key_edited(1)
+        index = edit_dialog.table_keys_values_eb.cellWidget(1, 2).findText('bicycle')
+        edit_dialog.table_keys_values_eb.cellWidget(1, 2).setCurrentIndex(index)
+        index = edit_dialog.table_keys_values_eb.cellWidget(0, 2).findText('route')
+        edit_dialog.table_keys_values_eb.cellWidget(0, 2).setCurrentIndex(index)
 
         edit_dialog.button_validate.click()
-        self.bookmark = self.dialog.list_bookmark.item(0)
+        self.preset = self.dialog.list_personal_preset_mp.item(0)
 
-        new_data = self.set_up_bookmark_data_text()
+        new_data = self.set_up_preset_data_text()
 
         expected_json = {
             "query":
@@ -238,8 +260,13 @@ class TestBookmarkQuery(unittest.TestCase):
                 ],
             "description":
                 ["All OSM objects with the key 'amenity'='bench' in foo are going to be downloaded."],
+            "advanced": False,
             "file_name": "amenity_bench_foo",
-            "query_name": ["amenity_bench_foo", "Query 2"],
+            "query_layer_name": ["amenity_bench_foo", "Query2"],
+            "query_name": ["Query1", "Query2"],
+            "type_multi_request": [[], [{"__enum__": "MultiType.AND"}]],
+            "keys": [["amenity"], ["type", "route"]],
+            "values": [["bench"], ["route", "bicycle"]],
             "area": ["foo", ""],
             "bbox": [{'__extent__': '0.0 0.0 0.0 0.0'}, {'__extent__': '0.0 0.0 0.0 0.0'}],
             "output_geom_type":
@@ -275,7 +302,7 @@ class TestBookmarkQuery(unittest.TestCase):
 
         nb_queries = edit_dialog.list_queries.count()
         self.assertEqual(nb_queries, 1)
-        self.assertEqual(edit_dialog.layer_name.text(), 'Query 2')
+        self.assertEqual(edit_dialog.layer_name.text(), 'Query2')
 
         crs = QgsCoordinateReferenceSystem('EPSG:4326')
         x_min = 2.71828
@@ -285,10 +312,16 @@ class TestBookmarkQuery(unittest.TestCase):
         rect = QgsRectangle(x_min, y_min, x_max, y_max)
         edit_dialog.bbox.setOutputExtentFromUser(rect, crs)
 
-        edit_dialog.button_validate.click()
-        self.bookmark = self.dialog.list_bookmark.item(0)
+        self.assertEqual(
+            edit_dialog.stacked_parameters_preset.currentWidget(), edit_dialog.basic_parameters)
+        edit_dialog.radio_advanced.setChecked(True)
+        self.assertEqual(
+            edit_dialog.stacked_parameters_preset.currentWidget(), edit_dialog.advanced_parameters)
 
-        new_data = self.set_up_bookmark_data_text()
+        edit_dialog.button_validate.click()
+        self.preset = self.dialog.list_personal_preset_mp.item(0)
+
+        new_data = self.set_up_preset_data_text()
 
         expected_json = {
             "query":
@@ -297,8 +330,13 @@ class TestBookmarkQuery(unittest.TestCase):
                 ],
             "description":
                 ["All OSM objects with the key 'amenity'='bench' in foo are going to be downloaded."],
+            "advanced": True,
             "file_name": "amenity_bench_foo",
-            "query_name": ["Query 2"],
+            "query_layer_name": ["Query2"],
+            "query_name": ["Query1"],
+            "type_multi_request": [[{"__enum__": "MultiType.AND"}]],
+            "keys": [["type", "route"]],
+            "values": [["route", "bicycle"]],
             "area": [""],
             "bbox": [{'__extent__': '2.71828 0.0 3.1415926 1.6180339'}],
             "output_geom_type":

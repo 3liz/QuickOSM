@@ -5,7 +5,7 @@ import json
 from qgis.core import QgsRectangle
 
 from QuickOSM.definitions.format import Format
-from QuickOSM.definitions.osm import LayerType
+from QuickOSM.definitions.osm import LayerType, MultiType
 
 __copyright__ = 'Copyright 2021, 3Liz'
 __license__ = 'GPL version 3'
@@ -16,7 +16,7 @@ class EnumEncoder(json.JSONEncoder):
     """Override the json encoder to serialize enum."""
     def default(self, obj):
         """Function of serialization."""
-        if type(obj) in [LayerType, Format]:
+        if type(obj) in [LayerType, Format, MultiType]:
             return {"__enum__": str(obj)}
         if type(obj) == QgsRectangle:
             extent = [
@@ -35,6 +35,8 @@ def as_enum(d):
             return getattr(LayerType, member)
         if name == 'Format':
             return getattr(Format, member)
+        if name == 'MultiType':
+            return getattr(MultiType, member)
     if "__extent__" in d:
         extent = d["__extent__"].split(' ')
         return QgsRectangle(

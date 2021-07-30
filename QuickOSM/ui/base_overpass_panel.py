@@ -41,10 +41,11 @@ class BaseOverpassPanel(BaseProcessingPanel):
     def setup_panel(self):
         """Function to set custom UI for some panels."""
         super().setup_panel()
-        self.dialog.advanced_panels[self.panel].setSaveCollapsedState(False)
-        self.dialog.advanced_panels[self.panel].setCollapsed(True)
+        if self.dialog.advanced_panels[self.panel]:
+            self.dialog.advanced_panels[self.panel].setSaveCollapsedState(False)
+            self.dialog.advanced_panels[self.panel].setCollapsed(True)
 
-        self.dialog.action_oql[self.panel].setEnabled(False)
+            self.dialog.action_oql[self.panel].setEnabled(False)
 
     def query_language_xml(self):
         """Update the wanted language."""
@@ -188,9 +189,16 @@ class BaseOverpassPanel(BaseProcessingPanel):
                 tr('Successful query, but no result.'),
                 level=Qgis.Warning, duration=7)
 
-    def gather_values(self):
+    def gather_values(self) -> dict:
         """Retrieval of the values set by the user."""
         properties = super().gather_values()
+
+        properties = self.gather_spatial_values(properties)
+
+        return properties
+
+    def gather_spatial_values(self, properties: dict) -> dict:
+        """Retrieval of the values set by the user."""
 
         place = self.dialog.places_edits[self.panel].text()
         if place == '':
@@ -234,6 +242,7 @@ class BaseOverpassPanel(BaseProcessingPanel):
             properties['bbox'] = geom_extent.boundingBox()
             properties['place'] = None
         else:
+            properties['place'] = None
             properties['bbox'] = None
 
         if query_type == 'in':

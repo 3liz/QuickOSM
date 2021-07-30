@@ -27,6 +27,7 @@ from QuickOSM.definitions.osm import QueryLanguage
 from QuickOSM.qgis_plugin_tools.tools.i18n import tr
 from QuickOSM.qgis_plugin_tools.tools.resources import load_ui, resources_path
 from QuickOSM.ui.configuration_panel import ConfigurationPanel
+from QuickOSM.ui.map_preset_panel import MapPresetPanel
 from QuickOSM.ui.osm_file_panel import OsmFilePanel
 from QuickOSM.ui.query_panel import QueryPanel
 from QuickOSM.ui.quick_query_panel import QuickQueryPanel
@@ -49,53 +50,64 @@ class Dialog(QDialog, FORM_CLASS):
         self.setupUi(self)
         self._iface = iface
 
-        self.query_menu_index = 1
+        self.query_menu_index = 2
+        self.preset_menu_index = 0
 
         # Table mapping
 
         # Explaining quickly, these letters are referring to the panel
         # in the UI:
+        # mp : Map preset
         # qq : Quick Query
         # q : Query
         # f : file
         self.external_panels = {
+            Panels.MapPreset: MapPresetPanel(self),
             Panels.QuickQuery: QuickQueryPanel(self),
             Panels.Query: QueryPanel(self),
             Panels.File: OsmFilePanel(self),
             Panels.Configuration: ConfigurationPanel(self),
         }
         self.places_edits = {
+            Panels.MapPreset: self.line_place_mp,
             Panels.QuickQuery: self.line_place_qq,
             Panels.Query: self.line_place_q,
         }
         self.query_type_buttons = {
+            Panels.MapPreset: self.combo_query_type_mp,
             Panels.QuickQuery: self.combo_query_type_qq,
             Panels.Query: self.combo_query_type_q,
         }
         self.layers_buttons = {
+            Panels.MapPreset: self.combo_extent_layer_mp,
             Panels.QuickQuery: self.combo_extent_layer_qq,
             Panels.Query: self.combo_extent_layer_q,
         }
         self.selection_features = {
+            Panels.MapPreset: self.checkbox_selection_mp,
             Panels.QuickQuery: self.checkbox_selection_qq,
             Panels.Query: self.checkbox_selection_q,
         }
         self.run_buttons = {
+            Panels.MapPreset: self.button_run_query_mp,
             Panels.QuickQuery: self.button_run_query_qq,
             Panels.Query: self.button_run_query_q,
             Panels.File: self.button_run_file,
         }
         self.cancel_buttons = {
+            Panels.MapPreset: self.button_cancel_query_mp,
             Panels.QuickQuery: self.button_cancel_query_qq,
             Panels.Query: self.button_cancel_query_q,
             Panels.File: self.button_cancel_file,
         }
         self.execute_buttons = {
+            Panels.MapPreset: self.stacked_execute_query_mp,
             Panels.QuickQuery: self.stacked_execute_query_qq,
             Panels.Query: self.stacked_execute_query_q,
             Panels.File: self.stacked_execute_file,
         }
         self.output_buttons = {
+            Panels.MapPreset: [],
             Panels.QuickQuery: [
                 self.checkbox_points_qq,
                 self.checkbox_lines_qq,
@@ -116,25 +128,30 @@ class Dialog(QDialog, FORM_CLASS):
             ]
         }
         self.output_directories = {
+            Panels.MapPreset: None,
             Panels.QuickQuery: self.output_directory_qq,
             Panels.Query: self.output_directory_q,
             Panels.File: self.output_directory_f
         }
         self.output_format = {
+            Panels.MapPreset: None,
             Panels.QuickQuery: self.combo_format_qq,
             Panels.Query: self.combo_format_q,
             Panels.File: self.combo_format_f
         }
         self.prefix_edits = {
+            Panels.MapPreset: None,
             Panels.QuickQuery: self.line_file_prefix_qq,
             Panels.Query: self.line_file_prefix_q,
             Panels.File: self.line_file_prefix_file,
         }
         self.advanced_panels = {
+            Panels.MapPreset: None,
             Panels.QuickQuery: self.advanced_qq,
             Panels.Query: self.advanced_q,
         }
         self.query_language = {
+            Panels.MapPreset: None,
             Panels.QuickQuery: QueryLanguage.OQL,
             Panels.Query: QueryLanguage.OQL,
         }
@@ -150,6 +167,7 @@ class Dialog(QDialog, FORM_CLASS):
             Panels.QuickQuery: self.action_xml_qq,
             Panels.Query: self.action_xml_q,
         }
+
         icon = QIcon(resources_path('icons', 'QuickOSM.svg'))
         self.reload_action = QAction(icon, tr("Reload the query in a new file"), self.iface)
         actions = Actions(self)
@@ -161,14 +179,16 @@ class Dialog(QDialog, FORM_CLASS):
         self.feedback_process = QgsFeedback()
 
         item = self.menu_widget.item(0)
-        item.setIcon(QIcon(resources_path('icons', 'quick.png')))
+        item.setIcon(QIcon(resources_path('icons', 'map_tools.svg')))
         item = self.menu_widget.item(1)
-        item.setIcon(QIcon(resources_path('icons', 'edit.png')))
+        item.setIcon(QIcon(resources_path('icons', 'quick.png')))
         item = self.menu_widget.item(2)
-        item.setIcon(QIcon(resources_path('icons', 'open.png')))
+        item.setIcon(QIcon(resources_path('icons', 'edit.png')))
         item = self.menu_widget.item(3)
-        item.setIcon(QIcon(resources_path('icons', 'general.svg')))
+        item.setIcon(QIcon(resources_path('icons', 'open.png')))
         item = self.menu_widget.item(4)
+        item.setIcon(QIcon(resources_path('icons', 'general.svg')))
+        item = self.menu_widget.item(5)
         item.setIcon(QIcon(resources_path('icons', 'info.png')))
         self.label_gnu.setPixmap(QPixmap(resources_path('icons', 'gnu.png')))
 
@@ -183,7 +203,7 @@ class Dialog(QDialog, FORM_CLASS):
 
         for panel in self.external_panels.values():
             panel.setup_panel()
-        self.menu_widget.setCurrentRow(0)
+        self.menu_widget.setCurrentRow(1)
 
     @property
     def iface(self):
