@@ -174,7 +174,7 @@ QListWidget::item::selected {
             </sizepolicy>
            </property>
            <property name="currentIndex">
-            <number>0</number>
+            <number>5</number>
            </property>
            <widget class="QWidget" name="map_preset">
             <layout class="QVBoxLayout" name="verticalLayout_20">
@@ -2016,6 +2016,13 @@ QListWidget::item::selected {
                  <widget class="QLabel" name="label_38">
                   <property name="text">
                    <string notr="true">Richard Marsden</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLabel" name="label_42">
+                  <property name="text">
+                   <string>Maxime Charzat</string>
                   </property>
                  </widget>
                 </item>

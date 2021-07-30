@@ -35,7 +35,7 @@
       <item row="0" column="0">
        <widget class="QLabel" name="label_4">
         <property name="toolTip">
-         <string>Set the name of the bookmark. Must be unique.</string>
+         <string>Set the name of the preset. Must be unique.</string>
         </property>
         <property name="text">
          <string>Preset name</string>
@@ -45,14 +45,14 @@
       <item row="0" column="1">
        <widget class="QLineEdit" name="preset_name">
         <property name="toolTip">
-         <string>Set the name of the bookmark. Must be unique.</string>
+         <string>Set the name of the preset. Must be unique.</string>
         </property>
        </widget>
       </item>
       <item row="3" column="0">
        <widget class="QLabel" name="label_6">
         <property name="toolTip">
-         <string>Description of the bookmark or per query. One description per line.</string>
+         <string>Description of the preset or per query. One description per line.</string>
         </property>
         <property name="text">
          <string>Description(s)</string>
@@ -74,7 +74,7 @@
          </size>
         </property>
         <property name="toolTip">
-         <string>Description of the bookmark or per query. One description per line.</string>
+         <string>Description of the preset or per query. One description per line.</string>
         </property>
        </widget>
       </item>

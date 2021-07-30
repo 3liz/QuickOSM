@@ -154,7 +154,7 @@ class BuildBasedQuery(BuildBased):
         )
         help_string = tr(
             'The OSM key to use. It can be empty and it will default to all keys. '
-            'Multiple keys can be be ask by adding the separator \',\' between each key.'
+            'Multiple keys can be ask by adding the separator \',\' between each key. '
             'In this case make sure the number of keys match the number of values'
         )
         param.setHelp(help_string)
@@ -165,7 +165,7 @@ class BuildBasedQuery(BuildBased):
         )
         help_string = tr(
             'The OSM value to use. It can be empty and it will default to all values.'
-            'Multiple values can be be ask by adding the separator \',\' between each value.'
+            'Multiple values can be ask by adding the separator \',\' between each value. '
             'In this case make sure the number of values match the number of keys'
         )
         param.setHelp(help_string)

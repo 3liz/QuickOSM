@@ -14,7 +14,8 @@
 |-----------|----------|----------|--------------|
 | 1.0 → 1.4 | 2.0      | 2.18     | [master_qgis2](https://github.com/3liz/QuickOSM/tree/master_qgis2) |
 | 1.5 → 1.7 | 3.0      | 3.2      |              |
-| 1.8 →     | 3.4      |          | [master](https://github.com/3liz/QuickOSM/tree/master)       |
+| 1.8 →     | 3.4      |          |              |
+| 2.0 →     | 3.16     |          | [master](https://github.com/3liz/QuickOSM/tree/master)  |
 
 ## Documentation
 
@@ -44,3 +45,4 @@ Author: Etienne Trimaille : https://twitter.com/etrimaille
 
 Contributors:
 * Richard Marsden [winwaed](https://github.com/winwaed)
+* Maxime Charzat
