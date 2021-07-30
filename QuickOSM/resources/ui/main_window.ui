@@ -174,7 +174,7 @@ QListWidget::item::selected {
             </sizepolicy>
            </property>
            <property name="currentIndex">
-            <number>1</number>
+            <number>0</number>
            </property>
            <widget class="QWidget" name="map_preset">
             <layout class="QVBoxLayout" name="verticalLayout_20">
@@ -257,7 +257,7 @@ QListWidget::item::selected {
                        </palette>
                       </property>
                       <property name="styleSheet">
-                       <string notr="true">QListWidget::item:selected {background: #822fd4;}</string>
+                       <string notr="true">QListWidget::item:selected {background: lightblue;}</string>
                       </property>
                       <property name="frameShape">
                        <enum>QFrame::NoFrame</enum>
@@ -349,7 +349,7 @@ QListWidget::item::selected {
                        </palette>
                       </property>
                       <property name="styleSheet">
-                       <string notr="true">QListWidget::item:selected {background: #822fd4;}</string>
+                       <string notr="true">QListWidget::item:selected {background: lightblue;}</string>
                       </property>
                       <property name="frameShape">
                        <enum>QFrame::NoFrame</enum>

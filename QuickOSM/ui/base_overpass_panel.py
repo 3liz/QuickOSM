@@ -242,6 +242,7 @@ class BaseOverpassPanel(BaseProcessingPanel):
             properties['bbox'] = geom_extent.boundingBox()
             properties['place'] = None
         else:
+            properties['place'] = None
             properties['bbox'] = None
 
         if query_type == 'in':

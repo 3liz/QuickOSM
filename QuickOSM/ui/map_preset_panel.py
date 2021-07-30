@@ -43,10 +43,14 @@ LOGGER = logging.getLogger('QuickOSM')
 class MapPresetPanel(BaseOverpassPanel):
     """Implementation of the map preset panel."""
 
+    advanced_selected = 'orange'
+    basic_selected = 'lightblue'
+
     def __init__(self, dialog: QDialog):
         """Constructor"""
         super().__init__(dialog)
         self.panel = Panels.MapPreset
+        self.listAdvanced = []
 
     def setup_panel(self):
         super().setup_panel()
@@ -69,6 +73,7 @@ class MapPresetPanel(BaseOverpassPanel):
         self.dialog.list_personal_preset_mp.itemClicked.connect(
             self.dialog.list_default_mp.clearSelection)
         self.dialog.button_run_query_mp.clicked.connect(self.prepare_run)
+        self.dialog.list_personal_preset_mp.currentRowChanged.connect(self.disable_enable_location)
 
         self.query_type_updated()
         self.init_nominatim_autofill()
@@ -128,6 +133,19 @@ class MapPresetPanel(BaseOverpassPanel):
             self.dialog.spin_place_mp,
             self.dialog.checkbox_selection_mp)
 
+    def disable_enable_location(self, row: int):
+        """Enable only when it is a basic preset."""
+        if self.listAdvanced[row]:
+            self.dialog.list_personal_preset_mp.setStyleSheet(
+                'QListWidget::item:selected {background: ' + self.advanced_selected + ';}')
+            self.dialog.combo_query_type_mp.setEnabled(False)
+            self.dialog.stacked_query_type_mp.setEnabled(False)
+        else:
+            self.dialog.list_personal_preset_mp.setStyleSheet(
+                'QListWidget::item:selected {background: ' + self.basic_selected + ';}')
+            self.dialog.combo_query_type_mp.setEnabled(True)
+            self.dialog.stacked_query_type_mp.setEnabled(True)
+
     def update_personal_preset_view(self):
         """Update the presets displayed."""
         preset_folder = query_preset()
@@ -147,8 +165,8 @@ class MapPresetPanel(BaseOverpassPanel):
             self.dialog.list_personal_preset_mp.addItem(item)
 
             preset = QFrame()
+            preset.setObjectName('FramePreset')
             preset.setFrameStyle(QFrame.StyledPanel)
-            preset.setStyleSheet('QFrame { margin: 3px; }')
             preset.setSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
             hbox = QHBoxLayout()
             vbox = QVBoxLayout()
@@ -174,26 +192,29 @@ class MapPresetPanel(BaseOverpassPanel):
             hbox.addWidget(button_edit)
             hbox.addWidget(button_remove)
             if data['advanced']:
-                advanced = QLabel()
-                advanced.setSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
-                icon = QIcon(QgsApplication.iconPath("mLayoutItemMarker.svg"))
-                pixmap = icon.pixmap(icon.actualSize(QSize(32, 32)))
-                advanced.setPixmap(pixmap)
-                advanced.setToolTip(
-                    tr(
-                        'This is an advanced preset. The extent or place can\'t be surcharge. '
-                        'You must change that manually in the edit preset window.'))
-                hbox.addWidget(advanced)
+                self.listAdvanced.append(True)
+                preset.setStyleSheet(
+                    '#FramePreset { margin: 3px;'
+                    ' border: 3px solid ' + self.advanced_selected + ';'
+                    ' border-width: 1px 1px 1px 4px;}')
+            else:
+                self.listAdvanced.append(False)
+                preset.setStyleSheet(
+                    '#FramePreset { margin: 3px;'
+                    ' border: 3px solid ' + self.basic_selected + ';'
+                    ' border-width: 1px 1px 1px 4px;}')
             preset.setLayout(hbox)
 
             # Actions on click
-            remove = partial(self.remove_preset, item, name)
+            remove = partial(self.verification_remove_preset, item, name)
             button_remove.clicked.connect(remove)
             edit = partial(self.edit_preset, data)
             button_edit.clicked.connect(edit)
 
             item.setSizeHint(preset.minimumSizeHint())
             self.dialog.list_personal_preset_mp.setItemWidget(item, preset)
+
+        self.listAdvanced.append(False)
 
     def edit_preset(self, data: dict):
         """Open a dialog to edit the preset"""
