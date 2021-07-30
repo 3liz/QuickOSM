@@ -34,6 +34,12 @@ class BaseProcessingPanel(BasePanel):
     def __init__(self, dialog: QDialog):
         super().__init__(dialog)
 
+    def disable_enable_format_prefix(self):
+        """Enable only if the directory is set."""
+        boolean = not self.dialog.output_directories[self.panel].lineEdit().isNull()
+        self.dialog.output_format[self.panel].setEnabled(boolean)
+        self.dialog.prefix_edits[self.panel].setEnabled(boolean)
+
     def run(self):
         """Run the process"""
         self._start_process()
@@ -66,21 +72,27 @@ class BaseProcessingPanel(BasePanel):
 
     def setup_panel(self):
         """Function to set custom UI for some panels."""
-        self.dialog.output_directories[self.panel].lineEdit().setPlaceholderText(
-            tr('Save to temporary file'))
-        self.dialog.output_directories[self.panel].setStorageMode(
-            QgsFileWidget.GetDirectory)
-        self.dialog.output_directories[self.panel].setDialogTitle(tr('Select a directory'))
+        if self.dialog.output_directories[self.panel]:
+            self.dialog.output_directories[self.panel].lineEdit().setPlaceholderText(
+                tr('Save to temporary file'))
+            self.dialog.output_directories[self.panel].setStorageMode(
+                QgsFileWidget.GetDirectory)
+            self.dialog.output_directories[self.panel].setDialogTitle(tr('Select a directory'))
 
-        self.dialog.output_format[self.panel].addItem(
-            Format.GeoPackage.value.label, Format.GeoPackage)
-        self.dialog.output_format[self.panel].addItem(
-            Format.GeoJSON.value.label, Format.GeoJSON)
-        self.dialog.output_format[self.panel].addItem(
-            Format.Shapefile.value.label, Format.Shapefile)
-        self.dialog.output_format[self.panel].addItem(
-            Format.Kml.value.label, Format.Kml)
+            self.dialog.output_format[self.panel].addItem(
+                Format.GeoPackage.value.label, Format.GeoPackage)
+            self.dialog.output_format[self.panel].addItem(
+                Format.GeoJSON.value.label, Format.GeoJSON)
+            self.dialog.output_format[self.panel].addItem(
+                Format.Shapefile.value.label, Format.Shapefile)
+            self.dialog.output_format[self.panel].addItem(
+                Format.Kml.value.label, Format.Kml)
 
+            self.dialog.output_directories[self.panel].lineEdit().textChanged.connect(
+                self.disable_enable_format_prefix)
+            self.disable_enable_format_prefix()
+
+        self.dialog.execute_buttons[self.panel].setCurrentIndex(0)
         self.dialog.cancel_buttons[self.panel].clicked.connect(self.cancel_process)
 
         # def disable_prefix_file():
@@ -109,7 +121,8 @@ class BaseProcessingPanel(BasePanel):
             self.dialog.button_generate_query.setDisabled(True)
 
         self.dialog.execute_buttons[self.panel].setCurrentIndex(1)
-        self.dialog.output_directories[self.panel].setDisabled(True)
+        if self.dialog.output_directories[self.panel]:
+            self.dialog.output_directories[self.panel].setDisabled(True)
         self.dialog.progress_bar.setMinimum(0)
         self.dialog.progress_bar.setMaximum(0)
         self.dialog.progress_bar.setValue(0)
@@ -126,8 +139,9 @@ class BaseProcessingPanel(BasePanel):
         if self.panel == Panels.Query:
             self.dialog.button_generate_query.setDisabled(False)
 
-        self.dialog.output_directories[self.panel].setDisabled(False)
-        self.dialog.output_format[self.panel].setDisabled(False)
+        if self.dialog.output_directories[self.panel]:
+            self.dialog.output_directories[self.panel].setDisabled(False)
+            self.disable_enable_format_prefix()
         self.dialog.execute_buttons[self.panel].setCurrentIndex(0)
         self.dialog.progress_bar.setMinimum(0)
         self.dialog.progress_bar.setMaximum(100)

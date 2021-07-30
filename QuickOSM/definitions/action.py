@@ -14,3 +14,10 @@ class Visibility(Enum):
     Feature = 'Feature'
     Field = 'Field'
     Layer = 'Layer'
+
+
+@unique
+class SaveType(Enum):
+    """Type of save for saving a query."""
+    New = 'Create new'
+    Existing = 'Add existing'

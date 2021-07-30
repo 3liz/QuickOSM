@@ -207,6 +207,8 @@ def process_query(
         description: str = None,
         area: Union[str, List[str]] = None,
         key: Union[str, List[str]] = None,
+        value: Union[str, List[str]] = None,
+        type_multi_request: list = None,
         bbox: QgsRectangle = None,
         output_dir: str = None,
         output_format: Format = None,
@@ -221,6 +223,10 @@ def process_query(
         query=query,
         name=prefix_file if prefix_file else layer_name,
         description=description,
+        advanced=value is None,
+        type_multi_request=type_multi_request,
+        keys=key,
+        values=value,
         area=area,
         bbox=bbox,
         output_geometry_types=output_geometry_types,
@@ -265,6 +271,7 @@ def process_query(
 
 def process_quick_query(
         dialog: QDialog = None,
+        description: str = None,
         type_multi_request: list = None,
         query_type: QueryType = None,
         key: Union[str, List[str]] = None,
@@ -273,13 +280,15 @@ def process_quick_query(
         area: str = None,
         distance: int = None,
         osm_objects: List[OsmType] = None,
-        metadata: str = None,
+        metadata: str = 'body',
         timeout: int = 25,
         output_directory: str = None,
         output_format: Format = None,
         prefix_file: str = None,
         layer_name: str = None,
-        output_geometry_types: list = None) -> int:
+        white_list_values: dict = None,
+        output_geometry_types: list = None,
+        config_outputs: dict = None) -> int:
     """
     Generate a query and send it to process_query.
     """
@@ -299,7 +308,8 @@ def process_quick_query(
         print_mode=metadata
     )
     query = query_factory.make(QueryLanguage.OQL)
-    description = query_factory.friendly_message()
+    if description is None:
+        description = query_factory.friendly_message()
     LOGGER.info(description)
 
     LOGGER.info('Query: {}'.format(layer_name))
@@ -310,10 +320,14 @@ def process_quick_query(
         query=query,
         description=description,
         key=key,
+        value=value,
+        type_multi_request=type_multi_request,
         area=area,
         bbox=bbox,
         output_dir=output_directory,
         output_format=output_format,
         prefix_file=prefix_file,
         output_geometry_types=output_geometry_types,
-        layer_name=layer_name)
+        layer_name=layer_name,
+        white_list_values=white_list_values,
+        config_outputs=config_outputs,)

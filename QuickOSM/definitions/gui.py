@@ -10,6 +10,7 @@ __email__ = 'info@3liz.org'
 @unique
 class Panels(Enum):
     """Name of panels in the GUI."""
+    MapPreset = 'MapPreset'
     QuickQuery = 'QuickQuery'
     Query = 'Query'
     File = 'File'

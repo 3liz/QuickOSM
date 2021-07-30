@@ -264,7 +264,7 @@ class QueryFactory:
                     for _j in range(nb_query):
                         query += '<query type="{}">'.format(osm_object.value.lower())
                         query += '<has-kv k="{}" '.format(keys.pop(0))
-                        if len(values) != 0 and values[0] is not None:
+                        if len(values) != 0 and values[0]:
                             query += 'v="{}"'.format(values.pop(0))
                         elif len(values) != 0:
                             values.pop(0)
@@ -273,14 +273,14 @@ class QueryFactory:
 
                         while type_request and type_request.pop(0) == MultiType.AND:
                             query += '<has-kv k="{}" '.format(keys.pop(0))
-                            if len(values) != 0 and values[0] is not None:
+                            if len(values) != 0 and values[0]:
                                 query += 'v="{}"'.format(values.pop(0))
                             elif len(values) != 0:
                                 values.pop(0)
 
                             query += '/>'
 
-                        if self._area and self._query_type != QueryType.AroundArea:
+                        if self._area and self._query_type == QueryType.InArea:
                             query += '<area-query from="area_{}" />'.format(i)
 
                         elif self._area and self._query_type == QueryType.AroundArea:
@@ -294,7 +294,7 @@ class QueryFactory:
                 else:
                     query += '<query type="{}">'.format(osm_object.value.lower())
 
-                    if self._area and self._query_type != QueryType.AroundArea:
+                    if self._area and self._query_type == QueryType.InArea:
                         query += '<area-query from="area_{}" />'.format(i)
 
                     elif self._area and self._query_type == QueryType.AroundArea:
@@ -329,7 +329,7 @@ class QueryFactory:
         else:
             nominatim = None
 
-        if nominatim and self._query_type != QueryType.AroundArea:
+        if nominatim and self._query_type == QueryType.InArea:
 
             for i, one_place in enumerate(nominatim):
                 query += ' area="{}" -> .area_{};\n'.format(
@@ -349,7 +349,7 @@ class QueryFactory:
                     for _j in range(nb_query):
                         query += '    {}'.format(osm_object.value.lower())
                         query += '["{}"'.format(keys.pop(0))
-                        if len(values) != 0 and values[0] is not None:
+                        if len(values) != 0 and values[0]:
                             query += '="{}"'.format(values.pop(0))
                         elif len(values) != 0:
                             values.pop(0)
@@ -358,14 +358,14 @@ class QueryFactory:
 
                         while type_request and type_request.pop(0) == MultiType.AND:
                             query += '["{}"'.format(keys.pop(0))
-                            if len(values) != 0 and values[0] is not None:
+                            if len(values) != 0 and values[0]:
                                 query += '="{}"'.format(values.pop(0))
                             elif len(values) != 0:
                                 values.pop(0)
 
                             query += ']'
 
-                        if self._area and self._query_type != QueryType.AroundArea:
+                        if self._area and self._query_type == QueryType.InArea:
                             query += '(area.area_{})'.format(i)
 
                         elif self._area and self._query_type == QueryType.AroundArea:

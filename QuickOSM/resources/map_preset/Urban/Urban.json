@@ -1,0 +1,201 @@
+{
+    "query": [
+        "",
+        ""
+    ],
+    "description": [
+        "All OSM objects linked to buildings or roads are going to be downloaded.",
+        "No default extent or place."
+    ],
+    "advanced": false,
+    "file_name": "Urban",
+    "query_layer_name": [
+        "building",
+        "road"
+    ],
+    "query_name": [
+        "Building",
+        "Road"
+    ],
+    "type_multi_request": [
+        [],
+        [
+            {
+                "__enum__": "MultiType.OR"
+            },
+            {
+                "__enum__": "MultiType.OR"
+            },
+            {
+                "__enum__": "MultiType.OR"
+            },
+            {
+                "__enum__": "MultiType.OR"
+            },
+            {
+                "__enum__": "MultiType.OR"
+            },
+            {
+                "__enum__": "MultiType.OR"
+            },
+            {
+                "__enum__": "MultiType.OR"
+            },
+            {
+                "__enum__": "MultiType.OR"
+            },
+            {
+                "__enum__": "MultiType.OR"
+            },
+            {
+                "__enum__": "MultiType.OR"
+            },
+            {
+                "__enum__": "MultiType.OR"
+            },
+            {
+                "__enum__": "MultiType.OR"
+            },
+            {
+                "__enum__": "MultiType.OR"
+            },
+            {
+                "__enum__": "MultiType.OR"
+            },
+            {
+                "__enum__": "MultiType.OR"
+            },
+            {
+                "__enum__": "MultiType.OR"
+            },
+            {
+                "__enum__": "MultiType.OR"
+            },
+            {
+                "__enum__": "MultiType.OR"
+            },
+            {
+                "__enum__": "MultiType.OR"
+            },
+            {
+                "__enum__": "MultiType.OR"
+            },
+            {
+                "__enum__": "MultiType.OR"
+            },
+            {
+                "__enum__": "MultiType.OR"
+            }
+        ]
+    ],
+    "keys": [
+        [
+            "building"
+        ],
+        [
+            "highway",
+            "highway",
+            "highway",
+            "highway",
+            "highway",
+            "highway",
+            "highway",
+            "highway",
+            "highway",
+            "highway",
+            "highway",
+            "highway",
+            "bicycle_road",
+            "bicycle",
+            "highway",
+            "highway",
+            "highway",
+            "service",
+            "highway",
+            "highway",
+            "highway",
+            "junction",
+            "junction"
+        ]
+    ],
+    "values": [
+        [
+            ""
+        ],
+        [
+            "motorway",
+            "motorway_link",
+            "trunk",
+            "trunk_link",
+            "primary",
+            "primary_link",
+            "secondary",
+            "secondary_link",
+            "tertiary",
+            "tertiary_link",
+            "unclassified",
+            "residential",
+            "yes",
+            "designated",
+            "living_street",
+            "pedestrian",
+            "service",
+            "parking_aisle",
+            "escape",
+            "road",
+            "construction",
+            "roundabout",
+            "circular"
+        ]
+    ],
+    "area": [
+        "",
+        ""
+    ],
+    "bbox": [
+        {
+            "__extent__": "0.0 0.0 0.0 0.0"
+        },
+        {
+            "__extent__": "0.0 0.0 0.0 0.0"
+        }
+    ],
+    "output_geom_type": [
+        [
+            {
+                "__enum__": "LayerType.Multipolygons"
+            }
+        ],
+        [
+            {
+                "__enum__": "LayerType.Lines"
+            }
+        ]
+    ],
+    "white_list_column": [
+        {
+            "points": null,
+            "lines": null,
+            "multilinestrings": null,
+            "multipolygons": "building,name,amenity,brand,wheelchair"
+        },
+        {
+            "points": null,
+            "lines": "highway,name,surface,maxspeed,ref",
+            "multilinestrings": null,
+            "multipolygons": null
+        }
+    ],
+    "output_directory": [
+        "",
+        ""
+    ],
+    "output_format": [
+        {
+            "__enum__": "Format.GeoPackage"
+        },
+        {
+            "__enum__": "Format.GeoPackage"
+        }
+    ]
+}

@@ -40,9 +40,9 @@ def query_historic() -> str:
     return path
 
 
-def query_bookmark() -> str:
-    """Get the query bookmark folder"""
-    path = join(quickosm_user_folder(), 'query_bookmark')
+def query_preset() -> str:
+    """Get the query preset folder"""
+    path = join(quickosm_user_folder(), 'query_preset')
     if not isdir(path):
         mkdir(path)
 

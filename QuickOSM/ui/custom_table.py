@@ -71,7 +71,7 @@ class TableKeyValue:
         completer_model.setStringList(keys_preset)
         self.preset.addItems(keys_preset)
         self.preset.addItem(keys_preset.pop(0))
-        if not os.getenv('CI') and self.panel == Panels.QuickQuery:
+        if not os.getenv('CI') and self.panel and self.panel == Panels.QuickQuery:
             for k, key in enumerate(keys_preset):
                 icon_path = self.preset_data.elements[key].icon
                 widget_item = QListWidgetItem(key)
@@ -108,10 +108,12 @@ class TableKeyValue:
         # Table Keys/Values
         header = self.table.horizontalHeader()
         header.setSectionResizeMode(QHeaderView.Stretch)
-        header.setSectionResizeMode(0, QHeaderView.ResizeToContents)
+        header.setSectionResizeMode(0, QHeaderView.Fixed)
         header.setSectionResizeMode(3, QHeaderView.ResizeToContents)
         header.setSectionResizeMode(4, QHeaderView.ResizeToContents)
-        header.setMinimumSectionSize(50)
+        header.setMinimumSectionSize(25)
+        index_type = header.logicalIndexAt(0)
+        header.resizeSection(index_type, 50)
 
         add_row, remove_row = self.prepare_button()
 
@@ -292,35 +294,50 @@ class TableKeyValue:
                     keys.append(key)
                     values.append(value)
 
-        table = self.table
-        selection = table.selectedIndexes()
+        selection = self.table.selectedIndexes()
         if selection:
             row = selection[0].row()
         else:
             row = 0
+        type_multi_request = [MultiType.OR for _k in keys]
+
+        self.fill_table(keys, values, type_multi_request, row)
+
+    def fill_table(self, keys: list, values: list, type_multi_request: list, row: int = 0):
+        """Fill the table with custom parameters."""
+        self.table.setRowCount(1)
+        self.table.cellWidget(0, 1).setCurrentIndex(0)
+        self.table.cellWidget(0, 2).lineEdit().setText('')
+
         for num in range(len(keys) - 1):
-            if table.cellWidget(row + num, 0):
-                table.cellWidget(row + num, 0).setCurrentIndex(1)
-            index = table.cellWidget(row + num, 1).findText(keys[num])
-            table.cellWidget(row + num, 1).setCurrentIndex(index)
+            if self.table.cellWidget(row + num, 0):
+                if type_multi_request[num - 1] == MultiType.AND:
+                    self.table.cellWidget(row + num, 0).setCurrentIndex(0)
+                elif type_multi_request[num - 1] == MultiType.OR:
+                    self.table.cellWidget(row + num, 0).setCurrentIndex(1)
+            index = self.table.cellWidget(row + num, 1).findText(keys[num])
+            self.table.cellWidget(row + num, 1).setCurrentIndex(index)
             self.key_edited(row + num)
             if values[num]:
-                index = table.cellWidget(row + num, 2).findText(values[num])
-                table.cellWidget(row + num, 2).setCurrentIndex(index)
+                index = self.table.cellWidget(row + num, 2).findText(values[num])
+                self.table.cellWidget(row + num, 2).setCurrentIndex(index)
             self.add_row_to_table(row + num)
         if len(keys) > 0:
             num = len(keys) - 1
-            if table.cellWidget(row + num, 0) and num != 0:
-                table.cellWidget(row + num, 0).setCurrentIndex(1)
-            index = table.cellWidget(row + num, 1).findText(keys[-1])
-            table.cellWidget(row + num, 1).setCurrentIndex(index)
+            if self.table.cellWidget(row + num, 0) and num != 0:
+                if type_multi_request[num - 1] == MultiType.AND:
+                    self.table.cellWidget(row + num, 0).setCurrentIndex(0)
+                elif type_multi_request[num - 1] == MultiType.OR:
+                    self.table.cellWidget(row + num, 0).setCurrentIndex(1)
+            index = self.table.cellWidget(row + num, 1).findText(keys[-1])
+            self.table.cellWidget(row + num, 1).setCurrentIndex(index)
             self.key_edited(row + num)
             if values[-1]:
-                index = table.cellWidget(row + num, 2).findText(values[-1])
-                table.cellWidget(row + num, 2).setCurrentIndex(index)
+                index = self.table.cellWidget(row + num, 2).findText(values[-1])
+                self.table.cellWidget(row + num, 2).setCurrentIndex(index)
 
-            index = table.cellWidget(row, 2).findText(values[0])
-            table.cellWidget(row, 2).setCurrentIndex(index)
+            index = self.table.cellWidget(row, 2).findText(values[0])
+            self.table.cellWidget(row, 2).setCurrentIndex(index)
 
     def key_edited(self, row: int = None):
         """Add values to the combobox according to the key."""
