@@ -16,7 +16,7 @@
         <link rel="canonical" href="https://docs.3liz.org/QuickOSM/processing/">
       
       <link rel="icon" href="../media/icon.png">
-      <meta name="generator" content="mkdocs-1.2.1, mkdocs-material-7.1.8">
+      <meta name="generator" content="mkdocs-1.2.2, mkdocs-material-7.2.1">
     
     
       
@@ -24,10 +24,10 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.ca7ac06f.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.1118c9be.min.css">
       
         
-        <link rel="stylesheet" href="../assets/stylesheets/palette.f1a3b89f.min.css">
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ba0d045b.min.css">
         
           
           
@@ -114,14 +114,18 @@
   <label class="md-search__overlay" for="__search"></label>
   <div class="md-search__inner" role="search">
     <form class="md-search__form" name="search">
-      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active" required>
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
       <label class="md-search__icon md-icon" for="__search">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
       </label>
-      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
-      </button>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+        </button>
+      </nav>
+      
     </form>
     <div class="md-search__output">
       <div class="md-search__scrollwrap" data-md-scrollfix>
@@ -422,19 +426,11 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#advanced" class="md-nav__link">
-    Advanced
+  <a href="#run-quickosm-process-with-a-raw-query" class="md-nav__link">
+    Run QuickOSM process with a raw query
   </a>
   
-    <nav class="md-nav" aria-label="Advanced">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#build-query-around-an-area" class="md-nav__link">
-    Build query around an area
-  </a>
-  
-    <nav class="md-nav" aria-label="Build query around an area">
+    <nav class="md-nav" aria-label="Run QuickOSM process with a raw query">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -455,13 +451,13 @@
     </nav>
   
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#build-query-by-attribute-only" class="md-nav__link">
-    Build query by attribute only
+      
+        <li class="md-nav__item">
+  <a href="#run-quickosm-process-with-a-not-spatial-query" class="md-nav__link">
+    Run QuickOSM process with a not spatial query
   </a>
   
-    <nav class="md-nav" aria-label="Build query by attribute only">
+    <nav class="md-nav" aria-label="Run QuickOSM process with a not spatial query">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -482,13 +478,13 @@
     </nav>
   
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#build-query-inside-an-extent" class="md-nav__link">
-    Build query inside an extent
+      
+        <li class="md-nav__item">
+  <a href="#run-quickosm-process-with-an-in-area-query" class="md-nav__link">
+    Run QuickOSM process with an 'in area' query
   </a>
   
-    <nav class="md-nav" aria-label="Build query inside an extent">
+    <nav class="md-nav" aria-label="Run QuickOSM process with an 'in area' query">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -509,13 +505,13 @@
     </nav>
   
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#build-query-inside-an-area" class="md-nav__link">
-    Build query inside an area
+      
+        <li class="md-nav__item">
+  <a href="#run-quickosm-process-with-an-around-area-query" class="md-nav__link">
+    Run QuickOSM process with an 'around area' query
   </a>
   
-    <nav class="md-nav" aria-label="Build query inside an area">
+    <nav class="md-nav" aria-label="Run QuickOSM process with an 'around area' query">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -536,13 +532,13 @@
     </nav>
   
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#build-raw-query" class="md-nav__link">
-    Build raw query
+      
+        <li class="md-nav__item">
+  <a href="#run-quickosm-process-with-an-extent-query" class="md-nav__link">
+    Run QuickOSM process with an 'extent' query
   </a>
   
-    <nav class="md-nav" aria-label="Build raw query">
+    <nav class="md-nav" aria-label="Run QuickOSM process with an 'extent' query">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -563,13 +559,21 @@
     </nav>
   
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#open-sublayers-from-an-osm-file" class="md-nav__link">
-    Open sublayers from an OSM file
+      
+        <li class="md-nav__item">
+  <a href="#advanced" class="md-nav__link">
+    Advanced
   </a>
   
-    <nav class="md-nav" aria-label="Open sublayers from an OSM file">
+    <nav class="md-nav" aria-label="Advanced">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#build-query-around-an-area" class="md-nav__link">
+    Build query around an area
+  </a>
+  
+    <nav class="md-nav" aria-label="Build query around an area">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -581,6 +585,141 @@
         
           <li class="md-nav__item">
   <a href="#outputs_5" class="md-nav__link">
+    Outputs
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#build-query-by-attribute-only" class="md-nav__link">
+    Build query by attribute only
+  </a>
+  
+    <nav class="md-nav" aria-label="Build query by attribute only">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parameters_6" class="md-nav__link">
+    Parameters
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#outputs_6" class="md-nav__link">
+    Outputs
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#build-query-inside-an-extent" class="md-nav__link">
+    Build query inside an extent
+  </a>
+  
+    <nav class="md-nav" aria-label="Build query inside an extent">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parameters_7" class="md-nav__link">
+    Parameters
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#outputs_7" class="md-nav__link">
+    Outputs
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#build-query-inside-an-area" class="md-nav__link">
+    Build query inside an area
+  </a>
+  
+    <nav class="md-nav" aria-label="Build query inside an area">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parameters_8" class="md-nav__link">
+    Parameters
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#outputs_8" class="md-nav__link">
+    Outputs
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#build-raw-query" class="md-nav__link">
+    Build raw query
+  </a>
+  
+    <nav class="md-nav" aria-label="Build raw query">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parameters_9" class="md-nav__link">
+    Parameters
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#outputs_9" class="md-nav__link">
+    Outputs
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#open-sublayers-from-an-osm-file" class="md-nav__link">
+    Open sublayers from an OSM file
+  </a>
+  
+    <nav class="md-nav" aria-label="Open sublayers from an OSM file">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parameters_10" class="md-nav__link">
+    Parameters
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#outputs_10" class="md-nav__link">
     Outputs
   </a>
   
@@ -677,19 +816,11 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#advanced" class="md-nav__link">
-    Advanced
+  <a href="#run-quickosm-process-with-a-raw-query" class="md-nav__link">
+    Run QuickOSM process with a raw query
   </a>
   
-    <nav class="md-nav" aria-label="Advanced">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#build-query-around-an-area" class="md-nav__link">
-    Build query around an area
-  </a>
-  
-    <nav class="md-nav" aria-label="Build query around an area">
+    <nav class="md-nav" aria-label="Run QuickOSM process with a raw query">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -710,13 +841,13 @@
     </nav>
   
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#build-query-by-attribute-only" class="md-nav__link">
-    Build query by attribute only
+      
+        <li class="md-nav__item">
+  <a href="#run-quickosm-process-with-a-not-spatial-query" class="md-nav__link">
+    Run QuickOSM process with a not spatial query
   </a>
   
-    <nav class="md-nav" aria-label="Build query by attribute only">
+    <nav class="md-nav" aria-label="Run QuickOSM process with a not spatial query">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -737,13 +868,13 @@
     </nav>
   
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#build-query-inside-an-extent" class="md-nav__link">
-    Build query inside an extent
+      
+        <li class="md-nav__item">
+  <a href="#run-quickosm-process-with-an-in-area-query" class="md-nav__link">
+    Run QuickOSM process with an 'in area' query
   </a>
   
-    <nav class="md-nav" aria-label="Build query inside an extent">
+    <nav class="md-nav" aria-label="Run QuickOSM process with an 'in area' query">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -764,13 +895,13 @@
     </nav>
   
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#build-query-inside-an-area" class="md-nav__link">
-    Build query inside an area
+      
+        <li class="md-nav__item">
+  <a href="#run-quickosm-process-with-an-around-area-query" class="md-nav__link">
+    Run QuickOSM process with an 'around area' query
   </a>
   
-    <nav class="md-nav" aria-label="Build query inside an area">
+    <nav class="md-nav" aria-label="Run QuickOSM process with an 'around area' query">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -791,13 +922,13 @@
     </nav>
   
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#build-raw-query" class="md-nav__link">
-    Build raw query
+      
+        <li class="md-nav__item">
+  <a href="#run-quickosm-process-with-an-extent-query" class="md-nav__link">
+    Run QuickOSM process with an 'extent' query
   </a>
   
-    <nav class="md-nav" aria-label="Build raw query">
+    <nav class="md-nav" aria-label="Run QuickOSM process with an 'extent' query">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -818,13 +949,21 @@
     </nav>
   
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#open-sublayers-from-an-osm-file" class="md-nav__link">
-    Open sublayers from an OSM file
+      
+        <li class="md-nav__item">
+  <a href="#advanced" class="md-nav__link">
+    Advanced
   </a>
   
-    <nav class="md-nav" aria-label="Open sublayers from an OSM file">
+    <nav class="md-nav" aria-label="Advanced">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#build-query-around-an-area" class="md-nav__link">
+    Build query around an area
+  </a>
+  
+    <nav class="md-nav" aria-label="Build query around an area">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -836,6 +975,141 @@
         
           <li class="md-nav__item">
   <a href="#outputs_5" class="md-nav__link">
+    Outputs
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#build-query-by-attribute-only" class="md-nav__link">
+    Build query by attribute only
+  </a>
+  
+    <nav class="md-nav" aria-label="Build query by attribute only">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parameters_6" class="md-nav__link">
+    Parameters
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#outputs_6" class="md-nav__link">
+    Outputs
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#build-query-inside-an-extent" class="md-nav__link">
+    Build query inside an extent
+  </a>
+  
+    <nav class="md-nav" aria-label="Build query inside an extent">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parameters_7" class="md-nav__link">
+    Parameters
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#outputs_7" class="md-nav__link">
+    Outputs
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#build-query-inside-an-area" class="md-nav__link">
+    Build query inside an area
+  </a>
+  
+    <nav class="md-nav" aria-label="Build query inside an area">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parameters_8" class="md-nav__link">
+    Parameters
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#outputs_8" class="md-nav__link">
+    Outputs
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#build-raw-query" class="md-nav__link">
+    Build raw query
+  </a>
+  
+    <nav class="md-nav" aria-label="Build raw query">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parameters_9" class="md-nav__link">
+    Parameters
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#outputs_9" class="md-nav__link">
+    Outputs
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#open-sublayers-from-an-osm-file" class="md-nav__link">
+    Open sublayers from an OSM file
+  </a>
+  
+    <nav class="md-nav" aria-label="Open sublayers from an OSM file">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parameters_10" class="md-nav__link">
+    Parameters
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#outputs_10" class="md-nav__link">
     Outputs
   </a>
   
@@ -869,11 +1143,561 @@
                 
                 
                 <h1 id="processing">Processing<a class="headerlink" href="#processing" title="Permanent link">#</a></h1>
+<h3 id="run-quickosm-process-with-a-raw-query">Run QuickOSM process with a raw query<a class="headerlink" href="#run-quickosm-process-with-a-raw-query" title="Permanent link">#</a></h3>
+<p>This algorithm launches all the QuickOSM process from a raw query. The url is built with the parameters, the file is downloaded and treated.</p>
+<p><img alt="algo_id" src="quickosm-downloadosmdatarawquery.png" /></p>
+<h4 id="parameters">Parameters<a class="headerlink" href="#parameters" title="Permanent link">#</a></h4>
+<table>
+<thead>
+<tr>
+<th align="center">ID</th>
+<th align="center">Description</th>
+<th align="center">Type</th>
+<th align="center">Info</th>
+<th align="center">Required</th>
+<th align="center">Advanced</th>
+<th align="center">Option</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">QUERY</td>
+<td align="center">Query</td>
+<td align="center">String</td>
+<td align="center">A XML or OQL query to be sent to the Overpass API. It can contain some {{}} tokens.</td>
+<td align="center">✓</td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">TIMEOUT</td>
+<td align="center">Timeout</td>
+<td align="center">Integer</td>
+<td align="center">The timeout to use for the overpass api connexion</td>
+<td align="center">✓</td>
+<td align="center">✓</td>
+<td align="center">Default: 25 <br> Type: Integer<br> Min: 5.0, Max: 1.7976931348623157e+308 <br></td>
+</tr>
+<tr>
+<td align="center">EXTENT</td>
+<td align="center">Extent, if "{{bbox}}" in the query</td>
+<td align="center">Extent</td>
+<td align="center">If the query has a {{bbox}} token, this extent will be used for replacement.</td>
+<td align="center"></td>
+<td align="center">✓</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">SERVER</td>
+<td align="center">Overpass server</td>
+<td align="center">String</td>
+<td align="center">The Overpass API server to use to build the encoded URL.</td>
+<td align="center">✓</td>
+<td align="center">✓</td>
+<td align="center">Default: <a href="https://lz4.overpass-api.de/api/interpreter">https://lz4.overpass-api.de/api/interpreter</a> <br></td>
+</tr>
+<tr>
+<td align="center">AREA</td>
+<td align="center">Area (if you want to override {{geocodeArea}} in the query)</td>
+<td align="center">String</td>
+<td align="center">The query is generated in the OQL format.</td>
+<td align="center"></td>
+<td align="center">✓</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">FILE</td>
+<td align="center">Output file</td>
+<td align="center">String</td>
+<td align="center">Path to a geoPackage where the result will be saved</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+</tbody>
+</table>
+<h4 id="outputs">Outputs<a class="headerlink" href="#outputs" title="Permanent link">#</a></h4>
+<table>
+<thead>
+<tr>
+<th align="center">ID</th>
+<th align="center">Description</th>
+<th align="center">Type</th>
+<th align="center">Info</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">OUTPUT_POINTS</td>
+<td align="center">Layer with a point geometry</td>
+<td align="center">QgsVectorLayer</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">OUTPUT_LINES</td>
+<td align="center">Layer with a line geometry</td>
+<td align="center">QgsVectorLayer</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">OUTPUT_MULTILINESTRINGS</td>
+<td align="center">Layer with a multi line geometry</td>
+<td align="center">QgsVectorLayer</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">OUTPUT_MULTIPOLYGONS</td>
+<td align="center">Layer with a polygon geometry</td>
+<td align="center">QgsVectorLayer</td>
+<td align="center"></td>
+</tr>
+</tbody>
+</table>
+<h3 id="run-quickosm-process-with-a-not-spatial-query">Run QuickOSM process with a not spatial query<a class="headerlink" href="#run-quickosm-process-with-a-not-spatial-query" title="Permanent link">#</a></h3>
+<p>This algorithm launches all the QuickOSM process from a not spatial query. The url is built with the parameters, the file is downloaded and treated.</p>
+<p><img alt="algo_id" src="quickosm-downloadosmdatanotspatialquery.png" /></p>
+<h4 id="parameters_1">Parameters<a class="headerlink" href="#parameters_1" title="Permanent link">#</a></h4>
+<table>
+<thead>
+<tr>
+<th align="center">ID</th>
+<th align="center">Description</th>
+<th align="center">Type</th>
+<th align="center">Info</th>
+<th align="center">Required</th>
+<th align="center">Advanced</th>
+<th align="center">Option</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">KEY</td>
+<td align="center">Key, default to all keys</td>
+<td align="center">String</td>
+<td align="center">The OSM key to use. It can be empty and it will default to all keys.</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">VALUE</td>
+<td align="center">Value, default to all values</td>
+<td align="center">String</td>
+<td align="center">The OSM value to use. It can be empty and it will default to all values.</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">TIMEOUT</td>
+<td align="center">Timeout</td>
+<td align="center">Integer</td>
+<td align="center">The timeout to use for the overpass api connexion</td>
+<td align="center">✓</td>
+<td align="center">✓</td>
+<td align="center">Default: 25 <br> Type: Integer<br> Min: 5.0, Max: 1.7976931348623157e+308 <br></td>
+</tr>
+<tr>
+<td align="center">SERVER</td>
+<td align="center">Overpass server</td>
+<td align="center">String</td>
+<td align="center">The Overpass API server to use to build the encoded URL.</td>
+<td align="center">✓</td>
+<td align="center">✓</td>
+<td align="center">Default: <a href="https://lz4.overpass-api.de/api/interpreter">https://lz4.overpass-api.de/api/interpreter</a> <br></td>
+</tr>
+<tr>
+<td align="center">FILE</td>
+<td align="center">Output file</td>
+<td align="center">String</td>
+<td align="center">Path to a geoPackage where the result will be saved</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+</tbody>
+</table>
+<h4 id="outputs_1">Outputs<a class="headerlink" href="#outputs_1" title="Permanent link">#</a></h4>
+<table>
+<thead>
+<tr>
+<th align="center">ID</th>
+<th align="center">Description</th>
+<th align="center">Type</th>
+<th align="center">Info</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">OUTPUT_POINTS</td>
+<td align="center">Layer with a point geometry</td>
+<td align="center">QgsVectorLayer</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">OUTPUT_LINES</td>
+<td align="center">Layer with a line geometry</td>
+<td align="center">QgsVectorLayer</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">OUTPUT_MULTILINESTRINGS</td>
+<td align="center">Layer with a multi line geometry</td>
+<td align="center">QgsVectorLayer</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">OUTPUT_MULTIPOLYGONS</td>
+<td align="center">Layer with a polygon geometry</td>
+<td align="center">QgsVectorLayer</td>
+<td align="center"></td>
+</tr>
+</tbody>
+</table>
+<h3 id="run-quickosm-process-with-an-in-area-query">Run QuickOSM process with an 'in area' query<a class="headerlink" href="#run-quickosm-process-with-an-in-area-query" title="Permanent link">#</a></h3>
+<p>This algorithm launches all the QuickOSM process from an 'in area' query. The url is built with the parameters, the file is downloaded and treated.</p>
+<p><img alt="algo_id" src="quickosm-downloadosmdatainareaquery.png" /></p>
+<h4 id="parameters_2">Parameters<a class="headerlink" href="#parameters_2" title="Permanent link">#</a></h4>
+<table>
+<thead>
+<tr>
+<th align="center">ID</th>
+<th align="center">Description</th>
+<th align="center">Type</th>
+<th align="center">Info</th>
+<th align="center">Required</th>
+<th align="center">Advanced</th>
+<th align="center">Option</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">KEY</td>
+<td align="center">Key, default to all keys</td>
+<td align="center">String</td>
+<td align="center">The OSM key to use. It can be empty and it will default to all keys.</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">VALUE</td>
+<td align="center">Value, default to all values</td>
+<td align="center">String</td>
+<td align="center">The OSM value to use. It can be empty and it will default to all values.</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">AREA</td>
+<td align="center">Around the area</td>
+<td align="center">String</td>
+<td align="center">The name of a place, a first query to the Nominatim API will be executed to fetch the OSM ID. A WKT Point string is accepted as well.</td>
+<td align="center">✓</td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">TIMEOUT</td>
+<td align="center">Timeout</td>
+<td align="center">Integer</td>
+<td align="center">The timeout to use for the overpass api connexion</td>
+<td align="center">✓</td>
+<td align="center">✓</td>
+<td align="center">Default: 25 <br> Type: Integer<br> Min: 5.0, Max: 1.7976931348623157e+308 <br></td>
+</tr>
+<tr>
+<td align="center">SERVER</td>
+<td align="center">Overpass server</td>
+<td align="center">String</td>
+<td align="center">The Overpass API server to use to build the encoded URL.</td>
+<td align="center">✓</td>
+<td align="center">✓</td>
+<td align="center">Default: <a href="https://lz4.overpass-api.de/api/interpreter">https://lz4.overpass-api.de/api/interpreter</a> <br></td>
+</tr>
+<tr>
+<td align="center">FILE</td>
+<td align="center">Output file</td>
+<td align="center">String</td>
+<td align="center">Path to a geoPackage where the result will be saved</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+</tbody>
+</table>
+<h4 id="outputs_2">Outputs<a class="headerlink" href="#outputs_2" title="Permanent link">#</a></h4>
+<table>
+<thead>
+<tr>
+<th align="center">ID</th>
+<th align="center">Description</th>
+<th align="center">Type</th>
+<th align="center">Info</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">OUTPUT_POINTS</td>
+<td align="center">Layer with a point geometry</td>
+<td align="center">QgsVectorLayer</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">OUTPUT_LINES</td>
+<td align="center">Layer with a line geometry</td>
+<td align="center">QgsVectorLayer</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">OUTPUT_MULTILINESTRINGS</td>
+<td align="center">Layer with a multi line geometry</td>
+<td align="center">QgsVectorLayer</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">OUTPUT_MULTIPOLYGONS</td>
+<td align="center">Layer with a polygon geometry</td>
+<td align="center">QgsVectorLayer</td>
+<td align="center"></td>
+</tr>
+</tbody>
+</table>
+<h3 id="run-quickosm-process-with-an-around-area-query">Run QuickOSM process with an 'around area' query<a class="headerlink" href="#run-quickosm-process-with-an-around-area-query" title="Permanent link">#</a></h3>
+<p>This algorithm launches all the QuickOSM process from an 'around area' query. The url is built with the parameters, the file is downloaded and treated.</p>
+<p><img alt="algo_id" src="quickosm-downloadosmdataaroundareaquery.png" /></p>
+<h4 id="parameters_3">Parameters<a class="headerlink" href="#parameters_3" title="Permanent link">#</a></h4>
+<table>
+<thead>
+<tr>
+<th align="center">ID</th>
+<th align="center">Description</th>
+<th align="center">Type</th>
+<th align="center">Info</th>
+<th align="center">Required</th>
+<th align="center">Advanced</th>
+<th align="center">Option</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">KEY</td>
+<td align="center">Key, default to all keys</td>
+<td align="center">String</td>
+<td align="center">The OSM key to use. It can be empty and it will default to all keys.</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">VALUE</td>
+<td align="center">Value, default to all values</td>
+<td align="center">String</td>
+<td align="center">The OSM value to use. It can be empty and it will default to all values.</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">AREA</td>
+<td align="center">Around the area</td>
+<td align="center">String</td>
+<td align="center">The name of a place, a first query to the Nominatim API will be executed to fetch the OSM ID. A WKT Point string is accepted as well.</td>
+<td align="center">✓</td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">DISTANCE</td>
+<td align="center">Distance (meters)</td>
+<td align="center">Number</td>
+<td align="center">The distance to use when doing the buffering around the named area. The distance must be in meters.</td>
+<td align="center">✓</td>
+<td align="center"></td>
+<td align="center">Default: 1000 <br> Type: Integer<br> Min: 1.0, Max: 1.7976931348623157e+308 <br></td>
+</tr>
+<tr>
+<td align="center">TIMEOUT</td>
+<td align="center">Timeout</td>
+<td align="center">Integer</td>
+<td align="center">The timeout to use for the overpass api connexion</td>
+<td align="center">✓</td>
+<td align="center">✓</td>
+<td align="center">Default: 25 <br> Type: Integer<br> Min: 5.0, Max: 1.7976931348623157e+308 <br></td>
+</tr>
+<tr>
+<td align="center">SERVER</td>
+<td align="center">Overpass server</td>
+<td align="center">String</td>
+<td align="center">The Overpass API server to use to build the encoded URL.</td>
+<td align="center">✓</td>
+<td align="center">✓</td>
+<td align="center">Default: <a href="https://lz4.overpass-api.de/api/interpreter">https://lz4.overpass-api.de/api/interpreter</a> <br></td>
+</tr>
+<tr>
+<td align="center">FILE</td>
+<td align="center">Output file</td>
+<td align="center">String</td>
+<td align="center">Path to a geoPackage where the result will be saved</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+</tbody>
+</table>
+<h4 id="outputs_3">Outputs<a class="headerlink" href="#outputs_3" title="Permanent link">#</a></h4>
+<table>
+<thead>
+<tr>
+<th align="center">ID</th>
+<th align="center">Description</th>
+<th align="center">Type</th>
+<th align="center">Info</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">OUTPUT_POINTS</td>
+<td align="center">Layer with a point geometry</td>
+<td align="center">QgsVectorLayer</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">OUTPUT_LINES</td>
+<td align="center">Layer with a line geometry</td>
+<td align="center">QgsVectorLayer</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">OUTPUT_MULTILINESTRINGS</td>
+<td align="center">Layer with a multi line geometry</td>
+<td align="center">QgsVectorLayer</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">OUTPUT_MULTIPOLYGONS</td>
+<td align="center">Layer with a polygon geometry</td>
+<td align="center">QgsVectorLayer</td>
+<td align="center"></td>
+</tr>
+</tbody>
+</table>
+<h3 id="run-quickosm-process-with-an-extent-query">Run QuickOSM process with an 'extent' query<a class="headerlink" href="#run-quickosm-process-with-an-extent-query" title="Permanent link">#</a></h3>
+<p>This algorithm launches all the QuickOSM process from an 'extent' query. The url is built with the parameters, the file is downloaded and treated.</p>
+<p><img alt="algo_id" src="quickosm-downloadosmdataextentquery.png" /></p>
+<h4 id="parameters_4">Parameters<a class="headerlink" href="#parameters_4" title="Permanent link">#</a></h4>
+<table>
+<thead>
+<tr>
+<th align="center">ID</th>
+<th align="center">Description</th>
+<th align="center">Type</th>
+<th align="center">Info</th>
+<th align="center">Required</th>
+<th align="center">Advanced</th>
+<th align="center">Option</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">KEY</td>
+<td align="center">Key, default to all keys</td>
+<td align="center">String</td>
+<td align="center">The OSM key to use. It can be empty and it will default to all keys.</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">VALUE</td>
+<td align="center">Value, default to all values</td>
+<td align="center">String</td>
+<td align="center">The OSM value to use. It can be empty and it will default to all values.</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">EXTENT</td>
+<td align="center">Extent</td>
+<td align="center">Extent</td>
+<td align="center">The extent as a rectangle to use when building the query.</td>
+<td align="center">✓</td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">TIMEOUT</td>
+<td align="center">Timeout</td>
+<td align="center">Integer</td>
+<td align="center">The timeout to use for the overpass api connexion</td>
+<td align="center">✓</td>
+<td align="center">✓</td>
+<td align="center">Default: 25 <br> Type: Integer<br> Min: 5.0, Max: 1.7976931348623157e+308 <br></td>
+</tr>
+<tr>
+<td align="center">SERVER</td>
+<td align="center">Overpass server</td>
+<td align="center">String</td>
+<td align="center">The Overpass API server to use to build the encoded URL.</td>
+<td align="center">✓</td>
+<td align="center">✓</td>
+<td align="center">Default: <a href="https://lz4.overpass-api.de/api/interpreter">https://lz4.overpass-api.de/api/interpreter</a> <br></td>
+</tr>
+<tr>
+<td align="center">FILE</td>
+<td align="center">Output file</td>
+<td align="center">String</td>
+<td align="center">Path to a geoPackage where the result will be saved</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+</tbody>
+</table>
+<h4 id="outputs_4">Outputs<a class="headerlink" href="#outputs_4" title="Permanent link">#</a></h4>
+<table>
+<thead>
+<tr>
+<th align="center">ID</th>
+<th align="center">Description</th>
+<th align="center">Type</th>
+<th align="center">Info</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">OUTPUT_POINTS</td>
+<td align="center">Layer with a point geometry</td>
+<td align="center">QgsVectorLayer</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">OUTPUT_LINES</td>
+<td align="center">Layer with a line geometry</td>
+<td align="center">QgsVectorLayer</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">OUTPUT_MULTILINESTRINGS</td>
+<td align="center">Layer with a multi line geometry</td>
+<td align="center">QgsVectorLayer</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">OUTPUT_MULTIPOLYGONS</td>
+<td align="center">Layer with a polygon geometry</td>
+<td align="center">QgsVectorLayer</td>
+<td align="center"></td>
+</tr>
+</tbody>
+</table>
 <h2 id="advanced">Advanced<a class="headerlink" href="#advanced" title="Permanent link">#</a></h2>
 <h3 id="build-query-around-an-area">Build query around an area<a class="headerlink" href="#build-query-around-an-area" title="Permanent link">#</a></h3>
 <p>This algorithm builds a query and then encode it into the Overpass API URL. The "Download File" algorithm might be used after that to fetch the result.</p>
 <p><img alt="algo_id" src="quickosm-buildqueryaroundarea.png" /></p>
-<h4 id="parameters">Parameters<a class="headerlink" href="#parameters" title="Permanent link">#</a></h4>
+<h4 id="parameters_5">Parameters<a class="headerlink" href="#parameters_5" title="Permanent link">#</a></h4>
 <table>
 <thead>
 <tr>
@@ -943,7 +1767,7 @@
 </tr>
 </tbody>
 </table>
-<h4 id="outputs">Outputs<a class="headerlink" href="#outputs" title="Permanent link">#</a></h4>
+<h4 id="outputs_5">Outputs<a class="headerlink" href="#outputs_5" title="Permanent link">#</a></h4>
 <table>
 <thead>
 <tr>
@@ -972,7 +1796,7 @@
 <h3 id="build-query-by-attribute-only">Build query by attribute only<a class="headerlink" href="#build-query-by-attribute-only" title="Permanent link">#</a></h3>
 <p>This algorithm builds a query and then encode it into the Overpass API URL. The "Download File" algorithm might be used after that to fetch the result.</p>
 <p><img alt="algo_id" src="quickosm-buildquerybyattributeonly.png" /></p>
-<h4 id="parameters_1">Parameters<a class="headerlink" href="#parameters_1" title="Permanent link">#</a></h4>
+<h4 id="parameters_6">Parameters<a class="headerlink" href="#parameters_6" title="Permanent link">#</a></h4>
 <table>
 <thead>
 <tr>
@@ -1024,7 +1848,7 @@
 </tr>
 </tbody>
 </table>
-<h4 id="outputs_1">Outputs<a class="headerlink" href="#outputs_1" title="Permanent link">#</a></h4>
+<h4 id="outputs_6">Outputs<a class="headerlink" href="#outputs_6" title="Permanent link">#</a></h4>
 <table>
 <thead>
 <tr>
@@ -1053,7 +1877,7 @@
 <h3 id="build-query-inside-an-extent">Build query inside an extent<a class="headerlink" href="#build-query-inside-an-extent" title="Permanent link">#</a></h3>
 <p>This algorithm builds a query and then encode it into the Overpass API URL. The "Download File" algorithm might be used after that to fetch the result.</p>
 <p><img alt="algo_id" src="quickosm-buildqueryextent.png" /></p>
-<h4 id="parameters_2">Parameters<a class="headerlink" href="#parameters_2" title="Permanent link">#</a></h4>
+<h4 id="parameters_7">Parameters<a class="headerlink" href="#parameters_7" title="Permanent link">#</a></h4>
 <table>
 <thead>
 <tr>
@@ -1114,7 +1938,7 @@
 </tr>
 </tbody>
 </table>
-<h4 id="outputs_2">Outputs<a class="headerlink" href="#outputs_2" title="Permanent link">#</a></h4>
+<h4 id="outputs_7">Outputs<a class="headerlink" href="#outputs_7" title="Permanent link">#</a></h4>
 <table>
 <thead>
 <tr>
@@ -1143,7 +1967,7 @@
 <h3 id="build-query-inside-an-area">Build query inside an area<a class="headerlink" href="#build-query-inside-an-area" title="Permanent link">#</a></h3>
 <p>This algorithm builds a query and then encode it into the Overpass API URL. The "Download File" algorithm might be used after that to fetch the result.</p>
 <p><img alt="algo_id" src="quickosm-buildqueryinsidearea.png" /></p>
-<h4 id="parameters_3">Parameters<a class="headerlink" href="#parameters_3" title="Permanent link">#</a></h4>
+<h4 id="parameters_8">Parameters<a class="headerlink" href="#parameters_8" title="Permanent link">#</a></h4>
 <table>
 <thead>
 <tr>
@@ -1204,7 +2028,7 @@
 </tr>
 </tbody>
 </table>
-<h4 id="outputs_3">Outputs<a class="headerlink" href="#outputs_3" title="Permanent link">#</a></h4>
+<h4 id="outputs_8">Outputs<a class="headerlink" href="#outputs_8" title="Permanent link">#</a></h4>
 <table>
 <thead>
 <tr>
@@ -1233,7 +2057,7 @@
 <h3 id="build-raw-query">Build raw query<a class="headerlink" href="#build-raw-query" title="Permanent link">#</a></h3>
 <p>A XML or OQL query to send to a Overpass API server.</p>
 <p><img alt="algo_id" src="quickosm-buildrawquery.png" /></p>
-<h4 id="parameters_4">Parameters<a class="headerlink" href="#parameters_4" title="Permanent link">#</a></h4>
+<h4 id="parameters_9">Parameters<a class="headerlink" href="#parameters_9" title="Permanent link">#</a></h4>
 <table>
 <thead>
 <tr>
@@ -1251,7 +2075,7 @@
 <td align="center">QUERY</td>
 <td align="center">Query</td>
 <td align="center">String</td>
-<td align="center">A XML or OQL query to be send to the Overpass API. It can contains some {{}} tokens.</td>
+<td align="center">A XML or OQL query to be sent to the Overpass API. It can contains some {{}} tokens.</td>
 <td align="center">✓</td>
 <td align="center"></td>
 <td align="center"></td>
@@ -1285,7 +2109,7 @@
 </tr>
 </tbody>
 </table>
-<h4 id="outputs_4">Outputs<a class="headerlink" href="#outputs_4" title="Permanent link">#</a></h4>
+<h4 id="outputs_9">Outputs<a class="headerlink" href="#outputs_9" title="Permanent link">#</a></h4>
 <table>
 <thead>
 <tr>
@@ -1314,7 +2138,7 @@
 <h3 id="open-sublayers-from-an-osm-file">Open sublayers from an OSM file<a class="headerlink" href="#open-sublayers-from-an-osm-file" title="Permanent link">#</a></h3>
 <p>Open all sublayers from an OSM file. A custom OSM configuration file can be specified following the OGR documentation. This algorithm will not make a copy of the input file, it will only open it using OGR and custom INI file if provided.</p>
 <p><img alt="algo_id" src="quickosm-openosmfile.png" /></p>
-<h4 id="parameters_5">Parameters<a class="headerlink" href="#parameters_5" title="Permanent link">#</a></h4>
+<h4 id="parameters_10">Parameters<a class="headerlink" href="#parameters_10" title="Permanent link">#</a></h4>
 <table>
 <thead>
 <tr>
@@ -1348,7 +2172,7 @@
 </tr>
 </tbody>
 </table>
-<h4 id="outputs_5">Outputs<a class="headerlink" href="#outputs_5" title="Permanent link">#</a></h4>
+<h4 id="outputs_10">Outputs<a class="headerlink" href="#outputs_10" title="Permanent link">#</a></h4>
 <table>
 <thead>
 <tr>
@@ -1400,7 +2224,7 @@
 <div class="md-source-date">
   <small>
     
-      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">March 8, 2021</span>
+      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">July 21, 2021</span>
       
     
   </small>
@@ -1417,8 +2241,9 @@
           </div>
         </div>
         
-          <a href="#" class="md-top md-icon" title="Back to top" data-md-component="top" data-md-state="hidden">
+          <a href="#" class="md-top md-icon" data-md-component="top" data-md-state="hidden">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"/></svg>
+            Back to top
           </a>
         
       </main>
@@ -1533,10 +2358,10 @@
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>
     </div>
-    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.top"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../assets/javascripts/workers/search.b0710199.min.js", "version": null}</script>
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.top"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../assets/javascripts/workers/search.53c85856.min.js", "version": null}</script>
     
     
-      <script src="../assets/javascripts/bundle.76f349be.min.js"></script>
+      <script src="../assets/javascripts/bundle.716f8af4.min.js"></script>
       
         <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js"></script>
       
