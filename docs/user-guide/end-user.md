@@ -36,6 +36,18 @@ The Overpass API takes a few seconds to respond, and after that you should get n
 point and polygon layers for the toilets of London! (nodes and ways in OpenStreetMap
 with the `amenity`=`toilet` tag on them)
 
+**Try to run a preset**
+
+* `Vector` menu → `QuickOSM` → `QuickOSM`
+* Go in `Map preset` panel
+* Click on preset name `Urban`
+* Set the name of the town/village to `Montpellier`
+* `Run preset`
+
+The Overpass API takes a few seconds to respond, and after that you should get new
+lines and polygon layers that match roads and buildings in Montpellier
+with a custom style.
+
 ## Custom API server
 
 If you want to add some customs servers, add a file called `custom_config.json`
@@ -50,7 +62,8 @@ in your `profile_name/QuickOSM` folder and add this template in it :
     ]
 }
 ```
-Both `overpass_servers` et `nominatim_servers` are optionals. If you want to add only one of them, you don't need to write the other.
+Both `overpass_servers` et `nominatim_servers` are optionals. If you want to add only 
+one of them, you don't need to write the other.
 QuickOSM will add your custom list to the list below.
 
 To find the profile folder, go in **Settings → Profile → Open active profile folder**.
