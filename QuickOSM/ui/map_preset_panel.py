@@ -69,9 +69,9 @@ class MapPresetPanel(BaseOverpassPanel):
         self.dialog.combo_extent_layer_mp.layerChanged.connect(self.query_type_updated)
 
         self.setup_default_preset()
-        self.dialog.list_default_mp.itemClicked.connect(
+        self.dialog.list_default_mp.itemPressed.connect(
             self.dialog.list_personal_preset_mp.clearSelection)
-        self.dialog.list_personal_preset_mp.itemClicked.connect(
+        self.dialog.list_personal_preset_mp.itemPressed.connect(
             self.dialog.list_default_mp.clearSelection)
         self.dialog.button_run_query_mp.clicked.connect(self.prepare_run)
         self.dialog.list_personal_preset_mp.currentRowChanged.connect(self.disable_enable_location)
