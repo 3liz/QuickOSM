@@ -174,7 +174,7 @@ QListWidget::item::selected {
             </sizepolicy>
            </property>
            <property name="currentIndex">
-            <number>5</number>
+            <number>0</number>
            </property>
            <widget class="QWidget" name="map_preset">
             <layout class="QVBoxLayout" name="verticalLayout_20">
@@ -424,6 +424,9 @@ QListWidget::item::selected {
                         <widget class="QLineEdit" name="line_place_mp">
                          <property name="toolTip">
                           <string>The spatial extent to use for the query. Cannot surcharge an advanced preset.</string>
+                         </property>
+                         <property name="placeholderText">
+                          <string>A village, a town…</string>
                          </property>
                         </widget>
                        </item>
