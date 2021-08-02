@@ -22,6 +22,7 @@ from qgis.PyQt.QtWidgets import (
     QVBoxLayout,
 )
 
+from QuickOSM.core.exceptions import NoSelectedPreset, QuickOsmException
 from QuickOSM.core.process import process_query, process_quick_query
 from QuickOSM.core.utilities.json_encoder import as_enum
 from QuickOSM.core.utilities.query_saved import QueryManagement
@@ -245,38 +246,45 @@ class MapPresetPanel(BaseOverpassPanel):
     def prepare_run(self):
         """Prepare the data before running the process."""
         selection = self.dialog.list_default_mp.selectedIndexes()
-        if selection:
-            preset = self.dialog.list_default_mp.item(selection[0].row())
-            preset_widget = self.dialog.list_default_mp.itemWidget(preset)
-            preset_label = preset_widget.layout().itemAt(1).itemAt(0).widget().text()
-            preset_folder = resources_path('map_preset')
-        else:
-            selection = self.dialog.list_personal_preset_mp.selectedIndexes()
-            preset = self.dialog.list_personal_preset_mp.item(selection[0].row())
-            preset_widget = self.dialog.list_personal_preset_mp.itemWidget(preset)
-            preset_label = preset_widget.layout().itemAt(0).itemAt(0).widget().text()
-            preset_folder = query_preset()
-        LOGGER.debug('Preset chosen: {}'.format(preset_label))
-        file_path = join(preset_folder, preset_label, preset_label + '.json')
-        with open(file_path, encoding='utf8') as json_file:
-            data = json.load(json_file, object_hook=as_enum)
+        try:
+            if not len(selection):
+                raise NoSelectedPreset
 
-        data['folder'] = os.path.dirname(file_path)
+            if selection:
+                preset = self.dialog.list_default_mp.item(selection[0].row())
+                preset_widget = self.dialog.list_default_mp.itemWidget(preset)
+                preset_label = preset_widget.layout().itemAt(1).itemAt(0).widget().text()
+                preset_folder = resources_path('map_preset')
+            else:
+                selection = self.dialog.list_personal_preset_mp.selectedIndexes()
+                preset = self.dialog.list_personal_preset_mp.item(selection[0].row())
+                preset_widget = self.dialog.list_personal_preset_mp.itemWidget(preset)
+                preset_label = preset_widget.layout().itemAt(0).itemAt(0).widget().text()
+                preset_folder = query_preset()
+            LOGGER.debug('Preset chosen: {}'.format(preset_label))
+            file_path = join(preset_folder, preset_label, preset_label + '.json')
+            with open(file_path, encoding='utf8') as json_file:
+                data = json.load(json_file, object_hook=as_enum)
 
-        if not data['advanced']:
-            properties = self.gather_spatial_values({})
-            data['query_type'] = properties['query_type']
-            data['distance'] = self.dialog.spin_place_mp.value()
-            if data['query_type'] != QueryType.AroundArea:
-                data['distance'] = None
-            if data['query_type'] in [QueryType.InArea, QueryType.AroundArea] and properties['place']:
-                for k, _area in enumerate(data['area']):
-                    data['area'][k] = properties['place']
-            elif data['query_type'] == QueryType.BBox and properties['bbox']:
-                for k, _bbox in enumerate(data['bbox']):
-                    data['bbox'][k] = properties['bbox']
+            data['folder'] = os.path.dirname(file_path)
 
-        self.run_saved_query(data)
+            if not data['advanced']:
+                properties = self.gather_spatial_values({})
+                data['query_type'] = properties['query_type']
+                data['distance'] = self.dialog.spin_place_mp.value()
+                if data['query_type'] != QueryType.AroundArea:
+                    data['distance'] = None
+                if data['query_type'] in [QueryType.InArea, QueryType.AroundArea] and properties['place']:
+                    for k, _area in enumerate(data['area']):
+                        data['area'][k] = properties['place']
+                elif data['query_type'] == QueryType.BBox and properties['bbox']:
+                    for k, _bbox in enumerate(data['bbox']):
+                        data['bbox'][k] = properties['bbox']
+
+            self.run_saved_query(data)
+
+        except QuickOsmException as error:
+            self.dialog.display_quickosm_exception(error)
 
     def _run_saved_query(self, data: dict):
         """Run a saved query(ies)."""

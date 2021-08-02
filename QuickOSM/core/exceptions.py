@@ -216,6 +216,15 @@ class MissingParameterException(QuickOsmException):
         super().__init__(message)
 
 
+class NoSelectedPreset(QuickOsmException):
+    """No selected preset exception."""
+
+    def __init__(self):
+        message = tr(
+            'None of the preset is selected. You can\'t run nothing.')
+        super().__init__(message)
+
+
 class NoSelectedFeatures(QuickOsmException):
     """No selected features exception."""
 
