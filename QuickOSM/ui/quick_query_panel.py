@@ -44,7 +44,7 @@ from QuickOSM.ui.base_overpass_panel import BaseOverpassPanel
 from QuickOSM.ui.custom_table import TableKeyValue
 from QuickOSM.ui.wizard import Wizard
 
-__copyright__ = 'Copyright 2019, 3Liz'
+__copyright__ = 'Copyright 2021, 3Liz'
 __license__ = 'GPL version 3'
 __email__ = 'info@3liz.org'
 
