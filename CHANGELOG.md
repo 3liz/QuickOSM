@@ -2,20 +2,20 @@
 
 ## Unreleased
 
-## 2.0.0 - 2021-07-30
+## 2.0.0-beta1 - 2021-08-02
 
 * Add presets for the keys/values
-* Add multi-keys query from quick query panel
+* Add multi-keys query from Quick Query panel
 * Add history of queries
-* Add option to get the metadata of osm
-* Add default map presets  
-* Add save query in a personal preset (new or existing one)
+* Add option to get the metadata of OSM data such as author, timestampe etc
+* Add default map presets to download a map with many queries
+* Add a button to save the query in a personal preset (new or existing one)
 * Add an action to reload the query
-* Add processing algorithms
-* Add several output format
+* Add processing algorithms for the "Quick Query"
+* Add several output format such as geopackage, KML
 * Add the possibility to load only a subset of a local file
-* Boost of performance using HStore processing algorithm to parse the downloaded osm file
-* Improve UI
+* Boost of performance using HStore processing algorithm to parse the downloaded OSM file
+* Improve user interface
 * Update of the documentation
 
 ## 1.17.1 - 2021-06-23
