@@ -167,6 +167,9 @@ class TableKeyValue:
         key_field.setCompleter(keys_completer)
         key_field.completer().setCompletionMode(
             QCompleter.PopupCompletion)
+        key_field.completer().setCaseSensitivity(
+            Qt.CaseInsensitive
+        )
 
         key_field.lineEdit().setPlaceholderText(
             self.all_keys_placeholder)
