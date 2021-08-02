@@ -1,6 +1,7 @@
 """ Parser of the presets file. """
 
 import collections as col
+import json
 import logging
 import re
 import xml.dom.minidom as xml
@@ -8,12 +9,11 @@ import xml.dom.minidom as xml
 from QuickOSM.qgis_plugin_tools.tools.i18n import setup_translation
 from QuickOSM.qgis_plugin_tools.tools.resources import resources_path
 
-PRESET_PATH = resources_path('JOSM_preset', 'josm_preset.xml')
-
 __copyright__ = 'Copyright 2021, 3Liz'
 __license__ = 'GPL version 3'
 __email__ = 'info@3liz.org'
 
+PRESET_PATH = resources_path('JOSM_preset', 'josm_preset.xml')
 LOGGER = logging.getLogger('QuickOSM')
 
 
@@ -180,10 +180,17 @@ class PresetsParser:
         """ Retrieval of key/value couple """
         couple = {}
 
+        old_couple_file = resources_path('json', 'map_features.json')
+        with open(old_couple_file, encoding='utf8') as json_file:
+            data = json.load(json_file)
+
+        items = self.items.copy()
+        items['old_file'] = data
+
         key = []
-        for item in self.items:
-            for k in list(self.items[item].keys()):
-                value = self.items[item][k]
+        for item in items:
+            for k in list(items[item].keys()):
+                value = items[item][k]
                 if k in key:
                     if isinstance(value, list):
                         for val in value:
@@ -195,9 +202,13 @@ class PresetsParser:
                     key.append(k)
                     couple[k] = [value]
                 elif isinstance(value, list):
-                    couple[k] = [value[0]]
-                    for val in value[1:]:
-                        couple[k].append(val)
+                    key.append(k)
+                    if value:
+                        couple[k] = [value[0]]
+                        for val in value[1:]:
+                            couple[k].append(val)
+                    else:
+                        couple[k] = ['']
 
         return couple
 
