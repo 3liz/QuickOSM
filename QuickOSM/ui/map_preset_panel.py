@@ -69,10 +69,8 @@ class MapPresetPanel(BaseOverpassPanel):
         self.dialog.combo_extent_layer_mp.layerChanged.connect(self.query_type_updated)
 
         self.setup_default_preset()
-        self.dialog.list_default_mp.itemPressed.connect(
-            self.dialog.list_personal_preset_mp.clearSelection)
-        self.dialog.list_personal_preset_mp.itemPressed.connect(
-            self.dialog.list_default_mp.clearSelection)
+        self.dialog.list_default_mp.itemPressed.connect(self.select_default)
+        self.dialog.list_personal_preset_mp.itemPressed.connect(self.select_personal)
         self.dialog.button_run_query_mp.clicked.connect(self.prepare_run)
         self.dialog.list_personal_preset_mp.currentRowChanged.connect(self.disable_enable_location)
 
@@ -133,6 +131,18 @@ class MapPresetPanel(BaseOverpassPanel):
             self.dialog.stacked_query_type_mp,
             self.dialog.spin_place_mp,
             self.dialog.checkbox_selection_mp)
+
+    def select_default(self):
+        """Update the panel knowing a default preset is selected."""
+        self.dialog.list_personal_preset_mp.clearSelection()
+        self.dialog.combo_query_type_mp.setEnabled(True)
+        self.dialog.stacked_query_type_mp.setEnabled(True)
+
+    def select_personal(self):
+        """Update the panel knowing a personal preset is selected."""
+        self.dialog.list_default_mp.clearSelection()
+        row = self.dialog.list_personal_preset_mp.currentRow()
+        self.disable_enable_location(row)
 
     def disable_enable_location(self, row: int):
         """Enable only when it is a basic preset."""
