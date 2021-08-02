@@ -211,19 +211,21 @@ class TestPresetParser(unittest.TestCase):
             '<key key="foo" value="bar"/>'
             '</item>'
             '<item name="railway">'
+            '<key key="foo" value="barbar"/>'
             '<key key="bar" value="foo"/>'
             '</item>'
             '</group>'
             '<group name="Road">'
             '<item name="tramway">'
             '<key key="foobar" value="barfoo"/>'
+            '<key key="bar" value="foo"/>'
             '</item>'
             '</group>'
             '</group>'
             '</presets>'
         )
         expected_couples = {
-            'foo': ['bar'],
+            'foo': ['bar', 'barbar'],
             'bar': ['foo'],
             'foobar': ['barfoo'],
         }

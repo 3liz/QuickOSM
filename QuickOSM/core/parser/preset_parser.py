@@ -3,6 +3,7 @@
 import collections as col
 import json
 import logging
+import os
 import re
 import xml.dom.minidom as xml
 
@@ -179,13 +180,14 @@ class PresetsParser:
     def osm_keys_values(self) -> dict:
         """ Retrieval of key/value couple """
         couple = {}
+        items = self.items.copy()
 
         old_couple_file = resources_path('json', 'map_features.json')
         with open(old_couple_file, encoding='utf8') as json_file:
             data = json.load(json_file)
 
-        items = self.items.copy()
-        items['old_file'] = data
+        if not os.getenv('CI'):
+            items['old_file'] = data
 
         key = []
         for item in items:
