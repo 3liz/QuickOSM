@@ -6,6 +6,7 @@ from qgis.core import QgsCoordinateReferenceSystem, QgsRectangle
 from qgis.testing import unittest
 
 from QuickOSM.core.utilities.json_encoder import as_enum
+from QuickOSM.core.utilities.query_saved import QueryManagement
 from QuickOSM.core.utilities.tools import query_preset
 from QuickOSM.definitions.format import Format
 from QuickOSM.definitions.gui import Panels
@@ -217,6 +218,20 @@ class TestBookmarkQuery(unittest.TestCase):
 
         self.assertDictEqual(expected_json, new_data)
 
+    def test_advanced_view(self):
+        """Test if the view match the preset type."""
+        data_preset = self.set_up_preset_data()
+
+        edit_dialog = EditPreset(self.dialog, data_preset)
+
+        current = edit_dialog.stacked_parameters_preset.currentWidget()
+        self.assertEqual(current, edit_dialog.basic_parameters)
+
+        edit_dialog.radio_advanced.setChecked(True)
+
+        current = edit_dialog.stacked_parameters_preset.currentWidget()
+        self.assertEqual(current, edit_dialog.advanced_parameters)
+
     def test_bookmark_several_query(self):
         """Test if we can manage (add and remove) several queries in a preset."""
         data_preset = self.set_up_preset_data()
@@ -355,3 +370,40 @@ class TestBookmarkQuery(unittest.TestCase):
         }
 
         self.assertDictEqual(expected_json, new_data)
+
+    def test_add_in_preset(self):
+        """Test if we can add a query in a preset from the Quick Query panel."""
+        data_preset = self.set_up_preset_data()
+
+        edit_dialog = EditPreset(self.dialog, data_preset)
+
+        nb_queries = edit_dialog.list_queries.count()
+        self.assertEqual(nb_queries, 1)
+
+        nb_preset = self.dialog.list_personal_preset_mp.count()
+        self.assertEqual(nb_preset, 1)
+
+        q_manage = QueryManagement(
+            query='',
+            name='aeroway_control_tower_foo',
+            description='',
+            advanced=False,
+            keys='aeroway',
+            values='control_tower',
+            area='foo'
+        )
+        q_manage.add_query_in_preset('amenity_bench_foo')
+
+        self.preset = self.dialog.list_personal_preset_mp.item(0)
+        layout_label = self.dialog.list_personal_preset_mp.itemWidget(self.preset).layout()
+        self.name_preset = layout_label.itemAt(0).itemAt(0).widget().text()
+
+        data_preset = self.set_up_preset_data()
+
+        edit_dialog = EditPreset(self.dialog, data_preset)
+
+        nb_queries = edit_dialog.list_queries.count()
+        self.assertEqual(nb_queries, 2)
+
+        nb_preset = self.dialog.list_personal_preset_mp.count()
+        self.assertEqual(nb_preset, 1)
