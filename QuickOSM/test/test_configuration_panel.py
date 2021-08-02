@@ -7,7 +7,7 @@ from QuickOSM.definitions.nominatim import NOMINATIM_SERVERS
 from QuickOSM.definitions.overpass import OVERPASS_SERVERS
 from QuickOSM.ui.dialog import Dialog
 
-__copyright__ = 'Copyright 2019, 3Liz'
+__copyright__ = 'Copyright 2021, 3Liz'
 __license__ = 'GPL version 3'
 __email__ = 'info@3liz.org'
 

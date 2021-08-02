@@ -19,14 +19,19 @@ BaseProcessingPanel
 ConfigurationPanel
 BaseOverpassPanel
 OsmFilePanel
+MapPresetPanel
 QueryPanel
 QuickQueryPanel
+TableKeyValue
 BasePanel <|-- BaseProcessingPanel
 BasePanel <|-- ConfigurationPanel
 BaseProcessingPanel <|-- BaseOverpassPanel
 BaseProcessingPanel <|-- OsmFilePanel
+BaseProcessingPanel <|-- MapPresetPanel
 BaseOverpassPanel <|-- QueryPanel
 BaseOverpassPanel <|-- QuickQueryPanel
+TableKeyValue <|-- QuickQueryPanel
+TableKeyValue <|-- OsmFilePanel
 class BasePanel{
   <<abstract>>
   +Panel
