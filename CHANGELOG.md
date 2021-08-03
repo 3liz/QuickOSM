@@ -4,10 +4,11 @@
 
 ## 2.0.0-beta1 - 2021-08-02
 
+* Raise minimum version to QGIS 3.16
 * Add presets for the keys/values
 * Add multi-keys query from Quick Query panel
 * Add history of queries
-* Add option to get the metadata of OSM data such as author, timestampe etc
+* Add option to get the metadata of OSM data such as author, timestamp etc
 * Add default map presets to download a map with many queries
 * Add a button to save the query in a personal preset (new or existing one)
 * Add an action to reload the query
