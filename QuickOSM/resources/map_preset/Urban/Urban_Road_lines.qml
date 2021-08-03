@@ -11,7 +11,7 @@
         <rule symbol="5" label="Tertiary link" key="{f215859b-f963-4872-8f4b-b2e39e5f0c35}" filter="&quot;highway&quot; = 'tertiary_link'"/>
         <rule symbol="6" label="Secondary" key="{aac3fe77-b7ff-4c47-8f28-c33de0dc4b2b}" filter="&quot;highway&quot; = 'secondary'"/>
         <rule symbol="7" label="Secondary link" key="{960d07d3-ac1a-40c8-8f2e-1b499f3ccafc}" filter="&quot;highway&quot; = 'secondary_link'"/>
-        <rule symbol="8" label="Road, residential, living street, etc." key="{303a360c-638b-4c9f-adee-eff33d3e95f1}" filter="&quot;highway&quot; IN ('road', 'residential', 'living street')"/>
+        <rule symbol="8" label="Road, residential, living street, etc." key="{303a360c-638b-4c9f-adee-eff33d3e95f1}" filter="&quot;highway&quot; IN ('road', 'residential', 'living_street', 'service', 'unclassified')"/>
         <rule symbol="9" label="Track" key="{c63b61f8-f9e5-4a57-9231-9001ffd07bad}" filter="&quot;highway&quot; = 'track'"/>
         <rule symbol="10" label="Cycleway, footpath etc." key="{245c23be-e45f-4f80-9ea4-f1676315f178}" filter="&quot;highway&quot; IN ('cycleway', 'footpath')"/>
       </rule>
