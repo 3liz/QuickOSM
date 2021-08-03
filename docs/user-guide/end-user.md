@@ -14,17 +14,17 @@ To have an overview of all keys and values, have a look to the OpenStreetMap
 
 ## Video
 
-Watch the [Video tutorial](https://vimeo.com/108737868)
+(Outdated) Watch the [Video tutorial](https://vimeo.com/108737868)
 
 ## Quick how to
 
-**Install the QuickOSM plugin** :
+#### Install the QuickOSM plugin :
 
 * QGIS `Plugins` menu → `Manage and Install Plugins…`
 * Search for `QuickOSM` and select it
 * `Install Plugin`
 
-**Try a quick query** :
+#### Try a quick query :
 
 * `Vector` menu → `QuickOSM` → `QuickOSM`
 * In the `key` field enter `amenity`
@@ -36,7 +36,7 @@ The Overpass API takes a few seconds to respond, and after that you should get n
 point and polygon layers for the toilets of London! (nodes and ways in OpenStreetMap
 with the `amenity`=`toilet` tag on them)
 
-**Try to run a preset**
+#### Try to run a preset
 
 * `Vector` menu → `QuickOSM` → `QuickOSM`
 * Go in `Map preset` panel
@@ -48,7 +48,7 @@ The Overpass API takes a few seconds to respond, and after that you should get n
 lines and polygon layers that match roads and buildings in Montpellier
 with a custom style.
 
-**Try to save and edit a preset**
+#### Try to save and edit a preset
 
 * `Vector` menu → `QuickOSM` → `QuickOSM`
 * In the `key` field enter `amenity`
