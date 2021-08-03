@@ -40,13 +40,35 @@ with the `amenity`=`toilet` tag on them)
 
 * `Vector` menu → `QuickOSM` → `QuickOSM`
 * Go in `Map preset` panel
-* Click on preset name `Urban`
+* Click on preset named `Urban`
 * Set the name of the town/village to `Montpellier`
 * `Run preset`
 
 The Overpass API takes a few seconds to respond, and after that you should get new
 lines and polygon layers that match roads and buildings in Montpellier
 with a custom style.
+
+**Try to save and edit a preset**
+
+* `Vector` menu → `QuickOSM` → `QuickOSM`
+* In the `key` field enter `amenity`
+* In the `value` field enter `theater`
+* Set the name of the town/village to `Paris`
+* `Save query in a new preset`
+* Click on `edit` button in preset named `amenity_theater_Paris`
+* In the `preset name` field enter `Culture`
+* In the `description` field enter `Theater and museum in Paris`
+* `Add anew query`
+* Right click on `Query2` → `Rename` → enter `Museum`
+* In the `Layer name` field enter `tourism_museum_Paris`  
+* In the `key` field enter `tourism`
+* In the `value` field enter `museum`
+* In the `area` field enter `Paris`
+* `Validate`
+
+You now have a preset that download the theaters and then the museums.
+You don't need to fill the parameter to run the preset, but you can
+if you want the theaters and museums in another place than Paris. 
 
 ## Custom API server
 
