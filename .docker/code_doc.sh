@@ -12,8 +12,10 @@ docker run -d \
 sleep 10
 
 echo "Setting up"
+docker exec -t qgis-testing-environment sh -c "cd /plugin && cp CHANGELOG.md docs/"
+docker exec -t qgis-testing-environment sh -c "cd /plugin && cp CONTRIBUTING.md docs/"
 docker exec -t qgis-testing-environment sh -c "python3 -m pip install -r /plugin/requirements/doc.txt"
-docker exec -t qgis-testing-environment sh -c "cd /plugin && mkdocs build"
+docker exec -t qgis-testing-environment sh -c "cd /plugin && mkdocs gh-deploy --clean --force --verbose"
 
 docker kill qgis-testing-environment
 docker rm qgis-testing-environment
