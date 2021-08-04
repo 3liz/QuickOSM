@@ -1,0 +1,36 @@
+name: Translation statistics 🗺
+
+on:
+  schedule:
+    - cron: '0 13 * * *'
+  workflow_dispatch:
+
+jobs:
+  ReportTranslationStats:
+
+    if: github.repository == '3liz/QuickOSM'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 1
+
+      - name: Set up Python 3.8
+        uses: actions/setup-python@v1
+        with:
+          python-version: 3.8
+
+      - name: Install dependencies
+        run: python3 -m pip install requests
+
+      - name: Report statistics
+        run: python3 .github/transifex_stats.py ${{ secrets.TRANSIFEX_TOKEN }}
+
+      - name: Commit changes
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: Update statistics of translation
+          commit_user_name: ${{ secrets.BOT_NAME }}
+          commit_user_email: ${{ secrets.BOT_MAIL }}
+          commit_author: ${{ secrets.BOT_NAME }}
