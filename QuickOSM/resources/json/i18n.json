@@ -1,4 +1,8 @@
 {
+    "zh": {
+        "name": "Chinese",
+        "percentage": 0.0
+    },
     "zh_CN": {
         "name": "Chinese (China)",
         "percentage": 0.0
@@ -48,8 +52,8 @@
         "percentage": 53.45
     },
     "en": {
-        "nb_languages": 12,
+        "nb_languages": 13,
         "stringcount": 290,
-        "percentage": 56.44
+        "percentage": 52.09
     }
 }

@@ -15,7 +15,7 @@ knowledge is required.
 
 | Number of strings | Number of target languages | Overall Translation ratio |
 |:-:|:-:|:-:|
-290|12|56.44
+290|13|52.09
 
 | Language | Translation ratio (%) |
 |:-:|:-:|
@@ -30,5 +30,6 @@ Spanish|[=53.45% "53.45"]|
 Indonesian|[=51.38% "51.38"]|
 Finnish|[=3.79% "3.79"]|
 German|[=3.1% "3.1"]|
+Chinese|[=0.0% "0.0"]|
 Chinese (China)|[=0.0% "0.0"]|
 
