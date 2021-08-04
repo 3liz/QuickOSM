@@ -36,6 +36,36 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
+         <loc>https://docs.3liz.org/QuickOSM/code-documentation/core/</loc>
+         <lastmod>2021-08-04</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://docs.3liz.org/QuickOSM/code-documentation/definitions/</loc>
+         <lastmod>2021-08-04</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://docs.3liz.org/QuickOSM/code-documentation/developer/</loc>
+         <lastmod>2021-08-04</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://docs.3liz.org/QuickOSM/code-documentation/processing/</loc>
+         <lastmod>2021-08-04</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://docs.3liz.org/QuickOSM/code-documentation/tests/</loc>
+         <lastmod>2021-08-04</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://docs.3liz.org/QuickOSM/code-documentation/ui/</loc>
+         <lastmod>2021-08-04</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
          <loc>https://docs.3liz.org/QuickOSM/processing/</loc>
          <lastmod>2021-08-04</lastmod>
          <changefreq>daily</changefreq>
