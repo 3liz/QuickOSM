@@ -2,6 +2,13 @@
 
 ## Unreleased
 
+## 2.0.0-beta2 - 2021-08-06
+
+* Update the translations
+* Add some documentations for users and for developpers
+* Add the preset translations in zip
+* Fix the selection of preset
+
 ## 2.0.0-beta1 - 2021-08-02
 
 * Raise minimum version to QGIS 3.16
