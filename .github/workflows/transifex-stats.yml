@@ -14,6 +14,7 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v2
         with:
+          ref: "master"
           fetch-depth: 1
           token: ${{ secrets.BOT_HUB_TOKEN }}  # Important to launch CI on a commit from a bot
 
@@ -31,7 +32,7 @@ jobs:
       - name: Commit changes
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
-          commit_message: Update statistics of translation
+          commit_message: "Publish QGIS Plugin ${{ github.event.client_payload.name }} ${{ github.event.client_payload.version }}"
           commit_user_name: ${{ secrets.BOT_NAME }}
           commit_user_email: ${{ secrets.BOT_MAIL }}
           commit_author: ${{ secrets.BOT_NAME }}
