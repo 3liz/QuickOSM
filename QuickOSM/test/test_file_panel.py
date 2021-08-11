@@ -2,8 +2,11 @@
 
 import unittest
 
+from qgis.core import QgsProject
+
 from QuickOSM.definitions.osm import MultiType
 from QuickOSM.qgis_plugin_tools.tools.resources import plugin_test_data_path
+from QuickOSM.ui.dialog import Dialog
 from QuickOSM.ui.osm_file_panel import OsmFilePanel
 
 __copyright__ = 'Copyright 2021, 3Liz'
@@ -52,6 +55,19 @@ class TestFileLoader(unittest.TestCase):
         expression = OsmFilePanel.generate_sql(properties)
         expected_exp = '\"foo\"=\'bar\' OR \"foofoo\"=\'barbar\''
         self.assertEqual(expected_exp, expression)
+
+    def test_load_only(self):
+        """Test if we can only load a file."""
+
+        dialog = Dialog()
+        dialog.osm_file.setFilePath(self.file)
+        dialog.radio_osm_conf.setChecked(True)
+        dialog.button_run_file.click()
+        project = QgsProject().instance()
+        nb_layers = len(project.mapLayers())
+        self.assertEqual(nb_layers, 4)
+
+        project.clear()
 
 
 if __name__ == '__main__':

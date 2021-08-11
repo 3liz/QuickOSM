@@ -257,8 +257,6 @@ class MapPresetPanel(BaseOverpassPanel):
         """Prepare the data before running the process."""
         selection = self.dialog.list_default_mp.selectedIndexes()
         try:
-            if not len(selection):
-                raise NoSelectedPreset
 
             if selection:
                 preset = self.dialog.list_default_mp.item(selection[0].row())
@@ -267,6 +265,9 @@ class MapPresetPanel(BaseOverpassPanel):
                 preset_folder = resources_path('map_preset')
             else:
                 selection = self.dialog.list_personal_preset_mp.selectedIndexes()
+                if not len(selection):
+                    raise NoSelectedPreset
+
                 preset = self.dialog.list_personal_preset_mp.item(selection[0].row())
                 preset_widget = self.dialog.list_personal_preset_mp.itemWidget(preset)
                 preset_label = preset_widget.layout().itemAt(0).itemAt(0).widget().text()

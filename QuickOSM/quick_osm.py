@@ -40,7 +40,7 @@ __copyright__ = 'Copyright 2021, 3Liz'
 __license__ = 'GPL version 3'
 __email__ = 'info@3liz.org'
 
-LOGGER = logging.getLogger(plugin_name())
+LOGGER = logging.getLogger('QuickOSM')
 
 
 class QuickOSMPlugin:
@@ -237,7 +237,7 @@ class QuickOSMPlugin:
         try:
             from pathlib import Path
 
-            from qgis_plugin_tools.infrastructure.test_runner import (
+            from QuickOSM.qgis_plugin_tools.infrastructure.test_runner import (
                 test_package,
             )
             test_package('{}.__init__'.format(Path(__file__).parent.name))

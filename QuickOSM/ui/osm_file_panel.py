@@ -187,7 +187,7 @@ class OsmFilePanel(BaseProcessingPanel, TableKeyValue):
                 load_only=True,
                 osm_conf=properties['osm_conf'],
                 layers=output_geom_legacy)
-            layers = osm_parser.parse()
+            layers = osm_parser.processing_parse()
             for item in layers.values():
                 # noinspection PyArgumentList
                 QgsProject.instance().addMapLayer(item)

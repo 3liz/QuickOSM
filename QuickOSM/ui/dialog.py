@@ -314,6 +314,10 @@ class Dialog(QDialog, FORM_CLASS):
         """Reset all the GUI to default state."""
         LOGGER.info('Dialog has been reset')
 
+        # Map preset
+        self.list_personal_preset_mp.clearSelection()
+        self.list_default_mp.clearSelection()
+
         # Quickquery
         self.combo_preset_qq.setCurrentIndex(0)
         self.table_keys_values_qq.setRowCount(1)
@@ -340,9 +344,17 @@ class Dialog(QDialog, FORM_CLASS):
         self.table_keys_values_f.cellWidget(0, 1).setCurrentIndex(0)
         self.table_keys_values_f.cellWidget(0, 2).lineEdit().setText('')
 
+        # Query type
+        for q_type in self.query_type_buttons.values():
+            q_type.setCurrentIndex(0)
+
         # Place nominatim
         for edit in self.places_edits.values():
             edit.setText('')
+
+        # Option selected features
+        for option in self.selection_features.values():
+            option.setChecked(False)
 
         # Output layers
         for panel in self.output_buttons.values():
@@ -351,11 +363,13 @@ class Dialog(QDialog, FORM_CLASS):
 
         # Directories
         for edit in self.output_directories.values():
-            edit.lineEdit().setText('')
+            if edit:
+                edit.lineEdit().setText('')
 
         # Prefix
         for edit in self.prefix_edits.values():
-            edit.setText('')
+            if edit:
+                edit.setText('')
 
     def set_progress_percentage(self, percent: int):
         """Slot to update percentage during process."""

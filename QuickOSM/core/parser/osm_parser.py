@@ -110,7 +110,7 @@ class OsmParser(QObject):
                     uri + layer, file_name + ' ' + layer, 'ogr')
 
                 if not layers[layer].isValid():
-                    message = tr('Error on the layer : {layer}').format(layer=layer)
+                    message = tr('Error on the layer : {layer} is not valid.').format(layer=layer)
                     raise QuickOsmException(message)
 
             return layers
@@ -125,7 +125,7 @@ class OsmParser(QObject):
                 uri + layer, 'test_' + layer, 'ogr')
 
             if not layers[layer]['vectorLayer'].isValid():
-                message = 'Error on the layer : {layer}'.format(layer=layer)
+                message = 'Error on the layer : {layer} is not valid.'.format(layer=layer)
                 raise QuickOsmException(message)
 
             if self.feedback_alg:
