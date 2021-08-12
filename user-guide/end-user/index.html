@@ -16,7 +16,7 @@
         <link rel="canonical" href="https://docs.3liz.org/QuickOSM/user-guide/end-user/">
       
       <link rel="icon" href="../../media/icon.png">
-      <meta name="generator" content="mkdocs-1.2.2, mkdocs-material-7.2.2">
+      <meta name="generator" content="mkdocs-1.2.2, mkdocs-material-7.2.4">
     
     
       
@@ -24,10 +24,10 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.1118c9be.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.f7f47774.min.css">
       
         
-        <link rel="stylesheet" href="../../assets/stylesheets/palette.ba0d045b.min.css">
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.3f5d1f46.min.css">
         
           
           
@@ -445,6 +445,40 @@
     Quick how to
   </a>
   
+    <nav class="md-nav" aria-label="Quick how to">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#install-the-quickosm-plugin" class="md-nav__link">
+    Install the QuickOSM plugin :
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#try-a-quick-query" class="md-nav__link">
+    Try a quick query :
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#try-to-run-a-preset" class="md-nav__link">
+    Try to run a preset
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#try-to-save-and-edit-a-preset" class="md-nav__link">
+    Try to save and edit a preset
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -701,6 +735,40 @@
     Quick how to
   </a>
   
+    <nav class="md-nav" aria-label="Quick how to">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#install-the-quickosm-plugin" class="md-nav__link">
+    Install the QuickOSM plugin :
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#try-a-quick-query" class="md-nav__link">
+    Try a quick query :
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#try-to-run-a-preset" class="md-nav__link">
+    Try to run a preset
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#try-to-save-and-edit-a-preset" class="md-nav__link">
+    Try to save and edit a preset
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -741,15 +809,15 @@ model doesn't restrict any keys or values.</p>
 <p>If you want to query <strong>all</strong> data, you can let key and value empty.</p>
 </div>
 <h2 id="video">Video<a class="headerlink" href="#video" title="Permanent link">#</a></h2>
-<p>Watch the <a href="https://vimeo.com/108737868">Video tutorial</a></p>
+<p>(Outdated) Watch the <a href="https://vimeo.com/108737868">Video tutorial</a></p>
 <h2 id="quick-how-to">Quick how to<a class="headerlink" href="#quick-how-to" title="Permanent link">#</a></h2>
-<p><strong>Install the QuickOSM plugin</strong> :</p>
+<h4 id="install-the-quickosm-plugin">Install the QuickOSM plugin :<a class="headerlink" href="#install-the-quickosm-plugin" title="Permanent link">#</a></h4>
 <ul>
 <li>QGIS <code>Plugins</code> menu → <code>Manage and Install Plugins…</code></li>
 <li>Search for <code>QuickOSM</code> and select it</li>
 <li><code>Install Plugin</code></li>
 </ul>
-<p><strong>Try a quick query</strong> :</p>
+<h4 id="try-a-quick-query">Try a quick query :<a class="headerlink" href="#try-a-quick-query" title="Permanent link">#</a></h4>
 <ul>
 <li><code>Vector</code> menu → <code>QuickOSM</code> → <code>QuickOSM</code></li>
 <li>In the <code>key</code> field enter <code>amenity</code></li>
@@ -760,6 +828,38 @@ model doesn't restrict any keys or values.</p>
 <p>The Overpass API takes a few seconds to respond, and after that you should get new
 point and polygon layers for the toilets of London! (nodes and ways in OpenStreetMap
 with the <code>amenity</code>=<code>toilet</code> tag on them)</p>
+<h4 id="try-to-run-a-preset">Try to run a preset<a class="headerlink" href="#try-to-run-a-preset" title="Permanent link">#</a></h4>
+<ul>
+<li><code>Vector</code> menu → <code>QuickOSM</code> → <code>QuickOSM</code></li>
+<li>Go in <code>Map preset</code> panel</li>
+<li>Click on preset named <code>Urban</code></li>
+<li>Set the name of the town/village to <code>Montpellier</code></li>
+<li><code>Run preset</code></li>
+</ul>
+<p>The Overpass API takes a few seconds to respond, and after that you should get new
+lines and polygon layers that match roads and buildings in Montpellier
+with a custom style.</p>
+<h4 id="try-to-save-and-edit-a-preset">Try to save and edit a preset<a class="headerlink" href="#try-to-save-and-edit-a-preset" title="Permanent link">#</a></h4>
+<ul>
+<li><code>Vector</code> menu → <code>QuickOSM</code> → <code>QuickOSM</code></li>
+<li>In the <code>key</code> field enter <code>amenity</code></li>
+<li>In the <code>value</code> field enter <code>theater</code></li>
+<li>Set the name of the town/village to <code>Paris</code></li>
+<li><code>Save query in a new preset</code></li>
+<li>Click on <code>edit</code> button in preset named <code>amenity_theater_Paris</code></li>
+<li>In the <code>preset name</code> field enter <code>Culture</code></li>
+<li>In the <code>description</code> field enter <code>Theater and museum in Paris</code></li>
+<li><code>Add anew query</code></li>
+<li>Right click on <code>Query2</code> → <code>Rename</code> → enter <code>Museum</code></li>
+<li>In the <code>Layer name</code> field enter <code>tourism_museum_Paris</code>  </li>
+<li>In the <code>key</code> field enter <code>tourism</code></li>
+<li>In the <code>value</code> field enter <code>museum</code></li>
+<li>In the <code>area</code> field enter <code>Paris</code></li>
+<li><code>Validate</code></li>
+</ul>
+<p>You now have a preset that download the theaters and then the museums.
+You don't need to fill the parameter to run the preset, but you can
+if you want the theaters and museums in another place than Paris. </p>
 <h2 id="custom-api-server">Custom API server<a class="headerlink" href="#custom-api-server" title="Permanent link">#</a></h2>
 <p>If you want to add some customs servers, add a file called <code>custom_config.json</code>
 in your <code>profile_name/QuickOSM</code> folder and add this template in it :
@@ -780,7 +880,8 @@ in your <code>profile_name/QuickOSM</code> folder and add this template in it :
 <span class="p">}</span>
 </code></pre></div>
 </td></tr></table>
-Both <code>overpass_servers</code> et <code>nominatim_servers</code> are optionals. If you want to add only one of them, you don't need to write the other.
+Both <code>overpass_servers</code> et <code>nominatim_servers</code> are optionals. If you want to add only 
+one of them, you don't need to write the other.
 QuickOSM will add your custom list to the list below.</p>
 <p>To find the profile folder, go in <strong>Settings → Profile → Open active profile folder</strong>.</p>
 <div class="admonition warning">
@@ -798,7 +899,7 @@ core by updating this list below.</p>
 <div class="md-source-date">
   <small>
     
-      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">July 21, 2021</span>
+      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">August 3, 2021</span>
       
     
   </small>
@@ -935,7 +1036,7 @@ core by updating this list below.</p>
     <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.top"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../assets/javascripts/workers/search.709b4209.min.js", "version": null}</script>
     
     
-      <script src="../../assets/javascripts/bundle.2b46852b.min.js"></script>
+      <script src="../../assets/javascripts/bundle.febc23d1.min.js"></script>
       
         <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js"></script>
       
