@@ -2,10 +2,16 @@
 
 ## Unreleased
 
+## 2.0.0-beta3 - 2021-08-12
+
+* Fix the selection of the preset to run
+* Fix the opening of an osm file with a custom configuration file
+* Fix the reset of the dialog
+
 ## 2.0.0-beta2 - 2021-08-06
 
 * Update the translations
-* Add some documentations for users and for developpers
+* Add some documentations for users and for developers
 * Add the preset translations in zip
 * Fix the selection of preset
 
