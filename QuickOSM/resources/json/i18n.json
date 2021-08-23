@@ -1,7 +1,7 @@
 {
     "zh": {
         "name": "Chinese",
-        "percentage": 95.19
+        "percentage": 100.0
     },
     "zh_TW": {
         "name": "Chinese (Taiwan)",
@@ -29,7 +29,7 @@
     },
     "id": {
         "name": "Indonesian",
-        "percentage": 50.86
+        "percentage": 100.0
     },
     "it": {
         "name": "Italian",
@@ -37,7 +37,7 @@
     },
     "pl": {
         "name": "Polish",
-        "percentage": 63.92
+        "percentage": 73.54
     },
     "pt_BR": {
         "name": "Portuguese (Brazil)",
@@ -54,6 +54,6 @@
     "en": {
         "nb_languages": 13,
         "stringcount": 291,
-        "percentage": 59.71
+        "percentage": 64.6
     }
 }
