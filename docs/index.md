@@ -20,3 +20,8 @@ QuickOSM allows you to work quickly with OSM data in QGIS thanks to
 
 There are some useful tips, like automatic colours on lines (if the tag is present),
 or some actions (right-click in the attribute table) for each entity (edit in JOSM for instance).
+
+# Getting help
+* You can ask questions on github
+* We are present on #lizmap , via https://libera.chat
+* commercial support and training available, ask us info@3liz.com
