@@ -5,8 +5,12 @@ updates:
     directory: "/requirements/"
     schedule:
       interval: "monthly"
+    assignees:
+      - Gustry
 
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
       interval: "monthly"
+    assignees:
+      - Gustry
