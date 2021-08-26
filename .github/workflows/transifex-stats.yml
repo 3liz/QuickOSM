@@ -2,11 +2,12 @@ name: Translation statistics 🗺
 
 on:
   schedule:
-    - cron: '0 13 * * *'
+    # runs tuesday at 6:00 UTC
+    - cron: '0 6 * * 2'
   workflow_dispatch:
 
 jobs:
-  ReportTranslationStats:
+  translation-stats:
 
     if: github.repository == '3liz/QuickOSM'
     runs-on: ubuntu-latest
@@ -32,7 +33,7 @@ jobs:
       - name: Commit changes
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
-          commit_message: "Publish QGIS Plugin ${{ github.event.client_payload.name }} ${{ github.event.client_payload.version }}"
+          commit_message: "Update statistics from Transifex"
           commit_user_name: ${{ secrets.BOT_NAME }}
           commit_user_email: ${{ secrets.BOT_MAIL }}
           commit_author: ${{ secrets.BOT_NAME }}
