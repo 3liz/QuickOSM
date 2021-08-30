@@ -36,4 +36,4 @@ jobs:
           commit_message: "Update statistics from Transifex"
           commit_user_name: ${{ secrets.BOT_NAME }}
           commit_user_email: ${{ secrets.BOT_MAIL }}
-          commit_author: ${{ secrets.BOT_NAME }}
+          commit_author: ${{ secrets.BOT_NAME_MAIL }}
