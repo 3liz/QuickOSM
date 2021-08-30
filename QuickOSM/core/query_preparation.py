@@ -189,7 +189,11 @@ class QueryPreparation:
         """ Reduce the number of decimals, see #344 """
         # https://en.wikipedia.org/wiki/Decimal_degrees
         # We keep 5 decimals : individual trees, houses
-        return "{:.5f}".format(coordinate)
+        multiplier = 10 ** 5
+        number = str(int(coordinate * multiplier) / multiplier)
+        number = number.rstrip("0")
+        number = number.rstrip(".")
+        return number
 
     def _replace_geocode_coords(self):
         """Replace {{geocodeCoords}} by the centroid of the extent.

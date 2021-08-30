@@ -55,22 +55,22 @@ class TestQueryPreparation(unittest.TestCase):
 
         # One center in XML.
         query = 'foobar{{center}}foobar'
-        expected = 'foobarlat="1.0" lon="15.0"foobar'
+        expected = 'foobarlat="1" lon="15"foobar'
         test(query, expected, extent)
 
         # One center in OQL.
         query = 'foobar{{center}}foobar;'
-        expected = 'foobar1.0,15.0foobar;'
+        expected = 'foobar1,15foobar;'
         test(query, expected, extent)
 
         # Two centers in OQL.
         query = 'foobar{{center}}foobar{{center}}foobar;'
-        expected = 'foobar1.0,15.0foobar1.0,15.0foobar;'
+        expected = 'foobar1,15foobar1,15foobar;'
         test(query, expected, extent)
 
         # One center and one OQL in OQL.
         query = 'foobar{{center}}foobar{{bbox}}foobar;'
-        expected = 'foobar1.0,15.0foobar{{bbox}}foobar;'
+        expected = 'foobar1,15foobar{{bbox}}foobar;'
         test(query, expected, extent)
 
     def test_replace_big_bbox(self):
@@ -81,6 +81,15 @@ class TestQueryPreparation(unittest.TestCase):
         query = QueryPreparation(query, extent=extent)
         query.replace_bbox()
         self.assertEqual(expected, query._query_prepared)
+
+    def test_decimals(self):
+        """ Test to have the correct number of decimals. """
+        self.assertEqual(QueryPreparation._format_decimals_wgs84(0.123456), '0.12345')
+        self.assertEqual(QueryPreparation._format_decimals_wgs84(0.12345), '0.12345')
+        self.assertEqual(QueryPreparation._format_decimals_wgs84(0.1234), '0.1234')
+        self.assertEqual(QueryPreparation._format_decimals_wgs84(0.1), '0.1')
+        self.assertEqual(QueryPreparation._format_decimals_wgs84(0), '0')
+        self.assertEqual(QueryPreparation._format_decimals_wgs84(20), '20')
 
     def test_replace_bbox(self):
         """Test we can replace {{bbox}} in a query."""
@@ -93,23 +102,23 @@ class TestQueryPreparation(unittest.TestCase):
 
         # One bbox.
         query = 'foobar{{bbox}}foobar'
-        expected = 'foobare="20.0" n="1.5" s="0.5" w="10.0"foobar'
+        expected = 'foobare="20" n="1.5" s="0.5" w="10"foobar'
         test(query, expected, extent)
 
         # Two bbox.
         query = 'foo{{bbox}}foo{{bbox}}foo'
-        expected = 'fooe="20.0" n="1.5" s="0.5" w="10.0"fooe="20.0" n="1.5" ' \
-                   's="0.5" w="10.0"foo'
+        expected = 'fooe="20" n="1.5" s="0.5" w="10"fooe="20" n="1.5" ' \
+                   's="0.5" w="10"foo'
         test(query, expected, extent)
 
         # One bbox in OQL.
         query = 'foobar{{bbox}}foobar;'
-        expected = 'foobar0.5,10.0,1.5,20.0foobar;'
+        expected = 'foobar0.5,10,1.5,20foobar;'
         test(query, expected, extent)
 
         # One center and one OQL in OQL.
         query = 'foobar{{center}}foobar{{bbox}}foobar;'
-        expected = 'foobar{{center}}foobar0.5,10.0,1.5,20.0foobar;'
+        expected = 'foobar{{center}}foobar0.5,10,1.5,20foobar;'
         test(query, expected, extent)
 
     def test_replace_geocode_coords(self):

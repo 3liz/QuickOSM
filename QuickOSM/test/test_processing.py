@@ -132,16 +132,16 @@ class TestProcessing(unittest.TestCase):
             'OUTPUT_URL':
                 'https://lz4.overpass-api.de/api/interpreter?data=[out:xml]'
                 ' [timeout:25];%0A(%0A    node[%22amenity%22%3D%22bench%22]'
-                '( 43.5579423,3.8099711,43.6546121,3.9636474);%0A    '
-                'way[%22amenity%22%3D%22bench%22]( 43.5579423,3.8099711,43.6546121,3.9636474);%0A'
+                '( 43.55794,3.80997,43.65461,3.96364);%0A    '
+                'way[%22amenity%22%3D%22bench%22]( 43.55794,3.80997,43.65461,3.96364);%0A'
                 '    relation[%22amenity%22%3D%22bench%22]'
-                '( 43.5579423,3.8099711,43.6546121,3.9636474);%0A);'
+                '( 43.55794,3.80997,43.65461,3.96364);%0A);'
                 '%0A(._;%3E;);%0Aout body;&info=QgisQuickOSMPlugin',
             'OUTPUT_OQL_QUERY':
                 '[out:xml] [timeout:25];\n(\n    node["amenity"="bench"]'
-                '( 43.5579423,3.8099711,43.6546121,3.9636474);\n    '
-                'way["amenity"="bench"]( 43.5579423,3.8099711,43.6546121,3.9636474);\n'
-                '    relation["amenity"="bench"]( 43.5579423,3.8099711,43.6546121,3.9636474);'
+                '( 43.55794,3.80997,43.65461,3.96364);\n    '
+                'way["amenity"="bench"]( 43.55794,3.80997,43.65461,3.96364);\n'
+                '    relation["amenity"="bench"]( 43.55794,3.80997,43.65461,3.96364);'
                 '\n);\n(._;>;);\nout body;'
         }
 
