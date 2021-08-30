@@ -120,8 +120,9 @@ class QueryPreparation:
         if self._extent is None:
             raise QueryFactoryException(tr('Missing extent parameter.'))
 
-        coord_y = self._extent.center().y()
-        coord_x = self._extent.center().x()
+        coord_y = self._format_decimals_wgs84(self._extent.center().y())
+        coord_x = self._format_decimals_wgs84(self._extent.center().x())
+
         if self.is_oql_query():
             new_string = '{},{}'.format(coord_y, coord_x)
         else:
@@ -167,12 +168,28 @@ class QueryPreparation:
                 'been restricted.'))
 
         if self.is_oql_query():
-            new_string = '{},{},{},{}'.format(y_min, x_min, y_max, x_max)
+            new_string = '{},{},{},{}'.format(
+                self._format_decimals_wgs84(y_min),
+                self._format_decimals_wgs84(x_min),
+                self._format_decimals_wgs84(y_max),
+                self._format_decimals_wgs84(x_max),
+            )
         else:
             new_string = 'e="{}" n="{}" s="{}" w="{}"'.format(
-                x_max, y_max, y_min, x_min)
+                self._format_decimals_wgs84(x_max),
+                self._format_decimals_wgs84(y_max),
+                self._format_decimals_wgs84(y_min),
+                self._format_decimals_wgs84(x_min),
+            )
         self._query_prepared = (
             re.sub(template, new_string, self._query_prepared))
+
+    @staticmethod
+    def _format_decimals_wgs84(coordinate: float) -> str:
+        """ Reduce the number of decimals, see #344 """
+        # https://en.wikipedia.org/wiki/Decimal_degrees
+        # We keep 5 decimals : individual trees, houses
+        return "{:.5f}".format(coordinate)
 
     def _replace_geocode_coords(self):
         """Replace {{geocodeCoords}} by the centroid of the extent.
