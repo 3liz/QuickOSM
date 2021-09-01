@@ -5,10 +5,6 @@ import processing
 from qgis.core import QgsApplication, QgsVectorLayer
 from qgis.testing import unittest
 
-from QuickOSM.core.exceptions import (
-    NetWorkErrorException,
-    OverpassTimeoutException,
-)
 from QuickOSM.quick_osm_processing.provider import Provider
 
 __copyright__ = 'Copyright 2021, 3Liz'
@@ -202,127 +198,6 @@ class TestProcessing(unittest.TestCase):
         self.assertIn('|layername=multipolygons', result['OUTPUT_MULTIPOLYGONS'].source())
         self.assertIsInstance(result['OUTPUT_OTHER_RELATIONS'], QgsVectorLayer)
         self.assertIn('|layername=other_relations', result['OUTPUT_OTHER_RELATIONS'].source())
-
-    def test_process_raw_query(self):
-        """Test for the process algorithm from a raw query."""
-        try:
-            result = processing.run(
-                'quickosm:downloadosmdatarawquery',
-                {
-                    'QUERY':
-                        '[out:xml] [timeout:25];\n area(3600028722) -> .area_0;\n'
-                        '(\n    node[\"amenity\"=\"bench\"](area.area_0);\n    '
-                        'way[\"amenity\"=\"bench\"](area.area_0);\n    '
-                        'relation[\"amenity\"=\"bench\"](area.area_0);\n);\n'
-                        '(._;>;);\nout body;',
-                    'TIMEOUT': 25,
-                    'SERVER': 'https://overpass.openstreetmap.fr/api/interpreter',
-                    'EXTENT': '3.809971100,3.963647400,43.557942300,43.654612100 [EPSG:4326]',
-                    'AREA': '',
-                    'FILE': ''
-                }
-            )
-
-            self.assertIsInstance(result['OUTPUT_POINTS'], QgsVectorLayer)
-            self.assertIsInstance(result['OUTPUT_LINES'], QgsVectorLayer)
-            self.assertIsInstance(result['OUTPUT_MULTILINESTRINGS'], QgsVectorLayer)
-            self.assertIsInstance(result['OUTPUT_MULTIPOLYGONS'], QgsVectorLayer)
-        except OverpassTimeoutException:
-            self.test_process_raw_query()
-        except NetWorkErrorException:
-            self.test_process_raw_query()
-
-    def test_process_not_spacial_query(self):
-        """Test for the process algorithm from a not spacial query."""
-        try:
-            result = processing.run(
-                'quickosm:downloadosmdatanotspatialquery',
-                {
-                    'KEY': 'amenity',
-                    'SERVER': 'https://z.overpass-api.de/api/interpreter',
-                    'TIMEOUT': 25,
-                    'VALUE': 'foo'
-                }
-            )
-
-            self.assertIsInstance(result['OUTPUT_POINTS'], QgsVectorLayer)
-            self.assertIsInstance(result['OUTPUT_LINES'], QgsVectorLayer)
-            self.assertIsInstance(result['OUTPUT_MULTILINESTRINGS'], QgsVectorLayer)
-            self.assertIsInstance(result['OUTPUT_MULTIPOLYGONS'], QgsVectorLayer)
-        except OverpassTimeoutException:
-            self.test_process_not_spacial_query()
-        except NetWorkErrorException:
-            self.test_process_not_spacial_query()
-
-    def test_process_in_query(self):
-        """Test for the process algorithm from an 'in' query."""
-        try:
-            result = processing.run(
-                'quickosm:downloadosmdatainareaquery',
-                {
-                    'AREA': 'La Souterraine',
-                    'KEY': 'amenity',
-                    'SERVER': 'https://overpass.osm.ch/api/interpreter',
-                    'TIMEOUT': 25,
-                    'VALUE': 'bench'
-                }
-            )
-
-            self.assertIsInstance(result['OUTPUT_POINTS'], QgsVectorLayer)
-            self.assertIsInstance(result['OUTPUT_LINES'], QgsVectorLayer)
-            self.assertIsInstance(result['OUTPUT_MULTILINESTRINGS'], QgsVectorLayer)
-            self.assertIsInstance(result['OUTPUT_MULTIPOLYGONS'], QgsVectorLayer)
-        except OverpassTimeoutException:
-            self.test_process_in_query()
-        except NetWorkErrorException:
-            self.test_process_in_query()
-
-    def test_process_around_query(self):
-        """Test for the process algorithm from an 'around' query."""
-        try:
-            result = processing.run(
-                'quickosm:downloadosmdataaroundareaquery',
-                {
-                    'AREA': 'La Souterraine',
-                    'DISTANCE': 1500,
-                    'KEY': 'amenity',
-                    'SERVER': 'https://lz4.overpass-api.de/api/interpreter',
-                    'TIMEOUT': 25,
-                    'VALUE': 'bench'
-                }
-            )
-
-            self.assertIsInstance(result['OUTPUT_POINTS'], QgsVectorLayer)
-            self.assertIsInstance(result['OUTPUT_LINES'], QgsVectorLayer)
-            self.assertIsInstance(result['OUTPUT_MULTILINESTRINGS'], QgsVectorLayer)
-            self.assertIsInstance(result['OUTPUT_MULTIPOLYGONS'], QgsVectorLayer)
-        except OverpassTimeoutException:
-            self.test_process_around_query()
-        except NetWorkErrorException:
-            self.test_process_around_query()
-
-    def test_process_extent_query(self):
-        """Test for the process algorithm from an 'extent' query."""
-        try:
-            result = processing.run(
-                'quickosm:downloadosmdataextentquery',
-                {
-                    'EXTENT': '3.809971100,3.963647400,43.557942300,43.654612100 [EPSG:4326]',
-                    'KEY': 'amenity',
-                    'SERVER': 'https://overpass.openstreetmap.fr/api/interpreter',
-                    'TIMEOUT': 25,
-                    'VALUE': 'bench'
-                }
-            )
-
-            self.assertIsInstance(result['OUTPUT_POINTS'], QgsVectorLayer)
-            self.assertIsInstance(result['OUTPUT_LINES'], QgsVectorLayer)
-            self.assertIsInstance(result['OUTPUT_MULTILINESTRINGS'], QgsVectorLayer)
-            self.assertIsInstance(result['OUTPUT_MULTIPOLYGONS'], QgsVectorLayer)
-        except OverpassTimeoutException:
-            self.test_process_extent_query()
-        except NetWorkErrorException:
-            self.test_process_extent_query()
 
 
 if __name__ == '__main__':
