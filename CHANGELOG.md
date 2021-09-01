@@ -2,6 +2,13 @@
 
 ## Unreleased
 
+## 2.0.0-beta4 - 2021-09-01
+
+* Fix the query might be too long for the server when using a GET request by reducing the number of decimals
+* Fix issue about reprojection of bounding box when using QuickOSM in QGIS Processing
+* Update of translations https://docs.3liz.org/QuickOSM/translation-stats/ 
+  * Chinese, Dutch, French, Indonesian, Italian are now at 100% translations, thanks to contributors 
+
 ## 2.0.0-beta3 - 2021-08-12
 
 * Fix the selection of the preset to run
