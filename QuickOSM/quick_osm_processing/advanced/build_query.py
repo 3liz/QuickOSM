@@ -1,25 +1,18 @@
 """Processing algorithm for building a query."""
 
+__copyright__ = 'Copyright 2021, 3Liz'
+__license__ = 'GPL version 3'
+__email__ = 'info@3liz.org'
+
 from typing import Dict
 
 from processing.algs.qgis.QgisAlgorithm import QgisAlgorithm
-from qgis.core import (
-    QgsCoordinateReferenceSystem,
-    QgsCoordinateTransform,
-    QgsProcessingAlgorithm,
-    QgsProcessingOutputString,
-    QgsProject,
-)
+from qgis.core import QgsProcessingAlgorithm, QgsProcessingOutputString
 
 from QuickOSM.core.query_factory import QueryFactory
 from QuickOSM.core.query_preparation import QueryPreparation
 from QuickOSM.definitions.osm import QueryLanguage
 from QuickOSM.qgis_plugin_tools.tools.i18n import tr
-
-__copyright__ = 'Copyright 2021, 3Liz'
-__license__ = 'GPL version 3'
-__email__ = 'info@3liz.org'
-
 from QuickOSM.quick_osm_processing.build_input import (
     BuildBasedAroundAreaQuery,
     BuildBasedExtentQuery,
@@ -86,7 +79,7 @@ class BuildQueryBasedAlgorithm(QgisAlgorithm):
         query_preparation = QueryPreparation(
             raw_query,
             area=self.area,
-            extent=self.extent,
+            extent=self.extent,  # It must be already in 4326 when fetching parameters
             overpass=self.server
         )
         raw_query = query_preparation.prepare_query()
@@ -176,12 +169,5 @@ class BuildQueryExtentAlgorithm(BuildQueryBasedAlgorithm, BuildBasedExtentQuery)
         """Run the algorithm."""
         self.feedback = feedback
         self.fetch_based_parameters(parameters, context)
-
-        crs = self.parameterAsExtentCrs(parameters, self.EXTENT, context)
-
-        crs_4326 = QgsCoordinateReferenceSystem(4326)
-        transform = QgsCoordinateTransform(
-            crs, crs_4326, QgsProject.instance())
-        self.extent = transform.transform(self.extent)
 
         return self.build_query()

@@ -12,6 +12,7 @@ from qgis.core import (
     QgsProcessingOutputVectorLayer,
     QgsProcessingParameterFileDestination,
     QgsProcessingUtils,
+    QgsReferencedRectangle,
 )
 from qgis.PyQt.QtGui import QIcon
 
@@ -248,7 +249,7 @@ class DownloadOSMDataRawQuery(DownloadOSMData, BuildRaw):
             "quickosm:buildrawquery",
             {
                 'AREA': self.area,
-                'EXTENT': self.extent,
+                'EXTENT': QgsReferencedRectangle(self.extent, self.extent_crs),
                 'QUERY': self.query,
                 'SERVER': self.server
             },
@@ -430,7 +431,7 @@ class DownloadOSMDataExtentQuery(DownloadOSMData, BuildQueryExtentAlgorithm):
         query = processing.run(
             "quickosm:buildqueryextent",
             {
-                'EXTENT': self.extent,
+                'EXTENT': QgsReferencedRectangle(self.extent, self.extent_crs),
                 'KEY': self.key,
                 'SERVER': self.server,
                 'TIMEOUT': self.timeout,

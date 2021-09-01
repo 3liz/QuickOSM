@@ -1,22 +1,15 @@
 """Generate a raw query."""
 
-from typing import Dict
-
-from qgis.core import (
-    QgsCoordinateReferenceSystem,
-    QgsCoordinateTransform,
-    QgsProcessingAlgorithm,
-    QgsProcessingOutputString,
-    QgsProject,
-)
-
-from QuickOSM.core.query_preparation import QueryPreparation
-from QuickOSM.qgis_plugin_tools.tools.i18n import tr
-
 __copyright__ = 'Copyright 2021, 3Liz'
 __license__ = 'GPL version 3'
 __email__ = 'info@3liz.org'
 
+from typing import Dict
+
+from qgis.core import QgsProcessingAlgorithm, QgsProcessingOutputString
+
+from QuickOSM.core.query_preparation import QueryPreparation
+from QuickOSM.qgis_plugin_tools.tools.i18n import tr
 from QuickOSM.quick_osm_processing.build_input import BuildRaw
 
 
@@ -70,16 +63,11 @@ class RawQueryAlgorithm(BuildRaw):
         self.feedback = feedback
         self.fetch_based_parameters(parameters, context)
 
-        crs_4326 = QgsCoordinateReferenceSystem(4326)
-        transform = QgsCoordinateTransform(
-            self.crs, crs_4326, QgsProject.instance())
-        self.extent = transform.transform(self.extent)
-
         self.feedback.pushInfo('Prepare the url.')
 
         query_preparation = QueryPreparation(
             self.query,
-            extent=self.extent,
+            extent=self.extent,  # It should be in 4326 already in this stage
             area=self.area,
             overpass=self.server
         )

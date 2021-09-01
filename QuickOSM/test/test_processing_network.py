@@ -2,7 +2,13 @@
 
 import processing
 
-from qgis.core import QgsApplication, QgsVectorLayer
+from qgis.core import (
+    QgsApplication,
+    QgsCoordinateReferenceSystem,
+    QgsProcessingContext,
+    QgsProject,
+    QgsVectorLayer,
+)
 from qgis.testing import unittest
 
 from QuickOSM.qgis_plugin_tools.tools.resources import plugin_test_data_path
@@ -186,6 +192,44 @@ class TestProcessing(unittest.TestCase):
                     'TIMEOUT': 25,
                     'VALUE': 'bench'
                 }
+            )
+
+        self.assertIsInstance(result['OUTPUT_POINTS'], QgsVectorLayer)
+        self.assertIsInstance(result['OUTPUT_LINES'], QgsVectorLayer)
+        self.assertIsInstance(result['OUTPUT_MULTILINESTRINGS'], QgsVectorLayer)
+        self.assertIsInstance(result['OUTPUT_MULTIPOLYGONS'], QgsVectorLayer)
+
+    def test_reprojection_extent_query(self):
+        """Test for the reprojection from the project CRS."""
+        # In processing.run, we can see some 2154 coordinates.
+        # In the query, coordinates in 4326
+        handler = SequentialHandler()
+        handler.add(
+            'GET',
+            '/interpreter?data=[out:xml]%20[timeout:25];%0A(%0A%20%20%20%20node[%22landuse%22]'
+            '(%2045.0843,-0.3832,45.09649,-0.36385);%0A%20%20%20%20way[%22landuse%22]'
+            '(%2045.0843,-0.3832,45.09649,-0.36385);%0A%20%20%20%20relation[%22landuse%22]'
+            '(%2045.0843,-0.3832,45.09649,-0.36385);%0A);%0A(._;%3E;);%0Aout%20body;&info=QgisQuickOSMPlugin',
+            200,
+            {'Content-type': 'text/xml'},
+            open(plugin_test_data_path('overpass', 'empty_osm_file.xml'), 'r', encoding='utf8').read(),
+        )
+        project = QgsProject()
+        project.setCrs(QgsCoordinateReferenceSystem(2154))
+        context = QgsProcessingContext()
+        context.setProject(project)
+
+        with install_http_handler(handler):
+            result = processing.run(
+                'quickosm:downloadosmdataextentquery',
+                {
+                    'KEY': 'landuse',
+                    'VALUE': '',
+                    'EXTENT': '433888.4776000,435466.5863000,6448484.3786000,6449771.2615000 [EPSG:2154]',
+                    'TIMEOUT': 25,
+                    'SERVER': 'http://localhost:{}/interpreter'.format(self.port),
+                },
+                context=context
             )
 
         self.assertIsInstance(result['OUTPUT_POINTS'], QgsVectorLayer)

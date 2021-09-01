@@ -1,16 +1,18 @@
 """Set up the parameters for the processing algorithms."""
 
+__copyright__ = 'Copyright 2021, 3Liz'
+__license__ = 'GPL version 3'
+__email__ = 'info@3liz.org'
+
 from processing.algs.qgis.QgisAlgorithm import QgisAlgorithm
 from qgis.core import (
+    QgsCoordinateReferenceSystem,
+    QgsCoordinateTransform,
     QgsProcessingParameterDefinition,
     QgsProcessingParameterExtent,
     QgsProcessingParameterNumber,
     QgsProcessingParameterString,
 )
-
-__copyright__ = 'Copyright 2021, 3Liz'
-__license__ = 'GPL version 3'
-__email__ = 'info@3liz.org'
 
 from QuickOSM.core.utilities.tools import get_setting
 from QuickOSM.definitions.osm import QueryType
@@ -30,6 +32,7 @@ class BuildBased(QgisAlgorithm):
         self.feedback = None
         self.area = None
         self.extent = None
+        self.extent_crs = None
         self.server = None
         self.timeout = None
 
@@ -74,14 +77,20 @@ class BuildRaw(BuildBased):
         """Constructor"""
         super().__init__()
         self.query = None
-        self.crs = None
 
     def fetch_based_parameters(self, parameters, context):
         """Get the parameters."""
         super().fetch_based_parameters(parameters, context)
         self.query = self.parameterAsString(parameters, self.QUERY, context)
         self.extent = self.parameterAsExtent(parameters, self.EXTENT, context)
-        self.crs = self.parameterAsExtentCrs(parameters, self.EXTENT, context)
+        self.extent_crs = self.parameterAsExtentCrs(parameters, self.EXTENT, context)
+
+        # Always transform to 4326
+        crs_4326 = QgsCoordinateReferenceSystem(4326)
+        transform = QgsCoordinateTransform(self.extent_crs, crs_4326, context.project())
+        self.extent = transform.transform(self.extent)
+        self.extent_crs = crs_4326
+
         self.area = self.parameterAsString(parameters, self.AREA, context)
 
     def add_top_parameters(self):
@@ -241,12 +250,18 @@ class BuildBasedExtentQuery(BuildBasedQuery):
         """Get the parameters."""
         super().fetch_based_parameters(parameters, context)
         self.extent = self.parameterAsExtent(parameters, self.EXTENT, context)
+        self.extent_crs = self.parameterAsExtentCrs(parameters, self.EXTENT, context)
+
+        # Always transform to 4326
+        crs_4326 = QgsCoordinateReferenceSystem(4326)
+        transform = QgsCoordinateTransform(self.extent_crs, crs_4326, context.project())
+        self.extent = transform.transform(self.extent)
+        self.extent_crs = crs_4326
 
     def add_top_parameters(self):
         """Set up the parameter."""
         super().add_top_parameters()
 
         param = QgsProcessingParameterExtent(self.EXTENT, tr('Extent'), optional=False)
-        help_string = tr('The extent as a rectangle to use when building the query.')
-        param.setHelp(help_string)
+        param.setHelp(tr('The extent as a rectangle to use when building the query.'))
         self.addParameter(param)

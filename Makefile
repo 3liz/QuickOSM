@@ -17,3 +17,7 @@ processing-doc:
 
 code-doc:
 	cd .docker && ./code_doc.sh
+
+lint:
+	flake8
+	pylint --rcfile=setup.cfg ./QuickOSM
