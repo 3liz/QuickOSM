@@ -25,7 +25,7 @@
     },
     "de": {
         "name": "German",
-        "percentage": 9.62
+        "percentage": 38.49
     },
     "id": {
         "name": "Indonesian",
@@ -51,9 +51,13 @@
         "name": "Spanish",
         "percentage": 52.92
     },
+    "vi": {
+        "name": "Vietnamese",
+        "percentage": 82.82
+    },
     "en": {
-        "nb_languages": 13,
+        "nb_languages": 14,
         "stringcount": 291,
-        "percentage": 64.6
+        "percentage": 67.97
     }
 }
