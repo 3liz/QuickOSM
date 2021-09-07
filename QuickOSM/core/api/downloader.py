@@ -2,7 +2,7 @@
 
 import logging
 
-from qgis.core import QgsFileDownloader
+from qgis.core import QgsFileDownloader, Qgis
 from qgis.PyQt.QtCore import QEventLoop, QUrl
 
 __copyright__ = 'Copyright 2021, 3Liz'
@@ -15,12 +15,13 @@ LOGGER = logging.getLogger('QuickOSM')
 class Downloader:
     """Manage downloader."""
 
-    def __init__(self, url: str = None):
+    def __init__(self, url: str = None, data: str = None):
         """Constructor."""
         if url is None:
             url = 'https://nominatim.openstreetmap.org/search?'
 
         self._url = QUrl(url)
+        self._data = data
         self.result_path = None
         self.errors = []
 
@@ -42,8 +43,12 @@ class Downloader:
     def download(self):
         """Download the data"""
         loop = QEventLoop()
-        downloader = QgsFileDownloader(
-            self._url, self.result_path, delayStart=True)
+        if Qgis.QGIS_VERSION_INT < 31900:
+            downloader = QgsFileDownloader(
+                self._url, self.result_path, delayStart=True)
+        else:
+            downloader = QgsFileDownloader(
+                self._url, self.result_path, delayStart=True, )
         downloader.downloadExited.connect(loop.quit)
         downloader.downloadError.connect(self.error)
         downloader.downloadCanceled.connect(self.canceled)
