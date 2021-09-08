@@ -14,7 +14,7 @@
 |-----------|----------|----------|--------------|
 | 1.0 → 1.4 | 2.0      | 2.18     | [master_qgis2](https://github.com/3liz/QuickOSM/tree/master_qgis2) |
 | 1.5 → 1.7 | 3.0      | 3.2      |              |
-| 1.8 →     | 3.4      |          |              |
+| 1.8 → 1.17| 3.4      | 3.14     |              |
 | 2.0 →     | 3.16     |          | [master](https://github.com/3liz/QuickOSM/tree/master)  |
 
 ## Documentation

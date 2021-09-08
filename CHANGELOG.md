@@ -2,6 +2,27 @@
 
 ## Unreleased
 
+## 2.0.0 - 2021-09-08
+
+* Release of QuickOSM 2.0.0
+* Add Vietnamese language
+* Update of translations https://docs.3liz.org/QuickOSM/translation-stats/
+  * Chinese, Dutch, French, Indonesian, Italian are now fully translated, thanks to contributors
+* Raise minimum version to QGIS 3.16
+* Add presets for the keys/values
+* Add multi-keys query from Quick Query panel
+* Add history of queries
+* Add option to get the metadata of OSM data such as author, timestamp etc
+* Add default map presets to download a map with many queries
+* Add a button to save the query in a personal preset (new or existing one)
+* Add an action to reload the query
+* Add processing algorithms for the "Quick Query", available in the QGIS Processing toolbox
+* Add several output format such as Geopackage, KML
+* Add the possibility to load only a subset of a local file
+* Boost of performance using HStore processing algorithm to parse the downloaded OSM file
+* Improve user interface
+* Update of the documentation
+
 ## 2.0.0-beta4 - 2021-09-01
 
 * Fix the query might be too long for the server when using a GET request by reducing the number of decimals

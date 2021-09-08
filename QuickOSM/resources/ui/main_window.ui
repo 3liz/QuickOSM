@@ -1968,29 +1968,32 @@ QListWidget::item::selected {
                <property name="title">
                 <string>Realization</string>
                </property>
-               <layout class="QHBoxLayout" name="horizontalLayout_6">
+               <layout class="QVBoxLayout" name="verticalLayout_24">
                 <item>
-                 <layout class="QHBoxLayout" name="horizontalLayout_5">
-                  <item>
-                   <widget class="QLabel" name="label_13">
-                    <property name="maximumSize">
-                     <size>
-                      <width>16777215</width>
-                      <height>16777215</height>
-                     </size>
-                    </property>
-                    <property name="text">
-                     <string notr="true">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Etienne Trimaille&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                    </property>
-                    <property name="scaledContents">
-                     <bool>false</bool>
-                    </property>
-                    <property name="openExternalLinks">
-                     <bool>true</bool>
-                    </property>
-                   </widget>
-                  </item>
-                 </layout>
+                 <widget class="QLabel" name="label_13">
+                  <property name="maximumSize">
+                   <size>
+                    <width>16777215</width>
+                    <height>16777215</height>
+                   </size>
+                  </property>
+                  <property name="text">
+                   <string notr="true">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Etienne Trimaille&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                  </property>
+                  <property name="scaledContents">
+                   <bool>false</bool>
+                  </property>
+                  <property name="openExternalLinks">
+                   <bool>true</bool>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLabel" name="label_53">
+                  <property name="text">
+                   <string>Maxime Charzat</string>
+                  </property>
+                 </widget>
                 </item>
                </layout>
               </widget>
@@ -2022,13 +2025,6 @@ QListWidget::item::selected {
                   </property>
                  </widget>
                 </item>
-                <item>
-                 <widget class="QLabel" name="label_42">
-                  <property name="text">
-                   <string>Maxime Charzat</string>
-                  </property>
-                 </widget>
-                </item>
                </layout>
               </widget>
              </item>
@@ -2055,161 +2051,199 @@ QListWidget::item::selected {
                  </widget>
                 </item>
                 <item>
+                 <widget class="QLabel" name="label_54">
+                  <property name="text">
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Check translation statistics on &lt;a href=&quot;https://docs.3liz.org/QuickOSM/translation-stats/&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;QuickOSM website&lt;/span&gt;&lt;/a&gt;.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                  </property>
+                  <property name="openExternalLinks">
+                   <bool>true</bool>
+                  </property>
+                 </widget>
+                </item>
+                <item>
                  <layout class="QGridLayout" name="gridLayout">
-                  <item row="6" column="1">
+                  <item row="1" column="0">
+                   <widget class="QLabel" name="label_56">
+                    <property name="text">
+                     <string>Danish</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="8" column="1">
                    <widget class="QLabel" name="label_43">
                     <property name="text">
-                     <string notr="true">Alex K, Cristoffs, Cyrusso, Michal Bielawski, Tomasz Rychlicki, Michal Smielak</string>
+                     <string notr="true">Alex K, Cristoffs, Cyrusso, Marcin Kasznia, Michal Bielawski, Tomasz Rychlicki, Michal Smielak</string>
                     </property>
                     <property name="wordWrap">
                      <bool>true</bool>
                     </property>
                    </widget>
                   </item>
-                  <item row="9" column="1">
-                   <widget class="QLabel" name="label_27">
-                    <property name="text">
-                     <string notr="true">Jorge Sanz, Jesus</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="8" column="1">
-                   <widget class="QLabel" name="label_3">
-                    <property name="text">
-                     <string notr="true">freeExec</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="5" column="0">
-                   <widget class="QLabel" name="label_8">
-                    <property name="text">
-                     <string>Italian</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="4" column="0">
-                   <widget class="QLabel" name="label_34">
-                    <property name="text">
-                     <string>Indonesian</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="4" column="1">
-                   <widget class="QLabel" name="label_35">
-                    <property name="text">
-                     <string notr="true">Abdul Hafid, Anita Hapsari, Ivan Busthomi</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="2" column="0">
-                   <widget class="QLabel" name="label_17">
-                    <property name="text">
-                     <string>French</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="9" column="0">
-                   <widget class="QLabel" name="label_16">
-                    <property name="text">
-                     <string>Spanish</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="6" column="0">
+                  <item row="8" column="0">
                    <widget class="QLabel" name="label_37">
                     <property name="text">
                      <string>Polish</string>
                     </property>
                    </widget>
                   </item>
-                  <item row="8" column="0">
-                   <widget class="QLabel" name="label_4">
-                    <property name="text">
-                     <string>Russian</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="3" column="0">
-                   <widget class="QLabel" name="label_6">
-                    <property name="text">
-                     <string>German</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="7" column="0">
-                   <widget class="QLabel" name="label_11">
-                    <property name="text">
-                     <string>Portuguese</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="5" column="1">
-                   <widget class="QLabel" name="label_7">
-                    <property name="text">
-                     <string notr="true">Francesco Bisantis</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="7" column="1">
-                   <widget class="QLabel" name="label_12">
-                    <property name="text">
-                     <string notr="true">Narcélio de Sá Pereira Filho</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="1" column="0">
-                   <widget class="QLabel" name="label_23">
-                    <property name="text">
-                     <string>Finnish</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="0" column="0">
-                   <widget class="QLabel" name="label_21">
-                    <property name="text">
-                     <string>Dutch</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="10" column="0">
-                   <widget class="QLabel" name="label_26">
-                    <property name="text">
-                     <string>Taiwanese Mandarin</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="10" column="1">
+                  <item row="12" column="1">
                    <widget class="QLabel" name="label_25">
                     <property name="text">
                      <string notr="true">Supaplextw</string>
                     </property>
                    </widget>
                   </item>
-                  <item row="3" column="1">
-                   <widget class="QLabel" name="label_5">
+                  <item row="10" column="1">
+                   <widget class="QLabel" name="label_3">
                     <property name="text">
-                     <string notr="true">Thomas Moenkemeier</string>
+                     <string notr="true">freeExec, Artem.ru, Александр Литовченко</string>
                     </property>
                    </widget>
                   </item>
-                  <item row="0" column="1">
+                  <item row="2" column="1">
                    <widget class="QLabel" name="label_22">
                     <property name="text">
                      <string notr="true">Antony Bartolo, Dick Groskamp</string>
                     </property>
                    </widget>
                   </item>
-                  <item row="2" column="1">
+                  <item row="2" column="0">
+                   <widget class="QLabel" name="label_21">
+                    <property name="text">
+                     <string>Dutch</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="0" column="1">
+                   <widget class="QLabel" name="label_55">
+                    <property name="text">
+                     <string notr="true">Xubaocai</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="4" column="1">
                    <widget class="QLabel" name="label_9">
                     <property name="text">
-                     <string notr="true">Etienne Trimaille</string>
+                     <string notr="true">Etienne Trimaille, Maxime Charzat</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="5" column="1">
+                   <widget class="QLabel" name="label_5">
+                    <property name="text">
+                     <string notr="true">Thomas Moenkemeier, Axel Rellensmann, Janis Eschert, stephan75</string>
                     </property>
                    </widget>
                   </item>
                   <item row="1" column="1">
+                   <widget class="QLabel" name="label_57">
+                    <property name="text">
+                     <string notr="true">Janis Eschert</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="9" column="0">
+                   <widget class="QLabel" name="label_11">
+                    <property name="text">
+                     <string>Portuguese</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="7" column="1">
+                   <widget class="QLabel" name="label_7">
+                    <property name="text">
+                     <string notr="true">Francesco Bisantis, idetao, marcobra</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="6" column="1">
+                   <widget class="QLabel" name="label_35">
+                    <property name="text">
+                     <string notr="true">Abdul Hafid, Anita Hapsari, Ivan Busthomi, Adi Kurniawan</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="3" column="0">
+                   <widget class="QLabel" name="label_23">
+                    <property name="text">
+                     <string>Finnish</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="12" column="0">
+                   <widget class="QLabel" name="label_26">
+                    <property name="text">
+                     <string>Taiwanese Mandarin</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="10" column="0">
+                   <widget class="QLabel" name="label_4">
+                    <property name="text">
+                     <string>Russian</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="3" column="1">
                    <widget class="QLabel" name="label_24">
                     <property name="text">
                      <string notr="true">Kari Salovaara</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="5" column="0">
+                   <widget class="QLabel" name="label_6">
+                    <property name="text">
+                     <string>German</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="9" column="1">
+                   <widget class="QLabel" name="label_12">
+                    <property name="text">
+                     <string notr="true">Narcélio de Sá Pereira Filho</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="6" column="0">
+                   <widget class="QLabel" name="label_34">
+                    <property name="text">
+                     <string>Indonesian</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="11" column="0">
+                   <widget class="QLabel" name="label_16">
+                    <property name="text">
+                     <string>Spanish</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="11" column="1">
+                   <widget class="QLabel" name="label_27">
+                    <property name="text">
+                     <string notr="true">Jorge Sanz, Jesus</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="4" column="0">
+                   <widget class="QLabel" name="label_17">
+                    <property name="text">
+                     <string>French</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="7" column="0">
+                   <widget class="QLabel" name="label_8">
+                    <property name="text">
+                     <string>Italian</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="0" column="0">
+                   <widget class="QLabel" name="label_42">
+                    <property name="text">
+                     <string>Chinese</string>
                     </property>
                    </widget>
                   </item>
