@@ -16,7 +16,7 @@
         <link rel="canonical" href="https://docs.3liz.org/QuickOSM/CHANGELOG/">
       
       <link rel="icon" href="../media/icon.png">
-      <meta name="generator" content="mkdocs-1.2.2, mkdocs-material-7.2.4">
+      <meta name="generator" content="mkdocs-1.2.2, mkdocs-material-7.2.6">
     
     
       
@@ -24,7 +24,7 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.f7f47774.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.802231af.min.css">
       
         
         <link rel="stylesheet" href="../assets/stylesheets/palette.3f5d1f46.min.css">
@@ -40,8 +40,6 @@
       
     
     
-    
-      <link rel="stylesheet" href="../assets/_mkdocstrings.css">
     
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/default.min.css">
     
@@ -233,7 +231,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="../code-documentation/developer/" class="md-tabs__link">
+      <a href="../code-documentation/definitions.md" class="md-tabs__link">
         Documentation
       </a>
     </li>
@@ -459,19 +457,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../code-documentation/developer/" class="md-nav__link">
-        Developer documentation
-      </a>
-    </li>
-  
-
-          
-            
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../code-documentation/definitions/" class="md-nav__link">
+      <a href="../code-documentation/definitions.md" class="md-nav__link">
         Definition files
       </a>
     </li>
@@ -483,7 +469,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../code-documentation/processing/" class="md-nav__link">
+      <a href="../code-documentation/processing.md" class="md-nav__link">
         Processing files
       </a>
     </li>
@@ -495,7 +481,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../code-documentation/core/" class="md-nav__link">
+      <a href="../code-documentation/core.md" class="md-nav__link">
         Core files
       </a>
     </li>
@@ -507,7 +493,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../code-documentation/ui/" class="md-nav__link">
+      <a href="../code-documentation/ui.md" class="md-nav__link">
         Ui files
       </a>
     </li>
@@ -519,7 +505,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../code-documentation/tests/" class="md-nav__link">
+      <a href="../code-documentation/tests.md" class="md-nav__link">
         Tests files
       </a>
     </li>
@@ -625,6 +611,20 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#200-2021-09-08" class="md-nav__link">
+    2.0.0 - 2021-09-08
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#200-beta4-2021-09-01" class="md-nav__link">
+    2.0.0-beta4 - 2021-09-01
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#200-beta3-2021-08-12" class="md-nav__link">
     2.0.0-beta3 - 2021-08-12
   </a>
@@ -720,6 +720,34 @@
                 
                 <h1 id="changelog">Changelog<a class="headerlink" href="#changelog" title="Permanent link">#</a></h1>
 <h2 id="unreleased">Unreleased<a class="headerlink" href="#unreleased" title="Permanent link">#</a></h2>
+<h2 id="200-2021-09-08">2.0.0 - 2021-09-08<a class="headerlink" href="#200-2021-09-08" title="Permanent link">#</a></h2>
+<ul>
+<li>Release of QuickOSM 2.0.0</li>
+<li>Add Vietnamese language</li>
+<li>Update of translations <a href="https://docs.3liz.org/QuickOSM/translation-stats/">https://docs.3liz.org/QuickOSM/translation-stats/</a></li>
+<li>Chinese, Dutch, French, Indonesian, Italian are now fully translated, thanks to contributors</li>
+<li>Raise minimum version to QGIS 3.16</li>
+<li>Add presets for the keys/values</li>
+<li>Add multi-keys query from Quick Query panel</li>
+<li>Add history of queries</li>
+<li>Add option to get the metadata of OSM data such as author, timestamp etc</li>
+<li>Add default map presets to download a map with many queries</li>
+<li>Add a button to save the query in a personal preset (new or existing one)</li>
+<li>Add an action to reload the query</li>
+<li>Add processing algorithms for the "Quick Query", available in the QGIS Processing toolbox</li>
+<li>Add several output format such as Geopackage, KML</li>
+<li>Add the possibility to load only a subset of a local file</li>
+<li>Boost of performance using HStore processing algorithm to parse the downloaded OSM file</li>
+<li>Improve user interface</li>
+<li>Update of the documentation</li>
+</ul>
+<h2 id="200-beta4-2021-09-01">2.0.0-beta4 - 2021-09-01<a class="headerlink" href="#200-beta4-2021-09-01" title="Permanent link">#</a></h2>
+<ul>
+<li>Fix the query might be too long for the server when using a GET request by reducing the number of decimals</li>
+<li>Fix issue about reprojection of bounding box when using QuickOSM in QGIS Processing</li>
+<li>Update of translations <a href="https://docs.3liz.org/QuickOSM/translation-stats/">https://docs.3liz.org/QuickOSM/translation-stats/</a> </li>
+<li>Chinese, Dutch, French, Indonesian, Italian are now fully translated, thanks to contributors</li>
+</ul>
 <h2 id="200-beta3-2021-08-12">2.0.0-beta3 - 2021-08-12<a class="headerlink" href="#200-beta3-2021-08-12" title="Permanent link">#</a></h2>
 <ul>
 <li>Fix the selection of the preset to run</li>
@@ -815,7 +843,7 @@
 <div class="md-source-date">
   <small>
     
-      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">August 23, 2021</span>
+      Last update: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 8, 2021</span>
       
     
   </small>
@@ -914,10 +942,10 @@
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>
     </div>
-    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.top"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../assets/javascripts/workers/search.709b4209.min.js", "version": null}</script>
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.top"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../assets/javascripts/workers/search.409db549.min.js", "version": null}</script>
     
     
-      <script src="../assets/javascripts/bundle.febc23d1.min.js"></script>
+      <script src="../assets/javascripts/bundle.756773cc.min.js"></script>
       
         <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js"></script>
       
