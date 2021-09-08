@@ -16,7 +16,7 @@ nav:
         - 'QGIS Model and Python API': 'user-guide/processing.md'
     - Processing: processing/README.md
     - Documentation:
-        - 'Developer documentation': 'code-documentation/developer.md'
+        # - 'Developer documentation': 'code-documentation/developer.md'
         - 'Definition files': 'code-documentation/definitions.md'
         - 'Processing files': 'code-documentation/processing.md'
         - 'Core files': 'code-documentation/core.md'
@@ -30,23 +30,23 @@ nav:
 plugins:
   - search
   - git-revision-date-localized
-  - mkdocstrings:
-      default-handler: python
-      handlers:
-        python:
-#          setup_commands:
-#            - import sys
-#            - sys.path.append('QuickOSM/QuickOSM')
-          selection:
-            filters:
-              - "!^doc_processing.py"
-            docstring_style: restructured-text
-          rendering:
-            show_root_heading: true
-            show_source: false
-            show_signature_annotations: true
-      watch:
-        - QuickOSM
+#  - mkdocstrings:
+#      default-handler: python
+#      handlers:
+#        python:
+##          setup_commands:
+##            - import sys
+##            - sys.path.append('QuickOSM/QuickOSM')
+#          selection:
+#            filters:
+#              - "!^doc_processing.py"
+#            docstring_style: restructured-text
+#          rendering:
+#            show_root_heading: true
+#            show_source: false
+#            show_signature_annotations: true
+#      watch:
+#        - QuickOSM
 
 markdown_extensions:
   - admonition:
