@@ -2,7 +2,7 @@
 
 ## Unreleased
 
-## 2.0.0 - 2021-09-08
+## 2.0.0 - 2021-09-09
 
 * Release of QuickOSM 2.0.0
 * Add Vietnamese language
