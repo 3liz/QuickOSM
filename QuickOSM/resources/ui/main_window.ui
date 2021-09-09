@@ -179,6 +179,16 @@ QListWidget::item::selected {
            <widget class="QWidget" name="map_preset">
             <layout class="QVBoxLayout" name="verticalLayout_20">
              <item>
+              <widget class="QLabel" name="label_58">
+               <property name="text">
+                <string>A preset is a set of queries, which can be a mix of different OSM objects and geometries. They represent a map, ready to be used out of the box. We would like to have more &quot;map preset&quot; provided by default such as hiking map, bicycle map… Please contact us on GitHub to contribute.</string>
+               </property>
+               <property name="wordWrap">
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+             <item>
               <widget class="QScrollArea" name="scrollArea">
                <property name="frameShape">
                 <enum>QFrame::NoFrame</enum>
@@ -191,8 +201,8 @@ QListWidget::item::selected {
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>809</width>
-                  <height>770</height>
+                  <width>795</width>
+                  <height>829</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_21">
