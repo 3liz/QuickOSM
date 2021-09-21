@@ -33,7 +33,7 @@
     },
     "it": {
         "name": "Italian",
-        "percentage": 98.64
+        "percentage": 100.0
     },
     "ko": {
         "name": "Korean",
@@ -66,6 +66,6 @@
     "en": {
         "nb_languages": 16,
         "stringcount": 295,
-        "percentage": 58.92
+        "percentage": 59.0
     }
 }
