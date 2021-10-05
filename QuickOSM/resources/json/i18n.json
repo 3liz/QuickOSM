@@ -25,7 +25,7 @@
     },
     "de": {
         "name": "German",
-        "percentage": 37.97
+        "percentage": 100.0
     },
     "id": {
         "name": "Indonesian",
@@ -66,6 +66,6 @@
     "en": {
         "nb_languages": 16,
         "stringcount": 295,
-        "percentage": 59.0
+        "percentage": 62.88
     }
 }
