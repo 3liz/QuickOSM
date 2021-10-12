@@ -37,7 +37,7 @@
     },
     "ko": {
         "name": "Korean",
-        "percentage": 0.0
+        "percentage": 100.0
     },
     "pl": {
         "name": "Polish",
@@ -45,11 +45,11 @@
     },
     "pt_BR": {
         "name": "Portuguese (Brazil)",
-        "percentage": 86.78
+        "percentage": 100.0
     },
     "ro": {
         "name": "Romanian",
-        "percentage": 0.0
+        "percentage": 100.0
     },
     "ru": {
         "name": "Russian",
@@ -66,6 +66,6 @@
     "en": {
         "nb_languages": 16,
         "stringcount": 295,
-        "percentage": 62.88
+        "percentage": 76.21
     }
 }
