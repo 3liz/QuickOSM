@@ -59,13 +59,17 @@
         "name": "Spanish",
         "percentage": 52.2
     },
+    "sv": {
+        "name": "Swedish",
+        "percentage": 0.0
+    },
     "vi": {
         "name": "Vietnamese",
         "percentage": 81.69
     },
     "en": {
-        "nb_languages": 16,
+        "nb_languages": 17,
         "stringcount": 295,
-        "percentage": 76.29
+        "percentage": 71.8
     }
 }
