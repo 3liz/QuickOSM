@@ -9,7 +9,7 @@
     },
     "da": {
         "name": "Danish",
-        "percentage": 0.0
+        "percentage": 1.36
     },
     "nl": {
         "name": "Dutch",
@@ -70,6 +70,6 @@
     "en": {
         "nb_languages": 17,
         "stringcount": 295,
-        "percentage": 71.8
+        "percentage": 71.88
     }
 }
