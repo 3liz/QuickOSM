@@ -15,7 +15,7 @@ from qgis.core import (
 )
 
 from QuickOSM.core.utilities.tools import get_setting
-from QuickOSM.definitions.osm import QueryType
+from QuickOSM.definitions.osm import QueryType, MultiType
 from QuickOSM.definitions.overpass import OVERPASS_SERVERS
 from QuickOSM.qgis_plugin_tools.tools.i18n import tr
 
@@ -141,11 +141,13 @@ class BuildBasedQuery(BuildBased):
 
     KEY = 'KEY'
     VALUE = 'VALUE'
+    TYPE_MULTI_REQUEST = 'TYPE_MULTI_REQUEST'
 
     def __init__(self):
         super().__init__()
         self.key = None
         self.value = None
+        self.type_multi_request = None
         self.distance = None
 
     def fetch_based_parameters(self, parameters, context):
@@ -153,6 +155,7 @@ class BuildBasedQuery(BuildBased):
         super().fetch_based_parameters(parameters, context)
         self.key = self.parameterAsString(parameters, self.KEY, context)
         self.value = self.parameterAsString(parameters, self.VALUE, context)
+        self.type_multi_request = self.parameterAsString(parameters, self.TYPE_MULTI_REQUEST, context)
 
     def add_top_parameters(self):
         """Set up the parameters."""
@@ -176,6 +179,15 @@ class BuildBasedQuery(BuildBased):
             'The OSM value to use. It can be empty and it will default to all values.'
             'Multiple values can be ask by adding the separator \',\' between each value. '
             'In this case make sure the number of values match the number of keys'
+        )
+        param.setHelp(help_string)
+        self.addParameter(param)
+
+        param = QgsProcessingParameterString(
+            self.TYPE_MULTI_REQUEST, tr('Operator types to combine multiple keys and values with'), optional=True
+        )
+        help_string = tr(
+            'The logical operators used to combine keys and values, if there are multiple.'  # TODO: expand help string
         )
         param.setHelp(help_string)
         self.addParameter(param)
