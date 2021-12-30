@@ -3,7 +3,7 @@
 import logging
 import re
 
-from typing import List
+from typing import List, Union
 from xml.dom.minidom import parseString
 
 from QuickOSM.core.exceptions import QueryFactoryException
@@ -98,6 +98,8 @@ class QueryFactory:
         """
         if isinstance(type_multi_request, list):
             self._type_multi_request = [x for x in type_multi_request if x]
+        elif isinstance(type_multi_request, str):
+            self._type_multi_request = self._convert_to_multitypes(type_multi_request)
         else:
             self._type_multi_request = []
 
@@ -153,6 +155,30 @@ class QueryFactory:
         :rtype: list
         """
         return self._area
+
+    @staticmethod
+    def _convert_to_multitypes(type_multi_request: str) -> List[MultiType]:
+        """Converts a string of comma separated 'AND'/'OR's to a list of MultiType equivalents.
+
+        :param type_multi_request: A string of comma separated 'AND'/'OR's provided from input of processing algorithms
+        :type type_multi_request: str
+
+        :return: list of MultiType
+        :rtype: list
+
+        :raise QueryFactoryException:
+        """
+        types = []
+        if type_multi_request:
+            for type_ in type_multi_request.split(','):
+                type_ = type_.strip()
+                if type_ == 'AND':
+                    types.append(MultiType.AND)
+                elif type_ == 'OR':
+                    types.append(MultiType.OR)
+                else:
+                    raise QueryFactoryException(tr('Only values "AND"/"OR" are allowed as logical operators.'))
+        return types
 
     def _check_parameters(self) -> bool:
         """Internal function to check that the query can be built.
@@ -213,6 +239,16 @@ class QueryFactory:
             if key != key.strip():
                 raise QueryFactoryException(
                     tr(f'Key "{key}" contains leading or trailing whitespace.'))
+
+        if len(self._key) != 0:
+            if len(self._type_multi_request) > len(self._key) - 1:
+                raise QueryFactoryException(
+                    tr('Too many logical operators were provided.')
+                )
+            elif len(self._type_multi_request) < len(self._key) - 1:
+                raise QueryFactoryException(
+                    tr('Not enough logical operators were provided.')
+                )
 
         self._checked = True
         return True

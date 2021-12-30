@@ -296,6 +296,7 @@ class DownloadOSMDataNotSpatialQuery(DownloadOSMData, BuildQueryNotSpatialAlgori
                 'KEY': self.key,
                 'SERVER': self.server,
                 'TIMEOUT': self.timeout,
+                'TYPE_MULTI_REQUEST': self.type_multi_request,
                 'VALUE': self.value
             },
             feedback=self.feedback
@@ -342,6 +343,7 @@ class DownloadOSMDataInAreaQuery(DownloadOSMData, BuildQueryInAreaAlgorithm):
                 'KEY': self.key,
                 'SERVER': self.server,
                 'TIMEOUT': self.timeout,
+                'TYPE_MULTI_REQUEST': self.type_multi_request,
                 'VALUE': self.value
             },
             feedback=self.feedback
@@ -389,6 +391,7 @@ class DownloadOSMDataAroundAreaQuery(DownloadOSMData, BuildQueryAroundAreaAlgori
                 'KEY': self.key,
                 'SERVER': self.server,
                 'TIMEOUT': self.timeout,
+                'TYPE_MULTI_REQUEST': self.type_multi_request,
                 'VALUE': self.value
             },
             feedback=self.feedback
@@ -435,6 +438,7 @@ class DownloadOSMDataExtentQuery(DownloadOSMData, BuildQueryExtentAlgorithm):
                 'KEY': self.key,
                 'SERVER': self.server,
                 'TIMEOUT': self.timeout,
+                'TYPE_MULTI_REQUEST': self.type_multi_request,
                 'VALUE': self.value
             },
             feedback=self.feedback
