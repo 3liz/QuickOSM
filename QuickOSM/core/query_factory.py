@@ -3,7 +3,7 @@
 import logging
 import re
 
-from typing import List, Union
+from typing import List
 from xml.dom.minidom import parseString
 
 from QuickOSM.core.exceptions import QueryFactoryException
