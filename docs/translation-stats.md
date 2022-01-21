@@ -27,13 +27,13 @@ Italian|[=100.0% "100.0"]|
 Korean|[=100.0% "100.0"]|
 Portuguese (Brazil)|[=100.0% "100.0"]|
 Romanian|[=100.0% "100.0"]|
+Finnish|[=100.00% "100.0"]|
 Indonesian|[=98.64% "98.64"]|
 Polish|[=95.93% "95.93"]|
 Vietnamese|[=81.69% "81.69"]|
 Chinese (Taiwan)|[=56.95% "56.95"]|
 Russian|[=53.9% "53.9"]|
 Spanish|[=52.2% "52.2"]|
-Finnish|[=3.73% "3.73"]|
 Danish|[=1.36% "1.36"]|
 Swedish|[=0.0% "0.0"]|
 
