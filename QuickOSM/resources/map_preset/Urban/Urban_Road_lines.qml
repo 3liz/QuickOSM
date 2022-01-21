@@ -5,22 +5,25 @@
       <rule label="1:25000" scalemindenom="1" key="{1a0c9345-0ffd-4743-bf78-82ca39f64d40}" scalemaxdenom="25000">
         <rule symbol="0" label="Motorway or highway" key="{09728df9-4e11-48c8-8f36-b7faf0a62524}" filter="&quot;highway&quot; IN ('motorway', 'highway')"/>
         <rule symbol="1" label="Motorway Link" key="{a9fac601-7bc7-4150-9783-19d7827b2ef8}" filter="&quot;highway&quot; = 'motorway_link'"/>
-        <rule symbol="2" label="Primary road" key="{e2c3dbec-7274-4149-8b0b-959b2e758b9a}" filter="&quot;highway&quot; = 'primary'"/>
-        <rule symbol="3" label="Primary link" key="{78db6f50-70cc-417d-995d-97ad897bf52b}" filter="&quot;highway&quot; = 'primary_link'"/>
-        <rule symbol="4" label="Tertiary" key="{26f18044-95a7-4170-9ce3-0137ce4a2232}" filter="&quot;highway&quot; = 'tertiary'"/>
-        <rule symbol="5" label="Tertiary link" key="{f215859b-f963-4872-8f4b-b2e39e5f0c35}" filter="&quot;highway&quot; = 'tertiary_link'"/>
-        <rule symbol="6" label="Secondary" key="{aac3fe77-b7ff-4c47-8f28-c33de0dc4b2b}" filter="&quot;highway&quot; = 'secondary'"/>
-        <rule symbol="7" label="Secondary link" key="{960d07d3-ac1a-40c8-8f2e-1b499f3ccafc}" filter="&quot;highway&quot; = 'secondary_link'"/>
-        <rule symbol="8" label="Road, residential, living street, etc." key="{303a360c-638b-4c9f-adee-eff33d3e95f1}" filter="&quot;highway&quot; IN ('road', 'residential', 'living_street', 'service', 'unclassified')"/>
-        <rule symbol="9" label="Track" key="{c63b61f8-f9e5-4a57-9231-9001ffd07bad}" filter="&quot;highway&quot; = 'track'"/>
-        <rule symbol="10" label="Cycleway, footpath etc." key="{245c23be-e45f-4f80-9ea4-f1676315f178}" filter="&quot;highway&quot; IN ('cycleway', 'footpath')"/>
+        <rule symbol="2" label="Trunk" key="{5cc5b920-bfdc-4e2b-b085-1e5436874dec}" filter="&quot;highway&quot; = 'trunk'"/>
+        <rule symbol="3" label="Trunk" key="{4147b625-88ec-4dcf-81c0-59ac294c8d33}" filter="&quot;highway&quot; = 'trunk_link'"/>
+        <rule symbol="4" label="Primary road" key="{e2c3dbec-7274-4149-8b0b-959b2e758b9a}" filter="&quot;highway&quot; = 'primary'"/>
+        <rule symbol="5" label="Primary link" key="{78db6f50-70cc-417d-995d-97ad897bf52b}" filter="&quot;highway&quot; = 'primary_link'"/>
+        <rule symbol="6" label="Tertiary" key="{26f18044-95a7-4170-9ce3-0137ce4a2232}" filter="&quot;highway&quot; = 'tertiary'"/>
+        <rule symbol="7" label="Tertiary link" key="{f215859b-f963-4872-8f4b-b2e39e5f0c35}" filter="&quot;highway&quot; = 'tertiary_link'"/>
+        <rule symbol="8" label="Secondary" key="{aac3fe77-b7ff-4c47-8f28-c33de0dc4b2b}" filter="&quot;highway&quot; = 'secondary'"/>
+        <rule symbol="9" label="Secondary link" key="{960d07d3-ac1a-40c8-8f2e-1b499f3ccafc}" filter="&quot;highway&quot; = 'secondary_link'"/>
+        <rule symbol="10" label="Road, residential, living street, etc." key="{303a360c-638b-4c9f-adee-eff33d3e95f1}" filter="&quot;highway&quot; IN ('road', 'residential', 'living_street', 'service', 'unclassified')"/>
+        <rule symbol="11" label="Track" key="{c63b61f8-f9e5-4a57-9231-9001ffd07bad}" filter="&quot;highway&quot; = 'track'"/>
+        <rule symbol="12" label="Cycleway, footpath etc." key="{245c23be-e45f-4f80-9ea4-f1676315f178}" filter="&quot;highway&quot; IN ('cycleway', 'footpath')"/>
       </rule>
-      <rule symbol="11" label="25k to 50k" scalemindenom="25001" key="{b3334f5f-daaf-4dc2-a2dc-f5f8485a1b37}" scalemaxdenom="50000">
-        <rule symbol="12" label="Motorway or highway" key="{df36abe1-cd0c-4998-ad63-a345bf695569}" filter="&quot;highway&quot; IN ('motorway', 'highway')"/>
-        <rule symbol="13" label="Primary" key="{97c219cb-9b1a-4a9d-bba5-cfe3006fe48a}" filter="&quot;highway&quot; = 'primary'"/>
+      <rule symbol="13" label="25k to 50k" scalemindenom="25001" key="{b3334f5f-daaf-4dc2-a2dc-f5f8485a1b37}" scalemaxdenom="50000">
+        <rule symbol="14" label="Motorway or highway" key="{df36abe1-cd0c-4998-ad63-a345bf695569}" filter="&quot;highway&quot; IN ('motorway', 'highway')"/>
+        <rule symbol="15" label="Trunk" key="{1c14f494-3cf8-4f55-b1d4-4a3fcb2d2e70}" filter="&quot;highway&quot; = 'trunk'"/>
+        <rule symbol="16" label="Primary" key="{97c219cb-9b1a-4a9d-bba5-cfe3006fe48a}" filter="&quot;highway&quot; = 'primary'"/>
       </rule>
-      <rule symbol="14" label="50k +" scalemindenom="50001" key="{2df87245-1aca-463a-a8eb-a5f2ea287a44}" scalemaxdenom="10000000">
-        <rule symbol="15" label="Motorway or highway" key="{1be63a51-ccb6-4c5c-acdf-fdee5f8408c1}" filter="&quot;highway&quot; IN ('motorway', 'highway')"/>
+      <rule symbol="17" label="50k +" scalemindenom="50001" key="{2df87245-1aca-463a-a8eb-a5f2ea287a44}" scalemaxdenom="10000000">
+        <rule symbol="18" label="Motorway or highway" key="{1be63a51-ccb6-4c5c-acdf-fdee5f8408c1}" filter="&quot;highway&quot; IN ('motorway', 'highway')"/>
       </rule>
     </rules>
     <symbols>
@@ -55,7 +58,7 @@
             </Option>
           </data_defined_properties>
         </layer>
-        <layer locked="0" class="SimpleLine" pass="21" enabled="1">
+        <layer locked="0" class="SimpleLine" pass="25" enabled="1">
           <prop v="0" k="align_dash_pattern"/>
           <prop v="round" k="capstyle"/>
           <prop v="5;2" k="customdash"/>
@@ -117,7 +120,7 @@
             </Option>
           </data_defined_properties>
         </layer>
-        <layer locked="0" class="SimpleLine" pass="19" enabled="1">
+        <layer locked="0" class="SimpleLine" pass="23" enabled="1">
           <prop v="0" k="align_dash_pattern"/>
           <prop v="round" k="capstyle"/>
           <prop v="5;2" k="customdash"/>
@@ -148,7 +151,7 @@
           </data_defined_properties>
         </layer>
       </symbol>
-      <symbol name="10" clip_to_extent="1" type="line" force_rhr="0" alpha="1">
+      <symbol name="12" clip_to_extent="1" type="line" force_rhr="0" alpha="1">
         <layer locked="0" class="SimpleLine" pass="1" enabled="1">
           <prop v="0" k="align_dash_pattern"/>
           <prop v="round" k="capstyle"/>
@@ -210,7 +213,7 @@
           </data_defined_properties>
         </layer>
       </symbol>
-      <symbol name="11" clip_to_extent="1" type="line" force_rhr="0" alpha="1">
+      <symbol name="13" clip_to_extent="1" type="line" force_rhr="0" alpha="1">
         <layer locked="0" class="SimpleLine" pass="1" enabled="1">
           <prop v="0" k="align_dash_pattern"/>
           <prop v="round" k="capstyle"/>
@@ -272,7 +275,7 @@
           </data_defined_properties>
         </layer>
       </symbol>
-      <symbol name="12" clip_to_extent="1" type="line" force_rhr="0" alpha="1">
+      <symbol name="14" clip_to_extent="1" type="line" force_rhr="0" alpha="1">
         <layer locked="1" class="SimpleLine" pass="1" enabled="1">
           <prop v="0" k="align_dash_pattern"/>
           <prop v="round" k="capstyle"/>
@@ -303,7 +306,7 @@
             </Option>
           </data_defined_properties>
         </layer>
-        <layer locked="0" class="SimpleLine" pass="20" enabled="1">
+        <layer locked="0" class="SimpleLine" pass="24" enabled="1">
           <prop v="0" k="align_dash_pattern"/>
           <prop v="round" k="capstyle"/>
           <prop v="5;2" k="customdash"/>
@@ -334,7 +337,69 @@
           </data_defined_properties>
         </layer>
       </symbol>
-      <symbol name="13" clip_to_extent="1" type="line" force_rhr="0" alpha="1">
+      <symbol name="15" alpha="1" type="line" clip_to_extent="1" force_rhr="0">
+        <layer enabled="1" pass="0" locked="0" class="SimpleLine">
+          <prop k="align_dash_pattern" v="0"/>
+          <prop k="capstyle" v="square"/>
+          <prop k="customdash" v="5;2"/>
+          <prop k="customdash_map_unit_scale" v="3x:0,0,0,0,0,0"/>
+          <prop k="customdash_unit" v="MM"/>
+          <prop k="dash_pattern_offset" v="0"/>
+          <prop k="dash_pattern_offset_map_unit_scale" v="3x:0,0,0,0,0,0"/>
+          <prop k="dash_pattern_offset_unit" v="MM"/>
+          <prop k="draw_inside_polygon" v="0"/>
+          <prop k="joinstyle" v="bevel"/>
+          <prop k="line_color" v="0,0,0,255"/>
+          <prop k="line_style" v="solid"/>
+          <prop k="line_width" v="3.06"/>
+          <prop k="line_width_unit" v="MM"/>
+          <prop k="offset" v="0"/>
+          <prop k="offset_map_unit_scale" v="3x:0,0,0,0,0,0"/>
+          <prop k="offset_unit" v="MM"/>
+          <prop k="ring_filter" v="0"/>
+          <prop k="tweak_dash_pattern_on_corners" v="0"/>
+          <prop k="use_custom_dash" v="0"/>
+          <prop k="width_map_unit_scale" v="3x:0,0,0,0,0,0"/>
+          <data_defined_properties>
+            <Option type="Map">
+              <Option name="name" type="QString" value=""/>
+              <Option name="properties"/>
+              <Option name="type" type="QString" value="collection"/>
+            </Option>
+          </data_defined_properties>
+        </layer>
+        <layer enabled="1" pass="20" locked="0" class="SimpleLine">
+          <prop k="align_dash_pattern" v="0"/>
+          <prop k="capstyle" v="square"/>
+          <prop k="customdash" v="5;2"/>
+          <prop k="customdash_map_unit_scale" v="3x:0,0,0,0,0,0"/>
+          <prop k="customdash_unit" v="MM"/>
+          <prop k="dash_pattern_offset" v="0"/>
+          <prop k="dash_pattern_offset_map_unit_scale" v="3x:0,0,0,0,0,0"/>
+          <prop k="dash_pattern_offset_unit" v="MM"/>
+          <prop k="draw_inside_polygon" v="0"/>
+          <prop k="joinstyle" v="bevel"/>
+          <prop k="line_color" v="132,178,208,255"/>
+          <prop k="line_style" v="solid"/>
+          <prop k="line_width" v="2.9"/>
+          <prop k="line_width_unit" v="MM"/>
+          <prop k="offset" v="0"/>
+          <prop k="offset_map_unit_scale" v="3x:0,0,0,0,0,0"/>
+          <prop k="offset_unit" v="MM"/>
+          <prop k="ring_filter" v="0"/>
+          <prop k="tweak_dash_pattern_on_corners" v="0"/>
+          <prop k="use_custom_dash" v="0"/>
+          <prop k="width_map_unit_scale" v="3x:0,0,0,0,0,0"/>
+          <data_defined_properties>
+            <Option type="Map">
+              <Option name="name" type="QString" value=""/>
+              <Option name="properties"/>
+              <Option name="type" type="QString" value="collection"/>
+            </Option>
+          </data_defined_properties>
+        </layer>
+      </symbol>
+      <symbol name="16" clip_to_extent="1" type="line" force_rhr="0" alpha="1">
         <layer locked="1" class="SimpleLine" pass="1" enabled="1">
           <prop v="0" k="align_dash_pattern"/>
           <prop v="round" k="capstyle"/>
@@ -396,7 +461,7 @@
           </data_defined_properties>
         </layer>
       </symbol>
-      <symbol name="14" clip_to_extent="1" type="line" force_rhr="0" alpha="1">
+      <symbol name="17" clip_to_extent="1" type="line" force_rhr="0" alpha="1">
         <layer locked="0" class="SimpleLine" pass="1" enabled="1">
           <prop v="0" k="align_dash_pattern"/>
           <prop v="square" k="capstyle"/>
@@ -428,7 +493,7 @@
           </data_defined_properties>
         </layer>
       </symbol>
-      <symbol name="15" clip_to_extent="1" type="line" force_rhr="0" alpha="1">
+      <symbol name="18" clip_to_extent="1" type="line" force_rhr="0" alpha="1">
         <layer locked="1" class="SimpleLine" pass="1" enabled="1">
           <prop v="0" k="align_dash_pattern"/>
           <prop v="round" k="capstyle"/>
@@ -490,7 +555,131 @@
           </data_defined_properties>
         </layer>
       </symbol>
-      <symbol name="2" clip_to_extent="1" type="line" force_rhr="0" alpha="1">
+      <symbol name="2" alpha="1" type="line" clip_to_extent="1" force_rhr="0">
+        <layer enabled="1" pass="0" locked="0" class="SimpleLine">
+          <prop k="align_dash_pattern" v="0"/>
+          <prop k="capstyle" v="round"/>
+          <prop k="customdash" v="5;2"/>
+          <prop k="customdash_map_unit_scale" v="3x:0,0,0,0,0,0"/>
+          <prop k="customdash_unit" v="MM"/>
+          <prop k="dash_pattern_offset" v="0"/>
+          <prop k="dash_pattern_offset_map_unit_scale" v="3x:0,0,0,0,0,0"/>
+          <prop k="dash_pattern_offset_unit" v="MM"/>
+          <prop k="draw_inside_polygon" v="0"/>
+          <prop k="joinstyle" v="round"/>
+          <prop k="line_color" v="0,0,0,255"/>
+          <prop k="line_style" v="solid"/>
+          <prop k="line_width" v="3.06"/>
+          <prop k="line_width_unit" v="MM"/>
+          <prop k="offset" v="0"/>
+          <prop k="offset_map_unit_scale" v="3x:0,0,0,0,0,0"/>
+          <prop k="offset_unit" v="MM"/>
+          <prop k="ring_filter" v="0"/>
+          <prop k="tweak_dash_pattern_on_corners" v="0"/>
+          <prop k="use_custom_dash" v="0"/>
+          <prop k="width_map_unit_scale" v="3x:0,0,0,0,0,0"/>
+          <data_defined_properties>
+            <Option type="Map">
+              <Option name="name" type="QString" value=""/>
+              <Option name="properties"/>
+              <Option name="type" type="QString" value="collection"/>
+            </Option>
+          </data_defined_properties>
+        </layer>
+        <layer enabled="1" pass="21" locked="0" class="SimpleLine">
+          <prop k="align_dash_pattern" v="0"/>
+          <prop k="capstyle" v="round"/>
+          <prop k="customdash" v="5;2"/>
+          <prop k="customdash_map_unit_scale" v="3x:0,0,0,0,0,0"/>
+          <prop k="customdash_unit" v="MM"/>
+          <prop k="dash_pattern_offset" v="0"/>
+          <prop k="dash_pattern_offset_map_unit_scale" v="3x:0,0,0,0,0,0"/>
+          <prop k="dash_pattern_offset_unit" v="MM"/>
+          <prop k="draw_inside_polygon" v="0"/>
+          <prop k="joinstyle" v="round"/>
+          <prop k="line_color" v="132,178,208,255"/>
+          <prop k="line_style" v="solid"/>
+          <prop k="line_width" v="2.9"/>
+          <prop k="line_width_unit" v="MM"/>
+          <prop k="offset" v="0"/>
+          <prop k="offset_map_unit_scale" v="3x:0,0,0,0,0,0"/>
+          <prop k="offset_unit" v="MM"/>
+          <prop k="ring_filter" v="0"/>
+          <prop k="tweak_dash_pattern_on_corners" v="0"/>
+          <prop k="use_custom_dash" v="0"/>
+          <prop k="width_map_unit_scale" v="3x:0,0,0,0,0,0"/>
+          <data_defined_properties>
+            <Option type="Map">
+              <Option name="name" type="QString" value=""/>
+              <Option name="properties"/>
+              <Option name="type" type="QString" value="collection"/>
+            </Option>
+          </data_defined_properties>
+        </layer>
+      </symbol>
+      <symbol name="3" alpha="1" type="line" clip_to_extent="1" force_rhr="0">
+        <layer enabled="1" pass="0" locked="0" class="SimpleLine">
+          <prop k="align_dash_pattern" v="0"/>
+          <prop k="capstyle" v="round"/>
+          <prop k="customdash" v="5;2"/>
+          <prop k="customdash_map_unit_scale" v="3x:0,0,0,0,0,0"/>
+          <prop k="customdash_unit" v="MM"/>
+          <prop k="dash_pattern_offset" v="0"/>
+          <prop k="dash_pattern_offset_map_unit_scale" v="3x:0,0,0,0,0,0"/>
+          <prop k="dash_pattern_offset_unit" v="MM"/>
+          <prop k="draw_inside_polygon" v="0"/>
+          <prop k="joinstyle" v="round"/>
+          <prop k="line_color" v="0,0,0,255"/>
+          <prop k="line_style" v="solid"/>
+          <prop k="line_width" v="2.1"/>
+          <prop k="line_width_unit" v="MM"/>
+          <prop k="offset" v="0"/>
+          <prop k="offset_map_unit_scale" v="3x:0,0,0,0,0,0"/>
+          <prop k="offset_unit" v="MM"/>
+          <prop k="ring_filter" v="0"/>
+          <prop k="tweak_dash_pattern_on_corners" v="0"/>
+          <prop k="use_custom_dash" v="0"/>
+          <prop k="width_map_unit_scale" v="3x:0,0,0,0,0,0"/>
+          <data_defined_properties>
+            <Option type="Map">
+              <Option name="name" type="QString" value=""/>
+              <Option name="properties"/>
+              <Option name="type" type="QString" value="collection"/>
+            </Option>
+          </data_defined_properties>
+        </layer>
+        <layer enabled="1" pass="19" locked="0" class="SimpleLine">
+          <prop k="align_dash_pattern" v="0"/>
+          <prop k="capstyle" v="round"/>
+          <prop k="customdash" v="5;2"/>
+          <prop k="customdash_map_unit_scale" v="3x:0,0,0,0,0,0"/>
+          <prop k="customdash_unit" v="MM"/>
+          <prop k="dash_pattern_offset" v="0"/>
+          <prop k="dash_pattern_offset_map_unit_scale" v="3x:0,0,0,0,0,0"/>
+          <prop k="dash_pattern_offset_unit" v="MM"/>
+          <prop k="draw_inside_polygon" v="0"/>
+          <prop k="joinstyle" v="round"/>
+          <prop k="line_color" v="132,178,208,255"/>
+          <prop k="line_style" v="solid"/>
+          <prop k="line_width" v="1.9"/>
+          <prop k="line_width_unit" v="MM"/>
+          <prop k="offset" v="0"/>
+          <prop k="offset_map_unit_scale" v="3x:0,0,0,0,0,0"/>
+          <prop k="offset_unit" v="MM"/>
+          <prop k="ring_filter" v="0"/>
+          <prop k="tweak_dash_pattern_on_corners" v="0"/>
+          <prop k="use_custom_dash" v="0"/>
+          <prop k="width_map_unit_scale" v="3x:0,0,0,0,0,0"/>
+          <data_defined_properties>
+            <Option type="Map">
+              <Option name="name" type="QString" value=""/>
+              <Option name="properties"/>
+              <Option name="type" type="QString" value="collection"/>
+            </Option>
+          </data_defined_properties>
+        </layer>
+      </symbol>
+      <symbol name="4" clip_to_extent="1" type="line" force_rhr="0" alpha="1">
         <layer locked="0" class="SimpleLine" pass="1" enabled="1">
           <prop v="0" k="align_dash_pattern"/>
           <prop v="round" k="capstyle"/>
@@ -552,7 +741,7 @@
           </data_defined_properties>
         </layer>
       </symbol>
-      <symbol name="3" clip_to_extent="1" type="line" force_rhr="0" alpha="1">
+      <symbol name="5" clip_to_extent="1" type="line" force_rhr="0" alpha="1">
         <layer locked="0" class="SimpleLine" pass="1" enabled="1">
           <prop v="0" k="align_dash_pattern"/>
           <prop v="round" k="capstyle"/>
@@ -614,7 +803,7 @@
           </data_defined_properties>
         </layer>
       </symbol>
-      <symbol name="4" clip_to_extent="1" type="line" force_rhr="0" alpha="1">
+      <symbol name="6" clip_to_extent="1" type="line" force_rhr="0" alpha="1">
         <layer locked="1" class="SimpleLine" pass="1" enabled="1">
           <prop v="0" k="align_dash_pattern"/>
           <prop v="round" k="capstyle"/>
@@ -676,7 +865,7 @@
           </data_defined_properties>
         </layer>
       </symbol>
-      <symbol name="5" clip_to_extent="1" type="line" force_rhr="0" alpha="1">
+      <symbol name="7" clip_to_extent="1" type="line" force_rhr="0" alpha="1">
         <layer locked="0" class="SimpleLine" pass="1" enabled="1">
           <prop v="0" k="align_dash_pattern"/>
           <prop v="round" k="capstyle"/>
@@ -738,7 +927,7 @@
           </data_defined_properties>
         </layer>
       </symbol>
-      <symbol name="6" clip_to_extent="1" type="line" force_rhr="0" alpha="1">
+      <symbol name="8" clip_to_extent="1" type="line" force_rhr="0" alpha="1">
         <layer locked="0" class="SimpleLine" pass="1" enabled="1">
           <prop v="0" k="align_dash_pattern"/>
           <prop v="square" k="capstyle"/>
@@ -800,7 +989,7 @@
           </data_defined_properties>
         </layer>
       </symbol>
-      <symbol name="7" clip_to_extent="1" type="line" force_rhr="0" alpha="1">
+      <symbol name="9" clip_to_extent="1" type="line" force_rhr="0" alpha="1">
         <layer locked="0" class="SimpleLine" pass="1" enabled="1">
           <prop v="0" k="align_dash_pattern"/>
           <prop v="square" k="capstyle"/>
@@ -862,7 +1051,7 @@
           </data_defined_properties>
         </layer>
       </symbol>
-      <symbol name="8" clip_to_extent="1" type="line" force_rhr="0" alpha="1">
+      <symbol name="10" clip_to_extent="1" type="line" force_rhr="0" alpha="1">
         <layer locked="1" class="SimpleLine" pass="1" enabled="1">
           <prop v="0" k="align_dash_pattern"/>
           <prop v="round" k="capstyle"/>
@@ -924,7 +1113,7 @@
           </data_defined_properties>
         </layer>
       </symbol>
-      <symbol name="9" clip_to_extent="1" type="line" force_rhr="0" alpha="1">
+      <symbol name="11" clip_to_extent="1" type="line" force_rhr="0" alpha="1">
         <layer locked="1" class="SimpleLine" pass="1" enabled="1">
           <prop v="0" k="align_dash_pattern"/>
           <prop v="round" k="capstyle"/>
