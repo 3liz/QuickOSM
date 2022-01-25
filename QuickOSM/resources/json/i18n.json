@@ -17,7 +17,7 @@
     },
     "fi": {
         "name": "Finnish",
-        "percentage": 3.73
+        "percentage": 100.0
     },
     "fr": {
         "name": "French",
@@ -70,6 +70,6 @@
     "en": {
         "nb_languages": 17,
         "stringcount": 295,
-        "percentage": 73.2
+        "percentage": 78.86
     }
 }

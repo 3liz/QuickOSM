@@ -11,23 +11,23 @@ It is generated automatically by transifex_stats.py in the scripts folder.
 The translation is available on [Transifex](https://www.transifex.com/quickosm/gui/), no development
 knowledge is required.
 
-*Statistics updated: 2022-01-18*
+*Statistics updated: 2022-01-25*
 
 | Number of strings | Number of target languages | Overall Translation ratio |
 |:-:|:-:|:-:|
-295|17|73.2
+295|17|78.86
 
 | Language | Translation ratio (%) |
 |:-:|:-:|
 Chinese|[=100.0% "100.0"]|
 Dutch|[=100.0% "100.0"]|
+Finnish|[=100.0% "100.0"]|
 French|[=100.0% "100.0"]|
 German|[=100.0% "100.0"]|
 Italian|[=100.0% "100.0"]|
 Korean|[=100.0% "100.0"]|
 Portuguese (Brazil)|[=100.0% "100.0"]|
 Romanian|[=100.0% "100.0"]|
-Finnish|[=100.00% "100.0"]|
 Indonesian|[=98.64% "98.64"]|
 Polish|[=95.93% "95.93"]|
 Vietnamese|[=81.69% "81.69"]|
