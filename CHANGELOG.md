@@ -2,6 +2,9 @@
 
 ## Unreleased
 
+* Add trunk roads to Urban visualization preset (contribution from @Rikuoja)
+* Fix an error when running Python 3.10
+
 ## 2.0.0 - 2021-09-09
 
 * Release of QuickOSM 2.0.0
