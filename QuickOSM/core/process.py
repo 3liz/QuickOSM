@@ -117,7 +117,7 @@ def open_file(
 
     for i, (layer, item) in enumerate(layers.items()):
         if dialog:
-            dialog.set_progress_percentage(i / len(layers) * 100)
+            dialog.set_progress_percentage(int(i / len(layers) * 100))
         QApplication.processEvents()
         if item['featureCount'] and (
                 LayerType(layer.capitalize()) in output_geom_types):
