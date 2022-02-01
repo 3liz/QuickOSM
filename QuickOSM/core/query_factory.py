@@ -160,7 +160,8 @@ class QueryFactory:
     def _convert_to_multitypes(type_multi_request: str) -> List[MultiType]:
         """Converts a string of comma separated 'AND'/'OR's to a list of MultiType equivalents.
 
-        :param type_multi_request: A string of comma separated 'AND'/'OR's provided from input of processing algorithms
+        :param type_multi_request: A string of comma separated 'AND'/'OR's provided from input of processing
+        algorithms
         :type type_multi_request: str
 
         :return: list of MultiType
@@ -177,7 +178,8 @@ class QueryFactory:
                 elif type_ == 'OR':
                     types.append(MultiType.OR)
                 else:
-                    raise QueryFactoryException(tr('Only values "AND"/"OR" are allowed as logical operators.'))
+                    raise QueryFactoryException(
+                        tr('Only values "AND"/"OR" are allowed as logical operators.'))
         return types
 
     def _check_parameters(self) -> bool:
@@ -245,7 +247,8 @@ class QueryFactory:
                 raise QueryFactoryException(
                     tr('Too many logical operators were provided.')
                 )
-            elif len(self._type_multi_request) < len(self._key) - 1:
+
+            if len(self._type_multi_request) < len(self._key) - 1:
                 raise QueryFactoryException(
                     tr('Not enough logical operators were provided.')
                 )

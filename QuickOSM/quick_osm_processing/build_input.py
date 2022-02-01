@@ -15,7 +15,7 @@ from qgis.core import (
 )
 
 from QuickOSM.core.utilities.tools import get_setting
-from QuickOSM.definitions.osm import QueryType, MultiType
+from QuickOSM.definitions.osm import QueryType
 from QuickOSM.definitions.overpass import OVERPASS_SERVERS
 from QuickOSM.qgis_plugin_tools.tools.i18n import tr
 
@@ -184,10 +184,14 @@ class BuildBasedQuery(BuildBased):
         self.addParameter(param)
 
         param = QgsProcessingParameterString(
-            self.TYPE_MULTI_REQUEST, tr('Operator types to combine multiple keys and values with'), optional=True
+            self.TYPE_MULTI_REQUEST,
+            tr('Operator types to combine multiple keys and values with'),
+            optional=True
         )
+
+        # TODO: expand help string
         help_string = tr(
-            'The logical operators used to combine keys and values, if there are multiple.'  # TODO: expand help string
+            'The logical operators used to combine keys and values, if there are multiple.'
         )
         param.setHelp(help_string)
         self.addParameter(param)
