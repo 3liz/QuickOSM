@@ -5,7 +5,7 @@
     },
     "zh_TW": {
         "name": "Chinese (Taiwan)",
-        "percentage": 58.98
+        "percentage": 86.1
     },
     "da": {
         "name": "Danish",
@@ -74,6 +74,6 @@
     "en": {
         "nb_languages": 18,
         "stringcount": 295,
-        "percentage": 74.48
+        "percentage": 75.99
     }
 }
