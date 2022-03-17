@@ -26,5 +26,7 @@ icon=resources/icons/QuickOSM.svg
 # experimental flag
 experimental=False
 
+dateTime=
+
 # deprecated flag (applies to the whole plugin, not just a single version)
 deprecated=False
