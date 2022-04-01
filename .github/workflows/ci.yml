@@ -146,7 +146,7 @@ jobs:
           tweet_body: "New version of #QuickOSM ${{ env.RELEASE_VERSION }} 🔎 for #QGIS https://github.com/3liz/QuickOSM/releases"
 
       - name: Repository Dispatch
-        uses: peter-evans/repository-dispatch@v1
+        uses: peter-evans/repository-dispatch@v2
         with:
           token: ${{ secrets.BOT_HUB_TOKEN }}
           repository: 3liz/3liz.github.io
