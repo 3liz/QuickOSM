@@ -2,52 +2,52 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://docs.3liz.org/QuickOSM/</loc>
-         <lastmod>2022-03-29</lastmod>
+         <lastmod>2022-04-05</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.3liz.org/QuickOSM/CHANGELOG/</loc>
-         <lastmod>2022-03-29</lastmod>
+         <lastmod>2022-04-05</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.3liz.org/QuickOSM/CONTRIBUTING/</loc>
-         <lastmod>2022-03-29</lastmod>
+         <lastmod>2022-04-05</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.3liz.org/QuickOSM/changelog/</loc>
-         <lastmod>2022-03-29</lastmod>
+         <lastmod>2022-04-05</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.3liz.org/QuickOSM/contributing/</loc>
-         <lastmod>2022-03-29</lastmod>
+         <lastmod>2022-04-05</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.3liz.org/QuickOSM/references/</loc>
-         <lastmod>2022-03-29</lastmod>
+         <lastmod>2022-04-05</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.3liz.org/QuickOSM/translation-stats/</loc>
-         <lastmod>2022-03-29</lastmod>
+         <lastmod>2022-04-05</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.3liz.org/QuickOSM/processing/</loc>
-         <lastmod>2022-03-29</lastmod>
+         <lastmod>2022-04-05</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.3liz.org/QuickOSM/user-guide/end-user/</loc>
-         <lastmod>2022-03-29</lastmod>
+         <lastmod>2022-04-05</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.3liz.org/QuickOSM/user-guide/processing/</loc>
-         <lastmod>2022-03-29</lastmod>
+         <lastmod>2022-04-05</lastmod>
          <changefreq>daily</changefreq>
     </url>
 </urlset>
