@@ -21,11 +21,15 @@
     },
     "fr": {
         "name": "French",
-        "percentage": 99.66
+        "percentage": 100.0
     },
     "de": {
         "name": "German",
         "percentage": 99.66
+    },
+    "he": {
+        "name": "Hebrew",
+        "percentage": 0.0
     },
     "id": {
         "name": "Indonesian",
@@ -61,7 +65,7 @@
     },
     "es": {
         "name": "Spanish",
-        "percentage": 52.2
+        "percentage": 60.0
     },
     "sv": {
         "name": "Swedish",
@@ -72,8 +76,8 @@
         "percentage": 81.69
     },
     "en": {
-        "nb_languages": 18,
+        "nb_languages": 19,
         "stringcount": 295,
-        "percentage": 76.76
+        "percentage": 73.15
     }
 }
