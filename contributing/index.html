@@ -15,7 +15,7 @@
         <link rel="canonical" href="https://docs.3liz.org/QuickOSM/contributing/">
       
       <link rel="icon" href="../media/icon.png">
-      <meta name="generator" content="mkdocs-1.3.0, mkdocs-material-8.2.11">
+      <meta name="generator" content="mkdocs-1.3.0, mkdocs-material-8.2.13">
     
     
       
@@ -23,10 +23,10 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.8c5ef100.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.e411adfe.min.css">
       
         
-        <link rel="stylesheet" href="../assets/stylesheets/palette.9647289d.min.css">
+        <link rel="stylesheet" href="../assets/stylesheets/palette.cc9b2e1e.min.css">
         
           
           
@@ -776,13 +776,12 @@ knowledge is required. <a href="https://github.com/3liz/QuickOSM/actions/workflo
 <h2 id="code">Code<a class="headerlink" href="#code" title="Permanent link">#</a></h2>
 <p>SQL and Python are covered by unittests with Docker.</p>
 <p><a href="https://github.com/3liz/QuickOSM/actions/workflows/ci.yml"><img alt="Tests 🎳" src="https://github.com/3liz/QuickOSM/actions/workflows/ci.yml/badge.svg" /></a></p>
-<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
 <span class="normal">2</span>
-<span class="normal">3</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>pip install -r requirements/dev.txt
+<span class="normal">3</span></pre></div></td><td class="code"><div><pre><span></span><code>pip install -r requirements/dev.txt
 flake8
 make tests
-</code></pre></div>
-</td></tr></table>
+</code></pre></div></td></tr></table></div>
 <ul>
 <li>QuickOSM uses a <a href="https://git-scm.com/book/en/v2/Git-Tools-Submodules">Git submodule</a>.</li>
 <li>For a new clone, including the submodule, do <code>git clone --recursive https://github.com/3liz/QuickOSM.git</code>.</li>
@@ -803,25 +802,22 @@ make tests
 </ul>
 </li>
 </ul>
-<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
-<span class="normal">2</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">qgis.utils</span> <span class="kn">import</span> <span class="n">plugins</span>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="kn">from</span> <span class="nn">qgis.utils</span> <span class="kn">import</span> <span class="n">plugins</span>
 <span class="n">plugins</span><span class="p">[</span><span class="s1">&#39;QuickOSM&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">run_tests</span><span class="p">()</span>
-</code></pre></div>
-</td></tr></table>
+</code></pre></div></td></tr></table></div>
 <h2 id="documentation">Documentation<a class="headerlink" href="#documentation" title="Permanent link">#</a></h2>
 <p><a href="https://github.com/3liz/QuickOSM/actions/workflows/publish-doc.yml"><img alt="Documentation 📚" src="https://github.com/3liz/QuickOSM/actions/workflows/publish-doc.yml/badge.svg" /></a></p>
 <p>The documentation is using <a href="https://www.mkdocs.org/">MkDocs</a> with <a href="https://squidfunk.github.io/mkdocs-material/">Material</a> :</p>
-<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
-<span class="normal">2</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>pip install -r requirements/doc.txt
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span></pre></div></td><td class="code"><div><pre><span></span><code>pip install -r requirements/doc.txt
 mkdocs serve
-</code></pre></div>
-</td></tr></table>
+</code></pre></div></td></tr></table></div>
 <ul>
 <li>Processing algorithms documentation can be generated with:</li>
 </ul>
-<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>make processing-doc
-</code></pre></div>
-</td></tr></table>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>make processing-doc
+</code></pre></div></td></tr></table></div>
 <h2 id="architecture">Architecture<a class="headerlink" href="#architecture" title="Permanent link">#</a></h2>
 <div class="mermaid">classDiagram
 BasePanel
@@ -1000,7 +996,7 @@ class BaseOverpassPanel{
     <script id="__config" type="application/json">{"base": "..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.top"], "search": "../assets/javascripts/workers/search.2a1c317c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
     
     
-      <script src="../assets/javascripts/bundle.748e2769.min.js"></script>
+      <script src="../assets/javascripts/bundle.ed9748b7.min.js"></script>
       
         <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js"></script>
       
