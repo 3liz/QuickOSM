@@ -29,7 +29,7 @@
     },
     "he": {
         "name": "Hebrew",
-        "percentage": 0.0
+        "percentage": 1.69
     },
     "id": {
         "name": "Indonesian",
@@ -78,6 +78,6 @@
     "en": {
         "nb_languages": 19,
         "stringcount": 295,
-        "percentage": 73.15
+        "percentage": 73.24
     }
 }
