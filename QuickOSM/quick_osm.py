@@ -2,6 +2,7 @@
 
 import logging
 import os
+import shutil
 import urllib.request
 
 from os.path import join
@@ -71,6 +72,32 @@ class QuickOSMPlugin:
             pass
 
         preset_translation_path = join(resources_path(), 'i18n')
+
+        version_file_translation_path = join(resources_path(), 'i18n', 'version.txt')
+        version_file_presets = join(resources_path(), 'JOSM_preset', 'version.txt')
+
+        if not os.path.exists(version_file_translation_path):
+            # Legacy before 2.1.0
+            shutil.rmtree(preset_translation_path)
+            LOGGER.info('The version does not exist in the i18n folder, the folder needs to be unzipped.')
+
+        if os.path.isdir(preset_translation_path) and os.path.isfile(version_file_translation_path):
+            with open(version_file_translation_path, 'r', encoding='utf8') as check:
+                old_version = check.read().strip()
+
+            with open(version_file_presets, 'r', encoding='utf8') as expected:
+                new_version = expected.read().strip()
+
+            if old_version != new_version:
+                # The folder needs to be unzipped again
+                shutil.rmtree(preset_translation_path)
+                LOGGER.info(
+                    'The version does not match in the i18n folder, the folder needs to be unzipped : '
+                    'old version {} versus {}'.format(
+                        old_version, new_version
+                    )
+                )
+
         if not os.path.isdir(preset_translation_path):
             if os.path.isfile(preset_translation_path + '.zip'):
                 result = QgsZipUtils.unzip(preset_translation_path + '.zip', resources_path())
