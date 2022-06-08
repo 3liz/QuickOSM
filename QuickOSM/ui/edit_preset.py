@@ -119,21 +119,31 @@ class EditPreset(QDialog, FORM_CLASS, TableKeyValue):
 
         help_string = '<html>'
         help_string += tr(
-            "To associate a QML style file for each layer, you must add the QML file(s) in this folder :"
+            "You can associate predefined styles with layers. You need to add QML file(s) in this folder :"
         )
         help_string += '<br><b>'
         help_string += os.path.join(self.folder, file_name)
         help_string += '</b><br><br>'
-        help_string += tr("The name of the QML file must follow this convention")
+        help_string += tr("The name of QML files must follow this convention")
         help_string += " : "
-        help_string += tr("<b>name of the preset</b>_<b>name of the query</b>_<b>geometry</b>.qml")
+        help_string += "<b>&#123;"
+        help_string += tr("name of the preset")
+        help_string += "&#125;</b>_<b>&#123;"
+        help_string += tr("name of the query")
+        help_string += "&#125;</b>_<b>&#123;"
+        help_string += tr("geometry")
+        help_string += "&#125;</b>.qml"
         help_string += '<br><br>'
         help_string += tr("These parameters are separated by '_' and the geometry must be one these values :")
         help_string += ' '
-        help_string += ', '.join([j.value.lower() for j in LayerType])
+        help_string += ', '.join(['"' + j.value.lower() + '"' for j in LayerType])
         help_string += '.<br>'
         help_string += '<br>'
-        help_string += tr('For the given preset you are editing, this is the list of filename you can use')
+        help_string += tr('For the current preset "{name}"'.format(name=file_name))
+        help_string += '<br>'
+        help_string += tr('and the current query "{name}"'.format(name=query_name))
+        help_string += '<br>'
+        help_string += tr('this is the list of filenames you can use')
         help_string += " :"
         help_string += '<ul>'
         for layer_type in LayerType:
@@ -144,7 +154,7 @@ class EditPreset(QDialog, FORM_CLASS, TableKeyValue):
         help_string += '<html>'
         help_dialog = QMessageBox(
             QMessageBox.Information,
-            tr('Add some QML file(s)'),
+            tr('Associate QML style(s)'),
             help_string,
             QMessageBox.Ok,
             self
