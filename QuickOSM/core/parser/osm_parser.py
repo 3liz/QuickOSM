@@ -7,7 +7,7 @@ from typing import List
 import processing
 
 from osgeo import gdal
-from qgis.core import QgsField, QgsProcessingFeedback, QgsVectorLayer
+from qgis.core import QgsApplication, QgsField, QgsProcessingFeedback, QgsVectorLayer
 from qgis.PyQt.QtCore import QObject, QVariant, pyqtSignal
 
 from QuickOSM.core.exceptions import FileOutPutException, QuickOsmException
@@ -128,28 +128,37 @@ class OsmParser(QObject):
                 message = 'Error on the layer : {layer} is not valid.'.format(layer=layer)
                 raise QuickOsmException(message)
 
-            if self.feedback_alg:
-                self.feedback.pushInfo('Checking the validity of the geometry of the layer {}.'.format(layer))
-            validity = processing.run(
-                "qgis:checkvalidity", {
-                    'INPUT_LAYER': layers[layer]['vectorLayer'],
-                    'METHOD': 2,  # GEOS
-                    'IGNORE_RING_SELF_INTERSECTION': False,
-                    'VALID_OUTPUT': 'TEMPORARY_OUTPUT',
-                    'INVALID_OUTPUT': 'TEMPORARY_OUTPUT',
-                    'ERROR_OUTPUT': 'TEMPORARY_OUTPUT'
-                }, feedback=self.feedback if self.feedback_alg else None
-            )
-            if validity['INVALID_COUNT'] > 0:
-                LOGGER.info('Fixing geometries in layer: {}'.format(layer))
+            algorithm = "qgis:checkvalidity"
+            found = QgsApplication.processingRegistry().algorithmById("native:buffer") is not None
+            if found:
                 if self.feedback_alg:
-                    self.feedback.pushInfo('Fixing the geometry of the layer {}.'.format(layer))
-                layers[layer]['vectorLayer'] = processing.run(
-                    "native:fixgeometries", {
-                        'INPUT': layers[layer]['vectorLayer'],
-                        'OUTPUT': 'TEMPORARY_OUTPUT'
+                    self.feedback.pushInfo('Checking the validity of the geometry of the layer {}.'.format(layer))
+                validity = processing.run(
+                    algorithm, {
+                        'INPUT_LAYER': layers[layer]['vectorLayer'],
+                        'METHOD': 2,  # GEOS
+                        'IGNORE_RING_SELF_INTERSECTION': False,
+                        'VALID_OUTPUT': 'TEMPORARY_OUTPUT',
+                        'INVALID_OUTPUT': 'TEMPORARY_OUTPUT',
+                        'ERROR_OUTPUT': 'TEMPORARY_OUTPUT'
                     }, feedback=self.feedback if self.feedback_alg else None
-                )['OUTPUT']
+                )
+                if validity['INVALID_COUNT'] > 0:
+                    LOGGER.info('Fixing geometries in layer: {}'.format(layer))
+                    if self.feedback_alg:
+                        self.feedback.pushInfo('Fixing the geometry of the layer {}.'.format(layer))
+                    layers[layer]['vectorLayer'] = processing.run(
+                        "native:fixgeometries", {
+                            'INPUT': layers[layer]['vectorLayer'],
+                            'OUTPUT': 'TEMPORARY_OUTPUT'
+                        }, feedback=self.feedback if self.feedback_alg else None
+                    )['OUTPUT']
+
+            else:
+                self.feedback.reportError(
+                    'The algorithm {} has been found in QGIS. Skipping this step about validating geometries. '
+                    'Problem might occurs later because of invalid geometries. It would be nice to check why '
+                    'the Processing algorithm was not found in QGIS.'.format(algorithm))
 
             layers[layer]['vectorLayer'].setProviderEncoding('UTF-8')
 
