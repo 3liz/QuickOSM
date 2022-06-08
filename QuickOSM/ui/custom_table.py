@@ -266,7 +266,13 @@ class TableKeyValue:
         """Fill the table with the keys/values from the preset."""
         if not isinstance(choice, str):
             choice = self.preset.currentText()
-        element_chosen = self.preset_data.elements[choice]
+        element_chosen = self.preset_data.elements.get(choice)
+
+        if not element_chosen:
+            # Issue #387
+            # The user wrote a string without having a proper list in the dropdown.
+            LOGGER.info("User input '{}' is not recognised as a valid preset.".format(choice))
+            return
 
         keys, values = [], []
         for item in element_chosen.heirs:

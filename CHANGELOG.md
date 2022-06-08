@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+* Fix Python exception if the user input is not recognised as a valid preset
 * Update default JOSM/Vespucci presets from 2.9.0 to 4.1.2
 
 ## 2.0.1 - 2022-02-07
