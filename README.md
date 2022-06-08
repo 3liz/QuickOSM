@@ -45,4 +45,4 @@ Author: Etienne Trimaille : https://twitter.com/etrimaille
 
 Contributors:
 * Richard Marsden [winwaed](https://github.com/winwaed)
-* Maxime Charzat
+* Maxime Charzat [mcharzat](https://github.com/mcharzat)
