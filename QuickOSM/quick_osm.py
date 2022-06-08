@@ -71,16 +71,27 @@ class QuickOSMPlugin:
             # LOGGER.info('Translation not found: {}'.format(locale))
             pass
 
-        preset_translation_path = join(resources_path(), 'i18n')
+        self.extract_zip_file()
 
+        self.provider = None
+
+        self.toolbar = None
+        self.help_action = None
+        self.quickosm_menu = None
+        self.vector_menu = None
+        self.main_window_action = None
+        self.josm_action = None
+
+    @staticmethod
+    def extract_zip_file():
+        """ Extract or not the ZIP resources/i18n. """
+        preset_translation_path = join(resources_path(), 'i18n')
         version_file_translation_path = join(resources_path(), 'i18n', 'version.txt')
         version_file_presets = join(resources_path(), 'JOSM_preset', 'version.txt')
-
-        if not os.path.exists(version_file_translation_path):
+        if os.path.exists(preset_translation_path) and not os.path.exists(version_file_translation_path):
             # Legacy before 2.1.0
             shutil.rmtree(preset_translation_path)
             LOGGER.info('The version does not exist in the i18n folder, the folder needs to be unzipped.')
-
         if os.path.isdir(preset_translation_path) and os.path.isfile(version_file_translation_path):
             with open(version_file_translation_path, 'r', encoding='utf8') as check:
                 old_version = check.read().strip()
@@ -97,7 +108,6 @@ class QuickOSMPlugin:
                         old_version, new_version
                     )
                 )
-
         if not os.path.isdir(preset_translation_path):
             if os.path.isfile(preset_translation_path + '.zip'):
                 result = QgsZipUtils.unzip(preset_translation_path + '.zip', resources_path())
@@ -117,20 +127,13 @@ class QuickOSMPlugin:
             else:
                 os.mkdir(preset_translation_path)
 
-        self.provider = None
-
-        self.toolbar = None
-        self.help_action = None
-        self.quickosm_menu = None
-        self.vector_menu = None
-        self.main_window_action = None
-        self.josm_action = None
-
+    # noinspection PyPep8Naming
     def initProcessing(self):
         """Init Processing provider for QGIS >= 3.8."""
         self.provider = Provider()
         QgsApplication.processingRegistry().addProvider(self.provider)
 
+    # noinspection PyPep8Naming
     def initGui(self):
         """Init the user interface."""
         self.initProcessing()
