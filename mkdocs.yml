@@ -13,6 +13,7 @@ nav:
     - Home: index.md
     - User guide:
         - 'End user': 'user-guide/end-user.md'
+        - 'Map preset': 'user-guide/map-preset.md'
         - 'QGIS Model and Python API': 'user-guide/processing.md'
     - Processing: processing/README.md
     - Documentation:

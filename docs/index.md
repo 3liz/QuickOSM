@@ -17,11 +17,13 @@ QuickOSM allows you to work quickly with OSM data in QGIS thanks to
 * Configure the query : which layers, which columns…
 * Open a local OSM (.osm or .pbf) with a specific osmconf in QGIS
 * Build some models with [QGIS Processing](user-guide/processing.md)
+* [Launch a map preset or create our own ones](./user-guide/map-preset.md)
 
 There are some useful tips, like automatic colours on lines (if the tag is present),
 or some actions (right-click in the attribute table) for each entity (edit in JOSM for instance).
 
 ## Getting help
 
+* [Help about OSM keys and values](https://wiki.openstreetmap.org/wiki/Map_features)
 * You can ask questions on https://gis.stackexchange.com/
 * Commercial support and training available, ask us info@3liz.com
