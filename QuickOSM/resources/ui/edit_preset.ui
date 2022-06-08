@@ -125,6 +125,30 @@
     </widget>
    </item>
    <item>
+    <layout class="QHBoxLayout" name="horizontalLayout_4">
+     <item>
+      <widget class="QPushButton" name="qml_help_button">
+       <property name="text">
+        <string>Help about including QML files</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <spacer name="horizontalSpacer">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+    </layout>
+   </item>
+   <item>
     <layout class="QHBoxLayout" name="horizontalLayout_2">
      <item>
       <layout class="QVBoxLayout" name="verticalLayout">
@@ -216,8 +240,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>695</width>
-            <height>598</height>
+            <width>698</width>
+            <height>596</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -526,22 +550,6 @@
               </item>
               <item row="6" column="1">
                <widget class="QgsFileWidget" name="output_directory" native="true"/>
-              </item>
-              <item row="7" column="1">
-               <widget class="QLabel" name="qml_format">
-                <property name="sizePolicy">
-                 <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-                  <horstretch>0</horstretch>
-                  <verstretch>0</verstretch>
-                 </sizepolicy>
-                </property>
-                <property name="text">
-                 <string>To associate a qml style file for each layer, you must add this file in the folder QuickOSM/'name of the preset' with the name in a peculiar format : 'name of the preset'_'name of the query'_'layer'.</string>
-                </property>
-                <property name="wordWrap">
-                 <bool>true</bool>
-                </property>
-               </widget>
               </item>
              </layout>
             </widget>

@@ -7,7 +7,12 @@ from typing import List
 import processing
 
 from osgeo import gdal
-from qgis.core import QgsApplication, QgsField, QgsProcessingFeedback, QgsVectorLayer
+from qgis.core import (
+    QgsApplication,
+    QgsField,
+    QgsProcessingFeedback,
+    QgsVectorLayer,
+)
 from qgis.PyQt.QtCore import QObject, QVariant, pyqtSignal
 
 from QuickOSM.core.exceptions import FileOutPutException, QuickOsmException
@@ -132,7 +137,8 @@ class OsmParser(QObject):
             found = QgsApplication.processingRegistry().algorithmById("native:buffer") is not None
             if found:
                 if self.feedback_alg:
-                    self.feedback.pushInfo('Checking the validity of the geometry of the layer {}.'.format(layer))
+                    self.feedback.pushInfo(
+                        'Checking the validity of the geometry of the layer {}.'.format(layer))
                 validity = processing.run(
                     algorithm, {
                         'INPUT_LAYER': layers[layer]['vectorLayer'],
@@ -156,9 +162,9 @@ class OsmParser(QObject):
 
             else:
                 self.feedback.reportError(
-                    'The algorithm {} has been found in QGIS. Skipping this step about validating geometries. '
-                    'Problem might occurs later because of invalid geometries. It would be nice to check why '
-                    'the Processing algorithm was not found in QGIS.'.format(algorithm))
+                    'The algorithm {} has been found in QGIS. Skipping this step about validating '
+                    'geometries. Problem might occurs later because of invalid geometries. It would '
+                    'be nice to check why the Processing algorithm was not found in QGIS.'.format(algorithm))
 
             layers[layer]['vectorLayer'].setProviderEncoding('UTF-8')
 

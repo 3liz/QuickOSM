@@ -1,5 +1,6 @@
 """Dialog that edit a preset"""
 import logging
+import os
 
 from qgis.core import QgsCoordinateReferenceSystem
 from qgis.gui import QgsExtentWidget, QgsFileWidget
@@ -24,12 +25,6 @@ from QuickOSM.ui.custom_table import TableKeyValue
 __copyright__ = 'Copyright 2021, 3Liz'
 __license__ = 'GPL version 3'
 __email__ = 'info@3liz.org'
-
-Qml_Format = tr(
-    'To associate a qml style file for each layer, you must add'
-    ' the qml file(s) in the folder {}\\\'name of the preset\'\\ '
-    'with the name in a peculiar format : '
-    '\'name of the preset\'_\'name of the query\'_\'layer\'.')
 
 FORM_CLASS = load_ui('edit_preset.ui')
 LOGGER = logging.getLogger('QuickOSM')
@@ -91,9 +86,8 @@ class EditPreset(QDialog, FORM_CLASS, TableKeyValue):
             self.data_filling_form()
 
         self.disable_enable_format()
-        self.update_qml_format()
 
-        self.preset_name.textChanged.connect(self.update_qml_format)
+        self.qml_help_button.clicked.connect(self.help_qml)
         self.radio_advanced.toggled.connect(self.change_type_preset)
         self.output_directory.lineEdit().textChanged.connect(self.disable_enable_format)
         self.button_validate.clicked.connect(self.validate)
@@ -118,13 +112,44 @@ class EditPreset(QDialog, FORM_CLASS, TableKeyValue):
         boolean = not self.output_directory.lineEdit().isNull()
         self.combo_output_format.setEnabled(boolean)
 
-    def update_qml_format(self):
+    def help_qml(self):
         """Update the explanation of the qml file name format."""
         file_name = self.preset_name.text()
         query_name = self.list_queries.item(self.current_query).text()
-        name_file = file_name + '_' + query_name + '_points.qml'
 
-        self.qml_format.setText(Qml_Format.format(self.folder) + tr('\nFor example: ') + name_file)
+        help_string = '<html>'
+        help_string += tr(
+            "To associate a QML style file for each layer, you must add the QML file(s) in this folder :"
+        )
+        help_string += '<br><b>'
+        help_string += os.path.join(self.folder, file_name)
+        help_string += '</b><br><br>'
+        help_string += tr("The name of the QML file must follow this convention")
+        help_string += " : "
+        help_string += tr("<b>name of the preset</b>_<b>name of the query</b>_<b>geometry</b>.qml")
+        help_string += '<br><br>'
+        help_string += tr("These parameters are separated by '_' and the geometry must be one these values :")
+        help_string += ' '
+        help_string += ', '.join([j.value.lower() for j in LayerType])
+        help_string += '.<br>'
+        help_string += '<br>'
+        help_string += tr('For the given preset you are editing, this is the list of filename you can use')
+        help_string += " :"
+        help_string += '<ul>'
+        for layer_type in LayerType:
+            help_string += '<li><b>'
+            help_string += file_name + '_' + query_name + '_' + layer_type.value.lower()
+            help_string += '.qml</b></li>'
+        help_string += '<ul>'
+        help_string += '<html>'
+        help_dialog = QMessageBox(
+            QMessageBox.Information,
+            tr('Add some QML file(s)'),
+            help_string,
+            QMessageBox.Ok,
+            self
+        )
+        help_dialog.exec()
 
     def data_filling_form(self, num_query: int = 0):
         """Writing the form with data from preset"""
@@ -193,7 +218,6 @@ class EditPreset(QDialog, FORM_CLASS, TableKeyValue):
         self.gather_parameters(self.current_query)
         self.current_query = self.list_queries.currentRow()
         self.data_filling_form(self.current_query)
-        self.update_qml_format()
 
     def add_query(self):
         """Add a query in the preset"""
@@ -241,7 +265,6 @@ class EditPreset(QDialog, FORM_CLASS, TableKeyValue):
             tr("New name:"), text=query.text())
         if new_name[1] and new_name[0]:
             query.setText(new_name[0].replace(' ', '_'))
-            self.update_qml_format()
 
     def show_extent_canvas(self):
         """Show the extent in the canvas"""
