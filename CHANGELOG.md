@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+* Check that QGIS Processing algorithm is available before opening the QuickOSM dialog
 * Improve help how to create map preset on the online help
 * Improve the help about add some QML in queries
 * Fix Python exception if the user input is not recognised as a valid preset

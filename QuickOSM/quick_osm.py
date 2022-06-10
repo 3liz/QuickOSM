@@ -220,6 +220,22 @@ class QuickOSMPlugin:
 
     def open_dialog(self):
         """Create and open the main dialog."""
+
+        # Check if Processing is enabled
+        # Ticket #352
+        if QgsApplication.processingRegistry().algorithmById("native:buffer") is None:
+            error_dialog = QMessageBox(
+                QMessageBox.Critical,
+                tr('Error with the Processing plugin'),
+                tr(
+                    'To be able to use QuickOSM, you need to have the "Processing" plugin enabled. '
+                    'Please check in your QGIS Plugin manager that the "Processing" plugin is enabled.'),
+                QMessageBox.Ok,
+                self
+            )
+            error_dialog.exec()
+            return
+
         from QuickOSM.ui.dialog import Dialog
         dialog = Dialog()
         self.open_copyright_message(dialog)
