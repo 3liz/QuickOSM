@@ -42,7 +42,6 @@ from QuickOSM.definitions.osm import (
 from QuickOSM.qgis_plugin_tools.tools.i18n import tr
 from QuickOSM.ui.base_overpass_panel import BaseOverpassPanel
 from QuickOSM.ui.custom_table import TableKeyValue
-from QuickOSM.ui.wizard import Wizard
 
 __copyright__ = 'Copyright 2021, 3Liz'
 __license__ = 'GPL version 3'
@@ -64,7 +63,6 @@ class QuickQueryPanel(BaseOverpassPanel, TableKeyValue):
         self.existing_preset = None
         self.action_new = None
         self.action_existing = None
-        self.wizard = None
 
     def setup_panel(self):
         super().setup_panel()
@@ -164,14 +162,6 @@ class QuickQueryPanel(BaseOverpassPanel, TableKeyValue):
         super().query_language_xml()
         query_xml = partial(self.show_query, QueryLanguage.XML)
         self.dialog.button_show_query.clicked.connect(query_xml)
-
-    def select_preset(self):
-        """Launch the wizard."""
-        if self.wizard:
-            self.wizard.activateWindow()
-        else:
-            self.wizard = Wizard(self.dialog)
-            self.wizard.show()
 
     def gather_values(self) -> dict:
         """Retrieval of the values set by the user."""
