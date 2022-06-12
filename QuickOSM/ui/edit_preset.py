@@ -2,9 +2,13 @@
 import logging
 import os
 
-from qgis.core import QgsCoordinateReferenceSystem
+from PyQt5.QtCore import QUrl
+from PyQt5.QtGui import QDesktopServices
+from PyQt5.QtWidgets import QDialogButtonBox
+from qgis.core import QgsApplication, QgsCoordinateReferenceSystem
 from qgis.gui import QgsExtentWidget, QgsFileWidget
 from qgis.PyQt.QtCore import QPoint, Qt
+from qgis.PyQt.QtGui import QIcon
 from qgis.PyQt.QtWidgets import (
     QDialog,
     QInputDialog,
@@ -51,7 +55,16 @@ class EditPreset(QDialog, FORM_CLASS, TableKeyValue):
         for k in range(self.nb_queries):
             self.list_queries.addItem(data_preset['query_name'][k])
 
+        self.button_add.setIcon(QIcon(QgsApplication.iconPath('symbologyAdd.svg')))
+        self.button_add.setText('')
+        self.button_add.setToolTip(tr('Add a new query to the map preset'))
         self.button_add.clicked.connect(self.add_query)
+
+        self.button_remove.setIcon(QIcon(QgsApplication.iconPath('symbologyRemove.svg')))
+        self.button_remove.setText('')
+        self.button_remove.setToolTip(tr('Remove the selected query from the map preset'))
+        self.button_remove.clicked.connect(self.remove_selection)
+
         self.list_queries.currentRowChanged.connect(self.change_query)
         self.list_queries.setContextMenuPolicy(Qt.CustomContextMenu)
         self.list_queries.customContextMenuRequested.connect(self.item_context)
@@ -87,11 +100,16 @@ class EditPreset(QDialog, FORM_CLASS, TableKeyValue):
 
         self.disable_enable_format()
 
+        self.qml_help_button.setIcon(QIcon(":images/themes/default/propertyicons/symbology.svg"))
         self.qml_help_button.clicked.connect(self.help_qml)
+
         self.radio_advanced.toggled.connect(self.change_type_preset)
         self.output_directory.lineEdit().textChanged.connect(self.disable_enable_format)
-        self.button_validate.clicked.connect(self.validate)
-        self.button_cancel.clicked.connect(self.close)
+
+        # Buttonbox
+        self.button_box.button(QDialogButtonBox.Cancel).clicked.connect(self.close)
+        self.button_box.button(QDialogButtonBox.Ok).clicked.connect(self.validate)
+        self.button_box.button(QDialogButtonBox.Help).clicked.connect(self.open_help)
 
     def item_context(self, pos: QPoint):
         """Set context submenu to delete item in the list."""
@@ -231,14 +249,30 @@ class EditPreset(QDialog, FORM_CLASS, TableKeyValue):
 
     def add_query(self):
         """Add a query in the preset"""
+        text, ok = QInputDialog().getText(self, "New query", "Name of the query")
+        if not ok:
+            return
+
+        if not text:
+            text = tr('Query') + str(self.nb_queries + 1)
+
         q_manage = QueryManagement()
         self.data = q_manage.add_empty_query_in_preset(self.data)
 
-        new_query = QListWidgetItem(tr('Query') + str(self.nb_queries + 1))
+        new_query = QListWidgetItem(text)
         self.list_queries.addItem(new_query)
         self.nb_queries += 1
 
         self.list_queries.setCurrentItem(new_query)
+
+    def remove_selection(self):
+        """Remove the selected row from the table."""
+        selection = self.list_queries.selectedIndexes()
+        if len(selection) <= 0:
+            return
+
+        row = selection[0].row()
+        self.verification_delete_query(row)
 
     def verification_delete_query(self, row: int):
         """Delete a query in the preset"""
@@ -363,3 +397,8 @@ class EditPreset(QDialog, FORM_CLASS, TableKeyValue):
 
         self.dialog.external_panels[Panels.MapPreset].update_personal_preset_view()
         self.close()
+
+    @staticmethod
+    def open_help():
+        """Open the help web page"""
+        QDesktopServices.openUrl(QUrl("https://docs.3liz.org/QuickOSM/user-guide/map-preset/"))
