@@ -11,31 +11,31 @@ It is generated automatically by transifex_stats.py in the scripts folder.
 The translation is available on [Transifex](https://www.transifex.com/quickosm/gui/), no development
 knowledge is required.
 
-*Statistics updated: 2022-06-07*
+*Statistics updated: 2022-06-14*
 
 | Number of strings | Number of target languages | Overall Translation ratio |
 |:-:|:-:|:-:|
-295|20|69.58
+302|20|66.99
 
 | Language | Translation ratio (%) |
 |:-:|:-:|
 Chinese|[=100.0% "100.0"]|
-Chinese (Taiwan)|[=100.0% "100.0"]|
 Dutch|[=100.0% "100.0"]|
 French|[=100.0% "100.0"]|
-Italian|[=100.0% "100.0"]|
-Finnish|[=99.66% "99.66"]|
-German|[=99.66% "99.66"]|
-Korean|[=99.66% "99.66"]|
-Portuguese (Brazil)|[=99.66% "99.66"]|
-Romanian|[=99.66% "99.66"]|
-Indonesian|[=98.64% "98.64"]|
-Polish|[=95.93% "95.93"]|
-Vietnamese|[=81.69% "81.69"]|
-Spanish|[=60.0% "60.0"]|
-Russian|[=53.9% "53.9"]|
-Hebrew|[=1.69% "1.69"]|
-Danish|[=1.36% "1.36"]|
+Chinese (Taiwan)|[=95.03% "95.03"]|
+Italian|[=95.03% "95.03"]|
+Finnish|[=94.7% "94.7"]|
+German|[=94.7% "94.7"]|
+Korean|[=94.7% "94.7"]|
+Portuguese (Brazil)|[=94.7% "94.7"]|
+Romanian|[=94.7% "94.7"]|
+Indonesian|[=93.71% "93.71"]|
+Polish|[=91.39% "91.39"]|
+Vietnamese|[=77.81% "77.81"]|
+Spanish|[=57.95% "57.95"]|
+Russian|[=52.32% "52.32"]|
+Hebrew|[=1.66% "1.66"]|
+Danish|[=1.32% "1.32"]|
 Portuguese|[=0.0% "0.0"]|
 Swedish|[=0.0% "0.0"]|
 Ukrainian|[=0.0% "0.0"]|
