@@ -73,7 +73,7 @@
     },
     "uk": {
         "name": "Ukrainian",
-        "percentage": 92.72
+        "percentage": 100.0
     },
     "vi": {
         "name": "Vietnamese",
@@ -82,6 +82,6 @@
     "en": {
         "nb_languages": 20,
         "stringcount": 302,
-        "percentage": 71.87
+        "percentage": 72.23
     }
 }
