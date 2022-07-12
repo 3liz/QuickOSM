@@ -45,7 +45,7 @@
     },
     "pl": {
         "name": "Polish",
-        "percentage": 91.39
+        "percentage": 93.05
     },
     "pt": {
         "name": "Portuguese",
@@ -82,6 +82,6 @@
     "en": {
         "nb_languages": 20,
         "stringcount": 302,
-        "percentage": 72.23
+        "percentage": 72.32
     }
 }
