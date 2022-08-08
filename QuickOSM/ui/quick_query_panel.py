@@ -349,7 +349,7 @@ class QuickQueryPanel(BaseOverpassPanel, TableKeyValue):
             files = os.listdir(historic_folder)
             files_qml = filter(lambda file_ext: file_ext[-4:] == '.qml', files)
             file_name = join(data['file_name'] + '_' + data['query_name'][k])
-            files_qml = filter(lambda file_ext: file_ext.startswith(file_name), files_qml)
+            files_qml = self.filter_file_names(file_name, files_qml)
             if list(files_qml):
                 LOGGER.debug('files: {}'.format(files_qml))
                 self.join = join(historic_folder, data['file_name'] + '_' + data['query_name'][k] + '_{}.qml')
