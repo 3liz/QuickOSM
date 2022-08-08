@@ -23,7 +23,7 @@ from QuickOSM.definitions.format import Format
 from QuickOSM.definitions.gui import Panels
 from QuickOSM.definitions.osm import LayerType
 from QuickOSM.qgis_plugin_tools.tools.i18n import tr
-from QuickOSM.qgis_plugin_tools.tools.resources import load_ui
+from QuickOSM.qgis_plugin_tools.tools.resources import load_ui, resources_path
 from QuickOSM.ui.custom_table import TableKeyValue
 
 __copyright__ = 'Copyright 2021, 3Liz'
@@ -100,11 +100,17 @@ class EditPreset(QDialog, FORM_CLASS, TableKeyValue):
 
         self.disable_enable_format()
 
-        self.qml_help_button.setIcon(QIcon(":images/themes/default/propertyicons/symbology.svg"))
-        self.qml_help_button.clicked.connect(self.help_qml)
+        self.update_qml_format()
+        self.preset_name.textChanged.connect(self.update_qml_format)
 
         self.radio_advanced.toggled.connect(self.change_type_preset)
+        self.change_type_preset()
         self.output_directory.lineEdit().textChanged.connect(self.disable_enable_format)
+
+        # Icons
+        # Tab 0 is set in the radio button function
+        self.tab_widget.setTabIcon(1, QIcon(":images/themes/default/mIconModelOutput.svg"))
+        self.tab_widget.setTabIcon(2, QIcon(":images/themes/default/propertyicons/symbology.svg"))
 
         # Buttonbox
         self.button_box.button(QDialogButtonBox.Cancel).clicked.connect(self.close)
@@ -130,17 +136,18 @@ class EditPreset(QDialog, FORM_CLASS, TableKeyValue):
         boolean = not self.output_directory.lineEdit().isNull()
         self.combo_output_format.setEnabled(boolean)
 
-    def help_qml(self):
+    def update_qml_format(self):
         """Update the explanation of the qml file name format."""
         file_name = self.preset_name.text()
         query_name = self.list_queries.item(self.current_query).text()
 
+        folder = os.path.join(self.folder, file_name)
         help_string = '<html>'
         help_string += tr(
             "You can associate predefined styles with layers. You need to add QML file(s) in this folder :"
         )
         help_string += '<br><b>'
-        help_string += os.path.join(self.folder, file_name)
+        help_string += "<a href=\"{0}\">{0}</a>".format(folder)
         help_string += '</b><br><br>'
         help_string += tr("The name of QML files must follow this convention")
         help_string += " : "
@@ -170,14 +177,7 @@ class EditPreset(QDialog, FORM_CLASS, TableKeyValue):
             help_string += '.qml</b></li>'
         help_string += '<ul>'
         help_string += '<html>'
-        help_dialog = QMessageBox(
-            QMessageBox.Information,
-            tr('Associate QML style(s)'),
-            help_string,
-            QMessageBox.Ok,
-            self
-        )
-        help_dialog.exec()
+        self.label_help_qml.setText(help_string)
 
     def data_filling_form(self, num_query: int = 0):
         """Writing the form with data from preset"""
@@ -233,12 +233,15 @@ class EditPreset(QDialog, FORM_CLASS, TableKeyValue):
         self.combo_output_format.setCurrentIndex(index)
 
         self.output_directory.setFilePath(self.data['output_directory'][num_query])
+        self.update_qml_format()
 
     def change_type_preset(self):
         """Update the form according the preset type."""
         if self.radio_advanced.isChecked():
+            self.tab_widget.setTabIcon(0, QIcon(resources_path('icons', 'edit.png')))
             self.stacked_parameters_preset.setCurrentWidget(self.advanced_parameters)
         else:
+            self.tab_widget.setTabIcon(0, QIcon(resources_path('icons', 'quick.png')))
             self.stacked_parameters_preset.setCurrentWidget(self.basic_parameters)
 
     def change_query(self):
@@ -309,6 +312,7 @@ class EditPreset(QDialog, FORM_CLASS, TableKeyValue):
             tr("New name:"), text=query.text())
         if new_name[1] and new_name[0]:
             query.setText(new_name[0].replace(' ', '_'))
+            self.update_qml_format()
 
     def show_extent_canvas(self):
         """Show the extent in the canvas"""
