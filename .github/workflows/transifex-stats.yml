@@ -2,8 +2,7 @@ name: Translation statistics 🗺
 
 on:
   schedule:
-    # runs tuesday at 6:00 UTC
-    - cron: '0 6 * * 2'
+    - cron: '0 6 2 * *'
   workflow_dispatch:
 
 jobs:
