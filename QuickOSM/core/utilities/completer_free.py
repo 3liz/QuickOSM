@@ -2,8 +2,8 @@
 
 import unicodedata
 
-from PyQt5.QtCore import QStringListModel, Qt
-from PyQt5.QtWidgets import QCompleter
+from qgis.PyQt.QtCore import QStringListModel, Qt
+from qgis.PyQt.QtWidgets import QCompleter
 
 
 def strip_accents(s: str) -> str:

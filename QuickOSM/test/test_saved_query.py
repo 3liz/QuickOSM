@@ -3,6 +3,7 @@ import json
 import os
 
 from qgis.core import QgsCoordinateReferenceSystem, QgsRectangle
+from qgis.PyQt.QtWidgets import QDialogButtonBox
 from qgis.testing import unittest
 
 from QuickOSM.core.utilities.json_encoder import as_enum
@@ -141,7 +142,7 @@ class TestBookmarkQuery(unittest.TestCase):
         self.assertEqual(nb_queries, 1)
 
         edit_dialog.preset_name.setText('Test a new name')
-        edit_dialog.button_cancel.click()
+        edit_dialog.button_box.button(QDialogButtonBox.Cancel).click()
 
         self.dialog.external_panels[Panels.MapPreset].update_personal_preset_view()
 
@@ -156,7 +157,7 @@ class TestBookmarkQuery(unittest.TestCase):
 
         edit_dialog = EditPreset(self.dialog, data_preset)
         edit_dialog.preset_name.setText('Test a new name')
-        edit_dialog.button_validate.click()
+        edit_dialog.button_box.button(QDialogButtonBox.Ok).click()
 
         self.dialog.external_panels[Panels.MapPreset].update_personal_preset_view()
 
@@ -182,7 +183,7 @@ class TestBookmarkQuery(unittest.TestCase):
         index = edit_dialog.combo_output_format.findData(Format.Kml)
         edit_dialog.combo_output_format.setCurrentIndex(index)
 
-        edit_dialog.button_validate.click()
+        edit_dialog.button_box.button(QDialogButtonBox.Ok).click()
         self.preset = self.dialog.list_personal_preset_mp.item(0)
 
         new_data = self.set_up_preset_data_text()
@@ -239,7 +240,7 @@ class TestBookmarkQuery(unittest.TestCase):
         edit_dialog = EditPreset(self.dialog, data_preset)
 
         self.assertEqual(edit_dialog.current_query, 0)
-        edit_dialog.button_add.click()
+        edit_dialog.add_query('Query2')
 
         nb_queries = edit_dialog.list_queries.count()
         self.assertEqual(nb_queries, 2)
@@ -258,7 +259,7 @@ class TestBookmarkQuery(unittest.TestCase):
         index = edit_dialog.table_keys_values_eb.cellWidget(0, 2).findText('route')
         edit_dialog.table_keys_values_eb.cellWidget(0, 2).setCurrentIndex(index)
 
-        edit_dialog.button_validate.click()
+        edit_dialog.button_box.button(QDialogButtonBox.Ok).click()
         self.preset = self.dialog.list_personal_preset_mp.item(0)
 
         new_data = self.set_up_preset_data_text()
@@ -333,7 +334,7 @@ class TestBookmarkQuery(unittest.TestCase):
         self.assertEqual(
             edit_dialog.stacked_parameters_preset.currentWidget(), edit_dialog.advanced_parameters)
 
-        edit_dialog.button_validate.click()
+        edit_dialog.button_box.button(QDialogButtonBox.Ok).click()
         self.preset = self.dialog.list_personal_preset_mp.item(0)
 
         new_data = self.set_up_preset_data_text()

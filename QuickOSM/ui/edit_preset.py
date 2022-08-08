@@ -2,15 +2,13 @@
 import logging
 import os
 
-from PyQt5.QtCore import QUrl
-from PyQt5.QtGui import QDesktopServices
-from PyQt5.QtWidgets import QDialogButtonBox
 from qgis.core import QgsApplication, QgsCoordinateReferenceSystem
 from qgis.gui import QgsExtentWidget, QgsFileWidget
-from qgis.PyQt.QtCore import QPoint, Qt
-from qgis.PyQt.QtGui import QIcon
+from qgis.PyQt.QtCore import QPoint, Qt, QUrl
+from qgis.PyQt.QtGui import QDesktopServices, QIcon
 from qgis.PyQt.QtWidgets import (
     QDialog,
+    QDialogButtonBox,
     QInputDialog,
     QListWidgetItem,
     QMenu,
@@ -250,11 +248,15 @@ class EditPreset(QDialog, FORM_CLASS, TableKeyValue):
         self.current_query = self.list_queries.currentRow()
         self.data_filling_form(self.current_query)
 
-    def add_query(self):
+    def add_query(self, default_name: str = ''):
         """Add a query in the preset"""
-        text, ok = QInputDialog().getText(self, "New query", "Name of the query")
-        if not ok:
-            return
+        if not default_name:
+            text, ok = QInputDialog().getText(self, "New query", "Name of the query")
+            if not ok:
+                return
+        else:
+            # We are in tests
+            text = default_name
 
         if not text:
             text = tr('Query') + str(self.nb_queries + 1)
