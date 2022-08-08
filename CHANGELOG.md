@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+## 2.1.0 - 2022-08-08
+
 * Check that QGIS Processing algorithm is available before opening the QuickOSM dialog
 * Improve help how to create map preset on the online help
 * Improve the help about add some QML in queries
