@@ -6,7 +6,7 @@
 * Improve help how to create map preset on the online help
 * Improve the help about add some QML in queries
 * Fix Python exception if the user input is not recognised as a valid preset
-* Update default JOSM/Vespucci presets from 2.9.0 to 4.1.2
+* Update default JOSM/Vespucci presets from 2.9.0 to 4.8.0
 
 ## 2.0.1 - 2022-02-07
 
