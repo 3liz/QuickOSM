@@ -67,6 +67,8 @@ class EditPreset(QDialog, FORM_CLASS, TableKeyValue):
         self.list_queries.setContextMenuPolicy(Qt.CustomContextMenu)
         self.list_queries.customContextMenuRequested.connect(self.item_context)
 
+        self.label_help_qml.setTextInteractionFlags(Qt.TextSelectableByMouse)
+
         self.bbox = QgsExtentWidget()
         self.bbox.setMapCanvas(parent.iface.mapCanvas())
         self.bbox_layout.addWidget(self.bbox)
