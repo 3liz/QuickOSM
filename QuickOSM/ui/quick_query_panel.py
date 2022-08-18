@@ -210,22 +210,29 @@ class QuickQueryPanel(BaseOverpassPanel, TableKeyValue):
 
     def save_query(self):
         """Save a query in a preset."""
-        properties = self.gather_values()
+        try:
+            properties = self.gather_values()
 
-        # Make the query
-        query_factory = QueryFactory(
-            type_multi_request=properties['type_multi_request'],
-            query_type=properties['query_type'],
-            key=properties['key'],
-            value=properties['value'],
-            area=properties['place'],
-            around_distance=properties['distance'],
-            osm_objects=properties['osm_objects'],
-            timeout=properties['timeout'],
-            print_mode=properties['metadata']
-        )
-        query = query_factory.make(QueryLanguage.OQL)
-        description = query_factory.friendly_message()
+            # Make the query
+            query_factory = QueryFactory(
+                type_multi_request=properties['type_multi_request'],
+                query_type=properties['query_type'],
+                key=properties['key'],
+                value=properties['value'],
+                area=properties['place'],
+                around_distance=properties['distance'],
+                osm_objects=properties['osm_objects'],
+                timeout=properties['timeout'],
+                print_mode=properties['metadata']
+            )
+            query = query_factory.make(QueryLanguage.OQL)
+            description = query_factory.friendly_message()
+        except QuickOsmException as error:
+            self.dialog.display_quickosm_exception(error)
+            return
+        except Exception as error:
+            self.dialog.display_critical_exception(error)
+            return
 
         q_manage = QueryManagement(
             query=query,

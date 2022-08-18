@@ -10,7 +10,10 @@ from qgis.PyQt.QtWidgets import QAction, QDialog, QDialogButtonBox, QMenu
 from qgis.utils import OverrideCursor
 
 from QuickOSM.core.api.connexion_oapi import ConnexionOAPI
-from QuickOSM.core.exceptions import MissingParameterException
+from QuickOSM.core.exceptions import (
+    MissingParameterException,
+    QuickOsmException,
+)
 from QuickOSM.core.process import process_query
 from QuickOSM.core.query_preparation import QueryPreparation
 from QuickOSM.core.utilities.tools import get_setting
@@ -125,7 +128,16 @@ class QueryPanel(BaseOverpassPanel):
 
     def _run(self):
         self.write_nominatim_file(self.panel)
-        properties = self.gather_values()
+
+        try:
+            properties = self.gather_values()
+        except QuickOsmException as error:
+            self.dialog.display_quickosm_exception(error)
+            return
+        except Exception as error:
+            self.dialog.display_critical_exception(error)
+            return
+
         num_layers = process_query(
             dialog=self.dialog,
             query=properties['query'],
@@ -143,7 +155,16 @@ class QueryPanel(BaseOverpassPanel):
         query = self.dialog.text_query.toPlainText()
         area = self.dialog.places_edits[Panels.Query].text()
         self.write_nominatim_file(Panels.Query)
-        properties = self.gather_values()
+
+        try:
+            properties = self.gather_values()
+        except QuickOsmException as error:
+            self.dialog.display_quickosm_exception(error)
+            return
+        except Exception as error:
+            self.dialog.display_critical_exception(error)
+            return
+
         server = get_setting('defaultOAPI', OVERPASS_SERVERS[0]) + 'convert'
         query = QueryPreparation(query, properties['bbox'], area, server)
         query_string = query.prepare_query()

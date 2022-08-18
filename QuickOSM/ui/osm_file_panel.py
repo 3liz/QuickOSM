@@ -7,7 +7,10 @@ from os.path import isfile
 from qgis.core import Qgis, QgsProject
 from qgis.PyQt.QtWidgets import QDialog
 
-from QuickOSM.core.exceptions import FileDoesntExistException
+from QuickOSM.core.exceptions import (
+    FileDoesntExistException,
+    QuickOsmException,
+)
 from QuickOSM.core.parser.osm_parser import OsmParser
 from QuickOSM.core.process import open_file
 from QuickOSM.definitions.gui import Panels
@@ -177,7 +180,15 @@ class OsmFilePanel(BaseProcessingPanel, TableKeyValue):
 
     def _run(self):
         """Run the process"""
-        properties = self.gather_values()
+        try:
+            properties = self.gather_values()
+        except QuickOsmException as error:
+            self.dialog.display_quickosm_exception(error)
+            return
+        except Exception as error:
+            self.dialog.display_critical_exception(error)
+            return
+
         if properties['load_only']:
             # Legacy, waiting to remove the OsmParser for QGIS >= 3.6
             # Change in osm_file_dialog.py L131 too

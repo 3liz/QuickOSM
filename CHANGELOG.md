@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+* Fix some Python exceptions which weren't displayed to the user
+
 ## 2.1.0 - 2022-08-08
 
 * Check that QGIS Processing algorithm is available before opening the QuickOSM dialog
