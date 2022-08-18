@@ -142,8 +142,8 @@ QListWidget::item::selected {
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>827</width>
-          <height>788</height>
+          <width>813</width>
+          <height>904</height>
          </rect>
         </property>
         <property name="minimumSize">
@@ -181,9 +181,19 @@ QListWidget::item::selected {
              <item>
               <widget class="QLabel" name="label_58">
                <property name="text">
-                <string>A preset is a set of queries, which can be a mix of different OSM objects and geometries. They represent a map, ready to be used out of the box. We would like to have more &quot;map preset&quot; provided by default such as hiking map, bicycle map… Please contact us on GitHub to contribute.</string>
+                <string>A preset is a set of queries, which can be a mix of different OSM objects and geometries. They represent a map, ready to be used out of the box. We would like to have more &quot;map preset&quot; provided by default such as hiking map, bicycle map…</string>
                </property>
                <property name="wordWrap">
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLabel" name="label_59">
+               <property name="text">
+                <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;https://docs.3liz.org/QuickOSM/user-guide/map-preset/&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;https://docs.3liz.org/QuickOSM/user-guide/map-preset/&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+               </property>
+               <property name="openExternalLinks">
                 <bool>true</bool>
                </property>
               </widget>
@@ -202,7 +212,7 @@ QListWidget::item::selected {
                   <x>0</x>
                   <y>0</y>
                   <width>795</width>
-                  <height>829</height>
+                  <height>806</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_21">
@@ -1034,7 +1044,7 @@ QListWidget::item::selected {
                <property name="checked">
                 <bool>false</bool>
                </property>
-               <property name="collapsed" stdset="0">
+               <property name="collapsed">
                 <bool>false</bool>
                </property>
                <layout class="QVBoxLayout" name="verticalLayout_17">
@@ -1106,19 +1116,19 @@ QListWidget::item::selected {
                      </widget>
                     </item>
                     <item row="2" column="1">
-                     <widget class="QCheckBox" name="checkbox_lines_qq">
+                     <widget class="QCheckBox" name="checkbox_multilinestrings_qq">
                       <property name="text">
-                       <string>Lines</string>
+                       <string>Multilinestrings</string>
                       </property>
                       <property name="checked">
                        <bool>true</bool>
                       </property>
                      </widget>
                     </item>
-                    <item row="2" column="1">
-                     <widget class="QCheckBox" name="checkbox_multilinestrings_qq">
+                    <item row="1" column="1">
+                     <widget class="QCheckBox" name="checkbox_lines_qq">
                       <property name="text">
-                       <string>Multilinestrings</string>
+                       <string>Lines</string>
                       </property>
                       <property name="checked">
                        <bool>true</bool>
@@ -1378,7 +1388,7 @@ QListWidget::item::selected {
                <property name="checked">
                 <bool>false</bool>
                </property>
-               <property name="collapsed" stdset="0">
+               <property name="collapsed">
                 <bool>false</bool>
                </property>
                <layout class="QVBoxLayout" name="verticalLayout_14">

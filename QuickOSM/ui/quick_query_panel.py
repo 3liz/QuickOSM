@@ -7,7 +7,7 @@ import os
 from functools import partial
 from os.path import join
 
-from qgis.core import QgsApplication
+from qgis.core import QgsApplication, QgsLayerItem
 from qgis.PyQt.QtGui import QIcon
 from qgis.PyQt.QtWidgets import (
     QAction,
@@ -40,6 +40,7 @@ from QuickOSM.definitions.osm import (
     QueryType,
 )
 from QuickOSM.qgis_plugin_tools.tools.i18n import tr
+from QuickOSM.qgis_plugin_tools.tools.resources import resources_path
 from QuickOSM.ui.base_overpass_panel import BaseOverpassPanel
 from QuickOSM.ui.custom_table import TableKeyValue
 
@@ -68,11 +69,15 @@ class QuickQueryPanel(BaseOverpassPanel, TableKeyValue):
         super().setup_panel()
         """Setup the UI for the QuickQuery."""
 
-        # Setup presets and keys auto completion
+        # Setup presets and keys auto-completion
         self.setup_preset()
 
         # Table Keys/Values
         self.setup_table()
+
+        self.dialog.button_map_features.setIcon(QIcon(":images/themes/default/mActionEditHelpContent.svg"))
+        self.dialog.button_run_query_qq.setIcon(QIcon(QgsApplication.iconPath("mActionStart.svg")))
+        # self.dialog.button_show_query.setIcon(QIcon(resources_path('icons', 'edit.png')))
 
         # Query type
         self.dialog.combo_query_type_qq.addItem(tr('In'), 'in')
@@ -81,16 +86,12 @@ class QuickQueryPanel(BaseOverpassPanel, TableKeyValue):
         self.dialog.combo_query_type_qq.addItem(tr('Layer Extent'), 'layer')
         self.dialog.combo_query_type_qq.addItem(tr('Not Spatial'), 'attributes')
 
-        # self.cb_query_type_qq.setItemIcon(
-        #   0, QIcon(resources_path('in.svg')))
-        # self.cb_query_type_qq.setItemIcon(
-        #   1, QIcon(resources_path('around.svg')))
-        # self.cb_query_type_qq.setItemIcon(
-        #   2, QIcon(resources_path('map_canvas.svg')))
-        # self.cb_query_type_qq.setItemIcon(
-        #   3, QIcon(resources_path('extent.svg')))
-        # self.cb_query_type_qq.setItemIcon(
-        #   4, QIcon(resources_path('mIconTableLayer.svg')))
+        self.dialog.combo_query_type_qq.setItemIcon(0, QIcon(resources_path('icons', 'in.svg')))
+        self.dialog.combo_query_type_qq.setItemIcon(1, QIcon(resources_path('icons', 'around.svg')))
+        self.dialog.combo_query_type_qq.setItemIcon(2, QIcon(":images/themes/default/mLayoutItemMap.svg"))
+        self.dialog.combo_query_type_qq.setItemIcon(
+            3, QIcon(":images/themes/default/algorithms/mAlgorithmRandomPointsWithinExtent.svg"))
+        self.dialog.combo_query_type_qq.setItemIcon(4, QgsLayerItem.iconTable())
 
         self.dialog.combo_query_type_qq.currentIndexChanged.connect(
             self.query_type_updated)

@@ -4,6 +4,7 @@ import logging
 
 from json import load
 
+from qgis.PyQt.QtGui import QIcon
 from qgis.PyQt.QtWidgets import QDialog
 
 from QuickOSM.core.utilities.tools import (
@@ -35,6 +36,9 @@ class ConfigurationPanel(BasePanel):
         """Set UI related the configuration panel."""
         self.dialog.save_config_overpass.clicked.connect(self.set_server_overpass_api)
         self.dialog.save_config_nominatim.clicked.connect(self.set_server_nominatim_api)
+
+        self.dialog.save_config_overpass.setIcon(QIcon(":images/themes/default/mActionFileSave.svg"))
+        self.dialog.save_config_nominatim.setIcon(QIcon(":images/themes/default/mActionFileSave.svg"))
 
         for server in OVERPASS_SERVERS:
             self.dialog.combo_default_overpass.addItem(server)

@@ -4,6 +4,7 @@ import html
 import logging
 import re
 
+from qgis.core import QgsApplication
 from qgis.PyQt.QtCore import Qt
 from qgis.PyQt.QtGui import QIcon
 from qgis.PyQt.QtWidgets import QAction, QDialog, QDialogButtonBox, QMenu
@@ -53,9 +54,14 @@ class QueryPanel(BaseOverpassPanel):
         super().setup_panel()
         self.dialog.combo_query_type_q.addItem(tr('Canvas Extent'), 'canvas')
         self.dialog.combo_query_type_q.addItem(tr('Layer Extent'), 'layer')
+        self.dialog.combo_query_type_q.setItemIcon(0, QIcon(":images/themes/default/mLayoutItemMap.svg"))
+        self.dialog.combo_query_type_q.setItemIcon(
+            1, QIcon(":images/themes/default/algorithms/mAlgorithmRandomPointsWithinExtent.svg"))
         self.dialog.combo_query_type_q.currentIndexChanged.connect(
             self.query_type_updated)
         self.dialog.combo_extent_layer_q.layerChanged.connect(self.query_type_updated)
+
+        self.dialog.button_run_query_q.setIcon(QIcon(QgsApplication.iconPath("mActionStart.svg")))
 
         self.highlighter = QueryHighlighter(self.dialog.text_query.document())
         self.dialog.text_query.cursorPositionChanged.connect(
@@ -79,6 +85,8 @@ class QueryPanel(BaseOverpassPanel):
         overpass_action.triggered.connect(open_doc_overpass)
         popup_menu.addAction(overpass_action)
         self.dialog.button_documentation.setMenu(popup_menu)
+
+        self.dialog.button_generate_query.setIcon(QIcon(":images/themes/default/processingAlgorithm.svg"))
 
         self.dialog.button_generate_query.setMenu(QMenu())
 
