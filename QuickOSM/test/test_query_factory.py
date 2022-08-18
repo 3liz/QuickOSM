@@ -115,6 +115,15 @@ class TestQueryFactory(unittest.TestCase):
         with self.assertRaisesRegex(QueryFactoryException, msg):
             query._check_parameters()
 
+        # Key with trailing whitespace
+        query = QueryFactory(
+            query_type=QueryType.BBox,
+            key=['foo '],
+            value=['bar'])
+        msg = 'Key "foo " contains leading or trailing whitespace.'
+        with self.assertRaisesRegex(QueryFactoryException, msg):
+            query._check_parameters()
+
     def test_replace_template(self):
         """Test replace template."""
         query = ' area="paris"'
