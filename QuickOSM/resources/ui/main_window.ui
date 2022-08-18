@@ -825,6 +825,131 @@ QListWidget::item::selected {
               </layout>
              </item>
              <item>
+              <layout class="QHBoxLayout" name="horizontalLayout">
+               <item>
+                <widget class="QToolButton" name="button_save_query">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
+                 <property name="text">
+                  <string>Save query in a new preset</string>
+                 </property>
+                 <property name="popupMode">
+                  <enum>QToolButton::MenuButtonPopup</enum>
+                 </property>
+                 <property name="toolButtonStyle">
+                  <enum>Qt::ToolButtonTextOnly</enum>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QToolButton" name="button_show_query">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
+                 <property name="layoutDirection">
+                  <enum>Qt::LeftToRight</enum>
+                 </property>
+                 <property name="text">
+                  <string>Show query</string>
+                 </property>
+                 <property name="checkable">
+                  <bool>false</bool>
+                 </property>
+                 <property name="popupMode">
+                  <enum>QToolButton::MenuButtonPopup</enum>
+                 </property>
+                 <property name="toolButtonStyle">
+                  <enum>Qt::ToolButtonTextOnly</enum>
+                 </property>
+                 <property name="arrowType">
+                  <enum>Qt::NoArrow</enum>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QStackedWidget" name="stacked_execute_query_qq">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
+                 <property name="currentIndex">
+                  <number>0</number>
+                 </property>
+                 <widget class="QWidget" name="page">
+                  <layout class="QHBoxLayout" name="horizontalLayout_12">
+                   <property name="spacing">
+                    <number>0</number>
+                   </property>
+                   <property name="leftMargin">
+                    <number>0</number>
+                   </property>
+                   <property name="topMargin">
+                    <number>0</number>
+                   </property>
+                   <property name="rightMargin">
+                    <number>0</number>
+                   </property>
+                   <property name="bottomMargin">
+                    <number>0</number>
+                   </property>
+                   <item>
+                    <widget class="QPushButton" name="button_run_query_qq">
+                     <property name="sizePolicy">
+                      <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                       <horstretch>0</horstretch>
+                       <verstretch>0</verstretch>
+                      </sizepolicy>
+                     </property>
+                     <property name="text">
+                      <string>Run query</string>
+                     </property>
+                     <property name="default">
+                      <bool>true</bool>
+                     </property>
+                    </widget>
+                   </item>
+                  </layout>
+                 </widget>
+                 <widget class="QWidget" name="page_2">
+                  <layout class="QHBoxLayout" name="horizontalLayout_13">
+                   <property name="spacing">
+                    <number>0</number>
+                   </property>
+                   <property name="leftMargin">
+                    <number>0</number>
+                   </property>
+                   <property name="topMargin">
+                    <number>0</number>
+                   </property>
+                   <property name="rightMargin">
+                    <number>0</number>
+                   </property>
+                   <property name="bottomMargin">
+                    <number>0</number>
+                   </property>
+                   <item>
+                    <widget class="QPushButton" name="button_cancel_query_qq">
+                     <property name="text">
+                      <string>Cancel running query</string>
+                     </property>
+                    </widget>
+                   </item>
+                  </layout>
+                 </widget>
+                </widget>
+               </item>
+              </layout>
+             </item>
+             <item>
               <widget class="QgsCollapsibleGroupBox" name="query_historic">
                <property name="title">
                 <string>Query history</string>
@@ -990,10 +1115,10 @@ QListWidget::item::selected {
                       </property>
                      </widget>
                     </item>
-                    <item row="4" column="1">
-                     <widget class="QCheckBox" name="checkbox_multipolygons_qq">
+                    <item row="2" column="1">
+                     <widget class="QCheckBox" name="checkbox_multilinestrings_qq">
                       <property name="text">
-                       <string>Multipolygons</string>
+                       <string>Multilinestrings</string>
                       </property>
                       <property name="checked">
                        <bool>true</bool>
@@ -1001,9 +1126,9 @@ QListWidget::item::selected {
                      </widget>
                     </item>
                     <item row="3" column="1">
-                     <widget class="QCheckBox" name="checkbox_multilinestrings_qq">
+                     <widget class="QCheckBox" name="checkbox_multipolygons_qq">
                       <property name="text">
-                       <string>Multilinestrings</string>
+                       <string>Multipolygons</string>
                       </property>
                       <property name="checked">
                        <bool>true</bool>
@@ -1047,7 +1172,7 @@ QListWidget::item::selected {
                    </widget>
                   </item>
                   <item row="1" column="1">
-                   <widget class="QgsFileWidget" name="output_directory_qq" native="true"/>
+                   <widget class="QgsFileWidget" name="output_directory_qq"/>
                   </item>
                   <item row="3" column="0">
                    <widget class="QLabel" name="label_52">
@@ -1079,129 +1204,17 @@ QListWidget::item::selected {
               </widget>
              </item>
              <item>
-              <layout class="QHBoxLayout" name="horizontalLayout">
-               <item>
-                <widget class="QToolButton" name="button_save_query">
-                 <property name="sizePolicy">
-                  <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-                   <horstretch>0</horstretch>
-                   <verstretch>0</verstretch>
-                  </sizepolicy>
-                 </property>
-                 <property name="text">
-                  <string>Save query in a new preset</string>
-                 </property>
-                 <property name="popupMode">
-                  <enum>QToolButton::MenuButtonPopup</enum>
-                 </property>
-                 <property name="toolButtonStyle">
-                  <enum>Qt::ToolButtonTextOnly</enum>
-                 </property>
-                </widget>
-               </item>
-               <item>
-                <widget class="QToolButton" name="button_show_query">
-                 <property name="sizePolicy">
-                  <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-                   <horstretch>0</horstretch>
-                   <verstretch>0</verstretch>
-                  </sizepolicy>
-                 </property>
-                 <property name="layoutDirection">
-                  <enum>Qt::LeftToRight</enum>
-                 </property>
-                 <property name="text">
-                  <string>Show query</string>
-                 </property>
-                 <property name="checkable">
-                  <bool>false</bool>
-                 </property>
-                 <property name="popupMode">
-                  <enum>QToolButton::MenuButtonPopup</enum>
-                 </property>
-                 <property name="toolButtonStyle">
-                  <enum>Qt::ToolButtonTextOnly</enum>
-                 </property>
-                 <property name="arrowType">
-                  <enum>Qt::NoArrow</enum>
-                 </property>
-                </widget>
-               </item>
-               <item>
-                <widget class="QStackedWidget" name="stacked_execute_query_qq">
-                 <property name="sizePolicy">
-                  <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
-                   <horstretch>0</horstretch>
-                   <verstretch>0</verstretch>
-                  </sizepolicy>
-                 </property>
-                 <property name="currentIndex">
-                  <number>0</number>
-                 </property>
-                 <widget class="QWidget" name="page">
-                  <layout class="QHBoxLayout" name="horizontalLayout_12">
-                   <property name="spacing">
-                    <number>0</number>
-                   </property>
-                   <property name="leftMargin">
-                    <number>0</number>
-                   </property>
-                   <property name="topMargin">
-                    <number>0</number>
-                   </property>
-                   <property name="rightMargin">
-                    <number>0</number>
-                   </property>
-                   <property name="bottomMargin">
-                    <number>0</number>
-                   </property>
-                   <item>
-                    <widget class="QPushButton" name="button_run_query_qq">
-                     <property name="sizePolicy">
-                      <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-                       <horstretch>0</horstretch>
-                       <verstretch>0</verstretch>
-                      </sizepolicy>
-                     </property>
-                     <property name="text">
-                      <string>Run query</string>
-                     </property>
-                     <property name="default">
-                      <bool>true</bool>
-                     </property>
-                    </widget>
-                   </item>
-                  </layout>
-                 </widget>
-                 <widget class="QWidget" name="page_2">
-                  <layout class="QHBoxLayout" name="horizontalLayout_13">
-                   <property name="spacing">
-                    <number>0</number>
-                   </property>
-                   <property name="leftMargin">
-                    <number>0</number>
-                   </property>
-                   <property name="topMargin">
-                    <number>0</number>
-                   </property>
-                   <property name="rightMargin">
-                    <number>0</number>
-                   </property>
-                   <property name="bottomMargin">
-                    <number>0</number>
-                   </property>
-                   <item>
-                    <widget class="QPushButton" name="button_cancel_query_qq">
-                     <property name="text">
-                      <string>Cancel running query</string>
-                     </property>
-                    </widget>
-                   </item>
-                  </layout>
-                 </widget>
-                </widget>
-               </item>
-              </layout>
+              <spacer name="verticalSpacer_3">
+               <property name="orientation">
+                <enum>Qt::Vertical</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>20</width>
+                 <height>40</height>
+                </size>
+               </property>
+              </spacer>
              </item>
             </layout>
            </widget>
@@ -1253,6 +1266,109 @@ QListWidget::item::selected {
                 <bool>false</bool>
                </property>
               </widget>
+             </item>
+             <item>
+              <layout class="QHBoxLayout" name="horizontalLayout_21">
+               <property name="sizeConstraint">
+                <enum>QLayout::SetMinimumSize</enum>
+               </property>
+               <item>
+                <widget class="QToolButton" name="button_generate_query">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
+                 <property name="text">
+                  <string>Generate query</string>
+                 </property>
+                 <property name="popupMode">
+                  <enum>QToolButton::MenuButtonPopup</enum>
+                 </property>
+                 <property name="toolButtonStyle">
+                  <enum>Qt::ToolButtonTextOnly</enum>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QStackedWidget" name="stacked_execute_query_q">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
+                 <widget class="QWidget" name="page_3">
+                  <layout class="QHBoxLayout" name="horizontalLayout_14">
+                   <property name="spacing">
+                    <number>0</number>
+                   </property>
+                   <property name="leftMargin">
+                    <number>0</number>
+                   </property>
+                   <property name="topMargin">
+                    <number>0</number>
+                   </property>
+                   <property name="rightMargin">
+                    <number>0</number>
+                   </property>
+                   <property name="bottomMargin">
+                    <number>0</number>
+                   </property>
+                   <item>
+                    <widget class="QPushButton" name="button_run_query_q">
+                     <property name="text">
+                      <string>Run query</string>
+                     </property>
+                     <property name="default">
+                      <bool>true</bool>
+                     </property>
+                    </widget>
+                   </item>
+                  </layout>
+                 </widget>
+                 <widget class="QWidget" name="page_4">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <layout class="QHBoxLayout" name="horizontalLayout_15">
+                   <property name="spacing">
+                    <number>0</number>
+                   </property>
+                   <property name="leftMargin">
+                    <number>0</number>
+                   </property>
+                   <property name="topMargin">
+                    <number>0</number>
+                   </property>
+                   <property name="rightMargin">
+                    <number>0</number>
+                   </property>
+                   <property name="bottomMargin">
+                    <number>0</number>
+                   </property>
+                   <item>
+                    <widget class="QPushButton" name="button_cancel_query_q">
+                     <property name="sizePolicy">
+                      <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                       <horstretch>0</horstretch>
+                       <verstretch>0</verstretch>
+                      </sizepolicy>
+                     </property>
+                     <property name="text">
+                      <string>Cancel running query</string>
+                     </property>
+                    </widget>
+                   </item>
+                  </layout>
+                 </widget>
+                </widget>
+               </item>
+              </layout>
              </item>
              <item>
               <widget class="QgsCollapsibleGroupBox" name="advanced_q">
@@ -1435,7 +1551,7 @@ QListWidget::item::selected {
                    </widget>
                   </item>
                   <item row="0" column="1">
-                   <widget class="QgsFileWidget" name="output_directory_q" native="true"/>
+                   <widget class="QgsFileWidget" name="output_directory_q"/>
                   </item>
                   <item row="2" column="0">
                    <widget class="QLabel" name="label_40">
@@ -1473,109 +1589,6 @@ QListWidget::item::selected {
               </widget>
              </item>
              <item>
-              <layout class="QHBoxLayout" name="horizontalLayout_21">
-               <property name="sizeConstraint">
-                <enum>QLayout::SetMinimumSize</enum>
-               </property>
-               <item>
-                <widget class="QToolButton" name="button_generate_query">
-                 <property name="sizePolicy">
-                  <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-                   <horstretch>0</horstretch>
-                   <verstretch>0</verstretch>
-                  </sizepolicy>
-                 </property>
-                 <property name="text">
-                  <string>Generate query</string>
-                 </property>
-                 <property name="popupMode">
-                  <enum>QToolButton::MenuButtonPopup</enum>
-                 </property>
-                 <property name="toolButtonStyle">
-                  <enum>Qt::ToolButtonTextOnly</enum>
-                 </property>
-                </widget>
-               </item>
-               <item>
-                <widget class="QStackedWidget" name="stacked_execute_query_q">
-                 <property name="sizePolicy">
-                  <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-                   <horstretch>0</horstretch>
-                   <verstretch>0</verstretch>
-                  </sizepolicy>
-                 </property>
-                 <widget class="QWidget" name="page_3">
-                  <layout class="QHBoxLayout" name="horizontalLayout_14">
-                   <property name="spacing">
-                    <number>0</number>
-                   </property>
-                   <property name="leftMargin">
-                    <number>0</number>
-                   </property>
-                   <property name="topMargin">
-                    <number>0</number>
-                   </property>
-                   <property name="rightMargin">
-                    <number>0</number>
-                   </property>
-                   <property name="bottomMargin">
-                    <number>0</number>
-                   </property>
-                   <item>
-                    <widget class="QPushButton" name="button_run_query_q">
-                     <property name="text">
-                      <string>Run query</string>
-                     </property>
-                     <property name="default">
-                      <bool>true</bool>
-                     </property>
-                    </widget>
-                   </item>
-                  </layout>
-                 </widget>
-                 <widget class="QWidget" name="page_4">
-                  <property name="sizePolicy">
-                   <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
-                    <horstretch>0</horstretch>
-                    <verstretch>0</verstretch>
-                   </sizepolicy>
-                  </property>
-                  <layout class="QHBoxLayout" name="horizontalLayout_15">
-                   <property name="spacing">
-                    <number>0</number>
-                   </property>
-                   <property name="leftMargin">
-                    <number>0</number>
-                   </property>
-                   <property name="topMargin">
-                    <number>0</number>
-                   </property>
-                   <property name="rightMargin">
-                    <number>0</number>
-                   </property>
-                   <property name="bottomMargin">
-                    <number>0</number>
-                   </property>
-                   <item>
-                    <widget class="QPushButton" name="button_cancel_query_q">
-                     <property name="sizePolicy">
-                      <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-                       <horstretch>0</horstretch>
-                       <verstretch>0</verstretch>
-                      </sizepolicy>
-                     </property>
-                     <property name="text">
-                      <string>Cancel running query</string>
-                     </property>
-                    </widget>
-                   </item>
-                  </layout>
-                 </widget>
-                </widget>
-               </item>
-              </layout>
-             </item>
-             <item>
               <layout class="QHBoxLayout" name="horizontalLayout_22">
                <item>
                 <widget class="QPushButton" name="button_overpass_turbo">
@@ -1610,7 +1623,7 @@ QListWidget::item::selected {
                 </widget>
                </item>
                <item row="0" column="1">
-                <widget class="QgsFileWidget" name="osm_file" native="true"/>
+                <widget class="QgsFileWidget" name="osm_file"/>
                </item>
                <item row="1" column="0">
                 <widget class="QCheckBox" name="checkbox_points_f">
@@ -1674,7 +1687,7 @@ QListWidget::item::selected {
                     </widget>
                    </item>
                    <item>
-                    <widget class="QgsFileWidget" name="output_directory_f" native="true"/>
+                    <widget class="QgsFileWidget" name="output_directory_f"/>
                    </item>
                   </layout>
                  </item>
@@ -1714,6 +1727,13 @@ QListWidget::item::selected {
                   </layout>
                  </item>
                 </layout>
+               </item>
+               <item row="6" column="0">
+                <widget class="QRadioButton" name="radio_selection_keys">
+                 <property name="text">
+                  <string>Select tags</string>
+                 </property>
+                </widget>
                </item>
                <item row="6" column="1">
                 <layout class="QVBoxLayout" name="verticalLayout_18">
@@ -1786,9 +1806,6 @@ QListWidget::item::selected {
                  </item>
                 </layout>
                </item>
-               <item row="8" column="1">
-                <widget class="QgsFileWidget" name="osm_conf" native="true"/>
-               </item>
                <item row="8" column="0">
                 <widget class="QRadioButton" name="radio_osm_conf">
                  <property name="text">
@@ -1799,12 +1816,8 @@ QListWidget::item::selected {
                  </property>
                 </widget>
                </item>
-               <item row="6" column="0">
-                <widget class="QRadioButton" name="radio_selection_keys">
-                 <property name="text">
-                  <string>Select tags</string>
-                 </property>
-                </widget>
+               <item row="8" column="1">
+                <widget class="QgsFileWidget" name="osm_conf"/>
                </item>
               </layout>
              </item>
@@ -1842,6 +1855,19 @@ QListWidget::item::selected {
                 </layout>
                </widget>
               </widget>
+             </item>
+             <item>
+              <spacer name="verticalSpacer_2">
+               <property name="orientation">
+                <enum>Qt::Vertical</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>20</width>
+                 <height>40</height>
+                </size>
+               </property>
+              </spacer>
              </item>
             </layout>
            </widget>
@@ -2374,15 +2400,15 @@ QListWidget::item::selected {
  </widget>
  <customwidgets>
   <customwidget>
-   <class>QgsFileWidget</class>
-   <extends>QWidget</extends>
-   <header>qgsfilewidget.h</header>
-   <container>1</container>
-  </customwidget>
-  <customwidget>
    <class>QgsCollapsibleGroupBox</class>
    <extends>QGroupBox</extends>
    <header>qgscollapsiblegroupbox.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>QgsFileWidget</class>
+   <extends>QWidget</extends>
+   <header>qgsfilewidget.h</header>
    <container>1</container>
   </customwidget>
   <customwidget>
