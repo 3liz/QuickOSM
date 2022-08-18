@@ -238,9 +238,9 @@ class Dialog(QDialog, FORM_CLASS):
             self.display_critical_exception(exception)
 
     def display_critical_exception(self, exception: BaseException):
-        """Display others exceptions, these are criticals.
+        """Display others exceptions, these are critical.
 
-        They are not managed by QuickOSM so it's a bug from the plugin.
+        They are not managed by QuickOSM, so it's a bug from the plugin.
 
         :param exception: The exception to display.
         :rtype exception: BaseException

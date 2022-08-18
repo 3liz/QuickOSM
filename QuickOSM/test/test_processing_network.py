@@ -29,7 +29,7 @@ class TestProcessing(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
-        """ Setup the server. """
+        """ Set up the server. """
         cls.server, cls.port = launch()
 
     @classmethod

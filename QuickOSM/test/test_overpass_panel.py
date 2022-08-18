@@ -91,7 +91,7 @@ class TestQuickOSMWidget(unittest.TestCase):
         return dialog, layer
 
     def test_no_selected_features(self):
-        """ Test the exception of the selected features option """
+        """ Test the exception about the selected features option """
         dialog, layer = self.selected_features_set_up()
 
         with self.assertRaises(NoSelectedFeatures):

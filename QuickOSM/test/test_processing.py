@@ -49,7 +49,7 @@ class TestProcessing(unittest.TestCase):
         self.assertEqual(result_expected, result)
 
     def test_build_in_area_query(self):
-        """Test for the build of a in area query algorithm."""
+        """Test for the build of a 'in area' query algorithm."""
         result = processing.run(
             'quickosm:buildqueryinsidearea',
             {
@@ -112,7 +112,7 @@ class TestProcessing(unittest.TestCase):
         self.assertEqual(result_expected, result)
 
     def test_build_in_extent_query(self):
-        """Test for the build of a in extent query algorithm."""
+        """Test for the build of a 'in extent' query algorithm."""
         result = processing.run(
             'quickosm:buildqueryextent',
             {

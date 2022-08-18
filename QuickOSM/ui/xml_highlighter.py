@@ -75,7 +75,7 @@ class QueryHighlighter(QSyntaxHighlighter):
             end_delimiter: QRegExp,
             in_state: int,
             style: Qt) -> bool:
-        """Do highlighting of multi-line strings. ``delimiter`` should be a
+        """Do highlight of multi-line strings. ``delimiter`` should be a
         ``QRegExp`` for triple-single-quotes or triple-double-quotes, and
         ``in_state`` should be a unique integer to represent the corresponding
         state changes when inside those strings. Returns True if we're still

@@ -254,7 +254,7 @@ class Actions:
             process.reload_query(query, layer_name, dialog)
 
     def pre_run_reload(self):
-        """ Prepare the reload"""
+        """ Prepare to reload the query."""
 
         layer = self.dialog.iface.layerTreeView().currentLayer()
         self.run_reload(layer=layer, dialog=self.dialog)

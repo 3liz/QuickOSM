@@ -69,7 +69,7 @@ class DownloadOSMData(QgisAlgorithm):
         return ''
 
     def shortHelpString(self) -> str:
-        """Return an helper for the algorithm."""
+        """Return a helper for the algorithm."""
         return tr('Fetch the OSM data that match the request.')
 
     def icon(self):

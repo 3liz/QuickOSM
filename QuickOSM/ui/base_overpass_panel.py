@@ -29,7 +29,7 @@ class BaseOverpassPanel(BaseProcessingPanel):
 
     """Panel OSM Processing base class.
 
-    This panels will have an run button.
+    This panels will have a run button.
 
     This is a kind of virtual class.
     """
@@ -102,7 +102,7 @@ class BaseOverpassPanel(BaseProcessingPanel):
     def write_nominatim_file(self, panel: Panels):
         """Write new nominatim value in the file.
 
-        :param panel: The panel to use so as to fetch the nominatim value.
+        :param panel: The panel to use to fetch the nominatim value.
         :type panel: Panels
         """
         value = self.dialog.places_edits[panel].text()

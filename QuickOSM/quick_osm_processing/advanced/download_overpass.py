@@ -1,8 +1,5 @@
-"""Processing algorithm to download a Overpass query."""
+"""Processing algorithm to download an Overpass query."""
 
-# import codecs
-# import re
-# import processing
 from processing.algs.qgis.QgisAlgorithm import QgisAlgorithm
 from qgis.core import QgsProcessingOutputFile, QgsProcessingParameterString
 
@@ -12,7 +9,7 @@ __email__ = 'info@3liz.org'
 
 
 class DownloadOverpassUrl(QgisAlgorithm):
-    """Processing algorithm to download a Overpass query."""
+    """Processing algorithm to download an Overpass query."""
 
     URL = 'URL'
     OUTPUT = 'OUTPUT'
@@ -44,7 +41,7 @@ class DownloadOverpassUrl(QgisAlgorithm):
         return super().flags()  # | QgsProcessingAlgorithm.FlagHideFromToolbox
 
     def shortHelpString(self) -> str:
-        """Return an helper for the algorithm."""
+        """Return a helper for the algorithm."""
         return self.tr(
             'Like the native QGIS File Downloader algorithm, this algorithm '
             'will download an URL but it will also perform a OSM integrity '

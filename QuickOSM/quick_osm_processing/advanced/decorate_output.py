@@ -55,7 +55,7 @@ class DecorateLayerAlgorithm(QgisAlgorithm):
         return 'advanced'
 
     def shortHelpString(self) -> str:
-        """Return an helper for the algorithm."""
+        """Return a helper for the algorithm."""
         return tr('Decorate the layer as an QuickOSM output.')
 
     def flags(self):

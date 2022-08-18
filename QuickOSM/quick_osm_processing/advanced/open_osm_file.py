@@ -1,4 +1,4 @@
-"""Simple Processing algorithm to open a OSM file with sub layers."""
+"""Simple Processing algorithm to open an OSM file with sub layers."""
 
 from os.path import exists
 from typing import Dict
@@ -22,7 +22,7 @@ __email__ = 'info@3liz.org'
 
 
 class OpenOsmFile(QgisAlgorithm):
-    """Simple Processing algorithm to open a OSM file with sub layers."""
+    """Simple Processing algorithm to open an OSM file with sub layers."""
 
     FILE = 'FILE'
     OSM_CONF = 'OSM_CONF'
@@ -60,12 +60,11 @@ class OpenOsmFile(QgisAlgorithm):
         return self.tr('Open sublayers from an OSM file')
 
     def shortHelpString(self) -> str:
-        """Return an helper for the algorithm."""
-        return self.tr('Open all sublayers from an OSM file. A custom OSM '
-                       'configuration file can be specified following the OGR '
-                       'documentation. This algorithm will not make a copy of '
-                       'the input file, it will only open it using OGR and '
-                       'custom INI file if provided.')
+        """Return a helper for the algorithm."""
+        return self.tr(
+            'Open all sub-layers from an OSM file. A custom OSM configuration file can be specified '
+            'following the OGR documentation. This algorithm will not make a copy of the input file, '
+            'it will only open it using OGR and custom INI file if provided.')
 
     def initAlgorithm(self, config=None):
         """Set up of the algorithm."""

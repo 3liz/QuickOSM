@@ -84,7 +84,7 @@ class TestUiMainWindow(unittest.TestCase):
         )
 
     def test_add_row_below(self):
-        """Test we can can add a row below in the table."""
+        """Test we can add a row below in the table."""
         dialog = Dialog()
         index_01 = dialog.table_keys_values_qq.cellWidget(0, 1).findText('amenity')
         dialog.table_keys_values_qq.cellWidget(0, 1).setCurrentIndex(index_01)
@@ -116,7 +116,7 @@ class TestUiMainWindow(unittest.TestCase):
         )
 
     def test_remove_row(self):
-        """Test we can can remove a row in the table."""
+        """Test we can remove a row in the table."""
         dialog = Dialog()
         index = dialog.table_keys_values_qq.cellWidget(0, 1).findText('amenity')
         dialog.table_keys_values_qq.cellWidget(0, 1).setCurrentIndex(index)

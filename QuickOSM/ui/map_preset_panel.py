@@ -80,7 +80,7 @@ class MapPresetPanel(BaseOverpassPanel):
         self.update_personal_preset_view()
 
     def setup_default_preset(self):
-        """Setup the display of presets"""
+        """Set up the display of presets"""
         preset_folder = resources_path('map_preset')
         folders = os.listdir(preset_folder)
 

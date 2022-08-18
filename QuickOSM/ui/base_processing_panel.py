@@ -26,7 +26,7 @@ class BaseProcessingPanel(BasePanel):
 
     """Base for processing panel.
 
-    This panels will have an run button.
+    This panels will have a run button.
 
     This is a kind of virtual class.
     """

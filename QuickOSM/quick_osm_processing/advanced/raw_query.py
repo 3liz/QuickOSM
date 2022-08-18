@@ -40,7 +40,7 @@ class RawQueryAlgorithm(BuildRaw):
         return tr('Build raw query')
 
     def shortHelpString(self) -> str:
-        """Return an helper for the algorithm."""
+        """Return a helper for the algorithm."""
         return 'A XML or OQL query to send to a Overpass API server.'
 
     def flags(self):

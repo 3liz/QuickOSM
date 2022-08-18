@@ -99,7 +99,7 @@ class ConnexionOAPI(Downloader):
     def check_file(path: str):
         """Verify the file provided by the Overpass API"""
         # The download is done, checking for not complete OSM file.
-        # Overpass might aborted the request with HTTP 200.
+        # Overpass might abort the request with HTTP 200.
         LOGGER.info('Checking OSM file content {}'.format(path))
 
         def last_lines(file_path: str, line_count: int) -> List[str]:
@@ -149,7 +149,7 @@ class ConnexionOAPI(Downloader):
 
     @staticmethod
     def is_query_timed_out(string: str):
-        """Check the time out exception"""
+        """Check the time-out exception"""
         text = 'Network request (.*) timed out'
         search = re.search(text, string)
         if search:

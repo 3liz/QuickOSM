@@ -41,7 +41,7 @@ class BuildQueryBasedAlgorithm(QgisAlgorithm):
         return 'advanced'
 
     def shortHelpString(self) -> str:
-        """Return an helper for the algorithm."""
+        """Return a helper for the algorithm."""
         return self.tr(
             'This algorithm builds a query and then encode it into the '
             'Overpass API URL. The "Download File" algorithm might be used '

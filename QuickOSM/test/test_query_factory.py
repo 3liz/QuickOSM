@@ -130,7 +130,7 @@ class TestQueryFactory(unittest.TestCase):
         self.assertEqual(QueryFactory.replace_template(query), expected)
 
     def test_possible_queries(self):
-        """Test queries which are possible and must return a XML query."""
+        """Test queries which are possible and must return an XML query."""
 
         def test_query(query, xml, xml_with_template, oql, oql_with_template, human_label):
             """Internal helper for testing queries."""

@@ -137,7 +137,7 @@ class TestPresetParser(unittest.TestCase):
         self.assertEqual(expected_dict_item, result.items)
         self.assertEqual(expected_dict_element, result.elements)
 
-        # Complex file groups interlocked, multiple items a,d keys
+        # Complex file groups interlocked, multiple items 'a,d' keys
         xml_template = (
             '<presets>'
             '<group name="country">'
