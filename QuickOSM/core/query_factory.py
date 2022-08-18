@@ -209,6 +209,11 @@ class QueryFactory:
             raise QueryFactoryException(
                 tr('Missing some keys for some values.'))
 
+        for key in self._key:
+            if key != key.strip():
+                raise QueryFactoryException(
+                    tr(f'Key "{key}" contains leading or trailing whitespace.'))
+
         self._checked = True
         return True
 
