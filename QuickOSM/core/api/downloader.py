@@ -2,8 +2,8 @@
 
 import logging
 
-from qgis.core import QgsFileDownloader
-from qgis.PyQt.QtCore import QEventLoop, QUrl
+from qgis.core import Qgis, QgsFileDownloader
+from qgis.PyQt.QtCore import QByteArray, QEventLoop, QUrl, QUrlQuery
 
 __copyright__ = 'Copyright 2021, 3Liz'
 __license__ = 'GPL version 3'
@@ -42,8 +42,23 @@ class Downloader:
     def download(self):
         """Download the data"""
         loop = QEventLoop()
-        downloader = QgsFileDownloader(
-            self._url, self.result_path, delayStart=True)
+        if Qgis.QGIS_VERSION_INT >= 32200:
+            # We use POST instead of GET
+            # We move the "data" GET parameter into the POST request
+            url_query = QUrlQuery(self._url)
+            data = "data={}".format(url_query.queryItemValue('data'))
+            url_query.removeQueryItem('data')
+            self._url.setQuery(url_query)
+            downloader = QgsFileDownloader(
+                self._url,
+                self.result_path,
+                delayStart=True,
+                httpMethod=Qgis.HttpMethod.Post,
+                data=QByteArray(str.encode(data))
+            )
+        else:
+            downloader = QgsFileDownloader(
+                self._url, self.result_path, delayStart=True)
         downloader.downloadExited.connect(loop.quit)
         downloader.downloadError.connect(self.error)
         downloader.downloadCanceled.connect(self.canceled)

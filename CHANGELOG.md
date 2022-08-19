@@ -5,6 +5,7 @@
 * Add a warning if the key has a trailing white space (contribution from @kannes)
 * Improve the UI by moving buttons up and adding icons to them
 * Fix some Python exceptions which weren't displayed to the user
+* Switch to POST HTTP request instead of GET for QGIS ≥ 3.22
 
 ## 2.1.0 - 2022-08-08
 
