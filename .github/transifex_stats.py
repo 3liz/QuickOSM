@@ -13,6 +13,29 @@ import requests
 # and run `python3 scripts/load_tx_stats.py <TX_TOKEN> <ORGANIZATION optional> <PROJECT optional>`
 # from the repo main folder
 
+LANGUAGE_MAP = {
+    'nl': '🇳🇱',
+    'fr': '🇫🇷',
+    'zh': '🇨🇳',
+    'it': '🇮🇹',
+    'uk': '🇺🇦',
+    'de': '🇩🇪',
+    'zh_TW': '🇹🇼',
+    'fi': '🇫🇮',
+    'ko': '🇰🇷',
+    'pt_BR': '🇧🇷',
+    'ro': '🇷🇴',
+    'id': '🇮🇩',
+    'pl': '🇵🇱',
+    'es': '🇪🇸',
+    'vi': '🇻🇳',
+    'ru': '🇷🇺',
+    'he': '🇮🇱',
+    'da': '🇳🇱',
+    'pt': '🇵🇹',
+    'sv': '🇸🇪',
+}
+
 # Catch the Transifex api token value (passed as argument to the python command)
 if len(argv) <= 1:
     print("Missing transifex token argument")
@@ -96,7 +119,7 @@ def load_lang_stats(stats):
         if lang == 'en':
             continue
 
-        text += f"{stats[lang]['name']}|"
+        text += f"{stats[lang]['name']} {LANGUAGE_MAP.get(lang)}|"
         text += f"[={stats[lang]['percentage']}% \"{stats[lang]['percentage']}\"]|\n"
 
     return text

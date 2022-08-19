@@ -1,11 +1,11 @@
 {
     "zh": {
         "name": "Chinese",
-        "percentage": 100.0
+        "percentage": 98.68
     },
     "zh_TW": {
         "name": "Chinese (Taiwan)",
-        "percentage": 95.03
+        "percentage": 93.71
     },
     "da": {
         "name": "Danish",
@@ -17,7 +17,7 @@
     },
     "fi": {
         "name": "Finnish",
-        "percentage": 94.7
+        "percentage": 93.71
     },
     "fr": {
         "name": "French",
@@ -25,7 +25,7 @@
     },
     "de": {
         "name": "German",
-        "percentage": 94.7
+        "percentage": 94.37
     },
     "he": {
         "name": "Hebrew",
@@ -33,19 +33,19 @@
     },
     "id": {
         "name": "Indonesian",
-        "percentage": 93.71
+        "percentage": 92.72
     },
     "it": {
         "name": "Italian",
-        "percentage": 100.0
+        "percentage": 98.68
     },
     "ko": {
         "name": "Korean",
-        "percentage": 94.7
+        "percentage": 93.71
     },
     "pl": {
         "name": "Polish",
-        "percentage": 93.05
+        "percentage": 92.05
     },
     "pt": {
         "name": "Portuguese",
@@ -53,19 +53,19 @@
     },
     "pt_BR": {
         "name": "Portuguese (Brazil)",
-        "percentage": 94.7
+        "percentage": 93.71
     },
     "ro": {
         "name": "Romanian",
-        "percentage": 94.7
+        "percentage": 93.71
     },
     "ru": {
         "name": "Russian",
-        "percentage": 52.32
+        "percentage": 51.99
     },
     "es": {
         "name": "Spanish",
-        "percentage": 57.95
+        "percentage": 79.47
     },
     "sv": {
         "name": "Swedish",
@@ -73,15 +73,15 @@
     },
     "uk": {
         "name": "Ukrainian",
-        "percentage": 100.0
+        "percentage": 98.01
     },
     "vi": {
         "name": "Vietnamese",
-        "percentage": 77.81
+        "percentage": 77.15
     },
     "en": {
         "nb_languages": 20,
         "stringcount": 302,
-        "percentage": 72.32
+        "percentage": 72.73
     }
 }
