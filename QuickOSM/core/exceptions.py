@@ -38,13 +38,14 @@ class QuickOsmException(Exception):
 # Overpass or network
 
 
-# TODO, not used, but need to be fixed
 class OverpassBadRequestException(QuickOsmException):
     """Bad request exception."""
 
-    def __init__(self, message: str = None):
-        if not message:
-            message = tr('Bad request OverpassAPI.')
+    def __init__(self, error: str = None):
+        message = tr('Bad request OverpassAPI.')
+        if error:
+            message += ' '
+            message += error
         super().__init__(message)
 
 

@@ -80,7 +80,7 @@ jobs:
         uses: actions/checkout@v2
         with:
           submodules: 'true'
-      - name: Launching docker-compose
+      - name: Launching docker compose
         run: ./start.sh
       - name: Running tests
         run: ./exec.sh

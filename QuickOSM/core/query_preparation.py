@@ -95,7 +95,7 @@ class QueryPreparation:
         # token to look for, error returned to the user
         incompatible_queries = {
             'geometry="center"': 'center',
-            'out center;': 'center',
+            'out center': 'center',
             '{{style': '{{style}}',
             '{{data': '{{data}}',
             '{{date': '{{date}}',

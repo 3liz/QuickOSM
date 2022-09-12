@@ -39,6 +39,18 @@ class TestQueryPreparation(unittest.TestCase):
         self.assertTrue(QueryPreparation('out skel qt;').is_oql_query())
         self.assertFalse(QueryPreparation('</osm-script>').is_oql_query())
 
+    def test_invalid_query(self):
+        """ Test an invalid query. """
+        # out center is not compatible with OGR
+        query = """
+        );
+        // print results
+        out center meta;
+        >;
+        """
+        query = QueryPreparation(query)
+        self.assertFalse(query.is_compatible()[0])
+
     def test_replace_center(self):
         """Test we can replace {{center}} in a query."""
         extent = QgsRectangle(10.00, 0.5, 20.00, 1.5)

@@ -147,6 +147,10 @@ class ConnexionOAPI(Downloader):
         if search:
             raise OverpassRuntimeError(search.group(1))
 
+        search = re.search(r'Error</strong>:(.*)</p>', ''.join(lines), re.MULTILINE)
+        if search:
+            raise OverpassBadRequestException(search.group(1))
+
     @staticmethod
     def is_query_timed_out(string: str):
         """Check the time-out exception"""

@@ -90,3 +90,13 @@ class TestOverpass(unittest.TestCase):
             ConnexionOAPI.check_file(generic_error)
 
         self.assertEqual(str(error.exception), 'Overpass error: FAKE error that I do not know')
+
+        bad_query = plugin_test_data_path('overpass', 'bad_query.xml')
+        with self.assertRaises(OverpassBadRequestException) as error:
+
+            ConnexionOAPI.check_file(bad_query)
+
+        self.assertEqual(
+            str(error.exception),
+            'Bad request OverpassAPI.  line 10: parse error: Invalid parameter for print: &quot;centre&quot; '
+        )

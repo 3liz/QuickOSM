@@ -1,5 +1,5 @@
 start_tests:
-	@echo 'Start docker-compose'
+	@echo 'Start docker compose'
 	@cd .docker && ./start.sh
 
 run_tests:

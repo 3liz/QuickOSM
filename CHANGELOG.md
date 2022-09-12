@@ -2,6 +2,9 @@
 
 ## Unreleased
 
+* Add more checks about invalid XML/OQL, like `center`
+* Add more checks about invalid XML/OQL, like the input syntax `centre`
+
 ## 2.1.1 - 2022-08-21
 
 * Add a warning if the key has a trailing white space (contribution from @kannes)
