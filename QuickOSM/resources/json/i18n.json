@@ -65,7 +65,7 @@
     },
     "es": {
         "name": "Spanish",
-        "percentage": 79.47
+        "percentage": 86.75
     },
     "sv": {
         "name": "Swedish",
@@ -82,6 +82,6 @@
     "en": {
         "nb_languages": 20,
         "stringcount": 302,
-        "percentage": 72.73
+        "percentage": 73.1
     }
 }
