@@ -57,7 +57,7 @@
     },
     "ro": {
         "name": "Romanian",
-        "percentage": 93.71
+        "percentage": 100.0
     },
     "ru": {
         "name": "Russian",
@@ -82,6 +82,6 @@
     "en": {
         "nb_languages": 20,
         "stringcount": 302,
-        "percentage": 73.1
+        "percentage": 73.41
     }
 }
