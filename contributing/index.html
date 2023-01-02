@@ -797,9 +797,9 @@ knowledge is required. <a href="https://github.com/3liz/QuickOSM/actions/workflo
 <p><a href="https://github.com/3liz/QuickOSM/actions/workflows/ci.yml"><img alt="Tests 🎳" src="https://github.com/3liz/QuickOSM/actions/workflows/ci.yml/badge.svg" /></a></p>
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
 <span class="normal">2</span>
-<span class="normal">3</span></pre></div></td><td class="code"><div><pre><span></span><code>pip install -r requirements/dev.txt
+<span class="normal">3</span></pre></div></td><td class="code"><div><pre><span></span><code>pip<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </span>requirements/dev.txt
 flake8
-make tests
+make<span class="w"> </span>tests
 </code></pre></div></td></tr></table></div>
 <ul>
 <li>QuickOSM uses a <a href="https://git-scm.com/book/en/v2/Git-Tools-Submodules">Git submodule</a>.</li>
@@ -829,13 +829,13 @@ make tests
 <p><a href="https://github.com/3liz/QuickOSM/actions/workflows/publish-doc.yml"><img alt="Documentation 📚" src="https://github.com/3liz/QuickOSM/actions/workflows/publish-doc.yml/badge.svg" /></a></p>
 <p>The documentation is using <a href="https://www.mkdocs.org/">MkDocs</a> with <a href="https://squidfunk.github.io/mkdocs-material/">Material</a> :</p>
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
-<span class="normal">2</span></pre></div></td><td class="code"><div><pre><span></span><code>pip install -r requirements/doc.txt
-mkdocs serve
+<span class="normal">2</span></pre></div></td><td class="code"><div><pre><span></span><code>pip<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </span>requirements/doc.txt
+mkdocs<span class="w"> </span>serve
 </code></pre></div></td></tr></table></div>
 <ul>
 <li>Processing algorithms documentation can be generated with:</li>
 </ul>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>make processing-doc
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>make<span class="w"> </span>processing-doc
 </code></pre></div></td></tr></table></div>
 <h2 id="architecture">Architecture<a class="headerlink" href="#architecture" title="Permanent link">#</a></h2>
 <div class="mermaid">classDiagram
