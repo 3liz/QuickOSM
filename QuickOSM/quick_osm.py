@@ -8,7 +8,6 @@ import urllib.request
 from os.path import join
 
 from qgis.core import (
-    Qgis,
     QgsApplication,
     QgsCoordinateReferenceSystem,
     QgsCoordinateTransform,
@@ -191,7 +190,7 @@ class QuickOSMPlugin:
         self.iface.removeToolBarIcon(self.main_window_action)
         QgsApplication.processingRegistry().removeProvider(self.provider)
 
-        if Qgis.QGIS_VERSION_INT >= 31000 and self.help_action:
+        if self.help_action:
             self.iface.pluginHelpMenu().removeAction(self.help_action)
             del self.help_action
 

@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+* Bump QGIS minimum version to 3.22
 * Add more checks about invalid XML/OQL, like `center`
 * Add more checks about invalid XML/OQL, like the input syntax `centre`
 
