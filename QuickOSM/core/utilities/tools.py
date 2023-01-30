@@ -6,6 +6,7 @@ import sys
 
 from os import mkdir
 from os.path import abspath, isdir, isfile, join
+from typing import Tuple
 
 from qgis.core import QgsApplication, QgsSettings
 from qgis.PyQt.QtCore import QDir
@@ -13,6 +14,8 @@ from qgis.PyQt.QtCore import QDir
 __copyright__ = 'Copyright 2021, 3Liz'
 __license__ = 'GPL version 3'
 __email__ = 'info@3liz.org'
+
+from QuickOSM.qgis_plugin_tools.tools.i18n import tr
 
 
 def custom_config_file() -> str:
@@ -74,6 +77,23 @@ def quickosm_user_folder() -> str:
         QDir().mkdir(path)
 
     return path
+
+
+def check_processing_enable() -> Tuple[bool, str, str]:
+    """ Check if Processing is enabled. """
+    # https://github.com/3liz/QuickOSM/issues/422
+    # https://github.com/3liz/QuickOSM/issues/352
+    if QgsApplication.processingRegistry().algorithmById("native:buffer"):
+        return True, '', ''
+
+    return (
+        False,
+        tr('Error with the Processing plugin'),
+        tr(
+            'To be able to use QuickOSM, you need to have the "Processing" plugin enabled. '
+            'Please check in your QGIS Plugin manager that the "Processing" plugin is enabled.'
+        )
+    )
 
 
 def get_setting(key: str, default: str = None) -> str:

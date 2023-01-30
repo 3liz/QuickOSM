@@ -7,10 +7,16 @@ from typing import List
 import processing
 
 from osgeo import gdal
-from qgis.core import QgsField, QgsProcessingFeedback, QgsVectorLayer
+from qgis.core import (
+    QgsField,
+    QgsProcessingException,
+    QgsProcessingFeedback,
+    QgsVectorLayer,
+)
 from qgis.PyQt.QtCore import QObject, QVariant, pyqtSignal
 
 from QuickOSM.core.exceptions import FileOutPutException, QuickOsmException
+from QuickOSM.core.utilities.tools import check_processing_enable
 from QuickOSM.definitions.format import Format
 from QuickOSM.definitions.osm import WHITE_LIST, Osm_Layers
 from QuickOSM.qgis_plugin_tools.tools.i18n import tr
@@ -130,6 +136,14 @@ class OsmParser(QObject):
 
             if self.feedback_alg:
                 self.feedback.pushInfo('Checking the validity of the geometry of the layer {}.'.format(layer))
+
+            # Let's check again Processing...
+            # Checking again at the opening of the dialog is not enough according to GH tickets
+            # https://github.com/3liz/QuickOSM/issues/422
+            flag, _, error = check_processing_enable()
+            if not flag:
+                raise QgsProcessingException(error)
+
             validity = processing.run(
                 "qgis:checkvalidity", {
                     'INPUT_LAYER': layers[layer]['vectorLayer'],

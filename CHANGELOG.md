@@ -3,7 +3,7 @@
 ## Unreleased
 
 * Bump QGIS minimum version to 3.22
-* Add more checks about invalid XML/OQL, like `center`
+* Check that QGIS Processing algorithm when running the main process
 * Add more checks about invalid XML/OQL, like the input syntax `centre`
 
 ## 2.1.1 - 2022-08-21

@@ -24,7 +24,11 @@ from qgis.PyQt.QtWidgets import (
     QPushButton,
 )
 
-from QuickOSM.core.utilities.tools import get_setting, set_setting
+from QuickOSM.core.utilities.tools import (
+    check_processing_enable,
+    get_setting,
+    set_setting,
+)
 from QuickOSM.core.utilities.utilities_qgis import open_webpage
 from QuickOSM.definitions.urls import DOC_PLUGIN_URL
 from QuickOSM.qgis_plugin_tools.tools.custom_logging import setup_logger
@@ -232,19 +236,12 @@ class QuickOSMPlugin:
 
     def open_dialog(self):
         """Create and open the main dialog."""
-
         # Check if Processing is enabled
-        # Ticket #352
-        if QgsApplication.processingRegistry().algorithmById("native:buffer") is None:
-            error_dialog = QMessageBox(
-                QMessageBox.Critical,
-                tr('Error with the Processing plugin'),
-                tr(
-                    'To be able to use QuickOSM, you need to have the "Processing" plugin enabled. '
-                    'Please check in your QGIS Plugin manager that the "Processing" plugin is enabled.'),
-                QMessageBox.Ok,
-                self
-            )
+        # https://github.com/3liz/QuickOSM/issues/352
+        # https://github.com/3liz/QuickOSM/issues/422
+        flag, title, error = check_processing_enable()
+        if not flag:
+            error_dialog = QMessageBox(QMessageBox.Critical, title, error, QMessageBox.Ok, self)
             error_dialog.exec()
             return
 
