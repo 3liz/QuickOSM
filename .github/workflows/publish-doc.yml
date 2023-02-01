@@ -32,7 +32,7 @@ jobs:
         node-version: '12'
 
     - name: Cache project dependencies (pip)
-      uses: actions/cache@v3.2.2
+      uses: actions/cache@v3.2.4
       with:
         path: ~/.cache/pip
         key: ${{ runner.os }}-pip-${{ hashFiles('requirements/doc.txt') }}
