@@ -54,10 +54,11 @@ ORGANIZATION = 'quickosm'
 PROJECT = 'gui'
 
 # Load stats of the given project from transifex
-response = requests.get(
-    f'https://api.transifex.com/organizations/{ORGANIZATION}/projects/{PROJECT}/',
-    auth=('api', TX_TOKEN)
-)
+url = f'https://api.transifex.com/organizations/{ORGANIZATION}/projects/{PROJECT}/'
+response = requests.get(url, auth=('Bearer', TX_TOKEN))
+if response.status_code == 404:
+    raise Exception(f'Error HTTP 404 from the call to "{url}" with the given token.')
+
 data = response.json()
 
 # Get statistics of translation for each target language
