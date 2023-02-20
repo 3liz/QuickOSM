@@ -17,7 +17,7 @@
 | 1.5 → 1.7   | 3.0      | 3.2  |                                                                    |
 | 1.8 → 1.17  | 3.4      | 3.14 |                                                                    |
 | 2.0 → 2.1.1 | 3.16     | 3.22 |                                                                    |
-| 2.1.0 →     | 3.22     |      | [master](https://github.com/3liz/QuickOSM/tree/master)             |
+| 2.2.0 →     | 3.22     |      | [master](https://github.com/3liz/QuickOSM/tree/master)             |
 
 ## Documentation
 
