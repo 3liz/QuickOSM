@@ -2,9 +2,10 @@
 
 ## Unreleased
 
-* Bump QGIS minimum version to 3.22
+* Bump QGIS minimum version to 3.22 with Python 3.7
 * Check that QGIS Processing algorithm when running the main process
 * Add more checks about invalid XML/OQL, like the input syntax `centre`
+* Update default JOSM/Vespucci presets from 4.8.0 to 5.1.0
 
 ## 2.1.1 - 2022-08-21
 
