@@ -142,9 +142,9 @@ class OsmFilePanel(BaseProcessingPanel, TableKeyValue):
             keys = []
             for k, v in zip(key, val):
                 if v:
-                    keys.append('\"{k}\"=\'{v}\''.format(k=k, v=v))
+                    keys.append(f'\"{k}\"=\'{v}\'')
                 else:
-                    keys.append('\"{k}\"'.format(k=k))
+                    keys.append(f'\"{k}\"')
 
             if multi_keys:
                 type_multi = properties['type_multi_request']
@@ -160,7 +160,7 @@ class OsmFilePanel(BaseProcessingPanel, TableKeyValue):
                                 i += 1
                                 key_and += ' AND ' + keys[k + i]
 
-                            key_lbl += '({})'.format(key_and)
+                            key_lbl += f'({key_and})'
                             index = k + i
                         elif type_multi_k == MultiType.OR:
                             if k == 0:

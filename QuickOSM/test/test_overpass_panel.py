@@ -111,6 +111,6 @@ class TestQuickOSMWidget(unittest.TestCase):
 
 
 if __name__ == '__main__':
-    suite = unittest.makeSuite(TestQuickOSMWidget)
+    suite = unittest.defaultTestLoader.loadTestsFromTestCase(TestQuickOSMWidget)
     runner = unittest.TextTestRunner(verbosity=2)
     runner.run(suite)

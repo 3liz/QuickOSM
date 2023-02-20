@@ -99,10 +99,10 @@ class QuickOSMPlugin:
             LOGGER.info('The version does not exist in the i18n folder, the folder needs to be unzipped.')
 
         if os.path.isdir(preset_translation_path) and os.path.isfile(version_file_translation_path):
-            with open(version_file_translation_path, 'r', encoding='utf8') as check:
+            with open(version_file_translation_path, encoding='utf8') as check:
                 old_version = check.read().strip()
 
-            with open(version_file_presets, 'r', encoding='utf8') as expected:
+            with open(version_file_presets, encoding='utf8') as expected:
                 new_version = expected.read().strip()
 
             if old_version != new_version:
@@ -230,7 +230,7 @@ class QuickOSMPlugin:
             else:
                 self.iface.messageBar().pushSuccess(
                     tr('JOSM Remote'), tr('Import done, check JOSM.'))
-        except IOError:
+        except OSError:
             self.iface.messageBar().pushCritical(
                 tr('JOSM Remote'), tr('Is the remote enabled in the JOSM settings?'))
 
@@ -295,7 +295,7 @@ class QuickOSMPlugin:
             from QuickOSM.qgis_plugin_tools.infrastructure.test_runner import (
                 test_package,
             )
-            test_package('{}.__init__'.format(Path(__file__).parent.name))
+            test_package(f'{Path(__file__).parent.name}.__init__')
         except (AttributeError, ModuleNotFoundError):
             message = 'Could not load tests. Are you using a production package?'
             print(message)

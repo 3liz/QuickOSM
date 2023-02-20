@@ -150,11 +150,11 @@ class QueryManagement:
             files = listdir(history_folder)
             for k, file in enumerate(files):
                 former_file = join(history_folder, file)
-                new_file = join(history_folder, 'query_saved_{}.json'.format(k))
+                new_file = join(history_folder, f'query_saved_{k}.json')
                 rename(former_file, new_file)
-            new_file = join(history_folder, 'query_saved_{}.json'.format(nb_files - 1))
+            new_file = join(history_folder, f'query_saved_{nb_files - 1}.json')
         else:
-            new_file = join(history_folder, 'query_saved_{}.json'.format(nb_files))
+            new_file = join(history_folder, f'query_saved_{nb_files}.json')
 
         self.write_json(new_file)
 
@@ -164,7 +164,7 @@ class QueryManagement:
         files = listdir(preset_folder)
         nb_files = len(files)
 
-        self.name[0] = name_preset if name_preset != "OsmQuery" else 'OsmQuery_{}'.format(nb_files)
+        self.name[0] = name_preset if name_preset != "OsmQuery" else f'OsmQuery_{nb_files}'
         final_name = self.name[0] + '.json'
 
         new_file = join(preset_folder, self.name[0], final_name)
@@ -208,7 +208,7 @@ class QueryManagement:
             for k, file in enumerate(list_preset):
                 if k >= num:
                     former_file = join(preset_folder, file, file + '.json')
-                    new_name = 'OsmQuery_{}'.format(k)
+                    new_name = f'OsmQuery_{k}'
                     new_file = join(preset_folder, new_name, new_name + '.json')
                     rename(former_file, new_file)
 
@@ -222,7 +222,7 @@ class QueryManagement:
                     index = k
 
             if index:
-                os.rmdir(join(preset_folder, 'OsmQuery_{}'.format(index + 1)))
+                os.rmdir(join(preset_folder, f'OsmQuery_{index + 1}'))
 
     @staticmethod
     def add_empty_query_in_preset(data: dict) -> dict:

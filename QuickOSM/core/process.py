@@ -79,7 +79,7 @@ def open_file(
     if not white_list_column:
         white_list_column = None
 
-    LOGGER.info('The OSM file is: {}'.format(osm_file))
+    LOGGER.info(f'The OSM file is: {osm_file}')
     if feedback:
         if feedback.isCanceled():
             return None
@@ -106,7 +106,7 @@ def open_file(
     layers = osm_parser.processing_parse()
     elapsed_time = time.time() - start_time
     parser_time = time.strftime("%Hh %Mm %Ss", time.gmtime(elapsed_time))
-    LOGGER.info('The OSM parser took: {}'.format(parser_time))
+    LOGGER.info(f'The OSM parser took: {parser_time}')
 
     if feedback:
         if feedback.isCanceled():
@@ -189,7 +189,7 @@ def reload_query(
     final_query = query.prepare_query()
     url = query.prepare_url()
     connexion_overpass_api = ConnexionOAPI(url)
-    LOGGER.debug('Encoded URL: {}'.format(url))
+    LOGGER.debug(f'Encoded URL: {url}')
     osm_file = connexion_overpass_api.run()
 
     if new_file:
@@ -251,7 +251,7 @@ def process_query(
     final_query = query.prepare_query()
     url = query.prepare_url()
     connexion_overpass_api = ConnexionOAPI(url)
-    LOGGER.debug('Encoded URL: {}'.format(url))
+    LOGGER.debug(f'Encoded URL: {url}')
     osm_file = connexion_overpass_api.run()
 
     return open_file(
@@ -312,7 +312,7 @@ def process_quick_query(
         description = query_factory.friendly_message()
     LOGGER.info(description)
 
-    LOGGER.info('Query: {}'.format(layer_name))
+    LOGGER.info(f'Query: {layer_name}')
 
     # Call process_query with the new query
     return process_query(

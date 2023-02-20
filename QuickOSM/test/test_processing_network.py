@@ -55,7 +55,7 @@ class TestProcessing(unittest.TestCase):
             "(area.area_0);%0A);%0A(._;%3E;);%0Aout%20body;&info=QgisQuickOSMPlugin",
             200,
             {'Content-type': 'text/xml'},
-            open(plugin_test_data_path('overpass', 'empty_osm_file.xml'), 'r', encoding='utf8').read(),
+            open(plugin_test_data_path('overpass', 'empty_osm_file.xml'), encoding='utf8').read(),
         )
         with install_http_handler(handler):
             result = processing.run(
@@ -68,7 +68,7 @@ class TestProcessing(unittest.TestCase):
                         'relation[\"amenity\"=\"bench\"](area.area_0);\n);\n'
                         '(._;>;);\nout body;',
                     'TIMEOUT': 25,
-                    'SERVER': 'http://localhost:{}/interpreter'.format(self.port),
+                    'SERVER': f'http://localhost:{self.port}/interpreter',
                     'EXTENT': '3.809971100,3.963647400,43.557942300,43.654612100 [EPSG:4326]',
                     'AREA': '',
                     'FILE': ''
@@ -90,14 +90,14 @@ class TestProcessing(unittest.TestCase):
             ';%0A);%0A(._;%3E;);%0Aout%20body;&info=QgisQuickOSMPlugin',
             200,
             {'Content-type': 'text/xml'},
-            open(plugin_test_data_path('overpass', 'empty_osm_file.xml'), 'r', encoding='utf8').read(),
+            open(plugin_test_data_path('overpass', 'empty_osm_file.xml'), encoding='utf8').read(),
         )
         with install_http_handler(handler):
             result = processing.run(
                 'quickosm:downloadosmdatanotspatialquery',
                 {
                     'KEY': 'amenity',
-                    'SERVER': 'http://localhost:{}/interpreter'.format(self.port),
+                    'SERVER': f'http://localhost:{self.port}/interpreter',
                     'TIMEOUT': 25,
                     'VALUE': 'foo'
                 }
@@ -119,7 +119,7 @@ class TestProcessing(unittest.TestCase):
             '(area.area_0);%0A);%0A(._;%3E;);%0Aout%20body;&info=QgisQuickOSMPlugin',
             200,
             {'Content-type': 'text/xml'},
-            open(plugin_test_data_path('overpass', 'empty_osm_file.xml'), 'r', encoding='utf8').read(),
+            open(plugin_test_data_path('overpass', 'empty_osm_file.xml'), encoding='utf8').read(),
         )
         with install_http_handler(handler):
             result = processing.run(
@@ -127,7 +127,7 @@ class TestProcessing(unittest.TestCase):
                 {
                     'AREA': 'La Souterraine',
                     'KEY': 'amenity',
-                    'SERVER': 'http://localhost:{}/interpreter'.format(self.port),
+                    'SERVER': f'http://localhost:{self.port}/interpreter',
                     'TIMEOUT': 25,
                     'VALUE': 'bench'
                 }
@@ -149,7 +149,7 @@ class TestProcessing(unittest.TestCase):
             '(around:1500,%2046.2383347,1.4861387);%0A);%0A(._;%3E;);%0Aout%20body;&info=QgisQuickOSMPlugin',
             200,
             {'Content-type': 'text/xml'},
-            open(plugin_test_data_path('overpass', 'empty_osm_file.xml'), 'r', encoding='utf8').read(),
+            open(plugin_test_data_path('overpass', 'empty_osm_file.xml'), encoding='utf8').read(),
         )
         with install_http_handler(handler):
             result = processing.run(
@@ -158,7 +158,7 @@ class TestProcessing(unittest.TestCase):
                     'AREA': 'La Souterraine',
                     'DISTANCE': 1500,
                     'KEY': 'amenity',
-                    'SERVER': 'http://localhost:{}/interpreter'.format(self.port),
+                    'SERVER': f'http://localhost:{self.port}/interpreter',
                     'TIMEOUT': 25,
                     'VALUE': 'bench'
                 }
@@ -180,7 +180,7 @@ class TestProcessing(unittest.TestCase):
             '(%2043.55794,3.80997,43.65461,3.96364);%0A);%0A(._;%3E;);%0Aout%20body;&info=QgisQuickOSMPlugin',
             200,
             {'Content-type': 'text/xml'},
-            open(plugin_test_data_path('overpass', 'empty_osm_file.xml'), 'r', encoding='utf8').read(),
+            open(plugin_test_data_path('overpass', 'empty_osm_file.xml'), encoding='utf8').read(),
         )
         with install_http_handler(handler):
             result = processing.run(
@@ -188,7 +188,7 @@ class TestProcessing(unittest.TestCase):
                 {
                     'EXTENT': '3.809971100,3.963647400,43.557942300,43.654612100 [EPSG:4326]',
                     'KEY': 'amenity',
-                    'SERVER': 'http://localhost:{}/interpreter'.format(self.port),
+                    'SERVER': f'http://localhost:{self.port}/interpreter',
                     'TIMEOUT': 25,
                     'VALUE': 'bench'
                 }
@@ -212,7 +212,7 @@ class TestProcessing(unittest.TestCase):
             '(%2045.0843,-0.3832,45.09649,-0.36385);%0A);%0A(._;%3E;);%0Aout%20body;&info=QgisQuickOSMPlugin',
             200,
             {'Content-type': 'text/xml'},
-            open(plugin_test_data_path('overpass', 'empty_osm_file.xml'), 'r', encoding='utf8').read(),
+            open(plugin_test_data_path('overpass', 'empty_osm_file.xml'), encoding='utf8').read(),
         )
         project = QgsProject()
         project.setCrs(QgsCoordinateReferenceSystem(2154))
@@ -227,7 +227,7 @@ class TestProcessing(unittest.TestCase):
                     'VALUE': '',
                     'EXTENT': '433888.4776000,435466.5863000,6448484.3786000,6449771.2615000 [EPSG:2154]',
                     'TIMEOUT': 25,
-                    'SERVER': 'http://localhost:{}/interpreter'.format(self.port),
+                    'SERVER': f'http://localhost:{self.port}/interpreter',
                 },
                 context=context
             )

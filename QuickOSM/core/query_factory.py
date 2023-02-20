@@ -268,47 +268,47 @@ class QueryFactory:
                 values = self._value.copy()
                 if self._key:
                     for _j in range(nb_query):
-                        query += '<query type="{}">'.format(osm_object.value.lower())
-                        query += '<has-kv k="{}" '.format(keys.pop(0))
+                        query += f'<query type="{osm_object.value.lower()}">'
+                        query += f'<has-kv k="{keys.pop(0)}" '
                         if len(values) != 0 and values[0]:
-                            query += 'v="{}"'.format(values.pop(0))
+                            query += f'v="{values.pop(0)}"'
                         elif len(values) != 0:
                             values.pop(0)
 
                         query += '/>'
 
                         while type_request and type_request.pop(0) == MultiType.AND:
-                            query += '<has-kv k="{}" '.format(keys.pop(0))
+                            query += f'<has-kv k="{keys.pop(0)}" '
                             if len(values) != 0 and values[0]:
-                                query += 'v="{}"'.format(values.pop(0))
+                                query += f'v="{values.pop(0)}"'
                             elif len(values) != 0:
                                 values.pop(0)
 
                             query += '/>'
 
                         if self._area and self._query_type == QueryType.InArea:
-                            query += '<area-query from="area_{}" />'.format(i)
+                            query += f'<area-query from="area_{i}" />'
 
                         elif self._area and self._query_type == QueryType.AroundArea:
                             query += '<around area_coords="{}" radius="{}" />'.format(
                                 nominatim[i], self._distance_around)
 
                         elif self._query_type == QueryType.BBox:
-                            query = '{}<bbox-query bbox="custom" />'.format(query)
+                            query = f'{query}<bbox-query bbox="custom" />'
 
                         query += '</query>'
                 else:
-                    query += '<query type="{}">'.format(osm_object.value.lower())
+                    query += f'<query type="{osm_object.value.lower()}">'
 
                     if self._area and self._query_type == QueryType.InArea:
-                        query += '<area-query from="area_{}" />'.format(i)
+                        query += f'<area-query from="area_{i}" />'
 
                     elif self._area and self._query_type == QueryType.AroundArea:
                         query += '<around area_coords="{}" radius="{}" />'.format(
                             nominatim[i], self._distance_around)
 
                     elif self._query_type == QueryType.BBox:
-                        query = '{}<bbox-query bbox="custom" />'.format(query)
+                        query = f'{query}<bbox-query bbox="custom" />'
 
                     query += '</query>'
 
@@ -317,7 +317,7 @@ class QueryFactory:
         query += '<item />'
         query += '<recurse type="down"/>'
         query += '</union>'
-        query += '<print mode="{}" />'.format(self._print_mode)
+        query += f'<print mode="{self._print_mode}" />'
         query += '</osm-script>'
 
         return query
@@ -353,26 +353,26 @@ class QueryFactory:
                 values = self._value.copy()
                 if self._key:
                     for _j in range(nb_query):
-                        query += '    {}'.format(osm_object.value.lower())
-                        query += '["{}"'.format(keys.pop(0))
+                        query += f'    {osm_object.value.lower()}'
+                        query += f'["{keys.pop(0)}"'
                         if len(values) != 0 and values[0]:
-                            query += '="{}"'.format(values.pop(0))
+                            query += f'="{values.pop(0)}"'
                         elif len(values) != 0:
                             values.pop(0)
 
                         query += ']'
 
                         while type_request and type_request.pop(0) == MultiType.AND:
-                            query += '["{}"'.format(keys.pop(0))
+                            query += f'["{keys.pop(0)}"'
                             if len(values) != 0 and values[0]:
-                                query += '="{}"'.format(values.pop(0))
+                                query += f'="{values.pop(0)}"'
                             elif len(values) != 0:
                                 values.pop(0)
 
                             query += ']'
 
                         if self._area and self._query_type == QueryType.InArea:
-                            query += '(area.area_{})'.format(i)
+                            query += f'(area.area_{i})'
 
                         elif self._area and self._query_type == QueryType.AroundArea:
                             query += '(around:{}, area_coords="{}")'.format(
@@ -384,10 +384,10 @@ class QueryFactory:
                         query += ';\n'
 
                 else:
-                    query += '    {}'.format(osm_object.value.lower())
+                    query += f'    {osm_object.value.lower()}'
 
                     if self._area and self._query_type != QueryType.AroundArea:
-                        query += '(area.area_{})'.format(i)
+                        query += f'(area.area_{i})'
 
                     elif self._area and self._query_type == QueryType.AroundArea:
                         query += '(around:{}, area_coords="{}")'.format(
@@ -400,7 +400,7 @@ class QueryFactory:
 
         query += ');\n'
         query += '(._;>;);\n'
-        query += 'out {};'.format(self._print_mode)
+        query += f'out {self._print_mode};'
 
         return query
 
@@ -490,9 +490,9 @@ class QueryFactory:
             keys = []
             for k, v in zip(key, val):
                 if v:
-                    keys.append('\'{k}\'=\'{v}\''.format(k=k, v=v))
+                    keys.append(f'\'{k}\'=\'{v}\'')
                 else:
-                    keys.append('\'{k}\''.format(k=k))
+                    keys.append(f'\'{k}\'')
 
             if multi_keys:
                 type_multi = self._type_multi_request
@@ -508,7 +508,7 @@ class QueryFactory:
                                 i += 1
                                 key_and += ' and ' + keys[k + i]
 
-                            key_lbl += '({})'.format(key_and)
+                            key_lbl += f'({key_and})'
                             index = k + i
                         elif type_multi_k == MultiType.OR:
                             if k == 0:

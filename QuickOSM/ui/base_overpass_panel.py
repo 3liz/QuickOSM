@@ -1,7 +1,5 @@
 """Panel OSM Queries based on Overpass base class."""
 
-import io
-
 from qgis.core import (
     Qgis,
     QgsCoordinateReferenceSystem,
@@ -79,7 +77,7 @@ class BaseOverpassPanel(BaseProcessingPanel):
 
         user_file = nominatim_file()
 
-        with io.open(user_file, 'r', encoding='utf8') as file:
+        with open(user_file, encoding='utf8') as file:
             self.last_places = []
             for line in file:
                 self.last_places.append(line.rstrip('\n'))
@@ -111,14 +109,14 @@ class BaseOverpassPanel(BaseProcessingPanel):
         user_file = nominatim_file()
 
         try:
-            with io.open(user_file, 'w', encoding='utf8') as file:
+            with open(user_file, 'w', encoding='utf8') as file:
                 for item in new_list:
                     if item:
-                        file.write('{}\n'.format(item))
+                        file.write(f'{item}\n')
         except UnicodeDecodeError:
             # The file is corrupted ?
             # Remove all old places
-            with io.open(user_file, 'w', encoding='utf8') as file:
+            with open(user_file, 'w', encoding='utf8') as file:
                 file.write('\n')
 
         self.init_nominatim_autofill()

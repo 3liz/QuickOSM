@@ -180,7 +180,7 @@ class QueryPanel(BaseOverpassPanel):
             query.prepare_query()
             url = query.prepare_url(QueryLanguage.OQL if oql_output else QueryLanguage.XML)
             connexion_overpass_api = ConnexionOAPI(url)
-            LOGGER.debug('Encoded URL: {}'.format(url))
+            LOGGER.debug(f'Encoded URL: {url}')
             query_string = connexion_overpass_api.run_convert()
             query_string = html.unescape(query_string)
 

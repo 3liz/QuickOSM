@@ -113,9 +113,11 @@ for lang in language_rate:
 # print(language_rate)
 
 # Sort by language name for a better display in docs
-language_rate = {k: v for k, v in sorted(
-    language_rate.items(),
-    key=lambda item: item[1]['percentage'], reverse=True)
+language_rate = {
+    k: v for k, v in sorted(
+        language_rate.items(),
+        key=lambda item: item[1]['percentage'], reverse=True
+    )
 }
 
 # Stats for the whole project (== English source language)
@@ -128,14 +130,15 @@ total_translated_strings = sum(
     language_rate[lang]['translated_strings']
     for lang in language_rate if lang != 'en')
 global_percentage = round(
-    total_translated_strings*100/(total_strings * nb_languages), 2)
+    total_translated_strings * 100 / (total_strings * nb_languages), 2)
 
 language_rate['en'].update(
-    {'nb_languages': nb_languages,
-     'translated_strings': total_translated_strings,
-     'percentage': global_percentage
-     }
-    )
+    {
+        'nb_languages': nb_languages,
+        'translated_strings': total_translated_strings,
+        'percentage': global_percentage
+    }
+)
 
 # print('all ', language_rate)
 

@@ -131,11 +131,11 @@ class OsmParser(QObject):
                 uri + layer, 'test_' + layer, 'ogr')
 
             if not layers[layer]['vectorLayer'].isValid():
-                message = 'Error on the layer : {layer} is not valid.'.format(layer=layer)
+                message = f'Error on the layer : {layer} is not valid.'
                 raise QuickOsmException(message)
 
             if self.feedback_alg:
-                self.feedback.pushInfo('Checking the validity of the geometry of the layer {}.'.format(layer))
+                self.feedback.pushInfo(f'Checking the validity of the geometry of the layer {layer}.')
 
             # Let's check again Processing...
             # Checking again at the opening of the dialog is not enough according to GH tickets
@@ -155,9 +155,9 @@ class OsmParser(QObject):
                 }, feedback=self.feedback if self.feedback_alg else None
             )
             if validity['INVALID_COUNT'] > 0:
-                LOGGER.info('Fixing geometries in layer: {}'.format(layer))
+                LOGGER.info(f'Fixing geometries in layer: {layer}')
                 if self.feedback_alg:
-                    self.feedback.pushInfo('Fixing the geometry of the layer {}.'.format(layer))
+                    self.feedback.pushInfo(f'Fixing the geometry of the layer {layer}.')
                 layers[layer]['vectorLayer'] = processing.run(
                     "native:fixgeometries", {
                         'INPUT': layers[layer]['vectorLayer'],
@@ -179,7 +179,7 @@ class OsmParser(QObject):
             # Get the other_tags
             if self.feedback_alg:
                 self.feedback.setCurrentStep(2 + k)
-                self.feedback.pushInfo('Explode the other_tags field in layer {}.'.format(layer))
+                self.feedback.pushInfo(f'Explode the other_tags field in layer {layer}.')
             if self.feedback:
                 if self.feedback.isCanceled():
                     return None
@@ -191,7 +191,7 @@ class OsmParser(QObject):
                 }, feedback=self.feedback if self.feedback_alg else None
             )['OUTPUT']
             if self.__subset:
-                LOGGER.info('Subset filter: {}'.format(self.__subset_query))
+                LOGGER.info(f'Subset filter: {self.__subset_query}')
                 layers[layer]['vector_layer'].setSubsetString(self.__subset_query)
 
             layers[layer]['vector_layer'].startEditing()

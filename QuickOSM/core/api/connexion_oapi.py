@@ -100,7 +100,7 @@ class ConnexionOAPI(Downloader):
         """Verify the file provided by the Overpass API"""
         # The download is done, checking for not complete OSM file.
         # Overpass might abort the request with HTTP 200.
-        LOGGER.info('Checking OSM file content {}'.format(path))
+        LOGGER.info(f'Checking OSM file content {path}')
 
         def last_lines(file_path: str, line_count: int) -> List[str]:
             """Select the last lines"""
@@ -129,13 +129,13 @@ class ConnexionOAPI(Downloader):
         # Check if we can use the static method below
         timeout = (
             '<remark> runtime error: Query timed out in "[a-z]+" at line '
-            '[\d]+ after ([\d]+) seconds. </remark>')
+            r'[\d]+ after ([\d]+) seconds. </remark>')
         if re.search(timeout, ''.join(lines)):
             raise OverpassTimeoutException
 
         memory = (
             '<remark> runtime error: Query ran out of memory in "query" at '
-            'line [\d]+. It would need at least ([\d]+) (.*) of RAM to '
+            r'line [\d]+. It would need at least ([\d]+) (.*) of RAM to '
             'continue. </remark>')
         search = re.search(memory, ''.join(lines))
         if search:

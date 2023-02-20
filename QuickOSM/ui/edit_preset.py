@@ -164,9 +164,9 @@ class EditPreset(QDialog, FORM_CLASS, TableKeyValue):
         help_string += ', '.join(['"' + j.value.lower() + '"' for j in LayerType])
         help_string += '.<br>'
         help_string += '<br>'
-        help_string += tr('For the current preset "{name}"'.format(name=file_name))
+        help_string += tr(f'For the current preset "{file_name}"')
         help_string += '<br>'
-        help_string += tr('and the current query "{name}"'.format(name=query_name))
+        help_string += tr(f'and the current query "{query_name}"')
         help_string += '<br>'
         help_string += tr('this is the list of filenames you can use')
         help_string += " :"
@@ -286,7 +286,7 @@ class EditPreset(QDialog, FORM_CLASS, TableKeyValue):
         name = self.list_queries.item(row).text()
         validate_delete = QMessageBox(
             QMessageBox.Warning, tr('Confirm query deletion'),
-            tr('Are you sure you want to delete the query \'{}\'?'.format(name)),
+            tr(f'Are you sure you want to delete the query \'{name}\'?'),
             QMessageBox.Yes | QMessageBox.Cancel, self
         )
         ok = validate_delete.exec()

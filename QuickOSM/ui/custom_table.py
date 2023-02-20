@@ -271,7 +271,7 @@ class TableKeyValue:
         if not element_chosen:
             # Issue #387
             # The user wrote a string without having a proper list in the dropdown.
-            LOGGER.info("User input '{}' is not recognised as a valid preset.".format(choice))
+            LOGGER.info(f"User input '{choice}' is not recognised as a valid preset.")
             return
 
         keys, values = [], []

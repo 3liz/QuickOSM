@@ -221,8 +221,10 @@ class PresetsParser:
 
         with open(file, encoding='utf8') as f:
             text = f.read()
-            pattern = "#: master_preset.xml:[0-9]+\((group|item):name[a-zA-Z0-9|_ :\/\(\)\-\n\&\+#.]+" \
-                      "(msgctxt \"[a-zA-Z_ \-]+\"|)\nmsgid \"(.*?)\"\nmsgstr \"(.*?)\""
+            pattern = (
+                "#: master_preset.xml:[0-9]+\\((group|item):name[a-zA-Z0-9|_ :\\/\\(\\)\\-\n\\&\\+#.]+"
+                "(msgctxt \"[a-zA-Z_ \\-]+\"|)\nmsgid \"(.*?)\"\nmsgstr \"(.*?)\""
+            )
             result = re.findall(pattern, text)
 
         for elem in result:

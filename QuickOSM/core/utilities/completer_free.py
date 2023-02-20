@@ -28,16 +28,16 @@ class DiactricFreeStringListModel(QStringListModel):
 
     def __init__(self, *args, **kwargs):
         """Constructor"""
-        super(DiactricFreeStringListModel, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
         self.setDiactricFreeRole(Qt.UserRole + 10)
         self._diactric_free_role = None
 
     def data(self, index, role: int) -> str:
         """Handle the diacritic elements"""
         if role == self.diactricFreeRole():
-            value = super(DiactricFreeStringListModel, self).data(index, Qt.DisplayRole)
+            value = super().data(index, Qt.DisplayRole)
             return strip_accents(value).lower()
-        return super(DiactricFreeStringListModel, self).data(index, role)
+        return super().data(index, role)
 
     def setDiactricFreeRole(self, role: int):
         """Set the diacritic free role"""

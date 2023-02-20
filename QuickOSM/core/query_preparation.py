@@ -124,9 +124,9 @@ class QueryPreparation:
         coord_x = self._format_decimals_wgs84(self._extent.center().x())
 
         if self.is_oql_query():
-            new_string = '{},{}'.format(coord_y, coord_x)
+            new_string = f'{coord_y},{coord_x}'
         else:
-            new_string = 'lat="{}" lon="{}"'.format(coord_y, coord_x)
+            new_string = f'lat="{coord_y}" lon="{coord_x}"'
 
         self._query_prepared = (
             re.sub(template, new_string, self._query_prepared))
@@ -228,9 +228,9 @@ class QueryPreparation:
                 lon, lat = self._nominatim.get_first_point_from_query(search)
 
             if self.is_oql_query():
-                new_string = '{},{}'.format(lat, lon)
+                new_string = f'{lat},{lon}'
             else:
-                new_string = 'lat="{}" lon="{}"'.format(lat, lon)
+                new_string = f'lat="{lat}" lon="{lon}"'
 
             return new_string
 
@@ -273,9 +273,9 @@ class QueryPreparation:
             area = int(osm_id) + 3600000000
 
             if self.is_oql_query():
-                new_string = 'area({})'.format(area)
+                new_string = f'area({area})'
             else:
-                new_string = 'ref="{}" type="area"'.format(area)
+                new_string = f'ref="{area}" type="area"'
 
             return new_string
 
@@ -331,11 +331,11 @@ class QueryPreparation:
         if self._output_format:
             query = re.sub(
                 r'output="[a-z]*"',
-                'output="{}"'.format(self._output_format),
+                f'output="{self._output_format}"',
                 self._query_prepared)
             query = re.sub(
                 r'\[out:[a-z]*',
-                '[out:{}'.format(self._output_format),
+                f'[out:{self._output_format}',
                 query)
         else:
             query = self._query_prepared

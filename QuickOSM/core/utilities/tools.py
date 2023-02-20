@@ -1,6 +1,5 @@
 """Tools for QuickOSM."""
 
-import io
 import platform
 import sys
 
@@ -29,7 +28,7 @@ def nominatim_file() -> str:
     """Get the nominatim history file."""
     path = join(quickosm_user_folder(), 'nominatim.txt')
     if not path or not isfile(path):
-        io.open(path, 'a').close()
+        open(path, 'a').close()
 
     return path
 

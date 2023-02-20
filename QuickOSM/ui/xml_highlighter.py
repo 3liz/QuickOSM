@@ -19,7 +19,7 @@ class QueryHighlighter(QSyntaxHighlighter):
 
         keyword_patterns = [
             "\\b?xml\\b", "/>", ">", "<",
-            ";", "\[", "\]", "\(", "\)"
+            ";", r"\[", r"\]", r"\(", r"\)"
         ]
 
         self.highlightingRules = [
@@ -30,14 +30,14 @@ class QueryHighlighter(QSyntaxHighlighter):
         element_format = QTextCharFormat()
         element_format.setForeground(QColor("#117700"))
         self.highlightingRules.append(
-            (QRegExp("\\b[A-Za-z_\-]+(?=[\s\/>:;])"), element_format))
+            (QRegExp("\\b[A-Za-z_\\-]+(?=[\\s\\/>:;])"), element_format))
 
         nominatim_area_format = QTextCharFormat()
         nominatim_area_format.setFontItalic(True)
         nominatim_area_format.setFontWeight(QFont.Bold)
         nominatim_area_format.setForeground(QColor("#FF7C00"))
         self.highlightingRules.append(
-            (QRegExp("\{\{[A-Za-z0-9:, ]*\}\}"), nominatim_area_format))
+            (QRegExp(r"\{\{[A-Za-z0-9:, ]*\}\}"), nominatim_area_format))
 
         attribute_format = QTextCharFormat()
         attribute_format.setFontItalic(True)
@@ -48,13 +48,13 @@ class QueryHighlighter(QSyntaxHighlighter):
         value_format = QTextCharFormat()
         value_format.setForeground(Qt.red)
         self.highlightingRules.append(
-            (QRegExp("(\"[A-Za-z0-9:, _.]*\"|\:([0-9]+)(?=\,|\]))"), value_format))
+            (QRegExp("(\"[A-Za-z0-9:, _.]*\"|\\:([0-9]+)(?=\\,|\\]))"), value_format))
 
         area_format = QTextCharFormat()
         area_format.setForeground(QColor("#11CC00"))
         area_pattern = [
-            "\.([A-Za-z0-9_]{2,})(?=\\)|\\;)",
-            "\(([0-9]{2,})\)", "[0-9]+[.]+[0-9]+"
+            "\\.([A-Za-z0-9_]{2,})(?=\\)|\\;)",
+            r"\(([0-9]{2,})\)", "[0-9]+[.]+[0-9]+"
         ]
         for pattern in area_pattern:
             self.highlightingRules.append(
@@ -66,8 +66,8 @@ class QueryHighlighter(QSyntaxHighlighter):
             (QRegExp("(<!--[^\n]*-->|//[^\n]*)"), single_line_comment_format))
 
         # Multi lines comment
-        self.oql_start_comment = QRegExp("\/\*")
-        self.oql_end_comment = QRegExp('\*\/')
+        self.oql_start_comment = QRegExp(r"\/\*")
+        self.oql_end_comment = QRegExp(r'\*\/')
 
     def match_multiline(
             self, text: str,

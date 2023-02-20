@@ -237,7 +237,7 @@ class MapPresetPanel(BaseOverpassPanel):
         """Verification of the removal a preset."""
         validate_delete = QMessageBox(
             QMessageBox.Warning, tr('Confirm preset deletion'),
-            tr('Are you sure you want to delete the preset \'{}\'?'.format(name)),
+            tr(f'Are you sure you want to delete the preset \'{name}\'?'),
             QMessageBox.Yes | QMessageBox.Cancel, self.dialog
         )
         ok = validate_delete.exec()
@@ -272,7 +272,7 @@ class MapPresetPanel(BaseOverpassPanel):
                 preset_widget = self.dialog.list_personal_preset_mp.itemWidget(preset)
                 preset_label = preset_widget.layout().itemAt(0).itemAt(0).widget().text()
                 preset_folder = query_preset()
-            LOGGER.debug('Preset chosen: {}'.format(preset_label))
+            LOGGER.debug(f'Preset chosen: {preset_label}')
             file_path = join(preset_folder, preset_label, preset_label + '.json')
             with open(file_path, encoding='utf8') as json_file:
                 data = json.load(json_file, object_hook=as_enum)
@@ -310,7 +310,7 @@ class MapPresetPanel(BaseOverpassPanel):
             file_name = join(data['file_name'] + '_' + data['query_name'][k])
             files_qml = self.filter_file_names(file_name, files_qml)
             if list(files_qml):
-                LOGGER.debug('files: {}'.format(files_qml))
+                LOGGER.debug(f'files: {files_qml}')
                 file_name = join(
                     data['folder'], data['file_name'] + '_' + data['query_name'][k] + '_{}.qml')
                 config = {}
