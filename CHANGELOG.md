@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+## 2.2.0 - 2023-03-20
+
 * Bump QGIS minimum version to 3.22 with Python 3.7
 * Check that QGIS Processing algorithm when running the main process
 * Add more checks about invalid XML/OQL, like the input syntax `centre`
