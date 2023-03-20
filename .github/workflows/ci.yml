@@ -105,7 +105,7 @@ jobs:
       - name: Install Qt lrelease
         run: |
           sudo apt-get update
-          sudo apt-get install qt5-default qttools5-dev-tools
+          sudo apt-get install qttools5-dev-tools
 
       - uses: actions/cache@v3.2.4
         with:
