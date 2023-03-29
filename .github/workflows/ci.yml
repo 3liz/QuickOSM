@@ -136,16 +136,9 @@ jobs:
           --osgeo-password ${{ secrets.OSGEO_PASSWORD }}
           --create-plugin-repo
 
-      - name: Package and deploy the zip (without OSGEO upload)
-        if: failure()
-        run: >-
-          qgis-plugin-ci
-          release ${{ env.RELEASE_VERSION }}
-          --github-token ${{ secrets.BOT_HUB_TOKEN }}
-          --transifex-token ${{ secrets.TRANSIFEX_TOKEN }}
-          --create-plugin-repo
-
       - name: Tweet
+        # The previous step might fail on the OSGEO upload
+        if: failure()
         uses: mugi111/tweet-trigger-release@v1.2
         with:
           consumer_key: ${{ secrets.TWITTER_CONSUMER_KEY }}
