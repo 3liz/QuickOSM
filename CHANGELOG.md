@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+* Update the list of Overpass servers
+
 ## 2.2.0 - 2023-03-20
 
 * Bump QGIS minimum version to 3.22 with Python 3.7
