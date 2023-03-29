@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<presets xmlns="http://josm.openstreetmap.de/tagging-preset-1.0" version="5.1.0" shortdescription="Default OpenStreetMap Preset for Vespucci and JOSM" description="General purpose OpenStreetMap preset for Vespucci and JOSM, based on the original JOSM version">
+<presets xmlns="http://josm.openstreetmap.de/tagging-preset-1.0" version="5.3.1" shortdescription="Default OpenStreetMap Preset for Vespucci and JOSM" description="General purpose OpenStreetMap preset for Vespucci and JOSM, based on the original JOSM version">
 <!--
     Icons have been derived from mainly from
   
@@ -127,6 +127,7 @@
         <list_entry value="grass_paver" short_description="Grass paver"/>
         <list_entry value="grass" short_description="Grass"/>
         <list_entry value="rock" short_description="Rock"/>
+        <list_entry value="rubber" short_description="Rubber"/>
         <list_entry value="sand" short_description="Sand"/>
         <list_entry value="ground" short_description="Ground"/>
         <list_entry value="dirt" short_description="Dirt"/>
@@ -577,8 +578,12 @@
     </chunk>
     <chunk id="parking_orientation">
         <space/>
-        <label text="Only for street side parking: "/>
-        <combo key="parking:orientation" text="Orientation" values="diagonal,parallel,perpendicular" display_values="Diagonal,Parallel,Perpendicular"/>
+        <combo key="orientation" text="Orientation">
+            <reference ref="street_parking_orientation"/>
+        </combo>
+        <combo key="parking:orientation" text="Orientation">
+            <reference ref="street_parking_orientation"/>
+        </combo>
     </chunk>
     <chunk id="parking_lane">
         <preset_link preset_name="Street parking both sides"/>
@@ -2120,6 +2125,16 @@
             <text key="historic:civilization" text="Civilization"/>
             <text key="historic:period" text="Period"/>
             <text key="historic:era" text="Era"/>
+        </optional>
+    </chunk>
+    <chunk id="takeaway">
+        <combo key="takeaway" text="Takeaway" values="yes,no,only" values_sort="false" display_values="Yes,No,Only"/>
+    </chunk>
+    <chunk id="takeaway_with_reusable_packaging">
+        <reference ref="takeaway"/>
+        <optional>
+            <combo key="reusable_packaging:accept" text="Accepts reusable packaging" values="yes,no,only" values_sort="false" display_values="Yes,No,Only"/>
+            <combo key="reusable_packaging:offer" text="Offers reusable packaging" values="yes,no,only" values_sort="false" display_values="Yes,No,Only"/>
         </optional>
     </chunk>
     <!-- Groups -->
@@ -5654,7 +5669,7 @@
             <check key="self_service" text="Self-service" disable_off="true"/>
             <check key="microbrewery" text="Microbrewery" disable_off="true"/>
             <check key="outdoor_seating" text="Outdoor seating" disable_off="true"/>
-            <combo key="takeaway" text="Takeaway" values="yes,no,only" values_sort="false" display_values="Yes,No,Only"/>
+            <reference ref="takeaway_with_reusable_packaging"/>
             <combo key="delivery" text="Delivery" values="yes,no,only,Mo-Su 12:00-22:00" values_sort="false" display_values="Yes,No,Only,Mo-Su 12:00-22:00"/>
             <reference ref="reservation"/>
             <reference ref="oh_wheelchair_level"/>
@@ -5676,7 +5691,7 @@
             <reference ref="name_operator"/>
             <reference ref="cuisine"/>            
             <check key="outdoor_seating" text="Outdoor seating" disable_off="true"/>
-            <combo key="takeaway" text="Takeaway" values="yes,no,only" values_sort="false" display_values="Yes,No,Only"/>
+            <reference ref="takeaway_with_reusable_packaging"/>
             <combo key="delivery" text="Delivery" values="yes,no,only,Mo-Su 12:00-22:00" values_sort="false" display_values="Yes,No,Only,Mo-Su 12:00-22:00"/>
             <check key="drive_through" text="Drive through" disable_off="true"/>
             <optional>
@@ -5712,7 +5727,7 @@
             <reference ref="name_operator"/>
             <combo key="cuisine" text="Cuisine" values="ice_cream" display_values="Ice cream"/>
             <check key="outdoor_seating" text="Outdoor seating" disable_off="true"/>
-            <combo key="takeaway" text="Takeaway" values="yes,no,only" values_sort="false" display_values="Yes,No,Only"/>
+            <reference ref="takeaway_with_reusable_packaging"/>
             <combo key="delivery" text="Delivery" values="yes,no,only,Mo-Su 12:00-22:00" values_sort="false" display_values="Yes,No,Only,Mo-Su 12:00-22:00"/>
             <reference ref="oh_wheelchair_level"/>
             <reference ref="toilets_with_access"/>
@@ -5742,7 +5757,7 @@
             <key key="amenity" value="ice_cream"/>
             <reference ref="name_operator"/>
             <check key="outdoor_seating" text="Outdoor seating" disable_off="true"/>
-            <combo key="takeaway" text="Takeaway" values="yes,no,only" values_sort="false" display_values="Yes,No,Only"/>
+            <reference ref="takeaway_with_reusable_packaging"/>
             <combo key="delivery" text="Delivery" values="yes,no,only,Mo-Su 12:00-22:00" values_sort="false" display_values="Yes,No,Only,Mo-Su 12:00-22:00"/>
             <reference ref="oh_wheelchair"/>
             <reference ref="toilets_with_access"/>
@@ -5760,7 +5775,7 @@
             <reference ref="name_operator"/>
             <check key="microbrewery" text="Microbrewery" disable_off="true"/>
             <check key="outdoor_seating" text="Outdoor seating" disable_off="true"/>
-            <combo key="takeaway" text="Takeaway" values="yes,no,only" values_sort="false" display_values="Yes,No,Only"/>
+            <reference ref="takeaway_with_reusable_packaging"/>
             <combo key="delivery" text="Delivery" values="yes,no,only,Mo-Su 12:00-22:00" values_sort="false" display_values="Yes,No,Only,Mo-Su 12:00-22:00"/>
             <reference ref="oh_wheelchair_level"/>
             <reference ref="toilets_with_access"/>
@@ -5889,7 +5904,7 @@
             <key key="tourism" value="information"/>
             <key key="information" value="board"/>
             <reference ref="optional_name_ref_operator"/>
-            <combo key="board_type" text="Board Content" values="art,astronomy,geography,geology,history,nature,notice,planet_walk,plants,public_transport,sight,sport,technology,welcome_sign,wildlife" display_values="Art,Astronomy,Geography,Geology,History,Nature,Notice,Planet walk,Plants,Public transport,Sight,Sport,Technology,Welcome sign,Wildlife"/>
+            <combo key="board_type" text="Board Content" values="art,astronomy,geography,geology,history,nature,notice,planet_walk,plants,public_transport,rules,sight,sport,technology,welcome_sign,wildlife" display_values="Art,Astronomy,Geography,Geology,History,Nature,Notice,Planet walk,Plants,Public transport,Rules,Sight,Sport,Technology,Welcome sign,Wildlife"/>
             <text key="description" text="Detailed description" length="255"/>
         </item> <!-- Information Board -->
         <item name="Guidepost" icon="presets/misc/information/guidepost.svg" type="node" preset_name_label="true">
@@ -6456,6 +6471,9 @@
             <reference ref="material"/>
             <reference ref="colours"/>
             <check key="covered" text="Covered"/>
+            <optional>
+                <text key="operator" text="Operator"/>
+            </optional>
         </item> <!-- Picnic Table -->
         <item name="Public Grill" icon="presets/leisure/bbq.svg" type="node,closedway,multipolygon" preset_name_label="true">
             <link wiki="Tag:amenity=bbq"/>
@@ -7829,6 +7847,7 @@
             <combo key="seats" text="Seats count" values="1,2,3,4,5,6,7,8,9,10"/>
             <optional>
                 <check key="covered" text="Covered"/>
+                <text key="operator" text="Operator"/>
             </optional>
         </item> <!-- Bench -->
         <item name="Bleachers" icon="" type="node,closedway,multipolygon" preset_name_label="true">
@@ -12629,7 +12648,6 @@
             <space/>
             <text key="description" text="Description" match="key" length="255"/>
             <space/>
-            <label text="Similar but different tags:" text_context="note=*, fixme=*, description=*"/>
             <preset_link preset_name="Note" text="Similar but different tags:"/>
             <preset_link preset_name="Fixme" text="Similar but different tags:"/>
         </item> <!-- Description -->
@@ -12640,7 +12658,6 @@
             <space/>
             <text key="note" text="Note" text_context="the tag note=*" match="key" length="255"/>
             <space/>
-            <label text="Similar but different tags:" text_context="note=*, fixme=*, description=*"/>
             <preset_link preset_name="Fixme" text="Similar but different tags:"/>
             <preset_link preset_name="Description" text="Similar but different tags:"/>
         </item> <!-- Note -->
@@ -12651,7 +12668,6 @@
             <space/>
             <text key="fixme" text="Fixme" match="key" length="255"/>
             <space/>
-            <label text="Similar but different tags:" text_context="note=*, fixme=*, description=*"/>
             <preset_link preset_name="Note" text="Similar but different tags:"/>
             <preset_link preset_name="Description" text="Similar but different tags:"/>
         </item> <!-- Fixme -->
