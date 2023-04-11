@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+## 2.2.2 - 2023-04-11
+
 * Update default JOSM/Vespucci presets from 5.3.1 to 5.4.0
 
 ## 2.2.1 - 2023-03-29
