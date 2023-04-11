@@ -257,8 +257,11 @@ class Dialog(QDialog, FORM_CLASS):
         LOGGER.critical('\n'.join(traceback.format_tb(tb)))
 
         self.display_message_bar(
-            tr('Error in the logs, in the QuickOSM panel, copy/paste it and '
-               'please report it to GitHub'),
+            tr(
+                'Error in the QGIS log window, then the QuickOSM panel, copy/paste it and '
+                'please report it, if you know how to copy/paste QGIS logs. '
+                'Please check pinned tickets first.'
+            ),
             level=Qgis.Critical,
             open_logs=True,
             duration=10)
@@ -298,7 +301,7 @@ class Dialog(QDialog, FORM_CLASS):
             widget.layout().addWidget(button)
 
             if open_logs:
-                button.setText(tr('Report it'))
+                button.setText(tr('Open log panel'))
                 # noinspection PyUnresolvedReferences
                 button.pressed.connect(
                     lambda: open_log_panel())
