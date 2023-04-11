@@ -10,7 +10,7 @@ wget https://github.com/simonpoole/beautified-JOSM-preset/releases/latest/downlo
 wget https://github.com/simonpoole/beautified-JOSM-preset/releases/latest/download/josm_preset_orig_icons.xml -O josm_preset_orig_icons.xml
 
 # i18n with *.po files
-VERSION="5.3.1"
+VERSION="5.4.0"
 wget https://github.com/simonpoole/beautified-JOSM-preset/releases/download/${VERSION}/vespucci_zip.zip -O /tmp/vespucci_zip.zip
 rm -rf /tmp/vespucci
 mkdir /tmp/vespucci

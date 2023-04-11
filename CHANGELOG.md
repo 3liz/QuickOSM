@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+* Update default JOSM/Vespucci presets from 5.3.1 to 5.4.0
+
 ## 2.2.1 - 2023-03-29
 
 * Update the list of Overpass servers
