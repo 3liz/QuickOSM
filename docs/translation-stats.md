@@ -11,31 +11,31 @@ It is generated automatically by transifex_stats.py in the scripts folder.
 The translation is available on [Transifex](https://www.transifex.com/quickosm/gui/), no development
 knowledge is required.
 
-*Statistics updated: 2023-04-02*
+*Statistics updated: 2023-05-02*
 
 | Number of strings | Number of target languages | Overall Translation ratio |
 |:-:|:-:|:-:|
-302|21|71.26
+302|21|71.46
 
 | Language | Translation ratio (%) |
 |:-:|:-:|
+Spanish 🇪🇸|[=100.0% "100.0"]|
 French 🇫🇷|[=100.0% "100.0"]|
-German 🇩🇪|[=98.68% "98.68"]|
-Dutch 🇳🇱|[=98.68% "98.68"]|
-Romanian 🇷🇴|[=98.68% "98.68"]|
-Italian 🇮🇹|[=97.35% "97.35"]|
-Chinese 🇨🇳|[=97.35% "97.35"]|
-Ukrainian 🇺🇦|[=96.69% "96.69"]|
-Finnish 🇫🇮|[=93.05% "93.05"]|
-Korean 🇰🇷|[=93.05% "93.05"]|
-Portuguese (Brazil) 🇧🇷|[=93.05% "93.05"]|
-Chinese (Taiwan) 🇹🇼|[=93.05% "93.05"]|
-Indonesian 🇮🇩|[=92.05% "92.05"]|
-Polish 🇵🇱|[=91.39% "91.39"]|
-Spanish 🇪🇸|[=86.09% "86.09"]|
-Vietnamese 🇻🇳|[=76.49% "76.49"]|
-Russian 🇷🇺|[=51.99% "51.99"]|
-Hungarian 🇭🇺|[=35.76% "35.76"]|
+German 🇩🇪|[=98.01% "98.01"]|
+Dutch 🇳🇱|[=98.01% "98.01"]|
+Romanian 🇷🇴|[=98.01% "98.01"]|
+Italian 🇮🇹|[=96.69% "96.69"]|
+Chinese 🇨🇳|[=96.69% "96.69"]|
+Ukrainian 🇺🇦|[=96.03% "96.03"]|
+Finnish 🇫🇮|[=92.38% "92.38"]|
+Korean 🇰🇷|[=92.38% "92.38"]|
+Portuguese (Brazil) 🇧🇷|[=92.38% "92.38"]|
+Chinese (Taiwan) 🇹🇼|[=92.38% "92.38"]|
+Indonesian 🇮🇩|[=91.39% "91.39"]|
+Polish 🇵🇱|[=90.73% "90.73"]|
+Vietnamese 🇻🇳|[=76.16% "76.16"]|
+Russian 🇷🇺|[=51.32% "51.32"]|
+Hungarian 🇭🇺|[=35.1% "35.1"]|
 Hebrew 🇮🇱|[=1.66% "1.66"]|
 Danish 🇳🇱|[=1.32% "1.32"]|
 Portuguese 🇵🇹|[=0.0% "0.0"]|
