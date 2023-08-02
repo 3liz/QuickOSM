@@ -26,8 +26,8 @@
     },
     "en": {
         "name": "English",
-        "translated_strings": 4743,
-        "percentage": 74.79,
+        "translated_strings": 4753,
+        "percentage": 74.94,
         "total_strings": 302,
         "nb_languages": 21
     },
@@ -46,6 +46,11 @@
         "translated_strings": 290,
         "percentage": 96.03
     },
+    "zh_TW": {
+        "name": "Chinese (Taiwan)",
+        "translated_strings": 286,
+        "percentage": 94.7
+    },
     "fi": {
         "name": "Finnish",
         "translated_strings": 279,
@@ -61,10 +66,10 @@
         "translated_strings": 279,
         "percentage": 92.38
     },
-    "zh_TW": {
-        "name": "Chinese (Taiwan)",
-        "translated_strings": 279,
-        "percentage": 92.38
+    "hu": {
+        "name": "Hungarian",
+        "translated_strings": 276,
+        "percentage": 91.39
     },
     "id": {
         "name": "Indonesian",
@@ -75,11 +80,6 @@
         "name": "Polish",
         "translated_strings": 274,
         "percentage": 90.73
-    },
-    "hu": {
-        "name": "Hungarian",
-        "translated_strings": 273,
-        "percentage": 90.4
     },
     "vi": {
         "name": "Vietnamese",
