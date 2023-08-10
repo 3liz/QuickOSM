@@ -148,6 +148,8 @@ jobs:
           tweet_body: "New version of #QuickOSM ${{ env.RELEASE_VERSION }} 🔎 for #QGIS https://github.com/3liz/QuickOSM/releases"
 
       - name: Repository Dispatch
+        # The previous step might fail on the OSGEO upload
+        if: failure()
         uses: peter-evans/repository-dispatch@v2
         with:
           token: ${{ secrets.BOT_HUB_TOKEN }}
