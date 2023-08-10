@@ -161,11 +161,11 @@ class QueryFactory:
 
         :raise QueryFactoryException:
         """
-        if type(self._query_type) != QueryType:
+        if not isinstance(self._query_type, QueryType):
             raise QueryFactoryException(tr('Wrong query type.'))
 
         for osmObject in self._osm_objects:
-            if type(osmObject) != OsmType:
+            if not isinstance(osmObject, OsmType):
                 raise QueryFactoryException(tr('Wrong OSM object.'))
 
         if self._query_type == QueryType.AroundArea:

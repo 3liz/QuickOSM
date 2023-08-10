@@ -16,9 +16,9 @@ class EnumEncoder(json.JSONEncoder):
     """Override the json encoder to serialize enum."""
     def default(self, obj):
         """Function of serialization."""
-        if type(obj) in [LayerType, Format, MultiType]:
+        if isinstance(obj, (LayerType, Format, MultiType)):
             return {"__enum__": str(obj)}
-        if type(obj) == QgsRectangle:
+        if isinstance(obj, QgsRectangle):
             extent = [
                 str(obj.xMinimum()), str(obj.yMinimum()),
                 str(obj.xMaximum()), str(obj.yMaximum())
