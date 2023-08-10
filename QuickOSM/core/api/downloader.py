@@ -40,20 +40,22 @@ class Downloader:
         """Display the status in logger"""
         LOGGER.info('Request completed')
 
-    def download(self):
+    def download(self, get=False):
         """Download the data"""
-        if os.getenv("CI", False):
+        if os.getenv("CI", False) or get:
             # On CI for testing,
             # With the mocked web server, the switch to POST doesn't work well for now...
-            # I'm not sure why, as the test are checking that QuickOSM that a request is sent,
+            # I'm not sure why, as tests are checking that requests in QuickOSM are sent,
             # it doesn't matter to use GET
             # To be fixed later
             # https://github.com/3liz/QuickOSM/pull/446
+            # Use GET for Nominatim
+            # https://github.com/3liz/QuickOSM/issues/472
             downloader = QgsFileDownloader(self._url, self.result_path, delayStart=True)
         else:
             # On production
             # https://github.com/3liz/QuickOSM/issues/344
-            # We use POST instead of GET
+            # We use POST instead of GET for Overpass only
             # We move the "data" GET parameter into the POST request
             url_query = QUrlQuery(self._url)
             data = "data={}".format(url_query.queryItemValue('data'))

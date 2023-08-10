@@ -65,7 +65,9 @@ class Nominatim(Downloader):
         query_string.addQueryItem('info', 'QgisQuickOSMPlugin')
         self._url.setQuery(query_string)
 
-        self.download()
+        # Use GET for Nominatim
+        # https://github.com/3liz/QuickOSM/issues/472
+        self.download(get=True)
 
         with open(self.result_path, encoding='utf8') as json_file:
             data = json.load(json_file)
