@@ -184,7 +184,7 @@ class BaseOverpassPanel(BaseProcessingPanel):
         else:
             self.dialog.set_progress_text(tr('No result'))
             self.dialog.display_message_bar(
-                tr('Successful query, but no result.'),
+                tr('Successful query, but no OSM data matched the Overpass query on this Overpass server.'),
                 level=Qgis.Warning, duration=7)
 
     def gather_values(self) -> dict:
