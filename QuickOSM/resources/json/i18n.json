@@ -16,10 +16,10 @@
     },
     "en": {
         "name": "English",
-        "translated_strings": 4767,
-        "percentage": 71.75,
+        "translated_strings": 4819,
+        "percentage": 69.38,
         "total_strings": 302,
-        "nb_languages": 22
+        "nb_languages": 23
     },
     "de": {
         "name": "German",
@@ -91,15 +91,15 @@
         "translated_strings": 154,
         "percentage": 50.99
     },
+    "cs": {
+        "name": "Czech",
+        "translated_strings": 61,
+        "percentage": 20.2
+    },
     "pt": {
         "name": "Portuguese",
         "translated_strings": 15,
         "percentage": 4.97
-    },
-    "cs": {
-        "name": "Czech",
-        "translated_strings": 9,
-        "percentage": 2.98
     },
     "he": {
         "name": "Hebrew",
@@ -110,6 +110,11 @@
         "name": "Danish",
         "translated_strings": 4,
         "percentage": 1.32
+    },
+    "is": {
+        "name": "Icelandic",
+        "translated_strings": 0,
+        "percentage": 0.0
     },
     "sv": {
         "name": "Swedish",
