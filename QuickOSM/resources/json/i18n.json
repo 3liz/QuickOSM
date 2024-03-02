@@ -19,10 +19,15 @@
         "translated_strings": 302,
         "percentage": 100.0
     },
+    "zh_TW": {
+        "name": "Chinese (Taiwan)",
+        "translated_strings": 302,
+        "percentage": 100.0
+    },
     "en": {
         "name": "English",
-        "translated_strings": 5251,
-        "percentage": 72.45,
+        "translated_strings": 5253,
+        "percentage": 72.48,
         "total_strings": 302,
         "nb_languages": 24
     },
@@ -33,11 +38,6 @@
     },
     "es": {
         "name": "Spanish",
-        "translated_strings": 301,
-        "percentage": 99.67
-    },
-    "zh_TW": {
-        "name": "Chinese (Taiwan)",
         "translated_strings": 301,
         "percentage": 99.67
     },
@@ -63,8 +63,8 @@
     },
     "hu": {
         "name": "Hungarian",
-        "translated_strings": 285,
-        "percentage": 94.37
+        "translated_strings": 286,
+        "percentage": 94.7
     },
     "fi": {
         "name": "Finnish",
