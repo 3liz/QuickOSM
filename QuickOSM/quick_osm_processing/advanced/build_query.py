@@ -68,6 +68,7 @@ class BuildQueryBasedAlgorithm(QgisAlgorithm):
     def build_query(self) -> Dict[str, str]:
         """Build the query requested."""
         query_factory = QueryFactory(
+            type_multi_request=self.type_multi_request,
             query_type=self.QUERY_TYPE,
             key=self.key,
             value=self.value,
