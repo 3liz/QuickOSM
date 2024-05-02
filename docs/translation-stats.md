@@ -11,27 +11,27 @@ It is generated automatically by transifex_stats.py in the scripts folder.
 The translation is available on [Transifex](https://www.transifex.com/quickosm/gui/), no development
 knowledge is required.
 
-*Statistics updated: 2024-04-02*
+*Statistics updated: 2024-05-02*
 
 | Number of strings | Number of target languages | Overall Translation ratio |
 |:-:|:-:|:-:|
-302|25|69.58
+302|25|69.96
 
 | Language | Translation ratio (%) |
 |:-:|:-:|
+German 🇩🇪|[=100.0% "100.0"]|
 French 🇫🇷|[=100.0% "100.0"]|
 Italian 🇮🇹|[=100.0% "100.0"]|
 Dutch 🇳🇱|[=100.0% "100.0"]|
 Polish 🇵🇱|[=100.0% "100.0"]|
+Ukrainian 🇺🇦|[=100.0% "100.0"]|
 Chinese (Taiwan) 🇹🇼|[=100.0% "100.0"]|
-German 🇩🇪|[=99.67% "99.67"]|
 Spanish 🇪🇸|[=99.67% "99.67"]|
 Icelandic None|[=98.68% "98.68"]|
 Chinese 🇨🇳|[=98.68% "98.68"]|
 Romanian 🇷🇴|[=97.68% "97.68"]|
-Ukrainian 🇺🇦|[=95.7% "95.7"]|
+Finnish 🇫🇮|[=97.02% "97.02"]|
 Hungarian 🇭🇺|[=94.7% "94.7"]|
-Finnish 🇫🇮|[=92.05% "92.05"]|
 Korean 🇰🇷|[=92.05% "92.05"]|
 Portuguese (Brazil) 🇧🇷|[=92.05% "92.05"]|
 Indonesian 🇮🇩|[=91.06% "91.06"]|

@@ -1,4 +1,9 @@
 {
+    "de": {
+        "name": "German",
+        "translated_strings": 302,
+        "percentage": 100.0
+    },
     "fr": {
         "name": "French",
         "translated_strings": 302,
@@ -19,6 +24,11 @@
         "translated_strings": 302,
         "percentage": 100.0
     },
+    "uk": {
+        "name": "Ukrainian",
+        "translated_strings": 302,
+        "percentage": 100.0
+    },
     "zh_TW": {
         "name": "Chinese (Taiwan)",
         "translated_strings": 302,
@@ -26,15 +36,10 @@
     },
     "en": {
         "name": "English",
-        "translated_strings": 5253,
-        "percentage": 69.58,
+        "translated_strings": 5282,
+        "percentage": 69.96,
         "total_strings": 302,
         "nb_languages": 25
-    },
-    "de": {
-        "name": "German",
-        "translated_strings": 301,
-        "percentage": 99.67
     },
     "es": {
         "name": "Spanish",
@@ -56,20 +61,15 @@
         "translated_strings": 295,
         "percentage": 97.68
     },
-    "uk": {
-        "name": "Ukrainian",
-        "translated_strings": 289,
-        "percentage": 95.7
+    "fi": {
+        "name": "Finnish",
+        "translated_strings": 293,
+        "percentage": 97.02
     },
     "hu": {
         "name": "Hungarian",
         "translated_strings": 286,
         "percentage": 94.7
-    },
-    "fi": {
-        "name": "Finnish",
-        "translated_strings": 278,
-        "percentage": 92.05
     },
     "ko": {
         "name": "Korean",
