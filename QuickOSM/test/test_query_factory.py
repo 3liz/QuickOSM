@@ -27,7 +27,7 @@ class TestQueryFactory(unittest.TestCase):
         """Test queries which are not possible and must raise an exception."""
         # Query type
         # noinspection PyTypeChecker
-        query = QueryFactory('fake_query_type', area='foo')
+        query = QueryFactory(query_type='fake_query_type', area='foo')
         msg = 'Wrong query type.'
         with self.assertRaisesRegex(QueryFactoryException, msg):
             query._check_parameters()
