@@ -143,6 +143,35 @@ class TestProcessing(unittest.TestCase):
 
         self.assertEqual(result_expected, result)
 
+    def test_build_in_extent_query_with_multitypes(self):
+        """Test for the build of an in extent algorithm that uses the multitypes parameter."""
+        result = processing.run(
+            'quickosm:buildqueryextent',
+            {
+                'EXTENT': '8.71679,8.79689,51.70687,51.72602 [EPSG:4326]',
+                'KEY': 'highway,footway',
+                'SERVER': 'https://lz4.overpass-api.de/api/interpreter',
+                'TIMEOUT': 25,
+                'TYPE_MULTI_REQUEST': 'AND',
+                'VALUE': 'footway,sidewalk'
+            }
+        )
+        result_expected = {
+            'OUTPUT_OQL_QUERY':
+                '[out:xml] [timeout:25];\n(\n    node["highway"="footway"]["footway"="sidewalk"]'
+                '( 51.70687,8.71679,51.72602,8.79689);\n    way["highway"="footway"]["footway"="sidewalk"]'
+                '( 51.70687,8.71679,51.72602,8.79689);\n    relation["highway"="footway"]'
+                '["footway"="sidewalk"]( 51.70687,8.71679,51.72602,8.79689);\n);\n(._;>;);\nout body;',
+            'OUTPUT_URL':
+                'https://lz4.overpass-api.de/api/interpreter?data=[out:xml] [timeout:25];%0A(%0A'
+                '    node[%22highway%22%3D%22footway%22][%22footway%22%3D%22sidewalk%22]'
+                '( 51.70687,8.71679,51.72602,8.79689);%0A    way[%22highway%22%3D%22footway%22]'
+                '[%22footway%22%3D%22sidewalk%22]( 51.70687,8.71679,51.72602,8.79689);%0A    '
+                'relation[%22highway%22%3D%22footway%22][%22footway%22%3D%22sidewalk%22]'
+                '( 51.70687,8.71679,51.72602,8.79689);%0A);%0A(._;%3E;);%0Aout body;&info=QgisQuickOSMPlugin'
+        }
+        self.assertEqual(result_expected, result)
+
     def test_build_raw_query(self):
         """Test for the build of a raw query algorithm."""
         result = processing.run(
