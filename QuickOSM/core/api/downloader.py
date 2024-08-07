@@ -58,7 +58,7 @@ class Downloader:
             # We use POST instead of GET for Overpass only
             # We move the "data" GET parameter into the POST request
             url_query = QUrlQuery(self._url)
-            data = "data={}".format(url_query.queryItemValue('data'))
+            data = f"data={url_query.queryItemValue('data')}"
             url_query.removeQueryItem('data')
             self._url.setQuery(url_query)
             downloader = QgsFileDownloader(

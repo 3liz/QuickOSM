@@ -147,7 +147,7 @@ class EditPreset(QDialog, FORM_CLASS, TableKeyValue):
             "You can associate predefined styles with layers. You need to add QML file(s) in this folder :"
         )
         help_string += '<br><b>'
-        help_string += "<a href=\"{0}\">{0}</a>".format(folder)
+        help_string += f"<a href=\"{folder}\">{folder}</a>"
         help_string += '</b><br><br>'
         help_string += tr("The name of QML files must follow this convention")
         help_string += " : "

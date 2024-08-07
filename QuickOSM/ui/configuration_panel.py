@@ -54,14 +54,12 @@ class ConfigurationPanel(BasePanel):
                 for server in config_json.get('overpass_servers', []):
                     if server not in OVERPASS_SERVERS:
                         LOGGER.info(
-                            'Custom overpass server list added: {}'.format(
-                                server))
+                            f'Custom overpass server list added: {server}')
                         self.dialog.combo_default_overpass.addItem(server)
                 for server in config_json.get('nominatim_servers', []):
                     if server not in NOMINATIM_SERVERS:
                         LOGGER.info(
-                            'Custom nominatim server list added: {}'.format(
-                                server))
+                            f'Custom nominatim server list added: {server}')
                         self.dialog.combo_default_nominatim.addItem(server)
 
         # Set settings about the overpass API

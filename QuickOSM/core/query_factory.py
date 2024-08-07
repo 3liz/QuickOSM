@@ -242,8 +242,7 @@ class QueryFactory:
 
         The query will not be valid because of Overpass templates !
         """
-        query = '<osm-script output="{}" timeout="{}">'.format(
-            self._output, self._timeout)
+        query = f'<osm-script output="{self._output}" timeout="{self._timeout}">'
 
         if self._area:
             nominatim = self._area
@@ -253,8 +252,7 @@ class QueryFactory:
         if nominatim and self._query_type != QueryType.AroundArea:
 
             for i, one_place in enumerate(nominatim):
-                query += '<id-query area="{}" into="area_{}"/>'.format(
-                    one_place, i)
+                query += f'<id-query area="{one_place}" into="area_{i}"/>'
 
         query += '<union>'
 
@@ -290,8 +288,7 @@ class QueryFactory:
                             query += f'<area-query from="area_{i}" />'
 
                         elif self._area and self._query_type == QueryType.AroundArea:
-                            query += '<around area_coords="{}" radius="{}" />'.format(
-                                nominatim[i], self._distance_around)
+                            query += f'<around area_coords="{nominatim[i]}" radius="{self._distance_around}" />'
 
                         elif self._query_type == QueryType.BBox:
                             query = f'{query}<bbox-query bbox="custom" />'
@@ -304,8 +301,7 @@ class QueryFactory:
                         query += f'<area-query from="area_{i}" />'
 
                     elif self._area and self._query_type == QueryType.AroundArea:
-                        query += '<around area_coords="{}" radius="{}" />'.format(
-                            nominatim[i], self._distance_around)
+                        query += f'<around area_coords="{nominatim[i]}" radius="{self._distance_around}" />'
 
                     elif self._query_type == QueryType.BBox:
                         query = f'{query}<bbox-query bbox="custom" />'
@@ -327,8 +323,7 @@ class QueryFactory:
 
         The query will not be valid because of Overpass templates !
         """
-        query = '[out:{}] [timeout:{}];\n'.format(
-            self._output, self._timeout)
+        query = f'[out:{self._output}] [timeout:{self._timeout}];\n'
 
         if self._area:
             nominatim = self._area
@@ -338,8 +333,7 @@ class QueryFactory:
         if nominatim and self._query_type == QueryType.InArea:
 
             for i, one_place in enumerate(nominatim):
-                query += ' area="{}" -> .area_{};\n'.format(
-                    one_place, i)
+                query += f' area="{one_place}" -> .area_{i};\n'
 
         query += '(\n'
 
@@ -375,8 +369,7 @@ class QueryFactory:
                             query += f'(area.area_{i})'
 
                         elif self._area and self._query_type == QueryType.AroundArea:
-                            query += '(around:{}, area_coords="{}")'.format(
-                                self._distance_around, nominatim[i])
+                            query += f'(around:{self._distance_around}, area_coords="{nominatim[i]}")'
 
                         elif self._query_type == QueryType.BBox:
                             query += '( bbox="custom")'
@@ -390,8 +383,7 @@ class QueryFactory:
                         query += f'(area.area_{i})'
 
                     elif self._area and self._query_type == QueryType.AroundArea:
-                        query += '(around:{}, area_coords="{}")'.format(
-                            self._distance_around, nominatim[i])
+                        query += f'(around:{self._distance_around}, area_coords="{nominatim[i]}")'
 
                     elif self._query_type == QueryType.BBox:
                         query += '( bbox="custom")'
@@ -449,13 +441,14 @@ class QueryFactory:
         place = self._area
         if self._area is not None:
             # human format a list
+            and_str = tr('and')
             if len(self._area) == 1:
                 place = self._area[0]  # simply unwrap the list
             elif len(self._area) == 2:
-                place = ' {} '.format(tr('and')).join(self._area)
+                place = f' {and_str} '.join(self._area)
             else:
                 place = ', '.join(self._area[:-2]) + ', '
-                place = place + ' {} '.format(tr('and')).join(self._area[-2:])
+                place = place + f' {and_str} '.join(self._area[-2:])
 
         extent_lbl = ''
         dist_lbl = ''

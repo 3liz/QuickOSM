@@ -275,9 +275,7 @@ class OsmParser(QObject):
                             self.__output_dir,
                             self.__prefix_file + "." + self.__output_format.value.extension)
                         final_name = self.__prefix_file + '_' + layer
-                        layers[layer]['layer_name'] = 'ogr:dbname=\'{path}\' table=\"{layer}\" (geom)'.format(
-                            path=output_file, layer=final_name
-                        )
+                        layers[layer]['layer_name'] = f'ogr:dbname=\'{output_file}\' table=\"{final_name}\" (geom)'
                     elif self.__output_format in [Format.GeoJSON, Format.Shapefile]:
                         layers[layer]['layer_name'] = join(
                             self.__output_dir,
