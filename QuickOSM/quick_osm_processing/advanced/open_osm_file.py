@@ -126,26 +126,19 @@ class OpenOsmFile(QgisAlgorithm):
 
         gdal.SetConfigOption('OSM_USE_CUSTOM_INDEXING', 'NO')
 
-        points = QgsVectorLayer(
-            f'{file}|layername=points', 'points', 'ogr')
+        points = QgsVectorLayer(f'{file}|layername=points', 'points', 'ogr')
         context.temporaryLayerStore().addMapLayer(points)
 
-        lines = QgsVectorLayer(
-            f'{file}|layername=lines', 'lines', 'ogr')
+        lines = QgsVectorLayer(f'{file}|layername=lines', 'lines', 'ogr')
         context.temporaryLayerStore().addMapLayer(lines)
 
-        multilinestrings = QgsVectorLayer(
-            '{}|layername=multilinestrings'.format(
-                file), 'multilinestrings', 'ogr')
+        multilinestrings = QgsVectorLayer(f'{file}|layername=multilinestrings', 'multilinestrings', 'ogr')
         context.temporaryLayerStore().addMapLayer(multilinestrings)
 
-        multipolygons = QgsVectorLayer(
-            f'{file}|layername=multipolygons', 'multipolygons', 'ogr')
+        multipolygons = QgsVectorLayer(f'{file}|layername=multipolygons', 'multipolygons', 'ogr')
         context.temporaryLayerStore().addMapLayer(multipolygons)
 
-        other_relations = QgsVectorLayer(
-            '{}|layername=other_relations'.format(
-                file), 'other_relations', 'ogr')
+        other_relations = QgsVectorLayer(f'{file}|layername=other_relations', 'other_relations', 'ogr')
         context.temporaryLayerStore().addMapLayer(other_relations)
 
         outputs = {

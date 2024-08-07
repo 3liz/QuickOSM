@@ -21,7 +21,7 @@ __license__ = 'GPL version 3'
 __email__ = 'info@3liz.org'
 
 
-ACTIONS_PATH = 'from QuickOSM.core.actions import Actions;'
+ACTIONS_PATH = 'from QuickOSM.core.actions import Actions\n'
 ACTIONS_VISIBILITY = [
     Visibility.Canvas.value,
     Visibility.Feature.value,
@@ -98,7 +98,7 @@ def add_actions(layer: QgsVectorLayer, keys: list):
                 QgsAction.GenericPython,
                 link,
                 (ACTIONS_PATH
-                 + 'Actions.run("{link}","[% "{link}" %]")'.format(link=link)),
+                 + f'Actions.run("{link}","[% "{link}" %]")'),
                 image,
                 False,
                 link,
@@ -132,8 +132,7 @@ def add_relaunch_action(layer: QgsVectorLayer, layer_name: str = ""):
     reload = QgsAction(
         QgsAction.GenericPython,
         title,
-        ACTIONS_PATH + 'Actions.run_reload(layer_name="{layer_name}")'.format(
-            layer_name=layer_name),
+        ACTIONS_PATH + f'Actions.run_reload(layer_name="{layer_name}")',
         '',
         False,
         title,
@@ -233,9 +232,7 @@ class Actions:
                 level=Qgis.Warning,
                 duration=7)
         else:
-            url = (
-                'http://www.overpass-api.de/api/sketch-line?'
-                'network={network}&ref={ref}').format(network=network, ref=ref)
+            url = f'http://www.overpass-api.de/api/sketch-line?network={network}&ref={ref}'
             open_webpage(url)
 
     @staticmethod

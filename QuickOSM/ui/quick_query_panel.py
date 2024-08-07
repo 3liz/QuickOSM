@@ -191,7 +191,7 @@ class QuickQueryPanel(BaseOverpassPanel, TableKeyValue):
 
         distance_string = None
         if properties['distance']:
-            distance_string = '{}'.format(properties['distance'])
+            distance_string = str(properties['distance'])
         if isinstance(properties['key'], list):
             expected_name = []
             nb_max = len(properties['key']) if len(properties['key']) <= 2 else 2

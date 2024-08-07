@@ -168,18 +168,14 @@ class QueryPreparation:
                 'been restricted.'))
 
         if self.is_oql_query():
-            new_string = '{},{},{},{}'.format(
-                self._format_decimals_wgs84(y_min),
-                self._format_decimals_wgs84(x_min),
-                self._format_decimals_wgs84(y_max),
-                self._format_decimals_wgs84(x_max),
+            new_string = (
+                f'{self._format_decimals_wgs84(y_min)},{self._format_decimals_wgs84(x_min)},'
+                f'{self._format_decimals_wgs84(y_max)},{self._format_decimals_wgs84(x_max)}'
             )
         else:
-            new_string = 'e="{}" n="{}" s="{}" w="{}"'.format(
-                self._format_decimals_wgs84(x_max),
-                self._format_decimals_wgs84(y_max),
-                self._format_decimals_wgs84(y_min),
-                self._format_decimals_wgs84(x_min),
+            new_string = (
+                f'e="{self._format_decimals_wgs84(x_max)}" n="{self._format_decimals_wgs84(y_max)}" '
+                f's="{self._format_decimals_wgs84(y_min)}" w="{self._format_decimals_wgs84(x_min)}"'
             )
         self._query_prepared = (
             re.sub(template, new_string, self._query_prepared))

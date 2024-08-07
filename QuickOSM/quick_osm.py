@@ -109,10 +109,8 @@ class QuickOSMPlugin:
                 # The folder needs to be unzipped again
                 shutil.rmtree(preset_translation_path)
                 LOGGER.info(
-                    'The version does not match in the i18n folder, the folder needs to be unzipped : '
-                    'old version {} versus {}'.format(
-                        old_version, new_version
-                    )
+                    f'The version does not match in the i18n folder, the folder needs to be unzipped : '
+                    f'old version {old_version} versus {new_version}'
                 )
 
         if not os.path.isdir(preset_translation_path):
@@ -138,8 +136,7 @@ class QuickOSMPlugin:
                                     os.rename(file_path, new_file_path)
                         except FileExistsError:
                             LOGGER.critical(
-                                'Error about existing file when extracting the ZIP file about {}'.format(
-                                    file))
+                                f'Error about existing file when extracting the ZIP file about {file}')
             else:
                 os.mkdir(preset_translation_path)
 
@@ -214,11 +211,11 @@ class QuickOSMPlugin:
                 crs_map, crs_4326, QgsProject.instance())
             extent = transform.transform(extent)
 
-        url = 'http://localhost:8111/load_and_zoom?'
-        query_string = 'left={}&right={}&top={}&bottom={}'.format(
-            extent.xMinimum(), extent.xMaximum(), extent.yMaximum(),
-            extent.yMinimum())
-        url += query_string
+        url = (
+            f'http://localhost:8111/load_and_zoom?'
+            f'left={extent.xMinimum()}&right={extent.xMaximum()}&'
+            f'top={extent.xMaximum()}&bottom={extent.yMinimum()}'
+        )
         try:
             request = urllib.request.Request(url)
             result_request = urllib.request.urlopen(request)
