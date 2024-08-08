@@ -1,5 +1,3 @@
-version: '2'
-
 services:
   qgis:
     image: qgis/qgis:release-3_22

@@ -14,6 +14,8 @@ import requests
 # See https://transifex.github.io/openapi/index.html
 
 LANGUAGE_MAP = {
+    'el': '🇬🇷',
+    'tr': '🇹🇷',
     'nl': '🇳🇱',
     'fr': '🇫🇷',
     'zh': '🇨🇳',
@@ -165,7 +167,7 @@ def load_lang_stats(target_langs):
         if lang == 'en':
             continue
 
-        text += f"{target_langs[lang]['name']} {LANGUAGE_MAP.get(lang)}|"
+        text += f"{target_langs[lang]['name']} {LANGUAGE_MAP.get(lang, '')}|"
         text += f"[={target_langs[lang]['percentage']}% \"{target_langs[lang]['percentage']}\"]|\n"
 
     return text
