@@ -1,130 +1,135 @@
 {
-    "de": {
-        "name": "German",
-        "translated_strings": 302,
+    "fi": {
+        "name": "Finnish",
+        "translated_strings": 307,
         "percentage": 100.0
     },
     "fr": {
         "name": "French",
-        "translated_strings": 302,
+        "translated_strings": 307,
         "percentage": 100.0
     },
     "it": {
         "name": "Italian",
-        "translated_strings": 302,
+        "translated_strings": 307,
         "percentage": 100.0
     },
     "nl": {
         "name": "Dutch",
-        "translated_strings": 302,
-        "percentage": 100.0
-    },
-    "pl": {
-        "name": "Polish",
-        "translated_strings": 302,
-        "percentage": 100.0
-    },
-    "uk": {
-        "name": "Ukrainian",
-        "translated_strings": 302,
-        "percentage": 100.0
-    },
-    "zh_TW": {
-        "name": "Chinese (Taiwan)",
-        "translated_strings": 302,
+        "translated_strings": 307,
         "percentage": 100.0
     },
     "en": {
         "name": "English",
-        "translated_strings": 5282,
-        "percentage": 69.96,
-        "total_strings": 302,
-        "nb_languages": 25
+        "translated_strings": 5311,
+        "percentage": 66.54,
+        "total_strings": 307,
+        "nb_languages": 26
+    },
+    "de": {
+        "name": "German",
+        "translated_strings": 302,
+        "percentage": 98.37
+    },
+    "pl": {
+        "name": "Polish",
+        "translated_strings": 302,
+        "percentage": 98.37
+    },
+    "uk": {
+        "name": "Ukrainian",
+        "translated_strings": 302,
+        "percentage": 98.37
+    },
+    "zh_TW": {
+        "name": "Chinese (Taiwan)",
+        "translated_strings": 302,
+        "percentage": 98.37
     },
     "es": {
         "name": "Spanish",
         "translated_strings": 301,
-        "percentage": 99.67
+        "percentage": 98.05
     },
     "is": {
         "name": "Icelandic",
         "translated_strings": 298,
-        "percentage": 98.68
+        "percentage": 97.07
     },
     "zh": {
         "name": "Chinese",
         "translated_strings": 298,
-        "percentage": 98.68
+        "percentage": 97.07
     },
     "ro": {
         "name": "Romanian",
         "translated_strings": 295,
-        "percentage": 97.68
-    },
-    "fi": {
-        "name": "Finnish",
-        "translated_strings": 293,
-        "percentage": 97.02
+        "percentage": 96.09
     },
     "hu": {
         "name": "Hungarian",
         "translated_strings": 286,
-        "percentage": 94.7
+        "percentage": 93.16
     },
     "ko": {
         "name": "Korean",
         "translated_strings": 278,
-        "percentage": 92.05
+        "percentage": 90.55
     },
     "pt_BR": {
         "name": "Portuguese (Brazil)",
         "translated_strings": 278,
-        "percentage": 92.05
+        "percentage": 90.55
     },
     "id": {
         "name": "Indonesian",
         "translated_strings": 275,
-        "percentage": 91.06
+        "percentage": 89.58
     },
     "vi": {
         "name": "Vietnamese",
         "translated_strings": 229,
-        "percentage": 75.83
+        "percentage": 74.59
     },
     "ru": {
         "name": "Russian",
         "translated_strings": 154,
-        "percentage": 50.99
+        "percentage": 50.16
     },
     "cs": {
         "name": "Czech",
         "translated_strings": 144,
-        "percentage": 47.68
+        "percentage": 46.91
     },
     "pt": {
         "name": "Portuguese",
         "translated_strings": 15,
-        "percentage": 4.97
+        "percentage": 4.89
     },
     "el": {
         "name": "Greek",
         "translated_strings": 13,
-        "percentage": 4.3
+        "percentage": 4.23
     },
     "he": {
         "name": "Hebrew",
         "translated_strings": 5,
-        "percentage": 1.66
+        "percentage": 1.63
     },
     "da": {
         "name": "Danish",
         "translated_strings": 4,
-        "percentage": 1.32
+        "percentage": 1.3
     },
     "sv": {
         "name": "Swedish",
         "translated_strings": 2,
-        "percentage": 0.66
+        "percentage": 0.65
+    },
+    "my_MM": {
+        "name": "Burmese (Myanmar)",
+        "translated_strings": 0,
+        "percentage": 0.0
     },
     "tr_TR": {
         "name": "Turkish (Turkey)",
