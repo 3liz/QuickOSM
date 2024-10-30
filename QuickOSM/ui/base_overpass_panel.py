@@ -86,7 +86,7 @@ class BaseOverpassPanel(BaseProcessingPanel):
             for line_edit in self.dialog.places_edits.values():
                 line_edit.setCompleter(nominatim_completer)
                 line_edit.completer().setCompletionMode(
-                    QCompleter.PopupCompletion)
+                    QCompleter.CompletionMode.PopupCompletion)
 
     @staticmethod
     def sort_nominatim_places(existing_places: list, place: str) -> list:
