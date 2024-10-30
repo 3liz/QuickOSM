@@ -238,15 +238,15 @@ class QuickOSMPlugin:
         # https://github.com/3liz/QuickOSM/issues/422
         flag, title, error = check_processing_enable()
         if not flag:
-            error_dialog = QMessageBox(QMessageBox.Critical, title, error, QMessageBox.Ok,
-                                       self.iface.mainWindow())
+            error_dialog = QMessageBox(
+                QMessageBox.Icon.Critical, title, error, QMessageBox.StandardButton.Ok, self.iface.mainWindow())
             error_dialog.exec()
             return
 
         from QuickOSM.ui.dialog import Dialog
         dialog = Dialog()
         self.open_copyright_message(dialog)
-        dialog.exec_()
+        dialog.exec()
 
     @staticmethod
     def open_copyright_message(dialog: QDialog):
@@ -275,11 +275,11 @@ class QuickOSMPlugin:
                 'You should read https://www.openstreetmap.org/copyright'
             )
             message.setText(text)
-            message.setIcon(QMessageBox.Question)
+            message.setIcon(QMessageBox.Icon.Question)
             no_button = QPushButton(tr('I understand the copyrights, access to the plugin'), message)
             yes_button = QPushButton(tr('I want to read the copyrights'), message)
-            message.addButton(no_button, QMessageBox.NoRole)
-            message.addButton(yes_button, QMessageBox.YesRole)
+            message.addButton(no_button, QMessageBox.ButtonRole.NoRole)
+            message.addButton(yes_button, QMessageBox.ButtonRole.YesRole)
             yes_button.clicked.connect(read_copyright)
             no_button.clicked.connect(know_copyright)
             message.exec()

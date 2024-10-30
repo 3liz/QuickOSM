@@ -42,7 +42,7 @@ def add_actions(layer: QgsVectorLayer, keys: list):
 
     title = tr('OpenStreetMap Browser')
     osm_browser = QgsAction(
-        QgsAction.OpenUrl,
+        QgsAction.ActionType.OpenUrl,
         title,
         'http://www.openstreetmap.org/browse/[% "osm_type" %]/[% "osm_id" %]',
         '',
@@ -55,7 +55,7 @@ def add_actions(layer: QgsVectorLayer, keys: list):
 
     title = 'JOSM'
     josm = QgsAction(
-        QgsAction.GenericPython,
+        QgsAction.ActionType.GenericPython,
         title,
         ACTIONS_PATH + 'Actions.run("josm","[% "full_id" %]")',
         resources_path('icons', 'josm_icon.svg'),
@@ -68,7 +68,7 @@ def add_actions(layer: QgsVectorLayer, keys: list):
 
     title = tr('User default editor')
     default_editor = QgsAction(
-        QgsAction.OpenUrl,
+        QgsAction.ActionType.OpenUrl,
         title,
         'http://www.openstreetmap.org/edit?[% "osm_type" %]=[% "osm_id" %]',
         '',
@@ -95,7 +95,7 @@ def add_actions(layer: QgsVectorLayer, keys: list):
 
             link = link.replace(":", "_")
             generic = QgsAction(
-                QgsAction.GenericPython,
+                QgsAction.ActionType.GenericPython,
                 link,
                 (ACTIONS_PATH
                  + f'Actions.run("{link}","[% "{link}" %]")'),
@@ -109,7 +109,7 @@ def add_actions(layer: QgsVectorLayer, keys: list):
 
     if 'network' in keys and 'ref' in keys:
         sketch_line = QgsAction(
-            QgsAction.GenericPython,
+            QgsAction.ActionType.GenericPython,
             tr('Sketchline'),
             (
                 ACTIONS_PATH +
@@ -130,7 +130,7 @@ def add_relaunch_action(layer: QgsVectorLayer, layer_name: str = ""):
 
     title = tr('Reload the query in a new file')
     reload = QgsAction(
-        QgsAction.GenericPython,
+        QgsAction.ActionType.GenericPython,
         title,
         ACTIONS_PATH + f'Actions.run_reload(layer_name="{layer_name}")',
         '',
