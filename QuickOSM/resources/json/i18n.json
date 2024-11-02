@@ -21,8 +21,8 @@
     },
     "en": {
         "name": "English",
-        "translated_strings": 5328,
-        "percentage": 66.75,
+        "translated_strings": 5342,
+        "percentage": 66.93,
         "total_strings": 307,
         "nb_languages": 26
     },
@@ -101,6 +101,11 @@
         "translated_strings": 154,
         "percentage": 50.16
     },
+    "sv": {
+        "name": "Swedish",
+        "translated_strings": 16,
+        "percentage": 5.21
+    },
     "pt": {
         "name": "Portuguese",
         "translated_strings": 15,
@@ -120,11 +125,6 @@
         "name": "Danish",
         "translated_strings": 4,
         "percentage": 1.3
-    },
-    "sv": {
-        "name": "Swedish",
-        "translated_strings": 2,
-        "percentage": 0.65
     },
     "my_MM": {
         "name": "Burmese (Myanmar)",
