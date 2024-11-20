@@ -135,11 +135,11 @@ class SetColoringPostProcessor(QgsProcessingLayerPostProcessorInterface):
                 if str(value) == 'None':
                     value = ''
                 if layer_type in [self.layer_type_dict['lines'], self.layer_type_dict['multilinestrings']]:
-                    symbol = QgsSymbol.defaultSymbol(QgsWkbTypes.LineGeometry)
+                    symbol = QgsSymbol.defaultSymbol(QgsWkbTypes.GeometryType.LineGeometry)
                 elif layer_type == self.layer_type_dict['point']:
-                    symbol = QgsSymbol.defaultSymbol(QgsWkbTypes.PointGeometry)
+                    symbol = QgsSymbol.defaultSymbol(QgsWkbTypes.GeometryType.PointGeometry)
                 elif layer_type == self.layer_type_dict['multipolygons']:
-                    symbol = QgsSymbol.defaultSymbol(QgsWkbTypes.PolygonGeometry)
+                    symbol = QgsSymbol.defaultSymbol(QgsWkbTypes.GeometryType.PolygonGeometry)
                 else:
                     break
                 symbol.setColor(QColor(value))

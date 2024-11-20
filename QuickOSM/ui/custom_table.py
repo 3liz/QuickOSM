@@ -87,7 +87,7 @@ class TableKeyValue:
                 self.preset_items.append(widget_item)
         self.preset.setCompleter(keys_preset_completer)
         self.preset.completer().setCompletionMode(
-            QCompleter.PopupCompletion)
+            QCompleter.CompletionMode.PopupCompletion)
         self.preset.completer().setFilterMode(
             Qt.MatchContains
         )
@@ -107,10 +107,10 @@ class TableKeyValue:
 
         # Table Keys/Values
         header = self.table.horizontalHeader()
-        header.setSectionResizeMode(QHeaderView.Stretch)
-        header.setSectionResizeMode(0, QHeaderView.Fixed)
-        header.setSectionResizeMode(3, QHeaderView.ResizeToContents)
-        header.setSectionResizeMode(4, QHeaderView.ResizeToContents)
+        header.setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
+        header.setSectionResizeMode(0, QHeaderView.ResizeMode.Fixed)
+        header.setSectionResizeMode(3, QHeaderView.ResizeMode.ResizeToContents)
+        header.setSectionResizeMode(4, QHeaderView.ResizeMode.ResizeToContents)
         header.setMinimumSectionSize(25)
         index_type = header.logicalIndexAt(0)
         header.resizeSection(index_type, 50)
@@ -166,7 +166,7 @@ class TableKeyValue:
         key_field.addItems(self.keys)
         key_field.setCompleter(keys_completer)
         key_field.completer().setCompletionMode(
-            QCompleter.PopupCompletion)
+            QCompleter.CompletionMode.PopupCompletion)
         key_field.completer().setCaseSensitivity(
             Qt.CaseInsensitive
         )

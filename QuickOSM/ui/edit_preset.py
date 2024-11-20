@@ -113,9 +113,9 @@ class EditPreset(QDialog, FORM_CLASS, TableKeyValue):
         self.tab_widget.setTabIcon(2, QIcon(":images/themes/default/propertyicons/symbology.svg"))
 
         # Buttonbox
-        self.button_box.button(QDialogButtonBox.Cancel).clicked.connect(self.close)
-        self.button_box.button(QDialogButtonBox.Ok).clicked.connect(self.validate)
-        self.button_box.button(QDialogButtonBox.Help).clicked.connect(self.open_help)
+        self.button_box.button(QDialogButtonBox.StandardButton.Cancel).clicked.connect(self.close)
+        self.button_box.button(QDialogButtonBox.StandardButton.Ok).clicked.connect(self.validate)
+        self.button_box.button(QDialogButtonBox.StandardButton.Help).clicked.connect(self.open_help)
 
     def item_context(self, pos: QPoint):
         """Set context submenu to delete item in the list."""
@@ -123,7 +123,7 @@ class EditPreset(QDialog, FORM_CLASS, TableKeyValue):
         submenu = QMenu()
         rename_action = submenu.addAction(tr('Rename'))
         delete_action = submenu.addAction(tr('Delete'))
-        right_click_item = submenu.exec_(item)
+        right_click_item = submenu.exec(item)
         if right_click_item and right_click_item == delete_action:
             index = self.list_queries.indexAt(pos).row()
             self.verification_delete_query(index)
@@ -285,13 +285,13 @@ class EditPreset(QDialog, FORM_CLASS, TableKeyValue):
         """Delete a query in the preset"""
         name = self.list_queries.item(row).text()
         validate_delete = QMessageBox(
-            QMessageBox.Warning, tr('Confirm query deletion'),
+            QMessageBox.Icon.Warning, tr('Confirm query deletion'),
             tr(f'Are you sure you want to delete the query \'{name}\'?'),
-            QMessageBox.Yes | QMessageBox.Cancel, self
+            QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.Cancel, self
         )
         ok = validate_delete.exec()
 
-        if ok == QMessageBox.Yes:
+        if ok == QMessageBox.StandardButton.Yes:
             self.delete_query(row)
 
     def delete_query(self, row: int):

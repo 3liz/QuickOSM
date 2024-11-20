@@ -119,7 +119,7 @@ class QuickQueryPanel(BaseOverpassPanel, TableKeyValue):
 
         self.dialog.button_run_query_qq.clicked.connect(self.run)
         self.dialog.button_map_features.clicked.connect(open_plugin_documentation)
-        self.dialog.button_box_qq.button(QDialogButtonBox.Reset).clicked.connect(
+        self.dialog.button_box_qq.button(QDialogButtonBox.StandardButton.Reset).clicked.connect(
             self.dialog.reset_form)
 
         # setup callbacks for friendly-label-update only
@@ -308,9 +308,9 @@ class QuickQueryPanel(BaseOverpassPanel, TableKeyValue):
             self.dialog.list_historic.addItem(item)
 
             group = QFrame()
-            group.setFrameStyle(QFrame.StyledPanel)
+            group.setFrameStyle(QFrame.Shape.StyledPanel)
             group.setStyleSheet('QFrame { margin: 3px; }')
-            group.setSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
+            group.setSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Fixed)
             hbox = QHBoxLayout()
             vbox = QVBoxLayout()
             label_name = QLabel(name)
@@ -328,8 +328,8 @@ class QuickQueryPanel(BaseOverpassPanel, TableKeyValue):
             button_save = QPushButton()
             button_run.setIcon(QIcon(QgsApplication.iconPath("mActionStart.svg")))
             button_save.setIcon(QIcon(QgsApplication.iconPath("mActionFileSave.svg")))
-            button_run.setSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
-            button_save.setSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
+            button_run.setSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Fixed)
+            button_save.setSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Fixed)
             button_run.setToolTip(tr('Run the query'))
             button_save.setToolTip(tr('Save this query in a new preset'))
             hbox.addWidget(button_run)
