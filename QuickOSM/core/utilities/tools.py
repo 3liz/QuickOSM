@@ -8,6 +8,7 @@ from os.path import abspath, isdir, isfile, join
 from typing import Tuple
 
 from qgis.core import QgsApplication, QgsSettings
+import qgis.utils
 from qgis.PyQt.QtCore import QDir
 
 __copyright__ = 'Copyright 2021, 3Liz'
@@ -82,7 +83,7 @@ def check_processing_enable() -> Tuple[bool, str, str]:
     """ Check if Processing is enabled. """
     # https://github.com/3liz/QuickOSM/issues/422
     # https://github.com/3liz/QuickOSM/issues/352
-    if QgsApplication.processingRegistry().algorithmById("native:buffer"):
+    if 'processing' in qgis.utils.plugins:
         return True, '', ''
 
     return (
