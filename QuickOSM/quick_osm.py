@@ -238,7 +238,8 @@ class QuickOSMPlugin:
         # https://github.com/3liz/QuickOSM/issues/422
         flag, title, error = check_processing_enable()
         if not flag:
-            error_dialog = QMessageBox(QMessageBox.Critical, title, error, QMessageBox.Ok, self)
+            error_dialog = QMessageBox(QMessageBox.Critical, title, error, QMessageBox.Ok,
+                                       self.iface.mainWindow())
             error_dialog.exec()
             return
 
