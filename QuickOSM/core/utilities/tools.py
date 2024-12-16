@@ -7,8 +7,9 @@ from os import mkdir
 from os.path import abspath, isdir, isfile, join
 from typing import Tuple
 
-from qgis.core import QgsApplication, QgsSettings
 import qgis.utils
+
+from qgis.core import QgsApplication, QgsSettings
 from qgis.PyQt.QtCore import QDir
 
 __copyright__ = 'Copyright 2021, 3Liz'
