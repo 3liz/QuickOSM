@@ -19,10 +19,15 @@
         "translated_strings": 307,
         "percentage": 100.0
     },
+    "zh_TW": {
+        "name": "Chinese (Taiwan)",
+        "translated_strings": 307,
+        "percentage": 100.0
+    },
     "en": {
         "name": "English",
-        "translated_strings": 5342,
-        "percentage": 64.45,
+        "translated_strings": 5347,
+        "percentage": 64.51,
         "total_strings": 307,
         "nb_languages": 27
     },
@@ -38,11 +43,6 @@
     },
     "uk": {
         "name": "Ukrainian",
-        "translated_strings": 302,
-        "percentage": 98.37
-    },
-    "zh_TW": {
-        "name": "Chinese (Taiwan)",
         "translated_strings": 302,
         "percentage": 98.37
     },
