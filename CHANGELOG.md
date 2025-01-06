@@ -2,6 +2,14 @@
 
 ## Unreleased
 
+## 2.3.0 - 2025-01-06
+
+* Added logical operator param, contribution from @chrstnbwnkl, @nilsnolde
+* Fix checking if Processing plugin is enabled, contribution from @borysiasty
+* Enable Qt6 on the plugin
+* UX - Rephrase the sentence if no OSM data was found
+* Internal code : update to fstring where it is possible
+
 ## 2.2.3 - 2023-08-10
 
 * Switch from POST to GET for Nominatim requests
