@@ -8,6 +8,7 @@ import urllib.request
 from os.path import join
 
 from qgis.core import (
+    Qgis,
     QgsApplication,
     QgsCoordinateReferenceSystem,
     QgsCoordinateTransform,
@@ -242,6 +243,18 @@ class QuickOSMPlugin:
                 QMessageBox.Icon.Critical, title, error, QMessageBox.StandardButton.Ok, self.iface.mainWindow())
             error_dialog.exec()
             return
+
+        from QuickOSM.plausible import Plausible
+
+        # noinspection PyBroadException
+        try:
+            plausible = Plausible()
+            plausible.request_stat_event()
+        except Exception as e:
+            LOGGER.log(
+                Qgis.Warning,
+                f"Error while calling the stats API : \"{e}\"",
+            )
 
         from QuickOSM.ui.dialog import Dialog
         dialog = Dialog()
