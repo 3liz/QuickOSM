@@ -50,7 +50,7 @@ class TestOsmParser(unittest.TestCase):
             'barrier'
         ]
         features_expected = 52
-        geom_type_expected = QgsWkbTypes.Point
+        geom_type_expected = QgsWkbTypes.Type.Point
 
         self.assertEqual(layers['points']['tags'], tags_expected)
         self.assertEqual(layers['points']['featureCount'], features_expected)
@@ -76,7 +76,7 @@ class TestOsmParser(unittest.TestCase):
             'shelter', 'covered', 'public_transport', 'name', 'bus'
         ]
         features_expected = 3
-        geom_type_expected = QgsWkbTypes.Point
+        geom_type_expected = QgsWkbTypes.Type.Point
 
         self.assertEqual(layers['points']['tags'], tags_expected)
         self.assertEqual(layers['points']['featureCount'], features_expected)

@@ -30,7 +30,7 @@ class ShowExtent(QgsMapTool):
         QgsMapTool.__init__(self, canvas)
 
         self.canvas = canvas
-        self.rubberBand = QgsRubberBand(self.canvas, QgsWkbTypes.PolygonGeometry)
+        self.rubberBand = QgsRubberBand(self.canvas, QgsWkbTypes.GeometryType.PolygonGeometry)
         color = QColor(30, 230, 30, 65)
         self.rubberBand.setColor(color)
         self.rubberBand.setWidth(1)
@@ -49,7 +49,7 @@ class ShowExtent(QgsMapTool):
         self.end_point = QgsPointXY(extent.xMaximum(), extent.yMaximum())
         self.transform_coordinates()
 
-        self.rubberBand.reset(QgsWkbTypes.PolygonGeometry)
+        self.rubberBand.reset(QgsWkbTypes.GeometryType.PolygonGeometry)
 
         point1 = QgsPointXY(self.start_point.x(), self.start_point.y())
         point2 = QgsPointXY(self.start_point.x(), self.end_point.y())

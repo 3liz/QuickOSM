@@ -97,7 +97,7 @@ class QueryPanel(BaseOverpassPanel):
 
         self.dialog.run_buttons[self.panel].clicked.connect(self.run)
         self.dialog.button_generate_query.clicked.connect(self.query_language_check)
-        self.dialog.button_box_q.button(QDialogButtonBox.Reset).clicked.connect(
+        self.dialog.button_box_q.button(QDialogButtonBox.StandardButton.Reset).clicked.connect(
             self.dialog.reset_form)
 
         self.allow_nominatim_or_extent()

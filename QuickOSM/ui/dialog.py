@@ -174,7 +174,7 @@ class Dialog(QDialog, FORM_CLASS):
         reloader = partial(actions.pre_run_reload)
         self.reload_action.triggered.connect(reloader)
         self.iface.addCustomActionForLayerType(
-            self.reload_action, "", QgsMapLayer.VectorLayer, False)
+            self.reload_action, "", QgsMapLayer.LayerType.VectorLayer, False)
 
         self.feedback_process = QgsFeedback()
 

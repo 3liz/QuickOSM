@@ -74,4 +74,4 @@ class Downloader:
         downloader.downloadCanceled.connect(self.canceled)
         downloader.downloadCompleted.connect(self.completed)
         downloader.startDownload()
-        loop.exec_()
+        loop.exec()

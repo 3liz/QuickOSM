@@ -143,11 +143,11 @@ def open_file(
                         if str(value) == 'None':
                             value = ''
                         if layer in ['lines', 'multilinestrings']:
-                            symbol = QgsSymbol.defaultSymbol(QgsWkbTypes.LineGeometry)
+                            symbol = QgsSymbol.defaultSymbol(QgsWkbTypes.GeometryType.LineGeometry)
                         elif layer == "points":
-                            symbol = QgsSymbol.defaultSymbol(QgsWkbTypes.PointGeometry)
+                            symbol = QgsSymbol.defaultSymbol(QgsWkbTypes.GeometryType.PointGeometry)
                         elif layer == "multipolygons":
-                            symbol = QgsSymbol.defaultSymbol(QgsWkbTypes.PolygonGeometry)
+                            symbol = QgsSymbol.defaultSymbol(QgsWkbTypes.GeometryType.PolygonGeometry)
                         symbol.setColor(QColor(value))
                         category = QgsRendererCategory(str(value), symbol, str(value))
                         categories.append(category)

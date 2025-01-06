@@ -94,9 +94,9 @@ class MapPresetPanel(BaseOverpassPanel):
             self.dialog.list_default_mp.addItem(item)
 
             widget = QFrame()
-            widget.setFrameStyle(QFrame.StyledPanel)
+            widget.setFrameStyle(QFrame.Shape.StyledPanel)
             widget.setStyleSheet('QFrame { margin: 3px; };')
-            widget.setSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
+            widget.setSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Fixed)
             hbox = QHBoxLayout()
             vbox = QVBoxLayout()
             picture = QLabel()
@@ -109,7 +109,7 @@ class MapPresetPanel(BaseOverpassPanel):
             picture.setStyleSheet('max-height: 150px; max-width: 250px; margin-right: 50px;')
             hbox.addWidget(picture)
             title = QLabel(data['file_name'])
-            title.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Fixed)
+            title.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Fixed)
             title.setStyleSheet('font: bold 20px; margin-bottom: 25px;')
             vbox.addWidget(title)
             for label in data['description']:
@@ -177,8 +177,8 @@ class MapPresetPanel(BaseOverpassPanel):
 
             preset = QFrame()
             preset.setObjectName('FramePreset')
-            preset.setFrameStyle(QFrame.StyledPanel)
-            preset.setSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
+            preset.setFrameStyle(QFrame.Shape.StyledPanel)
+            preset.setSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Fixed)
             hbox = QHBoxLayout()
             vbox = QVBoxLayout()
             label_name = QLabel(name)
@@ -196,8 +196,8 @@ class MapPresetPanel(BaseOverpassPanel):
             button_remove = QPushButton()
             button_edit.setIcon(QIcon(QgsApplication.iconPath("mActionToggleEditing.svg")))
             button_remove.setIcon(QIcon(QgsApplication.iconPath('symbologyRemove.svg')))
-            button_edit.setSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
-            button_remove.setSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
+            button_edit.setSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Fixed)
+            button_remove.setSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Fixed)
             button_edit.setToolTip(tr('Edit the preset'))
             button_remove.setToolTip(tr('Delete the preset'))
             hbox.addWidget(button_edit)
@@ -236,13 +236,13 @@ class MapPresetPanel(BaseOverpassPanel):
     def verification_remove_preset(self, item: QListWidgetItem, name: str):
         """Verification of the removal a preset."""
         validate_delete = QMessageBox(
-            QMessageBox.Warning, tr('Confirm preset deletion'),
+            QMessageBox.Icon.Warning, tr('Confirm preset deletion'),
             tr(f'Are you sure you want to delete the preset \'{name}\'?'),
-            QMessageBox.Yes | QMessageBox.Cancel, self.dialog
+            QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.Cancel, self.dialog
         )
         ok = validate_delete.exec()
 
-        if ok == QMessageBox.Yes:
+        if ok == QMessageBox.StandardButton.Yes:
             self.remove_preset(item, name)
 
     def remove_preset(self, item: QListWidgetItem, name: str):
