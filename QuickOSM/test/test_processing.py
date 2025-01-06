@@ -6,6 +6,7 @@ from qgis.core import QgsApplication, QgsVectorLayer
 from qgis.testing import unittest
 
 from QuickOSM.quick_osm_processing.provider import Provider
+from QuickOSM.test.definitions import TOWN_COORDS, TOWN_NAME
 
 __copyright__ = 'Copyright 2021, 3Liz'
 __license__ = 'GPL version 3'
@@ -53,7 +54,7 @@ class TestProcessing(unittest.TestCase):
         result = processing.run(
             'quickosm:buildqueryinsidearea',
             {
-                'AREA': 'La Souterraine',
+                'AREA': TOWN_NAME,
                 'KEY': 'amenity',
                 'SERVER': 'https://z.overpass-api.de/api/interpreter',
                 'TIMEOUT': 25,
@@ -84,7 +85,7 @@ class TestProcessing(unittest.TestCase):
         result = processing.run(
             'quickosm:buildqueryaroundarea',
             {
-                'AREA': 'La Souterraine',
+                'AREA': TOWN_NAME,
                 'DISTANCE': 1000,
                 'KEY': 'amenity',
                 'SERVER': 'https://lz4.overpass-api.de/api/interpreter',
@@ -95,18 +96,18 @@ class TestProcessing(unittest.TestCase):
 
         result_expected = {
             'OUTPUT_URL':
-                'https://lz4.overpass-api.de/api/interpreter?data=[out:xml]'
-                ' [timeout:25];%0A(%0A    node[%22amenity%22%3D%22bench%22]'
-                '(around:1000, 46.2383347,1.4861387);%0A    way[%22amenity%22%3D%22bench%22]'
-                '(around:1000, 46.2383347,1.4861387);%0A    relation[%22amenity%22%3D%22bench%22]'
-                '(around:1000, 46.2383347,1.4861387);%0A);%0A(._;%3E;);%0Aout'
-                ' body;&info=QgisQuickOSMPlugin',
+                f'https://lz4.overpass-api.de/api/interpreter?data=[out:xml]'
+                f' [timeout:25];%0A(%0A    node[%22amenity%22%3D%22bench%22]'
+                f'(around:1000, {TOWN_COORDS});%0A    way[%22amenity%22%3D%22bench%22]'
+                f'(around:1000, {TOWN_COORDS});%0A    relation[%22amenity%22%3D%22bench%22]'
+                f'(around:1000, {TOWN_COORDS});%0A);%0A(._;%3E;);%0Aout'
+                f' body;&info=QgisQuickOSMPlugin',
             'OUTPUT_OQL_QUERY':
-                '[out:xml] [timeout:25];\n(\n'
-                '    node["amenity"="bench"](around:1000, 46.2383347,1.4861387);\n'
-                '    way["amenity"="bench"](around:1000, 46.2383347,1.4861387);\n'
-                '    relation["amenity"="bench"](around:1000, 46.2383347,1.4861387);'
-                '\n);\n(._;>;);\nout body;'
+                f'[out:xml] [timeout:25];\n(\n'
+                f'    node["amenity"="bench"](around:1000, {TOWN_COORDS});\n'
+                f'    way["amenity"="bench"](around:1000, {TOWN_COORDS});\n'
+                f'    relation["amenity"="bench"](around:1000, {TOWN_COORDS});'
+                f'\n);\n(._;>;);\nout body;'
         }
 
         self.assertEqual(result_expected, result)

@@ -13,6 +13,7 @@ from qgis.testing import unittest
 
 from QuickOSM.qgis_plugin_tools.tools.resources import plugin_test_data_path
 from QuickOSM.quick_osm_processing.provider import Provider
+from QuickOSM.test.definitions import TOWN_COORDS, TOWN_NAME
 from QuickOSM.test.mocked_web_server import (
     SequentialHandler,
     install_http_handler,
@@ -143,10 +144,10 @@ class TestProcessing(unittest.TestCase):
         handler = SequentialHandler()
         handler.add(
             'GET',
-            '/interpreter?data=[out:xml]%20[timeout:25];%0A(%0A%20%20%20%20node[%22amenity%22%3D%22bench%22]'
-            '(around:1500,%2046.2383347,1.4861387);%0A%20%20%20%20way[%22amenity%22%3D%22bench%22]'
-            '(around:1500,%2046.2383347,1.4861387);%0A%20%20%20%20relation[%22amenity%22%3D%22bench%22]'
-            '(around:1500,%2046.2383347,1.4861387);%0A);%0A(._;%3E;);%0Aout%20body;&info=QgisQuickOSMPlugin',
+            f'/interpreter?data=[out:xml]%20[timeout:25];%0A(%0A%20%20%20%20node[%22amenity%22%3D%22bench%22]'
+            f'(around:1500,%20{TOWN_COORDS});%0A%20%20%20%20way[%22amenity%22%3D%22bench%22]'
+            f'(around:1500,%20{TOWN_COORDS});%0A%20%20%20%20relation[%22amenity%22%3D%22bench%22]'
+            f'(around:1500,%20{TOWN_COORDS});%0A);%0A(._;%3E;);%0Aout%20body;&info=QgisQuickOSMPlugin',
             200,
             {'Content-type': 'text/xml'},
             open(plugin_test_data_path('overpass', 'empty_osm_file.xml'), encoding='utf8').read(),
@@ -155,7 +156,7 @@ class TestProcessing(unittest.TestCase):
             result = processing.run(
                 'quickosm:downloadosmdataaroundareaquery',
                 {
-                    'AREA': 'La Souterraine',
+                    'AREA': TOWN_NAME,
                     'DISTANCE': 1500,
                     'KEY': 'amenity',
                     'SERVER': f'http://localhost:{self.port}/interpreter',
