@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+## 2.3.2 - 2025-01-17
+
+* Fix regression about invalid Qt API
+
 ## 2.3.1 - 2025-01-17
 
 * Fix JOSM remote when opening an extent
