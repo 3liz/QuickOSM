@@ -39,6 +39,7 @@ from QuickOSM.qgis_plugin_tools.tools.resources import (
     plugin_path,
     resources_path,
 )
+from QuickOSM.qgis_plugin_tools.tools.version import version
 from QuickOSM.quick_osm_processing.provider import Provider
 
 __copyright__ = 'Copyright 2021, 3Liz'
@@ -185,6 +186,8 @@ class QuickOSMPlugin:
         # Insert in the good order
         self.quickosm_menu.addAction(self.main_window_action)
         self.quickosm_menu.addAction(self.josm_action)
+
+        LOGGER.info(f"Plugin loaded with version : {version()}")
 
     def unload(self):
         """Unload the user interface."""
