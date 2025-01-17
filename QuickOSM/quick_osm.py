@@ -3,7 +3,6 @@
 import logging
 import os
 import shutil
-import urllib.request
 
 from os.path import join
 
@@ -25,6 +24,7 @@ from qgis.PyQt.QtWidgets import (
     QPushButton,
 )
 
+from QuickOSM.core.josm_remote import open_extent
 from QuickOSM.core.utilities.tools import (
     check_processing_enable,
     get_setting,
@@ -204,33 +204,10 @@ class QuickOSMPlugin:
     def josm_remote(self):
         """Call the JOSM remote control using the current canvas extent."""
         map_settings = self.iface.mapCanvas().mapSettings()
-        extent = map_settings.extent()
-        crs_map = map_settings.destinationCrs()
-        if crs_map.authid() != 'EPSG:4326':
-            crs_4326 = QgsCoordinateReferenceSystem(4326)
-            transform = QgsCoordinateTransform(
-                crs_map, crs_4326, QgsProject.instance())
-            extent = transform.transform(extent)
-
-        url = (
-            f'http://localhost:8111/load_and_zoom?'
-            f'left={extent.xMinimum()}&right={extent.xMaximum()}&'
-            f'top={extent.xMaximum()}&bottom={extent.yMinimum()}'
-        )
-        try:
-            request = urllib.request.Request(url)
-            result_request = urllib.request.urlopen(request)
-            result = result_request.read()
-            result = result.decode('utf8')
-            if result.strip().upper() != 'OK':
-                self.iface.messageBar().pushCritical(
-                    tr('JOSM Remote'), result)
-            else:
-                self.iface.messageBar().pushSuccess(
-                    tr('JOSM Remote'), tr('Import done, check JOSM.'))
-        except OSError:
-            self.iface.messageBar().pushCritical(
-                tr('JOSM Remote'), tr('Is the remote enabled in the JOSM settings?'))
+        if open_extent(map_settings.extent(), map_settings.destinationCrs()):
+            self.iface.messageBar().pushSuccess(tr('JOSM Remote'), tr('Import done, check JOSM.'))
+        else:
+            self.iface.messageBar().pushCritical(tr('JOSM Remote'), tr('Is the remote enabled in the JOSM settings?'))
 
     def open_dialog(self):
         """Create and open the main dialog."""

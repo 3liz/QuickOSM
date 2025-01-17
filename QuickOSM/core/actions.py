@@ -11,6 +11,7 @@ from qgis.PyQt.QtWidgets import QDialog
 from qgis.utils import OverrideCursor, iface, plugins
 
 from QuickOSM.core import process
+from QuickOSM.core.josm_remote import open_object
 from QuickOSM.core.utilities.utilities_qgis import open_webpage
 from QuickOSM.definitions.action import Visibility
 from QuickOSM.qgis_plugin_tools.tools.i18n import tr
@@ -195,13 +196,7 @@ class Actions:
                     open_webpage(url)
 
             elif field == 'josm':
-                import urllib.error
-                import urllib.parse
-                import urllib.request
-                try:
-                    url = 'http://localhost:8111/load_object?objects=' + value
-                    urllib.request.urlopen(url).read()
-                except urllib.error.URLError:
+                if not open_object(value):
                     iface.messageBar().pushMessage(
                         tr('The JOSM remote seems to be disabled.'),
                         level=Qgis.Critical,
