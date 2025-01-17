@@ -6,14 +6,7 @@ import shutil
 
 from os.path import join
 
-from qgis.core import (
-    Qgis,
-    QgsApplication,
-    QgsCoordinateReferenceSystem,
-    QgsCoordinateTransform,
-    QgsProject,
-    QgsZipUtils,
-)
+from qgis.core import Qgis, QgsApplication, QgsZipUtils
 from qgis.PyQt.QtCore import QCoreApplication, QTranslator, QUrl
 from qgis.PyQt.QtGui import QDesktopServices, QIcon
 from qgis.PyQt.QtWidgets import (
@@ -207,10 +200,11 @@ class QuickOSMPlugin:
     def josm_remote(self):
         """Call the JOSM remote control using the current canvas extent."""
         map_settings = self.iface.mapCanvas().mapSettings()
+        title = tr('JOSM Remote')
         if open_extent(map_settings.extent(), map_settings.destinationCrs()):
-            self.iface.messageBar().pushSuccess(tr('JOSM Remote'), tr('Import done, check JOSM.'))
+            self.iface.messageBar().pushSuccess(title, tr('Import done, check JOSM.'))
         else:
-            self.iface.messageBar().pushCritical(tr('JOSM Remote'), tr('Is the remote enabled in the JOSM settings?'))
+            self.iface.messageBar().pushCritical(title, tr('Is the remote enabled in the JOSM settings?'))
 
     def open_dialog(self):
         """Create and open the main dialog."""

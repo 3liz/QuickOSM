@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+## 2.3.1 - 2025-01-17
+
+* Fix JOSM remote when opening an extent
+
 ## 2.3.0 - 2025-01-06
 
 * Added logical operator param, contribution from @chrstnbwnkl, @nilsnolde
