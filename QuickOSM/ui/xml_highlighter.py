@@ -1,6 +1,6 @@
 """Query Highlighter class."""
 
-from qgis.PyQt.QtCore import QRegularExpression, Qt
+from qgis.PyQt.QtCore import QRegExp, Qt
 from qgis.PyQt.QtGui import QColor, QFont, QSyntaxHighlighter, QTextCharFormat
 
 __copyright__ = 'Copyright 2021, 3Liz'
@@ -23,32 +23,32 @@ class QueryHighlighter(QSyntaxHighlighter):
         ]
 
         self.highlightingRules = [
-            (QRegularExpression(pattern), keyword_format)
+            (QRegExp(pattern), keyword_format)
             for pattern in keyword_patterns
         ]
 
         element_format = QTextCharFormat()
         element_format.setForeground(QColor("#117700"))
         self.highlightingRules.append(
-            (QRegularExpression("\\b[A-Za-z_\\-]+(?=[\\s\\/>:;])"), element_format))
+            (QRegExp("\\b[A-Za-z_\\-]+(?=[\\s\\/>:;])"), element_format))
 
         nominatim_area_format = QTextCharFormat()
         nominatim_area_format.setFontItalic(True)
         nominatim_area_format.setFontWeight(QFont.Weight.Bold)
         nominatim_area_format.setForeground(QColor("#FF7C00"))
         self.highlightingRules.append(
-            (QRegularExpression(r"\{\{[A-Za-z0-9:, ]*\}\}"), nominatim_area_format))
+            (QRegExp(r"\{\{[A-Za-z0-9:, ]*\}\}"), nominatim_area_format))
 
         attribute_format = QTextCharFormat()
         attribute_format.setFontItalic(True)
         attribute_format.setForeground(QColor("#2020D2"))
         self.highlightingRules.append(
-            (QRegularExpression("\\b[A-Za-z0-9_-]+(?=\\=|\\[|\\(|$|\\.)"), attribute_format))
+            (QRegExp("\\b[A-Za-z0-9_-]+(?=\\=|\\[|\\(|$|\\.)"), attribute_format))
 
         value_format = QTextCharFormat()
         value_format.setForeground(Qt.red)
         self.highlightingRules.append(
-            (QRegularExpression("(\"[A-Za-z0-9:, _.]*\"|\\:([0-9]+)(?=\\,|\\]))"), value_format))
+            (QRegExp("(\"[A-Za-z0-9:, _.]*\"|\\:([0-9]+)(?=\\,|\\]))"), value_format))
 
         area_format = QTextCharFormat()
         area_format.setForeground(QColor("#11CC00"))
@@ -58,21 +58,21 @@ class QueryHighlighter(QSyntaxHighlighter):
         ]
         for pattern in area_pattern:
             self.highlightingRules.append(
-                (QRegularExpression(pattern), area_format))
+                (QRegExp(pattern), area_format))
 
         single_line_comment_format = QTextCharFormat()
         single_line_comment_format.setForeground(Qt.gray)
         self.highlightingRules.append(
-            (QRegularExpression("(<!--[^\n]*-->|//[^\n]*)"), single_line_comment_format))
+            (QRegExp("(<!--[^\n]*-->|//[^\n]*)"), single_line_comment_format))
 
         # Multi lines comment
-        self.oql_start_comment = QRegularExpression(r"\/\*")
-        self.oql_end_comment = QRegularExpression(r'\*\/')
+        self.oql_start_comment = QRegExp(r"\/\*")
+        self.oql_end_comment = QRegExp(r'\*\/')
 
     def match_multiline(
             self, text: str,
-            start_delimiter: QRegularExpression,
-            end_delimiter: QRegularExpression,
+            start_delimiter: QRegExp,
+            end_delimiter: QRegExp,
             in_state: int,
             style: Qt) -> bool:
         """Do highlight of multi-line strings. ``delimiter`` should be a
@@ -117,7 +117,7 @@ class QueryHighlighter(QSyntaxHighlighter):
         for pattern, char_format in self.highlightingRules:
 
             # Create a regular expression from the retrieved pattern
-            expression = QRegularExpression(pattern)
+            expression = QRegExp(pattern)
 
             # Check what index that expression occurs at with the ENTIRE text
             index = expression.indexIn(text)
