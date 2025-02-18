@@ -301,7 +301,15 @@ class QuickQueryPanel(BaseOverpassPanel, TableKeyValue):
         for file in files[::-1]:
             file_path = join(historic_folder, file)
             with open(file_path, encoding='utf8') as json_file:
-                data = json.load(json_file, object_hook=as_enum)
+
+                try:
+                    data = json.load(json_file, object_hook=as_enum)
+                except Exception:
+                    # TODO, the fix should be done when writing the JSON file as well
+                    # Issue https://github.com/3liz/QuickOSM/issues/493
+                    # Issue https://github.com/3liz/QuickOSM/issues/526
+                    continue
+
             name = data['file_name']
 
             item = QListWidgetItem(self.dialog.list_historic)
