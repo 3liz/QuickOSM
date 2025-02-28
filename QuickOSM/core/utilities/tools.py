@@ -82,6 +82,9 @@ def quickosm_user_folder() -> str:
 
 def check_processing_enable() -> Tuple[bool, str, str]:
     """ Check if Processing is enabled. """
+    # https://github.com/3liz/QuickOSM/issues/527
+    if qgis.utils.iface is None:
+        return True, '', ''
     # https://github.com/3liz/QuickOSM/issues/422
     # https://github.com/3liz/QuickOSM/issues/352
     # https://github.com/3liz/QuickOSM/pull/517
