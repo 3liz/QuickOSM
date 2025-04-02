@@ -2,6 +2,13 @@
 
 ## Unreleased
 
+## 2.4.0 - 2025-04-02
+
+* New map themes `Hiking` and `CTR`, contribution from @Huntani
+* Fix the check about Processing in a standalone script, contribution from @ pengxiang-liu
+* Temporary fix about invalid JSON history #526
+* Make the map preset the default panel when opening the plugin
+
 ## 2.3.2 - 2025-01-17
 
 * Fix regression about invalid Qt API
