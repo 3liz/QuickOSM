@@ -1,0 +1,334 @@
+{
+    "query": [
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+		""
+    ],
+    "description": [
+        "Downloads objects to create a hiking map.",
+        "No default extent or place."
+    ],
+    "advanced": false,
+    "file_name": "Hiking",
+    "query_layer_name": [
+		"natural",
+        "natural",
+        "road",		
+		"building",
+		"amenity",
+		"places",
+		"peaks",
+		"lines",
+		"trailnames"
+    ],
+    "query_name": [
+        "Natural",
+        "Natural",
+        "Road",
+		"Building",
+		"Amenity",
+		"Places",
+		"Peaks",
+		"Lines",
+		"Trailnames"
+    ],
+    "type_multi_request": [
+        [
+			{
+				"__enum__": "MultiType.OR"
+			}
+		],
+        [
+			{
+				"__enum__": "MultiType.OR"
+			},
+			{
+				"__enum__": "MultiType.OR"
+			},
+			{
+				"__enum__": "MultiType.OR"
+			}
+		],
+        [
+			{
+				"__enum__": "MultiType.OR"
+			}
+		],
+		[
+			{
+				"__enum__": "MultiType.OR"
+			}
+		],
+		[
+			{
+				"__enum__": "MultiType.OR"
+			}
+		],
+		[],
+		[],
+		[
+			{
+				"__enum__": "MultiType.OR"
+			}
+		],
+		[
+			{
+				"__enum__": "MultiType.AND"
+			}
+		]
+     ],
+    "keys": [
+        [
+            "waterway","natural"
+        ],
+        [
+            "landuse","natural","leisure","boundary"
+        ],		
+        [
+            "highway","railway"
+        ],
+		[
+            "building","waterway"
+        ],
+		[
+			"amenity", "natural"
+		],
+ 		[
+            "place"
+        ],
+        [
+            "natural"
+        ],
+		
+		[
+            "power", "aerialway"
+		],
+		[
+			"type", "route"
+		]		
+    ],
+    "values": [
+		[
+            "",""
+        ],
+        [
+            "forest","","",""
+        ],
+		[
+            "",""
+        ],
+        [
+            "",""
+        ],
+        [
+            "", "spring"
+        ],
+        [
+            ""
+        ],
+        [
+            "peak"
+        ],               
+        [
+            "line",""
+        ],
+		[
+			"route", "hiking"
+		]
+    ],
+    "area": [
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+    ],
+    "bbox": [
+        {
+            "__extent__": "0.0 0.0 0.0 0.0"
+        },
+        {
+            "__extent__": "0.0 0.0 0.0 0.0"
+        },
+        {
+            "__extent__": "0.0 0.0 0.0 0.0"
+        },
+        {
+            "__extent__": "0.0 0.0 0.0 0.0"
+        },
+        {
+            "__extent__": "0.0 0.0 0.0 0.0"
+        },
+        {
+            "__extent__": "0.0 0.0 0.0 0.0"
+        },
+        {
+            "__extent__": "0.0 0.0 0.0 0.0"
+        },
+        {
+            "__extent__": "0.0 0.0 0.0 0.0"
+        },
+        {
+            "__extent__": "0.0 0.0 0.0 0.0"
+        }
+    ],
+    "output_geom_type": [
+        [
+            {
+                "__enum__": "LayerType.Lines"
+            }
+		],
+        [
+            {
+                "__enum__": "LayerType.Multipolygons"
+            }
+        ],
+        [
+            {
+                "__enum__": "LayerType.Lines"
+            }
+        ],
+		[
+            {
+                "__enum__": "LayerType.Multipolygons"
+            }
+        ],
+        [
+            {
+                "__enum__": "LayerType.Points"
+            }
+        ],        
+        [
+            {
+                "__enum__": "LayerType.Points"
+            }
+        ],        
+        [
+            {
+                "__enum__": "LayerType.Points"
+            }
+        ],        
+        [
+            {
+                "__enum__": "LayerType.Lines"
+            },
+            {
+                "__enum__": "LayerType.Points"
+            }
+			
+        ],
+		[
+            {
+                "__enum__": "LayerType.Multilinestrings"
+            }
+        ]
+		
+    ],
+    "white_list_column": [
+        {
+            "points": null,
+            "lines": "name,waterway,natural",
+            "multilinestrings": null,
+            "multipolygons": null
+        },
+        {
+            "points": null,
+            "lines": null,
+            "multilinestrings": null,
+            "multipolygons": "name,natural,landuse,boundary,leisure"
+        },
+        {
+            "points": null,
+            "lines": "highway,name,surface,ref,tunnel,bridge,level,railway,sac_scale",
+            "multilinestrings": null,
+            "multipolygons": null
+        },
+		{
+            "points": null,
+            "lines": null,
+            "multilinestrings": null,
+            "multipolygons": "building,name,amenity,brand,wheelchair,tourism,waterway"
+        },
+        {
+            "points": "name,amenity,natural",
+            "lines": null,
+            "multilinestrings": null,
+            "multipolygons": null
+        },
+        {
+            "points": "name,place",
+            "lines": null,
+            "multilinestrings": null,
+            "multipolygons": null
+        },
+        {
+            "points": "name,ele",
+            "lines": null,
+            "multilinestrings": null,
+            "multipolygons": null
+        },
+        
+        {
+            "points": "name,power,aerialway",
+            "lines": "name,power,aerialway",
+            "multilinestrings": null,
+            "multipolygons": null
+        },
+        {
+            "points": null,
+            "lines": null,
+            "multilinestrings": "route,ref,type",
+            "multipolygons": null
+        }
+    ],
+    "output_directory": [
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+		"",
+		"",
+		""
+    ],
+    "output_format": [
+        {
+            "__enum__": "Format.GeoPackage"
+        },
+        {
+            "__enum__": "Format.GeoPackage"
+        },
+ 		{
+            "__enum__": "Format.GeoPackage"
+        },
+        {
+            "__enum__": "Format.GeoPackage"
+        },
+        {
+            "__enum__": "Format.GeoPackage"
+        },
+        {
+            "__enum__": "Format.GeoPackage"
+        },
+        {
+            "__enum__": "Format.GeoPackage"
+        },
+        {
+            "__enum__": "Format.GeoPackage"
+        },
+        {
+            "__enum__": "Format.GeoPackage"
+        }
+    ]
+}
