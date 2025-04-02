@@ -203,7 +203,7 @@ class Dialog(QDialog, FORM_CLASS):
 
         for panel in self.external_panels.values():
             panel.setup_panel()
-        self.menu_widget.setCurrentRow(1)
+        self.menu_widget.setCurrentRow(0)
 
     @property
     def iface(self):

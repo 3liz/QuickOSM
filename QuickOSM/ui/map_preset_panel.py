@@ -227,6 +227,9 @@ class MapPresetPanel(BaseOverpassPanel):
 
         self.listAdvanced.append(False)
 
+        if self.dialog.list_personal_preset_mp.count() == 0:
+            self.dialog.group_personal_presets.setCollapsed(True)
+
     def edit_preset(self, data: dict):
         """Open a dialog to edit the preset"""
         edit_dialog = EditPreset(self.dialog, data)
