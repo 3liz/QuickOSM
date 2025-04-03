@@ -318,7 +318,7 @@ QListWidget::item::selected {
                   </widget>
                  </item>
                  <item>
-                  <widget class="QgsCollapsibleGroupBoxBasic" name="group_personal_presets">
+                  <widget class="QgsCollapsibleGroupBox" name="group_personal_presets">
                    <property name="title">
                     <string>Personal presets</string>
                    </property>
