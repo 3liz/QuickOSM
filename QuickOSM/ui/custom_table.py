@@ -79,20 +79,20 @@ class TableKeyValue:
                     icon_path = resources_path('icons', "josm", icon_path)
                     if os.path.exists(icon_path):
                         icon = QPixmap(icon_path)
-                        widget_item.setData(Qt.DecorationRole, icon.scaled(20, 20, Qt.KeepAspectRatio))
+                        widget_item.setData(Qt.ItemDataRole.DecorationRole, icon.scaled(20, 20, Qt.AspectRatioMode.KeepAspectRatio))
                         self.preset.setItemData(
-                            k + 1, icon.scaled(20, 20, Qt.KeepAspectRatio),
-                            Qt.DecorationRole
+                            k + 1, icon.scaled(20, 20, Qt.AspectRatioMode.KeepAspectRatio),
+                            Qt.ItemDataRole.DecorationRole
                         )
                 self.preset_items.append(widget_item)
         self.preset.setCompleter(keys_preset_completer)
         self.preset.completer().setCompletionMode(
             QCompleter.CompletionMode.PopupCompletion)
         self.preset.completer().setFilterMode(
-            Qt.MatchContains
+            Qt.MatchFlag.MatchContains
         )
         self.preset.completer().setCaseSensitivity(
-            Qt.CaseInsensitive
+            Qt.CaseSensitivity.CaseInsensitive
         )
 
         self.preset.activated.connect(self.choice_preset)
@@ -168,7 +168,7 @@ class TableKeyValue:
         key_field.completer().setCompletionMode(
             QCompleter.CompletionMode.PopupCompletion)
         key_field.completer().setCaseSensitivity(
-            Qt.CaseInsensitive
+            Qt.CaseSensitivity.CaseInsensitive
         )
 
         key_field.lineEdit().setPlaceholderText(

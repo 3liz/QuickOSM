@@ -76,7 +76,7 @@ class BaseProcessingPanel(BasePanel):
             self.dialog.output_directories[self.panel].lineEdit().setPlaceholderText(
                 tr('Save to temporary file'))
             self.dialog.output_directories[self.panel].setStorageMode(
-                QgsFileWidget.GetDirectory)
+                QgsFileWidget.StorageMode.GetDirectory)
             self.dialog.output_directories[self.panel].setDialogTitle(tr('Select a directory'))
 
             self.dialog.output_format[self.panel].addItem(
@@ -110,7 +110,7 @@ class BaseProcessingPanel(BasePanel):
 
     def _start_process(self):
         """Make some stuff before launching the process."""
-        QApplication.setOverrideCursor(Qt.WaitCursor)
+        QApplication.setOverrideCursor(Qt.CursorShape.WaitCursor)
 
         self.dialog.feedback_process = QgsFeedback()
 

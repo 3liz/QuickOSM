@@ -64,10 +64,10 @@ class EditPreset(QDialog, FORM_CLASS, TableKeyValue):
         self.button_remove.clicked.connect(self.remove_selection)
 
         self.list_queries.currentRowChanged.connect(self.change_query)
-        self.list_queries.setContextMenuPolicy(Qt.CustomContextMenu)
+        self.list_queries.setContextMenuPolicy(Qt.ContextMenuPolicy.CustomContextMenu)
         self.list_queries.customContextMenuRequested.connect(self.item_context)
 
-        self.label_help_qml.setTextInteractionFlags(Qt.TextSelectableByMouse)
+        self.label_help_qml.setTextInteractionFlags(Qt.TextInteractionFlag.TextSelectableByMouse)
 
         self.bbox = QgsExtentWidget()
         self.bbox.setMapCanvas(parent.iface.mapCanvas())
@@ -86,7 +86,7 @@ class EditPreset(QDialog, FORM_CLASS, TableKeyValue):
         self.output_directory.lineEdit().setPlaceholderText(
             tr('Save to temporary file'))
         self.output_directory.setStorageMode(
-            QgsFileWidget.GetDirectory)
+            QgsFileWidget.StorageMode.GetDirectory)
 
         self.data = data_preset.copy()
         if self.data:

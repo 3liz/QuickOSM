@@ -78,7 +78,7 @@ class DownloadOSMData(QgisAlgorithm):
 
     def flags(self):
         """Return the flags."""
-        return QgisAlgorithm.flags(self) | QgsProcessingAlgorithm.FlagHideFromModeler
+        return QgisAlgorithm.flags(self) | QgsProcessingAlgorithm.Flag.FlagHideFromModeler
 
     def fetch_based_parameters(self, parameters, context):
         """Get the parameters."""
@@ -97,22 +97,22 @@ class DownloadOSMData(QgisAlgorithm):
     def add_outputs(self):
         """Set up the outputs of the algorithm."""
         output = QgsProcessingOutputVectorLayer(
-            self.OUTPUT_POINTS, tr('Output points'), QgsProcessing.TypeVectorPoint)
+            self.OUTPUT_POINTS, tr('Output points'), QgsProcessing.SourceType.TypeVectorPoint)
         self.addOutput(output)
 
         output = QgsProcessingOutputVectorLayer(
-            self.OUTPUT_LINES, tr('Output lines'), QgsProcessing.TypeVectorLine)
+            self.OUTPUT_LINES, tr('Output lines'), QgsProcessing.SourceType.TypeVectorLine)
         self.addOutput(output)
 
         output = QgsProcessingOutputVectorLayer(
             self.OUTPUT_MULTILINESTRINGS, tr('Output multilinestrings'),
-            QgsProcessing.TypeVectorLine
+            QgsProcessing.SourceType.TypeVectorLine
         )
         self.addOutput(output)
 
         output = QgsProcessingOutputVectorLayer(
             self.OUTPUT_MULTIPOLYGONS, tr('Output multipolygons'),
-            QgsProcessing.TypeVectorPolygon
+            QgsProcessing.SourceType.TypeVectorPolygon
         )
         self.addOutput(output)
 

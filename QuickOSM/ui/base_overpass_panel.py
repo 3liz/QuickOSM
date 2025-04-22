@@ -180,12 +180,12 @@ class BaseOverpassPanel(BaseProcessingPanel):
                 'Successful query, {} layer(s) has been loaded.').format(
                 num_layers)
             self.dialog.set_progress_text(text)
-            self.dialog.display_message_bar(text, level=Qgis.Success, duration=5)
+            self.dialog.display_message_bar(text, level=Qgis.MessageLevel.Success, duration=5)
         else:
             self.dialog.set_progress_text(tr('No result'))
             self.dialog.display_message_bar(
                 tr('Successful query, but no OSM data matched the Overpass query on this Overpass server.'),
-                level=Qgis.Warning, duration=7)
+                level=Qgis.MessageLevel.Warning, duration=7)
 
     def gather_values(self) -> dict:
         """Retrieval of the values set by the user."""

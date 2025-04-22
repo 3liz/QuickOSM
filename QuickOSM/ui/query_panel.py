@@ -223,7 +223,7 @@ class QueryPanel(BaseOverpassPanel):
     def query_language_check(self):
         """Check the wanted language."""
 
-        with OverrideCursor(Qt.WaitCursor):
+        with OverrideCursor(Qt.CursorShape.WaitCursor):
             if self.dialog.query_language[Panels.Query] == QueryLanguage.OQL:
                 self.generate_query(oql_output=True)
             elif self.dialog.query_language[Panels.Query] == QueryLanguage.XML:

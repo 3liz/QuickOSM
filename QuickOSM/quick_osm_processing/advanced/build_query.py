@@ -49,7 +49,7 @@ class BuildQueryBasedAlgorithm(QgisAlgorithm):
 
     def flags(self):
         """Return the flags."""
-        return super().flags() | QgsProcessingAlgorithm.FlagHideFromToolbox
+        return super().flags() | QgsProcessingAlgorithm.Flag.FlagHideFromToolbox
 
     def add_outputs(self):
         """Set up the advanced parameters."""

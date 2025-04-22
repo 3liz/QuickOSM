@@ -214,7 +214,7 @@ class Dialog(QDialog, FORM_CLASS):
 
     def eventFilter(self, obj: QObject, e: QEvent) -> bool:
         """Set up a custom event to avoid scroll"""
-        return e.type() == QEvent.Wheel
+        return e.type() == QEvent.Type.Wheel
 
     def display_quickosm_exception(self, exception: QuickOsmException):
         """Display QuickOSM exceptions.
@@ -262,7 +262,7 @@ class Dialog(QDialog, FORM_CLASS):
                 'please report it, if you know how to copy/paste QGIS logs. '
                 'Please check pinned tickets first.'
             ),
-            level=Qgis.Critical,
+            level=Qgis.MessageLevel.Critical,
             open_logs=True,
             duration=10)
 
@@ -270,7 +270,7 @@ class Dialog(QDialog, FORM_CLASS):
             self,
             title: str,
             message: str = None,
-            level: Qgis.MessageLevel = Qgis.Info,
+            level: Qgis.MessageLevel = Qgis.MessageLevel.Info,
             duration: int = 5,
             more_details: str = None,
             open_logs: bool = False):

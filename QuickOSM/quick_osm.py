@@ -226,7 +226,7 @@ class QuickOSMPlugin:
             plausible.request_stat_event()
         except Exception as e:
             LOGGER.log(
-                Qgis.Warning,
+                Qgis.MessageLevel.Warning,
                 f"Error while calling the stats API : \"{e}\"",
             )
 

@@ -48,7 +48,7 @@ class OpenOsmFile(QgisAlgorithm):
 
     def flags(self):
         """Return the flags."""
-        return super().flags() | QgsProcessingAlgorithm.FlagHideFromToolbox
+        return super().flags() | QgsProcessingAlgorithm.Flag.FlagHideFromToolbox
 
     @staticmethod
     def name() -> str:
@@ -85,28 +85,28 @@ class OpenOsmFile(QgisAlgorithm):
         self.addParameter(param)
 
         output = QgsProcessingOutputVectorLayer(
-            self.OUTPUT_POINTS, tr('Output points'), QgsProcessing.TypeVectorPoint)
+            self.OUTPUT_POINTS, tr('Output points'), QgsProcessing.SourceType.TypeVectorPoint)
         self.addOutput(output)
 
         output = QgsProcessingOutputVectorLayer(
-            self.OUTPUT_LINES, tr('Output lines'), QgsProcessing.TypeVectorLine)
+            self.OUTPUT_LINES, tr('Output lines'), QgsProcessing.SourceType.TypeVectorLine)
         self.addOutput(output)
 
         output = QgsProcessingOutputVectorLayer(
             self.OUTPUT_MULTILINESTRINGS, tr('Output multilinestrings'),
-            QgsProcessing.TypeVectorLine
+            QgsProcessing.SourceType.TypeVectorLine
         )
         self.addOutput(output)
 
         output = QgsProcessingOutputVectorLayer(
             self.OUTPUT_MULTIPOLYGONS, tr('Output multipolygons'),
-            QgsProcessing.TypeVectorPolygon
+            QgsProcessing.SourceType.TypeVectorPolygon
         )
         self.addOutput(output)
 
         output = QgsProcessingOutputVectorLayer(
             self.OUTPUT_OTHER_RELATIONS, tr('Output other relations'),
-            QgsProcessing.TypeVector
+            QgsProcessing.SourceType.TypeVector
         )
         self.addOutput(output)
 

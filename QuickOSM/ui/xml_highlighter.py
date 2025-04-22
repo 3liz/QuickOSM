@@ -15,7 +15,7 @@ class QueryHighlighter(QSyntaxHighlighter):
         super().__init__(parent)
 
         keyword_format = QTextCharFormat()
-        keyword_format.setForeground(Qt.darkMagenta)
+        keyword_format.setForeground(Qt.GlobalColor.darkMagenta)
 
         keyword_patterns = [
             "\\b?xml\\b", "/>", ">", "<",
@@ -46,7 +46,7 @@ class QueryHighlighter(QSyntaxHighlighter):
             (QRegExp("\\b[A-Za-z0-9_-]+(?=\\=|\\[|\\(|$|\\.)"), attribute_format))
 
         value_format = QTextCharFormat()
-        value_format.setForeground(Qt.red)
+        value_format.setForeground(Qt.GlobalColor.red)
         self.highlightingRules.append(
             (QRegExp("(\"[A-Za-z0-9:, _.]*\"|\\:([0-9]+)(?=\\,|\\]))"), value_format))
 
@@ -61,7 +61,7 @@ class QueryHighlighter(QSyntaxHighlighter):
                 (QRegExp(pattern), area_format))
 
         single_line_comment_format = QTextCharFormat()
-        single_line_comment_format.setForeground(Qt.gray)
+        single_line_comment_format.setForeground(Qt.GlobalColor.gray)
         self.highlightingRules.append(
             (QRegExp("(<!--[^\n]*-->|//[^\n]*)"), single_line_comment_format))
 
@@ -140,4 +140,4 @@ class QueryHighlighter(QSyntaxHighlighter):
             self.oql_start_comment,
             self.oql_end_comment,
             1,
-            Qt.gray)
+            Qt.GlobalColor.gray)

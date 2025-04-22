@@ -60,7 +60,7 @@ class DecorateLayerAlgorithm(QgisAlgorithm):
 
     def flags(self):
         """Return the flags."""
-        return super().flags() | QgsProcessingAlgorithm.FlagHideFromToolbox
+        return super().flags() | QgsProcessingAlgorithm.Flag.FlagHideFromToolbox
 
     def add_parameters(self):
         """Set up the parameters."""

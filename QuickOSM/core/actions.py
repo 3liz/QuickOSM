@@ -167,7 +167,7 @@ class Actions:
             iface.messageBar().pushMessage(
                 tr('Sorry, the field \'{fieldname}\' is empty for this entity.'
                    .format(fieldname=field)),
-                level=Qgis.Warning, duration=7)
+                level=Qgis.MessageLevel.Warning, duration=7)
         else:
 
             if field in ['url', 'website', 'wikipedia', 'wikidata']:
@@ -199,7 +199,7 @@ class Actions:
                 if not open_object(value):
                     iface.messageBar().pushMessage(
                         tr('The JOSM remote seems to be disabled.'),
-                        level=Qgis.Critical,
+                        level=Qgis.MessageLevel.Critical,
                         duration=7)
 
             # NOT USED
@@ -224,7 +224,7 @@ class Actions:
         if network == '' or ref == '':
             iface.messageBar().pushMessage(
                 tr('Sorry, this field is empty for this entity.'),
-                level=Qgis.Warning,
+                level=Qgis.MessageLevel.Warning,
                 duration=7)
         else:
             url = f'http://www.overpass-api.de/api/sketch-line?network={network}&ref={ref}'
@@ -242,7 +242,7 @@ class Actions:
 
         query = QgsExpressionContextUtils.layerScope(layer).variable('quickosm_query')
 
-        with OverrideCursor(Qt.WaitCursor):
+        with OverrideCursor(Qt.CursorShape.WaitCursor):
             process.reload_query(query, layer_name, dialog)
 
     def pre_run_reload(self):

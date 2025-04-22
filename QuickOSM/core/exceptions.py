@@ -27,7 +27,7 @@ class QuickOsmException(Exception):
 
         self.message = message
         self.more_details = more_details
-        self.level = Qgis.Critical
+        self.level = Qgis.MessageLevel.Critical
         self.duration = 7
         if more_details:
             super().__init__(message, more_details)

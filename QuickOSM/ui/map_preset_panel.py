@@ -90,7 +90,7 @@ class MapPresetPanel(BaseOverpassPanel):
                 data = json.load(json_file, object_hook=as_enum)
 
             item = QListWidgetItem(self.dialog.list_default_mp)
-            item.setFlags(Qt.ItemIsSelectable | Qt.ItemIsUserCheckable | Qt.ItemIsEnabled)
+            item.setFlags(Qt.ItemFlag.ItemIsSelectable | Qt.ItemFlag.ItemIsUserCheckable | Qt.ItemFlag.ItemIsEnabled)
             self.dialog.list_default_mp.addItem(item)
 
             widget = QFrame()
@@ -104,7 +104,7 @@ class MapPresetPanel(BaseOverpassPanel):
             if not os.path.isfile(icon_path):
                 icon_path = resources_path('icons', 'QuickOSM.svg')
             icon = QPixmap(icon_path)
-            icon.scaled(QSize(150, 250), Qt.KeepAspectRatio)
+            icon.scaled(QSize(150, 250), Qt.AspectRatioMode.KeepAspectRatio)
             picture.setPixmap(icon)
             picture.setStyleSheet('max-height: 150px; max-width: 250px; margin-right: 50px;')
             hbox.addWidget(picture)
@@ -172,7 +172,7 @@ class MapPresetPanel(BaseOverpassPanel):
             name = data['file_name']
 
             item = QListWidgetItem(self.dialog.list_personal_preset_mp)
-            item.setFlags(Qt.ItemIsSelectable | Qt.ItemIsUserCheckable | Qt.ItemIsEnabled)
+            item.setFlags(Qt.ItemFlag.ItemIsSelectable | Qt.ItemFlag.ItemIsUserCheckable | Qt.ItemFlag.ItemIsEnabled)
             self.dialog.list_personal_preset_mp.addItem(item)
 
             preset = QFrame()

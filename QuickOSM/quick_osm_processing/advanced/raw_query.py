@@ -45,7 +45,7 @@ class RawQueryAlgorithm(BuildRaw):
 
     def flags(self):
         """Return the flags."""
-        return super().flags() | QgsProcessingAlgorithm.FlagHideFromToolbox
+        return super().flags() | QgsProcessingAlgorithm.Flag.FlagHideFromToolbox
 
     def initAlgorithm(self, config=None):
         """Set up of the algorithm."""

@@ -217,7 +217,7 @@ class OsmFilePanel(BaseProcessingPanel, TableKeyValue):
             )
             self.dialog.display_message_bar(
                 tr('Successful query'),
-                level=Qgis.Success,
+                level=Qgis.MessageLevel.Success,
                 duration=5)
         else:
             open_file(
@@ -229,5 +229,5 @@ class OsmFilePanel(BaseProcessingPanel, TableKeyValue):
                 prefix_file=properties['prefix_file'])
             self.dialog.display_message_bar(
                 tr('Successful query'),
-                level=Qgis.Success,
+                level=Qgis.MessageLevel.Success,
                 duration=5)

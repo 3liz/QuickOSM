@@ -49,7 +49,7 @@ class BuildBased(QgisAlgorithm):
         """Set up the advanced parameters."""
         param = QgsProcessingParameterNumber(
             self.TIMEOUT, tr('Timeout'), defaultValue=25, minValue=5)
-        param.setFlags(param.flags() | QgsProcessingParameterDefinition.FlagAdvanced)
+        param.setFlags(param.flags() | QgsProcessingParameterDefinition.Flag.FlagAdvanced)
         help_string = tr('The timeout to use for the Overpass API.')
         param.setHelp(help_string)
         self.addParameter(param)
@@ -60,7 +60,7 @@ class BuildBased(QgisAlgorithm):
             tr('Overpass server'),
             optional=False,
             defaultValue=server)
-        param.setFlags(param.flags() | QgsProcessingParameterDefinition.FlagAdvanced)
+        param.setFlags(param.flags() | QgsProcessingParameterDefinition.Flag.FlagAdvanced)
         help_string = tr('The Overpass API server to use to build the encoded URL.')
         param.setHelp(help_string)
         self.addParameter(param)
@@ -115,7 +115,7 @@ class BuildRaw(BuildBased):
             defaultValue='0,1,0,1 []', optional=True
         )
         param.setFlags(
-            param.flags() | QgsProcessingParameterDefinition.FlagAdvanced
+            param.flags() | QgsProcessingParameterDefinition.Flag.FlagAdvanced
         )
         help_string = tr(
             'If the query has a {{bbox}} token, this extent will be used for replacement.'
@@ -129,7 +129,7 @@ class BuildRaw(BuildBased):
             optional=True
         )
         param.setFlags(
-            param.flags() | QgsProcessingParameterDefinition.FlagAdvanced
+            param.flags() | QgsProcessingParameterDefinition.Flag.FlagAdvanced
         )
         help_string = tr('If the query has a {{geocodeArea}} token, this place will be used.')
         param.setHelp(help_string)
