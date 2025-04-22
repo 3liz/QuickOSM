@@ -1,6 +1,6 @@
 services:
   qgis:
-    image: qgis/qgis:release-3_22
+    image: qgis/qgis:release-3_34
     container_name: qgis
     volumes:
       # - /tmp/.X11-unix:/tmp/.X11-unix
