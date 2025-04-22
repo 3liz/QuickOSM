@@ -123,8 +123,8 @@ class TestBookmarkQuery(unittest.TestCase):
         self.assertEqual(data_preset['query_layer_name'][0], edit_dialog.layer_name.text())
         self.assertEqual(data_preset['query'][0], edit_dialog.query.toPlainText())
         self.assertEqual(data_preset['area'][0], edit_dialog.area.text())
-        self.assertFalse(edit_dialog.bbox.outputExtent().xMinimum())
-        self.assertFalse(edit_dialog.bbox.outputExtent().yMinimum())
+        self.assertTrue(edit_dialog.bbox.outputExtent().isNull())
+        self.assertTrue(edit_dialog.bbox.outputExtent().isNull())
         self.assertTrue(edit_dialog.checkbox_points.isChecked())
         self.assertTrue(edit_dialog.checkbox_lines.isChecked())
         self.assertTrue(edit_dialog.checkbox_multilinestrings.isChecked())
@@ -203,7 +203,7 @@ class TestBookmarkQuery(unittest.TestCase):
             "keys": [["amenity"]],
             "values": [["bench"]],
             "area": ["foo"],
-            "bbox": [{'__extent__': '0.0 0.0 0.0 0.0'}],
+            "bbox": [''],
             "output_geom_type":
                 [
                     [
@@ -284,7 +284,7 @@ class TestBookmarkQuery(unittest.TestCase):
             "keys": [["amenity"], ["type", "route"]],
             "values": [["bench"], ["route", "bicycle"]],
             "area": ["foo", ""],
-            "bbox": [{'__extent__': '0.0 0.0 0.0 0.0'}, {'__extent__': '0.0 0.0 0.0 0.0'}],
+            "bbox": ['', ''],
             "output_geom_type":
                 [
                     [

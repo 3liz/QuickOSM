@@ -354,7 +354,7 @@ class EditPreset(QDialog, FORM_CLASS, TableKeyValue):
         self.data['values'][num_query] = properties['value']
         self.data['type_multi_request'][num_query] = properties['type_multi_request']
         self.data['area'][num_query] = self.area.text()
-        if self.bbox.outputExtent():
+        if not self.bbox.outputExtent().isNull():
             self.bbox.setOutputCrs(self.crs)
             self.data['bbox'][num_query] = self.bbox.outputExtent()
         else:
