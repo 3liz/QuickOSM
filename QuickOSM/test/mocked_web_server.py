@@ -37,7 +37,7 @@ import time
 from http.server import BaseHTTPRequestHandler, HTTPServer
 from threading import Thread
 
-do_log = False
+do_log = True
 custom_handler = None
 
 

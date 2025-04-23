@@ -35,10 +35,9 @@ class Downloader:
         LOGGER.info('Request canceled')
         # TODO, need to handle this to stop the process.
 
-    @staticmethod
-    def completed():
+    def completed(self):
         """Display the status in logger"""
-        LOGGER.info('Request completed')
+        LOGGER.info(f'Request completed : {self._url.toString()}')
 
     def download(self, get=False):
         """Download the data"""

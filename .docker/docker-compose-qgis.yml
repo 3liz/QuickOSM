@@ -5,6 +5,7 @@ services:
     volumes:
       # - /tmp/.X11-unix:/tmp/.X11-unix
       - ../${PLUGIN_NAME}:/tests_directory/${PLUGIN_NAME}
+      - ../debug-docker:/tmp
     environment:
       # - DISPLAY=unix$DISPLAY
       - DISPLAY=:99
