@@ -79,7 +79,10 @@ class TableKeyValue:
                     icon_path = resources_path('icons', "josm", icon_path)
                     if os.path.exists(icon_path):
                         icon = QPixmap(icon_path)
-                        widget_item.setData(Qt.ItemDataRole.DecorationRole, icon.scaled(20, 20, Qt.AspectRatioMode.KeepAspectRatio))
+                        widget_item.setData(
+                            Qt.ItemDataRole.DecorationRole,
+                            icon.scaled(20, 20, Qt.AspectRatioMode.KeepAspectRatio)
+                        )
                         self.preset.setItemData(
                             k + 1, icon.scaled(20, 20, Qt.AspectRatioMode.KeepAspectRatio),
                             Qt.ItemDataRole.DecorationRole

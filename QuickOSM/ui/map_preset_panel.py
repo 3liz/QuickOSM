@@ -90,7 +90,11 @@ class MapPresetPanel(BaseOverpassPanel):
                 data = json.load(json_file, object_hook=as_enum)
 
             item = QListWidgetItem(self.dialog.list_default_mp)
-            item.setFlags(Qt.ItemFlag.ItemIsSelectable | Qt.ItemFlag.ItemIsUserCheckable | Qt.ItemFlag.ItemIsEnabled)
+            item.setFlags(
+                Qt.ItemFlag.ItemIsSelectable
+                | Qt.ItemFlag.ItemIsUserCheckable
+                | Qt.ItemFlag.ItemIsEnabled
+            )
             self.dialog.list_default_mp.addItem(item)
 
             widget = QFrame()
@@ -172,7 +176,11 @@ class MapPresetPanel(BaseOverpassPanel):
             name = data['file_name']
 
             item = QListWidgetItem(self.dialog.list_personal_preset_mp)
-            item.setFlags(Qt.ItemFlag.ItemIsSelectable | Qt.ItemFlag.ItemIsUserCheckable | Qt.ItemFlag.ItemIsEnabled)
+            item.setFlags(
+                Qt.ItemFlag.ItemIsSelectable
+                | Qt.ItemFlag.ItemIsUserCheckable
+                | Qt.ItemFlag.ItemIsEnabled
+            )
             self.dialog.list_personal_preset_mp.addItem(item)
 
             preset = QFrame()
