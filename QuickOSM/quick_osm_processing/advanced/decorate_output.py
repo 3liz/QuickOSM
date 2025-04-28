@@ -136,7 +136,7 @@ class SetColoringPostProcessor(QgsProcessingLayerPostProcessorInterface):
                     value = ''
                 if layer_type in [self.layer_type_dict['lines'], self.layer_type_dict['multilinestrings']]:
                     symbol = QgsSymbol.defaultSymbol(QgsWkbTypes.GeometryType.LineGeometry)
-                elif layer_type == self.layer_type_dict['point']:
+                elif layer_type == self.layer_type_dict['points']:
                     symbol = QgsSymbol.defaultSymbol(QgsWkbTypes.GeometryType.PointGeometry)
                 elif layer_type == self.layer_type_dict['multipolygons']:
                     symbol = QgsSymbol.defaultSymbol(QgsWkbTypes.GeometryType.PolygonGeometry)
