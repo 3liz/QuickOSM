@@ -1,0 +1,102 @@
+{
+    "query": [
+        "",
+		""
+    ],
+    "description": [
+        "Downloads objects to create a simple inset map base for wayfinding using roads.",
+        "No default extent or place."
+    ],
+    "advanced": false,
+    "file_name": "Inset",
+    "query_layer_name": [
+        "road",		
+		"places"
+    ],
+    "query_name": [
+        "Road",
+		"Places"
+    ],
+    "type_multi_request": [
+        [
+			{
+				"__enum__": "MultiType.OR"
+			},
+			{
+				"__enum__": "MultiType.OR"
+			},
+			{
+				"__enum__": "MultiType.OR"
+			}
+		],
+		[]
+     ],
+    "keys": [	
+        [
+            "highway","highway","highway","highway"
+        ],
+ 		[
+            "place"
+        ]
+    ],
+    "values": [
+		[
+            "motorway","secondary","primary","trunk"
+        ],
+        [
+            ""
+        ]
+    ],
+    "area": [
+        "",
+        "",
+        ""
+    ],
+    "bbox": [
+        {
+            "__extent__": "0.0 0.0 0.0 0.0"
+        },
+        {
+            "__extent__": "0.0 0.0 0.0 0.0"
+        }
+    ],
+    "output_geom_type": [
+        [
+            {
+                "__enum__": "LayerType.Lines"
+            }
+        ],     
+        [
+            {
+                "__enum__": "LayerType.Points"
+            }
+        ]
+		
+    ],
+    "white_list_column": [
+        {
+            "points": null,
+            "lines": "highway,name,surface,ref,tunnel,bridge,level,sac_scale",
+            "multilinestrings": null,
+            "multipolygons": null
+        },
+        {
+            "points": "name,place",
+            "lines": null,
+            "multilinestrings": null,
+            "multipolygons": null
+        }
+    ],
+    "output_directory": [
+		"",
+		""
+    ],
+    "output_format": [
+        {
+            "__enum__": "Format.GeoPackage"
+        },
+        {
+            "__enum__": "Format.GeoPackage"
+        }
+    ]
+}
