@@ -4,13 +4,15 @@ updates:
   - package-ecosystem: "pip"
     directory: "/requirements/"
     schedule:
-      interval: "monthly"
+      interval: "cron"
+      cronjob: "0 6 5 */3 *"
     assignees:
       - Gustry
 
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
-      interval: "monthly"
+      interval: "cron"
+      cronjob: "0 6 5 */3 *"
     assignees:
       - Gustry
