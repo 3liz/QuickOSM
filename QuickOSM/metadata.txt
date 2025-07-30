@@ -8,7 +8,7 @@ author=Etienne Trimaille
 email=etienne@trimaille.eu
 hasProcessingProvider=yes
 server=False
-# supportsQt6=True
+supportsQt6=True
 
 # End of mandatory metadata
 
