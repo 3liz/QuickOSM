@@ -43,7 +43,7 @@ or some actions (right-click in the attribute table) for each entity (edit in JO
 
 ## Credits
 
-Author: Etienne Trimaille : https://twitter.com/etrimaille
+Author: Etienne Trimaille : https://mapstodon.space/@etrimaille
 
 Contributors:
 * Richard Marsden [winwaed](https://github.com/winwaed)
