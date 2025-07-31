@@ -18,7 +18,7 @@ class QueryHighlighter(QSyntaxHighlighter):
         keyword_format.setForeground(Qt.GlobalColor.darkMagenta)
 
         keyword_patterns = [
-            "\\b?xml\\b", "/>", ">", "<",
+            "\\?xml\\b", "/>", ">", "<",
             ";", r"\[", r"\]", r"\(", r"\)"
         ]
 
