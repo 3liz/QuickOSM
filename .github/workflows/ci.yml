@@ -199,7 +199,7 @@ jobs:
       - name: Repository Dispatch
         # The previous step might fail on the OSGEO upload
         if: failure()
-        uses: peter-evans/repository-dispatch@v3
+        uses: peter-evans/repository-dispatch@v4
         with:
           token: ${{ secrets.BOT_HUB_TOKEN }}
           repository: 3liz/3liz.github.io
