@@ -9,6 +9,11 @@
         "translated_strings": 307,
         "percentage": 100.0
     },
+    "hu": {
+        "name": "Hungarian",
+        "translated_strings": 307,
+        "percentage": 100.0
+    },
     "it": {
         "name": "Italian",
         "translated_strings": 307,
@@ -26,8 +31,8 @@
     },
     "en": {
         "name": "English",
-        "translated_strings": 5347,
-        "percentage": 62.2,
+        "translated_strings": 5368,
+        "percentage": 62.45,
         "total_strings": 307,
         "nb_languages": 28
     },
@@ -65,11 +70,6 @@
         "name": "Romanian",
         "translated_strings": 295,
         "percentage": 96.09
-    },
-    "hu": {
-        "name": "Hungarian",
-        "translated_strings": 286,
-        "percentage": 93.16
     },
     "ko": {
         "name": "Korean",
