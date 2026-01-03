@@ -57,7 +57,7 @@
      </property>
      <property name="styleSheet">
       <string notr="true">QListWidget{
-	background-color: rgb(69, 69, 69, 220);
+	background-color: grey;
 	outline: 0;
 }
 QListWidget::item {
