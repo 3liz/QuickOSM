@@ -128,7 +128,7 @@ jobs:
       - name: Unzip
         run: unzip QuickOSM.${{ env.VERSION }}.zip -d tmp
 
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v6
         with:
           name: QuickOSM.${{ env.VERSION }}
           path: tmp
