@@ -30,7 +30,7 @@ jobs:
         run: python3 .github/transifex_stats.py ${{ secrets.TRANSIFEX_TOKEN }}
 
       - name: Commit changes
-        uses: stefanzweifel/git-auto-commit-action@v6
+        uses: stefanzweifel/git-auto-commit-action@v7
         with:
           commit_message: "Update statistics from Transifex"
           commit_user_name: ${{ secrets.BOT_NAME }}
