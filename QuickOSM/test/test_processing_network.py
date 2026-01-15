@@ -20,9 +20,6 @@ from QuickOSM.test.mocked_web_server import (
     launch,
 )
 
-__copyright__ = 'Copyright 2021, 3Liz'
-__license__ = 'GPL version 3'
-__email__ = 'info@3liz.org'
 
 
 class TestProcessing(unittest.TestCase):

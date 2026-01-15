@@ -26,9 +26,6 @@ from QuickOSM.definitions.osm import MultiType
 from QuickOSM.qgis_plugin_tools.tools.i18n import tr
 from QuickOSM.qgis_plugin_tools.tools.resources import resources_path
 
-__copyright__ = 'Copyright 2021, 3Liz'
-__license__ = 'GPL version 3'
-__email__ = 'info@3liz.org'
 
 LOGGER = logging.getLogger('QuickOSM')
 

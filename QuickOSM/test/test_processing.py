@@ -8,9 +8,6 @@ from qgis.testing import unittest
 from QuickOSM.quick_osm_processing.provider import Provider
 from QuickOSM.test.definitions import TOWN_COORDS, TOWN_NAME
 
-__copyright__ = 'Copyright 2021, 3Liz'
-__license__ = 'GPL version 3'
-__email__ = 'info@3liz.org'
 
 
 class TestProcessing(unittest.TestCase):

@@ -1,8 +1,5 @@
 """Set up the parameters for the processing algorithms."""
 
-__copyright__ = 'Copyright 2021, 3Liz'
-__license__ = 'GPL version 3'
-__email__ = 'info@3liz.org'
 
 from processing.algs.qgis.QgisAlgorithm import QgisAlgorithm
 from qgis.core import (

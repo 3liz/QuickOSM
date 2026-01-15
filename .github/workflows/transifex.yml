@@ -13,7 +13,7 @@ jobs:
   push:
     name: Push to Transifex
     runs-on: ubuntu-latest
-    if: github.repository == '3liz/QuickOSM'
+    if: github.repository == 'QuickOSM/QuickOSM'
 
     steps:
     - uses: actions/checkout@v6

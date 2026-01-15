@@ -15,9 +15,6 @@ from QuickOSM.definitions.gui import Panels
 from QuickOSM.definitions.osm import QueryType
 from QuickOSM.ui.dialog import Dialog
 
-__copyright__ = 'Copyright 2021, 3Liz'
-__license__ = 'GPL version 3'
-__email__ = 'info@3liz.org'
 
 
 class TestQuickOSMWidget(unittest.TestCase):

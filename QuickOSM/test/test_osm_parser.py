@@ -7,9 +7,6 @@ from qgis.core import QgsWkbTypes
 from QuickOSM.core.parser.osm_parser import OsmParser
 from QuickOSM.qgis_plugin_tools.tools.resources import plugin_test_data_path
 
-__copyright__ = 'Copyright 2021, 3Liz'
-__license__ = 'GPL version 3'
-__email__ = 'info@3liz.org'
 
 
 class TestOsmParser(unittest.TestCase):

@@ -3,9 +3,6 @@
 from processing.algs.qgis.QgisAlgorithm import QgisAlgorithm
 from qgis.core import QgsProcessingOutputFile, QgsProcessingParameterString
 
-__copyright__ = 'Copyright 2021, 3Liz'
-__license__ = 'GPL version 3'
-__email__ = 'info@3liz.org'
 
 
 class DownloadOverpassUrl(QgisAlgorithm):

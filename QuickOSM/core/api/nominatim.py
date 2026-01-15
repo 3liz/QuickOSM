@@ -14,9 +14,6 @@ from QuickOSM.core.exceptions import (
 )
 from QuickOSM.definitions.osm import OsmType
 
-__copyright__ = 'Copyright 2021, 3Liz'
-__license__ = 'GPL version 3'
-__email__ = 'info@3liz.org'
 
 from QuickOSM.qgis_plugin_tools.tools.resources import plugin_test_data_path
 
@@ -66,7 +63,7 @@ class Nominatim(Downloader):
         self._url.setQuery(query_string)
 
         # Use GET for Nominatim
-        # https://github.com/3liz/QuickOSM/issues/472
+        # https://github.com/QuickOSM/QuickOSM/issues/472
         self.download(get=True)
 
         with open(self.result_path, encoding='utf8') as json_file:

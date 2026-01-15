@@ -138,7 +138,7 @@ jobs:
 
     name: Package release
     runs-on: ubuntu-latest
-    if: github.repository == '3liz/QuickOSM' && contains(github.ref, 'refs/tags/')
+    if: github.repository == 'QuickOSM/QuickOSM' && contains(github.ref, 'refs/tags/')
 
     steps:
       - name: Set env
@@ -184,24 +184,3 @@ jobs:
           --osgeo-username ${{ secrets.OSGEO_USERNAME }}
           --osgeo-password ${{ secrets.OSGEO_PASSWORD }}
           --create-plugin-repo
-
-#      - name: Tweet
-#        # The previous step might fail on the OSGEO upload
-#        if: failure()
-#        uses: mugi111/tweet-trigger-release@v1.2
-#        with:
-#          consumer_key: ${{ secrets.TWITTER_CONSUMER_KEY }}
-#          consumer_secret: ${{ secrets.TWITTER_CONSUMER_SECRET }}
-#          access_token_key: ${{ secrets.TWITTER_ACCESS_TOKEN_KEY }}
-#          access_token_secret: ${{ secrets.TWITTER_ACCESS_TOKEN_SECRET }}
-#          tweet_body: "New version of #QuickOSM ${{ env.RELEASE_VERSION }} 🔎 for #QGIS https://github.com/3liz/QuickOSM/releases"
-
-      - name: Repository Dispatch
-        # The previous step might fail on the OSGEO upload
-        if: failure()
-        uses: peter-evans/repository-dispatch@v4
-        with:
-          token: ${{ secrets.BOT_HUB_TOKEN }}
-          repository: 3liz/3liz.github.io
-          event-type: merge-plugins
-          client-payload: '{"name": "QuickOSM", "version": "${{ env.RELEASE_VERSION }}", "url": "https://github.com/3liz/QuickOSM/releases/latest/download/plugins.xml"}'

@@ -13,9 +13,6 @@ from QuickOSM.core.exceptions import (
 from QuickOSM.definitions.overpass import OVERPASS_SERVERS
 from QuickOSM.qgis_plugin_tools.tools.resources import plugin_test_data_path
 
-__copyright__ = 'Copyright 2021, 3Liz'
-__license__ = 'GPL version 3'
-__email__ = 'info@3liz.org'
 
 
 class TestOverpass(unittest.TestCase):

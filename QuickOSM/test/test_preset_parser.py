@@ -6,9 +6,6 @@ import xml.dom.minidom as xml
 
 from QuickOSM.core.parser.preset_parser import PresetsParser
 
-__copyright__ = 'Copyright 2021, 3Liz'
-__license__ = 'GPL version 3'
-__email__ = 'info@3liz.org'
 
 
 class TestPresetParser(unittest.TestCase):

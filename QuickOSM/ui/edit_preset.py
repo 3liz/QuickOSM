@@ -24,9 +24,6 @@ from QuickOSM.qgis_plugin_tools.tools.i18n import tr
 from QuickOSM.qgis_plugin_tools.tools.resources import load_ui, resources_path
 from QuickOSM.ui.custom_table import TableKeyValue
 
-__copyright__ = 'Copyright 2021, 3Liz'
-__license__ = 'GPL version 3'
-__email__ = 'info@3liz.org'
 
 FORM_CLASS = load_ui('edit_preset.ui')
 LOGGER = logging.getLogger('QuickOSM')
@@ -409,4 +406,4 @@ class EditPreset(QDialog, FORM_CLASS, TableKeyValue):
     @staticmethod
     def open_help():
         """Open the help web page"""
-        QDesktopServices.openUrl(QUrl("https://docs.3liz.org/QuickOSM/user-guide/map-preset/"))
+        QDesktopServices.openUrl(QUrl("https://quickosm.github.io/QuickOSM/user-guide/map-preset/"))

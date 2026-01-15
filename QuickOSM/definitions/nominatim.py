@@ -17,9 +17,6 @@ A pull request is more than welcome if you want to add your server in QuickOSM
 core by updating this list below.
 """
 
-__copyright__ = 'Copyright 2021, 3Liz'
-__license__ = 'GPL version 3'
-__email__ = 'info@3liz.org'
 
 
 # The order is important. The first server will be the default.

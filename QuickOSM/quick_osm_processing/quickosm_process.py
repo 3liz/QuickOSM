@@ -32,9 +32,6 @@ from QuickOSM.quick_osm_processing.advanced.decorate_output import (
 )
 from QuickOSM.quick_osm_processing.build_input import BuildRaw
 
-__copyright__ = 'Copyright 2021, 3Liz'
-__license__ = 'GPL version 3'
-__email__ = 'info@3liz.org'
 
 
 class DownloadOSMData(QgisAlgorithm):

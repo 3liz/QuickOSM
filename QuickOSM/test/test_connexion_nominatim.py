@@ -9,9 +9,6 @@ from QuickOSM.core.exceptions import (
 )
 from QuickOSM.definitions.nominatim import NOMINATIM_SERVERS
 
-__copyright__ = 'Copyright 2021, 3Liz'
-__license__ = 'GPL version 3'
-__email__ = 'info@3liz.org'
 
 
 class TestNominatim(unittest.TestCase):

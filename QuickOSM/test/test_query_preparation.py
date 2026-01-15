@@ -7,9 +7,6 @@ from qgis.core import QgsRectangle
 from QuickOSM.core.api.nominatim import Nominatim
 from QuickOSM.core.query_preparation import QueryPreparation
 
-__copyright__ = 'Copyright 2021, 3Liz'
-__license__ = 'GPL version 3'
-__email__ = 'info@3liz.org'
 
 
 class FakeNominatim(Nominatim):

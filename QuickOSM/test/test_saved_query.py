@@ -14,9 +14,6 @@ from QuickOSM.definitions.gui import Panels
 from QuickOSM.ui.dialog import Dialog
 from QuickOSM.ui.edit_preset import EditPreset
 
-__copyright__ = 'Copyright 2021, 3Liz'
-__license__ = 'GPL version 3'
-__email__ = 'info@3liz.org'
 
 
 class TestBookmarkQuery(unittest.TestCase):

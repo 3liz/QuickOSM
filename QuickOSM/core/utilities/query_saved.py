@@ -22,9 +22,6 @@ from QuickOSM.definitions.osm import (
 )
 from QuickOSM.qgis_plugin_tools.tools.i18n import tr
 
-__copyright__ = 'Copyright 2021, 3Liz'
-__license__ = 'GPL version 3'
-__email__ = 'info@3liz.org'
 
 LOGGER = logging.getLogger('QuickOSM')
 

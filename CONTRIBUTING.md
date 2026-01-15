@@ -2,7 +2,7 @@
 
 This project is hosted on GitHub.
 
-[Visit GitHub](https://github.com/3liz/QuickOSM/){: .md-button .md-button--primary }
+[Visit GitHub](https://github.com/QuickOSM/QuickOSM/){: .md-button .md-button--primary }
 
 ## Scripts
 
@@ -14,13 +14,13 @@ We provide a Makefile which helps the developers to:
 ## Translation
 
 The UI is available on [Transifex](https://www.transifex.com/quickosm/gui/), no development
-knowledge is required. [![Transifex 🗺](https://github.com/3liz/QuickOSM/actions/workflows/transifex.yml/badge.svg)](https://github.com/3liz/QuickOSM/actions/workflows/transifex.yml)
+knowledge is required. [![Transifex 🗺](https://github.com/QuickOSM/QuickOSM/actions/workflows/transifex.yml/badge.svg)](https://github.com/QuickOSM/QuickOSM/actions/workflows/transifex.yml)
 
 ## Code
 
 SQL and Python are covered by unittests with Docker.
 
-[![Tests 🎳](https://github.com/3liz/QuickOSM/actions/workflows/ci.yml/badge.svg)](https://github.com/3liz/QuickOSM/actions/workflows/ci.yml)
+[![Tests 🎳](https://github.com/QuickOSM/QuickOSM/actions/workflows/ci.yml/badge.svg)](https://github.com/QuickOSM/QuickOSM/actions/workflows/ci.yml)
 
 ```bash
 pip install -r requirements/dev.txt
@@ -29,7 +29,7 @@ make tests
 ```
 
 * QuickOSM uses a [Git submodule](https://git-scm.com/book/en/v2/Git-Tools-Submodules).
-  * For a new clone, including the submodule, do `git clone --recursive https://github.com/3liz/QuickOSM.git`.
+  * For a new clone, including the submodule, do `git clone --recursive https://github.com/QuickOSM/QuickOSM.git`.
   * For an existing clone, do `git submodule init` and `git submodule update`.
   * These command will populate the `qgis_plugin_tools`.
 * For panels, you can find a quick diagram in the `doc` folder.
@@ -50,7 +50,7 @@ plugins['QuickOSM'].run_tests()
 
 ## Documentation
 
-[![Documentation 📚](https://github.com/3liz/QuickOSM/actions/workflows/publish-doc.yml/badge.svg)](https://github.com/3liz/QuickOSM/actions/workflows/publish-doc.yml)
+[![Documentation 📚](https://github.com/QuickOSM/QuickOSM/actions/workflows/publish-doc.yml/badge.svg)](https://github.com/QuickOSM/QuickOSM/actions/workflows/publish-doc.yml)
 
 The documentation is using [MkDocs](https://www.mkdocs.org/) with [Material](https://squidfunk.github.io/mkdocs-material/) :
 

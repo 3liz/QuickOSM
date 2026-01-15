@@ -7,9 +7,6 @@ from qgis.core import QgsRectangle
 from QuickOSM.definitions.format import Format
 from QuickOSM.definitions.osm import LayerType, MultiType
 
-__copyright__ = 'Copyright 2021, 3Liz'
-__license__ = 'GPL version 3'
-__email__ = 'info@3liz.org'
 
 
 class EnumEncoder(json.JSONEncoder):

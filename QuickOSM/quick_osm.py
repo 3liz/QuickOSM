@@ -35,9 +35,6 @@ from QuickOSM.qgis_plugin_tools.tools.resources import (
 from QuickOSM.qgis_plugin_tools.tools.version import version
 from QuickOSM.quick_osm_processing.provider import Provider
 
-__copyright__ = 'Copyright 2021, 3Liz'
-__license__ = 'GPL version 3'
-__email__ = 'info@3liz.org'
 
 LOGGER = logging.getLogger('QuickOSM')
 
@@ -209,26 +206,14 @@ class QuickOSMPlugin:
     def open_dialog(self):
         """Create and open the main dialog."""
         # Check if Processing is enabled
-        # https://github.com/3liz/QuickOSM/issues/352
-        # https://github.com/3liz/QuickOSM/issues/422
+        # https://github.com/QuickOSM/QuickOSM/issues/352
+        # https://github.com/QuickOSM/QuickOSM/issues/422
         flag, title, error = check_processing_enable()
         if not flag:
             error_dialog = QMessageBox(
                 QMessageBox.Icon.Critical, title, error, QMessageBox.StandardButton.Ok, self.iface.mainWindow())
             error_dialog.exec()
             return
-
-        from QuickOSM.plausible import Plausible
-
-        # noinspection PyBroadException
-        try:
-            plausible = Plausible()
-            plausible.request_stat_event()
-        except Exception as e:
-            LOGGER.log(
-                Qgis.MessageLevel.Warning,
-                f"Error while calling the stats API : \"{e}\"",
-            )
 
         from QuickOSM.ui.dialog import Dialog
         dialog = Dialog()

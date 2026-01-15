@@ -26,4 +26,3 @@ or some actions (right-click in the attribute table) for each entity (edit in JO
 
 * [Help about OSM keys and values](https://wiki.openstreetmap.org/wiki/Map_features)
 * You can ask questions on https://gis.stackexchange.com/
-* Commercial support and training available, ask us info@3liz.com

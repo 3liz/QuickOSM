@@ -3,25 +3,25 @@
 ![Logo of QuickOSM](QuickOSM/resources/icons/QuickOSM.svg)
 
 [![QGIS.org](https://img.shields.io/badge/QGIS.org-published-green)](https://plugins.qgis.org/plugins/QuickOSM/)
-[![Documentation 📚](https://github.com/3liz/QuickOSM/actions/workflows/publish-doc.yml/badge.svg)](https://github.com/3liz/QuickOSM/actions/workflows/publish-doc.yml)
-[![Tests 🎳](https://github.com/3liz/QuickOSM/actions/workflows/ci.yml/badge.svg)](https://github.com/3liz/QuickOSM/actions/workflows/ci.yml)
-[![Transifex 🗺](https://github.com/3liz/QuickOSM/actions/workflows/transifex.yml/badge.svg)](https://github.com/3liz/QuickOSM/actions/workflows/transifex.yml)
+[![Documentation 📚](https://github.com/QuickOSM/QuickOSM/actions/workflows/publish-doc.yml/badge.svg)](https://github.com/QuickOSM/QuickOSM/actions/workflows/publish-doc.yml)
+[![Tests 🎳](https://github.com/QuickOSM/QuickOSM/actions/workflows/ci.yml/badge.svg)](https://github.com/QuickOSM/QuickOSM/actions/workflows/ci.yml)
+[![Transifex 🗺](https://github.com/QuickOSM/QuickOSM/actions/workflows/transifex.yml/badge.svg)](https://github.com/QuickOSM/QuickOSM/actions/workflows/transifex.yml)
 
 ## Versions
 
 * QuickOSM is maintained only for a maintained QGIS version (LTR, stable release and dev).
 
-| QuickOSM    | QGIS Min | QGIS Max | Branch                                                             |
-|-------------|----------|------|--------------------------------------------------------------------|
-| 1.0 → 1.4   | 2.0      | 2.18 | [master_qgis2](https://github.com/3liz/QuickOSM/tree/master_qgis2) |
-| 1.5 → 1.7   | 3.0      | 3.2  |                                                                    |
-| 1.8 → 1.17  | 3.4      | 3.14 |                                                                    |
-| 2.0 → 2.1.1 | 3.16     | 3.22 |                                                                    |
-| 2.2.0 →     | 3.22     |      | [master](https://github.com/3liz/QuickOSM/tree/master)             |
+| QuickOSM    | QGIS Min | QGIS Max | Branch                                                                 |
+|-------------|----------|------|------------------------------------------------------------------------|
+| 1.0 → 1.4   | 2.0      | 2.18 | [master_qgis2](https://github.com/QuickOSM/QuickOSM/tree/master_qgis2) |
+| 1.5 → 1.7   | 3.0      | 3.2  |                                                                        |
+| 1.8 → 1.17  | 3.4      | 3.14 |                                                                        |
+| 2.0 → 2.1.1 | 3.16     | 3.22 |                                                                        |
+| 2.2.0 →     | 3.22     |      | [main](https://github.com/QuickOSM/QuickOSM/tree/main)                 |
 
 ## Documentation
 
-The user guide, and the developer guide are available https://docs.3liz.org/QuickOSM/
+The user guide, and the developer guide are available https://quickosm.github.io/QuickOSM
 
 ## Generalities
 
@@ -43,7 +43,9 @@ or some actions (right-click in the attribute table) for each entity (edit in JO
 
 ## Credits
 
-Author: Etienne Trimaille : https://mapstodon.space/@etrimaille
+Author: [Etienne Trimaille](https://mapstodon.space/@etrimaille).
+
+Idea in 2014 from [3Liz](https://3liz.com) to supervise an internship.
 
 Contributors:
 * Richard Marsden [winwaed](https://github.com/winwaed)

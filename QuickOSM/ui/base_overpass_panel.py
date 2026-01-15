@@ -18,9 +18,6 @@ from QuickOSM.definitions.osm import QueryLanguage, QueryType
 from QuickOSM.qgis_plugin_tools.tools.i18n import tr
 from QuickOSM.ui.base_processing_panel import BaseProcessingPanel
 
-__copyright__ = 'Copyright 2021, 3Liz'
-__license__ = 'GPL version 3'
-__email__ = 'info@3liz.org'
 
 
 class BaseOverpassPanel(BaseProcessingPanel):

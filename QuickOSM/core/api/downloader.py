@@ -6,9 +6,6 @@ import os
 from qgis.core import Qgis, QgsFileDownloader
 from qgis.PyQt.QtCore import QByteArray, QEventLoop, QUrl, QUrlQuery
 
-__copyright__ = 'Copyright 2021, 3Liz'
-__license__ = 'GPL version 3'
-__email__ = 'info@3liz.org'
 
 LOGGER = logging.getLogger('QuickOSM')
 
@@ -47,13 +44,13 @@ class Downloader:
             # I'm not sure why, as tests are checking that requests in QuickOSM are sent,
             # it doesn't matter to use GET
             # To be fixed later
-            # https://github.com/3liz/QuickOSM/pull/446
+            # https://github.com/QuickOSM/QuickOSM/pull/446
             # Use GET for Nominatim
-            # https://github.com/3liz/QuickOSM/issues/472
+            # https://github.com/QuickOSM/QuickOSM/issues/472
             downloader = QgsFileDownloader(self._url, self.result_path, delayStart=True)
         else:
             # On production
-            # https://github.com/3liz/QuickOSM/issues/344
+            # https://github.com/QuickOSM/QuickOSM/issues/344
             # We use POST instead of GET for Overpass only
             # We move the "data" GET parameter into the POST request
             url_query = QUrlQuery(self._url)

@@ -26,9 +26,6 @@ from QuickOSM.quick_osm_processing.quickosm_process import (
     DownloadOSMDataRawQuery,
 )
 
-__copyright__ = 'Copyright 2021, 3Liz'
-__license__ = 'GPL version 3'
-__email__ = 'info@3liz.org'
 
 
 class Provider(QgsProcessingProvider):

@@ -21,9 +21,6 @@ from QuickOSM.definitions.format import Format
 from QuickOSM.definitions.osm import WHITE_LIST, Osm_Layers
 from QuickOSM.qgis_plugin_tools.tools.i18n import tr
 
-__copyright__ = 'Copyright 2021, 3Liz'
-__license__ = 'GPL version 3'
-__email__ = 'info@3liz.org'
 
 LOGGER = logging.getLogger('QuickOSM')
 
@@ -139,7 +136,7 @@ class OsmParser(QObject):
 
             # Let's check again Processing...
             # Checking again at the opening of the dialog is not enough according to GH tickets
-            # https://github.com/3liz/QuickOSM/issues/422
+            # https://github.com/QuickOSM/QuickOSM/issues/422
             flag, _, error = check_processing_enable()
             if not flag:
                 raise QgsProcessingException(error)

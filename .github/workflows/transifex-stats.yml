@@ -8,7 +8,7 @@ on:
 jobs:
   translation-stats:
 
-    if: github.repository == '3liz/QuickOSM'
+    if: github.repository == 'QuickOSM/QuickOSM'
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository

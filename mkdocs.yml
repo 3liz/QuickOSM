@@ -1,15 +1,14 @@
 site_name: QuickOSM
-site_author: 3Liz
+site_author: Etienne
 site_description: Download OSM data within QGIS with the Overpass
-site_url: https://docs.3liz.org/QuickOSM/
-repo_url: https://github.com/3liz/QuickOSM
-copyright: '<span class="copyleft">&copy;</span> 3Liz'
+site_url: https://github.com/QuickOSM/QuickOSM
+repo_url: https://github.com/QuickOSM/QuickOSM
+copyright: '<span class="copyleft">&copy;</span> QuickOSM Project'
 
 docs_dir: docs
 site_dir: build
 
 nav:
-    - docs.3liz.org: '../'
     - Home: index.md
     - User guide:
         - 'End user': 'user-guide/end-user.md'
@@ -96,20 +95,3 @@ theme:
     - navigation.tabs
     - navigation.tabs.sticky
     - navigation.top
-
-extra:
-  social:
-    - icon: fontawesome/brands/twitter
-      link: https://twitter.com/3LIZ_news
-
-    - icon: fontawesome/brands/linkedin
-      link: https://www.linkedin.com/company/3liz
-
-    - icon: fontawesome/brands/github
-      link: https://github.com/3liz/
-
-    - icon: fontawesome/brands/docker
-      link: https://hub.docker.com/u/3liz
-
-    - icon: fontawesome/brands/youtube
-      link: https://www.youtube.com/channel/UCYYW2CTWR_84kB6pt2zCWbQ

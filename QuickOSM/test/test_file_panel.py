@@ -9,9 +9,6 @@ from QuickOSM.qgis_plugin_tools.tools.resources import plugin_test_data_path
 from QuickOSM.ui.dialog import Dialog
 from QuickOSM.ui.osm_file_panel import OsmFilePanel
 
-__copyright__ = 'Copyright 2021, 3Liz'
-__license__ = 'GPL version 3'
-__email__ = 'info@3liz.org'
 
 
 class TestFileLoader(unittest.TestCase):

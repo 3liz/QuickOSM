@@ -44,9 +44,6 @@ from QuickOSM.qgis_plugin_tools.tools.resources import resources_path
 from QuickOSM.ui.base_overpass_panel import BaseOverpassPanel
 from QuickOSM.ui.custom_table import TableKeyValue
 
-__copyright__ = 'Copyright 2021, 3Liz'
-__license__ = 'GPL version 3'
-__email__ = 'info@3liz.org'
 
 LOGGER = logging.getLogger('QuickOSM')
 
@@ -306,8 +303,8 @@ class QuickQueryPanel(BaseOverpassPanel, TableKeyValue):
                     data = json.load(json_file, object_hook=as_enum)
                 except Exception:
                     # TODO, the fix should be done when writing the JSON file as well
-                    # Issue https://github.com/3liz/QuickOSM/issues/493
-                    # Issue https://github.com/3liz/QuickOSM/issues/526
+                    # Issue https://github.com/QuickOSM/QuickOSM/issues/493
+                    # Issue https://github.com/QuickOSM/QuickOSM/issues/526
                     continue
 
             name = data['file_name']

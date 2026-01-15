@@ -74,7 +74,7 @@
 
 * Release of QuickOSM 2.0.0
 * Add Vietnamese language
-* Update of translations https://docs.3liz.org/QuickOSM/translation-stats/
+* Update of translations https://quickosm.github.io/QuickOSM/translation-stats/
   * Chinese, Dutch, French, Indonesian, Italian are now fully translated, thanks to contributors
 * Raise minimum version to QGIS 3.16
 * Add presets for the keys/values
@@ -95,7 +95,7 @@
 
 * Fix the query might be too long for the server when using a GET request by reducing the number of decimals
 * Fix issue about reprojection of bounding box when using QuickOSM in QGIS Processing
-* Update of translations https://docs.3liz.org/QuickOSM/translation-stats/ 
+* Update of translations https://quickosm.github.io/QuickOSM/translation-stats/
   * Chinese, Dutch, French, Indonesian, Italian are now fully translated, thanks to contributors
 
 ## 2.0.0-beta3 - 2021-08-12
@@ -160,7 +160,7 @@
 * Fix QGIS Processing algorithm about GDAL parameter
 * Add the OSM key "aeroway"
 * Add a button to open the online help from the QGIS help menu
-* Update the documentation with a proper website https://docs.3liz.org/QuickOSM/
+* Update the documentation with a proper website https://quickosm.github.io/QuickOSM/
 * Add an automatic documentation for QGIS Processing algorithms on the website
 * Some Python automatic code review
 

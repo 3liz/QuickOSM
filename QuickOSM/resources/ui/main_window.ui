@@ -191,7 +191,7 @@ QListWidget::item::selected {
              <item>
               <widget class="QLabel" name="label_59">
                <property name="text">
-                <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;https://docs.3liz.org/QuickOSM/user-guide/map-preset/&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;https://docs.3liz.org/QuickOSM/user-guide/map-preset/&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;https://quickosm.github.io/QuickOSM/user-guide/map-preset/&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;https://quickosm.github.io/QuickOSM/user-guide/map-preset/&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                </property>
                <property name="openExternalLinks">
                 <bool>true</bool>
@@ -1999,7 +1999,7 @@ QListWidget::item::selected {
                 <item>
                  <widget class="QLabel" name="label_46">
                   <property name="text">
-                   <string notr="true">&lt;a href=&quot;https://docs.3liz.org/QuickOSM&quot; style=&quot;color:#7BA11A;text-decoration:none;&quot;&gt;https://docs.3liz.org/QuickOSM&lt;/a&gt;</string>
+                   <string notr="true">&lt;a href=&quot;https://quickosm.github.io/QuickOSM&quot; style=&quot;color:#7BA11A;text-decoration:none;&quot;&gt;https://quickosm.github.io/QuickOSM&lt;/a&gt;</string>
                   </property>
                   <property name="openExternalLinks">
                    <bool>true</bool>
@@ -2099,7 +2099,7 @@ QListWidget::item::selected {
                 <item>
                  <widget class="QLabel" name="label_54">
                   <property name="text">
-                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Check translation statistics on &lt;a href=&quot;https://docs.3liz.org/QuickOSM/translation-stats/&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;QuickOSM's website&lt;/span&gt;&lt;/a&gt;.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Check translation statistics on &lt;a href=&quot;https://quickosm.github.io/QuickOSM/translation-stats/&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;QuickOSM's website&lt;/span&gt;&lt;/a&gt;.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                   </property>
                   <property name="openExternalLinks">
                    <bool>true</bool>
@@ -2316,7 +2316,7 @@ QListWidget::item::selected {
                   <item row="0" column="1">
                    <widget class="QLabel" name="label_20">
                     <property name="text">
-                     <string notr="true">&lt;a href=&quot;https://github.com/3liz/QuickOSM&quot; style=&quot;color:#7BA11A;text-decoration:none;&quot;&gt;https://github.com/3liz/QuickOSM&lt;/a&gt;</string>
+                     <string notr="true">&lt;a href=&quot;https://github.com/QuickOSM/QuickOSM&quot; style=&quot;color:#7BA11A;text-decoration:none;&quot;&gt;https://github.com/QuickOSM/QuickOSM&lt;/a&gt;</string>
                     </property>
                     <property name="openExternalLinks">
                      <bool>true</bool>

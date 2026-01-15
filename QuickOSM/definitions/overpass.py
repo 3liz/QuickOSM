@@ -17,9 +17,6 @@ A pull request is more than welcome if you want to add your server in QuickOSM
 core by updating this list below.
 """
 
-__copyright__ = 'Copyright 2023, 3Liz'
-__license__ = 'GPL version 3'
-__email__ = 'info@3liz.org'
 
 # The list is from the OSM wiki page
 # https://wiki.openstreetmap.org/wiki/Overpass_API

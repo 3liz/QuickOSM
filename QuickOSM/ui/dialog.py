@@ -32,9 +32,6 @@ from QuickOSM.ui.osm_file_panel import OsmFilePanel
 from QuickOSM.ui.query_panel import QueryPanel
 from QuickOSM.ui.quick_query_panel import QuickQueryPanel
 
-__copyright__ = 'Copyright 2021, 3Liz'
-__license__ = 'GPL version 3'
-__email__ = 'info@3liz.org'
 
 FORM_CLASS = load_ui('main_window.ui')
 LOGGER = logging.getLogger('QuickOSM')

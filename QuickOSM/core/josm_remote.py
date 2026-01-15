@@ -8,9 +8,6 @@ from qgis.core import (
 from qgis.PyQt.QtCore import QUrl
 from qgis.PyQt.QtNetwork import QNetworkReply, QNetworkRequest
 
-__copyright__ = 'Copyright 2025, 3Liz'
-__license__ = 'GPL version 3'
-__email__ = 'info@3liz.org'
 
 URL = "http://localhost:8111"
 

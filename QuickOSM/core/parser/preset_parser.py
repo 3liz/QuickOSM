@@ -10,9 +10,6 @@ import xml.dom.minidom as xml
 from QuickOSM.qgis_plugin_tools.tools.i18n import setup_translation
 from QuickOSM.qgis_plugin_tools.tools.resources import resources_path
 
-__copyright__ = 'Copyright 2021, 3Liz'
-__license__ = 'GPL version 3'
-__email__ = 'info@3liz.org'
 
 PRESET_PATH = resources_path('JOSM_preset', 'josm_preset.xml')
 LOGGER = logging.getLogger('QuickOSM')
