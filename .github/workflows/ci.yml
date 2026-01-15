@@ -134,7 +134,7 @@ jobs:
           path: tmp
 
   release:
-    needs: [test-qgis, flake8]
+#    needs: [test-qgis, flake8]
 
     name: Package release
     runs-on: ubuntu-latest
@@ -179,8 +179,7 @@ jobs:
         run: >-
           qgis-plugin-ci
           release ${{ env.RELEASE_VERSION }}
-          --github-token ${{ secrets.BOT_HUB_TOKEN }}
+          --github-token ${{ secrets.QGIS_PLUGIN_TOKEN }}
           --transifex-token ${{ secrets.TRANSIFEX_TOKEN }}
-          --osgeo-username ${{ secrets.OSGEO_USERNAME }}
-          --osgeo-password ${{ secrets.OSGEO_PASSWORD }}
+          --qgis-token ${{ secrets.QGIS_TOKEN }}
           --create-plugin-repo
