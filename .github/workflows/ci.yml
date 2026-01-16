@@ -5,14 +5,12 @@ on:
     tags:
       - "*"
     branches:
-      - master
-      - dev
+      - main
     paths:
       - 'QuickOSM/**'
   pull_request:
     branches:
-      - master
-      - dev
+      - main
     paths:
       - 'QuickOSM/**'
 
@@ -173,7 +171,7 @@ jobs:
         uses: ncipollo/release-action@v1.20.0
         with:
           bodyFile: release.md
-          token: ${{ secrets.BOT_HUB_TOKEN }}
+          token: ${{ secrets.QGIS_PLUGIN_TOKEN }}
 
       - name: Package and deploy the zip
         run: >-

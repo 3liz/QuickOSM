@@ -3,7 +3,7 @@ name: Transifex 🗺
 on:
   push:
     branches:
-      - master
+      - main
     paths:
       - '**.py'
       - '**.ui'

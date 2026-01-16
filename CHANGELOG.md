@@ -2,6 +2,16 @@
 
 ## Unreleased
 
+## 2.5.0 - 2026-01-15
+
+* Raise to QGIS 3.34 minimum, the previous LTR
+* Fix typo in QGIS Processing, contribution from @ghmtt
+* New preset *Inset* from @frasemcl
+* Improve support for Qt6, coming with QGIS 4.0, contribution from @kommen
+* Change background color of QListWidget to grey, contribution from @eithan-lastmile
+* Do not export empty extent in JSON
+* New GitHub organization dedicated to QuickOSM : https://github.com/QuickOSM/QuickOSM
+
 ## 2.4.1 - 2025-04-03
 
 * Fix wrong widget name, contribution from @Huntani

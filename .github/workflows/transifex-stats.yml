@@ -1,8 +1,8 @@
 name: Translation statistics 🗺
 
 on:
-  schedule:
-    - cron: '0 6 2 * *'
+#  schedule:
+#    - cron: '0 6 2 * *'
   workflow_dispatch:
 
 jobs:
@@ -14,7 +14,7 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v6
         with:
-          ref: "master"
+          ref: "main"
           fetch-depth: 1
           token: ${{ secrets.BOT_HUB_TOKEN }}  # Important to launch CI on a commit from a bot
 
