@@ -5,7 +5,7 @@
 ## 2.5.0 - 2026-01-15
 
 * Raise to QGIS 3.34 minimum, the previous LTR
-* Fix typo in QGIS Processing, contribution from @ghmtt
+* Fix typo in QGIS Processing, contribution from @ghtmtt
 * New preset *Inset* from @frasemcl
 * Improve support for Qt6, coming with QGIS 4.0, contribution from @kommen
 * Change background color of QListWidget to grey, contribution from @eithan-lastmile
